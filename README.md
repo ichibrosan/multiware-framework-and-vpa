@@ -3,6 +3,9 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-04 13:23 dwg - 
+Rehosted project as ichibrosan/Virtual-Protocol-Adapter
+
 2025-02-02 16:13 mf -
 Fixed the CMakeLists.txt so there's no redundant sources.
 It appears the issue was the order the libraries were linked,
