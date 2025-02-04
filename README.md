@@ -6,6 +6,10 @@
 2025-02-04 13:23 dwg - 
 Rehosted project as ichibrosan/Virtual-Protocol-Adapter
 
+2025-02-04 12:00 mf -
+Reverted CMakeList header changes, and added in some header files where
+appropriate.
+
 2025-02-02 16:13 mf -
 Fixed the CMakeLists.txt so there's no redundant sources.
 It appears the issue was the order the libraries were linked,
