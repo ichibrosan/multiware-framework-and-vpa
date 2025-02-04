@@ -1,0 +1,7 @@
+Active,Version,Columns,SchemaName,ActionScript,Comment
+true,1,9,login.csv,login.cgi,_self,true,default_style,,Copyright &copy; 2024-2025 Douglas Wade Goodall
+Active,PrePara,PostPara,Type,Label,Visible,Description
+false,comment,This next line places our logo on the screen
+true,no,yes,image,our-office.png,400,150,my silver logo
+true,false,false,text,username,userid,doug,32,Username:,This is a text element
+true,yes,no,checkbox,isRegister,isRegister,false,I need to create an account

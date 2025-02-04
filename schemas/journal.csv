@@ -1,0 +1,16 @@
+Active,Version,Columns,SchemaName,ActionScript,Comment,C7
+true,1,10,journal.csv,noteload.cgi,textIframe,false,journal_style,Copyright &copy; 2024-2025 Douglas W Goodall,
+Active,PrePara,PostPara,Type,Label,Visible,Description,
+true,no,no,closeform
+false,comment,This next line places our logo on the screen,
+true,no,yes,image,our-office.png,355,150,my silver logo,
+false,yes,yes,text,fileName,journal.txt,70,Filename:,Entry field for filename,
+false,yes,no,textarea,testeditName,testeditId,80,24,soft,
+true,no,no,openform,noteload.cgi,post,0,changefile,textIframe
+true,no,no,select,changefile,default,default_button
+true,no,no,formbutton,submit,changefile,default_button,Load File
+true,no,no,closeform
+true,no,no,openform,journal.cgi?handle=6,post,0,refresh,_self
+false,no,no,formbutton,submit,refresh,default_button,Refresh Page
+true,no,no,closeform
+true,yes,no,iframe,render.cgi?schema=journal_textarea.csv&style=journal_style&dash=no,Journal Header,textIframe,journal_iframe,100,400

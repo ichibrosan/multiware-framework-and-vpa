@@ -1,0 +1,19 @@
+Active,Version,Columns,SchemaName,CGI-Name,Comment
+true,1,8,user-menu.csv,menu.cgi,Copyright &copy; 2024-2025 Douglas Wade Goodall
+Active,PrePara,PostPara,Type,Label,Visible,Com
+true,no,yes,image,our-office.png,250,100
+false,no,no,imagelink,render.cgi?schema=experimental.csv,btn_render_exp.png,150,38
+false,no,no,imagelink,/doc/journal.html,btn_journal.png,150,38
+false,no,no,imagelink,/doc/license.html,btn_license.png,150,38
+false,no,no,imagelink,/doc/index.html,btn_overview.png,150,38
+false,no,no,imagelink,/doc/spec.html,btn_specification.png,150,38
+true,false,false,text,username,userid,doug,32,Username:,enter username here
+true,yes,yes,precheckbox,cbName,cbId,checked,PreCheckBox
+true,no,yes,postcheckbox,cbName,cbId,checked,PostCheckBox
+false,yes,yes,label,This is a textarea element (below)
+false,no,yes,textarea,areaName,4,25
+true,yes,no,datetime,dtname,dtid,value,DateTime:
+true,yes,no,date,datename,dateid,value,Date:
+true,yes,no,month,monthname,monthid,value,Month:
+true,yes,no,week,weekname,weekid,value,Week:
+true,yes,no,time,timename.timeid,value,Time:

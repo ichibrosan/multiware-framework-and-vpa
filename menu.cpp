@@ -1,0 +1,37 @@
+////////////////////////////////////////////////////////////////////////
+// daphne.goodall.com:/home/doug/public_html/fw/menu.cpp  2025/01/14  //
+// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
+////////////////////////////////////////////////////////////////////////
+#include "menu.h"
+
+int main() {
+  char * ptr = getenv("SERVER_PORT");
+  bool bCGI = false;
+  if(nullptr != ptr) {
+    bCGI = true;
+    std::cout << "Content-type:\ttext/html\n\n" << std::endl;
+  }
+
+  gpLog    = new CLog(__FILE__, __FUNCTION__);
+  gpLog->truncate();
+  gpSh     = new shared();
+  gpCgi    = new Cgicc();
+  gpOS     = new osIface();
+  gpEnv    = new environment();
+  gpSchema = new schema("user-menu.csv");
+  int handle = atoi(gpCgiBind->get_form_variable("handle").c_str());
+  std::string ssUsername = gpCgiBind->get_form_variable("username");
+  std::string ssPassword = gpCgiBind->get_form_variable("pwname");
+  gpDash      = new dashboard(handle,JOURNAL | LOGOUT,__FILE__,
+                              ssUsername,ssPassword);
+  gpSchema->gen_from_schema(0);
+  if(bCGI) {
+    gpHtml->dump_schema();
+    gpHtml->dump_shm_vars();
+    gpHtml->dump_env_vars();
+  }
+  return 0;
+}
+////////////////////
+// eof - menu.cpp //
+////////////////////

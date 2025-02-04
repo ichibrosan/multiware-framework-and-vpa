@@ -1,0 +1,9 @@
+Active,Version,Columns,SchemaName,CGI-Name,Comment
+true,1,9,admin-menu.csv,menu.cgi,_self,true,Copyright &copy; 2024-2025 Douglas Wade Goodall
+Active,PrePara,PostPara,Type,Label,Visible,Com
+true,no,yes,image,our-office.png,250,100
+false,no,no,imagelink,/doc/spec.html,btn_specification.png,150,38
+true,false,false,text,username,userid,doug,32,Username:,enter username here
+true,no,yes,postcheckbox,isActive,isActive,checked,Active Duty
+false,yes,yes,label,This is a textarea element (below)
+false,no,yes,textarea,areaName,4,25

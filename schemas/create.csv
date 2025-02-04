@@ -1,0 +1,10 @@
+Active,Version,Columns,SchemaName,Comment
+true,1,9,create.csv,index.cgi,_self,true,Copyright &copy; 2024-2025 Douglas Wade Goodall
+Active,PrePara,PostPara,Type,Label,Visible,Com
+false,comment,This next line places our logo on the screen
+true,no,yes,image,silver-me-logo.png,400,100
+true,yes,no,text,firstname,FirstName,First Name
+true,yes,no,text,middlename,MiddleName,Middle Name
+true,yes,no,text,lastname,LastName,Last Name
+true,yes,no,text,username,UserName,User Name
+true,yes,no,password,password,Password,Password

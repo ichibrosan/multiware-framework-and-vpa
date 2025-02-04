@@ -1,0 +1,7 @@
+Active,Version,Columns,SchemaName,CGI-Name,Comment
+true,1,9,diagnose.csv,render.cgi?schema=experimental.csv,_self,true,Copyright &copy; 2024-2025 Douglas Wade Goodall
+Active,PrePara,PostPara,Type,Label,Visible,Com
+true,no,yes,image,our-office.png,250,100
+true,no,no,imagelink,journal.cgi,btn_journal.png,150,38
+true,no,no,imagelink,logout.cgi,btn_logout.png,150,38
+false,no,yes,textarea,areaName,4,25

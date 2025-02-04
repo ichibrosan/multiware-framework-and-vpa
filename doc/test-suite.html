@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Suite</title>
+</head>
+<body>
+
+As the framework is comprised of a number of service layers,
+any confidence testing must be done from the bottom, up. Each
+service layer must be prior to executing any higher level code.
+
+The tests shall be numbered starting with one, that being the
+level of functionality in the framework. Since the testing will
+be performed from the bottom up, the list is inverted.
+
+<ul>8. verify that log.writev works</ul>
+
+<ul>7. verify that log.write works</ul>
+
+<ul>6. verify that the proper log folder exists</ul>
+
+<ul>5. verify that osIface.genLogFQFS is working correctly</ul>
+
+<ul>4. verify that the cgicc system is installed and can be
+  accessed and environment variables can be accessed.
+  New version 2025-01-09 20:37 uses pOS->genCgiCBD(). </ul>
+
+<ul>3.2 verify environment functionality</ul>
+
+<ul>3.1 verify shared functionality</ul>
+
+<ul>3. verify  that Apache HTTP Server is operating and can
+  execute binary CGI scripts from $(USERDIR)/cgi-bin</ul>
+
+<ul>2.1 verify version of shared region</ul>
+
+<ul>2. verify that Apache HTTP Server is operating and can
+retrieve static html pages from $(USERDIR) using https:// protocol.</ul>
+
+<ul>1. verify that Apache HTTP Server is operating and can
+retrieve static html pages from $(USERDIR) using http:// protocol</ul>
+
+<p><h3>Notes about test5:</h3>
+<p>Verifying that osIfac e::genLogFQFS is working properly is somewhat
+complex. The first assumption is that it is called with the __FILE__
+and __FUNCTION__ predefined macros as parameters. To the best of my
+knowledge, __FILE__ will ALWAYS resolve into a fully qualified file
+specification starting with the initial slash of the root file system.
+The second assumption is that the last term of the macro resolves into
+a normally named source filename like module.cpp.</p>
+
+</body>
+</html>

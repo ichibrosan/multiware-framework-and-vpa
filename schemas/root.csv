@@ -1,0 +1,15 @@
+Active,Version,Columns,SchemaName,Comment
+true,1,9,root.csv,index.cgi,_self,true,Copyright &copy; 2024-2025 Douglas Wade Goodall
+Active,PrePara,PostPara,Type,Label,Visible,Com
+false,no,yes,image,silver-me-logo.png,400,100
+false,no,no,imagelink,/doc/design.html,btn_design.png,150,38
+false,no,no,imagelink,/doc/journal.html,btn_journal.png,150,38
+false,no,no,imagelink,/doc/license.html,btn_license.png,150,38
+false,no,no,imagelink,/doc/index.html,btn_overview.png,150,38
+false,no,no,imagelink,/doc/spec.html,btn_specification.png,150,38
+true,yes,no,text,myname,MyName,My Name
+true,no,no,text,myrank,MyRank,My Rank
+true,no,no,text,mysn,MySN,My Serial Number
+true,no,yes,checkbox,isActive,isActive,Active Duty
+true,yes,yes,label,This is a textarea element (below)
+true,no,yes,textarea,areaName,4,25

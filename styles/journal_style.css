@@ -1,0 +1,126 @@
+/*
+    width: 56ch;
+    height: 27.2cap;
+    These width and height values appear to be consistent with col=80 row=24
+    for Iframes.
+
+
+    width: 79ch;
+    height: 48cap;
+    These width and height values appear to be consistent with col=80 row=24
+    for Textareas.
+*/
+
+/*
+Ruler:
+1234567901234567890123456789012345678901234567890123456789012345678901234567890
+       1         2         3         4         5         6         7         8
+*/
+
+
+.journal_container
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    grid-template-columns: repeat(2, 29ch) repeat(2, 27ch);
+    grid-template-rows: repeat(4, 7cap);
+    width: 112ch;
+    height: 27.2cap;
+    display: grid;
+}
+
+.journal_iframe
+{
+    width: 150ch;
+    height: 27.2cap;
+    border-style: none;
+}
+
+.journal_edit
+{
+    margin: auto
+}
+
+.journal_save
+{
+    grid-column-start: 3;
+    grid-row-start: 2;
+    margin: auto;
+    text-decoration:  none;
+    color: #ffffff;
+    font-size: 24px;
+    font-family: Arial;
+    background:linear-gradient(#ffff00, #ff0000);
+    box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;
+    border-top: #ffff00 3px groove;
+    border-left: #ffff00 3px groove;
+    border-right: #ff0000 3px groove;
+    border-bottom: #ff0000 3px groove;
+    border-radius: 10px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000000;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.journal_reset
+{
+    grid-column-start: 3;
+    grid-row-start: 3;
+    margin: auto;
+    text-decoration:  none;
+    color: #ffffff;
+    font-size: 24px;
+    font-family: Arial;
+    background:linear-gradient(#ffff00, #ff0000);
+    box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;
+    border-top: #ffff00 3px groove;
+    border-left: #ffff00 3px groove;
+    border-right: #ff0000 3px groove;
+    border-bottom: #ff0000 3px groove;
+    border-radius: 10px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000000;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.journal_textarea
+{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 5;
+    background: #dbffdb;
+    color: black;
+    margin: 0;
+    padding: 0;
+    resize: none;
+    box-sizing: border-box;
+    border: black;
+    width: 79ch;
+    height: 48cap;
+    max-height:100%;
+    max-width: 100%;
+}
+
+
+.default_button
+{
+    text-decoration:  none;
+    color: #ffffff;
+    font-size: 24px;
+    font-family: Arial;
+    background:linear-gradient(#ffff00, #ff0000);
+    box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;
+    border-top: #ffff00 3px groove;
+    border-left: #ffff00 3px groove;
+    border-right: #ff0000 3px groove;
+    border-bottom: #ff0000 3px groove;
+    border-radius: 10px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000000;
+    padding-left: 10px;
+    padding-right: 10px;
+}

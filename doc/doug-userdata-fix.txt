@@ -1,0 +1,8 @@
+after login,
+gpSh->m_pShMemng->creds[4]
+    iAuthHandle = 4
+    szAuthUserName = doug
+    szAuthFirstName = Douglas
+    szAuthLastName = Goodall
+    szAuthUUID = 25e5a001-9658-490e-ba48-03d802040456
+    szAuthLevel = user

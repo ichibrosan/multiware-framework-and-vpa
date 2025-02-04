@@ -1,0 +1,14 @@
+Active,Version,Columns,SchemaName,ActionScript,Comment
+true,1,9,index.csv,login.cgi,_self,true,default_style,Copyright &copy; 2024-2025 Douglas Wade Goodall
+Active,PrePara,PostPara,Element Type,Parm1,Parm2,Parm3,Parm4
+true,no,yes,image,silver-me-logo.png,400,100,Alt Description
+true,no,no,text,username,userid,doug,32,Username:,enter username here
+true,yes,no,password,pwname,pwid,pwvalue,32,Password:,
+true,yes,no,precheckbox,chkboxname1,chkboxid1,true,Checkbox1:,This is a precheckbox element
+true,yes,no,postcheckbox,chkboxname2,chkboxid2,true,Checkbox2:,This is a postcheckbox element
+true,yes,no,radiobutt,myid1,myname1,value1,label1,description1
+true,yes,no,radiobutt,myid2,myname1,value1,label1,description1
+true,yes,no,radiobutt,myid3,myname1,value1,label1,description1
+true,yes,no,radiobutt,myid4,myname1,value1,label1,description1
+true,no,no,xahref,index.cgi,default_button,This is dynamically generated
+true,yes,no,reset
