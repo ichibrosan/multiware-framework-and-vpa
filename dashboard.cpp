@@ -353,13 +353,23 @@ void dashboard::start_vpad()
     struct sockaddr_in server; /* server address                      */
     int s;                     /* client socket                       */
     hostnm = gethostbyname("localhost");
+
     /*
      * Put the server information into the server structure.
      * The port must be put into network byte order.
      */
     server.sin_family      = AF_INET;
+
+    /*
+     * Convert the port number from host to network byte order
+     */
     server.sin_port        = htons(VPA_PORT);
+
+    /*
+     * Set the IP address of the target
+     */
     server.sin_addr.s_addr = *((unsigned long *)hostnm->h_addr);
+
     /*
      * Get a stream socket.
      */
@@ -368,6 +378,7 @@ void dashboard::start_vpad()
         printf("%s","socket error");
         exit(3);
     }
+
     /*
      * Connect to the server.
      */
@@ -376,12 +387,20 @@ void dashboard::start_vpad()
         printf("%s","connect error");
         exit(4);
     }
+
+    /*
+     * Send a message to the destination to wake up xinetd
+     */
     char szBuffer[] = {"Hello World!!"};
     if (send(s, szBuffer, sizeof(szBuffer), 0) < 0)
     {
         printf("%s","Send error");
         exit(5);
     }
+
+    /*
+     * Close the session and socket
+     */
     close(s);
 
 }

@@ -24,60 +24,26 @@ environment::environment() {
     m_pSysLog->loginfo("environment::environment() called");
 
     extract_username();
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
-
-    sprintf(szTemp,"gpSh->m_pShMemng->szUser is %s",gpSh->m_pShMemng->szUser);
-    m_pSysLog->loginfo(szTemp);
-
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
 
     m_bCurlPresent = check_curl_installed();
 
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
-
     get_interface(false);
-
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
 
     set_hostname(false);
 
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
-
-
     set_protocol(false);
 
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
-
     get_scriptname();
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
 
     get_ip(false);
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
 
     set_cgi_root(false);
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
 
     set_img_root(false);
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
 
     set_styles_root(false);
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
 
     set_journal_root(false);
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
-
 
 }
 
@@ -96,50 +62,22 @@ std::string environment::extract_username() {
 bool environment::check_curl_installed() {
     m_pSysLog->loginfo("environment::check_curlInstalled() called");
     char szTemp[128];
-
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
-
     bool bRetVar;
-
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
 
     m_bCurlPresent = false;
 
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
-
     int retval = system("curl --version >/tmp/curl_version.txt 2>/tmp/curl.err");
-
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
 
     //printf("retval from system call was %d\n",retval);
     if (0 == retval) {
-
-        sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-        m_pSysLog->loginfo(szTemp);
-
         FILE *fd = fopen("/tmp/curl_version.txt", "r");
-
-        sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-        m_pSysLog->loginfo(szTemp);
-
         char szCurlVersion[BUFSIZ];
         fgets(szCurlVersion, sizeof(szCurlVersion), fd);
         strcpy(m_szCurlVersion, szCurlVersion);
         bRetVar = true;
-        sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-        m_pSysLog->loginfo(szTemp);
-
     } else {
         bRetVar = false;
-        sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-        m_pSysLog->loginfo(szTemp);
     }
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
-    m_pSysLog->loginfo(szTemp);
     return bRetVar;
 }
 
@@ -229,14 +167,6 @@ void environment::set_img_root(bool bDebug)
  *************************************************/
 std::string environment::get_styles_root(bool bDebug)
 {
-  CLog log(__FILE__,__FUNCTION__);
-  log.truncate();
-  if(bDebug) {
-    log.write("environment::get_styles_root(true) called");
-  } else {
-    log.write("environment::get_styles_root(false) called");
-  }
-
   std::string ssStylesRoot = gpSh->m_pShMemng->szStylesRoot;
   return ssStylesRoot;
 }
@@ -248,14 +178,6 @@ std::string environment::get_styles_root(bool bDebug)
  *************************************************/
 void environment::set_styles_root(bool bDebug)
 {
-  CLog log(__FILE__,__FUNCTION__);
-  log.truncate();
-  if(bDebug) {
-    log.write("environment::set_styles_root(true) called");
-  } else {
-    log.write("environment::set_styles_root(false) called");
-  }
-
   std::string ssStylesRoot = gpSh->m_pShMemng->szProtocol;
   ssStylesRoot.append(gpSh->m_pShMemng->szIP);
   ssStylesRoot.append("/~");
@@ -271,14 +193,6 @@ void environment::set_styles_root(bool bDebug)
  *************************************************/
 std::string environment::get_journal_root(bool bDebug)
 {
-  CLog log(__FILE__,__FUNCTION__);
-  log.truncate();
-  if(bDebug) {
-    log.write("environment::get_journal_root(true) called");
-  } else {
-    log.write("environment::get_journal_root(false) called");
-  }
-
   std::string ssJournalRoot = gpSh->m_pShMemng->szJournalRoot;
   return ssJournalRoot;
 }
@@ -290,16 +204,6 @@ std::string environment::get_journal_root(bool bDebug)
  *************************************************/
 void environment::set_journal_root(bool bDebug)
 {
-  CLog log(__FILE__,__FUNCTION__);
-  log.truncate();
-  if(bDebug) {
-    log.write("environment::set_journal_root(true) called");
-  } else {
-    log.write("environment::set_journal_root(false) called");
-  }
-
-  //std::string ssJournalRoot = gpSh->m_pShMemng->szProtocol;
-  //ssJournalRoot.append(gpSh->m_pShMemng->szIP);
   std::string ssJournalRoot = "/home/";
   ssJournalRoot.append(gpSh->m_pShMemng->szUser);
   ssJournalRoot.append("/Documents/Fw_Notes/");
@@ -410,6 +314,7 @@ std::string environment::get_protocol(bool bDebug)
   return ssRetVal;
 }
 
+
 /******************************************************************
  * Determine the best working protocol for curl access
  * @param bDebug
@@ -449,10 +354,6 @@ void environment::set_protocol(bool bDebug)
     if(ssInbuf.empty()) {
         ;
     } else {
-      if(bDebug) {
-        std::cout << "ssinbuf after http:// is " << ssInbuf
-                  << std::endl;
-      }
       if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
         ssRetVal = "http://";
       }
@@ -482,10 +383,14 @@ char *environment::get_scriptname() {
 }
 
 
-
+/*********************************************************************
+ * Return a boolean indicating whether curl is installed and available
+ * @return
+ *********************************************************************/
 bool environment::is_curl_present() {
     return m_bCurlPresent;
 }
+
 
 /***********************************************************************
  * Test for the presence of the "netstat" extrinsic utility that is part
