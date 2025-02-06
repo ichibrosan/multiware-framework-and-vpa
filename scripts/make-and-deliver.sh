@@ -10,4 +10,5 @@ make
 cp -v *.cgi ~/public_html/fw/cmake-build-debug/
 cp -v fw    ~/public_html/fw/cmake-build-debug/
 cp -v look  ~/public_html/fw/cmake-build-debug/
+cp -v vpad  ~/public_html/fw/cmake-build-debug/
 cp libmwfw.a ~/public_html/fw/cmake-build-debug/

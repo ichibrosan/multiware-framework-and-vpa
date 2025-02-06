@@ -21,6 +21,7 @@ int main() {
     gpSh->m_pShMemng->vpad_running = true;
 
     while (gpSh->m_pShMemng->vpad_running) {
+         gpSh->m_pShMemng->vpad_uptime_seconds++;
          sleep(1);
     }
 
