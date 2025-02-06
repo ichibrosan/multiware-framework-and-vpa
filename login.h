@@ -6,32 +6,46 @@
 #define FW_LOGIN_H
 #include "std.h"
 #include "fw-limits.h"
+
 #include "cgicc.h"
 Cgicc       * gpCgi;
+
 #include "CSysLog.hpp"
 CSysLog      * gpSysLog;
+
 #include "CLog.hpp"
 CLog        * gpLog;
+
 #include "cgihtml.h"
 cgihtml     * gpHtml;
+
 #include "environment.h"
 environment * gpEnv;
+
 #include "osIface.h"
 osIface     * gpOS;
+
 #include "password.h"
 password    * gpPassword;
+
 #include "readCsv.h"
 readCsv     * gpCsv;
+
 #include "schema.h"
 schema      * gpSchema;
+
 #include "shared.h"
 shared      * gpSh;
+
 #include "cgibind.h"
 cgibind     * gpCgiBind;
+
 #include "dashboard.h"
 dashboard   * gpDash;
+
 #include "cgibind.h"
 extern cgibind     * gpCgiBind;
+
 #endif //FW_LOGIN_H
 ///////////////////
 // eof - login.h //

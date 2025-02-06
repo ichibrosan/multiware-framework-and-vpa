@@ -37,10 +37,8 @@ public:
     cgihtml();
 
     void ahref(const char *,const char *,int,int);
-    void xahref(const char * pszLink,
-                     const char * pszButtonClass,
-                     const char * pszButtonDisplay);
 
+    // TAG PRIMITIVES (closers)
     void close_body();
     void close_form();
     void close_head();
@@ -49,18 +47,21 @@ public:
     void close_table();
     void close_div();
 
+    // DEBUG DISPLAY GENERATORS
     void dump_env_vars();
     void dump_shm_vars();
     void dump_passwd();
+    void dump_referrer(
+        std::string ssReferrer,
+        std::string ssReferrerPath,
+        std::string ssReferrerFile);
     void dump_schema();
-    void dump_referrer(std::string ssReferrer,
-                       std::string ssReferrerPath,
-                       std::string ssReferrerFile);
 
+    // FORM ELEMENT HANDLERS
     void form_button(const char * pszType,
-                          const char * pszForm,
-                          const char * pszButtonClass,
-                          const char * pszButtonDisplay);
+                     const char * pszForm,
+                     const char * pszButtonClass,
+                     const char * pszButtonDisplay);
 
     void form_iframe(const char * pszIframeDefaultPage,
                      const char * pszIframeTitle,
@@ -126,7 +127,6 @@ public:
                           const char * pszSelectPath,
                           const char * pszSelectClass);
 
-    // 2025-01-14 14:06 dwg -
     void form_text(const char *pszName,
                    const char *pszSize,
                    const char *pszValue,
@@ -134,54 +134,57 @@ public:
                    const char *pszReadonly,
                    const char *pszDescr,
                    const char *pszClass);
-    void form_text(         const char *pszName,    // COL_TEXT_NAME
-                            const char *pszId,      // COL_TEXT_ID
-                            const char *pszSize,    // COL_TEXT_SIZE
-                            const char *pszValue,   // COL_TEXT_VALUE
-                            const char *pszVisible, // COL_TEXT_VISIBLE
-                            const char *pszDescr);  // COL_TEXT_DESCR
+
+    void form_text(const char *pszName,    // COL_TEXT_NAME
+                   const char *pszId,      // COL_TEXT_ID
+                   const char *pszSize,    // COL_TEXT_SIZE
+                   const char *pszValue,   // COL_TEXT_VALUE
+                   const char *pszVisible, // COL_TEXT_VISIBLE
+                   const char *pszDescr);  // COL_TEXT_DESCR
 
     void form_text(const char * szName,
-                        const char * szID,
-                        const char * szValue,
-                        const char * szSize,
-                        const char * szVisible,
-                        const char * szReadonly,
-                        const char * szDescr,
-                        const char * szClass);
+                   const char * szID,
+                   const char * szValue,
+                   const char * szSize,
+                   const char * szVisible,
+                   const char * szReadonly,
+                   const char * szDescr,
+                   const char * szClass);
 
-    void form_textarea(     const char *pszName,    // COL_TEXTAREA_NAME
-                            const char *pszID,      // COL_TEXTAREA_ID
-                            const char *pszCols,    // COL_TEXTAREA_COLS
-                            const char *pszRows,    // COL_TEXTAREA_ROWS
-                            const char *pszWrap);   // COL_TEXTAREA_WRAP
+    void form_textarea(const char *pszName,    // COL_TEXTAREA_NAME
+                       const char *pszID,      // COL_TEXTAREA_ID
+                       const char *pszCols,    // COL_TEXTAREA_COLS
+                       const char *pszRows,    // COL_TEXTAREA_ROWS
+                       const char *pszWrap);   // COL_TEXTAREA_WRAP
 
     void form_textarea(const char *pszName,
-                        const char * pszID,
-                        const char * pszCols,
-                        const char * pszRows,
-                        const char * pszWrap,
-                        const char * pszClass,
-                        const char * pszValue);
+                       const char * pszID,
+                       const char * pszCols,
+                       const char * pszRows,
+                       const char * pszWrap,
+                       const char * pszClass,
+                       const char * pszValue);
 
-    void form_time(         const char *pszName,    // COL_DATE_NAME
-                            const char *pszId,      // COL_DATE_ID
-                            const char *pszValue,   // COL_DATE_VALUE
-                            const char *pszDescr);  // COL_DATE_DESCR
+    void form_time(    const char *pszName,    // COL_DATE_NAME
+                       const char *pszId,      // COL_DATE_ID
+                       const char *pszValue,   // COL_DATE_VALUE
+                       const char *pszDescr);  // COL_DATE_DESCR
 
-    void form_week(         const char *pszName,    // COL_WEEK_NAME
-                            const char *pszId,      // COL_WEEK_ID
-                            const char *pszValue,   // COL_WEEK_VALUE
-                            const char *pszDescr);  // COL_WEEK_DESCR
-
-    //void gen_form_page(const char * pszScriptName,const char * pszCgiFilename);
-    void gen_shared_page(const char * pszScriptName);
+    void form_week(    const char *pszName,    // COL_WEEK_NAME
+                       const char *pszId,      // COL_WEEK_ID
+                       const char *pszValue,   // COL_WEEK_VALUE
+                       const char *pszDescr);  // COL_WEEK_DESCR
 
     void hidden(const char *pszName,const char *pszValue);
 
     void imgsrc(const char *,int,int);
 
+    // MORE TAG PRIMITIVES
+
     void open_body();
+
+    void open_div(const char * pszDivClass);
+
     void open_form(const char * pszSchemaName,
                    const char * pszCgiFilename,
                    const char * pszProt,
@@ -190,11 +193,13 @@ public:
                    const char * pszTarget = "_self");
 
     void open_head();
+
     void open_html();
+
     void open_script();
-//  void open_style();
+
     void open_table(int border);
-    void open_div(const char * pszDivClass);
+
 
     void para();
 
@@ -210,6 +215,10 @@ public:
     void set_style(const char * pszStylesheet);
 
     void title(const char *);
+
+    void xahref(const char * pszLink,
+                const char * pszButtonClass,
+                const char * pszButtonDisplay);
 
 };
 

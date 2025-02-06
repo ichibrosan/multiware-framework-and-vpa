@@ -59,7 +59,7 @@ struct MFW_SHMEMNG_T {
     pid_t vpad_pid;               // process id of VPA Daemon
     int   vpad_exit_status;
     int   vpad_uptime_seconds;
-                                                                                                                                                                                                                                                                                    //
+    char sz_vpad_start_time[24];                                                                                                                                                                                                                                                                               //
     int vpad_req_bits;               // functional request bits
     int vpad_resp_bits;              // functional response bits
     int vpad_errno[VPAD_REQ_COUNT];

@@ -7,8 +7,9 @@ mkdir    ~/public_html/fw/build
 cd       ~/public_html/fw/build
 cmake ..
 make
-cp -v *.cgi ~/public_html/fw/cmake-build-debug/
-cp -v fw    ~/public_html/fw/cmake-build-debug/
-cp -v look  ~/public_html/fw/cmake-build-debug/
+cp -v *.cgi     ~/public_html/fw/cmake-build-debug/
+cp -v fw        ~/public_html/fw/cmake-build-debug/
+cp -v look      ~/public_html/fw/cmake-build-debug/
 cp -v libmwfw.a ~/public_html/fw/cmake-build-debug/
-cp -v vpad ~/public_html/fw/cmake-build-debug/
+rm -f           ~/public_html/fw/cmake-build-debug/vpad
+cp -v vpad      ~/public_html/fw/cmake-build-debug/

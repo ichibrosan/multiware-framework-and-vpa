@@ -36,25 +36,26 @@ void cgihtml::ahref(
     std::cout << "</a>\n";
 }
 
-// Marcus Franklin 20:02 1-26-2025
-/**
+
+/****************************************************************
  * Create an ahref link with dynamic CSS, an image, or otherwise.
  * @param pszLink Link the ahref will send the browser to.
- * @param pszImage If using an image set this and keep pszButtonClass empty.
- * @param pszButtonClass If using a CSS style set this and keep pszImage empty.
+ * @param pszImage If using an image set this and keep pszButtonClass
+ *          empty.
+ * @param pszButtonClass If using a CSS style set this and keep
+ *          pszImage empty.
  * @param pszButtonDisplay What the button displays on the page.
+ *
+ * Marcus Franklin 20:02 1-26-2025
  */
 void cgihtml::xahref(const char * pszLink,
-                           const char * pszButtonClass,
-                           const char * pszButtonDisplay)
+                     const char * pszButtonClass,
+                     const char * pszButtonDisplay)
 {
-    gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
-    printf("<a href=\"%s\" class=\"%s\">"
-                 "%s</a>",
-                                    pszLink,
-                                    pszButtonClass,
-                                    pszButtonDisplay);
+    printf("<a href=\"%s\" class=\"%s\">%s</a>",
+           pszLink,pszButtonClass,pszButtonDisplay);
 }
+
 
 /************************************
  * Emit a close body tag
@@ -110,7 +111,6 @@ void cgihtml::close_table()
  ***************************/
 void cgihtml::close_div()
 {
-    gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
     print("</div>\n");
 }
 
@@ -278,15 +278,17 @@ void cgihtml::dump_env_vars() {
     close_table();
 }
 
+
 /************************************************
  * Display Referrer information in browser FYI
  * @param ssReferrer
  * @param ssReferrerPath
  * @param ssReferrerFile
  ************************************************/
-void cgihtml::dump_referrer(std::string ssReferrer,
-                   std::string ssReferrerPath,
-                   std::string ssReferrerFile)
+void cgihtml::dump_referrer(
+                std::string ssReferrer,
+                std::string ssReferrerPath,
+                std::string ssReferrerFile)
 {
   std::cout << "<p><table border=2>"
             << "<tr><th>ssReferrer</th><td>"
@@ -298,22 +300,24 @@ void cgihtml::dump_referrer(std::string ssReferrer,
             << "</table>" << std::endl;
 }
 
-/**
+
+/***************************************
  * Dump the current schema
- */
+ ***************************************/
 void cgihtml::dump_schema()
 {
   std::cout << "<table border=2> <tr>";
 
   int iColumns =
-      atoi(gpCsv->m_parsed_data[ROW_META_DATA][COL_META_COLUMNS].c_str());
-  for (int iCol = 0; iCol < iColumns-2; iCol++) {
+      atoi(
+        gpCsv->m_parsed_data[ROW_META_DATA][COL_META_COLUMNS].c_str());
+  for (int iCol = 0; iCol < iColumns; iCol++) {
     std::cout << "<th>"
               << gpCsv->m_parsed_data[ROW_META_HDR][iCol]
               << "</th>";
   }
   std::cout << "</tr><tr>";
-  for (int iCol = 0; iCol < iColumns-2; iCol++) {
+  for (int iCol = 0; iCol < iColumns; iCol++) {
     std::cout << "<td>"
               << gpCsv->m_parsed_data[ROW_META_DATA][iCol]
               << "</td>";
@@ -340,12 +344,12 @@ void cgihtml::dump_schema()
   std::cout << "</table>";
 }
 
+
 /**************************************************
  * Dump Shared Memory Variables
  **************************************************/
 void cgihtml::dump_shm_vars()
 {
-    gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
     char szTemp[BUFSIZ];
 
     int border=2;
@@ -393,24 +397,23 @@ void cgihtml::dump_shm_vars()
             std::cout << gpSh->m_pShMemng->creds[iRow].szAuthUserName;
             std::cout << "</td></tr>";
 
-                std::cout << "<tr><th>szAuthFirstName</th><td>";
-                std::cout << gpSh->m_pShMemng->creds[iRow].szAuthFirstName;
-                std::cout << "</td></tr>";
+            std::cout << "<tr><th>szAuthFirstName</th><td>";
+            std::cout << gpSh->m_pShMemng->creds[iRow].szAuthFirstName;
+            std::cout << "</td></tr>";
 
-                std::cout << "<tr><th>szAuthLastName</th><td>";
-                std::cout << gpSh->m_pShMemng->creds[iRow].szAuthLastName;
-                std::cout << "</td></tr>";
+            std::cout << "<tr><th>szAuthLastName</th><td>";
+            std::cout << gpSh->m_pShMemng->creds[iRow].szAuthLastName;
+            std::cout << "</td></tr>";
 
-                std::cout << "<tr><th>szAuthUUID</th><td>";
-                std::cout << gpSh->m_pShMemng->creds[iRow].szAuthUUID;
-                std::cout << "</td></tr>";
+            std::cout << "<tr><th>szAuthUUID</th><td>";
+            std::cout << gpSh->m_pShMemng->creds[iRow].szAuthUUID;
+            std::cout << "</td></tr>";
 
-                std::cout << "<tr><th>iAuthHandle</th><td>";
-                std::cout << gpSh->m_pShMemng->creds[iRow].iAuthHandle;
-                std::cout << "</td></tr>";
-            }
+            std::cout << "<tr><th>iAuthHandle</th><td>";
+            std::cout << gpSh->m_pShMemng->creds[iRow].iAuthHandle;
+            std::cout << "</td></tr>";
         }
-
+    }
 
     std::cout << "<tr><th>vpad_running</th><td>";
     if(gpSh->m_pShMemng->vpad_running) {
@@ -422,72 +425,75 @@ void cgihtml::dump_shm_vars()
 
     if(gpSh->m_pShMemng->vpad_running) {
 
-      std::cout << "<tr><th>vpad_pid</th><td>";
-      std::cout << gpSh->m_pShMemng->vpad_pid;
-      std::cout << "</td></tr>";
+        // std::cout << "<tr><th>vpad_pid</th><td>";
+        // std::cout << gpSh->m_pShMemng->vpad_pid;
+        // std::cout << "</td></tr>";
 
-            std::cout << "<tr><th>vpad_uptime_seconds</th><td>";
-            std::cout << gpSh->m_pShMemng->vpad_uptime_seconds;
-            std::cout << "</td></tr>";
-
-            std::cout << "<tr><th>vpad_time</th><td>";
-            std::cout << gpSh->m_pShMemng->szVpad_time;
-            std::cout << "</td></tr>";
-
-            std::cout << "<tr><th>vpad_date</th><td>";
-            std::cout << gpSh->m_pShMemng->szVpad_date;
-
-            std::cout << "</td></tr>";
-        }
-
-        std::cout << "<tr><th>szTimeStarted</th><td>";
-        std::cout << gpSh->m_pShMemng->szTimeStarted;
+        std::cout << "<tr><th>sz_vpad_start_time</th><td>";
+        std::cout << gpSh->m_pShMemng->sz_vpad_start_time;
         std::cout << "</td></tr>";
 
-        std::cout << "<tr><th>test_processed_bits</th><td>";
-        gpOS->printBinary(gpSh->m_pShMemng->tests_processed_bits,7);
+        std::cout << "<tr><th>vpad_uptime_seconds</th><td>";
+        std::cout << gpSh->m_pShMemng->vpad_uptime_seconds;
         std::cout << "</td></tr>";
 
-        std::cout << "<tr><th>test_passed_bits</th><td>";
-        gpOS->printBinary(gpSh->m_pShMemng->tests_passed_bits,7);
+        std::cout << "<tr><th>vpad_time</th><td>";
+        std::cout << gpSh->m_pShMemng->szVpad_time;
         std::cout << "</td></tr>";
 
-        std::cout << "<tr><th>test_failed_bits</th><td>";
-        gpOS->printBinary(gpSh->m_pShMemng->tests_failed_bits,7);
+        std::cout << "<tr><th>vpad_date</th><td>";
+        std::cout << gpSh->m_pShMemng->szVpad_date;
+
         std::cout << "</td></tr>";
-
-        std::cout << "<tr><th>test_skipped_bits</th><td>";
-        gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits,7);
-        std::cout << "</td></tr>";
-
-        std::cout << "<tr><th>num_tests_processed</th><td>";
-        std::cout << gpSh->m_pShMemng->num_tests_processed;
-        std::cout << "</td></tr>";
-
-        std::cout << "<tr><th>num_tests_skipped</th><td>";
-        std::cout << gpSh->m_pShMemng->num_tests_skipped;
-        std::cout << "</td></tr>";
-
-        std::cout << "<tr><th>num_tests_passed</th><td>";
-        std::cout << gpSh->m_pShMemng->num_tests_passed;
-        std::cout << "</td></tr>";;
-
-        std::cout << "<tr><th>num_tests_failed</th><td>";
-        std::cout << gpSh->m_pShMemng->num_tests_failed;
-        std::cout << "</td></tr>";
-
-        close_table();
     }
 
+    std::cout << "<tr><th>szTimeStarted</th><td>";
+    std::cout << gpSh->m_pShMemng->szTimeStarted;
+    std::cout << "</td></tr>";
 
-    /***************************************************************
-     * Form Date element handler
-     * @param pszName
-     * @param pszId
-     * @param pszValue
-     * @param pszDescr
-     ***************************************************************/
+    std::cout << "<tr><th>test_processed_bits</th><td>";
+    gpOS->printBinary(gpSh->m_pShMemng->tests_processed_bits,7);
+    std::cout << "</td></tr>";
 
+    std::cout << "<tr><th>test_passed_bits</th><td>";
+    gpOS->printBinary(gpSh->m_pShMemng->tests_passed_bits,7);
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>test_failed_bits</th><td>";
+    gpOS->printBinary(gpSh->m_pShMemng->tests_failed_bits,7);
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>test_skipped_bits</th><td>";
+    gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits,7);
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>num_tests_processed</th><td>";
+    std::cout << gpSh->m_pShMemng->num_tests_processed;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>num_tests_skipped</th><td>";
+    std::cout << gpSh->m_pShMemng->num_tests_skipped;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>num_tests_passed</th><td>";
+    std::cout << gpSh->m_pShMemng->num_tests_passed;
+    std::cout << "</td></tr>";;
+
+    std::cout << "<tr><th>num_tests_failed</th><td>";
+    std::cout << gpSh->m_pShMemng->num_tests_failed;
+    std::cout << "</td></tr>";
+
+    close_table();
+}
+
+
+/***************************************************************
+ * Form Date element handler
+ * @param pszName
+ * @param pszId
+ * @param pszValue
+ * @param pszDescr
+ ***************************************************************/
 void cgihtml::form_date(const char *pszName,   // COL_DATE_NAME
                         const char *pszId,     // COL_DATE_ID
                         const char *pszValue,  // COL_DATE_VALUE
@@ -512,10 +518,11 @@ void cgihtml::form_date(const char *pszName,   // COL_DATE_NAME
  * @param pszValue
  * @param pszDescr
  **********************************************************************/
-void cgihtml::form_datetime(const char *pszName,   // COL_DATETIME_NAME
-                   const char *pszId,     // COL_DATETIME_ID
-                   const char *pszValue,  // COL_DATETIME_VALUE
-                   const char *pszDescr)  // COL_DATETIME_DESCR
+void cgihtml::form_datetime(
+        const char *pszName,   // COL_DATETIME_NAME
+        const char *pszId,     // COL_DATETIME_ID
+        const char *pszValue,  // COL_DATETIME_VALUE
+        const char *pszDescr)  // COL_DATETIME_DESCR
 {
     std::cout << "<label"
               << " for=\""  << pszId      << "\"> "
@@ -528,21 +535,29 @@ void cgihtml::form_datetime(const char *pszName,   // COL_DATETIME_NAME
               << " size=\""  << pszValue  << "\">";
 }
 
-/**
- *
+
+/***********************************************
+ * Emit a label in the HTML stream
  * @param pszVisible
- */
+ ***********************************************/
 void cgihtml::form_label(const char *pszVisible)
 {
     std::cout << pszVisible << std::endl;
 }
 
-/**
- */
-void cgihtml::form_month(const char *pszName,   // COL_MONTH_NAME
-                         const char *pszId,     // COL_MONTH_ID
-                         const char *pszValue,  // COL_MONTH_VALUE
-                         const char *pszDescr)  // COL_MONTH_DESCR
+
+/****************************************************
+ * month element handler
+ * @param pszName
+ * @param pszId
+ * @param pszValue
+ * @param pszDescr
+ ****************************************************/
+void cgihtml::form_month(
+        const char *pszName,   // COL_MONTH_NAME
+        const char *pszId,     // COL_MONTH_ID
+        const char *pszValue,  // COL_MONTH_VALUE
+        const char *pszDescr)  // COL_MONTH_DESCR
 {
     std::cout << "<label"
               << " for=\""   << pszId      << "\"> "
@@ -555,14 +570,15 @@ void cgihtml::form_month(const char *pszName,   // COL_MONTH_NAME
               << " size=\""  << pszValue  << "\">";
 }
 
-/************************************************************************
+
+/********************************************************************
  * Password Element Handler
  * @param pszName
  * @param pszValue
  * @param pszSize
  * @param pszVisible
  * 2025-01-14 14:00 dwg -
- */
+ ********************************************************************/
 void cgihtml::form_text(const char * szName,
                         const char * szValue,
                         const char * szSize,
@@ -572,19 +588,12 @@ void cgihtml::form_text(const char * szName,
                         const char * szClass)
 {
     std::string ssValue = szValue;
-    // char pszFirst5[5];
-    // memset(&pszFirst5[4],0,1);
-    // strcpy(pszFirst5,ssValue.c_str());
-    // printf("%s",pszFirst5);
-    // std::cout << ssValue << std::endl;
-    // std::cout << pszFirst5 << std::endl;
 
     if (0 == std::strncmp("from:", szValue, strlen("from:")))
     {
         ssValue = gpCgiBind->get_form_variable(
                 ssValue.substr(ssValue.find(':') + 1));
     }
-    //std::cout << ssValue << std::endl;
     std::cout << szVisible
               << "<input type=\"text\""
               << " name=\""  << szName  << "\""
@@ -594,6 +603,18 @@ void cgihtml::form_text(const char * szName,
               << szReadonly << ">";
 }
 
+
+/***********************************************
+ * text element handler
+ * @param szName
+ * @param szID
+ * @param szValue
+ * @param szSize
+ * @param szVisible
+ * @param szReadonly
+ * @param szDescr
+ * @param szClass
+ **********************************************/
 void cgihtml::form_text(const char * szName,
                         const char * szID,
                         const char * szValue,
@@ -604,19 +625,11 @@ void cgihtml::form_text(const char * szName,
                         const char * szClass)
 {
     std::string ssValue = szValue;
-    // char pszFirst5[5];
-    // memset(&pszFirst5[4],0,1);
-    // strcpy(pszFirst5,ssValue.c_str());
-    // printf("%s",pszFirst5);
-    // std::cout << ssValue << std::endl;
-    // std::cout << pszFirst5 << std::endl;
-
     if (0 == std::strncmp("from:", szValue, strlen("from:")))
     {
         ssValue = gpCgiBind->get_form_variable(
                 ssValue.substr(ssValue.find(':') + 1));
     }
-    //std::cout << ssValue << std::endl;
     std::cout << szVisible
               << "<input type=\"text\""
               << " name=\""  << szName  << "\""
@@ -627,7 +640,8 @@ void cgihtml::form_text(const char * szName,
               << szReadonly << ">";
 }
 
-/************************************************************************
+
+/********************************************************************
  * Password Element Handler
  * @param pszName
  * @param pszValue
@@ -637,21 +651,15 @@ void cgihtml::form_text(const char * szName,
  * 2025-01-14 13:40 dwg - revised using Phoenix code as HTML reference
  * <label for="pwd">Password:</label><br>
  * <input type="password" id="pwd" name="pwd">
- ************************************************************************/
+ *******************************************************************/
 void cgihtml::form_password(
-                const char *pszName,            // COL_PASSWORD_NAME
-                const char *pszId,              // COL_PASSWORD_ID
-                const char *pszValue,           // COL_PASSWORD_VALUE
-                const char *pszSize,            // COL_PASSWORD_SIZE
-                const char *pszVisible,         // COL_PASSWORD_VISIBLE
-                const char *pszDescr)          // COL_PASSWORD_DESCR
-    {
-    // std::cout << pszVisible;
-    // std::cout << " <INPUT TYPE=password "
-    //           << "NAME=\""  << pszName  << "\""
-    //           << "VALUE=\"" << pszValue << "\""
-    //           << "SIZE=\""  << pszSize  << "\">";
-
+        const char *pszName,        // COL_PASSWORD_NAME
+        const char *pszId,          // COL_PASSWORD_ID
+        const char *pszValue,       // COL_PASSWORD_VALUE
+        const char *pszSize,        // COL_PASSWORD_SIZE
+        const char *pszVisible,     // COL_PASSWORD_VISIBLE
+        const char *pszDescr)       // COL_PASSWORD_DESCR
+{
     char szTemp[BUFSIZ];
     sprintf(szTemp,
             "<label for=\"%s\">%s</label>"
@@ -662,9 +670,17 @@ void cgihtml::form_password(
     std::cout << szTemp << std::endl;
 }
 
-void cgihtml::form_select(const char * pszSelectName,
-                          std::vector<std::string> selectValues,
-                          const char * pszSelectClass)
+
+/***************************************************************
+ * select element handler
+ * @param pszSelectName
+ * @param selectValues
+ * @param pszSelectClass
+ ***************************************************************/
+void cgihtml::form_select(
+        const char * pszSelectName,
+        std::vector<std::string> selectValues,
+        const char * pszSelectClass)
 {
     std::cout << "<select name=\"" << pszSelectName << "\""
               << "class =\"" << pszSelectClass << "\">";;
@@ -678,23 +694,27 @@ void cgihtml::form_select(const char * pszSelectName,
     std::cout << "</select>";
 }
 
-void cgihtml::form_files_select(const char * pszSelectName,
-                          const char * pszSelectPath,
-                          const char * pszSelectClass)
+
+/***********************************************************
+ * files_select element handler
+ * @param pszSelectName
+ * @param pszSelectPath
+ * @param pszSelectClass
+ ***********************************************************/
+void cgihtml::form_files_select(
+        const char * pszSelectName,
+        const char * pszSelectPath,
+        const char * pszSelectClass)
 {
     std::vector<std::string> selectValues;
 
-        if (0 == strcmp("default",pszSelectPath))
-        {
-            selectValues =
-            gpOS->allfilesindir(
-            gpEnv->get_journal_root(false));
-        }
-        else
-        {
-            selectValues =
+    if (0 == strcmp("default",pszSelectPath)) {
+        selectValues =
+            gpOS->allfilesindir(gpEnv->get_journal_root(false));
+    } else {
+        selectValues =
             gpOS->allfilesindir(pszSelectPath);
-        }
+    }
 
     form_select(pszSelectName,selectValues,pszSelectClass);
 }
@@ -726,6 +746,7 @@ void cgihtml::form_postcheckbox(
               << " "        << szChecked
               << "> "       << std::endl;
 }
+
 
 /**************************************************
  * Schema Handler for the precheckbox input tag
@@ -776,8 +797,7 @@ void cgihtml::form_submit()
 }
 
 
-
-/**
+/******************************************************
  * Text Element Handler
  * @param pszLabel
  * @param pszVisible
@@ -787,7 +807,7 @@ void cgihtml::form_submit()
  * <input type="text" id="fname" name="fname"
  *        placeholder="Enter your first name" required>
  *
- */
+ ******************************************************/
 void cgihtml::form_text(const char * szName,
                         const char * szId,
                         const char * szValue,
@@ -927,57 +947,23 @@ void cgihtml::form_week(const char *pszName,   // COL_WEEK_NAME
               << " size=\""  << pszValue  << "\">";
 }
 
-// Marcus Franklin 14:57 1-26-2025
-/**
+
+/**********************************************
  * Create an ahref link that targets an Iframe.
  * @param pszAnchorLink
  * @param pszButtonName
  * @param pszIframeTarget
  * @param pszButtonClass
- */
-
+ *
+ * Marcus Franklin 14:57 1-26-2025
+ **********************************************/
 void cgihtml::form_button(const char * pszType,
                           const char * pszForm,
                           const char * pszButtonClass,
                           const char * pszButtonDisplay)
 {
-    gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
-    printf("<button type=\"%s\" form=\"%s\" class=\"%s\">"
-                 "%s</button>",
-                 pszType,
-                 pszForm,
-                 pszButtonClass,
-                 pszButtonDisplay);
-}
-
-/************************************************************************
- * Dynamically generate a page of HTML0
- * @param pszTitle A null terminated C string containing the page's title
- ************************************************************************/
-void cgihtml::gen_shared_page(const char * pszScriptName)
-{
-    gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
-    char szTemp[BUFSIZ];
-    open_html();
-    open_head();
-    sprintf(szTemp,"%s%s%s",
-            gpSh->m_pShMemng->szProtocol,
-            gpSh->m_pShMemng->szIP,
-            pszScriptName);
-    title(szTemp);
-    close_head();
-    open_body();
-    imgsrc("our-office.png",896/3,676/3);
-    para(); print("Goodall Multiware Labs");
-    para(); printvar("gpSM->iSignature",gpSh->m_pShMemng->iSignature);
-    para(); printvar("gpSM->szIface",gpSh->m_pShMemng->szIface);
-    para(); printvar("gpSM->szIP",gpSh->m_pShMemng->szIP);
-    para(); printvar("gpSM->szImgRoot",gpSh->m_pShMemng->szImgRoot);
-    para(); printvar("gpSM->szCgiRoot",gpSh->m_pShMemng->szCgiRoot);
-    para(); printvar("gpSM->szStylesRoot",gpSh->m_pShMemng->szStylesRoot);
-    para(); printvar("gpSM->szJournalRoot",gpSh->m_pShMemng->szJournalRoot);
-    close_body();
-    close_html();
+    printf("<button type=\"%s\" form=\"%s\" class=\"%s\">%s</button>",
+                 pszType,pszForm,pszButtonClass,pszButtonDisplay);
 }
 
 
@@ -1030,9 +1016,9 @@ void cgihtml::imgsrc(const char *pszImageFN,int width,int height)
 }
 
 
-/**
- *
- */
+/**************************
+ * emit an open body tag
+ **************************/
 void cgihtml::open_body()
 {
     std::cout << "<body>";
@@ -1052,24 +1038,13 @@ void cgihtml::open_form(    const char * pszSchemaName,
                             const char * pszID,
                             const char * pszTarget)
 {
-    gpLog->writev("%s:%s(\"%s\",\"%s\",%d,\"%s\",\"%s\") started",
-                 __FILE__,__FUNCTION__,
-                 pszCgiFilename,pszProt,handle,pszID,pszTarget);
-    CLog log(__FILE__,__FUNCTION__);
-    log.writev("%s:%s(\"%s\",\"%s\",%d,\"%s\",\"%s\") started",
-               __FILE__,__FUNCTION__,
-               pszCgiFilename,pszProt,handle,pszID,pszTarget);
 
     char szTag[FILENAME_MAX];
     sprintf(szTag,"    <form action=\"%s\" method=\"%s\""
                         "id=\"%s\" target=\"%s\">\n",
             pszCgiFilename,pszProt,pszID,pszTarget);
     print(szTag);
-    log.write(szTag);
     char szValue[8];
-    //sprintf(szValue,"%d",handle);
-    //hidden("handle",szValue);
-    //hidden("schema",pszSchemaName);
 }
 
 
@@ -1099,9 +1074,11 @@ void cgihtml::open_script()
     std::cout << "<script>";
 }
 
-/**************************
- * Emit an Open div tag
- **************************/
+
+/***********************************************************
+ * emit open div tag
+ * @param pszDivClass
+ ***********************************************************/
 void cgihtml::open_div(const char * pszDivClass)
 {
     gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
@@ -1165,6 +1142,7 @@ void cgihtml::printvar(const char *pszName,bool bValue)
     print(szBuffer);
 }
 
+
 /***************************************************************
  * Overloaded function to print a labeled string
  * @param pszName
@@ -1209,15 +1187,15 @@ void cgihtml::open_table(int border)
               << ">";
 }
 
-/**
- *
+
+/******************************************************
+ * script_button
  * @param pszButtonName
  * @param pszVisible
- */
+ ******************************************************/
 void cgihtml::script_button(const char * pszButtonName,
                             const char * pszVisible)
 {
-    gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
     printf("      function my%sButton() {\n",pszButtonName);
     print("        var x = document.createElement(\"INPUT\");\n");
     print("        x.setAttribute(\"type\",\"button\");\n");
@@ -1226,11 +1204,11 @@ void cgihtml::script_button(const char * pszButtonName,
     print("      }\n");
 }
 
-/**
+
+/***********************************************************
  * Sets a stylesheet for the page.
  * @param pszStylesheet
- */
-
+ ***********************************************************/
 void cgihtml::set_style(const char * pszStylesheet)
 {
     gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
@@ -1238,7 +1216,6 @@ void cgihtml::set_style(const char * pszStylesheet)
            gpEnv->get_styles_root(false).c_str(),
            pszStylesheet);
 }
-
 
 
 /*********************************************************************
@@ -1250,9 +1227,6 @@ void cgihtml::title(const char * szTitle)
 {
     std::cout << "<title>" << szTitle << "</title>" << std::endl;
 }
-
-
-
 
 ///////////////////////
 // eof - cgihtml.cpp //

@@ -16,10 +16,12 @@ enum {
     ROW_DATA            // 3
 };
 
+// 2025-02-06 11:56 dwg - added separate column counts
 enum SCHEMA_METADATA_T {
     COL_META_ACTIVE,
     COL_META_VERSION,
-    COL_META_COLUMNS,
+    COL_META_META_COLUMNS,
+    COL_META_DATA_COLUMNS,
     COL_META_SCHEMA,
     COL_META_CGINAME,
     COL_META_TARGET,

@@ -21,8 +21,6 @@ environment::environment() {
 
     m_pSysLog = new CSysLog();
 
-    m_pSysLog->loginfo("environment::environment() called");
-
     extract_username();
 
     m_bCurlPresent = check_curl_installed();
@@ -60,15 +58,12 @@ std::string environment::extract_username() {
  * Check of curl in installed in the system and set pS->
  */
 bool environment::check_curl_installed() {
-    m_pSysLog->loginfo("environment::check_curlInstalled() called");
     char szTemp[128];
     bool bRetVar;
 
     m_bCurlPresent = false;
 
     int retval = system("curl --version >/tmp/curl_version.txt 2>/tmp/curl.err");
-
-    //printf("retval from system call was %d\n",retval);
     if (0 == retval) {
         FILE *fd = fopen("/tmp/curl_version.txt", "r");
         char szCurlVersion[BUFSIZ];
@@ -102,7 +97,6 @@ void environment::set_cgi_root(bool bDebug)
 }
 
 char *environment::get_curl_version() {
-    m_pSysLog->loginfo("environment::get_cgi_root(true) called");
     return m_szCurlVersion;
 }
 

@@ -1,4 +1,4 @@
-Active,Version,Columns,SchemaName,ActionScript,Comment
+Active,Version,Columns,Schema,CgiName,Target,PageForm,Style,Description
 true,1,9,passwd.csv.csv,no.cgi,_self,true,,Copyright &copy; 2024-2025 Douglas Wade Goodall
 Active,Username,Password,AuthLevel,FirstName,LastName,Description
 true,admin,melange,admin,Douglas,Goodall,Superuser

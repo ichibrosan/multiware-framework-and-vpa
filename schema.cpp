@@ -25,32 +25,38 @@ extern readCsv * gpCsv;
 extern cgihtml * gpHtml;
 extern shared * gpSh;
 
+
+/**********************************************
+ * This is the constructor for the schema class
+ * @param ssSchemaName
+ **********************************************/
 schema::schema(std::string ssSchemaName)
 {
-    gpLog->writev("%s: %s(\"%s\") called",
-                 __FILE__,__FUNCTION__,ssSchemaName.c_str());
-    CLog log(__FILE__,__FUNCTION__);
-    log.writev("%s::%s(\"%s\") called",
-              __FILE__,__FUNCTION__,ssSchemaName.c_str());
-
     m_ssSchemaName = ssSchemaName;
     gpCsv = new readCsv(ssSchemaName);
     gpCsv->parseData();
     m_iRows = gpCsv->getLines();
 }
 
+
+/********************************************
+ * Return the number of lines in the CSV file
+ * @return
+ ********************************************/
 int schema::getLines()
 {
-    gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
-    CLog log(__FILE__,__FUNCTION__);
-    log.write("instantiated");
-
     return m_iRows;
 }
 
-void schema::preprocess_row_data(int i_IRow,
-                                    std::vector<std::vector<std::string>>
-                                    svvsPassedValues)
+
+/******************************************************************
+ * Pre-process Row Data
+ * @param i_IRow
+ * @param svvsPassedValues
+ ******************************************************************/
+void schema::preprocess_row_data(
+        int i_IRow,
+        std::vector<std::vector<std::string>> svvsPassedValues)
 {
     for (int i_ICol = 3; i_ICol <= MAX_COLS; i_ICol++)
     {
@@ -60,9 +66,9 @@ void schema::preprocess_row_data(int i_IRow,
                  ssCurrentGrid.c_str(),
                  strlen("from:")))
         {
-            ssCurrentGrid = gpCgiBind->get_form_variable(
-                            ssCurrentGrid.substr(
-                        ssCurrentGrid.find(':') + 1));
+            ssCurrentGrid =
+                gpCgiBind->get_form_variable(
+                    ssCurrentGrid.substr(ssCurrentGrid.find(':') + 1));
 
             gpCsv->m_parsed_data[i_IRow][i_ICol] = ssCurrentGrid;
         }
