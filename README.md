@@ -3,6 +3,10 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-06 03:32 dwg - enhancement to vpad to increment the uptime counter 
+in the shared data every second. Removed superfluous debug logging in the
+environment module.
+
 2025-02-05 19:30 dwg - enhancement to dashboard so that xinetd can
 start the vpad using the scripts/start-vpad.sh script. Remember to 
 install xinetd (apt install xinetd) and enable it (systemctl enable xinetd)
