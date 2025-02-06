@@ -47,6 +47,8 @@ public:
         const char *pszName,
         int handle);
 
+    void start_vpad();
+
     static void threadSystemCall(std::string ssCmd);
 
     void navbar(

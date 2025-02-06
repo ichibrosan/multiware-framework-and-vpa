@@ -15,11 +15,13 @@
 #define MULTIWARE_STD_H
 
 // OLD STYLE SYSTEM INCLUDES (Ad Hoc List)
+#include <arpa/inet.h>
 //#include <errno.h>        // deprecated by <cerrno>
 #include <fcntl.h>
 #include <memory.h>
 #include <net/if.h>
 #include <netdb.h>
+#include <netinet/in.h>
 #include <pthread.h>
 //#include <stdio.h>        // deprecated by <cstdio>
 //#include <stdlib.h>       // deprecated by <cstdlib>

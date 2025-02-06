@@ -24,5 +24,6 @@
 #define NUM_PASSWDS 2
 #define USERNAME_SIZE_MAX UT_NAMESIZE
 #define MAX_USERS 6
+#define VPA_PORT 5164
 
 #endif //HTML_LIMITS_H

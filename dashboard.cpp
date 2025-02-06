@@ -285,24 +285,14 @@ void dashboard::process_toggles(
     if (0 == strcmp("admin",m_szAuthLevel) ||
         0 == strcmp("devo",m_szAuthLevel)  ) {
 
+        // https://stackoverflow.com/questions/13519933/
+        //  executing-script-on-receiving-incoming-connection-with-xinetd
+
         std::string ssbStartVpad =
             m_pCgiBind->get_form_variable("bStartVpad");
         if ("true" == ssbStartVpad) {
-            std::string ssCmd = gpOS->genCgiCBDPath("vpad",false);
-            ssCmd.append(" &");
-            //std::cout << "the command: " << ssCmd << "no space" << std::endl;
-            /* The system command waits for an exit signal from the running
-             * program before continuing to execute the rest of this program.
-             * I tried to shove this into another thread, but it didn't quite
-             * pan out. I'm not sure how to fix this.
-             */
-            system(ssCmd.c_str());
-            //std::cout << "From Dashboard: " << getpid() << std::endl;
-            //std::thread threadvpad(threadSystemCall, ssCmd);
-            //std::cout << "System Call return code: " << returnCode << std::endl;
-            //gpSh->m_pShMemng->vpad_running = true;
-            //std::cout << "howdy" << std::endl;
-            sleep(2);
+            start_vpad();
+            sleep(1);
         }
 
         std::string ssbTermVpad =
@@ -350,6 +340,51 @@ void dashboard::process_toggles(
     }
 }
 
+
+/************************************************************
+ * Start the vpad by accessing port 5164 and waking up xinetd
+ ************************************************************/
+void dashboard::start_vpad()
+{
+
+    unsigned short port;       /* port client will connect to         */
+    char buf[12];              /* data buffer for sending & receiving */
+    struct hostent *hostnm;    /* server host name information        */
+    struct sockaddr_in server; /* server address                      */
+    int s;                     /* client socket                       */
+    hostnm = gethostbyname("localhost");
+    /*
+     * Put the server information into the server structure.
+     * The port must be put into network byte order.
+     */
+    server.sin_family      = AF_INET;
+    server.sin_port        = htons(VPA_PORT);
+    server.sin_addr.s_addr = *((unsigned long *)hostnm->h_addr);
+    /*
+     * Get a stream socket.
+     */
+    if ((s = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    {
+        printf("%s","socket error");
+        exit(3);
+    }
+    /*
+     * Connect to the server.
+     */
+    if (connect(s, (struct sockaddr *)&server, sizeof(server)) < 0)
+    {
+        printf("%s","connect error");
+        exit(4);
+    }
+    char szBuffer[] = {"Hello World!!"};
+    if (send(s, szBuffer, sizeof(szBuffer), 0) < 0)
+    {
+        printf("%s","Send error");
+        exit(5);
+    }
+    close(s);
+
+}
 /////////////////////////
 // eof - dashboard.cpp //
 /////////////////////////

@@ -1,0 +1,27 @@
+# default: off
+# description: An internal xinetd service which gets the current system time
+# then prints it out in a format like this: "Wed Nov 13 22:30:27 EST 2002".
+# This is the tcp version.
+service vpa
+{
+	port 		= 5164
+	disable		= no
+	id		= vpa
+	socket_type	= stream
+	protocol	= tcp
+	user		= doug
+	wait		= no
+	server		= /home/doug/public_html/fw/scripts/start-vpad.sh
+}
+
+# This is the udp version.
+service daytime
+{
+	disable		= no
+	type		= INTERNAL
+	id		= vpa-disc
+	socket_type	= dgram
+	protocol	= udp
+	user		= doug
+	wait		= no
+}

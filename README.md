@@ -3,6 +3,11 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-05 19:30 dwg - enhancement to dashboard so that xinetd can
+start the vpad using the scripts/start-vpad.sh script. Remember to 
+install xinetd (apt install xinetd) and enable it (systemctl enable xinetd)
+and start it (systemctl start xinetd). See config in doc.
+
 2025-02-04 13:23 dwg - 
 Rehosted project as ichibrosan/Virtual-Protocol-Adapter
 
