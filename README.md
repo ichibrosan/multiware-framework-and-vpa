@@ -3,6 +3,9 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-20-06 14:03 mf - made the schema meta data uniform across all used
+schemas.
+
 2025-02-06 03:32 dwg - enhancement to vpad to increment the uptime counter 
 in the shared data every second. Removed superfluous debug logging in the
 environment module.

@@ -1,5 +1,5 @@
-Active,Version,Columns,Schema,CgiName,Target,PageForm,Style,Description
-true,1,10,journal.csv,noteload.cgi,textIframe,false,journal_style,Copyright &copy; 2024-2025 Douglas W Goodall,
+Active,Version,Meta Columns,Data Columns,Schema,CgiName,Target,PageForm,Style,Description
+true,1,10,10,journal.csv,noteload.cgi,textIframe,false,journal_style,,Copyright &copy; 2024-2025 Douglas W Goodall,
 Active,PrePara,PostPara,Type,Label,Visible,Description,
 true,no,no,closeform
 false,comment,This next line places our logo on the screen,
@@ -13,4 +13,4 @@ true,no,no,closeform
 true,no,no,openform,journal.cgi?handle=6,post,0,refresh,_self
 false,no,no,formbutton,submit,refresh,default_button,Refresh Page
 true,no,no,closeform
-true,yes,no,iframe,render.cgi?schema=journal_textarea.csv&style=journal_style&dash=no,Journal Header,textIframe,journal_iframe,100,400
+false,yes,no,iframe,render.cgi?schema=journal_textarea.csv&style=journal_style&dash=no,Journal Header,textIframe,journal_iframe,100,400

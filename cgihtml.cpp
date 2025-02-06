@@ -132,7 +132,7 @@ void cgihtml::close_script()
 void cgihtml::dump_passwd()
 {
     int iNumPasswdCols =
-        atoi(gpCsv->getData(ROW_META_DATA,COL_META_COLUMNS).c_str());
+        atoi(gpCsv->getData(ROW_META_DATA,COL_META_META_COLUMNS).c_str());
 
     /**
      * Display the Meta section of the Password CSV
@@ -310,7 +310,7 @@ void cgihtml::dump_schema()
 
   int iColumns =
       atoi(
-        gpCsv->m_parsed_data[ROW_META_DATA][COL_META_COLUMNS].c_str());
+        gpCsv->m_parsed_data[ROW_META_DATA][COL_META_META_COLUMNS].c_str());
   for (int iCol = 0; iCol < iColumns; iCol++) {
     std::cout << "<th>"
               << gpCsv->m_parsed_data[ROW_META_HDR][iCol]

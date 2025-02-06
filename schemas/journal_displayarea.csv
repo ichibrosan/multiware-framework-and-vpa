@@ -1,5 +1,5 @@
-Active,Version,Columns,Schema,CgiName,Target,PageForm,Style,Description
-true,1,11,journal.csv,noteload.cgi,_self,false,journal_style,Copyright &copy; 2024-2025 Douglas W Goodall,
+Active,Version,Meta Columns,Data Columns,Schema,CgiName,Target,PageForm,Style,Description
+true,1,10,11,journal.csv,noteload.cgi,_self,false,journal_style,,Copyright &copy; 2024-2025 Douglas W Goodall,
 Active,PrePara,PostPara,Type,Label,Visible,Description,
 true,no,no,opendiv,display_container
 false,no,no,textarea,displaytextarea,journalentry,,,soft,journal_textarea,from:journaltextarea

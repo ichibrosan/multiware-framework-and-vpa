@@ -1,5 +1,5 @@
-Active,Version,Columns,Schema,CgiName,Target,PageForm,Style,Description
-true,1,9,passwd.csv.csv,no.cgi,_self,true,,Copyright &copy; 2024-2025 Douglas Wade Goodall
+Active,Version,Meta Columns,Data Columns,Schema,CgiName,Target,PageForm,Style,Description
+true,1,10,9,passwd.csv,no.cgi,_self,true,no_style,,Copyright &copy; 2024-2025 Douglas Wade Goodall
 Active,Username,Password,AuthLevel,FirstName,LastName,Description
 true,admin,melange,admin,Douglas,Goodall,Superuser
 true,doug,melange,devo,Douglas,Goodall,Developer
