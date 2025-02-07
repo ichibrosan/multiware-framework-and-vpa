@@ -68,7 +68,7 @@ void schema::preprocess_row_data(
         svvsPassedValues.size());
     m_pSysLog->loginfo(szTemp);
     int iMaxCols = atoi(gpCsv->m_parsed_data
-        [ROW_META_HDR][COL_META_DATA_COLUMNS].c_str());
+        [ROW_META_DATA][COL_META_DATA_COLUMNS].c_str());
 
     for (int iCol = COL_PARM1; iCol < iMaxCols; iCol++)
     {

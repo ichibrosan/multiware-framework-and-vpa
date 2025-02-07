@@ -3,6 +3,9 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-06 20:39 mf - fixed journal by fixing the preprocessor, to use
+ROW_META_DATA instead of ROW_META_HDR.
+
 2025-02-06 20:26 mf - changed some variable names to make it more standard,
 modified a couple for loops to only have < instead of <=, and did some
 work on noteload. many of these changes were within the schema preprocessor.
