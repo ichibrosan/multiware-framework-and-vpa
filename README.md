@@ -3,6 +3,8 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-07 11:13 dwg - updated ROW_META_DATA and ROW_DATA_HDR in all schemas.
+
 2025-02-07 08:30 dwg - fixed bug in noteload (spurious tail data) and
 updated code and doc.
 
