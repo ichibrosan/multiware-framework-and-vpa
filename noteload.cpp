@@ -57,7 +57,8 @@ int main() {
     {
         journal_params.push_back({"loaded_text", ""});
     } else {
-        void * pTempFile = malloc(l_fSize);
+        void * pTempFile = malloc(l_fSize+1);
+        memset(pTempFile,0,l_fSize+1);
         if(nullptr == pTempFile) {
             std::cout << "OUT OF MEMORY " << std::endl;
             return EXIT_SUCCESS;

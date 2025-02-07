@@ -13,7 +13,7 @@
 CSysLog::CSysLog()
 {
     setlogmask(LOG_UPTO(LOG_INFO));
-    openlog("multiware ",LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
+    openlog("multiware",LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
 
 }
 

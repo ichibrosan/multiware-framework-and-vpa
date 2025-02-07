@@ -5,10 +5,15 @@
 #ifndef MWFW_H
 #define MWFW_H
 
-
+#include "CSysLog.hpp"
 
 class mwfw {
-
+  CSysLog * m_pSysLog;
+  bool      m_bCGI;
+public:
+  mwfw();
+  bool isCGI();
+  void sl_loginfo(const char *);
 };
 
 

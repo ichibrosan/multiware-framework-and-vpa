@@ -17,6 +17,7 @@ include_directories(
 )
 
 add_library(mwfw STATIC		cgicc.h
+		mwfw.cpp			mwfw.h
 		cgibind.cpp			cgibind.h
 		cgihtml.cpp			cgihtml.h
 		CLog.cpp			CLog.hpp
@@ -68,7 +69,7 @@ target_link_libraries(fw-test4.cgi
 ##########################################################
 # index.cgi is the starting CGI script for the framework #
 ##########################################################
-add_executable(index.cgi    cgicc.h
+add_executable(index.cgi    cgicc.h		mwfw.h
         index.cpp           index.h
                             CLog.hpp
                             osIface.h

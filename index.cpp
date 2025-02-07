@@ -4,13 +4,11 @@
 ////////////////////////////////////////////////////////////////////////
 #include "index.h"
 
+mwfw * fw;
+
 int main() {
-  bool bCGI = false;
-  char * ptr = getenv("SERVER_PORT");
-  if(nullptr != ptr) {
-    bCGI = true;
-    std::cout << "content-type:\ttext/html\n\n" << std::endl;
-  }
+  fw = new mwfw();
+  fw->sl_loginfo(__PRETTY_FUNCTION__);
 
   /**
    * Note: 2025/01/25 dwg -
@@ -31,7 +29,7 @@ int main() {
    * Therefore, we should run self tests before instantiating the schema.
    */
 
-  gpTest = new test(false, bCGI);
+  gpTest = new test(false, fw->isCGI());
   gpTest->logHistograms();
 
   if (0 < gpSh->m_pShMemng->num_tests_failed) {

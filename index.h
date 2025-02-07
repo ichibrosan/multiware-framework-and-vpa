@@ -8,6 +8,7 @@
 #include "fw-limits.h"
 #include "cgicc.h"
 Cgicc   * gpCgi;
+
 #include "CLog.hpp"
 CLog    * gpLog;
 #include "cgihtml.h"
@@ -30,6 +31,9 @@ test * gpTest;
 cgibind * gpCgiBind;
 #include "CSysLog.hpp"
 CSysLog * gpSysLog;
+
+#include "mwfw.h"
+
 // #include "cgibind.h"
 // cgibind * gpCgibind;
 
