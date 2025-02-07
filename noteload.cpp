@@ -28,7 +28,9 @@ int main() {
 
     std::string ssFilename  = gpCgiBind->get_form_variable("changefile");
 
+    std::vector<std::vector<std::string>> journal_params;
 
+    journal_params.push_back({"style","journal_style"});
 
 
     //ssFile.append("/");
@@ -55,12 +57,7 @@ int main() {
 
     if (0l == l_fSize)
     {
-        std::vector<std::vector<std::string>> journal_params =
-            {
-            {"journal_style","journal_style"},
-            {"loaded_text", ""}
-            };
-
+        journal_params.push_back({"loaded_text", ""});
     } else {
         void * pTempFile = malloc(l_fSize);
         if(nullptr == pTempFile) {
@@ -69,19 +66,13 @@ int main() {
         }
         fseek(fp,0,SEEK_SET);
         fread(pTempFile,l_fSize,1,fp);
-        std::vector<std::vector<std::string>> journal_params =
-            {
-            {"journal_style","journal_style"},
-            {"loaded_text", (const char *)pTempFile}
-            };
+        journal_params.push_back({"loaded_text", (const char *)pTempFile});
+        fclose (fp);
+        free(pTempFile);
     }
-
 
     gpSchema = new schema("journal_textarea.csv");
     gpSchema->gen_from_schema(0,journal_params);
-
-    fclose (fp);
-    free(pTempFile);
 
     //std::cout << "<p>Filename: " << szPath << " Saved!!" << std::endl;
     //std::cout << "<p>Note:<p>" << "<pre>" << ssNote << "</pre>" << std::endl;

@@ -3,6 +3,9 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-06 19:23 mf - fixed up noteload and modified the journal schema to
+generate the iframe again.
+
 2025-20-06 14:03 mf - made the schema meta data uniform across all used
 schemas.
 

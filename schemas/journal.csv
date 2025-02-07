@@ -13,4 +13,4 @@ true,no,no,closeform
 true,no,no,openform,journal.cgi?handle=6,post,0,refresh,_self
 false,no,no,formbutton,submit,refresh,default_button,Refresh Page
 true,no,no,closeform
-false,yes,no,iframe,render.cgi?schema=journal_textarea.csv&style=journal_style&dash=no,Journal Header,textIframe,journal_iframe,100,400
+true,yes,no,iframe,render.cgi?schema=journal_textarea.csv&style=journal_style&dash=no,Journal Header,textIframe,journal_iframe,100,400
