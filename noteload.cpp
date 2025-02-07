@@ -33,9 +33,7 @@ int main() {
     journal_params.push_back({"style","journal_style"});
 
 
-    //ssFile.append("/");
     ssFile.append(ssFilename);
-
 
     std::cout << ssFile << std::endl;
     char szPath[256];
@@ -66,18 +64,14 @@ int main() {
         }
         fseek(fp,0,SEEK_SET);
         fread(pTempFile,l_fSize,1,fp);
-        journal_params.push_back({"loaded_text", (const char *)pTempFile});
+        journal_params.push_back(
+            {"loaded_text", (const char *)pTempFile});
         fclose (fp);
         free(pTempFile);
     }
 
     gpSchema = new schema("journal_textarea.csv");
-    gpSchema->gen_from_schema(0,journal_params);
-
-    //std::cout << "<p>Filename: " << szPath << " Saved!!" << std::endl;
-    //std::cout << "<p>Note:<p>" << "<pre>" << ssNote << "</pre>" << std::endl;
-
-
+    gpSchema->gen_from_schema(HANDLE_NA,journal_params);
 
     return EXIT_SUCCESS;;
 }

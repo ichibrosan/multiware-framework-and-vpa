@@ -52,22 +52,27 @@ int schema::getLines()
 
 
 /******************************************************************
- * Pre-process Row Data
- * @param i_IRow
+ * Pre-process Row Data by checking for specific hooks in the
+ * argument columns of the schema.
+ * Currently: from: and passed:
+ * @param iRow
  * @param svvsPassedValues
  ******************************************************************/
 void schema::preprocess_row_data(
-        int i_IRow,
+        int iRow,
         std::vector<std::vector<std::string>> svvsPassedValues)
 {
     // 2025/02/06 18:26 dwg - for code verification purposes
     char szTemp[256];
-    sprintf(szTemp,"svvsPassedValues.size() is %d",svvsPassedValues.size());
+    sprintf(szTemp,"svvsPassedValues.size() is %d",
+        svvsPassedValues.size());
     m_pSysLog->loginfo(szTemp);
+    int iMaxCols = atoi(gpCsv->m_parsed_data
+        [ROW_META_HDR][COL_META_DATA_COLUMNS].c_str());
 
-    for (int i_ICol = 3; i_ICol <= MAX_COLS; i_ICol++)
+    for (int iCol = COL_PARM1; iCol < iMaxCols; iCol++)
     {
-        std::string ssCurrentGrid = gpCsv->m_parsed_data[i_IRow][i_ICol];
+        std::string ssCurrentGrid = gpCsv->m_parsed_data[iRow][iCol];
 
         if (0 == std::strncmp("from:",
                  ssCurrentGrid.c_str(),
@@ -77,7 +82,7 @@ void schema::preprocess_row_data(
                 gpCgiBind->get_form_variable(
                     ssCurrentGrid.substr(ssCurrentGrid.find(':') + 1));
 
-            gpCsv->m_parsed_data[i_IRow][i_ICol] = ssCurrentGrid;
+            gpCsv->m_parsed_data[iRow][iCol] = ssCurrentGrid;
         }
 
         else if (0 == std::strncmp("passed:",
@@ -87,15 +92,15 @@ void schema::preprocess_row_data(
             ssCurrentGrid = ssCurrentGrid.substr(
             ssCurrentGrid.find(':') + 1);
 
-            for (int i_VarName = 0;
-                 i_VarName <= svvsPassedValues.size() - 1;
-                 i_VarName++) {
+            for (int iVarName = 0;
+                 iVarName < svvsPassedValues.size();
+                 iVarName++) {
                 if (0 == std::strncmp(ssCurrentGrid.c_str(),
-                 svvsPassedValues[i_VarName][VARIABLE_NAME].c_str(),
+                 svvsPassedValues[iVarName][VARIABLE_NAME].c_str(),
                   strlen(ssCurrentGrid.c_str())))
                 {
-                    gpCsv->m_parsed_data[i_IRow][i_ICol] =
-                    svvsPassedValues[i_VarName][VARIABLE_VALUE].c_str();
+                    gpCsv->m_parsed_data[iRow][iCol] =
+                    svvsPassedValues[iVarName][VARIABLE_VALUE].c_str();
                 }
             }
         }

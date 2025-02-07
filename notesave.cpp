@@ -35,25 +35,11 @@ int main() {
         return EXIT_SUCCESS;
     }
 
-    // char szTimeStamp[FILENAME_MAX];
-    // gpLog->getTimeDateStamp(szTimeStamp);
-    // fprintf(fp,"\n\n-------------------- %s --------------------\n",
-    //     szTimeStamp);
     fprintf(fp,"%s",ssNote.c_str());
     fclose (fp);
 
     std::cout << "<p>Filename: " << szPath << " Saved!!" << std::endl;
     std::cout << "<p>Note:<p>" << "<pre>" << ssNote << "</pre>" << std::endl;
-
-    // std::vector<std::vector<std::string>> journal_params =
-    // {
-    //     {"journal_style","journal_style"},
-    //     {"loaded_text", ssNote}
-    // };
-
-    //gpSchema = new schema("journal_displayarea.csv");
-    //gpSchema->gen_from_schema(0);
-
 
     return EXIT_SUCCESS;;
 

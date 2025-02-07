@@ -3,6 +3,10 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-06 20:26 mf - changed some variable names to make it more standard,
+modified a couple for loops to only have < instead of <=, and did some
+work on noteload. many of these changes were within the schema preprocessor.
+
 2025-02-06 19:23 mf - fixed up noteload and modified the journal schema to
 generate the iframe again.
 
