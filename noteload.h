@@ -6,6 +6,10 @@
 #define MULTIWARE_NOTELOAD_H
 #include "std.h"
 #include "fw-limits.h"
+
+#include "CSysLog.hpp"
+CSysLog     * gpSysLog;
+
 #include "shared.h"
 shared      * gpSh = nullptr;
 #include "CLog.hpp"

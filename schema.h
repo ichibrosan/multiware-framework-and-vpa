@@ -7,6 +7,7 @@
 #define HTML_SCHEMA_H
 
 //#include "main.h"
+#include "CSysLog.hpp"
 #include "readCsv.h"
 
 enum {
@@ -223,6 +224,7 @@ class schema {
 
     int       m_iRows;
     std::string m_ssSchemaName;
+    CSysLog * m_pSysLog;
 public:
     schema(std::string);
     void preprocess_row_data(int i_IRow,

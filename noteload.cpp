@@ -13,6 +13,9 @@ int main() {
         std::cout << "content-type:\ttext/html\n\n" << std::endl;
     }
 
+    gpSysLog = new CSysLog();       // 2025/02/06 18:38 dwg -
+    char szTemp[128];               // 2025/02/06 18:38 dwg -
+
     gpLog     = new CLog(__FILE__, __FUNCTION__);
     gpSh      = new shared();
     gpEnv     = new environment();
@@ -41,33 +44,38 @@ int main() {
         return EXIT_SUCCESS;
     }
 
-    fseek(fp,0,SEEK_END);
-    long l_fSize = ftell(fp);
-    //printf("%ld\n",l_fSize);
-    void * pTempFile = malloc(l_fSize);
+    int iFseekRetcode =             // 2025/02/06 18:40 dwg -
+        fseek(fp,0,SEEK_END);
+    sprintf(szTemp,"iFseekRetcode is %d",iFseekRetcode);
+    gpSysLog->loginfo(szTemp);
 
-    if(nullptr == pTempFile) {
-        std::cout << "OUT OF MEMORY " << std::endl;
-        return EXIT_SUCCESS;
+    long l_fSize = ftell(fp);
+    sprintf(szTemp,"noteload::main() says l_fSize is %ld",l_fSize);
+    gpSysLog->loginfo(szTemp);
+
+    if (0l == l_fSize)
+    {
+        std::vector<std::vector<std::string>> journal_params =
+            {
+            {"journal_style","journal_style"},
+            {"loaded_text", ""}
+            };
+
+    } else {
+        void * pTempFile = malloc(l_fSize);
+        if(nullptr == pTempFile) {
+            std::cout << "OUT OF MEMORY " << std::endl;
+            return EXIT_SUCCESS;
+        }
+        fseek(fp,0,SEEK_SET);
+        fread(pTempFile,l_fSize,1,fp);
+        std::vector<std::vector<std::string>> journal_params =
+            {
+            {"journal_style","journal_style"},
+            {"loaded_text", (const char *)pTempFile}
+            };
     }
 
-    fseek(fp,0,SEEK_SET);
-
-    //FILE * noteFile = (FILE *)malloc(i_fSize);
-    //fprintf(fp,"%p",noteFile);
-    //fclose(fp);
-    //fopen(noteFile,"r");
-    //std::cout << fread(pTempFile,l_fSize,1,fp) << std::endl;
-    //std::cout << (const char *)pTempFile << std::endl;
-    fread(pTempFile,l_fSize,1,fp);
-
-    //std::string ssFileString = (const char *)pTempFile;
-
-    std::vector<std::vector<std::string>> journal_params =
-        {
-        {"journal_style","journal_style"},
-        {"loaded_text", (const char *)pTempFile}
-        };
 
     gpSchema = new schema("journal_textarea.csv");
     gpSchema->gen_from_schema(0,journal_params);

@@ -32,6 +32,8 @@ extern shared * gpSh;
  **********************************************/
 schema::schema(std::string ssSchemaName)
 {
+    m_pSysLog = new CSysLog();          // 2025/02/06 18:21 dwg -
+
     m_ssSchemaName = ssSchemaName;
     gpCsv = new readCsv(ssSchemaName);
     gpCsv->parseData();
@@ -58,6 +60,11 @@ void schema::preprocess_row_data(
         int i_IRow,
         std::vector<std::vector<std::string>> svvsPassedValues)
 {
+    // 2025/02/06 18:26 dwg - for code verification purposes
+    char szTemp[256];
+    sprintf(szTemp,"svvsPassedValues.size() is %d",svvsPassedValues.size());
+    m_pSysLog->loginfo(szTemp);
+
     for (int i_ICol = 3; i_ICol <= MAX_COLS; i_ICol++)
     {
         std::string ssCurrentGrid = gpCsv->m_parsed_data[i_IRow][i_ICol];
@@ -434,6 +441,7 @@ void schema::gen_from_schema(int iHandle,
     {
         ssStyleGrid = ssStyleGrid.substr(
             ssStyleGrid.find(':') + 1);
+
 
         for (int i_VarName = 0;
              i_VarName <= svvsPassedValues.size() - 1;
