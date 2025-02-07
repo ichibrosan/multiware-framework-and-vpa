@@ -26,5 +26,5 @@
 #define MAX_USERS 6
 #define VPA_PORT 5164
 #define HANDLE_NA 0
-
+#define ZERO_TERMINATOR_SIZE 1
 #endif //HTML_LIMITS_H

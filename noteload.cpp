@@ -1,11 +1,35 @@
 //////////////////////////////////////////////////////////////////////////////
 // daphne.goodall.com:/home/doug/public_html/fw/noteload.cpp 2025/01/19 dwg //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.            //
+// Originally written by Marcus Franklin, some edits by Douglas Goodall     //
 //////////////////////////////////////////////////////////////////////////////
 
 #include "noteload.h"
 
+
+/**************************************************************
+ * Process an error, displaying the file, func, text, and line#
+ * @param pszErrMsg
+ * @param iLineNumber
+ **************************************************************/
+void process_error(const char *pszErrMsg,int iLineNumber )
+{
+    char szTemp[128];
+    sprintf(szTemp,"%s in %s::%s line #%d",
+        pszErrMsg,__FILE__,"main()",iLineNumber);
+    std::cout << szTemp << std::endl;
+}
+
+
+/*********************************************************
+ * This is the main entry point of the noteload.cgi script
+ * @return
+ *********************************************************/
 int main() {
+    char szTemp[128];               // 2025/02/06 18:38 dwg -
+    char szPath[256];
+    std::vector<std::vector<std::string>> journal_params;
+
     bool bCGI = false;
     char * ptr = getenv("SERVER_PORT");
     if(nullptr != ptr) {
@@ -13,9 +37,7 @@ int main() {
         std::cout << "content-type:\ttext/html\n\n" << std::endl;
     }
 
-    gpSysLog = new CSysLog();       // 2025/02/06 18:38 dwg -
-    char szTemp[128];               // 2025/02/06 18:38 dwg -
-
+    gpSysLog  = new CSysLog();       // 2025/02/06 18:38 dwg -
     gpLog     = new CLog(__FILE__, __FUNCTION__);
     gpSh      = new shared();
     gpEnv     = new environment();
@@ -23,52 +45,97 @@ int main() {
     gpCgi     = new Cgicc();
     gpCgiBind = new cgibind();
 
-
-    std::string ssFile  = gpEnv->get_journal_root(false);
-
-    std::string ssFilename  = gpCgiBind->get_form_variable("changefile");
-
-    std::vector<std::vector<std::string>> journal_params;
-
     journal_params.push_back({"style","journal_style"});
 
-
+    std::string ssFile      = gpEnv->get_journal_root(false);
+    std::string ssFilename  = gpCgiBind->get_form_variable("changefile");
     ssFile.append(ssFilename);
-
     std::cout << ssFile << std::endl;
-    char szPath[256];
     strcpy(szPath,ssFile.c_str());
     FILE * fp = fopen(szPath,"r");
     if(nullptr == fp) {
-        std::cout << "can't open file " << szPath << std::endl;
+        process_error("fopen failed",__LINE__);
         return EXIT_SUCCESS;
     }
 
+    /*
+     * Seek to the end of the file in order to position the current offset
+     */
     int iFseekRetcode =             // 2025/02/06 18:40 dwg -
         fseek(fp,0,SEEK_END);
-    sprintf(szTemp,"iFseekRetcode is %d",iFseekRetcode);
-    gpSysLog->loginfo(szTemp);
+    if (-1 == iFseekRetcode) {
+        sprintf(szTemp,"fseek failed (errno=%d)",errno);
+        process_error(szTemp,__LINE__-5);
+        return EXIT_SUCCESS;
+    }
 
+    /*
+     * use ftell to retrieve the current offset (happens  to be at the end)
+     */
     long l_fSize = ftell(fp);
-    sprintf(szTemp,"noteload::main() says l_fSize is %ld",l_fSize);
-    gpSysLog->loginfo(szTemp);
+    if (-1 == l_fSize) {
+        sprintf(szTemp,"ftell failed (errno=%d)",errno);
+        process_error(szTemp,__LINE__-3);
+        return EXIT_SUCCESS;
+    }
 
-    if (0l == l_fSize)
-    {
+    /*
+     * Check for condition where file is empty, and do the appropriate thing
+     */
+    if (0l == l_fSize) {
+        // File is empty
         journal_params.push_back({"loaded_text", ""});
     } else {
-        void * pTempFile = malloc(l_fSize+1);
-        memset(pTempFile,0,l_fSize+1);
+        // File is not empty
+        /*
+         * Allocate a buffer the size of the existing text file plus one
+         * byte for the null terminator following the file data.
+         */
+        void * pTempFile = malloc(l_fSize+ZERO_TERMINATOR_SIZE);
         if(nullptr == pTempFile) {
-            std::cout << "OUT OF MEMORY " << std::endl;
+            process_error("malloc failed (OUT OF MEMORY)",__LINE__-2);
             return EXIT_SUCCESS;
         }
-        fseek(fp,0,SEEK_SET);
-        fread(pTempFile,l_fSize,1,fp);
+
+        /*
+         * Clear the allocated memory to zeros so that after the read, the
+         * next byte will be a zero (null terminator).
+         */
+        memset(pTempFile,0,l_fSize+1);
+
+        /*
+         *  seek to the end of the file
+         */
+        int iFseekRetcode = fseek(fp,0,SEEK_SET);
+        if(0 != iFseekRetcode) {
+            process_error("fseek failed",__LINE__-2);
+            return EXIT_SUCCESS;
+        }
+
+        /*
+         * read the entire trext file as one block (lFsize)
+         */
+        int iFreadCount = fread(pTempFile,l_fSize,1,fp);
+        if(1 != iFreadCount) {
+            sprintf(szTemp,
+                "fread failed (iFeadCount=%d,l_fSize=%ld)",
+                iFreadCount,l_fSize);
+            process_error(szTemp,__LINE__-3);
+            return EXIT_SUCCESS;
+        }
+
         journal_params.push_back(
             {"loaded_text", (const char *)pTempFile});
-        fclose (fp);
-        free(pTempFile);
+
+        int iFcloseRetcode = fclose (fp);
+        if(0 != iFcloseRetcode)
+        {
+            sprintf(szTemp,"fclose failed (errno=%d)",errno);
+            process_error(szTemp,__LINE__);
+            return EXIT_SUCCESS;
+        }
+
+        free(pTempFile);    // free does not return status
     }
 
     gpSchema = new schema("journal_textarea.csv");

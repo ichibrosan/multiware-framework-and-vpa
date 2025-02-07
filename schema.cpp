@@ -64,7 +64,7 @@ void schema::preprocess_row_data(
 {
     // 2025/02/06 18:26 dwg - for code verification purposes
     char szTemp[256];
-    sprintf(szTemp,"svvsPassedValues.size() is %d",
+    sprintf(szTemp,"svvsPassedValues.size() is %ld",
         svvsPassedValues.size());
     m_pSysLog->loginfo(szTemp);
     int iMaxCols = atoi(gpCsv->m_parsed_data
