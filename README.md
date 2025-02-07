@@ -3,6 +3,9 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-07 08:30 dwg - fixed bug in noteload (spurious tail data) and
+updated code and doc.
+
 2025-02-06 20:39 mf - fixed journal by fixing the preprocessor, to use
 ROW_META_DATA instead of ROW_META_HDR.
 
