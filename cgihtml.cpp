@@ -61,7 +61,9 @@ void cgihtml::close_form()
 
 
 /**
- */
+ * Closes the head section of the HTML output.
+ *
+ * This method outputs the closing tag for the head*/
 void cgihtml::close_head()
 {
     std::cout << "</head>"  << std::endl;
@@ -488,8 +490,7 @@ void cgihtml::form_date(const char *pszName,   // COL_DATE_NAME
 
 
 /**
- *
- */
+ * Generates*/
 void cgihtml::form_datetime(
         const char *pszName,   // COL_DATETIME_NAME
         const char *pszId,     // COL_DATETIME_ID
@@ -539,8 +540,7 @@ void cgihtml::form_month(
 
 
 /**
- *
- */
+ * Generates an HTML text input form field*/
 void cgihtml::form_text(const char * szName,
                         const char * szValue,
                         const char * szSize,
@@ -596,8 +596,7 @@ void cgihtml::form_text(const char * szName,
 
 
 /**
- *
- */
+ * Renders a password input form element with an*/
 void cgihtml::form_password(
         const char *pszName,        // COL_PASSWORD_NAME
         const char *pszId,          // COL_PASSWORD_ID
@@ -663,7 +662,9 @@ void cgihtml::form_files_select(
 /**
  * Creates and outputs an HTML checkbox input element.
  *
- * This method generates a checkbox with the specified properties and*/
+ * This method generates a checkbox with the specified properties and renders it
+ * along with its associated visible label. The checkbox will be marked as checked
+ **/
 void cgihtml::form_postcheckbox(
         const char *pszName,
         const char *pszId,
@@ -736,7 +737,9 @@ void cgihtml::form_submit()
  * This method creates an HTML text input field along with a visible label
  * and writes the generated HTML to the standard output.
  *
- * @param sz*/
+ * @param szName The name attribute of the input field.
+ * @param szId The id attribute of the input field and the label's "for" attribute.
+ * @param szValue Placeholder*/
 void cgihtml::form_text(const char * szName,
                         const char * szId,
                         const char * szValue,
@@ -759,7 +762,11 @@ void cgihtml::form_text(const char * szName,
  * Generates and outputs an HTML <textarea> element with the specified attributes.
  *
  * The function constructs a <textarea> element using the provided parameters for
- * attributes such as name, ID, dimensions, wrapping behavior, CSS class, and initial value*/
+ * attributes such as name, ID, dimensions, wrapping behavior, CSS class, and initial value.
+ * If the initial value starts with "from:", it retrieves the variable's value
+ * using cgi binding.
+ *
+ * @param pszName The name attribute of the*/
 void cgihtml::form_textarea(const char *pszName,
                             const char *pszID,
                             const char *pszCols,
@@ -790,8 +797,7 @@ void cgihtml::form_textarea(const char *pszName,
 
 
 /**
- *
- */
+ * Generates an HTML form input element of type "*/
 void cgihtml::form_time(const char *pszName,   // COL_TIME_NAME
                         const char *pszId,     // COL_TIME_ID
                         const char *pszValue,  // COL_TIME_VALUE
@@ -810,7 +816,9 @@ void cgihtml::form_time(const char *pszName,   // COL_TIME_NAME
 
 // Marcus Franklin 15:02 1-26-2025
 /**
- * Generates*/
+ * Generates and outputs an HTML iframe element with the specified attributes.
+ *
+ * @param pszIframeDefaultPage The*/
 void cgihtml::form_iframe(const char * pszIframeDefaultPage,
                           const char * pszIframeTitle,
                           const char * pszIframeName,
@@ -942,8 +950,7 @@ void cgihtml::open_head()
 
 
 /**
- *
- */
+ * @brief Outputs the opening <html> tag*/
 void cgihtml::open_html()
 {
     std::cout << "<html>";
@@ -972,8 +979,7 @@ void cgihtml::open_div(const char * pszDivClass)
 
 
 /**
- *
- */
+ * @brief*/
 void cgihtml::para()
 {
     std::cout << "<p>";
@@ -981,8 +987,7 @@ void cgihtml::para()
 
 
 /**
- *
- */
+ * Outputs the provided text to the*/
 void cgihtml::print(const char *szText)
 {
     std::cout << szText;
@@ -1044,8 +1049,7 @@ void cgihtml::printvar(const char *pszName,const char *pszValue)
 
 
 /**
- *
- */
+ * Outputs a variable name and its integer value in the format "name = value*/
 void cgihtml::printvar(const char *pszName,int iValue)
 {
     std::cout << pszName << " = " << iValue << std::endl;
@@ -1056,7 +1060,8 @@ void cgihtml::printvar(const char *pszName,int iValue)
  * Prints the name and corresponding double value to the output stream.
  *
  * @param pszName The name or label to be displayed.
- * @param dValue*/
+ * @param dValue The double value to be printed alongside the name.
+ */
 void cgihtml::printvar(const char *pszName,double dValue)
 {
     std::cout << pszName << " = " << dValue << std::endl;
@@ -1064,7 +1069,9 @@ void cgihtml::printvar(const char *pszName,double dValue)
 
 
 /**
+ * Opens an HTML table with the specified border size.
  *
+ * @param border The size of the border for the HTML table.
  */
 void cgihtml::open_table(int border)
 {
@@ -1090,7 +1097,9 @@ void cgihtml::script_button(const char * pszButtonName,
 
 
 /**
- * Sets the stylesheet for the cgihtml*/
+ * Sets the stylesheet for the cgihtml object.
+ *
+ * This method generates a link to the specified stylesheet and outputs it in*/
 void cgihtml::set_style(const char * pszStylesheet)
 {
     gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
@@ -1101,7 +1110,6 @@ void cgihtml::set_style(const char * pszStylesheet)
 
 
 /**
- *
  */
 void cgihtml::title(const char * szTitle)
 {
