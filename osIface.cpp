@@ -13,9 +13,37 @@
 #include "test.h"
 #define DEBUG_GLFQFS
 
+/**
+ * @brief Global pointer variable representing an object or structure
+ *        used for shared access or processing within the program.
+ */
 extern shared *gpSh;
+/**
+ * @brief Pointer to a global logger instance used for logging messages throughout the application.
+ */
 extern CLog   *gpLog;
 
+/************************************************************************
+ * Function: osIface::printBinary
+ *
+ * Description:
+ * This function takes an integer and its binary digit count as inputs,
+ * converts the integer into its binary representation, and prints the
+ * binary digits equal to the specified count. The binary digits are
+ * extracted from the most significant bits (MSB) of the number. The result
+ * is formatted as a string and passed to standard output.
+ *
+ * Parameters:
+ * - number: The integer value to be converted into its binary representation.
+ * - digits: The number of significant binary digits to display, starting
+ *           from the most significant bit.
+ *
+ * Remarks:
+ * - A temporary buffer (szBuffer) is used to hold individual binary digits
+ *   as strings before appending them to the full binary string.
+ * - The binary string is truncated to the specified number of digits
+ *   before being printed.
+ ************************************************************************/
 void osIface::printBinary(int number,int digits) {
     char szBuffer[4];
     std::string ssNumber = "";
@@ -28,21 +56,63 @@ void osIface::printBinary(int number,int digits) {
 }
 
 
-/************************************************************************
- * Note: This variable, gszPath, is used to store a string that is being
- * returned from a member function. It is unhealthy to return a variable
- * that is on the stack because it may not exist after you return from
- * the function. So I use this global variable, not on the stack, to hold
- * the return value while I perform the return.
- ************************************************************************/
+/**
+ * @brief Global character array used to store file paths, with maximum size defined by FILENAME_MAX.
+ *
+ * This variable is used across various functions to store and manage fully
+ * qualified file paths, ensuring a consistent and reusable path storage mechanism.
+ *
+ * @note The size of the array is determined by the system-defined FILENAME_MAX
+ * to ensure compatibility and prevent overflows. Users of this variable must
+ * ensure that the string stored does not exceed this limit.
+ */
 char gszPath[FILENAME_MAX];
+/************************************************************************
+ * Note: The global variable `gszUrl` is used to store a file path or URL
+ * as a string. It is defined globally to provide persistent storage
+ * for returning the generated URL from the `osIface::genImgUrl` member
+ * function. This approach avoids potential issues that can arise when
+ * returning stack-allocated variables from a function.
+ ************************************************************************/
 char gszUrl[FILENAME_MAX];
 
+/************************************************************************
+ * Constructor for the osIface class. This constructor logs a message
+ * confirming the instantiation of the osIface object. It utilizes
+ * a global logging object, gpLog, to log the message.
+ *
+ * Preconditions:
+ * - gpLog must be a valid and initialized instance of the CLog class.
+ *
+ * Side Effects:
+ * - Writes a message to the log, indicating the instantiation of the
+ *   osIface object.
+ ************************************************************************/
 osIface::osIface() {
     gpLog->write("osIface instantiated");
 }
 
 
+/************************************************************************
+ * Fetches the names of all files located in the provided directory path.
+ *
+ * This function iterates through a given directory and retrieves
+ * the complete paths of all files found within it. It uses the
+ * `std::filesystem::directory_iterator` to enumerate the files
+ * in the specified directory and appends their paths to a vector
+ * of strings, which is then returned.
+ *
+ * Parameters:
+ * - osPath: A string containing the directory path to search for files.
+ *
+ * Returns:
+ * - A vector of strings where each string represents the full path
+ *   to a file located in the specified directory.
+ *
+ * Note:
+ * - The function does not differentiate between files and directories.
+ *   All entries in the directory are treated as files.
+ ************************************************************************/
 std::vector<std::string> osIface::allfilesindir(std::string osPath)
 {
     std::vector<std::string> allFiles;
@@ -54,11 +124,14 @@ std::vector<std::string> osIface::allfilesindir(std::string osPath)
     return allFiles;
 }
 
-/************************************************************
- * Convert __FILE__ into a fully qualified file specification
- * @param pszFile
- * @return Return a standard string with the FQFS
- ************************************************************/
+/**
+ * Converts a given file path into its directory path by removing the filename.
+ *
+ * @param pszFile A C-style string representing the full file path.
+ * @return A string containing the directory portion of the given file path.
+ * This function uses the std::filesystem library to process the path and
+ * extract the directory portion by removing the filename.
+ */
 std::string osIface::file2path(const char *pszFile)
 {
     std::string ssPath = pszFile;
@@ -67,11 +140,19 @@ std::string osIface::file2path(const char *pszFile)
 }
 
 
-/**************************************************************************
- * Convert __FILE__ into just the filename portion
- * @param pszFile
- * @return
- **************************************************************************/
+/************************************************************************
+ * This function, file2filename, extracts the file name, including its
+ * extension, from a given file path. It first determines the directory
+ * path using the file2path function, then isolates the file name portion
+ * of the input by taking all characters following the directory path.
+ * The resulting string is returned as the file name.
+ *
+ * Parameters:
+ *  - pszFile: A C-style string representing the full path of the file.
+ *
+ * Returns:
+ *  - A string containing the extracted file name, including its extension.
+ ************************************************************************/
 std::string osIface::file2filename(const char * pszFile)
 {
     std::string ssPath     = file2path(pszFile);
@@ -81,11 +162,17 @@ std::string osIface::file2filename(const char * pszFile)
 }
 
 
-/**
+/************************************************************************
+ * This function, file2filenamesansext, generates the file name from the
+ * given file path and removes its file extension. It extracts the base
+ * file name by calling the file2filename function, which retrieves the
+ * name of the file. Then, it removes the last four characters, which
+ * typically correspond to the file extension (e.g., ".txt"), and
+ * returns the resulting file name without the extension.
  *
- * @param pszFile
- * @return
- */
+ * @param pszFile A C-style string representing the file path.
+ * @return A std::string containing the file name without its extension.
+ ************************************************************************/
 std::string osIface::file2filenamesansext(const char * pszFile)
 {
     std::string ssFilename =
@@ -97,10 +184,22 @@ std::string osIface::file2filenamesansext(const char * pszFile)
 
 
 /**
- * Create URL for image file
- * @param pszImgName
- * @param bDebug
- * @return
+ * Generates a complete URL string for an image using protocol, IP, user, and image name.
+ *
+ * @param pszImgName A pointer to the image name that will be appended to form the URL.
+ * @param bDebug A boolean flag to enable debug logging and output for tracing the generated URL at each step.
+ * @return A complete URL string for the specified image name.
+ *
+ * The function constructs the URL step by step using the following components:
+ * - Protocol (e.g., "http://") retrieved from `szProtocol` of a shared memory structure.
+ * - IP or domain name retrieved from `szIP` of the shared memory structure.
+ * - User name retrieved from `szUser` of the shared memory structure.
+ * - Fixed directories and the specified image name.
+ *
+ * The generated URL is logged at each stage if debug mode is enabled, providing insight into how the URL is formed.
+ * If critical components (e.g., `gpSh` and `m_pShMemng`) are missing, appropriate log entries are generated.
+ *
+ * The resulting URL is stored in a global variable `gszUrl` to allow reuse outside the function.
  */
 
 /**
@@ -173,18 +272,36 @@ std::string osIface::genImgUrl(const char *pszImgName,bool bDebug)
 }
 
 
-/**************************************************************************
- * Create FQFS for journal file in doc folder
- * @param pszFile
- * @return A fully qualified file specification for a journal file
- * This function is a modern c++ solution to a long standing thorny problem
- * naming log files in a variety of situations, without having to write
- * environment specific code. What a relief to be past this...
- * 2025/01/21 dwg - Marcus & Doug decided to move the journal files out
- * of the project directories and into the user's Documents folder so notes
- * don't get lost when we blow off development source trees. This code is
- * tested and working now and will be used henceforth. :-)
- **************************************************************************/
+/************************************************************************
+ * Function: genJournalFQFS
+ *
+ * Purpose:
+ * Generates the fully qualified file specification (FQFS) for a journal
+ * file. The FQFS is formed by concatenating a base directory path, the
+ * user's specific directory path, and the provided file name. The
+ * function ensures the required directories exist on the filesystem
+ * before constructing the final path.
+ *
+ * Parameters:
+ * - pszFile: A pointer to a character string representing the name
+ *   of the file for which the fully qualified path is generated.
+ * - bDebug: A boolean flag indicating whether debug information should
+ *   be printed to the standard error stream.
+ *
+ * Return:
+ * A const char pointer to the global variable `gszPath`, which contains
+ * the generated fully qualified file specification.
+ *
+ * Notes:
+ * - The function logs debugging information and intermediate values
+ *   during its execution if `bDebug` is true.
+ * - The function uses the `CLog` class to log information to a file.
+ * - A `system` call is used to create the necessary directory structure
+ *   if it does not already exist.
+ * - The global variable `gszPath` temporarily holds the final FQFS and
+ *   is returned. Be cautious of concurrent access when this global
+ *   variable is shared across multiple invocations.
+ ************************************************************************/
 const char * osIface::genJournalFQFS(const char *pszFile,bool bDebug)
 {
     CLog log(__FILE__,__FUNCTION__);
@@ -225,18 +342,28 @@ const char * osIface::genJournalFQFS(const char *pszFile,bool bDebug)
 }
 
 
-/**************************************************************************
- * Create FQFS for log file using __FILE__ and __FUNCTION__ passed as parms
- * @param pszFile
- * @param pszFunction
- * @return A fully qualified file specification for a log file
- * This function is a modern c++ solution to a long standing thorny problem
- * naming log files in a variety of situations, without having to write
- * environment specific code. What a relief to be past this...
- **************************************************************************/
+/************************************************************************
+ * Generates a fully qualified file system path for a log file based on
+ * the input source file and function name. The resulting path includes
+ * a "log/" directory and appends the source file's base name (excluding
+ * its extension) concatenated with the function name, followed by the
+ * extension ".log".
+ *
+ * The generated path is stored in the global variable `gszPath` for
+ * returning a persistent reference. This avoids returning a local
+ * variable reference which may go out of scope.
+ *
+ * Debugging information can be printed to the standard error output
+ * when the `bDebug` flag is set to true.
+ *
+ * @param pszFile The name of the source file.
+ * @param pszFunction The name of the function.
+ * @param bDebug Flag to enable debug output to standard error.
+ * @return A pointer to the global character array containing the path.
+ ************************************************************************/
 const char * osIface::genLogFQFS(const char *pszFile,
-                           const char *pszFunction,
-                           bool bDebug) {
+                                 const char *pszFunction,
+                                 bool bDebug) {
     if(bDebug) { std::cerr << std::endl << "genLogFQFS:" << std::endl; }
     if(bDebug) { std::cerr << "pszFile     is " << pszFile << std::endl; }
     if(bDebug) { std::cerr << "pszFunction is " << pszFunction << std::endl; }
@@ -261,14 +388,25 @@ const char * osIface::genLogFQFS(const char *pszFile,
     return gszPath;
 }
 
-/**
- * Generate curl command to fetch web page with http:// protocol
- * @param pszPageName
- * @param bDebug
- * @return
- */
+/************************************************************************
+ * This function generates a CGI-bin URL for executing a CGI script.
+ *
+ * @param pszCgiName The name of the CGI script to be executed.
+ * @param bDebug A boolean flag indicating whether debugging messages
+ *               should be printed to standard output.
+ *
+ * @return A string containing the constructed command for executing the
+ *         CGI script using curl. It includes the protocol, host, user,
+ *         script path, and directs output to associated log files.
+ *
+ * The generated URL is constructed step by step by appending various
+ * components such as protocol, host, user name, and CGI script path.
+ * If debugging is enabled, each step is logged to standard output.
+ * The command execution output is redirected to log files (.stdout and
+ * .stderr) located in the /tmp directory.
+ ************************************************************************/
 std::string osIface::genCgiBinUrl(const char *pszCgiName,
-                                bool bDebug)
+                                  bool bDebug)
 {
     if(bDebug) {
         std::cout << __FUNCTION__ << " called" << std::endl;
@@ -352,12 +490,22 @@ std::string osIface::genCgiBinUrl(const char *pszCgiName,
 }
 
 
-
 /**
- * Generate curl command to fetch web page with http:// protocol
- * @param pszPageName
- * @param bDebug
- * @return
+ * Generates a cURL command string to retrieve an HTML page, save its
+ * standard output to a temporary file, and save its error output to a
+ * separate temporary file.
+ *
+ * The generated command fetches the page using the protocol, IP address,
+ * user directory, and other path components specified in the shared memory
+ * structure. The command redirects the downloaded content to a temporary
+ * file and any error output to another file with appropriate extensions.
+ *
+ * If debug mode is enabled, the constructed command segments and the final
+ * command are printed to the standard output for debugging purposes.
+ *
+ * @param pszPageName Pointer to a C-string specifying the name of the page to fetch.
+ * @param bDebug Boolean value to indicate whether debug statements should be printed.
+ * @return A string containing the fully constructed cURL command.
  */
 std::string osIface::genHtmlUrl(const char *pszPageName,
                                 bool bDebug)
@@ -445,6 +593,27 @@ std::string osIface::genHtmlUrl(const char *pszPageName,
 }
 
 
+/************************************************************************
+ * The function `genCgiCBDPath` constructs the complete file system path
+ * to a specified CGI executable located in the "cmake-build-debug"
+ * directory.
+ *
+ * It takes the name of the CGI script and a debug flag as input.
+ *
+ * If the debug flag is enabled, the function outputs debug information
+ * about each step of path construction through the console.
+ *
+ * The function starts by determining the current file's path (`__FILE__`),
+ * then removes the filename to get the directory path, appends
+ * "cmake-build-debug/" to it, and finally appends the CGI script name.
+ *
+ * The resulting path is returned as a string.
+ *
+ * @param pszCgiName The name of the CGI script for which the path is to
+ *                   be constructed.
+ * @param bDebug A boolean flag that enables debug output when set to true.
+ * @return A string containing the full file system path for the CGI script.
+ ************************************************************************/
 std::string osIface::genCgiCBDPath(const char *pszCgiName, bool bDebug) {
     if(bDebug) {
         std::cout << __FUNCTION__ << " called" << std::endl;
@@ -477,6 +646,20 @@ std::string osIface::genCgiCBDPath(const char *pszCgiName, bool bDebug) {
 }
 
 
+/**
+ * Generates a URL string for executing a specific CGI binary script.
+ *
+ * This function composes a URL by combining components obtained from a global
+ * shared object, such as protocol, IP, user information, and a specific path.
+ * The name of the CGI script is passed as an argument and appended at the end
+ * of the URL. If debug mode is enabled, it outputs the function call to the
+ * console for logging purposes.
+ *
+ * @param pszCgiName The name of the CGI script whose URL is to be generated.
+ * @param bDebug A boolean flag to enable or disable debug logging.
+ * @return A string representing the fully constructed URL for the specified
+ *         CGI script.
+ */
 std::string osIface::genCgiCBDUrl(const char * pszCgiName,bool bDebug)
 {
     if(bDebug) {
@@ -494,6 +677,28 @@ std::string osIface::genCgiCBDUrl(const char * pszCgiName,bool bDebug)
 }
 
 
+/************************************************************************
+ * Generates the fully qualified file system path for a given schema file.
+ *
+ * This function constructs the full path for a schema file, appending the
+ * relative path "schemas/" and the provided schema name to the directory
+ * of the current source file. Optionally, debug information can be printed
+ * to indicate the function's execution and the final computed path.
+ *
+ * Parameters:
+ * - pszSchema: A pointer to a null-terminated string representing the
+ *   name of the schema file.
+ * - bDebug: A boolean flag indicating whether debug output should be
+ *   printed during the execution of this function.
+ *
+ * Returns:
+ * - A string containing the fully qualified path to the schema file.
+ *
+ * Note:
+ * The function leverages std::filesystem to manipulate file paths and
+ * uses preprocessing macros (__FUNCTION__, __FILE__) to determine the
+ * source file location.
+ ************************************************************************/
 std::string osIface::genSchemaFQFS(const char * pszSchema,bool bDebug)
 {
     if(bDebug) {
@@ -512,9 +717,10 @@ std::string osIface::genSchemaFQFS(const char * pszSchema,bool bDebug)
 
 
 /**
+ * @brief Parses a given schema name string and separates it into its components.
  *
- * @param ssSchemaName
- * @return
+ * @param schemaName The input string containing the schema name to parse.
+ * @return A structured representation or components of the schema name.
  */
 std::string osIface::parseSchemaName(std::string ssSchemaName,bool bDebug) {
     if(bDebug) {

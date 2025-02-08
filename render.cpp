@@ -5,8 +5,16 @@
 #include "render.h"
 
 /**
+ * @brief The main entry point of the application.
  *
- * @return This is the CGI main entry point
+ * This function initializes various components required for the
+ * application, including environment setup, CGI handling, schema
+ * generation, and optional dashboard creation. It also handles CGI
+ * server protocol checks and form input parameters for application
+ * configuration.
+ *
+ * @return An integer status code, where EXIT_SUCCESS indicates successful
+ *         execution.
  */
 int main() {
     char *ptr = getenv("SERVER_PROTOCOL");

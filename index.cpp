@@ -4,8 +4,27 @@
 ////////////////////////////////////////////////////////////////////////
 #include "index.h"
 
+/**
+ * @brief Pointer to an instance of the mwfw class.
+ *
+ * This variable represents a global pointer to the `mwfw` class, which provides
+ * functionalities such as system logging and determining if the current runtime
+ * environment is CGI-based. The `mwfw` instance is used for managing logging
+ * information and interacting with the system's environment.
+ *
+ * Key functionalities of the referenced `mwfw` instance:
+ * - Logging system information through `sl_loginfo`.
+ * - Checking if the runtime environment is CGI via `isCGI`.
+ */
 mwfw * fw;
 
+/**
+ * Entry point of the program. Initializes the framework, shared memory,
+ * environment, and other essential components, conducts self-tests,
+ * generates schema files, and verifies the configuration.
+ *
+ * @return Returns 0 on successful execution.
+ */
 int main() {
   fw = new mwfw();
   fw->sl_loginfo(__PRETTY_FUNCTION__);

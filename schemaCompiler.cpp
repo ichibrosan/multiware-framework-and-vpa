@@ -6,22 +6,69 @@
 
 #include "std.h"
 #include "osIface.h"
+/**
+ * @brief A pointer to an instance of the operating system interface.
+ *
+ * This variable, gpOS, acts as a global pointer to the operating system
+ * interface instance, enabling interaction and communication with the
+ * operating system's underlying functionality through the defined interface.
+ *
+ * The exact implementation and behavior of gpOS depend on the specific
+ * context and configuration determined by the underlying system or user-defined
+ * implementation.
+ */
 extern osIface * gpOS;
 #include "schema.h"
 #include "schemaCompiler.h"
 #include "readCsv.h"
+/**
+ * @brief Global pointer to a `readCsv` object instance.
+ *
+ * This variable serves as a global reference to a `readCsv` object, which is used
+ * throughout the program for accessing and managing CSV file data. The `gpCsv`
+ * object facilitates CSV parsing, data retrieval, and row/column processing.
+ *
+ * Key Details:
+ * - Initialized in the `schemaCompiler::getSchema` function with the provided schema name.
+ * - Invokes the `parseData()` function to process CSV data and populate internal structures.
+ * - Accessed in the `schemaCompiler::isActiveSchema` and `isValidSchemaVersion` functions
+ *   to validate and process metadata from the parsed CSV.
+ *
+ * Usage Notes:
+ * - Typically used in schema compilation processes to extract metadata and schema details.
+ * - Ensure the object is properly initialized before accessing it to avoid undefined behavior.
+ * - Memory management (deallocation) of this object should be handled appropriately to
+ *   prevent resource leaks.
+ *
+ * Limitations:
+ * - This variable assumes a single `readCsv` instance is required globally at runtime.
+ * - Not thread-safe due to its global nature.
+ */
 extern readCsv * gpCsv;
 #include "CLog.hpp"
 #include "shared.h"
+/**
+ * @brief Global pointer to an instance of the `shared` class.
+ *
+ * The `gpSh` variable is a globally accessible pointer to a `shared` object,
+ * used across the application to facilitate common/shared operations. It is
+ * instantiated in the main function and provides functionalities related to
+ * system resource sharing, logging, and memory management.
+ *
+ * This variable is integral to coordinating shared resources and ensuring
+ * efficiency in accessing and managing these resources in a multicomponent
+ * application environment.
+ *
+ * @note Proper cleanup of this pointer is essential to avoid memory leaks.
+ */
 extern shared * gpSh;
 
 //#include "login.h"
 
 
-/******************************************************
- * Read and parse a new schema by name
- * @param ssSchemaName
- ******************************************************/
+/**
+ *
+ */
 void schemaCompiler::getSchema(std::string ssSchemaName)
 {
     m_ssSN = ssSchemaName;
@@ -31,10 +78,12 @@ void schemaCompiler::getSchema(std::string ssSchemaName)
 }
 
 
-/***************************************************************
- * Create a header file name from a schema name, save in m_ssHFN
- * @param bDebug
- ***************************************************************/
+/**
+ * Creates the header file name for the schema based on the current file path and schema name.
+ * The resulting name will have a ".hh" extension and is stored in the member variable m_ssHFN.
+ *
+ * @param bDebug A boolean flag indicating whether debugging mode is active. This parameter is currently unused in this function.
+ */
 void schemaCompiler::createHeaderFileName(bool bDebug)
 {
     std::string ssTemp;
@@ -47,10 +96,15 @@ void schemaCompiler::createHeaderFileName(bool bDebug)
 }
 
 
-/************************************
- * Is the current schema active?
- * @return Boolean true or false
- ************************************/
+/**
+ * Checks whether the current schema is active.
+ *
+ * The method evaluates the value in the parsed data associated with
+ * an "active" metadata column. If the value matches "true", the schema
+ * is considered active.
+ *
+ * @return true if the current schema is active, otherwise false.
+ */
 bool schemaCompiler::isActiveSchema()
 {
     if(0 == strcmp("true",
@@ -62,10 +116,14 @@ bool schemaCompiler::isActiveSchema()
 }
 
 
-/*******************************************
- * Is the current schema a valid version?
- * @return
- *******************************************/
+/**
+ * Checks if the schema version of the provided CSV data is valid.
+ *
+ * Validity is determined by comparing the parsed schema version data
+ * with the expected version "1".
+ *
+ * @return true if the schema version matches "1", false otherwise.
+ */
 bool schemaCompiler::isValidSchemaVersion()
 {
     if(0 == strcmp("1",
@@ -77,11 +135,15 @@ bool schemaCompiler::isValidSchemaVersion()
 }
 
 
-/***********************************************************************
- * Is the current schema row active?
- * @param iRow
- * @return
- ***********************************************************************/
+/**
+ * Checks if a specific row in the dataset is marked as active.
+ *
+ * This method determines whether the row at the specified index
+ * is designated as active by comparing its "active" column value to "true".
+ *
+ * @param iRow The index of the row to check.
+ * @return true if the row is active, false otherwise.
+ */
 bool schemaCompiler::isRowActive(int iRow)
 {
     if(0 == strcmp("true",
@@ -93,11 +155,12 @@ bool schemaCompiler::isRowActive(int iRow)
 }
 
 
-/************************************************************************
- * is the element type of the current row "precheckbox"?
- * @param iRow
- * @return
- ************************************************************************/
+/**
+ * Checks if the type of the given row is "precheckbox".
+ *
+ * @param iRow The index of the row to check in the CSV data.
+ * @return true if the type of the specified row is "precheckbox", otherwise false.
+ */
 bool schemaCompiler::isTypePreCheckbox(int iRow)
 {
     bool bRetVal;
@@ -111,11 +174,12 @@ bool schemaCompiler::isTypePreCheckbox(int iRow)
 }
 
 
-/******************************************************************
- * is the element type of the current row "postcheckbox"?
- * @param iRow
- * @return
- ******************************************************************/
+/**
+ * Determines whether the type of a given row is a 'precheckbox'.
+ *
+ * @param iRow The row index to check in the parsed data.
+ * @return True if the type of the given row is 'precheckbox'; otherwise, false.
+ */
 bool schemaCompiler::isTypePostCheckbox(int iRow)
 {
     bool bRetVal;
@@ -129,11 +193,12 @@ bool schemaCompiler::isTypePostCheckbox(int iRow)
 }
 
 
-/****************************************************
- * is the element type of the current row "image"?
- * @param iRow
- * @return
- ****************************************************/
+/**
+ * Determines if the data type in the specified row is "image".
+ *
+ * @param iRow An integer representing the row number in the parsed CSV data.
+ * @return True if the data type in the specified row is "image", otherwise false.
+ */
 bool schemaCompiler::isTypeImage(int iRow)
 {
     bool bRetVal;
@@ -147,11 +212,12 @@ bool schemaCompiler::isTypeImage(int iRow)
 }
 
 
-/*****************************************************
- * is the element type of the current row "passsword"?
- * @param iRow
- * @return
- *****************************************************/
+/**
+ * Checks if the type of the specified row is "password".
+ *
+ * @param iRow The index of the row to check in the parsed data.
+ * @return True if the specified row type is "password", otherwise false.
+ */
 bool schemaCompiler::isTypePassword(int iRow)
 {
     bool bRetVal;
@@ -165,11 +231,12 @@ bool schemaCompiler::isTypePassword(int iRow)
 }
 
 
-/********************************************************
- * is the element type of the current row "radiobutton"?
- * @param iRow
- * @return
- ********************************************************/
+/**
+ * Checks if the type of the specified row in the CSV data is a radio button.
+ *
+ * @param iRow The row index in the parsed CSV data to check.
+ * @return True if the type of the specified row is "radiobutt", false otherwise.
+ */
 bool schemaCompiler::isTypeRadioButton(int iRow)
 {
     if(0 == strcmp("radiobutt",
@@ -181,11 +248,12 @@ bool schemaCompiler::isTypeRadioButton(int iRow)
 }
 
 
-/************************************************
- * is the element type of the current row "text"?
- * @param iRow
- * @return
- ************************************************/
+/**
+ * Checks if the type of the specified row is "text".
+ *
+ * @param iRow The index of the row to check in the parsed data.
+ * @return True if the type of the row is "text", false otherwise.
+ */
 bool schemaCompiler::isTypeText(int iRow)
 {
     bool bRetVal;
@@ -199,11 +267,16 @@ bool schemaCompiler::isTypeText(int iRow)
 }
 
 
-/*******************************************************************
- * This is the constructor for the Schema Compiler
- * @param ssSchemaName
- * @param bDebug
- *******************************************************************/
+/**
+ * Constructor for the schemaCompiler class. Initializes the schema compiler
+ * with the specified schema name and debug mode. Generates a header file
+ * with schema structure if the schema is active and valid.
+ *
+ * @param ssSchemaName The name of the schema to be compiled.
+ * @param bDebug A boolean indicating whether to enable debug mode.
+ * @return A schemaCompiler object properly initialized with the provided schema
+ *         details.
+ */
 schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
 {
     char szTimeStamp[128];

@@ -5,6 +5,12 @@
 
 #include "notesave.h"
 
+/**
+ * The main function initializes necessary objects, retrieves input values from a CGI form, writes the input to a file, and outputs success information to the client.
+ *
+ * @return Returns EXIT_SUCCESS (0) on successful execution.
+ *         If there is an error opening the file, it still returns EXIT_SUCCESS (0) but logs a message indicating the problem.
+ */
 int main() {
     bool bCGI = false;
     char * ptr = getenv("SERVER_PORT");

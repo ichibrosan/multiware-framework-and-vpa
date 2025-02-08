@@ -7,11 +7,13 @@
 #include "noteload.h"
 
 
-/**************************************************************
- * Process an error, displaying the file, func, text, and line#
- * @param pszErrMsg
- * @param iLineNumber
- **************************************************************/
+/**
+ * Logs and outputs an error message with context information including
+ * the source file, function name, and line number where the error occurred.
+ *
+ * @param pszErrMsg A constant character pointer to the error message to be logged.
+ * @param iLineNumber The line number where the error occurred.
+ */
 void process_error(const char *pszErrMsg,int iLineNumber )
 {
     char szTemp[128];
@@ -21,10 +23,21 @@ void process_error(const char *pszErrMsg,int iLineNumber )
 }
 
 
-/*********************************************************
- * This is the main entry point of the noteload.cgi script
- * @return
- *********************************************************/
+/**
+ * @brief The main entry point for the program execution.
+ *
+ * This function initializes key components of the system, determines
+ * if the program is executed in a CGI environment, reads a given
+ * journal file, and processes its content. It subsequently allocates
+ * memory for file data, processes any read errors, and generates
+ * schema from the processed data.
+ *
+ * The program logs errors and outputs diagnostic information regarding
+ * file operations (e.g., fopen, fseek, ftell, fread, fclose).
+ *
+ * @return An integer value indicating the program's exit status. Typically,
+ *         it returns EXIT_SUCCESS (0) upon successful completion.
+ */
 int main() {
     char szTemp[128];               // 2025/02/06 18:38 dwg -
     char szPath[256];

@@ -4,6 +4,15 @@
 ////////////////////////////////////////////////////////////////////////
 #include "menu.h"
 
+/**
+ * The main function serves as the entry point of the program. It initializes
+ * various components including logging, CGI processing, environment variables,
+ * schema handling, and dashboard setup. It handles CGI detection and outputs
+ * HTML headers accordingly. Schema generation and debugging outputs are provided
+ * when in CGI mode.
+ *
+ * @return Returns 0 to indicate successful program execution.
+ */
 int main() {
   char * ptr = getenv("SERVER_PORT");
   bool bCGI = false;

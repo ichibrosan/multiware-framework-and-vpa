@@ -5,13 +5,31 @@
 
 #include "logout.h"
 
-char * gpszServerPort;  // used to detect CGI activity
+char * gpszServerPort; /**
+ * @brief A global pointer to a character string representing the server port.
+ *
+ * gpszServerPort is used to store a dynamically allocated or assigned
+ * string containing the server port number. This variable is intended
+ * for use in scenarios where the server port needs to be globally
+ * accessible within the application.
+ *
+ * Proper memory management is required when handling the content
+ * of this pointer to avoid memory leaks, particularly when it is
+ * reassigned or deallocated.
+ */
 
 logout::logout()
 {
 
 }
 
+/**
+ * Main program entry point. Initializes necessary components, processes
+ * CGI environment if present, invalidates user authentication credentials,
+ * and generates schema data based on input.
+ *
+ * @return EXIT_SUCCESS upon successful execution.
+ */
 int main() {
   CLog log(__FILE__,__FUNCTION__);
   log.truncate();

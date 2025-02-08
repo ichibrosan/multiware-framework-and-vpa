@@ -6,8 +6,36 @@
 
 #define OBJ_PERMS (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP)
 
+/**
+ * @brief Global pointer to the CLog object.
+ *
+ * The `gpLog` global pointer is utilized as a logging mechanism across
+ * the application. It provides methods for truncating the log file,
+ * writing strings, and handling formatted output for logging purposes.
+ *
+ * - `journal.cpp` utilizes `gpLog` for truncating and initializing logs
+ *    during program execution.
+ * - `notesave.cpp` uses it to log information related to the note-saving
+ *    process.
+ *
+ * It is initialized with the current file name and function name where it
+ * is created. The log file allows appending of data or clearing of content
+ * depending on the operations invoked.
+ *
+ * Note: Ensure that `gpLog` is properly initialized before use and deleted
+ * to release allocated resources.
+ */
 extern CLog *gpLog;
 
+/**
+ * @brief Checks if a resource is shared among multiple entities or threads.
+ *
+ * This method determines if the resource it is called upon is being shared,
+ * allowing for synchronization, conditional logic, or optimization based on the
+ * shared state.
+ *
+ * @return True if the resource is shared; false otherwise.
+ */
 shared::shared() {
     m_pSysLog = new CSysLog();
 
@@ -71,10 +99,16 @@ shared::shared() {
 }
 
 /**
- * Make a new shared region using the specified key
- * @param keyparm
- * @param sizeparm
- * @return
+ * Establishes access to a shared memory segment, either by retrieving the
+ * identifier of an existing segment or by creating a new segment if it does
+ * not already exist.
+ *
+ * The method attempts to attach the shared segment using `shmat`. If the
+ * segment specified by the key doesn't exist, it will attempt to create it.
+ *
+ * @param keyparm The key that uniquely identifies the shared memory segment.
+ * @param sizeparm The size of the shared memory segment in bytes.
+ * @return A void pointer to the attached shared memory segment.
  */
 void * shared::mkshared(key_t keyparm,size_t sizeparm) {
     bool bJustCreated = false;
@@ -113,6 +147,26 @@ void * shared::mkshared(key_t keyparm,size_t sizeparm) {
 }
 
 
+/**
+ * Decodes the errno value returned from the shmget system call and logs
+ * an appropriate message explaining the error via the CSysLog instance.
+ *
+ * @param shm_errno The errno value to decode, indicating the error that
+ * occurred during the shmget system call.
+ *
+ * The function maps specific errno values to descriptive messages and logs
+ * them. If the error code is not recognized, it logs the numeric errno value.
+ *
+ * - EACCES: Indicates a permission denied error.
+ * - EEXIST: Indicates that the shared memory segment already exists.
+ * - EINVAL: Indicates an invalid parameter error.
+ * - ENFILE: Indicates that the system-wide limit for total number of open files
+ *   has been reached.
+ * - ENOENT: Indicates that the specified shared memory segment does not exist.
+ * - ENOMEM: Indicates that there is not enough memory available.
+ * - ENOSPC: Indicates that there is no space available.
+ * - EPERM: Indicates an operation not permitted error.
+ */
 void shared::decode_shmget_errno(int shm_errno)
 {
     char szTemp[128];
@@ -131,6 +185,13 @@ void shared::decode_shmget_errno(int shm_errno)
     }
 }
 
+/**
+ * Decodes the given error number resulting from the `shmat` system call
+ * into a human-readable explanation of the error.
+ *
+ * @param errnum The error number produced by `shmat`.
+ * @return A string describing the error corresponding to the provided error number.
+ */
 void shared::decode_shmat_errno(int shm_errno)
 {
     char szTemp[128];
@@ -145,11 +206,24 @@ void shared::decode_shmat_errno(int shm_errno)
     }
 }
 
+/**
+ * Retrieves the shared memory segment identifier (SMSI).
+ *
+ * @return The shared memory segment identifier as an integer.
+ */
 int shared::get_smsi() const {
     return m_smsi;
 }
 
 
+/**
+ * Destructor for the shared class.
+ *
+ * This method detaches the shared memory segment associated with the object
+ * to ensure that the program no longer maintains a connection to the shared
+ * memory. This is done by calling `shmdt` with the shared memory pointer
+ * `m_pShMemng`.
+ */
 shared::~shared() {
     shmdt(m_pShMemng);
 }

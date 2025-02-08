@@ -15,14 +15,23 @@
 
 #include "dashboard.h"
 
-/****************************************************
- * This is the constructor for the dashboard class
- * @param handle The index into the passwd.csv
- * @param buttons A bitfield of requested buttons
- * @param pszFile The cgo file name to execute
- * @param ssUsername The username for authentication
- * @param ssPassword The password for authentication
- ****************************************************/
+/**
+ * Constructs a dashboard object and initializes the display and configurations
+ * of an authenticated or unauthenticated user's dashboard based on the input
+ * credentials. It manages UI components including headers, tables, and a
+ * navigation bar depending on the authentication status.
+ *
+ * @param handle The authentication handle for the user. A valid handle ensures
+ *               the user is authenticated, while an invalid one leads to an
+ *               unauthenticated state.
+ * @param buttons The set of buttons available for the authenticated user. This
+ *                is replaced with default values if the user is unauthenticated.
+ * @param pszFile The file path string for the dashboard setup. Used to determine
+ *                additional configuration details such as CGI file name.
+ * @param ssUsername The username provided for authentication.
+ * @param ssPassword The password provided for authentication.
+ * @return None. This is a constructor and does not return a value.
+ */
 dashboard::dashboard(
     int handle,
     int buttons,
@@ -133,14 +142,19 @@ dashboard::dashboard(
 }
 
 
-/*******************************************************
- * Emit the Navigation Bar
- * @param handle The index into the passwd.csv file
- * @param buttons A bitfield of button to show
- * @param ssCgiName The filename of the CGI file to run
- * @param ssUsername The username for authentication
- * @param ssPassword The password for authentication
- *******************************************************/
+/**
+ * Generates and displays navigation buttons for a web-based dashboard.
+ * Based on the specified parameters, the function determines which buttons
+ * to include in the navbar, such as "Journal", "Logout", and other
+ * administrative or customizable buttons depending on user roles and settings.
+ *
+ * @param handle A unique identifier for the session or request being processed.
+ * @param buttons A bitmask specifying which buttons to include in the navbar.
+ *                Flags such as JOURNAL and LOGOUT determine the displayed buttons.
+ * @param ssCgiName The CGI name of the current page or context, indicating the source.
+ * @param ssUsername The username of the currently authenticated user, used for authorization or specific actions.
+ * @param ssPassword The password of the currently authenticated user, typically used for authentication of specific requests or actions.
+ */
 void dashboard::navbar(
     int handle,
     int buttons,
@@ -249,12 +263,13 @@ void dashboard::navbar(
 }
 
 
-/******************************************************
- * Form a cgi invocation with required query parameters
- * @param pszName The name of the CGI file requested
- * @param handle AN index into the passwd.csv file
- * @return
- ******************************************************/
+/**
+ * Generates a CGI URL with an appended handle parameter.
+ *
+ * @param pszName The name used to generate the base CGI URL.
+ * @param handle An integer value representing the handle to be appended to the URL.
+ * @return A string representing the complete CGI URL with the handle parameter included.
+ */
 std::string dashboard::form_cgi(const char* pszName, int handle)
 {
     char szHandle[128];
@@ -266,9 +281,17 @@ std::string dashboard::form_cgi(const char* pszName, int handle)
     return ssBuffer;
 }
 
-/***************************************************************************
- * Process the query string and modify the shared display booleans as needed
- ***************************************************************************/
+/**
+ * Processes CGI toggle inputs and modifies shared memory variables
+ * or initiates specific actions based on the provided flags.
+ * Access to toggle actions is restricted to users with admin or
+ * developer authorization levels.
+ *
+ * @param ssCgiName The CGI name string used for processing form variables.
+ * @param ssUsername The username string for authorization verification.
+ * @param ssPassword The password string for authorization verification.
+ * @param handle An integer handle used for processing connections or sessions.
+ */
 void dashboard::process_toggles(
     std::string ssCgiName,
     std::string ssUsername,
@@ -337,9 +360,30 @@ void dashboard::process_toggles(
 }
 
 
-/************************************************************
- * Start the vpad by accessing port 5164 and waking up xinetd
- ************************************************************/
+/**
+ * @brief Establishes a connection to a server and sends a wake-up message.
+ *
+ * This method connects to a local server on a designated port, sends a
+ * predefined message ("Hello World!!"), and then closes the connection.
+ *
+ * The server host is identified by resolving "localhost". The connection
+ * is established using a TCP socket, and the port number is defined
+ * by the macro `VPA_PORT`. If any step of the execution fails (e.g.,
+ * socket creation, connection, or message sending), the method will print
+ * an error message and terminate the process with a specific exit code.
+ *
+ * Function process:
+ * 1. Resolves the "localhost" hostname to an IP address.
+ * 2. Initializes a `sockaddr_in` structure with server details,
+ *    including the port number and IP address in network byte order.
+ * 3. Creates a TCP socket.
+ * 4. Connects to the server using the initialized `sockaddr_in` structure.
+ * 5. Sends a predefined "Hello World!!" message to the server.
+ * 6. Closes the socket and terminates the session.
+ *
+ * @note This function directly exits the program on errors, making it
+ * unsuitable for exception-safe environments or usage in libraries.
+ */
 void dashboard::start_vpad()
 {
 

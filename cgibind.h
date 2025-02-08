@@ -10,15 +10,77 @@
 #include "std.h"
 #include "fw-limits.h"
 #include "cgicc.h"
+/**
+ * @brief Global pointer to an instance of the Cgicc class used for handling
+ *        CGI-based web interactions.
+ *
+ * This variable is used to process CGI (Common Gateway Interface) requests,
+ * retrieve form data, and manage environment variables within a web application.
+ * The instance facilitates interaction with HTTP requests and acts as a key
+ * component for parsing input data and managing CGI-related functionality.
+ *
+ * Cgicc is expected to be instantiated and initialized during the setup phase
+ * of the application to ensure proper handling of incoming CGI requests.
+ *
+ * Usage includes extracting form variables, accessing HTTP environment data
+ * such as user-agent strings, and other CGI utilities supported by the
+ * Cgicc library.
+ */
 extern Cgicc * gpCgi;
 
+/**
+ * @class cgibind
+ * @brief Provides an interface for handling CGI form variables and HTTP referrer parsing.
+ *
+ * The cgibind class is designed to interact with CGI environment variables, allowing extraction
+ * of form data submitted via HTTP requests as well as analyzing information about the referrer
+ * (the source of a web request).
+ */
 class cgibind {
+	/**
+	 * Default constructor for the `cgibind` class.
+	 * Initializes an instance of the `cgibind` class.
+	 *
+	 * @return A new instance of the `cgibind` class.
+	 */
 public:
     cgibind();
-    std::string get_form_variable(std::string ssVariableName);
-    std::string get_referrer();
-    std::string get_referrer_path();
-    std::string get_referrer_file();
+	/**
+	 * Retrieves the value of a form variable from CGI input based on the given variable name.
+	 *
+	 * @param ssVariableName The name of the variable to retrieve from the form data.
+	 * @return The value of the specified form variable as a string. If the variable is not found,
+	 *         an empty string is returned.
+	 */
+	std::string get_form_variable(std::string ssVariableName);
+	/**
+	 * Retrieves the referrer of the current HTTP request.
+	 *
+	 * The method extracts the HTTP referrer information from the CGI environment
+	 * and returns it as a string.
+	 *
+	 * @return A string containing the HTTP referrer of the current request.
+	 */
+	std::string get_referrer();
+	/**
+	 * Retrieves the directory path portion of the HTTP referrer URL.
+	 *
+	 * This method extracts the HTTP referrer using the CGI environment and removes
+	 * the filename portion of the path, returning only the directory path.
+	 *
+	 * @return A string representing the path portion of the HTTP referrer URL.
+	 *         If the HTTP referrer is invalid or unavailable, the returned path
+	 *         could be empty.
+	 */
+	std::string get_referrer_path();
+	/**
+	 * Extracts and returns the file name component from the HTTP referrer URL.
+	 * This method processes the HTTP referrer obtained via the CGI environment
+	 * to isolate the file name part by removing the path portion of the URL.
+	 *
+	 * @return The file name component of the HTTP referrer URL as a std::string.
+	 */
+	std::string get_referrer_file();
 };
 
 #endif // MULTIWARE_CGIBIND_H

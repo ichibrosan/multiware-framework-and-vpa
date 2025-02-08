@@ -7,24 +7,17 @@
 #include "cgihtml.h"
 
 
-/******************************************************
- * This is the constructor for the cgihtml class.
- * It emits the html tag which identifies the document
- * as an HTML page.
- ******************************************************/
+/**
+ *
+ */
 cgihtml::cgihtml()
 {
 }
 
 
-/***************************************************************
- * This function emits a fully formed A HREF tag for the purpose
- * of creating a visible link on the web page.
- * @param szURL A C string containing the URL of the target
- * @param szImgURL A pointer to a null terminated string
- * containing the filename of the image for the link.
- * Re-written 2025/01/27 03:07 dwg - using modern c++
- ***************************************************************/
+/**
+ *
+ */
 void cgihtml::ahref(
     const char *szURL,
     const char * szImgURL,
@@ -37,16 +30,8 @@ void cgihtml::ahref(
 }
 
 
-/****************************************************************
- * Create an ahref link with dynamic CSS, an image, or otherwise.
- * @param pszLink Link the ahref will send the browser to.
- * @param pszImage If using an image set this and keep pszButtonClass
- *          empty.
- * @param pszButtonClass If using a CSS style set this and keep
- *          pszImage empty.
- * @param pszButtonDisplay What the button displays on the page.
+/**
  *
- * Marcus Franklin 20:02 1-26-2025
  */
 void cgihtml::xahref(const char * pszLink,
                      const char * pszButtonClass,
@@ -57,78 +42,76 @@ void cgihtml::xahref(const char * pszLink,
 }
 
 
-/************************************
- * Emit a close body tag
- * Rewritten 2025/01/27 in modern c++
- ************************************/
+/**
+ *
+ */
 void cgihtml::close_body()
 {
     std::cout << "</body>"  << std::endl;
 }
 
 
-/************************************
- * Emits a close form tag
- * Rewritten 2025/01/27 in modern c++
- ************************************/
+/**
+ *
+ */
 void cgihtml::close_form()
 {
     std::cout << "</form>" << std::endl;
 }
 
 
-/***************************************************
- * Emits a tag closing head section of the web page.
- * Rewritten 2025/01/27 in modern c++
- ***************************************************/
+/**
+ */
 void cgihtml::close_head()
 {
     std::cout << "</head>"  << std::endl;
 }
 
 
-/************************************
- * Emit a close html tag
- * Rewritten 2025/01/17 in modern c++
- ************************************/
+/**
+ * Outputs the closing HTML tag.
+ *
+ * This method prints the closing `</html>` tag to the standard output
+ * stream to properly terminate the HTML document.
+ */
 void cgihtml::close_html()
 {
     std::cout << "</html>" << std::endl;
 }
 
 
-/************************************
- * Emit a close table tag
- * Rewritten 2025/01/27 in modern c++
- ************************************/
+/**
+ *
+ */
 void cgihtml::close_table()
 {
     std::cout << "</table>"  << std::endl;
 }
 
-/***************************
- * Emit a close table tag
- ***************************/
+/**
+ *
+ */
 void cgihtml::close_div()
 {
     print("</div>\n");
 }
 
 
-/************************************
- * Emit a close script tag
- * Rewritten 2025/01/27 in modern c++
- ************************************/
+/**
+ * Closes the script tag in an HTML output stream.
+ *
+ * This method outputs the closing </script> tag to the standard output stream,
+ * ensuring proper closure of a script block in HTML documents.
+ */
 void cgihtml::close_script()
 {
     std::cout << "</script>"  << std::endl;
 }
 
 
-/***************************************************************
- * Display the contents of the password CSV in the browser FYI *
- * 2025/01/27 dwg - fixed hard coded number of columns
- ***************************************************************/
+/**
+ *
+ */
 void cgihtml::dump_passwd()
 {
     int iNumPasswdCols =
@@ -205,7 +188,7 @@ void cgihtml::dump_passwd()
 
 
 /**
- * Display all environment variables available
+ *
  */
 void cgihtml::dump_env_vars() {
     int iColumns = 2;
@@ -279,12 +262,9 @@ void cgihtml::dump_env_vars() {
 }
 
 
-/************************************************
- * Display Referrer information in browser FYI
- * @param ssReferrer
- * @param ssReferrerPath
- * @param ssReferrerFile
- ************************************************/
+/**
+ *
+ */
 void cgihtml::dump_referrer(
                 std::string ssReferrer,
                 std::string ssReferrerPath,
@@ -301,9 +281,9 @@ void cgihtml::dump_referrer(
 }
 
 
-/***************************************
- * Dump the current schema
- ***************************************/
+/**
+ *
+ */
 void cgihtml::dump_schema()
 {
   std::cout << "<table border=2> <tr>";
@@ -345,9 +325,9 @@ void cgihtml::dump_schema()
 }
 
 
-/**************************************************
- * Dump Shared Memory Variables
- **************************************************/
+/**
+ *
+ */
 void cgihtml::dump_shm_vars()
 {
     char szTemp[BUFSIZ];
@@ -487,13 +467,9 @@ void cgihtml::dump_shm_vars()
 }
 
 
-/***************************************************************
- * Form Date element handler
- * @param pszName
- * @param pszId
- * @param pszValue
- * @param pszDescr
- ***************************************************************/
+/**
+ *
+ */
 void cgihtml::form_date(const char *pszName,   // COL_DATE_NAME
                         const char *pszId,     // COL_DATE_ID
                         const char *pszValue,  // COL_DATE_VALUE
@@ -511,13 +487,9 @@ void cgihtml::form_date(const char *pszName,   // COL_DATE_NAME
 }
 
 
-/**********************************************************************
- * datetime element handler
- * @param pszName
- * @param pszId
- * @param pszValue
- * @param pszDescr
- **********************************************************************/
+/**
+ *
+ */
 void cgihtml::form_datetime(
         const char *pszName,   // COL_DATETIME_NAME
         const char *pszId,     // COL_DATETIME_ID
@@ -536,23 +508,18 @@ void cgihtml::form_datetime(
 }
 
 
-/***********************************************
- * Emit a label in the HTML stream
- * @param pszVisible
- ***********************************************/
+/**
+ *
+ */
 void cgihtml::form_label(const char *pszVisible)
 {
     std::cout << pszVisible << std::endl;
 }
 
 
-/****************************************************
- * month element handler
- * @param pszName
- * @param pszId
- * @param pszValue
- * @param pszDescr
- ****************************************************/
+/**
+ *
+ */
 void cgihtml::form_month(
         const char *pszName,   // COL_MONTH_NAME
         const char *pszId,     // COL_MONTH_ID
@@ -571,14 +538,9 @@ void cgihtml::form_month(
 }
 
 
-/********************************************************************
- * Password Element Handler
- * @param pszName
- * @param pszValue
- * @param pszSize
- * @param pszVisible
- * 2025-01-14 14:00 dwg -
- ********************************************************************/
+/**
+ *
+ */
 void cgihtml::form_text(const char * szName,
                         const char * szValue,
                         const char * szSize,
@@ -604,17 +566,9 @@ void cgihtml::form_text(const char * szName,
 }
 
 
-/***********************************************
- * text element handler
- * @param szName
- * @param szID
- * @param szValue
- * @param szSize
- * @param szVisible
- * @param szReadonly
- * @param szDescr
- * @param szClass
- **********************************************/
+/**
+ *
+ */
 void cgihtml::form_text(const char * szName,
                         const char * szID,
                         const char * szValue,
@@ -641,17 +595,9 @@ void cgihtml::form_text(const char * szName,
 }
 
 
-/********************************************************************
- * Password Element Handler
- * @param pszName
- * @param pszValue
- * @param pszSize
- * @param pszVisible
- * @param pszDescr
- * 2025-01-14 13:40 dwg - revised using Phoenix code as HTML reference
- * <label for="pwd">Password:</label><br>
- * <input type="password" id="pwd" name="pwd">
- *******************************************************************/
+/**
+ *
+ */
 void cgihtml::form_password(
         const char *pszName,        // COL_PASSWORD_NAME
         const char *pszId,          // COL_PASSWORD_ID
@@ -671,12 +617,9 @@ void cgihtml::form_password(
 }
 
 
-/***************************************************************
- * select element handler
- * @param pszSelectName
- * @param selectValues
- * @param pszSelectClass
- ***************************************************************/
+/**
+ *
+ */
 void cgihtml::form_select(
         const char * pszSelectName,
         std::vector<std::string> selectValues,
@@ -695,12 +638,9 @@ void cgihtml::form_select(
 }
 
 
-/***********************************************************
- * files_select element handler
- * @param pszSelectName
- * @param pszSelectPath
- * @param pszSelectClass
- ***********************************************************/
+/**
+ *
+ */
 void cgihtml::form_files_select(
         const char * pszSelectName,
         const char * pszSelectPath,
@@ -720,12 +660,10 @@ void cgihtml::form_files_select(
 }
 
 
-/**************************************************
- * Schema Handler for the postcheckbox input tag
- * @param pszGroup
- * @param pszVisible
- * @param pszComment
- **************************************************/
+/**
+ * Creates and outputs an HTML checkbox input element.
+ *
+ * This method generates a checkbox with the specified properties and*/
 void cgihtml::form_postcheckbox(
         const char *pszName,
         const char *pszId,
@@ -748,12 +686,9 @@ void cgihtml::form_postcheckbox(
 }
 
 
-/**************************************************
- * Schema Handler for the precheckbox input tag
- * @param pszGroup
- * @param pszVisible
- * @param pszComment
- **************************************************/
+/**
+ *
+ */
 void cgihtml::form_precheckbox(
         const char *pszName,
         const char *pszId,
@@ -776,20 +711,18 @@ void cgihtml::form_precheckbox(
 }
 
 
-/*********************************************************
- * Schema element reset handler
- * @param pszValue
- * <input type="reset" value="Reset">
- *********************************************************/
+/**
+ *
+ */
 void cgihtml::form_reset()
 {
     std::cout << "<input type=\"reset\" value=\"Reset\">";
 }
 
 
-/************************************************************
- * Emits a submit tag
- ************************************************************/
+/**
+ *
+ */
 void cgihtml::form_submit()
 {
     gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
@@ -797,17 +730,13 @@ void cgihtml::form_submit()
 }
 
 
-/******************************************************
- * Text Element Handler
- * @param pszLabel
- * @param pszVisible
- * 2025-01-14 14:00 dwg -
+/**
+ * Generates and outputs an HTML text input field with an associated label.
  *
- * <label for="fname">First Name</label>
- * <input type="text" id="fname" name="fname"
- *        placeholder="Enter your first name" required>
+ * This method creates an HTML text input field along with a visible label
+ * and writes the generated HTML to the standard output.
  *
- ******************************************************/
+ * @param sz*/
 void cgihtml::form_text(const char * szName,
                         const char * szId,
                         const char * szValue,
@@ -826,24 +755,11 @@ void cgihtml::form_text(const char * szName,
 }
 
 
-/***********************************************
- * Schema Handler for the textarea input tag
- * @param pszName
- * @param pszRows
- * @param pszCols
+/**
+ * Generates and outputs an HTML <textarea> element with the specified attributes.
  *
- * def textarea(htmlfd,name,itemsize,value,visible):
- *	htmlfd.write("<textarea " + \
- *	             "cols=64 " + \
- *	             "rows=16 " + \
- *	             "id=\"" + name + "\" " + \
- *	             "name=\"" + name + "\" " + \
- *	             "maxlength=\"" + itemsize+"\" " + \
- *	             "wrap=\"hard\" >")
- *	htmlfd.write(value)
- *	htmlfd.write("</textarea>")
- *
- ***********************************************/
+ * The function constructs a <textarea> element using the provided parameters for
+ * attributes such as name, ID, dimensions, wrapping behavior, CSS class, and initial value*/
 void cgihtml::form_textarea(const char *pszName,
                             const char *pszID,
                             const char *pszCols,
@@ -873,13 +789,9 @@ void cgihtml::form_textarea(const char *pszName,
 }
 
 
-/***************************************************************
- * Schema handler for time element
- * @param pszName
- * @param pszId
- * @param pszValue
- * @param pszDescr
- ***************************************************************/
+/**
+ *
+ */
 void cgihtml::form_time(const char *pszName,   // COL_TIME_NAME
                         const char *pszId,     // COL_TIME_ID
                         const char *pszValue,  // COL_TIME_VALUE
@@ -898,14 +810,7 @@ void cgihtml::form_time(const char *pszName,   // COL_TIME_NAME
 
 // Marcus Franklin 15:02 1-26-2025
 /**
- * Create an Iframe.
- * @param pszIframeDefaultPage
- * @param pszIframeTitle
- * @param pszIframeName
- * @param pszIframeClass
- * @param i_IframeWidth
- * @param i_IframeHeight
- */
+ * Generates*/
 void cgihtml::form_iframe(const char * pszIframeDefaultPage,
                           const char * pszIframeTitle,
                           const char * pszIframeName,
@@ -924,13 +829,9 @@ void cgihtml::form_iframe(const char * pszIframeDefaultPage,
                  i_IframeHeight);
 }
 
-/*****************************************************************
- * Schema handler for week element
- * @param pszName
- * @param pszId
- * @param pszValue
- * @param pszDescr
- *****************************************************************/
+/**
+ *
+ */
 void cgihtml::form_week(const char *pszName,   // COL_WEEK_NAME
                         const char *pszId,     // COL_WEEK_ID
                         const char *pszValue,  // COL_WEEK_VALUE
@@ -948,15 +849,9 @@ void cgihtml::form_week(const char *pszName,   // COL_WEEK_NAME
 }
 
 
-/**********************************************
- * Create an ahref link that targets an Iframe.
- * @param pszAnchorLink
- * @param pszButtonName
- * @param pszIframeTarget
- * @param pszButtonClass
+/**
  *
- * Marcus Franklin 14:57 1-26-2025
- **********************************************/
+ */
 void cgihtml::form_button(const char * pszType,
                           const char * pszForm,
                           const char * pszButtonClass,
@@ -967,12 +862,9 @@ void cgihtml::form_button(const char * pszType,
 }
 
 
-/*********************************************************************
- * Insert a hidden field with a provided value for the CGI
- * @param pszName
- * @param pszValue
- * <input type="hidden" name="" />
- *********************************************************************/
+/**
+ *
+ */
 void cgihtml::hidden(const char * pszName,const char *pszValue)
 {
     // char szBuffer[BUFSIZ];
@@ -986,14 +878,9 @@ void cgihtml::hidden(const char * pszName,const char *pszValue)
 }
 
 
-/******************************************************************
- * Emits a fully formed IMG SRC tag containing the URL of the image
- * adjusted to the size indicated.
- * @param szURL A pointer to a null terminated string containing the
- * URL of the image to be displayed.
- * @param width The image width in pixels
- * @param height The image height in pixels
- *******************************************************************/
+/**
+ *
+ */
 void cgihtml::imgsrc(const char *pszImageFN,int width,int height)
 {
     std::string ssImgFQFS = gpSh->m_pShMemng->szImgRoot;
@@ -1016,21 +903,18 @@ void cgihtml::imgsrc(const char *pszImageFN,int width,int height)
 }
 
 
-/**************************
- * emit an open body tag
- **************************/
+/**
+ *
+ */
 void cgihtml::open_body()
 {
     std::cout << "<body>";
 }
 
 
-/****************************************************************
- * Emits a form tag
- * @param pszCgiFilename
- * form:get  <form action="" method="get"></form>
- * form:post <form action="" method="post"></form>
- ****************************************************************/
+/**
+ *
+ */
 void cgihtml::open_form(    const char * pszSchemaName,
                             const char * pszCgiFilename,
                             const char * pszProt,
@@ -1048,18 +932,18 @@ void cgihtml::open_form(    const char * pszSchemaName,
 }
 
 
-/**********************************************************
- * Emit Open Head Tag
- **********************************************************/
+/**
+ *
+ */
 void cgihtml::open_head()
 {
     std::cout << "<head>";
 }
 
 
-/**************************
- * Emit an Open HTML tag
- **************************/
+/**
+ *
+ */
 void cgihtml::open_html()
 {
     std::cout << "<html>";
@@ -1067,7 +951,9 @@ void cgihtml::open_html()
 
 
 /**
+ * Opens a script block in HTML output.
  *
+ * This method writes the opening `<script>` tag to the standard output.
  */
 void cgihtml::open_script()
 {
@@ -1075,10 +961,9 @@ void cgihtml::open_script()
 }
 
 
-/***********************************************************
- * emit open div tag
- * @param pszDivClass
- ***********************************************************/
+/**
+ *
+ */
 void cgihtml::open_div(const char * pszDivClass)
 {
     gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
@@ -1086,30 +971,27 @@ void cgihtml::open_div(const char * pszDivClass)
 }
 
 
-/**********************
- * Emits a pargraph tag
- **********************/
+/**
+ *
+ */
 void cgihtml::para()
 {
     std::cout << "<p>";
 }
 
 
-/*********************************************
- * A function to emit a null terminated string
- * @param szText
- *********************************************/
+/**
+ *
+ */
 void cgihtml::print(const char *szText)
 {
     std::cout << szText;
 }
 
 
-/********************************************************
- *A function to print that uses vararg to act like printf
- * @param pszFormat
- * @param ...
- ********************************************************/
+/**
+ *
+ */
 void cgihtml::printv(const char *pszFormat,...)
 {
     char szFormat[BUFSIZ];
@@ -1125,11 +1007,15 @@ void cgihtml::printv(const char *pszFormat,...)
 }
 
 
-/***************************************************************
- * Overloaded function to print a labeled string
- * @param pszName
- * @param pszValue
- ***************************************************************/
+/**
+ * Prints the specified variable name along with its boolean value as a message.
+ *
+ * Formats a message indicating whether the given variable is true or false
+ * and outputs it using the print method.
+ *
+ * @param pszName The name of the variable to be printed.
+ * @param bValue The boolean value of the variable. If true, the message indicates the variable is true; otherwise, false.
+ */
 void cgihtml::printvar(const char *pszName,bool bValue)
 {
     gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
@@ -1143,43 +1029,43 @@ void cgihtml::printvar(const char *pszName,bool bValue)
 }
 
 
-/***************************************************************
- * Overloaded function to print a labeled string
- * @param pszName
- * @param pszValue
- ***************************************************************/
+/**
+ * Prints a variable name and its corresponding value to the standard output.
+ *
+ * This method outputs the given name and value pair in the format "name = value".
+ *
+ * @param pszName The name of the variable to be printed.
+ * @param pszValue The value of the variable to be printed.
+ */
 void cgihtml::printvar(const char *pszName,const char *pszValue)
 {
     std::cout << pszName << " = " << pszValue << std::endl;
 }
 
 
-/****************************************************
- * Overloaded function to print a labeled integer
- * @param pszName
- * @param iValue
- ****************************************************/
+/**
+ *
+ */
 void cgihtml::printvar(const char *pszName,int iValue)
 {
     std::cout << pszName << " = " << iValue << std::endl;
 }
 
 
-/********************************************************
- * Overloaded function to print a labeled double
- * @param pszName
- * @param dValue
- ********************************************************/
+/**
+ * Prints the name and corresponding double value to the output stream.
+ *
+ * @param pszName The name or label to be displayed.
+ * @param dValue*/
 void cgihtml::printvar(const char *pszName,double dValue)
 {
     std::cout << pszName << " = " << dValue << std::endl;
 }
 
 
-/*************************************
- * Emit an open table tag
- * @param border
- *************************************/
+/**
+ *
+ */
 void cgihtml::open_table(int border)
 {
     std::cout << "<table "
@@ -1188,11 +1074,9 @@ void cgihtml::open_table(int border)
 }
 
 
-/******************************************************
- * script_button
- * @param pszButtonName
- * @param pszVisible
- ******************************************************/
+/**
+ *
+ */
 void cgihtml::script_button(const char * pszButtonName,
                             const char * pszVisible)
 {
@@ -1205,10 +1089,8 @@ void cgihtml::script_button(const char * pszButtonName,
 }
 
 
-/***********************************************************
- * Sets a stylesheet for the page.
- * @param pszStylesheet
- ***********************************************************/
+/**
+ * Sets the stylesheet for the cgihtml*/
 void cgihtml::set_style(const char * pszStylesheet)
 {
     gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
@@ -1218,11 +1100,9 @@ void cgihtml::set_style(const char * pszStylesheet)
 }
 
 
-/*********************************************************************
- * Emit a title field (used in the head section of the HTML document.
- * @param szTitle A pointer to a null terminated string containing the
- * title of the web page.
- *********************************************************************/
+/**
+ *
+ */
 void cgihtml::title(const char * szTitle)
 {
     std::cout << "<title>" << szTitle << "</title>" << std::endl;

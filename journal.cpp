@@ -5,8 +5,11 @@
 #include "journal.h"
 
 /**
+ * The main function initializes necessary components for an application, including logging, environment settings,
+ * schema processing, and dashboard display. It also processes input data from CGI form variables.
  *
- * @return This is the CGI main entry point
+ * @return An integer value which signifies the program's exit status.
+ *         Returns EXIT_SUCCESS if the program executes successfully.
  */
 int main() {
     char *ptr = getenv("SERVER_PROTOCOL");

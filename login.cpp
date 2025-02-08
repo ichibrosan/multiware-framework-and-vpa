@@ -3,13 +3,33 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 #include "login.h"
+/**
+ * @brief A temporary character buffer used for storing formatted strings.
+ *
+ * This buffer is typically utilized for logging and debugging purposes,
+ * where formatted strings containing file names, function names, and line
+ * numbers are stored before being passed to a logging mechanism.
+ *
+ * @note The buffer has a fixed size of 128 characters. Care should be
+ *       taken to avoid buffer overflows when copying or formatting
+ *       strings into it.
+ */
 char szTemp[128];
 
 
-/*****************************************************************
- * This is the main entry point of the CGI script
- * @return Always returns EXIT_SUCCESS
- *****************************************************************/
+/**
+ * @brief Entry point of the application, initializes various objects,
+ *        handles user authentication, and generates appropriate dashboards
+ *        or schemas based on the authentication and permissions.
+ *
+ * Initializes system logging, CGI environment, shared memory, and CSV
+ * data parser. It checks CGI mode, processes user credentials, fetches
+ * user-specific data from the CSV storage, and determines access levels
+ * and permissions. Based on the user's authentication level, it generates
+ * customized schemas or dashboards.
+ *
+ * @return EXIT_SUCCESS on successful execution.
+ */
 int main() {
   gpSysLog = new CSysLog();
   gpSysLog->loginfo(__FILE__ );

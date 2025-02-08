@@ -5,6 +5,12 @@
 
 #include "vpad.h"
 
+/**
+ * Main function for the vpad application, responsible for initializing system components,
+ * configuring shared memory, and maintaining application runtime operations.
+ *
+ * @return Returns 0 upon successful execution.
+ */
 int main() {
     char szTimestamp[128];
 
