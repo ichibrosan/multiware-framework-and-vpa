@@ -3,6 +3,9 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-08 12:40 dwg - 
+add image to dashboard is avatar exists
+
 2025-02-07 20:34 dwg - fix bug in std::string environment::get_ip(bool bDebug)
 that caused infinite loop if target interface in "ip a" was number 10 or more.
 Fixed with some modern find magic, thanks Marcus.

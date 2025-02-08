@@ -192,6 +192,9 @@ public:
 	 * @return A fully constructed URL string pointing to the specified image.
 	 */
 	std::string genImgUrl(const char *pszImgName,bool bDebug);
+
+	std::string genImgPath(const char *pszImgName,bool bDebug);
+
 	/**
 	 * Generates a fully qualified schema based on the provided parameters.
 	 *

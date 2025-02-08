@@ -5,7 +5,8 @@
 
 
 #define SHOW_PRIVILEGE_LEVEL
-#define SHOW_AUTHENTICATED_USER
+#define SHOW_AUTHENTICATED_USERNAME
+#define SHOW_AUTHENTICATED_REAL_NAMES
 //#define SHOW_AUTHENTICATION_HANDLE
 
 #define SHOW_SCHEMA_BUTTONS
@@ -88,6 +89,18 @@ dashboard::dashboard(
     ssCgiName  = ssFile.substr(ssFilePath.length(),ssFile.length());
     ssCgiName  = std::filesystem::path(ssCgiName).replace_extension(".cgi");
 
+    std::string ssAvatar = m_szAuthUserName;
+    ssAvatar.append("-avatar.png");
+    bool bAvatarExists = false;
+    if (std::filesystem::is_regular_file(gpOS->genImgPath(ssAvatar.c_str(),F_OK)))
+    {
+        bAvatarExists = true;
+        gpHtml->open_table(4);
+        std::cout << "<tr><td>";
+        gpHtml->imgsrc(ssAvatar.c_str(),110,110);
+        std::cout << "</td><td>";
+    }
+
     /*
      * Use the iBorder variable so we can avoid using a magic number in the
      * cout stream below/
@@ -102,7 +115,16 @@ dashboard::dashboard(
 
     std::cout << "<table border=1>";
 
-#ifdef SHOW_AUTHENTICATED_USER
+#ifdef SHOW_AUTHENTICATED_USERNAME
+    if (bAuthenticated) {
+        std::cout << "<tr>"
+                  << "<th>Authenticated Username</th>"
+                  << "<td>" << m_szAuthUserName << "</td>"
+                  << "</tr>";
+    }
+#endif // SHOW_AUTHENTICATED_USERNAME
+
+    #ifdef SHOW_AUTHENTICATED_REAL_NAMES
     if (bAuthenticated) {
         std::cout << "<tr>"
                   << "<th>Authenticated User</th>"
@@ -110,7 +132,7 @@ dashboard::dashboard(
                             << m_szAuthLastName  << "</td>"
                   << "</tr>";
     }
-#endif // SHOW_AUTHENTICATED_USER
+#endif // SHOW_AUTHENTICATED_REAL_NAMES
 
 #ifdef SHOW_PRIVILEGE_LEVEL
     if (bAuthenticated) {
@@ -139,6 +161,12 @@ dashboard::dashboard(
      * user doesn't get any buttons before authentication.
      */
     navbar(handle,iEffectiveButtons,ssCgiName,ssUsername,ssPassword);
+
+    if (bAuthenticated)
+    {
+        std::cout << "</td></tr>";
+        gpHtml->close_table();
+    }
 }
 
 

@@ -184,6 +184,30 @@ std::string osIface::file2filenamesansext(const char * pszFile)
 
 
 /**
+ * @brief Generates the file path for an image based on a given image name.
+ *
+ * This method constructs a file path by using the current file's directory
+ * path, appending a predefined subdirectory for images, and then appending
+ * the provided image name. Optionally allows for debug handling if required.
+ *
+ * @param pszImgName A pointer to a constant character string representing the
+ *                   name of the image file.
+ * @param bDebug A boolean flag that can be used for debug-specific
+ *                   functionality.
+ * @return The generated file path as a string.
+ */
+std::string osIface::genImgPath(const char *pszImgName,bool bDebug)
+{
+    std::string ssPath = __FILE__;
+    ssPath = std::filesystem::path(ssPath).remove_filename();
+    ssPath.append("/images/");
+    ssPath.append(pszImgName);
+    return ssPath;
+}
+
+
+
+/**
  * Generates a complete URL string for an image using protocol, IP, user, and image name.
  *
  * @param pszImgName A pointer to the image name that will be appended to form the URL.
