@@ -81,12 +81,12 @@ cd ..
 # LETS INSTALL THE LIBPCAP
 # Remove any old code
 rm -r -f libpcap*
-# Fetch the source code using wget
-wget https://www.tcpdump.org/release/libpcap-1.10.4.tar.xz
+# Fetch the source code using wget (version updated 2025-02-07 dwg)
+wget https://www.tcpdump.org/release/libpcap-1.10.5.tar.xz
 # tar it up for later
-tar -xf libpcap-1.10.4.tar.xz
+tar -xf libpcap-1.10.5.tar.xz
 # Enter the source tree
-cd libpcap-1.10.4
+cd libpcap-1.10.5
 # do the steps
 ./configure
 make 
@@ -97,12 +97,12 @@ cd ..
 # LETS INSTALL TCPDUMP
 # Remove any old code
 rm -r -f tcpdump*
-# Fetch the source code using wget
-wget https://www.tcpdump.org/release/tcpdump-4.99.4.tar.xz
+# Fetch the source code using wget (version updated 2025-02-07 dwg)
+wget https://www.tcpdump.org/release/tcpdump-4.99.5.tar.xz
 # tar it up for later
-tar -xf tcpdump-4.99.4.tar.xz
+tar -xf tcpdump-4.99.5.tar.xz
 # Enter the source tree
-cd tcpdump-4.99.4
+cd tcpdump-4.99.5
 # do the steps
 ./configure
 make
@@ -112,5 +112,3 @@ cd ..
 
 # Display the resulting files
 ls -C
-
-
