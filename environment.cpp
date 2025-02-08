@@ -232,12 +232,15 @@ std::string environment::get_ip(bool bDebug)
   char szIfaceColon[BUFSIZ];
   strncpy(szIfaceColon, m_szIface, BUFSIZ);
   strcat(szIfaceColon, ":");
-  fgets(szBuffer, sizeof(szBuffer), ipfd);
-  while (0 != strncmp(&szBuffer[3],
-                      szIfaceColon,
-                      strlen(szIfaceColon))) {
+
+	std::string ssIfaceColon = szIfaceColon;
+	fgets(szBuffer, sizeof(szBuffer), ipfd);
+	std::string ssBuffer = szBuffer;
+	while (std::string::npos == ssBuffer.find(ssIfaceColon)) {
       fgets(szBuffer, sizeof(szBuffer), ipfd);
-    }
+		ssBuffer = szBuffer;
+	}
+
     fgets(szBuffer, sizeof(szBuffer), ipfd);
     while (0 != strncmp("inet", &szBuffer[4], 4)) {
         fgets(szBuffer, sizeof(szBuffer), ipfd);
