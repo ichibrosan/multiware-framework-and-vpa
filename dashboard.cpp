@@ -92,7 +92,8 @@ dashboard::dashboard(
     std::string ssAvatar = m_szAuthUserName;
     ssAvatar.append("-avatar.png");
     bool bAvatarExists = false;
-    if (std::filesystem::is_regular_file(gpOS->genImgPath(ssAvatar.c_str(),F_OK)))
+    if (std::filesystem::is_regular_file(
+        gpOS->genImgPath(ssAvatar.c_str(),F_OK)))
     {
         bAvatarExists = true;
         gpHtml->open_table(4);
@@ -161,7 +162,7 @@ dashboard::dashboard(
      */
     navbar(handle,iEffectiveButtons,ssCgiName,ssUsername,ssPassword);
 
-    if (bAuthenticated)
+    if (bAvatarExists)
     {
         std::cout << "</td></tr>";
         gpHtml->close_table();
