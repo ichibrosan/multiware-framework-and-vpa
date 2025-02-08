@@ -3,6 +3,10 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-07 20:34 dwg - fix bug in std::string environment::get_ip(bool bDebug)
+that caused infinite loop if target interface in "ip a" was number 10 or more.
+Fixed with some modern find magic, thanks Marcus.
+
 2025-02-07 11:13 dwg - updated ROW_META_DATA and ROW_DATA_HDR in all schemas.
 
 2025-02-07 08:30 dwg - fixed bug in noteload (spurious tail data) and

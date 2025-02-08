@@ -222,41 +222,91 @@ std::string environment::get_interface(bool bDebug) {
 /******************************************
  * Determine the IP of the host machine
  * @param bDebug
- * @return
+ * @return Returns a std::string containing
+ *			our primary IPv4 IP number
+ *	Note: The method used in this function
+ *	is to redirect the stdout of the "ip a"
+ *	command to a file in the /tmp and read it
+ *	back to scrape the IP number from the
+ *	output. Having previously found our
+ *	interface name, we scan down the output
+ *	until we find the line for our interface,
+ *	then we look a line later for the IPv4 IP
+ *	number associated with the interface.
+ *	2025-02-07 20:33 dwg -
  ******************************************/
 std::string environment::get_ip(bool bDebug)
 {
-  char szBuffer[BUFSIZ];
-  system("ip a > /tmp/ip.out");
-  FILE *ipfd = fopen("/tmp/ip.out", "r");
-  char szIfaceColon[BUFSIZ];
-  strncpy(szIfaceColon, m_szIface, BUFSIZ);
-  strcat(szIfaceColon, ":");
+	// define a buffer for reading lines from the
+	// /tmp/ip.out file.
+	char szBuffer[BUFSIZ];
 
+	// execute the ip command and redirect the
+	// output where we can find it.
+	system("ip a > /tmp/ip.out");
+
+	// Open the read for input
+	FILE *ipfd = fopen("/tmp/ip.out", "r");
+
+	// define a buffer to hold our interface
+	// name with a postpended colon.
+	char szIfaceColon[BUFSIZ];
+
+	// copy in the interfdace name  found previously
+	strncpy(szIfaceColon, m_szIface, BUFSIZ);
+
+	// append the colon
+	strcat(szIfaceColon, ":");
+
+	// convert the interface name with colon to a standard string
 	std::string ssIfaceColon = szIfaceColon;
-	fgets(szBuffer, sizeof(szBuffer), ipfd);
-	std::string ssBuffer = szBuffer;
-	while (std::string::npos == ssBuffer.find(ssIfaceColon)) {
-      fgets(szBuffer, sizeof(szBuffer), ipfd);
-		ssBuffer = szBuffer;
-	}
 
+	// read a line from the file into a zero terminated string
+	fgets(szBuffer, sizeof(szBuffer), ipfd);
+
+	// convcert the zero terminated string to a standard string
+	std::string ssBuffer = szBuffer;
+
+	// while waiting to see the string with our interface in it...
+	while (std::string::npos == ssBuffer.find(ssIfaceColon)) {
+
+		// get another line
+		fgets(szBuffer, sizeof(szBuffer), ipfd);
+
+		// convert to a std::string
+		ssBuffer = szBuffer;
+
+	} // rinse and repeat...
+
+	// scan for the line with the inet address in it
     fgets(szBuffer, sizeof(szBuffer), ipfd);
     while (0 != strncmp("inet", &szBuffer[4], 4)) {
         fgets(szBuffer, sizeof(szBuffer), ipfd);
     }
+
+	// clear the result string to all zeroes
     memset(m_szIP, 0, sizeof(m_szIP));
-    int index = 9;
-    int destindex = 0;
-    while (szBuffer[index] != '/') {
+
+	int index = 9;			// offset of IP address in line (fixed)
+    int destindex = 0;		// starting offset in the destn string
+
+	// copy until we find a slash
+	while (szBuffer[index] != '/') {
         m_szIP[destindex++] = szBuffer[index++];
     }
+
+	// If it happens to be Doug's workstation, convert the IP
+	// number to a fully qualified DNS name.
     if (0 == strcmp("192.168.4.17", m_szIP)) {
         strncpy(m_szIP, "daphne.goodall.com", DNS_FQDN_SIZE_MAX);
     }
+	// write the zero terminated IP number to the shared
     strncpy(gpSh->m_pShMemng->szIP, m_szIP, DNS_FQDN_SIZE_MAX);
 
+	// convert the zero terminated IP to std::string
     std::string ssRetVal = gpSh->m_pShMemng->szIP;
+
+	// return the std::string  version of the IP number
     return ssRetVal;
 }
 
