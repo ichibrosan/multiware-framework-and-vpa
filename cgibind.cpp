@@ -17,16 +17,15 @@ cgibind::cgibind()
 
 }
 
-/**
- * Retrieves the value of a form variable from the CGI input based on the given variable name.
- *
- * This method checks the incoming CGI form data for a variable matching the
- * specified name and returns its value. If the variable is not found, an
- * empty string is returned.
+/************************************************************************
+ * Retrieves the value of a form variable from the CGI input based on the
+ * given variable name. This method checks the incoming CGI form data for
+ * a variable matching the specified name and returns its value. If the
+ * variable is not found, an empty string is returned.
  *
  * @param ssVariableName The name of the form variable to retrieve.
- * @return The value of the specified form variable as a string. If the variable is
- *         not present in the form data, returns an empty string.
+ * @return The value of the specified form variable as a string. If the
+ *         variable is not present in the form data, returns an empty string.
  */
 std::string cgibind::get_form_variable(std::string ssVariableName)
 {

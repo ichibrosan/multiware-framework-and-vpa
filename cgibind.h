@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/doug/public_html/fw/cgibind.h 2025/01/27 02:51 //
+// daphne.goodall.com:/home/doug/public_html/fw/cgibind.h 2025/02/08 07:16 //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.      //
 // This file is part of the Goodall MultiWare Framework Project.           //
 /////////////////////////////////////////////////////////////////////////////
@@ -13,38 +13,36 @@
 /**
  * @brief Global pointer to an instance of the Cgicc class used for handling
  *        CGI-based web interactions.
- *
  * This variable is used to process CGI (Common Gateway Interface) requests,
- * retrieve form data, and manage environment variables within a web application.
- * The instance facilitates interaction with HTTP requests and acts as a key
- * component for parsing input data and managing CGI-related functionality.
- *
- * Cgicc is expected to be instantiated and initialized during the setup phase
- * of the application to ensure proper handling of incoming CGI requests.
- *
- * Usage includes extracting form variables, accessing HTTP environment data
- * such as user-agent strings, and other CGI utilities supported by the
- * Cgicc library.
+ * retrieve form data, and manage environment variables within a web
+ * application. The instance facilitates interaction with HTTP requests and
+ * acts as a key component for parsing input data and managing CGI-related
+ * functionality. Cgicc is expected to be instantiated and initialized during
+ * the setup phase of the application to ensure proper handling of incoming
+ * CGI requests. Usage includes extracting form variables, accessing HTTP
+ * environment data such as user-agent strings, and other CGI utilities
+ * supported by the Cgicc library.
  */
 extern Cgicc * gpCgi;
 
 /**
  * @class cgibind
- * @brief Provides an interface for handling CGI form variables and HTTP referrer parsing.
- *
- * The cgibind class is designed to interact with CGI environment variables, allowing extraction
- * of form data submitted via HTTP requests as well as analyzing information about the referrer
+ * @brief Provides an interface for handling CGI form variables and HTTP
+ * referrer parsing. The cgibind class is designed to interact with CGI
+ * environment variables, allowing extraction of form data submitted via
+ * HTTP requests as well as analyzing information about the referrer
  * (the source of a web request).
  */
 class cgibind {
-	/**
-	 * Default constructor for the `cgibind` class.
-	 * Initializes an instance of the `cgibind` class.
-	 *
-	 * @return A new instance of the `cgibind` class.
-	 */
+
+/**
+ * Default constructor for the `cgibind` class.
+ * Initializes an instance of the `cgibind` class.
+ * @return A new instance of the `cgibind` class.
+ */
 public:
     cgibind();
+
 	/**
 	 * Retrieves the value of a form variable from CGI input based on the given variable name.
 	 *
@@ -53,6 +51,7 @@ public:
 	 *         an empty string is returned.
 	 */
 	std::string get_form_variable(std::string ssVariableName);
+
 	/**
 	 * Retrieves the referrer of the current HTTP request.
 	 *
@@ -62,6 +61,7 @@ public:
 	 * @return A string containing the HTTP referrer of the current request.
 	 */
 	std::string get_referrer();
+
 	/**
 	 * Retrieves the directory path portion of the HTTP referrer URL.
 	 *
@@ -73,6 +73,7 @@ public:
 	 *         could be empty.
 	 */
 	std::string get_referrer_path();
+
 	/**
 	 * Extracts and returns the file name component from the HTTP referrer URL.
 	 * This method processes the HTTP referrer obtained via the CGI environment
@@ -81,6 +82,7 @@ public:
 	 * @return The file name component of the HTTP referrer URL as a std::string.
 	 */
 	std::string get_referrer_file();
+
 };
 
 #endif // MULTIWARE_CGIBIND_H
