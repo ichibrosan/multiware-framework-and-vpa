@@ -112,7 +112,6 @@ dashboard::dashboard(
         << "</table>"
         << std::endl;
 
-
     std::cout << "<table border=1>";
 
 #ifdef SHOW_AUTHENTICATED_USERNAME
