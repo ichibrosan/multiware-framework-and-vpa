@@ -1,7 +1,12 @@
 /////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/01/10   //
+// daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09   //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
+
+2025-02-09 03:30 dwg - added xmlrpc_inetd_server module to project
+
+2025-02-08 18:30 dwg - added new schema element types to support schema
+configured drop down boxes, "select", "selectopt" & "selectend".
 
 2025-02-08 18:08 mf -
 modified the naming conventions of the existing html select element functions

@@ -2,6 +2,7 @@
 # daphne.goodall.com:/home/doug/public_html/fw/CmakeLists.txt 2025/02/02  #
 # Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.           #
 ###########################################################################
+# 2025/02/09 03:19 dwg - added xmlrpc_inetd_server target to build        #
 # 2025/02/02 02:31 use new library mwfw for most but highest level code.  #
 # 2025/01/21 03:21 use statically linked libraries instead of shared ones #
 # 2025/01/17 08:31 added link_directories for index.cgi for uuid_generate #
@@ -31,6 +32,27 @@ add_library(mwfw STATIC		cgicc.h
 		schemaCompiler.cpp	schemaCompiler.h
 		shared.cpp			shared.h
 		test.cpp			test.h
+)
+
+add_executable(xmlrpc_inetd_server
+		xmlrpc_inetd_server.cpp
+)
+target_link_libraries(xmlrpc_inetd_server
+		libxmlrpc_server_abyss++.a
+		libxmlrpc_server++.a
+		libxmlrpc_abyss++.a
+		libxmlrpc_server_abyss.a
+		libxmlrpc_server.a
+		libxmlrpc_abyss.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		ssl
+		crypto
+		pthread
 )
 
 ########################################################
