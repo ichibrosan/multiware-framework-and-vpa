@@ -3,6 +3,8 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-09 04:19 dwg - added xmlrpc_client module to project
+
 2025-02-09 03:30 dwg - added xmlrpc_inetd_server module to project
 
 2025-02-08 18:30 dwg - added new schema element types to support schema

@@ -34,6 +34,23 @@ add_library(mwfw STATIC		cgicc.h
 		test.cpp			test.h
 )
 
+add_executable(xmlrpc_client
+		xmlrpc_client.cpp
+)
+target_link_libraries(xmlrpc_client
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		curl
+		libxmlrpc_packetsocket.a
+)
+
 add_executable(xmlrpc_inetd_server
 		xmlrpc_inetd_server.cpp
 )
