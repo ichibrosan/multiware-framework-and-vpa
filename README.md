@@ -3,6 +3,10 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-08 18:08 mf -
+modified the naming conventions of the existing html select element functions
+and schema implementations to make room for new ones by dwg.
+
 2025-02-08 12:40 dwg - 
 add image to dashboard is avatar exists
 

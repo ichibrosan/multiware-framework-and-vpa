@@ -304,13 +304,13 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
                     );
             }
 
-            // if type is select
-            if (0 == strcmp("select",
+            // if type is select_files
+            if (0 == strcmp("select_files",
                             gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
-                gpHtml->form_files_select(
-                    gpCsv->m_parsed_data[iRow][COL_SELECT_NAME].c_str(),
-                    gpCsv->m_parsed_data[iRow][COL_SELECT_PATH].c_str(),
-                    gpCsv->m_parsed_data[iRow][COL_SELECT_CLASS].c_str()
+                gpHtml->form_select_files(
+                    gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_NAME].c_str(),
+                    gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_PATH].c_str(),
+                    gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_CLASS].c_str()
                     );
             }
 

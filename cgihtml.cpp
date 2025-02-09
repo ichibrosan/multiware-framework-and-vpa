@@ -768,7 +768,7 @@ void cgihtml::form_password(
  * @param selectValues Vector containing the option values for the select element.
  * @param pszSelectClass Class attribute for the select HTML element.
  */
-void cgihtml::form_select(
+void cgihtml::form_select_array(
         const char * pszSelectName,
         std::vector<std::string> selectValues,
         const char * pszSelectClass)
@@ -798,7 +798,7 @@ void cgihtml::form_select(
  *                      is provided, files from the default journal directory will be used.
  * @param pszSelectClass The class attribute for the select element, defining its styling.
  */
-void cgihtml::form_files_select(
+void cgihtml::form_select_files(
         const char * pszSelectName,
         const char * pszSelectPath,
         const char * pszSelectClass)
@@ -813,7 +813,7 @@ void cgihtml::form_files_select(
             gpOS->allfilesindir(pszSelectPath);
     }
 
-    form_select(pszSelectName,selectValues,pszSelectClass);
+    form_select_array(pszSelectName,selectValues,pszSelectClass);
 }
 
 

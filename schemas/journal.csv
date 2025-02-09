@@ -7,7 +7,7 @@ true,no,yes,image,our-office.png,355,150,my silver logo,
 false,yes,yes,text,fileName,journal.txt,70,Filename:,Entry field for filename,
 false,yes,no,textarea,testeditName,testeditId,80,24,soft,
 true,no,no,openform,noteload.cgi,post,0,changefile,textIframe
-true,no,no,select,changefile,default,default_button
+true,no,no,select_files,changefile,default,default_button
 true,no,no,formbutton,submit,changefile,default_button,Load File
 true,no,no,closeform
 true,no,no,openform,journal.cgi?handle=6,post,0,refresh,_self

@@ -513,9 +513,9 @@ public:
 	 * @param element_name Name of the element to select from the form.
 	 * @param value The value or criteria to use for selecting the form element.
 	 */
-	void form_select(const char * pszSelectName,
-					 std::vector<std::string> selectValues,
-					 const char *pszSelectClass);
+	void form_select_array(const char * pszSelectName,
+						   std::vector<std::string> selectValues,
+						   const char *pszSelectClass);
 
 	/**
 	 * Allows the user to select specific files from a form submission for processing.
@@ -532,7 +532,7 @@ public:
 	 *                      be stored after processing. This container is modified
 	 *                      in place by the method.
 	 */
-	void form_files_select(const char * pszSelectName,
+	void form_select_files(const char * pszSelectName,
 						   const char * pszSelectPath,
 						   const char * pszSelectClass);
 
