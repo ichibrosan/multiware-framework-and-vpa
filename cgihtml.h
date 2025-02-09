@@ -479,6 +479,70 @@ public:
 					   const char *pszsize,
 					   const char *pszVisible,
 					   const char *pszDescr);
+
+
+
+/**************************************************************************
+ * @brief Generates and outputs an HTML select form element with associated
+ *			labels.
+ *
+ * This function is used to create an HTML form select element, along with
+ * associated labels for accessibility and display purposes. It takes
+ * parameters for the label text, the select element's ID, and name
+ * attributes to ensure proper identification and behavior within an HTML
+ * form.
+ *
+ * @param pszLabelFor Pointer to a string that specifies the `for`
+ *		attribute of the label, linking it to a select element by its ID.
+ * @param pszLabelVisible Pointer to a string that specifies the visible
+ *		text for the label associated with the select element.
+ * @param pszSelectID Pointer to a string that specifies the ID attribute
+ *		of the select element, used to uniquely identify it within the HTML
+ *		document.
+ * @param pszSelectName Pointer to a string that specifies the name
+ *		attribute of the select element, used to identify its value when
+ *		form data is submitted.
+ */
+void form_select(		const char * pszLabelFor,
+						 const char * pszLabelVisible,
+						 const char * pszSelectID,
+						 const char * pszSelectName);
+
+/**************************************************************************
+ * @brief Adds an option to a select HTML form element with specified value
+ * and visible text. This function is used to create and append an option
+ * element to a select form control in an HTML document. The added option
+ * will display a visible label and have an associated value that can be
+ * submitted.
+ *
+ * @param pszOptionValue The value to be assigned to the option element.
+ *                       This value is submitted when the corresponding
+ *                       option is selected.
+ * @param pszOptionVisible The text to be displayed to the user for the
+ *						option element.
+ *************************************************************************/
+void form_select_opt(	const char * pszOptionValue,
+						 const char * pszOptionVisible);
+
+/*************************************************************************
+ * @brief Marks the end of a select HTML form element in the CGI output.
+ *
+ * This function is used to properly close a select form element when
+ * generating dynamic HTML content. It ensures the proper syntax for an
+ * HTML select element is followed, allowing for the form selection options
+ * to function as intended within a web application.
+ *
+ * This function should be used in conjunction with the corresponding
+ * function(s) that initiate and populate the select element, ensuring
+ * well-formed HTML structure in generated pages.
+ *
+ * Misuse or omission of this function may lead to malformed HTML output
+ * or unexpected behavior in rendered user interfaces.
+ *************************************************************************/
+void form_select_end();
+
+
+
 	/**
 	 * Submits a form with the provided data and triggers the corresponding actions.
 	 *

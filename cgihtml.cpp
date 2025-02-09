@@ -642,6 +642,90 @@ void cgihtml::form_month(
               << " size=\""  << pszValue  << "\">";
 }
 
+/**
+ * Generates a label and a select HTML element with specified attributes.
+ *
+ * @param pszLabelFor The value for the "for" attribute of the label.
+ *                      This links the label to the select element.
+ * @param pszLabelVisible The text content to display for the label.
+ * @param pszSelectID The value for the "id" attribute of the select element.
+ * @param pszSelectName The value for the "name" attribute of the select
+ *                      element.
+ */
+void cgihtml::form_select(		const char * pszLabelFor,
+                         const char * pszLabelVisible,
+                         const char * pszSelectID,
+                         const char * pszSelectName)
+{
+
+    /*  <label for="fruits">Choose a fruit:</label>       <<<<<
+        <select id="fruits" name="fruits">                <<<<<
+            <option value="apple">Apple</option>
+            <option value="banana">Banana</option>
+            <option value="cherry">Cherry</option>
+        </select>
+     */
+
+    std::cout << "<label for=\""
+              << pszLabelFor
+              << "\">"
+              << pszLabelVisible
+              << "</label>"
+              << std::endl;
+
+    std::cout << "<select id=\""
+              << pszSelectID
+              << "\""
+              << " name=\""
+              << pszSelectName
+              << "\">"
+              << std::endl;
+}
+
+/**
+ * Generates an HTML `<option>` tag with the specified value and visible text.
+ *
+ * @param pszOptionValue The value attribute of the `<option>` element.
+ * @param pszOptionVisible The visible text to display for the `<option>` element.
+ */
+void cgihtml::form_select_opt(	const char * pszOptionValue,
+                         const char * pszOptionVisible)
+{
+
+    /*
+        <label for="fruits">Choose a fruit:</label>
+        <select id="fruits" name="fruits">
+            <option value="apple">Apple</option>        <<<<<
+            <option value="banana">Banana</option>
+            <option value="cherry">Cherry</option>
+        </select>
+    */
+
+    std::cout << "<option value=\""
+              << pszOptionValue
+              << "\">"
+              << pszOptionVisible
+              << "</option>"
+              << std::endl;
+}
+
+/**
+ * Completes an HTML select element by adding the closing tag.
+ */
+void cgihtml::form_select_end()
+{
+    /*
+        <label for="fruits">Choose a fruit:</label>
+        <select id="fruits" name="fruits">
+            <option value="apple">Apple</option>
+            <option value="banana">Banana</option>
+            <option value="cherry">Cherry</option>
+        </select>                                       <<<<<
+    */
+
+    std::cout << "</select>"
+              << std::endl;
+}
 
 /**
  * @brief Generates an HTML input text field with specified attributes.

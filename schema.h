@@ -73,7 +73,8 @@ enum SCHEMA_GENERIC_T {
     COL_TYPE,
     COL_PARM1,
     COL_PARM2,
-    COL_PARM3
+    COL_PARM3,
+    COL_PARM4
 };
 
 /**
