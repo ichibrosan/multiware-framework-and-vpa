@@ -1,0 +1,2 @@
+# Local services
+vpad-start  65353/tcp   # Goodall Virtual Protocol Adapter startup service

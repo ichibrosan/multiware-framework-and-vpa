@@ -415,11 +415,16 @@ void dashboard::process_toggles(
 void dashboard::start_vpad()
 {
 
+#define USE_STREAM_SOCKET
+//#define USE_DGRAM_SOCKET
+// The attempt to use the DGRAM  to start the vpad didn't work
+
     unsigned short port;       /* port client will connect to         */
-    char buf[12];              /* data buffer for sending & receiving */
+    char buf[BUFSIZ];          /* data buffer for sending & receiving */
     struct hostent *hostnm;    /* server host name information        */
     struct sockaddr_in server; /* server address                      */
     int s;                     /* client socket                       */
+    socklen_t server_address_length = sizeof(server);
     hostnm = gethostbyname("localhost");
 
     /*
@@ -431,7 +436,7 @@ void dashboard::start_vpad()
     /*
      * Convert the port number from host to network byte order
      */
-    server.sin_port        = htons(VPA_PORT);
+    server.sin_port        = htons(VPAD_START_PORT);
 
     /*
      * Set the IP address of the target
@@ -439,14 +444,21 @@ void dashboard::start_vpad()
     server.sin_addr.s_addr = *((unsigned long *)hostnm->h_addr);
 
     /*
-     * Get a stream socket.
+     * Get a socket.
      */
-    if ((s = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-    {
+    if ((s = socket(AF_INET,
+#ifdef USE_STREAM_SOCKET
+                            SOCK_STREAM
+#endif
+#ifdef USE_DGRAM_SOCKET
+                            SOCK_DGRAM
+#endif
+                                        , 0)) < 0) {
         printf("%s","socket error");
         exit(3);
     }
 
+#ifdef USE_STREAM_SOCKET
     /*
      * Connect to the server.
      */
@@ -455,16 +467,22 @@ void dashboard::start_vpad()
         printf("%s","connect error");
         exit(4);
     }
+#endif
 
     /*
      * Send a message to the destination to wake up xinetd
      */
     char szBuffer[] = {"Hello World!!"};
+#ifdef USE_STREAM_SOCKET
     if (send(s, szBuffer, sizeof(szBuffer), 0) < 0)
     {
         printf("%s","Send error");
         exit(5);
     }
+#endif
+#ifdef USE_DGRAM_SOCKET
+    sendto(s,szBuffer,sizeof(szBuffer),0,(const struct sockaddr *)&server,server_address_length);
+#endif
 
     /*
      * Close the session and socket
