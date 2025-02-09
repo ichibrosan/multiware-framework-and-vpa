@@ -11,4 +11,9 @@ true,yes,no,radiobutt,myid2,myname1,value1,label1,description1
 true,yes,no,radiobutt,myid3,myname1,value1,label1,description1
 true,yes,no,radiobutt,myid4,myname1,value1,label1,description1
 true,no,no,xahref,index.cgi,default_button,This is dynamically generated
+true,yes,no,select,fruits,Choose a fruit,fruits,fruits
+true,no,no,selectopt,apple,Apple
+true,no,no,selectopt,banana,Banana
+true,no,no,selectopt,cherry,Cherry
+true,no,no,selectend
 true,yes,no,reset
