@@ -430,6 +430,10 @@ void cgihtml::dump_shm_vars()
     std::cout << gpSh->m_pShMemng->szIP;
     std::cout << "</td></tr>";
 
+    std::cout << "<tr><th>szPublicIP</th><td>";
+    std::cout << gpSh->m_pShMemng->szPublicIP;
+    std::cout << "</td></tr>";
+
     std::cout << "<tr><th>szIface</th><td>";
     std::cout << gpSh->m_pShMemng->szIface;
     std::cout << "</td></tr>";

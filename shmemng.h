@@ -20,6 +20,7 @@ struct MFW_SHMEMNG_T {
     int iSignature;
     char szHostname[DNS_FQDN_SIZE_MAX];
     char szIP[DNS_FQDN_SIZE_MAX];
+    char szPublicIP[DNS_FQDN_SIZE_MAX];
     char szIface[IFNAMSIZ];
     char szProtocol[INET_PROT_NAME_MAX];
     char szImgRoot[INET_URL_SIZE_MAX];

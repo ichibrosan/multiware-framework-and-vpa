@@ -191,6 +191,27 @@ public:
     environment();
 
 	/**
+	 * Retrieves the public IP address of the system.
+	 *
+	 * This function is used to obtain the public IP address currently assigned
+	 * to the system, which may be useful for networking or remote access purposes.
+	 *
+	 * @return A pointer to a character array containing the public IP address as a string.
+	 *         The caller is responsible for handling the memory if the implementation dictates so.
+	 */
+	char * get_public_ip();
+
+	/**
+	 * Updates and stores the system's public IP address in shared memory.
+	 *
+	 * This method retrieves the current public IP address of the system through an
+	 * external API (`ip.me`) and updates the shared memory with the obtained IP.
+	 * It uses an intermediate local file to temporarily store the IP data and reads
+	 * it for further processing.
+	 */
+	void set_public_ip();
+
+	/**
 	 * Checks if the cURL library is installed in the current environment.
 	 *
 	 * This method performs a system-level check to determine whether the
