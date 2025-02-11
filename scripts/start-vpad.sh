@@ -1,2 +1,3 @@
 #!/bin/sh
-/home/doug/public_html/fw/cmake-build-debug/vpad &
+
+/home/monk/public_html/fw/scripts/start-vpad.sh &

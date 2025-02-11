@@ -122,6 +122,12 @@ environment::environment() {
 	 */
 	set_journal_root(false);
 
+	/*
+	 * Create the initialization script that runs the Virtual Protocol Adapter.
+	 * The file should generate as:
+	 * "/home/$USER/public_html/fw/scripts/start-vpad.sh"
+	 */
+	gen_vpad_script();
 }
 
 /**
@@ -169,6 +175,56 @@ char * environment::get_public_ip()
 {
 	return gpSh->m_pShMemng->szPublicIP;
 }
+
+/**
+ * Generates the .sh script used to run the Virtual Protocol Adapter.
+ *
+ */
+void environment::gen_vpad_script()
+{
+	/**
+	 *	Generates the FQFS for the script location.
+	 *
+	 */
+
+	std::string ssVpadLauncher = "/home/";
+	ssVpadLauncher.append(gpSh->m_pShMemng->szUser);
+	ssVpadLauncher.append("/public_html/fw/scripts/start-vpad.sh");
+
+	/**
+	 *	Attempts to load the file and checks whether or not it actually did
+	 *	get loaded.
+	 *
+	 */
+
+	FILE * fp = fopen(ssVpadLauncher.c_str(),"w");
+	if (nullptr == fp)
+	{
+		/**
+		 *	If it did not get loaded, we print to the standard output and
+		 *	close the file.
+		 *
+		 */
+
+		std::cout << "can't open file" << ssVpadLauncher
+				  << "and couldn't create initialization script"
+				  << std::endl;
+		fclose(fp);
+	}
+	else
+	{
+		/**
+		 *	If it did get loaded, we write out the script contents to the
+		 *	file and then close it.
+		 *
+		 */
+
+		fprintf(fp,
+			"#!/bin/sh\n\n%s &",ssVpadLauncher.c_str());
+		fclose(fp);
+	}
+}
+
 
 /**
  * Extracts the username from the file path stored in the predefined macro __FILE__
