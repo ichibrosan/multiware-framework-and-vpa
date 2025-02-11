@@ -38,8 +38,7 @@ dashboard::dashboard(
     int buttons,
     const char *pszFile,
     std::string ssUsername,
-    std::string ssPassword)
-{
+    std::string ssPassword) {
     /*
      * In the case a user supplies invalid credentials to index.cgi,
      * we enter login.cgi without the ability to authenticate. This
@@ -69,7 +68,7 @@ dashboard::dashboard(
         bAuthenticated = true;
         iEffectiveButtons = buttons;
     } else {
-        gpSh->m_pShMemng->bDisplaySchema  = false;
+        gpSh->m_pShMemng->bDisplaySchema = false;
         gpSh->m_pShMemng->bDisplayShmVars = false;
         gpSh->m_pShMemng->bDisplayEnvVars = false;
     }
@@ -79,26 +78,25 @@ dashboard::dashboard(
      * available to the dashboard code.
      */
     strcpy(m_szAuthUserName, gpSh->m_pShMemng->creds[handle].szAuthUserName);
-    strcpy(m_szAuthFirstName,gpSh->m_pShMemng->creds[handle].szAuthFirstName);
+    strcpy(m_szAuthFirstName, gpSh->m_pShMemng->creds[handle].szAuthFirstName);
     strcpy(m_szAuthLastName, gpSh->m_pShMemng->creds[handle].szAuthLastName);
-    strcpy(m_szAuthLevel,    gpSh->m_pShMemng->creds[handle].szAuthLevel);
-    strcpy(m_szAuthUUID,     gpSh->m_pShMemng->creds[handle].szAuthUUID);
+    strcpy(m_szAuthLevel, gpSh->m_pShMemng->creds[handle].szAuthLevel);
+    strcpy(m_szAuthUUID, gpSh->m_pShMemng->creds[handle].szAuthUUID);
 
-    ssFile     = pszFile;
+    ssFile = pszFile;
     ssFilePath = std::filesystem::path(ssFile).remove_filename();
-    ssCgiName  = ssFile.substr(ssFilePath.length(),ssFile.length());
-    ssCgiName  = std::filesystem::path(ssCgiName).replace_extension(".cgi");
+    ssCgiName = ssFile.substr(ssFilePath.length(), ssFile.length());
+    ssCgiName = std::filesystem::path(ssCgiName).replace_extension(".cgi");
 
     std::string ssAvatar = m_szAuthUserName;
     ssAvatar.append("-avatar.png");
     bool bAvatarExists = false;
     if (std::filesystem::is_regular_file(
-        gpOS->genImgPath(ssAvatar.c_str(),F_OK)))
-    {
+        gpOS->genImgPath(ssAvatar.c_str(),F_OK))) {
         bAvatarExists = true;
         gpHtml->open_table(4);
         std::cout << "<tr><td>";
-        gpHtml->imgsrc(ssAvatar.c_str(),110,110);
+        gpHtml->imgsrc(ssAvatar.c_str(), 110, 110);
         std::cout << "</td><td>";
     }
 
@@ -106,40 +104,40 @@ dashboard::dashboard(
      * Use the iBorder variable so we can avoid using a magic number in the
      * cout stream below/
      */
-    iBorder=2;
+    iBorder = 2;
     std::cout
-        << "<table border=" << iBorder << ">"
-        << "<tr><h3><th>Goodall MultiWare Framework Dashboard</th></h3></tr>"
-        << "</table>"
-        << std::endl;
+            << "<table border=" << iBorder << ">"
+            << "<tr><h3><th>Goodall MultiWare Framework Dashboard</th></h3></tr>"
+            << "</table>"
+            << std::endl;
 
     std::cout << "<table border=1>";
 
 #ifdef SHOW_AUTHENTICATED_USERNAME
     if (bAuthenticated) {
         std::cout << "<tr>"
-                  << "<th>Authenticated Username</th>"
-                  << "<td>" << m_szAuthUserName << "</td>"
-                  << "</tr>";
+                << "<th>Authenticated Username</th>"
+                << "<td>" << m_szAuthUserName << "</td>"
+                << "</tr>";
     }
 #endif // SHOW_AUTHENTICATED_USERNAME
 
-    #ifdef SHOW_AUTHENTICATED_REAL_NAMES
+#ifdef SHOW_AUTHENTICATED_REAL_NAMES
     if (bAuthenticated) {
         std::cout << "<tr>"
-                  << "<th>Authenticated User</th>"
-                  << "<td>" << m_szAuthFirstName << " "
-                            << m_szAuthLastName  << "</td>"
-                  << "</tr>";
+                << "<th>Authenticated User</th>"
+                << "<td>" << m_szAuthFirstName << " "
+                << m_szAuthLastName << "</td>"
+                << "</tr>";
     }
 #endif // SHOW_AUTHENTICATED_REAL_NAMES
 
 #ifdef SHOW_PRIVILEGE_LEVEL
     if (bAuthenticated) {
         std::cout << "<tr>"
-                  << "<th>Privilege Level</th>"
-                  << "<td>" << m_szAuthLevel << "</td>"
-                  << "</tr>";
+                << "<th>Privilege Level</th>"
+                << "<td>" << m_szAuthLevel << "</td>"
+                << "</tr>";
     }
 #endif // SHOW_PRIVILEGE_LEVEL
 
@@ -160,17 +158,16 @@ dashboard::dashboard(
      * unauthenticated, iEffectiveButtons has been set to 0 so the
      * user doesn't get any buttons before authentication.
      */
-    navbar(handle,iEffectiveButtons,ssCgiName,ssUsername,ssPassword);
+    navbar(handle, iEffectiveButtons, ssCgiName, ssUsername, ssPassword);
 
-    if (bAvatarExists)
-    {
+    if (bAvatarExists) {
         std::cout << "</td></tr>";
         gpHtml->close_table();
     }
 }
 
 
-/**
+/*****************************************************************************
  * Generates and displays navigation buttons for a web-based dashboard.
  * Based on the specified parameters, the function determines which buttons
  * to include in the navbar, such as "Journal", "Logout", and other
@@ -178,138 +175,142 @@ dashboard::dashboard(
  *
  * @param handle A unique identifier for the session or request being processed.
  * @param buttons A bitmask specifying which buttons to include in the navbar.
- *                Flags such as JOURNAL and LOGOUT determine the displayed buttons.
- * @param ssCgiName The CGI name of the current page or context, indicating the source.
- * @param ssUsername The username of the currently authenticated user, used for authorization or specific actions.
- * @param ssPassword The password of the currently authenticated user, typically used for authentication of specific requests or actions.
- */
+ *                Flags such as JOURNAL and LOGOUT determine the displayed
+ *                buttons.
+ * @param ssCgiName The CGI name of the current page or context, indicating the
+ *                  source.
+ * @param ssUsername The username of the currently authenticated user, used
+ *                   for authorization or specific actions.
+ * @param ssPassword The password of the currently authenticated user,
+ *                   typically used for authentication of specific requests or
+ *                   actions.
+ *****************************************************************************/
 void dashboard::navbar(
     int handle,
     int buttons,
     std::string ssCgiName,
-    std::string ssUsername,std::string ssPassword)
-{
-    process_toggles(ssCgiName,ssUsername,ssPassword,handle);
+    std::string ssUsername, std::string ssPassword) {
+    process_toggles(ssCgiName, ssUsername, ssPassword, handle);
 
     if (buttons & JOURNAL) {
-        std::string ssCgiJournal = form_cgi("journal.cgi",handle);
-        gpHtml->ahref(ssCgiJournal.c_str(),"btn_journal.png",150,38);
+        std::string ssCgiJournal = form_cgi("journal.cgi", handle);
+        gpHtml->ahref(ssCgiJournal.c_str(), "btn_journal.png", 150, 38);
     }
     if (buttons & LOGOUT) {
-        std::string ssCgiLogout = form_cgi("logout.cgi",handle);
-        gpHtml->ahref(ssCgiLogout.c_str(),"btn_logout.png",150,38);
+        std::string ssCgiLogout = form_cgi("logout.cgi", handle);
+        gpHtml->ahref(ssCgiLogout.c_str(), "btn_logout.png", 150, 38);
     }
 
     std::string ssSelfCgi = ssCgiName;
 
-//    process_toggles(ssCgiName,ssUsername,ssPassword,handle);
+    //    process_toggles(ssCgiName,ssUsername,ssPassword,handle);
 
-    if (0 == strcmp("admin",m_szAuthLevel) ||
-        0 == strcmp("devo",m_szAuthLevel)  ) {
-
+    if (0 == strcmp("admin", m_szAuthLevel) ||
+        0 == strcmp("devo", m_szAuthLevel)) {
 #ifdef SHOW_VPAD_BUTTONS
         if (gpSh->m_pShMemng->vpad_running) {
-            std::string ssCgiVpa = form_cgi(ssSelfCgi.c_str(),handle);
+            std::string ssCgiVpa = form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiVpa.append("&bTermVpad=true");
             ssCgiVpa.append("&username=");
             ssCgiVpa.append(ssUsername);
             ssCgiVpa.append("&pwname=");
             ssCgiVpa.append(ssPassword);
-            gpHtml->ahref(ssCgiVpa.c_str(),"btn_term_vpad.png",150,38);
+            gpHtml->ahref(ssCgiVpa.c_str(), "btn_term_vpad.png", 150, 38);
         } else {
-            std::string ssCgiVpa = form_cgi(ssSelfCgi.c_str(),handle);
+            std::string ssCgiVpa = form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiVpa.append("&bStartVpad=true");
             ssCgiVpa.append("&username=");
             ssCgiVpa.append(ssUsername);
             ssCgiVpa.append("&pwname=");
             ssCgiVpa.append(ssPassword);
-            gpHtml->ahref(ssCgiVpa.c_str(),"btn_start_vpad.png",150,38);
-
+            gpHtml->ahref(ssCgiVpa.c_str(), "btn_start_vpad.png", 150, 38);
         }
 #endif // SHOW_VPAD_BUTTONS
 
 #ifdef SHOW_SCHEMA_BUTTONS
-        if(gpSh->m_pShMemng->bDisplaySchema) {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(),handle);
+        if (gpSh->m_pShMemng->bDisplaySchema) {
+            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplaySchema=false");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(),"btn_minus_schema.png",150,38);
+            gpHtml->ahref(ssCgiMenu.c_str(), "btn_minus_schema.png", 150, 38);
         } else {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(),handle);
+            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplaySchema=true");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(),"btn_plus_schema.png",150,38);
+            gpHtml->ahref(ssCgiMenu.c_str(), "btn_plus_schema.png", 150, 38);
         }
 #endif // SHOW_SCHEMA_BUTTONS
 
 #ifdef SHOW_SHMVAR_BUTTONS
-        if(gpSh->m_pShMemng->bDisplayShmVars) {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(),handle);
+        if (gpSh->m_pShMemng->bDisplayShmVars) {
+            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayShmVars=false");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(),"btn_minus_shmvars.png",150,38);
+            gpHtml->ahref(ssCgiMenu.c_str(), "btn_minus_shmvars.png", 150, 38);
         } else {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(),handle);
+            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayShmVars=true");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(),"btn_plus_shmvars.png",150,38);
+            gpHtml->ahref(ssCgiMenu.c_str(), "btn_plus_shmvars.png", 150, 38);
         }
 #endif // SHOW_SHMVAR_BUTTONS
 
 #ifdef SHOW_ENVVAR_BUTTONS
-        if(gpSh->m_pShMemng->bDisplayEnvVars) {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(),handle);
+        if (gpSh->m_pShMemng->bDisplayEnvVars) {
+            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayEnvVars=false");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(),"btn_minus_envvars.png",150,38);
+            gpHtml->ahref(ssCgiMenu.c_str(), "btn_minus_envvars.png", 150, 38);
         } else {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(),handle);
+            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayEnvVars=true");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(),"btn_plus_envvars.png",150,38);
+            gpHtml->ahref(ssCgiMenu.c_str(), "btn_plus_envvars.png", 150, 38);
         }
 #endif // SHOW_ENVVAR_BUTTONS
     }
 }
 
 
-/**
+/******************************************************************************
  * Generates a CGI URL with an appended handle parameter.
  *
  * @param pszName The name used to generate the base CGI URL.
- * @param handle An integer value representing the handle to be appended to the URL.
- * @return A string representing the complete CGI URL with the handle parameter included.
- */
-std::string dashboard::form_cgi(const char* pszName, int handle)
-{
+ * @param handle An integer value representing the handle to be appended to the
+ *               URL.
+ * @return A string representing the complete CGI URL with the handle parameter
+ *               included.
+ *****************************************************************************/
+std::string dashboard::form_cgi(const char *pszName, int handle) {
     char szHandle[128];
     std::string ssBuffer;
-    ssBuffer = gpOS->genCgiCBDUrl(pszName,false);
+    ssBuffer = gpOS->genCgiCBDUrl(pszName, false);
     ssBuffer.append("?handle=");
-    sprintf(szHandle,"%d",handle);
+    sprintf(szHandle, "%d", handle);
     ssBuffer.append(szHandle);
     return ssBuffer;
 }
 
-/**
+
+/*****************************************************************************
  * Processes CGI toggle inputs and modifies shared memory variables
  * or initiates specific actions based on the provided flags.
  * Access to toggle actions is restricted to users with admin or
@@ -319,39 +320,37 @@ std::string dashboard::form_cgi(const char* pszName, int handle)
  * @param ssUsername The username string for authorization verification.
  * @param ssPassword The password string for authorization verification.
  * @param handle An integer handle used for processing connections or sessions.
- */
+ *****************************************************************************/
 void dashboard::process_toggles(
     std::string ssCgiName,
     std::string ssUsername,
     std::string ssPassword,
-    int handle)
-{
+    int handle) {
     /*
      * If we are admin or devo, we get to see the debug toggle links
      */
-    if (0 == strcmp("admin",m_szAuthLevel) ||
-        0 == strcmp("devo",m_szAuthLevel)  ) {
-
+    if (0 == strcmp("admin", m_szAuthLevel) ||
+        0 == strcmp("devo", m_szAuthLevel)) {
         // https://stackoverflow.com/questions/13519933/
         //  executing-script-on-receiving-incoming-connection-with-xinetd
 
         std::string ssbStartVpad =
-            m_pCgiBind->get_form_variable("bStartVpad");
+                m_pCgiBind->get_form_variable("bStartVpad");
         if ("true" == ssbStartVpad) {
             start_vpad();
             sleep(1);
         }
 
         std::string ssbTermVpad =
-            m_pCgiBind->get_form_variable("bTermVpad");
+                m_pCgiBind->get_form_variable("bTermVpad");
         if ("true" == ssbTermVpad) {
             gpSh->m_pShMemng->vpad_running = false;
             //std::cout << "hello there" << std::endl;
             sleep(2);
         }
 
-        std::string ssbDisplaySchema  =
-          m_pCgiBind->get_form_variable("bDisplaySchema");
+        std::string ssbDisplaySchema =
+                m_pCgiBind->get_form_variable("bDisplaySchema");
         if (ssbDisplaySchema == "true") {
             gpSh->m_pShMemng->bDisplaySchema = true;
         }
@@ -364,7 +363,7 @@ void dashboard::process_toggles(
          * the apache environment variables per the query string.
          */
         std::string ssbDisplayEnvVars =
-          m_pCgiBind->get_form_variable("bDisplayEnvVars");
+                m_pCgiBind->get_form_variable("bDisplayEnvVars");
         if (ssbDisplayEnvVars == "true") {
             gpSh->m_pShMemng->bDisplayEnvVars = true;
         }
@@ -377,7 +376,7 @@ void dashboard::process_toggles(
          * the shared memory variables per the query string.
          */
         std::string ssbDisplayShmVars =
-          m_pCgiBind->get_form_variable("bDisplayShmVars");
+                m_pCgiBind->get_form_variable("bDisplayShmVars");
         if (ssbDisplayShmVars == "true") {
             gpSh->m_pShMemng->bDisplayShmVars = true;
         }
@@ -388,7 +387,7 @@ void dashboard::process_toggles(
 }
 
 
-/**
+/***************************************************************************
  * @brief Establishes a connection to a server and sends a wake-up message.
  *
  * This method connects to a local server on a designated port, sends a
@@ -411,19 +410,19 @@ void dashboard::process_toggles(
  *
  * @note This function directly exits the program on errors, making it
  * unsuitable for exception-safe environments or usage in libraries.
- */
-void dashboard::start_vpad()
-{
+ ***************************************************************************/
+void dashboard::start_vpad() {
 
-#define USE_STREAM_SOCKET
+  #define USE_STREAM_SOCKET
 //#define USE_DGRAM_SOCKET
-// The attempt to use the DGRAM  to start the vpad didn't work
 
-    unsigned short port;       /* port client will connect to         */
-    char buf[BUFSIZ];          /* data buffer for sending & receiving */
-    struct hostent *hostnm;    /* server host name information        */
-    struct sockaddr_in server; /* server address                      */
-    int s;                     /* client socket                       */
+    // The attempt to use the DGRAM  to start the vpad didn't work
+
+    unsigned short port;            /* port client will connect to         */
+    char buf[BUFSIZ];               /* data buffer for sending & receiving */
+    struct hostent *hostnm;         /* server host name information        */
+    struct sockaddr_in server;      /* server address                      */
+    int s;                          /* client socket                       */
     socklen_t server_address_length = sizeof(server);
     hostnm = gethostbyname("localhost");
 
@@ -431,30 +430,30 @@ void dashboard::start_vpad()
      * Put the server information into the server structure.
      * The port must be put into network byte order.
      */
-    server.sin_family      = AF_INET;
+    server.sin_family = AF_INET;    /* Address Family: Internet           */
 
     /*
      * Convert the port number from host to network byte order
      */
-    server.sin_port        = htons(VPAD_START_PORT);
+    server.sin_port = htons(VPAD_START_PORT);
 
     /*
      * Set the IP address of the target
      */
-    server.sin_addr.s_addr = *((unsigned long *)hostnm->h_addr);
+    server.sin_addr.s_addr = *((unsigned long *) hostnm->h_addr);
 
     /*
      * Get a socket.
      */
     if ((s = socket(AF_INET,
 #ifdef USE_STREAM_SOCKET
-                            SOCK_STREAM
+                    SOCK_STREAM
 #endif
 #ifdef USE_DGRAM_SOCKET
                             SOCK_DGRAM
 #endif
-                                        , 0)) < 0) {
-        printf("%s","socket error");
+                    , 0)) < 0) {
+        printf("%s", "socket error");
         exit(3);
     }
 
@@ -462,9 +461,8 @@ void dashboard::start_vpad()
     /*
      * Connect to the server.
      */
-    if (connect(s, (struct sockaddr *)&server, sizeof(server)) < 0)
-    {
-        printf("%s","connect error");
+    if (connect(s, (struct sockaddr *) &server, sizeof(server)) < 0) {
+        printf("%s", "connect error");
         exit(4);
     }
 #endif
@@ -474,22 +472,30 @@ void dashboard::start_vpad()
      */
     char szBuffer[] = {"Hello World!!"};
 #ifdef USE_STREAM_SOCKET
-    if (send(s, szBuffer, sizeof(szBuffer), 0) < 0)
+    if (send(s, // socket descriptor
+             szBuffer, // output buffer
+             sizeof(szBuffer), // size of output buffer
+             0) < 0) // flags (none required)
     {
-        printf("%s","Send error");
+        printf("%s", "Send error");
         exit(5);
     }
 #endif
 #ifdef USE_DGRAM_SOCKET
-    sendto(s,szBuffer,sizeof(szBuffer),0,(const struct sockaddr *)&server,server_address_length);
+    sendto(s,                                   // socket descriptor
+           szBuffer,                            // output buffer
+           sizeof(szBuffer),                    // size of output buffer
+           0,                                   // flags (none required)
+           (const struct sockaddr *)&server,    // server structure of dest'n
+           server_address_length);              // size of server structure
 #endif
 
     /*
      * Close the session and socket
      */
     close(s);
-
 }
+
 /////////////////////////
 // eof - dashboard.cpp //
 /////////////////////////
