@@ -229,6 +229,8 @@ class environment {
 public:
     environment();
 
+    void set_vpad_startup_script();
+
     /************************************************************************
 	 * Retrieves the public IP address of the system.
 	 *

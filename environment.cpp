@@ -133,6 +133,38 @@ environment::environment() {
 	gen_vpad_script();
 }
 
+/***********************************************************************
+ * @brief Configures and creates a startup script for the vpad application.
+ *
+ * The set_vpad_startup_script function dynamically generates a startup script
+ * for the vpad application specific to the user. It utilizes a predefined
+ * file path template to create the file, writes the necessary script commands,
+ * and adjusts file permissions to make it executable.
+ *
+ * Steps performed by the function:
+ * - Constructs the file path using the user's username.
+ * - Writes the script content into the file.
+ * - Applies executable permissions to the created script.
+ *
+ * Note: This function assumes the presence of a global structure containing
+ * user-related information (gpSh->m_pShMemng->szUser). Proper validation or
+ * error handling for file operations is not implemented and should be added
+ * to prevent potential failures.
+ ***********************************************************************/
+void environment::set_vpad_startup_script() {
+    char szTempFQFS[] = { "/home/%s/public_html/fw/scripts/start-vpad.sh"};
+    char szFileFQFS[FILENAME_MAX];
+    char szCommand[80];
+
+    sprintf(szFileFQFS,szTempFQFS,gpSh->m_pShMemng->szUser);
+    FILE * fp = fopen(szFileFQFS,"w");
+    fprintf(fp,"#!/bin/sh\n");
+    fprintf(fp,"/home/%s/public_html/fw/scripts/start-vpad.sh &\n",
+               gpSh->m_pShMemng->szUser);
+    fclose(fp);
+    sprintf(szCommand,"chmod +x %s",szFileFQFS);
+    system(szCommand);
+}
 
 /***********************************************************************
  * @brief Sets the public IP address of the system.
@@ -215,10 +247,17 @@ void environment::gen_vpad_script()
 		 *
 		 */
 
-		fprintf(fp,
-			"#!/bin/sh\n\n%s &",ssVpadLauncher.c_str());
+		fprintf(fp,"#!/bin/sh\n");
+	    fprintf(fp,"# Automatically generated, Do Not Edit!!\n");
+	    fprintf(fp,"/home/%s/public_html/fw/cmake-build-debug/vpad &\n",
+	        gpSh->m_pShMemng->szUser);
 		fclose(fp);
 	}
+
+    // 2025-02-11 11:25 dwg - assure +x
+    char szCommand[128];
+    sprintf(szCommand,"chmod +x %s",ssVpadLauncher.c_str());
+    system(szCommand);
 }
 
 
