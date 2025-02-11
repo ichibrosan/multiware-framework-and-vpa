@@ -202,6 +202,17 @@ public:
 	char * get_public_ip();
 
 	/**
+	 *	Creates the Virtual Protocol Adapter Initialization script to match the
+	 *	user running the program.
+	 *
+	 *	Main reason this is included instead of having the script be independent
+	 *	of the main program is due to xinetd not properly passing environment
+	 *	variables to shell scripts, from my own investigations.
+	 *
+	 */
+	void gen_vpad_script();
+
+	/**
 	 * Updates and stores the system's public IP address in shared memory.
 	 *
 	 * This method retrieves the current public IP address of the system through an

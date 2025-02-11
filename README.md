@@ -3,6 +3,9 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
+2025-02-10 23:15 mf - added function gen_vpa_script to environment .cpp and .h,
+and placed it at the bottom of the environment class constructor. 
+
 2025-02-09 04:19 dwg - added xmlrpc_client module to project
 
 2025-02-09 03:30 dwg - added xmlrpc_inetd_server module to project
