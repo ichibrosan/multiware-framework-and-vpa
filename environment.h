@@ -409,6 +409,7 @@ public:
 	 *
 	 * @param path The file system path to the root directory for image storage.
      *************************************************************************/
+    void set_img_root(bool bDebug);
 
     /************************************************************************
 	 * Retrieves the root directory path where style files are stored.
