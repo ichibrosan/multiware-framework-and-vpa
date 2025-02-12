@@ -14,21 +14,17 @@ using namespace std;
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/client_simple.hpp>
 
-/****************************************************************************
- * @brief The main entry point for the program.
+/**
+ * @brief Main entry point for the application. This program makes a client
+ *        call to a remote server using XML-RPC to invoke a method and fetches
+ *        its result.
  *
- * This function establishes a connection with an XML-RPC server
- * and invokes a remote method to compute the sum of two integers.
- * It also handles argument validation and error reporting. Note
- * that this program does not accept any command-line arguments,
- * and a message is displayed if arguments are provided.
- *
- * @param argc The number of command-line arguments.
- * @param argv The array of command-line arguments (unused in this function).
- * @return int Returns 0 on successful completion, or exits with
- *         an error status if invalid arguments are supplied or
- *         exceptions occur during execution.
- ***************************************************************************/
+ * @param argc The count of command-line arguments passed to the program.
+ * @param argv Array of command-line arguments. In this program, command-line
+ * arguments are not used.
+ * @return int Returns 0 on successful execution, and exits with 1 if there
+ *             are command-line arguments or an error occurs.
+ */
 
 int
 main(int argc, char **) {

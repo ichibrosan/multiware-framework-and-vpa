@@ -66,8 +66,12 @@ public:
         int const addend(paramList.getInt(0));
         int const adder(paramList.getInt(1));
         paramList.verifyEnd(2);
-        
-        *retvalP = xmlrpc_c::value_string("Hello, world!");
+
+        char szPayload[FILENAME_MAX];
+        sprintf(szPayload, "%s::%s() on %s at line %d",
+            __FILE__,__FUNCTION__,__DATE__,__LINE__);
+
+        *retvalP = xmlrpc_c::value_string(szPayload);
     }
 };
 
