@@ -2,6 +2,8 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-12 07:18 dwg - extracted diagnoseMethod.h from xmlrpc_inetd_server.cpp
+The xmlrpc-c hooks and xinetd integration is working beautifully. :-)
 
 2025-02-10 23:15 mf - added function gen_vpa_script to environment .cpp and .h,
 and placed it at the bottom of the environment class constructor. 
