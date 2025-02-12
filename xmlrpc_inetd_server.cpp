@@ -44,6 +44,21 @@ public:
         this->_signature = "s:ii";  // method's arguments are two integers
         this->_help = "This method adds two integers together";
     }
+
+    /**
+     * Executes the XML-RPC method, processing the provided parameters and
+     * setting the result value.
+     *
+     * @param paramList A list of parameters passed to the method. This method
+     *                  expects exactly two integer parameters:
+     *                  the first is the addend, and the second is the adder.
+     * @param retvalP A pointer to the xmlrpc_c::value object where the result
+     *                of the execution is stored.
+     *
+     * This method verifies that the number of parameters provided matches the
+     * expected count (2). The result of the method is a string value "Hello,
+     * world!" assigned to the retvalP output parameter.
+     */
     void
     execute(xmlrpc_c::paramList const& paramList,
             xmlrpc_c::value *   const  retvalP) {
@@ -79,7 +94,24 @@ public:
 };
 
 
-int 
+/**
+ * Main function that initializes the XML-RPC server, sets up methods, and
+ * starts server execution by processing HTTP POST requests from standard input.
+ *
+ * @param argc The number of command-line arguments passed to the program.
+ *             This parameter is unused in this implementation.
+ * @param argv An array of C-style strings representing the command-line
+ *             arguments. This parameter is unused in this implementation.
+ *
+ * @return Returns an integer value where 0 indicates successful termination
+ *         of the program.
+ *
+ * This function registers two XML-RPC methods into the server registry:
+ * "sample.add" for adding two integers together and "diagnose" for diagnostic
+ * purposes. It configures the Abyss-based XML-RPC server and runs the server
+ * to process incoming requests.
+ */
+int
 main(int           const, 
      const char ** const) {
 
