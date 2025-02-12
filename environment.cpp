@@ -204,11 +204,25 @@ char * environment::get_public_ip()
 	return gpSh->m_pShMemng->szPublicIP;
 }
 
-/********************************************************************
- * Generates the .sh script used to run the Virtual Protocol Adapter.
+/***********************************************************************
+ * @brief Generates a script file for launching the VPAD application.
  *
+ * This method creates a shell script located in the user's public_html
+ * directory. The script is automatically generated with necessary content
+ * to execute the VPAD application. It performs the following steps:
+ *
+ * - Construct the full file path based on the user's public_html directory.
+ * - Attempt to open the script file for writing.
+ * - Handle error cases where the file could not be opened by logging
+ *   a warning message and exiting the operation.
+ * - Write the content of the script if the file is successfully opened,
+ *   including a shebang (`#!/bin/sh`) and commands to launch VPAD.
+ * - Change the permissions of the generated script to make it executable.
+ *
+ * Note: The `szUser` is retrieved from the shared memory to build the
+ *       file path dynamically based on the specific user's environment.
  ***********************************************************************/
-void environment::gen_vpad_script()
+ void environment::gen_vpad_script()
 {
 	/**
 	 *	Generates the FQFS for the script location.
