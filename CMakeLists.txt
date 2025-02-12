@@ -34,10 +34,14 @@ add_library(mwfw STATIC		cgicc.h
 		schemaCompiler.cpp	schemaCompiler.h
 		shared.cpp			shared.h
 		test.cpp			test.h
+        config.cpp
+        config.h
 )
 
 add_executable(xmlrpc_client
 		xmlrpc_client.cpp
+        config.cpp
+        config.h
 )
 link_directories(
         /opt/xmlrpc-c/src/cpp
@@ -63,6 +67,8 @@ target_link_libraries(xmlrpc_client
 
 add_executable(xmlrpc_inetd_server
 		xmlrpc_inetd_server.cpp
+        config.cpp
+        config.h
 )
 target_link_libraries(xmlrpc_inetd_server
 		libxmlrpc_server_abyss++.a
@@ -96,6 +102,8 @@ add_executable(fw
                             readCsv.h
                             schemaCompiler.h
 		           			CSysLog.hpp
+        config.cpp
+        config.h
 )
 target_link_libraries(fw
 		mwfw
@@ -108,6 +116,8 @@ target_link_libraries(fw
 #############################################
 add_executable(fw-test4.cgi
         fw-test4.cpp        fw-test4.h
+        config.cpp
+        config.h
 )
 target_link_libraries(fw-test4.cgi
 		mwfw
@@ -132,6 +142,8 @@ add_executable(index.cgi    cgicc.h		mwfw.h
                				dashboard.h
 	            			test.h
 							CSysLog.hpp
+        config.cpp
+        config.h
 )
 target_link_libraries(index.cgi
 		mwfw
@@ -156,6 +168,8 @@ add_executable(login.cgi    cgicc.h
         					password.h
 							dashboard.h
 	            			CSysLog.hpp
+        config.cpp
+        config.h
 )
 link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(login.cgi
@@ -180,6 +194,8 @@ add_executable(menu.cgi     cgicc.h
                             cgibind.h
                             dashboard.h
 		           			CSysLog.hpp
+        config.cpp
+        config.h
 )
 target_link_libraries(menu.cgi
 		mwfw
@@ -201,6 +217,8 @@ add_executable(logout.cgi   cgicc.h
                             environment.h
                             cgibind.h
 	            			CSysLog.hpp
+        config.cpp
+        config.h
 )
 link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(logout.cgi
@@ -224,6 +242,8 @@ add_executable(diagnose.cgi
               				environment.h
                    			cgibind.h
 							CSysLog.hpp
+        config.cpp
+        config.h
 )
 link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(diagnose.cgi
@@ -244,6 +264,8 @@ add_executable(look         cgicc.h
                             osIface.h
              			    environment.h
 	            			CSysLog.hpp
+        config.cpp
+        config.h
 )
 target_link_libraries(look
 		mwfw
@@ -265,6 +287,8 @@ add_executable(vpad         cgicc.h
 		                    cgihtml.h
 	            	        readCsv.h
 		                    cgibind.h
+        config.cpp
+        config.h
 )
 target_link_libraries(vpad
 		mwfw
@@ -289,6 +313,8 @@ add_executable(journal.cgi  cgicc.h
                             readCsv.h
                             dashboard.h
 		           			CSysLog.hpp
+        config.cpp
+        config.h
 )
 target_link_libraries(journal.cgi
 		mwfw
@@ -313,6 +339,8 @@ add_executable(notesave.cgi cgicc.h
 		                    schema.h
 		           			CSysLog.hpp
                             schema.h
+        config.cpp
+        config.h
 )
 target_link_libraries(notesave.cgi
 		mwfw
@@ -334,6 +362,8 @@ add_executable(noteload.cgi cgicc.h
 		                    readCsv.h
 		                    schema.h
 		           			CSysLog.hpp
+        config.cpp
+        config.h
 )
 target_link_libraries(noteload.cgi
 		mwfw
@@ -355,6 +385,8 @@ add_executable(render.cgi   cgicc.h
                             readCsv.h
                             dashboard.h
 		           			CSysLog.hpp
+        config.cpp
+        config.h
 )
 target_link_libraries(render.cgi
 		mwfw
