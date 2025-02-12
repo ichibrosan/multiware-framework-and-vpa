@@ -35,68 +35,7 @@ using namespace std;
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
 
-class diagnoseMethod : public xmlrpc_c::method {
-public:
-    diagnoseMethod() {
-        // signature and help strings are documentation -- the client
-        // can query this information with a system.methodSignature and
-        // system.methodHelp RPC.
-        this->_signature = "s:ii";  // method's arguments are two integers
-        this->_help = "This method adds two integers together";
-    }
-
-    /**
-     * Executes the XML-RPC method, processing the provided parameters and
-     * setting the result value.
-     *
-     * @param paramList A list of parameters passed to the method. This method
-     *                  expects exactly two integer parameters:
-     *                  the first is the addend, and the second is the adder.
-     * @param retvalP A pointer to the xmlrpc_c::value object where the result
-     *                of the execution is stored.
-     *
-     * This method verifies that the number of parameters provided matches the
-     * expected count (2). The result of the method is a string value "Hello,
-     * world!" assigned to the retvalP output parameter.
-     */
-    void
-    execute(xmlrpc_c::paramList const& paramList,
-            xmlrpc_c::value *   const  retvalP) {
-        
-        int const addend(paramList.getInt(0));
-        int const adder(paramList.getInt(1));
-        paramList.verifyEnd(2);
-
-        char szPayload[FILENAME_MAX];
-        sprintf(szPayload, "%s::%s() on %s at line %d",
-            __FILE__,__FUNCTION__,__DATE__,__LINE__);
-
-        *retvalP = xmlrpc_c::value_string(szPayload);
-    }
-};
-
-class sampleAddMethod : public xmlrpc_c::method {
-public:
-    sampleAddMethod() {
-        // signature and help strings are documentation -- the client
-        // can query this information with a system.methodSignature and
-        // system.methodHelp RPC.
-        this->_signature = "i:ii";  // method's arguments are two integers
-        this->_help = "This method adds two integers together";
-    }
-    void
-    execute(xmlrpc_c::paramList const& paramList,
-            xmlrpc_c::value *   const  retvalP) {
-
-        int const addend(paramList.getInt(0));
-        int const adder(paramList.getInt(1));
-
-        paramList.verifyEnd(2);
-
-        *retvalP = xmlrpc_c::value_int(addend + adder);
-    }
-};
-
+#include "diagnoseMethod.h"
 
 /**
  * Main function that initializes the XML-RPC server, sets up methods, and
@@ -110,10 +49,9 @@ public:
  * @return Returns an integer value where 0 indicates successful termination
  *         of the program.
  *
- * This function registers two XML-RPC methods into the server registry:
- * "sample.add" for adding two integers together and "diagnose" for diagnostic
- * purposes. It configures the Abyss-based XML-RPC server and runs the server
- * to process incoming requests.
+ * This function registers an XML-RPC method into the server registry:
+ * "diagnose" for diagnostic purposes. It configures the Abyss-based
+ * XML-RPC server and runs the server to process incoming requests.
  */
 int
 main(int           const, 
@@ -121,9 +59,7 @@ main(int           const,
 
     xmlrpc_c::registry myRegistry;
 
-    xmlrpc_c::methodPtr const sampleAddMethodP(new sampleAddMethod);
     xmlrpc_c::methodPtr const diagnoseMethodP(new diagnoseMethod);
-    myRegistry.addMethod("sample.add", sampleAddMethodP);
     myRegistry.addMethod("diagnose", diagnoseMethodP);
     xmlrpc_c::serverAbyss myAbyssServer(
          xmlrpc_c::serverAbyss::constrOpt()
