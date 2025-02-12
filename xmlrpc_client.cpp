@@ -39,18 +39,21 @@ main(int argc, char **) {
     }
 
     try {
-        string const serverUrl("http://localhost:8080/RPC2");
-        string const methodName("sample.add");
+        string const serverUrl("http://localhost:5164/RPC2");
+        //string const methodName("sample.add");
+        string const methodName("diagnose");
 
         xmlrpc_c::clientSimple myClient;
         xmlrpc_c::value result;
         
         myClient.call(serverUrl, methodName, "ii", &result, 5, 7);
 
-        int const sum = xmlrpc_c::value_int(result);
+        //int const sum = xmlrpc_c::value_int(result);
+        std::string ssValue = xmlrpc_c::value_string(result);
             // Assume the method returned an integer; throws error if not
 
-        cout << "Result of RPC (sum of 5 and 7): " << sum << endl;
+        //cout << "Result of RPC (sum of 5 and 7): " << sum << endl;
+        cout << "Result of diagnose: " << ssValue << endl;
 
     } catch (exception const& e) {
         cerr << "Client threw error: " << e.what() << endl;
