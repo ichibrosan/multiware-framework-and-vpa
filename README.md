@@ -2,6 +2,10 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-13 20:45 dwg - added szUser and szRpcUuid to +shmvars 
+display, enhanced xmlrpc_client and xmlrpc_inetd_server to use 
+shared::szRpcUuid as auth token in xmlrpc calls.
+
 2025-02-13 17:12 dwg - About the Broken curl code in github
 Last night in the middle of the night, my copy of xmlrpc_client and xmlrpc_inet_server
 stopped working and started spouting weird error messages. After hours of horror, I 
