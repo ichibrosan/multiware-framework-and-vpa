@@ -5,6 +5,16 @@
 
 #include "mwfw2.h"
 
+//#include <cgicc/Cgicc.h>
+
+//#include "cgibind.h"
+//#include "diagnose.h"
+
+environment * gpEnv;
+shared * gpSh;
+osIface * gpOS;
+CLog * gpLog;
+CSysLog * gpSysLog;
 /**
  * Constructor for the mwfw class. Initializes the CGI mode based
  * on the SERVER_PORT environment variable and sets up the system
@@ -20,7 +30,7 @@
  * @return A newly constructed mwfw instance with initialized
  *         CGI and logging mechanisms.
  */
-mwfw2::mwfw2()
+mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 {
 	m_bCGI = false;
 	char * ptr = getenv("SERVER_PORT");
@@ -34,7 +44,13 @@ mwfw2::mwfw2()
 	gpSysLog = new CSysLog();
 	gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
+    gpSh = new shared();
+    gpEnv = new environment();
+    gpLog = new CLog(__FILE__,__FUNCTION__);
+    gpOS = new osIface();
 
+    // gpCgi = new Cgicc();
+    // gpCgiBind = new cgibind();
 }
 
 /**

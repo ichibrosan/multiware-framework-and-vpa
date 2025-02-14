@@ -2,7 +2,7 @@
 // daphne.goodall.com:/home/doug/public_html/fw/vpad.cpp 2025/01/11 05:21 //
 // Copyright (c) Douglas Wade Goodall. All Rights Reserved.               //
 ////////////////////////////////////////////////////////////////////////////
-
+#include "mwfw2.h"
 #include "look.h"
 
 /**
@@ -73,8 +73,8 @@ struct MFW_SHMEMUSER_T {
  * initialized to nullptr, and its value is expected to be set during runtime
  * as per the application requirements.
  *
- * The MFW_SHMEMUSER_T structure stores user-related information like signatures,
- * user names, UUIDs, and authorization handles.
+ * The MFW_SHMEMUSER_T structure stores user-related information like
+ * signatures, user names, UUIDs, and authorization handles.
  *
  * @note The initialization and handling of this pointer must be done carefully
  * to prevent dereferencing null or uninitialized memory.
@@ -82,8 +82,9 @@ struct MFW_SHMEMUSER_T {
 struct MFW_SHMEMUSER_T * gpShUser = nullptr;
 
 /**
- * @brief Main function that initializes core components, logs system information,
- *        and outputs processed statistical data and authenticated user credentials.
+ * @brief Main function that initializes core components, logs system
+ * information, and outputs processed statistical data and authenticated user
+ * credentials.
  *
  * This function initializes the logging mechanism, shared memory, environment
  * services, and operating system interface modules. It retrieves and displays
@@ -94,13 +95,14 @@ struct MFW_SHMEMUSER_T * gpShUser = nullptr;
  * @return int Returns 0 upon successful execution.
  */
 int main() {
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
     printf("vpad Copyright (c) 2025 Douglas Wade Goodall. "
            "All Rights Reserved.\n");
-    gpLog    = new CLog(__FILE__, __FUNCTION__);
-    gpSh     = new shared();
-    gpEnv    = new environment();
-    gpOS     = new osIface();
+    // gpLog    = new CLog(__FILE__, __FUNCTION__);
+    // gpSh     = new shared();
+    // gpEnv    = new environment();
+    // gpOS     = new osIface();
 
     printf("num_tests_processed is %d\n",
         gpSh->m_pShMemng->num_tests_processed);
@@ -112,13 +114,13 @@ int main() {
             gpSh->m_pShMemng->num_tests_failed);
 
     printf("tests_processed_bits are ");
-    gpOS->printBinary(gpSh->m_pShMemng->tests_processed_bits,NUM_TESTS);
+    gpOS->printBinary(gpSh->m_pShMemng->tests_processed_bits,7);
     printf("\ntests_passed_bits    are ");
-    gpOS->printBinary(gpSh->m_pShMemng->tests_passed_bits,NUM_TESTS);
+    gpOS->printBinary(gpSh->m_pShMemng->tests_passed_bits,7);
     printf("\ntests_failed_bits    are ");
-    gpOS->printBinary(gpSh->m_pShMemng->tests_failed_bits,NUM_TESTS);
+    gpOS->printBinary(gpSh->m_pShMemng->tests_failed_bits,7);
     printf("\ntests_skipped_bits   are ");
-    gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits,NUM_TESTS);
+    gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits,7);
 
     printf("\n\nCredentials of Authenticated Users:");
     for (int iRow=3;iRow<MAX_USERS+ROW_DATA;iRow++) {

@@ -47,20 +47,20 @@ add_library( mwfw STATIC
 
 add_library( mwfw2 STATIC
         mwfw2.cpp			mwfw2.h
+        shared.cpp          shared.h
 #        cgibind.cpp		cgibind.h
 #        cgihtml.cpp		cgihtml.h
-#        CLog.cpp			CLog.hpp
-#        CSysLog.cpp		CSysLog.hpp
+        CLog.cpp			CLog.hpp
+        CSysLog.cpp		CSysLog.hpp
 #        dashboard.cpp		dashboard.h
-#        environment.cpp	environment.h
-#        osIface.cpp		osIface.h
+        environment.cpp	environment.h
+        osIface.cpp		osIface.h
 #        password.cpp		password.h
 #        readCsv.cpp		readCsv.h
 #        schema.cpp			schema.h
 #        schemaCompiler.cpp	schemaCompiler.h
-#        shared.cpp			shared.h
 #        test.cpp			test.h
-#        config.cpp         config.h
+        config.cpp         config.h
 #        cgicc.h
 )
 
@@ -306,7 +306,7 @@ add_executable( look
 #               config.h
 )
 target_link_libraries(look
-		mwfw
+		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )

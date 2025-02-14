@@ -15,7 +15,19 @@
  * initialized during the program's execution and provides an entry point for
  * interacting with the logging mechanism throughout the application.
  */
-CSysLog * gpSysLog;
+
+
+#include "environment.h"
+
+
+#include "shared.h"
+
+
+#include "osIface.h"
+
+
+#include "CLog.hpp"
+
 
 /**
  * @class mwfw2
@@ -50,7 +62,7 @@ class mwfw2 {
 	 * @return An instance of the mwfw class.
 	 */
 public:
-  mwfw2();
+  mwfw2(const char *pszFile,const char *pszFunction);
 	/**
 	 * Determines whether the application is running in a CGI (Common Gateway Interface) context.
 	 *
