@@ -2,6 +2,15 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-13 17:12 dwg - About the Broken curl code in github
+Last night in the middle of the night, my copy of xmlrpc_client and xmlrpc_inet_server
+stopped working and started spouting weird error messages. After hours of horror, I 
+discovered that the maintainers of the curl distribution just pushed changes into the
+curl/curl repository at github the break xmlrpc-c compatibility. After much heartache,
+identified a version that still works which I have names good-curl.tgz. To reproduce
+our working infrastructure, you have to configure build and install the good-curl,
+then build and install the xmlrpc module, then rebuild our project. Whew!!
+
 2025-02-12 07:18 dwg - extracted diagnoseMethod.h from xmlrpc_inetd_server.cpp
 The xmlrpc-c hooks and xinetd integration is working beautifully. :-)
 

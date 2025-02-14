@@ -5,7 +5,7 @@
 
 #ifndef MULTIWARE_SHMEMNG_H
 #define MULTIWARE_SHMEMNG_H
-
+#include "config.h"
 #include "fw-limits.h"
 #include <net/if.h>
 

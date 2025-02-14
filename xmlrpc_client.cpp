@@ -14,6 +14,10 @@ using namespace std;
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/client_simple.hpp>
 
+#include "CSysLog.hpp"
+
+CSysLog * gpSysLog = nullptr;
+
 /**
  * @brief Main entry point for the application. This program makes a client
  *        call to a remote server using XML-RPC to invoke a method and fetches
@@ -28,6 +32,10 @@ using namespace std;
 
 int
 main(int argc, char **) {
+    char szTemp[128];
+    sprintf(szTemp,"%s::%s running ",__FILE__,__FUNCTION__);
+    gpSysLog = new CSysLog();
+    gpSysLog->loginfo(szTemp);
 
     if (argc-1 > 0) {
         cerr << "This program has no arguments" << endl;
@@ -41,12 +49,18 @@ main(int argc, char **) {
 
         xmlrpc_c::clientSimple myClient;
         xmlrpc_c::value result;
-        
+
+        // sprintf(szTemp,"%s::%s running at line %d",__FILE__,__FUNCTION__,__LINE__);
+        // gpSysLog->loginfo(szTemp);
+
         myClient.call(serverUrl, methodName, "ii", &result, 5, 7);
+
+        // sprintf(szTemp,"%s::%s running at line %d - returned from myClient.call",
+        //     __FILE__,__FUNCTION__,__LINE__);
+        // gpSysLog->loginfo(szTemp);
 
         //int const sum = xmlrpc_c::value_int(result);
         std::string ssValue = xmlrpc_c::value_string(result);
-            // Assume the method returned an integer; throws error if not
 
         //cout << "Result of RPC (sum of 5 and 7): " << sum << endl;
         cout << "Result of diagnose: " << ssValue << endl;

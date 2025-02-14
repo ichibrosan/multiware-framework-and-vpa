@@ -8,6 +8,7 @@
 #define MULTIWARE_CGIBIND_H
 
 #include "std.h"
+#include "config.h"
 #include "fw-limits.h"
 #include "cgicc.h"
 /**
