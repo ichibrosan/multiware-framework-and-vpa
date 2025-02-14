@@ -64,6 +64,7 @@ target_link_libraries(xmlrpc_client
 		pthread
 		curl
 		libxmlrpc_packetsocket.a
+        uuid.a            # uuid.so         use static library instead
 )
 
 add_executable(xmlrpc_inetd_server
@@ -88,6 +89,7 @@ target_link_libraries(xmlrpc_inetd_server
 		ssl
 		crypto
 		pthread
+        uuid.a            # uuid.so         use static library instead
 )
 
 ########################################################
@@ -110,6 +112,7 @@ add_executable(fw
 target_link_libraries(fw
 		mwfw
 		libcgicc.a        # libcgicc.so         use static library instead
+        uuid.a            # uuid.so         use static library instead
 )
 
 
@@ -124,6 +127,7 @@ add_executable(fw-test4.cgi
 target_link_libraries(fw-test4.cgi
 		mwfw
 		libcgicc.a        # libcgicc.so         use static library instead
+        uuid.a            # uuid.so         use static library instead
 )
 
 
@@ -150,7 +154,7 @@ add_executable(index.cgi    cgicc.h		mwfw.h
 target_link_libraries(index.cgi
 		mwfw
 		libcgicc.a          # libcgicc.so       use static library instead
-
+        uuid.a            # uuid.so         use static library instead
 )
 
 
@@ -202,6 +206,7 @@ add_executable(menu.cgi     cgicc.h
 target_link_libraries(menu.cgi
 		mwfw
 		libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
 )
 
 
@@ -272,6 +277,7 @@ add_executable(look         cgicc.h
 target_link_libraries(look
 		mwfw
 		libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
 )
 
 ######################################################################
@@ -295,6 +301,7 @@ add_executable(vpad         cgicc.h
 target_link_libraries(vpad
 		mwfw
 		libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
 )
 
 
@@ -321,6 +328,7 @@ add_executable(journal.cgi  cgicc.h
 target_link_libraries(journal.cgi
 		mwfw
 		libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
 )
 
 
@@ -347,6 +355,7 @@ add_executable(notesave.cgi cgicc.h
 target_link_libraries(notesave.cgi
 		mwfw
 		libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
 )
 
 #####################################################################
@@ -370,6 +379,7 @@ add_executable(noteload.cgi cgicc.h
 target_link_libraries(noteload.cgi
 		mwfw
 		libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
 )
 
 #####################################################################
@@ -393,6 +403,7 @@ add_executable(render.cgi   cgicc.h
 target_link_libraries(render.cgi
 		mwfw
 		libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
 )
 
 

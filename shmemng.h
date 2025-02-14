@@ -27,8 +27,8 @@ struct MFW_SHMEMNG_T {
     char szCgiRoot[INET_URL_SIZE_MAX];
     char szStylesRoot[INET_URL_SIZE_MAX];
     char szJournalRoot[INET_URL_SIZE_MAX];
-
     char szUser[UT_NAMESIZE];
+    char szRpcUuid[UUID_SIZE];             // 37
 
     /*************************************************************************
      * creds is a vector of structures. it needs to be indexed using         *

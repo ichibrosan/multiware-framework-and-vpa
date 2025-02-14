@@ -458,6 +458,14 @@ void cgihtml::dump_shm_vars()
     print(gpSh->m_pShMemng->szJournalRoot);
     print("</td></tr>");
 
+    print("<tr><th>szUser</th><td>");
+    print(gpSh->m_pShMemng->szUser);
+    print("</td></tr>");
+
+    print("<tr><th>szRpcUuid</th><td>");
+    print(gpSh->m_pShMemng->szRpcUuid);
+    print("</td></tr>");
+
     for (int iRow = ROW_DATA; iRow < ROW_DATA+MAX_USERS; iRow++) {
         if(gpSh->m_pShMemng->creds[iRow].iAuthHandle>2) {
             std::cout << "<tr><th>szAuthUserName</th><td>";

@@ -32,6 +32,9 @@
 #include "CSysLog.hpp"
 CSysLog * gpSysLog;
 
+#include "shared.h"
+shared * gpSh;
+
 using namespace std;
 
 #include <xmlrpc-c/base.hpp>
@@ -62,36 +65,26 @@ main(int           const,
 
     char szTemp[128];
     gpSysLog = new CSysLog();
-
-    // sprintf(szTemp,"%s::%s running at line %d",__FILE__,__FUNCTION__,__LINE__);
-    // gpSysLog->loginfo(szTemp);
+    gpSh     = new shared();
 
     xmlrpc_c::registry myRegistry;
 
     xmlrpc_c::methodPtr const diagnoseMethodP(new diagnoseMethod);
 
-    // sprintf(szTemp,"%s::%s running at line %d",__FILE__,__FUNCTION__,__LINE__);
-    // gpSysLog->loginfo(szTemp);
-
     myRegistry.addMethod("diagnose", diagnoseMethodP);
-
-    // sprintf(szTemp,"%s::%s running at line %d",__FILE__,__FUNCTION__,__LINE__);
-    // gpSysLog->loginfo(szTemp);
 
     xmlrpc_c::serverAbyss myAbyssServer(
          xmlrpc_c::serverAbyss::constrOpt()
          .registryP(&myRegistry));
 
-    // sprintf(szTemp,"%s::%s running at line %d",__FILE__,__FUNCTION__,__LINE__);
-    // gpSysLog->loginfo(szTemp);
-
     myAbyssServer.runConn(STDIN_FILENO);
         /* This reads the HTTP POST request from Standard Input and
            executes the indicated RPC.
         */
-    sprintf(szTemp,"%s::%s running at line %d - returned from myAbyssServer.runConn",
-        __FILE__,__FUNCTION__,__LINE__);
-    gpSysLog->loginfo(szTemp);
+
+    // sprintf(szTemp,"%s::%s running at line %d - returned from myAbyssServer.runConn",
+    //     __FILE__,__FUNCTION__,__LINE__);
+    // gpSysLog->loginfo(szTemp);
 
     return 0;
 }

@@ -56,7 +56,13 @@ main(int argc, char **) {
         // sprintf(szTemp,"%s::%s running at line %d",__FILE__,__FUNCTION__,__LINE__);
         // gpSysLog->loginfo(szTemp);
 
-        myClient.call(serverUrl, methodName, "iis", &result, 5, 7,"AuTh");
+        myClient.call(  serverUrl,
+                        methodName,
+                        "iis",
+                         &result,
+                         5,
+                         7,
+                         gpSh->m_pShMemng->szRpcUuid);
 
         // sprintf(szTemp,"%s::%s running at line %d - returned from myClient.call",
         //     __FILE__,__FUNCTION__,__LINE__);

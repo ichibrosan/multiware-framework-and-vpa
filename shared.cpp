@@ -83,6 +83,15 @@ shared::shared() {
         m_pShMemng->iSignature = UNIVERSAL_ANSWER;
         size_t credsSize = sizeof(MFW_SHMEMNG_T::creds);
 
+        /* each time the shared region is created, a new and unique
+         * RpcUuid is set to authenticate RPC calls
+         */
+        uuid_t uuid;
+        char szUUID[37 ];
+        uuid_generate(uuid);
+        uuid_unparse(uuid,szUUID);
+        strcpy(m_pShMemng->szRpcUuid,szUUID);
+
         //********************************************************************
         // Initialize shared credential data after creation 2025/01/24 dwg - *
         //********************************************************************
