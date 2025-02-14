@@ -15,8 +15,10 @@ using namespace std;
 #include <xmlrpc-c/client_simple.hpp>
 
 #include "CSysLog.hpp"
+#include "shared.h"
 
 CSysLog * gpSysLog = nullptr;
+shared  * gpSh = nullptr;
 
 /**
  * @brief Main entry point for the application. This program makes a client
@@ -36,6 +38,7 @@ main(int argc, char **) {
     sprintf(szTemp,"%s::%s running ",__FILE__,__FUNCTION__);
     gpSysLog = new CSysLog();
     gpSysLog->loginfo(szTemp);
+    gpSh = new shared();
 
     if (argc-1 > 0) {
         cerr << "This program has no arguments" << endl;
@@ -53,7 +56,7 @@ main(int argc, char **) {
         // sprintf(szTemp,"%s::%s running at line %d",__FILE__,__FUNCTION__,__LINE__);
         // gpSysLog->loginfo(szTemp);
 
-        myClient.call(serverUrl, methodName, "ii", &result, 5, 7);
+        myClient.call(serverUrl, methodName, "iis", &result, 5, 7,"AuTh");
 
         // sprintf(szTemp,"%s::%s running at line %d - returned from myClient.call",
         //     __FILE__,__FUNCTION__,__LINE__);

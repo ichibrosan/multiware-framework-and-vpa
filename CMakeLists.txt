@@ -42,6 +42,7 @@ add_executable(xmlrpc_client
 		xmlrpc_client.cpp
         config.cpp	        config.h
 		CSysLog.cpp			CSysLog.hpp
+        shared.cpp          shared.h
 )
 link_directories(
         /opt/xmlrpc-c/src/cpp
@@ -69,6 +70,7 @@ add_executable(xmlrpc_inetd_server
 		xmlrpc_inetd_server.cpp
         config.cpp	        config.h
 		CSysLog.cpp			CSysLog.hpp
+        shared.cpp          shared.h
 )
 target_link_libraries(xmlrpc_inetd_server
 		libxmlrpc_server_abyss++.a

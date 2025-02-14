@@ -28,7 +28,7 @@ public:
         // signature and help strings are documentation -- the client
         // can query this information with a system.methodSignature and
         // system.methodHelp RPC.
-        this->_signature = "s:ii";  // method's arguments are two integers
+        this->_signature = "s:iis";  // method's arguments are two integers
         this->_help = "This method adds two integers together";
     }
 
@@ -47,13 +47,14 @@ public:
     execute(xmlrpc_c::paramList const& paramList,
             xmlrpc_c::value *   const  retvalP) {
 
-        int const addend(paramList.getInt(0));
-        int const adder(paramList.getInt(1));
-        paramList.verifyEnd(2);
+        int const func(paramList.getInt(0));
+        int const parm(paramList.getInt(1));
+        std::string auth(paramList.getString(2));
+        paramList.verifyEnd(3);
 
         char szPayload[FILENAME_MAX];
-        sprintf(szPayload, "%s::%s() on %s at line %d",
-            __FILE__,__FUNCTION__,__DATE__,__LINE__);
+        sprintf(szPayload, "%s::%s() on %s at line %d %s",
+            __FILE__,__FUNCTION__,__DATE__,__LINE__,auth.c_str());
 
         *retvalP = xmlrpc_c::value_string(szPayload);
     }
