@@ -582,6 +582,7 @@ void schema::gen_from_schema(int iHandle,
     char szTemp[BUFSIZ];
     memset(szTemp,0,sizeof(szTemp));
     gpHtml->open_html();
+//    gpHtml->open_head("default_style.css");
     gpHtml->open_head();
     sprintf(szTemp,"%s%s%s",
             gpSh->m_pShMemng->szProtocol,
@@ -590,10 +591,10 @@ void schema::gen_from_schema(int iHandle,
     gpHtml->title(szTemp);
 
 
-    gpHtml->set_style(
-        gpCsv->m_parsed_data
-        [ROW_META_DATA]
-        [COL_META_STYLE].c_str());
+    gpHtml->set_style("default_style");
+        // gpCsv->m_parsed_data
+        // [ROW_META_DATA]
+        // [COL_META_STYLE].c_str());
 
     gpHtml->close_head();
     gpHtml->open_body();

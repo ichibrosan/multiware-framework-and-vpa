@@ -1244,9 +1244,15 @@ void cgihtml::open_form(    const char * pszSchemaName,
 
 /**
  * @*/
+//void cgihtml::open_head(std::string ssCssName)
 void cgihtml::open_head()
 {
     std::cout << "<head>";
+              //<< "<link rel=\"stylesheet\" "
+              // << "href=\""
+              // << ssCssName
+              // << "\">"
+              // << std::endl;
 }
 
 

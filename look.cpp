@@ -32,7 +32,7 @@ int main() {
             gpSh->m_pShMemng->num_tests_passed);
     printf("num_tests_failed is %d\n\n",
             gpSh->m_pShMemng->num_tests_failed);
-
+    gpSh->m_pShMemng->num_tests_processed = 0;
     int iNumTests = 7;
     printf("tests_processed_bits are ");
     gpOS->printBinary(gpSh->m_pShMemng->tests_processed_bits,iNumTests);

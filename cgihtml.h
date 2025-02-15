@@ -773,7 +773,8 @@ void form_select_end();
 	 * @throw std::runtime_error If the operation fails due to
 	 *                           an unexpected error.
 	 */
-	void open_head();
+    void open_head();
+//    void open_head(std::string ssCssName);
 
 	/**
 	 * Opens the given HTML content in a web viewer.

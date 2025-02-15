@@ -15,6 +15,7 @@ shared * gpSh;
 osIface * gpOS;
 CLog * gpLog;
 CSysLog * gpSysLog;
+
 /**
  * Constructor for the mwfw class. Initializes the CGI mode based
  * on the SERVER_PORT environment variable and sets up the system
