@@ -9,11 +9,13 @@
 
 /**
  * @class mwfw
- * @brief This class provides foundational functionality for the middleware framework (MWFW).
+ * @brief This class provides foundational functionality for the middleware
+ * framework (MWFW).
  *
- * The mwfw class encapsulates the state and behavior necessary for managing server configurations
- * (e.g., CGI mode) and logging system information. It interacts with the CSysLog class for
- * logging and provides mechanisms for determining whether the framework is running in CGI mode.
+ * The mwfw class encapsulates the state and behavior necessary for managing
+ * server configurations (e.g., CGI mode) and logging system information.
+ * It interacts with the CSysLog class for logging and provides mechanisms for
+ * determining whether the framework is running in CGI mode.
  */
 class mwfw {
 	/**
@@ -32,41 +34,45 @@ class mwfw {
 	 * Ownership:
 	 * - The `mwfw` class is responsible for managing the memory associated
 	 *   with this pointer. It ensures that the instance of `CSysLog` is
-	 *   properly initialized and released during the lifecycle of the `mwfw` object.
+	 *   properly initialized and released during the lifecycle of the
+	 *   `mwfw` object.
 	 */
 	CSysLog * m_pSysLog;
 	/**
-	 * A boolean flag indicating whether the application is running in a CGI (Common Gateway Interface) environment.
-	 *
-	 * This member variable is set during object initialization in the constructor of the `mwfw` class.
-	 * It checks the presence of the "SERVER_PORT" environment variable to determine if the application is
-	 * running in a CGI context. If the environment variable exists, `m_bCGI` is set to `true`, otherwise it is `false`.
-	 *
-	 * This variable is primarily used in conjunction with the `isCGI()` method to provide access to
-	 * its value for other parts of the application.
+	 * A boolean flag indicating whether the application is running in a CGI
+	 * (Common Gateway Interface) environment. This member variable is set
+	 * during object initialization in the constructor of the `mwfw` class.
+	 * It checks the presence of the "SERVER_PORT" environment variable to
+	 * determine if the application is running in a CGI context. If the
+	 * environment variable exists, `m_bCGI` is set to `true`, otherwise it
+	 * is `false`. This variable is primarily used in conjunction with the
+	 * `isCGI()` method to provide access to its value for other parts of the
+	 * application.
 	 */
 	bool      m_bCGI;
 	/**
 	 * Constructor for the mwfw class.
-	 * Initializes the mwfw instance, determines if the current execution context
-	 * is in a CGI environment, and sets up a system logger.
+	 * Initializes the mwfw instance, determines if the current execution
+	 * context is in a CGI environment, and sets up a system logger.
 	 *
-	 * The method checks for the presence of the "SERVER_PORT" environment variable
-	 * to infer if the code is being executed in a CGI context. If the CGI environment
-	 * is detected, it outputs content-type headers. Additionally, it initializes
-	 * an instance of the CSysLog class for system logging purposes.
+	 * The method checks for the presence of the "SERVER_PORT" environment
+	 * variable to infer if the code is being executed in a CGI context. If
+	 * the CGI environment is detected, it outputs content-type headers.
+	 * Additionally, it initializes an instance of the CSysLog class for
+	 * system logging purposes.
 	 *
 	 * @return An instance of the mwfw class.
 	 */
 public:
   mwfw();
 	/**
-	 * Determines whether the application is running in a CGI (Common Gateway Interface) context.
+	 * Determines whether the application is running in a CGI (Common Gateway
+	 * Interface) context. This method evaluates the internal state of the
+	 * class to check whether it is functioning as a CGI process based on
+	 * certain environment variables set at runtime.
 	 *
-	 * This method evaluates the internal state of the class to check whether it is functioning
-	 * as a CGI process based on certain environment variables set at runtime.
-	 *
-	 * @return True if the application is running in a CGI context, otherwise false.
+	 * @return True if the application is running in a CGI context, otherwise
+	 * false.
 	 */
 	bool isCGI();
 	/**
@@ -75,7 +81,8 @@ public:
 	 * This function routes the provided message to an internal system logger
 	 * for informational purposes.
 	 *
-	 * @param pszMsg A pointer to a null-terminated string containing the message to log.
+	 * @param pszMsg A pointer to a null-terminated string containing the
+	 * message to log.
 	 */
 	void sl_loginfo(const char *);
 };

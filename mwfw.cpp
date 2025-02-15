@@ -38,9 +38,11 @@ mwfw::mwfw()
 }
 
 /**
- * Checks whether the application is operating in a CGI (Common Gateway Interface) environment.
+ * Checks whether the application is operating in a CGI (Common Gateway
+ * Interface) environment.
  *
- * @return true if the application is running in a CGI environment (determined by the internal state of m_bCGI), false otherwise.
+ * @return true if the application is running in a CGI environment (determined
+ * by the internal state of m_bCGI), false otherwise.
  */
 bool mwfw::isCGI()
 {
@@ -50,12 +52,12 @@ bool mwfw::isCGI()
 /**
  * Logs an informational message using the system logging mechanism.
  *
- * This method forwards the given message to the CSysLog instance's loginfo method,
- * which is responsible for logging the message to the system's logging facilities,
- * like syslog.
+ * This method forwards the given message to the CSysLog instance's loginfo
+ * method, which is responsible for logging the message to the system's
+ * logging facilities, like syslog.
  *
- * @param pszMsg A null-terminated string containing the informational message to log.
- *               The caller must ensure that the message is valid and not nullptr.
+ * @param pszMsg A null-terminated string containing the informational message
+ * to log. The caller must ensure that the message is valid and not nullptr.
  */
 void mwfw::sl_loginfo(const char *pszMsg)
 {
