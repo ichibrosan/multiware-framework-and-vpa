@@ -3,8 +3,6 @@
 // Copyright (c) Douglas Wade Goodall. All Rights Reserved.               //
 ////////////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
-#include "look.h"
-
 
 /**
  * @brief Main function that initializes core components, logs system

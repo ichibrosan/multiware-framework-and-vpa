@@ -295,7 +295,6 @@ target_link_libraries(diagnose.cgi
 ######################################################################
 add_executable( look
                 look.cpp
-                look.h
 #               cgicc.h
 #   			shmemng.h
 #               shared.h
