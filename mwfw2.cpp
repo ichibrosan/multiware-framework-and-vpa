@@ -15,7 +15,11 @@ shared * gpSh;
 osIface * gpOS;
 CLog * gpLog;
 CSysLog * gpSysLog;
-
+cgibind * gpCgiBind;
+cgihtml * gpHtml;
+Cgicc * gpCgi;
+schema * gpSchema;
+readCsv * gpCsv;
 /**
  * Constructor for the mwfw class. Initializes the CGI mode based
  * on the SERVER_PORT environment variable and sets up the system
@@ -51,7 +55,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
     gpOS = new osIface();
 
     // gpCgi = new Cgicc();
-    // gpCgiBind = new cgibind();
+    gpCgiBind = new cgibind();
 }
 
 /**

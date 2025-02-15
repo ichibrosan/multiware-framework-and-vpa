@@ -48,75 +48,46 @@ add_library( mwfw STATIC
 add_library( mwfw2 STATIC
         mwfw2.cpp			mwfw2.h
         shared.cpp          shared.h
-#        cgibind.cpp		cgibind.h
-#        cgihtml.cpp		cgihtml.h
+        cgibind.cpp		    cgibind.h
+        cgihtml.cpp		    cgihtml.h
         CLog.cpp			CLog.hpp
-        CSysLog.cpp		CSysLog.hpp
+        CSysLog.cpp		    CSysLog.hpp
 #        dashboard.cpp		dashboard.h
-        environment.cpp	environment.h
-        osIface.cpp		osIface.h
+        environment.cpp	    environment.h
+        osIface.cpp		    osIface.h
 #        password.cpp		password.h
-#        readCsv.cpp		readCsv.h
-#        schema.cpp			schema.h
+        readCsv.cpp		    readCsv.h
+        schema.cpp			schema.h
 #        schemaCompiler.cpp	schemaCompiler.h
 #        test.cpp			test.h
-        config.cpp         config.h
+        config.cpp          config.h
 #        cgicc.h
 )
 
-add_executable(xmlrpc_client
-		xmlrpc_client.cpp
-        config.cpp	        config.h
-		CSysLog.cpp			CSysLog.hpp
-        shared.cpp          shared.h
+##############################################################################
+# diagnose.cgi is intended to be a diagnostic invoked by the Diagnose button #
+##############################################################################
+add_executable( diagnose.cgi
+        diagnose.cpp
+        diagnose.h
+        #        		CLog.hpp
+        #                osIface.h
+        #                shared.h
+        #		        readCsv.h
+        #		        cgihtml.h
+        #                schema.h
+        #              	environment.h
+        #                cgibind.h
+        #				CSysLog.hpp
+        #                config.h
 )
-link_directories(
-        /opt/xmlrpc-c/src/cpp
-        /opt/xmlrpc-c/src
-        /opt/xmlrpc-c/lib/libutil++
-        /opt/xmlrpc-c/lib/expat/xmlparse
-        /opt/xmlrpc-c/lib/expat/xmltok
-        /opt/xmlrpc-c/lib/libutil
-)
-target_link_libraries(xmlrpc_client
-		libxmlrpc_client++.a
-		libxmlrpc_client.a
-		libxmlrpc++.a
-		libxmlrpc_util++.a
-		libxmlrpc.a
-		libxmlrpc_xmlparse.a
-		libxmlrpc_xmltok.a
-		libxmlrpc_util.a
-		pthread
-		curl
-		libxmlrpc_packetsocket.a
+link_directories(/usr/lib/x86_64-linux-gnu)
+target_link_libraries(diagnose.cgi
+        mwfw2
+        libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
 
-add_executable(xmlrpc_inetd_server
-		xmlrpc_inetd_server.cpp
-        config.cpp	        config.h
-		CSysLog.cpp			CSysLog.hpp
-        shared.cpp          shared.h
-)
-target_link_libraries(xmlrpc_inetd_server
-		libxmlrpc_server_abyss++.a
-		libxmlrpc_server++.a
-		libxmlrpc_abyss++.a
-		libxmlrpc_server_abyss.a
-		libxmlrpc_server.a
-		libxmlrpc_abyss.a
-		libxmlrpc++.a
-		libxmlrpc_util++.a
-		libxmlrpc.a
-		libxmlrpc_xmlparse.a
-		libxmlrpc_xmltok.a
-		libxmlrpc_util.a
-		ssl
-		crypto
-		pthread
-        uuid.a            # uuid.so         use static library instead
-)
 
 ########################################################
 # fw is the command line version of the test framework #
@@ -185,6 +156,33 @@ target_link_libraries(index.cgi
 )
 
 
+####################################################################
+# journal.cgi is called as a result of pressing the Journal button #
+####################################################################
+add_executable( journal.cgi
+        journal.cpp
+        journal.h
+        #                cgicc.h
+        #		        shmemng.h
+        #                shared.h
+        #                CLog.hpp
+        #                osIface.h
+        #                environment.h
+        #                cgibind.h
+        #                schema.h
+        #                cgihtml.h
+        #                readCsv.h
+        #                dashboard.h
+        #		        CSysLog.hpp
+        #                config.h
+)
+target_link_libraries(journal.cgi
+        mwfw
+        libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
+)
+
+
 ############################################################################
 # login.cgi is invoked by the index.csv as the processing cgi for the form #
 ############################################################################
@@ -213,6 +211,53 @@ target_link_libraries(login.cgi
 )
 
 
+#####################################################################
+#  logout.cgi is called as the result of pressing the Logout button #
+#####################################################################
+add_executable( logout.cgi
+        logout.cpp
+        logout.h
+        #                cgicc.h
+        #                CLog.hpp
+        #                osIface.h
+        #                shared.h
+        #                readCsv.h
+        #                cgihtml.h
+        #                schema.h
+        #                environment.h
+        #                cgibind.h
+        #	            CSysLog.hpp
+        #                config.h
+)
+link_directories(/usr/lib/x86_64-linux-gnu)
+target_link_libraries(logout.cgi
+        mwfw
+        libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
+)
+
+
+######################################################################
+# look is a command line program that displays shared segment values #
+######################################################################
+add_executable( look
+        look.cpp
+        #               cgicc.h
+        #   			shmemng.h
+        #               shared.h
+        #               CLog.hpp
+        #               osIface.h
+        #       	    environment.h
+        #	        	CSysLog.hpp
+        #               config.h
+)
+target_link_libraries(look
+        mwfw2
+        libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
+)
+
+
 ###########################################################
 # menu.cgi is intended to be a top level navigation point #
 ###########################################################
@@ -233,132 +278,6 @@ add_executable( menu.cgi
 #                config.h
 )
 target_link_libraries(menu.cgi
-		mwfw
-		libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
-)
-
-
-#####################################################################
-#  logout.cgi is called as the result of pressing the Logout button #
-#####################################################################
-add_executable( logout.cgi
-                logout.cpp
-                logout.h
-#                cgicc.h
-#                CLog.hpp
-#                osIface.h
-#                shared.h
-#                readCsv.h
-#                cgihtml.h
-#                schema.h
-#                environment.h
-#                cgibind.h
-#	            CSysLog.hpp
-#                config.h
-)
-link_directories(/usr/lib/x86_64-linux-gnu)
-target_link_libraries(logout.cgi
-		mwfw
-		libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
-)
-
-
-##############################################################################
-# diagnose.cgi is intended to be a diagnostic invoked by the Diagnose button #
-##############################################################################
-add_executable( diagnose.cgi
-                diagnose.cpp
-                diagnose.h
-#        		CLog.hpp
-#                osIface.h
-#                shared.h
-#		        readCsv.h
-#		        cgihtml.h
-#                schema.h
-#              	environment.h
-#                cgibind.h
-#				CSysLog.hpp
-#                config.h
-)
-link_directories(/usr/lib/x86_64-linux-gnu)
-target_link_libraries(diagnose.cgi
-		mwfw
-		libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
-)
-
-
-######################################################################
-# look is a command line program that displays shared segment values #
-######################################################################
-add_executable( look
-                look.cpp
-#               cgicc.h
-#   			shmemng.h
-#               shared.h
-#               CLog.hpp
-#               osIface.h
-#       	    environment.h
-#	        	CSysLog.hpp
-#               config.h
-)
-target_link_libraries(look
-		mwfw2
-		libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
-)
-
-
-######################################################################
-# vpad is a command line program #
-######################################################################
-add_executable( vpad
-                vpad.cpp
-                vpad.h
-#                cgicc.h
-#				 shmemng.h
-#                shared.h
-#                CLog.hpp
-#                osIface.h
-#                environment.h
-#	             CSysLog.hpp
-#                schema.h
-#		         cgihtml.h
-#	             readCsv.h
-#		         cgibind.h
-#                config.h
-)
-target_link_libraries(vpad
-		mwfw
-		libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
-)
-
-
-
-####################################################################
-# journal.cgi is called as a result of pressing the Journal button #
-####################################################################
-add_executable( journal.cgi
-                journal.cpp
-                journal.h
-#                cgicc.h
-#		        shmemng.h
-#                shared.h
-#                CLog.hpp
-#                osIface.h
-#                environment.h
-#                cgibind.h
-#                schema.h
-#                cgihtml.h
-#                readCsv.h
-#                dashboard.h
-#		        CSysLog.hpp
-#                config.h
-)
-target_link_libraries(journal.cgi
 		mwfw
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
@@ -392,6 +311,7 @@ target_link_libraries(notesave.cgi
         uuid.a            # uuid.so         use static library instead
 )
 
+
 #####################################################################
 # noteload.cgi is called as a result of pressing the Submit button  #
 # in the journal entry page                                         #
@@ -416,6 +336,7 @@ target_link_libraries(noteload.cgi
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
+
 
 #####################################################################
 # render.cgi is a generic CGI script used to load specified schemas #
@@ -442,6 +363,87 @@ target_link_libraries(render.cgi
         uuid.a            # uuid.so         use static library instead
 )
 
+
+######################################################################
+# vpad is a command line program #
+######################################################################
+add_executable( vpad
+        vpad.cpp
+        vpad.h
+        #                cgicc.h
+        #				 shmemng.h
+        #                shared.h
+        #                CLog.hpp
+        #                osIface.h
+        #                environment.h
+        #	             CSysLog.hpp
+        #                schema.h
+        #		         cgihtml.h
+        #	             readCsv.h
+        #		         cgibind.h
+        #                config.h
+)
+target_link_libraries(vpad
+        mwfw
+        libcgicc.a        # libcgicc.so     use static library instead
+        uuid.a            # uuid.so         use static library instead
+)
+
+
+add_executable(xmlrpc_client
+        xmlrpc_client.cpp
+        config.cpp	        config.h
+        CSysLog.cpp			CSysLog.hpp
+        shared.cpp          shared.h
+)
+link_directories(
+        /opt/xmlrpc-c/src/cpp
+        /opt/xmlrpc-c/src
+        /opt/xmlrpc-c/lib/libutil++
+        /opt/xmlrpc-c/lib/expat/xmlparse
+        /opt/xmlrpc-c/lib/expat/xmltok
+        /opt/xmlrpc-c/lib/libutil
+)
+target_link_libraries(xmlrpc_client
+        libxmlrpc_client++.a
+        libxmlrpc_client.a
+        libxmlrpc++.a
+        libxmlrpc_util++.a
+        libxmlrpc.a
+        libxmlrpc_xmlparse.a
+        libxmlrpc_xmltok.a
+        libxmlrpc_util.a
+        pthread
+        curl
+        libxmlrpc_packetsocket.a
+        uuid.a            # uuid.so         use static library instead
+)
+
+
+add_executable(xmlrpc_inetd_server
+        xmlrpc_inetd_server.cpp
+        config.cpp	        config.h
+        CSysLog.cpp			CSysLog.hpp
+        shared.cpp          shared.h
+)
+target_link_libraries(xmlrpc_inetd_server
+        libxmlrpc_server_abyss++.a
+        libxmlrpc_server++.a
+        libxmlrpc_abyss++.a
+        libxmlrpc_server_abyss.a
+        libxmlrpc_server.a
+        libxmlrpc_abyss.a
+        libxmlrpc++.a
+        libxmlrpc_util++.a
+        libxmlrpc.a
+        libxmlrpc_xmlparse.a
+        libxmlrpc_xmltok.a
+        libxmlrpc_util.a
+        ssl
+        crypto
+        pthread
+        uuid.a            # uuid.so         use static library instead
+)
 
 
 ###############

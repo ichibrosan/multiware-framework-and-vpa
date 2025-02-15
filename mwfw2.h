@@ -9,10 +9,27 @@
 #include "std.h"
 #include "fw-limits.h"
 #include "CSysLog.hpp"
+extern CSysLog * gpSysLog;
 #include "environment.h"
 #include "shared.h"
 #include "osIface.h"
 #include "CLog.hpp"
+#include "cgibind.h"
+extern cgibind * gpCgiBind;
+#include "cgihtml.h"
+extern cgihtml * gpHtml;
+#include "password.h"
+#include "readCsv.h"
+extern readCsv * gpCsv;
+//#include "notesave.h"
+//#include "journal.h"
+//#include "render.h"
+//#include "diagnose.h"
+//include "logout.h"
+#include "schema.h"
+extern schema * gpSchema;
+#include "readCsv.h"
+extern readCsv * gpCsv;
 
 /**
  * @class mwfw2
