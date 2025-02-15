@@ -6,29 +6,13 @@
 #ifndef MWFW_H
 #define MWFW_H
 
+#include "std.h"
+#include "fw-limits.h"
 #include "CSysLog.hpp"
-/**
- * @global gpSysLog
- * @brief Represents a global instance of the CSysLog class for system-wide
- * logging. This variable serves as the primary system logger, facilitating
- * the logging of informational messages, errors, and other system-related
- * events. It is initialized during the program's execution and provides an
- * entry point for interacting with the logging mechanism throughout the
- * application.
- */
-
-
 #include "environment.h"
-
-
 #include "shared.h"
-
-
 #include "osIface.h"
-
-
 #include "CLog.hpp"
-
 
 /**
  * @class mwfw2
