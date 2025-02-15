@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/doug/public_html/fw/vpad.cpp 2025/01/11 05:21 //
+// daphne.goodall.com:/home/doug/public_html/fw/look.cpp 2025/01/11 05:21 //
 // Copyright (c) Douglas Wade Goodall. All Rights Reserved.               //
 ////////////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
 
-/**
+/****************************************************************************
  * @brief Main function that initializes core components, logs system
  * information, and outputs processed statistical data and authenticated user
  * credentials.
@@ -17,7 +17,7 @@
  * and handles.
  *
  * @return int Returns 0 upon successful execution.
- */
+ ****************************************************************************/
 int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
@@ -25,7 +25,7 @@ int main() {
            "All Rights Reserved.\n");
 
     printf("num_tests_processed is %d\n",
-        gpSh->m_pShMemng->num_tests_processed);
+            gpSh->m_pShMemng->num_tests_processed);
     printf("num_tests_skipped is %d\n",
             gpSh->m_pShMemng->num_tests_skipped);
     printf("num_tests_passed is %d\n",
@@ -33,14 +33,15 @@ int main() {
     printf("num_tests_failed is %d\n\n",
             gpSh->m_pShMemng->num_tests_failed);
 
+    int iNumTests = 7;
     printf("tests_processed_bits are ");
-    gpOS->printBinary(gpSh->m_pShMemng->tests_processed_bits,7);
+    gpOS->printBinary(gpSh->m_pShMemng->tests_processed_bits,iNumTests);
     printf("\ntests_passed_bits    are ");
-    gpOS->printBinary(gpSh->m_pShMemng->tests_passed_bits,7);
+    gpOS->printBinary(gpSh->m_pShMemng->tests_passed_bits,iNumTests);
     printf("\ntests_failed_bits    are ");
-    gpOS->printBinary(gpSh->m_pShMemng->tests_failed_bits,7);
+    gpOS->printBinary(gpSh->m_pShMemng->tests_failed_bits,iNumTests);
     printf("\ntests_skipped_bits   are ");
-    gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits,7);
+    gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits,iNumTests);
 
     printf("\n\nCredentials of Authenticated Users:");
     for (int iRow=3;iRow<MAX_USERS+ROW_DATA;iRow++) {
@@ -60,5 +61,5 @@ int main() {
          gpSh->m_pShMemng->creds[iRow].szHttpUserAgent);
         }
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
