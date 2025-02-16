@@ -27,16 +27,6 @@ int main() {
 
     gpSchema    = new schema(ssSchema);
 
-    if (0 == strcmp("no", gpCgiBind->get_form_variable("dash").c_str()))
-    {
-        ;
-    }
-    else
-    {
-        gpDash      = new dashboard(handle,JOURNAL | LOGOUT,__FILE__,
-        ssUsername,ssPassword);
-    }
-
     std::string ssStyle =
         gpCgiBind->get_form_variable("style");
 
@@ -46,6 +36,18 @@ int main() {
         {"loaded_text", ""}
     };
 
-    gpSchema->gen_from_schema(handle,render_params);
+    if (0 == strcmp("no", gpCgiBind->get_form_variable("dash").c_str())) {
+        gpSchema->gen_from_schema( handle,
+                                render_params);
+    } else {
+        gpSchema->gen_from_schema(handle,
+                                 JOURNAL | LOGOUT,
+                                 __FILE__,
+                                ssUsername,
+                                ssPassword,
+                                render_params);
+
+    }
+
     return EXIT_SUCCESS;
 }

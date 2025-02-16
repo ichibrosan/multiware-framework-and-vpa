@@ -26,9 +26,14 @@ int main() {
         {"test", "does this thing actually work"}
             };
 
-    gpDash      = new dashboard(handle,LOGOUT | MENU,__FILE__,
-        ssUsername,ssPassword);
+    // gpDash      = new dashboard(handle,LOGOUT | MENU,__FILE__,
+    //     ssUsername,ssPassword);
+
     gpSchema->gen_from_schema(handle,
+                             LOGOUT | MENU,
+                             __FILE__,
+                             ssUsername,
+                             ssPassword,
     journal_params);
     return EXIT_SUCCESS;
 }
