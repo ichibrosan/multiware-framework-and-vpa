@@ -228,22 +228,22 @@ bool test::runMandatoryTests(bool bCGI) {
     gpSh->m_pShMemng->num_tests_processed++;
     gpSh->m_pShMemng->tests_processed_bits |= TEST4;
 
-    // // Verify cgicc functionality
-    // if (test5(__FILE__, __FUNCTION__, false)) {
-    //
-    //     gpSh->m_pShMemng->tests_passed_bits |= TEST5;
-    //
-    //     gpSh->m_pShMemng->num_tests_passed++;
-    //
-    // } else {
-    //
-    //     bRetVal = false;
-    //     gpSh->m_pShMemng->tests_failed_bits |= TEST5;
-    //     gpSh->m_pShMemng->num_tests_failed++;
-    // }
-    //
-    // gpSh->m_pShMemng->num_tests_processed++;
-    // gpSh->m_pShMemng->tests_processed_bits |= TEST5;
+    // Verify cgicc functionality
+    if (test5(__FILE__, __FUNCTION__, false)) {
+
+        gpSh->m_pShMemng->tests_passed_bits |= TEST5;
+
+        gpSh->m_pShMemng->num_tests_passed++;
+
+    } else {
+
+        bRetVal = false;
+        gpSh->m_pShMemng->tests_failed_bits |= TEST5;
+        gpSh->m_pShMemng->num_tests_failed++;
+    }
+
+    gpSh->m_pShMemng->num_tests_processed++;
+    gpSh->m_pShMemng->tests_processed_bits |= TEST5;
 
     return bRetVal;
 }
@@ -640,11 +640,13 @@ bool test::test4(bool bDebug) {
     m_pSysLog->loginfo("test::test4() called, "
                         "verify apache can execute binary CGI scripts");
 
-    std::string ssPath = gpOS->genCgiCBDPath("fw-test4.cgi", false);
+    std::string ssPath = gpOS->genCgiCBDPath("fw-test4.cgi", true);
     m_pSysLog->loginfo(ssPath.c_str());
     if (0 != access(ssPath.c_str(), F_OK)) {
         std::cout << "Target fw-test4.cgi Not Built!!" << std::endl;
         std::cout << "Program Aborted." << std::endl;
+        // m_pSysLog->loginfo("Target fw-test4.cgi Not Built!!");
+        // m_pSysLog->loginfo("Program Aborted.");
         exit(EXIT_FAILURE);
     }
 
@@ -653,11 +655,11 @@ bool test::test4(bool bDebug) {
 
     ssCommand = "curl ";
 
-    ssCommand.append(gpOS->genCgiCBDUrl("fw-test4.cgi", false));
+    ssCommand.append(gpOS->genCgiCBDUrl("fw-test4.cgi", true));
 
     ssCommand.append(" > /tmp/fw-test4.stdout 2> /tmp/fw-test4.stderr");
-
-    system(ssCommand.c_str());
+    std::cout << "Command: " << ssCommand << "Return code: " <<
+    system(ssCommand.c_str()) << ".";
 
     std::string filename = "/tmp/fw-test4.stdout";
     std::ifstream ifs(filename);

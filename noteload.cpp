@@ -44,12 +44,12 @@ int main() {
     char szPath[256];
     std::vector<std::vector<std::string>> journal_params;
 
-    bool bCGI = false;
-    char * ptr = getenv("SERVER_PORT");
-    if(nullptr != ptr) {
-        bCGI = true;
-        std::cout << "content-type:\ttext/html\n\n" << std::endl;
-    }
+    //bool bCGI = false;
+    //char * ptr = getenv("SERVER_PORT");
+    //if(nullptr != ptr) {
+//        bCGI = true;
+//        std::cout << "content-type:\ttext/html\n\n" << std::endl;
+//    }
 
     journal_params.push_back({"style","journal_style"});
 

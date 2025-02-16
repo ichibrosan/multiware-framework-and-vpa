@@ -2,6 +2,10 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-15 17:30 mf - fixups on contenttype emitters, 
+and putting the journal styles into the default stylesheet. Some attempts on
+test4.
+
 2025-02-13 20:45 dwg - added szUser and szRpcUuid to +shmvars 
 display, enhanced xmlrpc_client and xmlrpc_inetd_server to use 
 shared::szRpcUuid as auth token in xmlrpc calls.

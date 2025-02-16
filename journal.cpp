@@ -15,12 +15,12 @@
 int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
-    char *ptr = getenv("SERVER_PROTOCOL");
-    bool bCGI = false;
-    if (nullptr != ptr) {
-        bCGI = true;
-        std::cout << "Content-type:\ttext/html\n\n" << std::endl;
-    }
+//    char *ptr = getenv("SERVER_PROTOCOL");
+//    bool bCGI = false;
+//    if (nullptr != ptr) {
+//        bCGI = true;
+//        std::cout << "Content-type:\ttext/html\n\n" << std::endl;
+    //}
     int handle = atoi(gpCgiBind->get_form_variable("handle").c_str());
     std::string ssUsername = gpCgiBind->get_form_variable("username");
     std::string ssPassword = gpCgiBind->get_form_variable("pwname");

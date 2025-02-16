@@ -48,7 +48,7 @@ int main() {
    * Therefore, we should run self tests before instantiating the schema.
    */
 
-  // gpTest = new test(false, pMwFw->isCGI());
+   gpTest = new test(false, pMwFw->isCGI());
   // gpTest->logHistograms();
 
   // if (0 < gpSh->m_pShMemng->num_tests_failed) {

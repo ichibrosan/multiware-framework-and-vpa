@@ -14,12 +14,13 @@
  * @return Returns 0 to indicate successful program execution.
  */
 int main() {
-  char * ptr = getenv("SERVER_PORT");
-  bool bCGI = false;
-  if(nullptr != ptr) {
-    bCGI = true;
-    std::cout << "Content-type:\ttext/html\n\n" << std::endl;
-  }
+  mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+  //char * ptr = getenv("SERVER_PORT");
+  //bool bCGI = false;
+  //if(nullptr != ptr) {
+//    bCGI = true;
+//    std::cout << "Content-type:\ttext/html\n\n" << std::endl;
+//  }
 
   gpSchema = new schema("user-menu.csv");
   int handle = atoi(gpCgiBind->get_form_variable("handle").c_str());
@@ -28,7 +29,7 @@ int main() {
   gpDash      = new dashboard(handle,JOURNAL | LOGOUT,__FILE__,
                               ssUsername,ssPassword);
   gpSchema->gen_from_schema(HANDLE_NA);
-  if(bCGI) {
+  if(pMwFw->isCGI()) {
     gpHtml->dump_schema();
     gpHtml->dump_shm_vars();
     gpHtml->dump_env_vars();

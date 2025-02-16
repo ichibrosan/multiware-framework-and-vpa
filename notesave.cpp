@@ -14,12 +14,12 @@
 int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
-    bool bCGI = false;
-    char * ptr = getenv("SERVER_PORT");
-    if(nullptr != ptr) {
-        bCGI = true;
-        std::cout << "content-type:\ttext/html\n\n" << std::endl;
-    }
+    //bool bCGI = false;
+    //char * ptr = getenv("SERVER_PORT");
+    //if(nullptr != ptr) {
+//        bCGI = true;
+//        std::cout << "content-type:\ttext/html\n\n" << std::endl;
+//    }
 
     std::string ssNote  = gpCgiBind->get_form_variable("journaltextarea");
     std::string ssFile  = gpCgiBind->get_form_variable("fileName");
