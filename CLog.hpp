@@ -8,27 +8,6 @@
 
 #include "mwfw2.h"
 
-// #include "osIface.h"
-// /**
-//  * @brief Global pointer to an instance of the `osIface` class.
-//  *
-//  * This variable provides a globally accessible interface to operating system-related
-//  * functionalities through the `osIface` class. It is used throughout the codebase for
-//  * working with file paths, file operations, log generation, URL manipulation, and
-//  * other OS-specific tasks.
-//  *
-//  * The `gpOS` variable must be initialized as an instance of the `osIface` class
-//  * before its functionalities can be utilized. It serves as a centralized mechanism
-//  * for operations like:
-//  * - Accessing files and directories.
-//  * - Generating paths and URLs for logs, schemas, CGI binaries, etc.
-//  * - Parsing and manipulating file names.
-//  *
-//  * @note Proper initialization of `gpOS` is critical for its usage to prevent
-//  * undefined behavior across the codebase.
-//  */
-// extern osIface *gpOS;
-
 
 /**
  * @class CLog

@@ -116,8 +116,7 @@ target_link_libraries(fw
 #############################################
 add_executable( fw-test4.cgi
                 fw-test4.cpp
-                fw-test4.h
-#                config.h
+		#                config.h
 )
 target_link_libraries(fw-test4.cgi
 		mwfw2
@@ -131,7 +130,7 @@ target_link_libraries(fw-test4.cgi
 ##########################################################
 add_executable( index.cgi
                 index.cpp
-                index.h
+#                index.h
 #                cgicc.h
 #                mwfw.h
 #                CLog.hpp

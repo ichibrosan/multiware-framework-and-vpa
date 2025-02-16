@@ -8,10 +8,6 @@
 #define MULTIWARE_CGIHTML_H
 #include "mwfw2.h"
 
-// #include "std.h"
-// #include "fw-limits.h"
-// #include "osIface.h"
-
 
 /**
  * @class cgihtml

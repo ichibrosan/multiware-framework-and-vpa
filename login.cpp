@@ -43,13 +43,6 @@ int main() {
   std::string ssLastName;
   std::string ssDescript;
 
-//  char *ptr = getenv("GATEWAY_INTERFACE"); // s/b "CGI/1.1"
-//  bool bCGI = false;
-//  if (nullptr != ptr) {
-//    bCGI = true;
-    //std::cout << "content-type:\ttext/html\n\n" << std::endl;
-  //}
-
   std::string ssHttpReferrer = gpCgiBind->get_referrer();
   std::string ssReferrerPath = gpCgiBind->get_referrer_path();
   std::string ssReferrerFile = gpCgiBind->get_referrer_file();

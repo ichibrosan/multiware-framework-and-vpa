@@ -21,20 +21,13 @@
  */
 mwfw::mwfw()
 {
+	// There need be only one!!
 	m_bCGI = false;
 	char * ptr = getenv("SERVER_PORT");
 	if(nullptr != ptr) {
 		m_bCGI = true;
-	}
-
-	if(isCGI()) {
 		std::cout << "content-type:\ttext/html\n\n" << std::endl;
 	}
-
-	m_pSysLog = new CSysLog();
-	m_pSysLog->loginfo(__PRETTY_FUNCTION__);
-
-
 }
 
 /**

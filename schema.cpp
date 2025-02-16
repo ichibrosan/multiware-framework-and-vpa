@@ -5,99 +5,11 @@
 
 #include "mwfw2.h"
 
-// #include "std.h"
-// #include "fw-limits.h"
-// #include "cgicc.h"
-// #include "schema.h"
-// #include "CLog.hpp"
-
-// /**
-//  * @brief Global instance of a logging object used for recording and managing application logs.
-//  *
-//  * The gpLog variable serves as a centralized logging utility that enables the
-//  * application to log messages, warnings, errors, and debugging information.
-//  * It is often configured to output log messages to a console, file, or other
-//  * logging sinks, facilitating debugging and monitoring activities during
-//  * runtime.
-//  *
-//  * This variable is accessible globally within the application.
-//  */
-// extern CLog * gpLog;
-
-// #include "cgihtml.h"
-// #include "fw-limits.h"
-// #include "readCsv.h"
-// #include "shared.h"
-// #include "std.h"
-
-// #include "osIface.h"
-// /**
-//  * @brief A global pointer to the operating system interface.
-//  *
-//  * This variable serves as the global access point for the operating system
-//  * interface, allowing interaction with the OS functionalities. It should be
-//  * initialized with a valid instance of an operating system interface
-//  * implementation before use.
-//  */
-// extern osIface * gpOS;
 
 
 using namespace std;
 using namespace cgicc;
 
-// /**
-//  * @brief A global pointer to an instance of the `readCsv` class.
-//  *
-//  * `gpCsv` is utilized to access and operate on parsed CSV data within
-//  * the program. This pointer provides global access to the methods and data
-//  * members of the `readCsv` class, allowing various components of the software
-//  * to interact with the parsed CSV content.
-//  *
-//  * Primary uses:
-//  * - Retrieve specific data from the CSV via the `getData` method.
-//  * - Determine the total number of rows in the CSV using the `getLines` method.
-//  * - Access and iterate through the parsed data stored in the internal
-//  *   data structure of the `readCsv` instance.
-//  *
-//  * @note The actual object the pointer refers to must be properly initialized
-//  *       before use to ensure valid operations.
-//  */
-// extern readCsv * gpCsv;
-
-// /**
-//  * @brief Global pointer to an instance of `cgihtml`.
-//  *
-//  * This variable is used to manage or interact with HTML content
-//  * in CGI (Common Gateway Interface) related functionality.
-//  *
-//  * It provides a mechanism to access and manipulate dynamic HTML
-//  * content throughout the application. The specific use, behavior,
-//  * and lifecycle of this variable is determined by the implementation
-//  * of the `cgihtml` class or structure.
-//  *
-//  * @note Proper initialization and cleanup of this variable are
-//  * essential for preventing memory leaks or undefined behavior.
-//  *
-//  * @warning Accessing this variable before initialization or after
-//  * it has been freed may result in undefined behavior.
-//  */
-// extern cgihtml * gpHtml;
-
-// /**
-//  * @brief Global pointer to the `shared` class instance.
-//  *
-//  * `gpSh` is a globally accessible pointer that refers to an instance
-//  * of the `shared` class. It provides access to shared resources and
-//  * functionalities managed by the `shared` class, which may include
-//  * logging, system utility methods, or shared memory management.
-//  *
-//  * This variable is typically initialized during the application's
-//  * startup process and is used throughout the codebase to enable
-//  * coordinated access to shared functionalities. Proper care should
-//  * be taken to ensure the pointer is correctly managed to avoid
-//  * memory leaks or undefined behavior.
-//  */
-// extern shared * gpSh;
 
 
 /**

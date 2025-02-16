@@ -4,25 +4,6 @@
 //////////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
 
-//#include "fw-test4.h"
-
-// #include <cgicc/Cgicc.h>    // the cgicc headers
-// #include <cgicc/CgiDefs.h>
-// #include <cgicc/FormEntry.h>
-// #include <cgicc/HTTPHTMLHeader.h>
-// #include <cgicc/HTMLClasses.h>
-
-// using namespace cgicc;
-//
-// // needed for the mwfw build
-// Cgicc   * gpCgi;
-// cgibind * gpCgiBind;
-// environment * gpEnv;
-// cgihtml * gpHtml;
-// readCsv * gpCsv;
-// CLog    * gpLog;
-// osIface * gpOS;
-// shared  * gpSh;
 
 int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);

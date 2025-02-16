@@ -8,42 +8,6 @@
 
 #include "mwfw2.h"
 
-// #include "std.h"
-// #include "fw-limits.h"
-
-// #include "osIface.h"
-// /****************************************************************************
-//  * Represents the operating system used in the current application environment.
-//  *
-//  * This variable is utilized for determining or adapting functionality based on
-//  * the specific operating system being executed.
-//  ****************************************************************************/
-// extern osIface *gpOS;
-
-
-// #include "CLog.hpp"
-// /****************************************************************************
-//  * Represents the global logging instance used for recording application logs.
-//  *
-//  * This object is utilized throughout the application to maintain standardized
-//  * and centralized logging functionality, facilitating debugging and auditing
-//  * processes.
-//  ****************************************************************************/
-// extern CLog   *gpLog;
-
-
-// #include "shared.h"
-// /****************************************************************************
-//  * Pointer to a shared resource or object within the application.
-//  *
-//  * This variable is used to reference a globally accessible shared resource
-//  * or handler. Its purpose may vary depending on the implementation context,
-//  * such as managing application-wide settings, accessing shared functionality,
-//  * or tracking global states.
-//  ****************************************************************************/
-// extern shared *gpSh;
-
-
 /****************************************************************************
  * Represents the environment in which the application is executed.
  *

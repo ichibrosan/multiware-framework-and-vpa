@@ -5,27 +5,7 @@
 
 #include "mwfw2.h"
 
-// #include <fcntl.h>
-// #include <unistd.h>
-//
-// #include "CLog.hpp"
-// #include "fw-limits.h"
-// #include "osIface.h"
-// #include "shared.h"
-// #include "test.h"
-
 #define DEBUG_GLFQFS
-
-// /**
-//  * @brief Global pointer variable representing an object or structure
-//  *        used for shared access or processing within the program.
-//  */
-// extern shared *gpSh;
-
-// /**
-//  * @brief Pointer to a global logger instance used for logging messages throughout the application.
-//  */
-// extern CLog   *gpLog;
 
 /************************************************************************
  * Function: osIface::printBinary
@@ -71,6 +51,7 @@ void osIface::printBinary(int number,int digits) {
  * ensure that the string stored does not exceed this limit.
  */
 char gszPath[FILENAME_MAX];
+
 /************************************************************************
  * Note: The global variable `gszUrl` is used to store a file path or URL
  * as a string. It is defined globally to provide persistent storage

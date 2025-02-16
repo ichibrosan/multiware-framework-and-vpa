@@ -15,12 +15,6 @@
  */
 int main() {
   mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
-  //char * ptr = getenv("SERVER_PORT");
-  //bool bCGI = false;
-  //if(nullptr != ptr) {
-//    bCGI = true;
-//    std::cout << "Content-type:\ttext/html\n\n" << std::endl;
-//  }
 
   gpSchema = new schema("user-menu.csv");
   int handle = atoi(gpCgiBind->get_form_variable("handle").c_str());

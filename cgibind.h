@@ -9,22 +9,6 @@
 
 #include "mwfw2.h"
 
-
-// /**
-//  * @brief Global pointer to an instance of the Cgicc class used for handling
-//  *        CGI-based web interactions.
-//  * This variable is used to process CGI (Common Gateway Interface) requests,
-//  * retrieve form data, and manage environment variables within a web
-//  * application. The instance facilitates interaction with HTTP requests and
-//  * acts as a key component for parsing input data and managing CGI-related
-//  * functionality. Cgicc is expected to be instantiated and initialized during
-//  * the setup phase of the application to ensure proper handling of incoming
-//  * CGI requests. Usage includes extracting form variables, accessing HTTP
-//  * environment data such as user-agent strings, and other CGI utilities
-//  * supported by the Cgicc library.
-//  */
-// extern Cgicc * gpCgi;
-
 /**
  * @class cgibind
  * @brief Provides an interface for handling CGI form variables and HTTP

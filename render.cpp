@@ -19,12 +19,6 @@
 int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
-    //char *ptr = getenv("SERVER_PROTOCOL");
-    //bool bCGI = false;
-    //if (nullptr != ptr) {
-//        bCGI = true;
-//        std::cout << "Content-type:\ttext/html\n\n" << std::endl;
-//    }
     std::string ssSchema =
         gpCgiBind->get_form_variable("schema");
     int handle = atoi(gpCgiBind->get_form_variable("handle").c_str());

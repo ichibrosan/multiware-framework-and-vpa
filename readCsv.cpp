@@ -5,51 +5,6 @@
 
 #include "mwfw2.h"
 
-// #include "readCsv.h"
-// #include "CLog.hpp"
-// #include "fw-limits.h"
-// #include "osIface.h"
-// #include "shared.h"
-// #include "std.h"
-
-// /**
-//  * @brief Global pointer to an instance of the CLog class, used for logging purposes throughout the application.
-//  *
-//  * The `gpLog` variable is a global instance of the `CLog` class, which facilitates logging capabilities
-//  * across various modules of the application. It is initialized with the current source file and function
-//  * context, allowing for detailed and context-aware log entries.
-//  *
-//  * The `gpLog` instance provides functions for writing log messages directly or with formatted parameters,
-//  * as well as truncating log files when needed. It is commonly used in scenarios such as debugging, informational
-//  * message logging, or error reporting.
-//  *
-//  * @note The object is dynamically allocated and should be managed appropriately to avoid memory leaks.
-//  * Proper initialization and cleanup are the responsibility of the application code.
-//  */
-// extern CLog * gpLog;
-
-// /**
-//  * @brief Global pointer to the `osIface` instance used throughout the application.
-//  *
-//  * This variable provides a single shared instance of the `osIface` class, which
-//  * encapsulates functionality related to file and path management, including
-//  * methods for working with file paths, generating fully-qualified filenames,
-//  * and accessing directory contents. It is initialized once at runtime and used
-//  * in multiple modules where these operations are required.
-//  *
-//  * Usage:
-//  * - `gpOS` is typically initialized during application startup and remains accessible globally.
-//  * - Provides utility methods such as `genHtmlUrl`, `file2path`, `allfilesindir`, etc.
-//  * - Frequently utilized in scenarios involving file handling, generating file paths,
-//  *   and generating filenames.
-//  *
-//  * Ownership:
-//  * - `gpOS` is dynamically allocated using `new` during application initialization.
-//  * - Users must ensure proper lifecycle management to avoid memory leaks.
-//  * - It is typically cleaned up as part of application termination routines.
-//  */
-// extern osIface * gpOS;
-
 /**
  * Reads a CSV file and parses its content into a 2D vector of strings.
  *
