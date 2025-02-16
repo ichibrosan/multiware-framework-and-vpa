@@ -454,6 +454,10 @@ void cgihtml::dump_shm_vars()
     print(gpSh->m_pShMemng->szStylesRoot);
     print("</td></tr>");
 
+    print("<tr><th>szTmpRoot</th><td>");
+    print(gpSh->m_pShMemng->szTmpRoot);
+    print("</td></tr>");
+
     print("<tr><th>szJournalRoot</th><td>");
     print(gpSh->m_pShMemng->szJournalRoot);
     print("</td></tr>");

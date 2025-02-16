@@ -125,6 +125,11 @@ environment::environment() {
      ***********************************************************************/
 	set_journal_root(false);
 
+    /********************************************************************
+     * Create the base path for temp files
+     ***********************************************************************/
+    set_tmp_root(false);
+
 	/********************************************************************
 	 * Create the initialization script that runs the Virtual Protocol Adapter.
 	 * The file should generate as:
@@ -497,10 +502,37 @@ std::string environment::get_journal_root(bool bDebug)
  ***********************************************************************/
 void environment::set_journal_root(bool bDebug)
 {
-  std::string ssJournalRoot = "/home/";
-  ssJournalRoot.append(gpSh->m_pShMemng->szUser);
-  ssJournalRoot.append("/Documents/Fw_Notes/");
-  strcpy(gpSh->m_pShMemng->szJournalRoot,ssJournalRoot.c_str());
+    std::string ssJournalRoot = "/home/";
+    ssJournalRoot.append(gpSh->m_pShMemng->szUser);
+    ssJournalRoot.append("/Documents/Fw_Notes/");
+    strcpy(gpSh->m_pShMemng->szJournalRoot,ssJournalRoot.c_str());
+}
+
+
+/***********************************************************************
+ * @brief Sets the temporary root directory path.
+ *
+ * This function constructs the temporary root path for the environment
+ * and assigns it to the global shared memory structure. The path is
+ * dynamically built based on the current user's directory and a standard
+ * temporary folder structure.
+ *
+ * @param bDebug A boolean flag indicating whether the debug mode is enabled.
+ *               Currently, this parameter is not utilized within the function.
+ *
+ * The function takes the following steps:
+ * 1. Initializes the base path to "/home/".
+ * 2. Appends the username stored in the shared memory structure.
+ * 3. Appends the remainder of the temporary directory path.
+ * 4. Copies the constructed path into the shared memory's temporary root
+ *    variable.
+ ***********************************************************************/
+void environment::set_tmp_root(bool bDebug)
+{
+    std::string ssTmpRoot = "/home/";
+    ssTmpRoot.append(gpSh->m_pShMemng->szUser);
+    ssTmpRoot.append("/public_html/fw/tmp/");
+    strcpy(gpSh->m_pShMemng->szTmpRoot,ssTmpRoot.c_str());
 }
 
 /***************************************************************************

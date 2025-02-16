@@ -23,10 +23,11 @@ struct MFW_SHMEMNG_T {
     char szPublicIP[DNS_FQDN_SIZE_MAX];
     char szIface[IFNAMSIZ];
     char szProtocol[INET_PROT_NAME_MAX];
-    char szImgRoot[INET_URL_SIZE_MAX];
     char szCgiRoot[INET_URL_SIZE_MAX];
-    char szStylesRoot[INET_URL_SIZE_MAX];
+    char szImgRoot[INET_URL_SIZE_MAX];
     char szJournalRoot[INET_URL_SIZE_MAX];
+    char szStylesRoot[INET_URL_SIZE_MAX];
+    char szTmpRoot[FILENAME_MAX];
     char szUser[UT_NAMESIZE];
     char szRpcUuid[UUID_SIZE];             // 37
 
