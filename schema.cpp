@@ -471,37 +471,23 @@ void schema::gen_from_schema(int iHandle,
     int iRow  = 0;
     int iCol  = 0;
 
-    std::string ssStyleGrid = gpCsv->m_parsed_data[ROW_META_DATA]
-                     [COL_META_STYLE];
-
-    if (0 == std::strncmp("passed:",
-                 ssStyleGrid.c_str(),
-                 strlen("passed:")))
-    {
-        ssStyleGrid = ssStyleGrid.substr(
-            ssStyleGrid.find(':') + 1);
-
-
+    std::string ssStyleGrid = gpCsv->m_parsed_data[ROW_META_DATA][COL_META_STYLE];
+    if (0 == std::strncmp("passed:",ssStyleGrid.c_str(),strlen("passed:")))
+    {   ssStyleGrid = ssStyleGrid.substr(ssStyleGrid.find(':') + 1);
         for (int i_VarName = 0;
              i_VarName <= svvsPassedValues.size() - 1;
              i_VarName++)
-        {
-            if (0 == std::strncmp(ssStyleGrid.c_str(),
-             svvsPassedValues[i_VarName][VARIABLE_NAME].c_str(),
-              strlen(ssStyleGrid.c_str())))
-            {
-                gpCsv->m_parsed_data[ROW_META_DATA][COL_META_STYLE] =
-                svvsPassedValues[i_VarName][VARIABLE_VALUE];
+        {   if (0 == std::strncmp(ssStyleGrid.c_str(),
+                                  svvsPassedValues[i_VarName][VARIABLE_NAME].c_str(),
+                                   strlen(ssStyleGrid.c_str()))) {
+                gpCsv->m_parsed_data[ROW_META_DATA][COL_META_STYLE] = svvsPassedValues[i_VarName][VARIABLE_VALUE];
             }
         }
     }
 
-
-
     char szTemp[BUFSIZ];
     memset(szTemp,0,sizeof(szTemp));
     gpHtml->open_html();
-//    gpHtml->open_head("default_style.css");
     gpHtml->open_head();
     sprintf(szTemp,"%s%s%s",
             gpSh->m_pShMemng->szProtocol,
@@ -517,15 +503,127 @@ void schema::gen_from_schema(int iHandle,
 
     gpHtml->close_head();
     gpHtml->open_body();
-    gpHtml->open_script();
-    gpHtml->script_button("TryIt","Click Me");
-    gpHtml->close_script();
+    // gpHtml->open_script();
+    // gpHtml->script_button("TryIt","Click Me");
+    // gpHtml->close_script();
     //gpHtml->imgsrc("our-office.png",896/3,676/3);
 
-    // Experimental 2025/01/15 03:47 dwg -
-    char szCGIPath[FILENAME_MAX];
-    strcpy(szCGIPath,gpCsv->m_parsed_data
-                    [ROW_META_DATA][COL_META_CGINAME].c_str());
+    // // Experimental 2025/01/15 03:47 dwg -
+    // char szCGIPath[FILENAME_MAX];
+    // strcpy(szCGIPath,gpCsv->m_parsed_data
+    //                 [ROW_META_DATA][COL_META_CGINAME].c_str());
+
+    gpHtml->open_form(
+            gpCsv->m_parsed_data[ROW_META_DATA][COL_META_SCHEMA].c_str(),
+            gpCsv->m_parsed_data[ROW_META_DATA][COL_META_CGINAME].c_str(),
+          //"GET",iHandle);
+          "POST",
+          iHandle,
+          "default",
+          gpCsv->m_parsed_data[ROW_META_DATA][COL_META_TARGET].c_str());
+
+    sprintf(szHandle,"%d",iHandle);
+    gpHtml->hidden("handle",szHandle);
+    // If the Schema is Active (line 1 element 1)
+    iRow = ROW_META_DATA;
+    iCol = COL_META_ACTIVE;
+    if(0 ==
+       strcmp("true",
+              gpCsv->m_parsed_data[iRow][iCol].c_str())) {
+        iCol = COL_META_VERSION;
+        if(0 == strcmp("1",
+                       gpCsv->m_parsed_data[iRow][iCol].c_str())) {
+            //iCol = COL_META_COLUMNS;
+            // Process Schema Data
+            process_schema_data(svvsPassedValues);
+
+        } else {
+            gpHtml->para(); gpHtml->print("Schema Version Check Failed!!");
+        }
+
+    } else {
+        gpHtml->para(); gpHtml->print("Schema is not active");
+    }
+
+    //gpHtml->close_form();
+    gpHtml->close_body();
+    gpHtml->close_html();
+}
+
+/**
+ * @brief Generates HTML content and applies schema-specific configuration based on parsed data and passed values.
+ *
+ * The function creates an HTML webpage using information from the associated schema data.
+ * It evaluates schema status, adjusts styles, and performs conditional logic based on schema metadata.
+ * If the schema is active and valid, it processes further schema data and dynamically generates
+ * HTML elements. The function supports the merging of external passed values into the schema metadata.
+ *
+ * @param iHandle An integer handle that is used for the schema form and other metadata identification during processing.
+ * @param svvsPassedValues A 2D vector containing pairs of variable names and corresponding values to be used for dynamic schema updates.
+ */
+ void schema::gen_from_schema(int iHandle,
+                              int iButtons,
+                              const char * pszFile,
+                              std::string ssUsername,
+                              std::string ssPassword,
+                             std::vector<std::vector<std::string>>
+                             svvsPassedValues)
+{
+    char szHandle[4];
+
+    int iRow  = 0;
+    int iCol  = 0;
+
+    std::string ssStyleGrid = gpCsv->m_parsed_data[ROW_META_DATA][COL_META_STYLE];
+    if (0 == std::strncmp("passed:",ssStyleGrid.c_str(),strlen("passed:")))
+    {   ssStyleGrid = ssStyleGrid.substr(ssStyleGrid.find(':') + 1);
+        for (int i_VarName = 0;
+             i_VarName <= svvsPassedValues.size() - 1;
+             i_VarName++)
+        {   if (0 == std::strncmp(ssStyleGrid.c_str(),
+                                  svvsPassedValues[i_VarName][VARIABLE_NAME].c_str(),
+                                   strlen(ssStyleGrid.c_str()))) {
+                gpCsv->m_parsed_data[ROW_META_DATA][COL_META_STYLE] = svvsPassedValues[i_VarName][VARIABLE_VALUE];
+            }
+        }
+    }
+
+    char szTemp[BUFSIZ];
+    memset(szTemp,0,sizeof(szTemp));
+    gpHtml->open_html();
+    gpHtml->open_head();
+    sprintf(szTemp,"%s%s%s",
+            gpSh->m_pShMemng->szProtocol,
+            gpSh->m_pShMemng->szIP,
+            "/action.py");
+    gpHtml->title(szTemp);
+
+
+    gpHtml->set_style("default_style");
+        // gpCsv->m_parsed_data
+        // [ROW_META_DATA]
+        // [COL_META_STYLE].c_str());
+
+    gpHtml->close_head();
+    gpHtml->open_body();
+
+    // // If the user authenticated, select the menu screen
+    gpDash = new dashboard(iHandle,
+                           iButtons,
+                           pszFile,
+                           ssUsername,
+                           ssPassword);
+
+    // gpHtml->open_script();
+    // gpHtml->script_button("TryIt","Click Me");
+    // gpHtml->close_script();
+    //gpHtml->imgsrc("our-office.png",896/3,676/3);
+
+    // // Experimental 2025/01/15 03:47 dwg -
+    // char szCGIPath[FILENAME_MAX];
+    // strcpy(szCGIPath,gpCsv->m_parsed_data
+    //                 [ROW_META_DATA][COL_META_CGINAME].c_str());
+
     gpHtml->open_form(
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_SCHEMA].c_str(),
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_CGINAME].c_str(),

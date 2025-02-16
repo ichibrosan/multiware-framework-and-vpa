@@ -106,19 +106,20 @@ dashboard::dashboard(
      */
     iBorder = 2;
     std::cout
-            << "<table border=" << iBorder << ">"
+            << "<table border=" << iBorder << ">" << std::endl
             << "<tr><h3><th>Goodall MultiWare Framework Dashboard</th></h3></tr>"
             << "</table>"
             << std::endl;
 
-    std::cout << "<table border=1>";
+    std::cout << "<table border=1>" << std::endl;
 
 #ifdef SHOW_AUTHENTICATED_USERNAME
     if (bAuthenticated) {
         std::cout << "<tr>"
                 << "<th>Authenticated Username</th>"
                 << "<td>" << m_szAuthUserName << "</td>"
-                << "</tr>";
+                << "</tr>"
+                << std::endl;
     }
 #endif // SHOW_AUTHENTICATED_USERNAME
 
@@ -128,7 +129,8 @@ dashboard::dashboard(
                 << "<th>Authenticated User</th>"
                 << "<td>" << m_szAuthFirstName << " "
                 << m_szAuthLastName << "</td>"
-                << "</tr>";
+                << "</tr>"
+                << std::endl;
     }
 #endif // SHOW_AUTHENTICATED_REAL_NAMES
 
@@ -137,7 +139,8 @@ dashboard::dashboard(
         std::cout << "<tr>"
                 << "<th>Privilege Level</th>"
                 << "<td>" << m_szAuthLevel << "</td>"
-                << "</tr>";
+                << "</tr>"
+                << std::endl;
     }
 #endif // SHOW_PRIVILEGE_LEVEL
 
@@ -146,11 +149,12 @@ dashboard::dashboard(
         std::cout << "<tr>"
                   << "<th>Authentication Handle</th>"
                   << "<td>" << handle << "</td>"
-                  << "</tr>";
+                  << "</tr>"
+                  << std::endl;
     }
 #endif // SHOW_AUTHENTICATION_HANDLE
 
-    std::cout << "</table>";
+    std::cout << "</table>" << std::endl;
 
     /*
      * The call to navbar uses the iEffectiveButtons instead of the
@@ -161,7 +165,7 @@ dashboard::dashboard(
     navbar(handle, iEffectiveButtons, ssCgiName, ssUsername, ssPassword);
 
     if (bAvatarExists) {
-        std::cout << "</td></tr>";
+        std::cout << "</td></tr>" << std::endl;
         gpHtml->close_table();
     }
 }

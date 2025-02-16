@@ -3,9 +3,8 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.   //
 // This file is part of the Goodall MultiWare Framework Project.        //
 //////////////////////////////////////////////////////////////////////////
-#include "mwfw2.h"
-//#include "cgihtml.h"
 
+#include "mwfw2.h"
 
 /**
  * This is the constructor for the cgihtml class
@@ -15,7 +14,7 @@ cgihtml::cgihtml()
 }
 
 
-/**
+/*******************************************************************************
  * Generates an HTML anchor tag (<a>) with an embedded image.
  *
  * This method creates an anchor tag pointing to the specified URL and includes
@@ -26,7 +25,7 @@ cgihtml::cgihtml()
  * @param szImgURL The URL of the image to be used within the anchor tag.
  * @param width The width of the image.
  * @param height The height of the image.
- */
+ *******************************************************************************/
 void cgihtml::ahref(
     const char *szURL,
     const char * szImgURL,
@@ -35,11 +34,11 @@ void cgihtml::ahref(
 {
     std::cout << "<a href=\"" << szURL << "\">";
     imgsrc(szImgURL,width,height);
-    std::cout << "</a>\n";
+    std::cout << "</a>" << std::endl;
 }
 
 
-/**
+/*****************************************************************************************************************
  * Generates an HTML anchor tag with specified attributes.
  *
  * This method creates an anchor tag (<a>) with the given hyperlink reference,
@@ -48,77 +47,79 @@ void cgihtml::ahref(
  * @param pszLink Pointer to a null-terminated string containing the URL for the anchor tag.
  * @param pszButtonClass Pointer to a null-terminated string containing the CSS class for styling the anchor tag.
  * @param pszButtonDisplay Pointer to a null-terminated string containing the display text for the anchor tag.
- */
+ *****************************************************************************************************************/
 void cgihtml::xahref(const char * pszLink,
                      const char * pszButtonClass,
                      const char * pszButtonDisplay)
 {
-    printf("<a href=\"%s\" class=\"%s\">%s</a>",
+    printf("<a href=\"%s\" class=\"%s\">%s</a>\n",
            pszLink,pszButtonClass,pszButtonDisplay);
 }
 
 
-/**
+/****************************************************************************
  * Closes the body tag in an HTML output stream.
  *
  * This method outputs the closing </body> tag to the standard output stream,
  * ensuring proper closure of the body section in HTML documents.
- */
+ ****************************************************************************/
 void cgihtml::close_body()
 {
     std::cout << "</body>"  << std::endl;
 }
 
 
-/**
+/***************************************************************************
  * Closes an HTML form tag in an output stream.
  *
  * This method writes the closing </form> tag to the standard output stream,
  * ensuring proper termination of an HTML form.
- */
+ ***************************************************************************/
 void cgihtml::close_form()
 {
     std::cout << "</form>" << std::endl;
 }
 
 
-/**
+/***************************************************************************
  * Closes the head tag in an HTML output stream.
  *
  * This method outputs the closing </head> tag to the standard output stream,
  * ensuring proper closure of the head section in an HTML document.
- */
+ ***************************************************************************/
 void cgihtml::close_head()
 {
     std::cout << "</head>"  << std::endl;
 }
 
 
-/**
+/*************************************************************************
  * @brief Closes an HTML document by outputting the closing `</html>` tag.
  *
  * This method is used to terminate an HTML document by writing the
- * closing HTML tag to the standard output stream. It is typically
- * called at the*/
+ * closing HTML tag to the standard output stream.
+ *************************************************************************/
 void cgihtml::close_html()
 {
     std::cout << "</html>" << std::endl;
 }
 
 
-/**
- * @brief Closes an HTML table by outputting the closing table*/
+/*************************************************************************
+ * @brief Closes an HTML table by outputting the closing table
+ *************************************************************************/
 void cgihtml::close_table()
 {
     std::cout << "</table>"  << std::endl;
 }
 
-/**
+
+/***************************************************************************
  * @brief Closes an open HTML div element by printing the closing div tag.
  *
  * This method outputs the closing </div> tag along with a newline character
  * to properly terminate an open HTML <div> element in the generated content.
- */
+ ***************************************************************************/
 void cgihtml::close_div()
 {
     print("</div>\n");
@@ -1202,7 +1203,7 @@ void cgihtml::imgsrc(const char *pszImageFN,int width,int height)
     sprintf(szTag,"    <img "
                   "src=\"%s\" "
                   "width=\"%d\" "
-                  "height=\"%d\">\n",
+                  "height=\"%d\">",
             ssImgFQFS.c_str(),
             width,height);
     print(szTag);
@@ -1397,7 +1398,8 @@ void cgihtml::open_table(int border)
 {
     std::cout << "<table "
               << "border=\"" << border << "\""
-              << ">";
+              << ">"
+              << std::endl;
 }
 
 

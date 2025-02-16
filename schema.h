@@ -661,6 +661,23 @@ public:
      */
     void gen_from_schema(int handle, std::vector<std::vector<std::string>>
                          svvsPassedValues = {});
+
+    /**
+     * Generates HTML content based on the schema details and passed values.
+     * Processes schema metadata to set up the HTML structure and forms.
+     * Utilizes the passed values and handle for configuring the content.
+     *
+     * @param iHandle An integer handle used for identifying the specific schema instance.
+     * @param svvsPassedValues A two-dimensional vector containing string values to be applied to the schema.
+     */
+    void gen_from_schema(int handle,
+                         int flags,
+                         const char *szFile,
+                         std::string ssUsername,
+                         std::string ssPassword,
+                         std::vector<std::vector<std::string>>
+                         svvsPassedValues = {});
+
     /**
      * Retrieves the number of rows (or lines) associated with the current schema.
      *

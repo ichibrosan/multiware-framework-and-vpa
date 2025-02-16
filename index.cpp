@@ -29,19 +29,6 @@ int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
     pMwFw->sl_loginfo(__PRETTY_FUNCTION__);
 
-  /**
-   * Note: 2025/01/25 dwg -
-   * shared and environment have been re-written and no longer call
-   * the CLog class which used shared parameters to operate. Instead
-   * they call the CSysLog class which writes log entries into the
-   * system syslog. After environment is instantiated, then can test
-   * to assure the shared parameters were properly set up.
-   */
-  //gpSh  = new shared();
-
-  //gpEnv = new environment();
-
-
   /*
    * Note: 2025/01/25 12:04 dwg - The schema constructor calls genSchemaFQFS
    * so the shared variables such as szProtocol must already be valid.
@@ -60,25 +47,15 @@ int main() {
 
   gpSchema = new schema("index.csv");
   gpSchema->gen_from_schema(0);
-  // if(bCGI) {
-  //   gpHtml->dump_schema();
-  // }
-  // std::cout << "debug " << std::endl;
-  // return(0);
 
   /*
    * Let's also compile the index.csv schema into the header index.h
    */
-  gpSchCC = new schemaCompiler("create.csv",false); delete gpSchCC;
-  gpSchCC = new schemaCompiler("index.csv",false);  delete gpSchCC;
-  gpSchCC = new schemaCompiler("login.csv",false); delete gpSchCC;
-  gpSchCC = new schemaCompiler("user-menu.csv",false);  delete gpSchCC;
-  gpSchCC = new schemaCompiler("root.csv",false);  delete gpSchCC;
-
-  // if(bCGI) {
-  //    gpHtml->dump_shm_vars();
-  //    gpHtml->dump_env_vars();
-  // }
+  // gpSchCC = new schemaCompiler("create.csv",false); delete gpSchCC;
+  // gpSchCC = new schemaCompiler("index.csv",false);  delete gpSchCC;
+  // gpSchCC = new schemaCompiler("login.csv",false); delete gpSchCC;
+  // gpSchCC = new schemaCompiler("user-menu.csv",false);  delete gpSchCC;
+  // gpSchCC = new schemaCompiler("root.csv",false);  delete gpSchCC;
 
   return 0;
 }

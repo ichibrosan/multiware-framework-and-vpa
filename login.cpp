@@ -108,11 +108,11 @@ int main() {
     }
   }
 
-  // If the user authenticated, select the menu screen
-  gpDash = new dashboard(
-    handle,JOURNAL | LOGOUT,__FILE__,ssUsername,ssPassword);
+  // // If the user authenticated, select the menu screen
+  // gpDash = new dashboard(
+  //   handle,JOURNAL | LOGOUT,__FILE__,ssUsername,ssPassword);
 
-  gpSchema->gen_from_schema(handle);
+  gpSchema->gen_from_schema(handle,JOURNAL | LOGOUT,__FILE__,ssUsername,ssPassword);
 
   if(pMwFw->isCGI()) {
     std::string ssHttpReferrer = gpCgiBind->get_referrer();
