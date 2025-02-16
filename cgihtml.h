@@ -6,123 +6,12 @@
 
 #ifndef MULTIWARE_CGIHTML_H
 #define MULTIWARE_CGIHTML_H
-//#include "mwfw2.h"
+#include "mwfw2.h"
 
 // #include "std.h"
 // #include "fw-limits.h"
 // #include "osIface.h"
 
-// /**
-//  * @brief Represents the operating system on which the application is running.
-//  *
-//  * The gpOS variable is intended to store information regarding the current
-//  * operating system environment. It can be used to determine the platform
-//  * and execute platform-specific logic accordingly.
-//  *
-//  * Typical values might include strings identifying the OS such as "Windows",
-//  * "Linux", "macOS", etc., but the specific format and naming convention
-//  * should be clarified based on the implementation.
-//  *
-//  * Note that this variable should be handled carefully to ensure compatibility
-//  * across different platforms and versions of operating systems.
-//  */
-// extern osIface * gpOS;
-
-// #include "CLog.hpp"
-// /**
-//  * @var gpLog
-//  * @brief A global variable used for logging purposes.
-//  *
-//  * This variable is intended to handle logging operations throughout the application.
-//  * It is typically used to store an instance of a logging utility or framework that supports
-//  * various logging levels (e.g., info, debug, error) and facilitates the uniform logging of
-//  * messages across different modules or components of the application.
-//  */
-// extern CLog    * gpLog;
-
-// #include "shared.h"
-// /**
-//  * @brief A variable that likely represents a shared pointer or a global pointer related to a shader or graphics pipeline functionality.
-//  *
-//  * The intended use of `gpSh` might be to manage or reference shared resources within a graphics or rendering context.
-//  * Its exact purpose and behavior are dependent on the implementation context in which it is used.
-//  *
-//  * Ensure proper management and lifecycle control is applied when dealing with this variable, as its purpose
-//  * might involve referencing critical resources.
-//  */
-// extern shared  * gpSh;
-
-// #include "schema.h"
-// /**
-//  * Represents the schema for a generalized purpose (GP) system or data structure.
-//  * This variable is typically used to define and manage a standardized structure
-//  * or organization for data within a GP context.
-//  *
-//  * The schema can include properties that validate or enforce data integrity,
-//  * establish relationships between data entities, and dictate the format in
-//  * which data should be stored and accessed.
-//  */
-// extern schema * gpSchema;
-
-// #include "readCsv.h"
-// /**
-//  * @brief Represents a general-purpose CSV handler or data structure.
-//  *
-//  * The variable `gpCsv` is designed to manage or interact with
-//  * comma-separated value (CSV) data. Its specific functionality can
-//  * include file handling, data parsing, serialization, or storage of
-//  * CSV-formatted content, depending on its definition and implementation
-//  * within the codebase.
-//  */
-// extern readCsv * gpCsv;
-
-// #include "environment.h"
-// /**
-//  * @brief A global pointer to the environment configuration or context.
-//  *
-//  * gpEnv is typically used to store and provide access to a shared
-//  * application-wide or system-wide environment object. This object
-//  * may contain configuration settings, state information,
-//  * or service instances that need to be accessed globally.
-//  *
-//  * @note Ensure proper initialization before usage to avoid undefined behavior.
-//  *       The scope and lifespan of the environment object should be managed carefully
-//  *       to prevent memory leaks or access violations.
-//  */
-// extern environment * gpEnv;
-
-// #include "cgibind.h"
-// /**
-//  * @brief Represents a CGI (Common Gateway Interface) binding configuration or object.
-//  *
-//  * The `gpCgiBind` variable is used in the context of handling CGI-related
-//  * bindings for web applications or scripts. It may store data or configurations
-//  * necessary for invoking and managing CGI processes, enabling communication
-//  * between a web server and external applications or scripts.
-//  *
-//  * This variable can facilitate tasks such as parsing input, setting up environments,
-//  * or invoking specific scripts as part of the CGI workflow.
-//  */
-// extern cgibind * gpCgiBind;
-
-// #include "cgicc.h"
-// /**
-//  * @brief Represents a global instance used for handling CGI (Common Gateway Interface) operations.
-//  *
-//  * This variable is commonly utilized to manage and facilitate web interactions
-//  * by processing data transferred between a web server and a client application.
-//  *
-//  * Typical use cases include handling HTTP requests and responses, parsing query
-//  * parameters, and managing session data in a web application environment.
-//  * The behavior and content of this object may vary based on the specific implementation
-//  * and the context in which it is used.
-//  */
-// extern Cgicc * gpCgi;
-
-//enum HTML_LOCATION {
-//    HTML_USERDIR,
-//    HTML_VARWWW
-//};
 
 /**
  * @class cgihtml
@@ -137,7 +26,6 @@
  * web-based content generation and server communication for CGI-based web services.
  */
 class cgihtml {
-    //char m_page[BUFSIZ];
 	/**
 	 * Generates a string containing HTML code for a CGI script.
 	 *

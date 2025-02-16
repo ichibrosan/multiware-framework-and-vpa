@@ -4,7 +4,6 @@
 // This file is part of the Goodall MultiWare Framework Project.             //
 ///////////////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
-//#include "cgibind.h"
 
 /**
  * Default constructor for the `cgibind` class.

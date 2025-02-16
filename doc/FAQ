@@ -1,0 +1,8 @@
+Frequently Asked Questions
+
+Why doesn't the Start Vpad button work?
+1. is there a "vpad-start   65353/tcp" entry in /etc/services?
+2. have you "apt install xinetd" installed the xinet daemon?
+3. have you copied the doc/vpa file into /etc/xinetd.d?
+4. have you done systemctl enable xinetd?
+5. have you done systemctl start xinetd?
