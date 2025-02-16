@@ -179,17 +179,6 @@ enum SCHEMA_DIV_T {
     COL_DIV_CLASS = COL_PARM1
 };
 
-//// deprecated
-//enum SCHEMA_DATA_T {
-//    COL_DATA_ACTIVE,
-//    COL_DATA_PREPARA,
-//    COL_DATA_POSTPARA,
-//    COL_DATA_TYPE,
-//    COL_DATA_LABEL,
-//    COL_DATA_VISIBLE,
-//    COL_DATA_COMMENT
-//};
-
 
 /**
  * @enum SCHEMA_CHECKBOX_T

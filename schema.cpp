@@ -5,12 +5,8 @@
 
 #include "mwfw2.h"
 
-
-
 using namespace std;
 using namespace cgicc;
-
-
 
 /**
  * Constructs a schema object and initializes it with the given schema name.

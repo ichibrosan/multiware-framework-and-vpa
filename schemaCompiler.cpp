@@ -5,74 +5,12 @@
 
 #include "mwfw2.h"
 
-// #include "std.h"
-// #include "osIface.h"
-
-// /**
-//  * @brief A pointer to an instance of the operating system interface.
-//  *
-//  * This variable, gpOS, acts as a global pointer to the operating system
-//  * interface instance, enabling interaction and communication with the
-//  * operating system's underlying functionality through the defined interface.
-//  *
-//  * The exact implementation and behavior of gpOS depend on the specific
-//  * context and configuration determined by the underlying system or user-defined
-//  * implementation.
-//  */
-// extern osIface * gpOS;
-
-// #include "schema.h"
-// #include "schemaCompiler.h"
-
-// #include "readCsv.h"
-// /**
-//  * @brief Global pointer to a `readCsv` object instance.
-//  *
-//  * This variable serves as a global reference to a `readCsv` object, which is used
-//  * throughout the program for accessing and managing CSV file data. The `gpCsv`
-//  * object facilitates CSV parsing, data retrieval, and row/column processing.
-//  *
-//  * Key Details:
-//  * - Initialized in the `schemaCompiler::getSchema` function with the provided schema name.
-//  * - Invokes the `parseData()` function to process CSV data and populate internal structures.
-//  * - Accessed in the `schemaCompiler::isActiveSchema` and `isValidSchemaVersion` functions
-//  *   to validate and process metadata from the parsed CSV.
-//  *
-//  * Usage Notes:
-//  * - Typically used in schema compilation processes to extract metadata and schema details.
-//  * - Ensure the object is properly initialized before accessing it to avoid undefined behavior.
-//  * - Memory management (deallocation) of this object should be handled appropriately to
-//  *   prevent resource leaks.
-//  *
-//  * Limitations:
-//  * - This variable assumes a single `readCsv` instance is required globally at runtime.
-//  * - Not thread-safe due to its global nature.
-//  */
-// extern readCsv * gpCsv;
-
-// #include "CLog.hpp"
-// #include "shared.h"
-// /**
-//  * @brief Global pointer to an instance of the `shared` class.
-//  *
-//  * The `gpSh` variable is a globally accessible pointer to a `shared` object,
-//  * used across the application to facilitate common/shared operations. It is
-//  * instantiated in the main function and provides functionalities related to
-//  * system resource sharing, logging, and memory management.
-//  *
-//  * This variable is integral to coordinating shared resources and ensuring
-//  * efficiency in accessing and managing these resources in a multicomponent
-//  * application environment.
-//  *
-//  * @note Proper cleanup of this pointer is essential to avoid memory leaks.
-//  */
-// extern shared * gpSh;
-
-//#include "login.h"
-
-
 /**
+ * Retrieves and processes schema data based on the provided schema name.
+ * This function stores the schema name, initializes a CSV reader object with the schema,
+ * parses the data within the CSV, and updates the number of lines processed.
  *
+ * @param ssSchemaName The name of the schema to be loaded and processed.
  */
 void schemaCompiler::getSchema(std::string ssSchemaName)
 {
