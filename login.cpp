@@ -2,7 +2,9 @@
 // daphne.goodall.com:/home/doug/public_html/fw/login.cpp 2025/01/20  //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
-#include "login.h"
+
+#include "mwfw2.h"
+
 /**
  * @brief A temporary character buffer used for storing formatted strings.
  *
@@ -31,10 +33,7 @@ char szTemp[128];
  * @return EXIT_SUCCESS on successful execution.
  */
 int main() {
-  gpSysLog = new CSysLog();
-  gpSysLog->loginfo(__FILE__ );
-  CLog log(__FILE__,__FUNCTION__);
-  //log.truncate();
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
   std::string ssActive;
   std::string ssUsername;
@@ -51,22 +50,11 @@ int main() {
     std::cout << "content-type:\ttext/html\n\n" << std::endl;
   }
 
-  gpLog     = new CLog(__FILE__, __FUNCTION__);
-  gpLog->truncate();
-  gpSh      = new shared();
-  gpEnv     = new environment();
-
-  gpCgi     = new Cgicc();
-
-
-  gpCgiBind = new cgibind();
-
   std::string ssHttpReferrer = gpCgiBind->get_referrer();
   std::string ssReferrerPath = gpCgiBind->get_referrer_path();
   std::string ssReferrerFile = gpCgiBind->get_referrer_file();
 
   gpCsv = new readCsv("passwd.csv");
-
   gpCsv->parseData();
 
   std::string ssUsernameX = gpCgiBind->get_form_variable("username");

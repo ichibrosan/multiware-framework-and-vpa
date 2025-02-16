@@ -2,7 +2,7 @@
 // daphne.goodall.com:/home/doug/public_html/fw/menu.cpp  2025/01/14  //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
-#include "menu.h"
+#include "mwfw2.h"
 
 /**
  * The main function serves as the entry point of the program. It initializes
@@ -21,12 +21,6 @@ int main() {
     std::cout << "Content-type:\ttext/html\n\n" << std::endl;
   }
 
-  gpLog    = new CLog(__FILE__, __FUNCTION__);
-  gpLog->truncate();
-  gpSh     = new shared();
-  gpCgi    = new Cgicc();
-  gpOS     = new osIface();
-  gpEnv    = new environment();
   gpSchema = new schema("user-menu.csv");
   int handle = atoi(gpCgiBind->get_form_variable("handle").c_str());
   std::string ssUsername = gpCgiBind->get_form_variable("username");

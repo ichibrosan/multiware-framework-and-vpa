@@ -3,7 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#include "logout.h"
+#include "mwfw2.h"
 
 char * gpszServerPort; /**
  * @brief A global pointer to a character string representing the server port.
@@ -31,8 +31,7 @@ logout::logout()
  * @return EXIT_SUCCESS upon successful execution.
  */
 int main() {
-  CLog log(__FILE__,__FUNCTION__);
-  log.truncate();
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
   char *ptr = getenv("SERVER_PORT");
   bool bCGI = false;
@@ -41,18 +40,8 @@ int main() {
     std::cout << "content-type:\ttext/html\n\n" << std::endl;
   }
 
-  gpLog = new CLog(__FILE__, __FUNCTION__);
-  gpLog->truncate();
 
-  gpSh = new shared();
-
-  gpCgi = new Cgicc();
-  gpCgiBind = new cgibind();
-
-  // int         iHandle    =
-  //    atoi(gpCgiBind->get_form_variable("handle").c_str());
-    int iHandle = atoi(gpCgiBind->get_form_variable("handle").c_str());
-  log.namedInt("handle", iHandle);
+  int iHandle = atoi(gpCgiBind->get_form_variable("handle").c_str());
 
   /**
    * Invalidate authentication information in shared
@@ -72,8 +61,6 @@ int main() {
       std::filesystem::path(ssHttpReferrer).remove_filename();
   std::string ssReferrerFile =
       ssHttpReferrer.substr(ssReferrerPath.length(), ssHttpReferrer.length());
-
-  gpEnv = new environment();
 
   gpSchema = new schema("index.csv");
   gpSchema->gen_from_schema(1);

@@ -3,7 +3,7 @@
 // Copyright (c) Douglas Wade Goodall. All Rights Reserved.               //
 ////////////////////////////////////////////////////////////////////////////
 
-#include "vpad.h"
+#include "mwfw2.h"
 
 /**
  * Main function for the vpad application, responsible for initializing system components,
@@ -12,15 +12,14 @@
  * @return Returns 0 upon successful execution.
  */
 int main() {
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+
     char szTimestamp[128];
 
     printf("vpad Copyright (c) 2025 Douglas Wade Goodall. "
            "All Rights Reserved.\n");
     gpLog       = new CLog(__FILE__, __FUNCTION__);
     gpLog->getTimeDateStamp(szTimestamp);
-    gpSh        = new shared();
-    gpEnv       = new environment();
-    gpOS        = new osIface();
     gpSh->m_pShMemng->vpad_pid = getpid();
     //std::cout << "From Vpad: " << getpid() << std::endl;
     strcpy(gpSh->m_pShMemng->szVpad_date,__DATE__);

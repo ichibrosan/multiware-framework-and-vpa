@@ -4,68 +4,59 @@
 
 #ifndef DASHBOARD_H
 #define DASHBOARD_H
-#include "std.h"
-#include "fw-limits.h"
-#include "cgicc.h"
-//Cgicc * gpCgi;
-#include "cgibind.h"
-//cgibind * gpCgiBind;
-#include "shared.h"
-/**
- * @brief A global pointer to an instance of the `shared` class.
- *
- * This variable is a shared memory segment that establishes access
- * to shared data across different components of the application.
- * It is initialized in various contexts where shared data needs to
- * be accessed, such as `journal.cpp`, `menu.cpp`, and `render.cpp`.
- *
- * The `gpSh` pointer is typically used to manage and handle shared
- * memory operations within the application architecture.
- *
- * Responsibility for initialization lies in the respective context
- * where it is used, often as `new shared()` calls. This ensures
- * proper setup for accessing shared memory segments.
- */
-extern shared * gpSh;
-#include "schema.h"
-#include "cgihtml.h"
-/**
- * @brief A global pointer to a cgihtml object.
- *
- * This variable is intended to be used as the primary interface for accessing
- * and managing HTML-related operations within the application. The cgihtml
- * type provides functionalities to handle CGI (Common Gateway Interface)
- * HTML generation and parsing.
- *
- * Designed to facilitate dynamic HTML generation, form handling, and processing
- * of CGI-based web applications, this pointer must be properly initialized
- * before usage to avoid runtime issues.
- *
- * Users of this variable should ensure thread safety if accessing or modifying
- * the object in a concurrent environment.
- *
- * Note: Ensure gpHtml is properly cleaned up to avoid memory leaks.
- */
-extern cgihtml * gpHtml;
-#include "osIface.h"
-/**
- * @brief Global pointer to an instance of the osIface class.
- *
- * This variable is used to provide global access to the `osIface` object,
- * which offers several utility functions for handling file paths, URLs,
- * and other operating system-level tasks.
- *
- * The `osIface` class includes methods for operations such as:
- * - File path manipulations
- * - URL generation for various contexts (logs, CGI, HTML, etc.)
- * - Parsing and schema-related functionalities
- *
- * The `gpOS` variable is instantiated and utilized in various modules,
- * including but not limited to `noteload.cpp`, `CLog.cpp`, `main.cpp`, and `dashboard.cpp`.
- *
- * It ensures unified handling of OS-related functionalities across the system.
- */
-extern osIface * gpOS;
+
+#include "mwfw2.h"
+
+// #include "std.h"
+// #include "fw-limits.h"
+// #include "cgicc.h"
+// //Cgicc * gpCgi;
+// #include "cgibind.h"
+// //cgibind * gpCgiBind;
+// #include "shared.h"
+
+
+//#include "schema.h"
+
+// #include "cgihtml.h"
+// /**
+//  * @brief A global pointer to a cgihtml object.
+//  *
+//  * This variable is intended to be used as the primary interface for accessing
+//  * and managing HTML-related operations within the application. The cgihtml
+//  * type provides functionalities to handle CGI (Common Gateway Interface)
+//  * HTML generation and parsing.
+//  *
+//  * Designed to facilitate dynamic HTML generation, form handling, and processing
+//  * of CGI-based web applications, this pointer must be properly initialized
+//  * before usage to avoid runtime issues.
+//  *
+//  * Users of this variable should ensure thread safety if accessing or modifying
+//  * the object in a concurrent environment.
+//  *
+//  * Note: Ensure gpHtml is properly cleaned up to avoid memory leaks.
+//  */
+// extern cgihtml * gpHtml;
+
+// #include "osIface.h"
+// /**
+//  * @brief Global pointer to an instance of the osIface class.
+//  *
+//  * This variable is used to provide global access to the `osIface` object,
+//  * which offers several utility functions for handling file paths, URLs,
+//  * and other operating system-level tasks.
+//  *
+//  * The `osIface` class includes methods for operations such as:
+//  * - File path manipulations
+//  * - URL generation for various contexts (logs, CGI, HTML, etc.)
+//  * - Parsing and schema-related functionalities
+//  *
+//  * The `gpOS` variable is instantiated and utilized in various modules,
+//  * including but not limited to `noteload.cpp`, `CLog.cpp`, `main.cpp`, and `dashboard.cpp`.
+//  *
+//  * It ensures unified handling of OS-related functionalities across the system.
+//  */
+// extern osIface * gpOS;
 
 enum {
     JOURNAL = 1<<0,

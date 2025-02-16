@@ -24,16 +24,7 @@
 
 #define WIN32_LEAN_AND_MEAN  /* required by xmlrpc-c/server_abyss.hpp */
 
-#ifndef _WIN32
-#  include <unistd.h>
-#endif
-#include <cassert>
-
-#include "CSysLog.hpp"
-CSysLog * gpSysLog;
-
-#include "shared.h"
-shared * gpSh;
+#include "mwfw2.h"
 
 using namespace std;
 
@@ -62,10 +53,10 @@ using namespace std;
 int
 main(int           const, 
      const char ** const) {
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+
 
     char szTemp[128];
-    gpSysLog = new CSysLog();
-    gpSh     = new shared();
 
     xmlrpc_c::registry myRegistry;
 
@@ -81,10 +72,6 @@ main(int           const,
         /* This reads the HTTP POST request from Standard Input and
            executes the indicated RPC.
         */
-
-    // sprintf(szTemp,"%s::%s running at line %d - returned from myAbyssServer.runConn",
-    //     __FILE__,__FUNCTION__,__LINE__);
-    // gpSysLog->loginfo(szTemp);
 
     return 0;
 }

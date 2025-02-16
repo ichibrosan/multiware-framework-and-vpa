@@ -20,24 +20,24 @@ include_directories(
         "/opt/xmlrpc-c/include"
 )
 
-add_library( mwfw STATIC
-        mwfw.cpp			mwfw.h
-        cgibind.cpp		cgibind.h
-        cgihtml.cpp		cgihtml.h
-        CLog.cpp			CLog.hpp
-        CSysLog.cpp		CSysLog.hpp
-        dashboard.cpp		dashboard.h
-        environment.cpp	environment.h
-        osIface.cpp		osIface.h
-        password.cpp		password.h
-        readCsv.cpp		readCsv.h
-        schema.cpp			schema.h
-        schemaCompiler.cpp	schemaCompiler.h
-        shared.cpp			shared.h
-        test.cpp			test.h
-        config.cpp         config.h
-        cgicc.h
-)
+#add_library( mwfw STATIC
+#        mwfw.cpp			mwfw.h
+#        cgibind.cpp		cgibind.h
+#        cgihtml.cpp		cgihtml.h
+#        CLog.cpp			CLog.hpp
+#        CSysLog.cpp		CSysLog.hpp
+#        dashboard.cpp		dashboard.h
+#        environment.cpp	environment.h
+#        osIface.cpp		osIface.h
+#        password.cpp		password.h
+#        readCsv.cpp		readCsv.h
+#        schema.cpp			schema.h
+#        schemaCompiler.cpp	schemaCompiler.h
+#        shared.cpp			shared.h
+#        test.cpp			test.h
+#        config.cpp         config.h
+#        cgicc.h
+#)
 
 # The purpose of mwfw2 is to replace mwfw. The difference being that in mwfw,
 # responsibility for including all the object headers was on the application
@@ -52,16 +52,17 @@ add_library( mwfw2 STATIC
         cgihtml.cpp		    cgihtml.h
         CLog.cpp			CLog.hpp
         CSysLog.cpp		    CSysLog.hpp
-#        dashboard.cpp		dashboard.h
+        dashboard.cpp		dashboard.h
         environment.cpp	    environment.h
         osIface.cpp		    osIface.h
-#        password.cpp		password.h
+        password.cpp		password.h
         readCsv.cpp		    readCsv.h
         schema.cpp			schema.h
-#        schemaCompiler.cpp	schemaCompiler.h
-#        test.cpp			test.h
+        schemaCompiler.cpp	schemaCompiler.h
+        test.cpp			test.h
         config.cpp          config.h
-#        cgicc.h
+        cgicc.h
+
 )
 
 ##############################################################################
@@ -106,7 +107,7 @@ add_executable( fw
 #                config.h
 )
 target_link_libraries(fw
-		mwfw
+		mwfw2
 		libcgicc.a        # libcgicc.so         use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -121,7 +122,7 @@ add_executable( fw-test4.cgi
 #                config.h
 )
 target_link_libraries(fw-test4.cgi
-		mwfw
+		mwfw2
 		libcgicc.a        # libcgicc.so         use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -150,7 +151,7 @@ add_executable( index.cgi
 #                config.h
 )
 target_link_libraries(index.cgi
-		mwfw
+		mwfw2
 		libcgicc.a          # libcgicc.so       use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -177,7 +178,7 @@ add_executable( journal.cgi
         #                config.h
 )
 target_link_libraries(journal.cgi
-        mwfw
+        mwfw2
         libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -205,7 +206,7 @@ add_executable( login.cgi
 )
 link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(login.cgi
-		mwfw
+		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -231,7 +232,7 @@ add_executable( logout.cgi
 )
 link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(logout.cgi
-        mwfw
+        mwfw2
         libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -278,7 +279,7 @@ add_executable( menu.cgi
 #                config.h
 )
 target_link_libraries(menu.cgi
-		mwfw
+		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -306,7 +307,7 @@ add_executable( notesave.cgi
 #                config.h
 )
 target_link_libraries(notesave.cgi
-		mwfw
+		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -332,7 +333,7 @@ add_executable( noteload.cgi
 #                config.h
 )
 target_link_libraries(noteload.cgi
-		mwfw
+		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -358,7 +359,7 @@ add_executable( render.cgi
 #                config.h
 )
 target_link_libraries(render.cgi
-		mwfw
+		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -384,7 +385,7 @@ add_executable( vpad
         #                config.h
 )
 target_link_libraries(vpad
-        mwfw
+        mwfw2
         libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 )
@@ -405,6 +406,7 @@ link_directories(
         /opt/xmlrpc-c/lib/libutil
 )
 target_link_libraries(xmlrpc_client
+		mwfw2
         libxmlrpc_client++.a
         libxmlrpc_client.a
         libxmlrpc++.a
@@ -417,6 +419,7 @@ target_link_libraries(xmlrpc_client
         curl
         libxmlrpc_packetsocket.a
         uuid.a            # uuid.so         use static library instead
+		libcgicc.a
 )
 
 
@@ -427,6 +430,7 @@ add_executable(xmlrpc_inetd_server
         shared.cpp          shared.h
 )
 target_link_libraries(xmlrpc_inetd_server
+		mwfw2
         libxmlrpc_server_abyss++.a
         libxmlrpc_server++.a
         libxmlrpc_abyss++.a
@@ -443,6 +447,7 @@ target_link_libraries(xmlrpc_inetd_server
         crypto
         pthread
         uuid.a            # uuid.so         use static library instead
+		libcgicc.a
 )
 
 

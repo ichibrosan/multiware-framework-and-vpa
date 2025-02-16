@@ -14,7 +14,7 @@
 #define SHOW_ENVVAR_BUTTONS
 #define SHOW_VPAD_BUTTONS
 
-#include "dashboard.h"
+#include "mwfw2.h"
 
 /**
  * Constructs a dashboard object and initializes the display and configurations

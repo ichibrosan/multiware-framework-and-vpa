@@ -3,8 +3,8 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.   //
 // This file is part of the Goodall MultiWare Framework Project.        //
 //////////////////////////////////////////////////////////////////////////
-
-#include "cgihtml.h"
+#include "mwfw2.h"
+//#include "cgihtml.h"
 
 
 /**

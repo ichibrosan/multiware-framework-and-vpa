@@ -2,7 +2,8 @@
 // daphne.goodall.com:/home/doug/public_html/fw/shared.cpp 2025/01/10   //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.   //
 //////////////////////////////////////////////////////////////////////////
-#include "shared.h"
+
+#include "mwfw2.h"
 
 #define OBJ_PERMS (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP)
 

@@ -2,7 +2,7 @@
 // daphne.goodall.com:/home/doug/public_html/fw/environment.cpp 2025/01/10 //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.      //
 /////////////////////////////////////////////////////////////////////////////
-#include "environment.h"
+#include "mwfw2.h"
 
 #define GET_HOSTNAME_AND_PROTOCOL
 #define GET_INTERFACE
@@ -598,11 +598,11 @@ std::string environment::get_ip(bool bDebug)
         m_szIP[destindex++] = szBuffer[index++];
     }
 
-	// If it happens to be Doug's workstation, convert the IP
-	// number to a fully qualified DNS name.
-    if (0 == strcmp("192.168.4.17", m_szIP)) {
-        strncpy(m_szIP, "daphne.goodall.com", DNS_FQDN_SIZE_MAX);
-    }
+	// // If it happens to be Doug's workstation, convert the IP
+	// // number to a fully qualified DNS name.
+ //    if (0 == strcmp("192.168.4.17", m_szIP)) {
+ //        strncpy(m_szIP, "daphne.goodall.com", DNS_FQDN_SIZE_MAX);
+ //    }
 	// write the zero terminated IP number to the shared
     strncpy(gpSh->m_pShMemng->szIP, m_szIP, DNS_FQDN_SIZE_MAX);
 

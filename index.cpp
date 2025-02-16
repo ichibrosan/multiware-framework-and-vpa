@@ -2,21 +2,21 @@
 // daphne.goodall.com:/home/doug/public_html/fw/index.cpp 2025/01/14  //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
-#include "index.h"
+#include "mwfw2.h"
 
-/**
- * @brief Pointer to an instance of the mwfw class.
- *
- * This variable represents a global pointer to the `mwfw` class, which provides
- * functionalities such as system logging and determining if the current runtime
- * environment is CGI-based. The `mwfw` instance is used for managing logging
- * information and interacting with the system's environment.
- *
- * Key functionalities of the referenced `mwfw` instance:
- * - Logging system information through `sl_loginfo`.
- * - Checking if the runtime environment is CGI via `isCGI`.
- */
-mwfw * fw;
+// /**
+//  * @brief Pointer to an instance of the mwfw class.
+//  *
+//  * This variable represents a global pointer to the `mwfw` class, which provides
+//  * functionalities such as system logging and determining if the current runtime
+//  * environment is CGI-based. The `mwfw` instance is used for managing logging
+//  * information and interacting with the system's environment.
+//  *
+//  * Key functionalities of the referenced `mwfw` instance:
+//  * - Logging system information through `sl_loginfo`.
+//  * - Checking if the runtime environment is CGI via `isCGI`.
+//  */
+// mwfw * fw;
 
 /**
  * Entry point of the program. Initializes the framework, shared memory,
@@ -26,8 +26,8 @@ mwfw * fw;
  * @return Returns 0 on successful execution.
  */
 int main() {
-  fw = new mwfw();
-  fw->sl_loginfo(__PRETTY_FUNCTION__);
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+    pMwFw->sl_loginfo(__PRETTY_FUNCTION__);
 
   /**
    * Note: 2025/01/25 dwg -
@@ -37,9 +37,9 @@ int main() {
    * system syslog. After environment is instantiated, then can test
    * to assure the shared parameters were properly set up.
    */
-  gpSh  = new shared();
+  //gpSh  = new shared();
 
-  gpEnv = new environment();
+  //gpEnv = new environment();
 
 
   /*
@@ -48,13 +48,13 @@ int main() {
    * Therefore, we should run self tests before instantiating the schema.
    */
 
-  gpTest = new test(false, fw->isCGI());
-  gpTest->logHistograms();
+  // gpTest = new test(false, pMwFw->isCGI());
+  // gpTest->logHistograms();
 
-  if (0 < gpSh->m_pShMemng->num_tests_failed) {
-    gpHtml->print("ERROR!! Self-test failed");
-    exit(RETURN_SUCCESS_SORT_OF);
-  }
+  // if (0 < gpSh->m_pShMemng->num_tests_failed) {
+  //   gpHtml->print("ERROR!! Self-test failed");
+  //   exit(RETURN_SUCCESS_SORT_OF);
+  // }
 
   gpLog = new CLog(__FILE__, __FUNCTION__);
 

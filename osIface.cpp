@@ -3,25 +3,29 @@
 // Copyright (c) Douglas Wade Goodall. All Rights Reserved.            //
 /////////////////////////////////////////////////////////////////////////
 
-#include <fcntl.h>
-#include <unistd.h>
+#include "mwfw2.h"
 
-#include "CLog.hpp"
-#include "fw-limits.h"
-#include "osIface.h"
-#include "shared.h"
-#include "test.h"
+// #include <fcntl.h>
+// #include <unistd.h>
+//
+// #include "CLog.hpp"
+// #include "fw-limits.h"
+// #include "osIface.h"
+// #include "shared.h"
+// #include "test.h"
+
 #define DEBUG_GLFQFS
 
-/**
- * @brief Global pointer variable representing an object or structure
- *        used for shared access or processing within the program.
- */
-extern shared *gpSh;
-/**
- * @brief Pointer to a global logger instance used for logging messages throughout the application.
- */
-extern CLog   *gpLog;
+// /**
+//  * @brief Global pointer variable representing an object or structure
+//  *        used for shared access or processing within the program.
+//  */
+// extern shared *gpSh;
+
+// /**
+//  * @brief Pointer to a global logger instance used for logging messages throughout the application.
+//  */
+// extern CLog   *gpLog;
 
 /************************************************************************
  * Function: osIface::printBinary

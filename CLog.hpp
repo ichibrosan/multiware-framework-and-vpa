@@ -6,34 +6,29 @@
 #ifndef CLOG_HPP
 #define CLOG_HPP
 
-#include "std.h"
-#include "fw-limits.h"
-#include "osIface.h"
-/**
- * @brief Global pointer to an instance of the `osIface` class.
- *
- * This variable provides a globally accessible interface to operating system-related
- * functionalities through the `osIface` class. It is used throughout the codebase for
- * working with file paths, file operations, log generation, URL manipulation, and
- * other OS-specific tasks.
- *
- * The `gpOS` variable must be initialized as an instance of the `osIface` class
- * before its functionalities can be utilized. It serves as a centralized mechanism
- * for operations like:
- * - Accessing files and directories.
- * - Generating paths and URLs for logs, schemas, CGI binaries, etc.
- * - Parsing and manipulating file names.
- *
- * @note Proper initialization of `gpOS` is critical for its usage to prevent
- * undefined behavior across the codebase.
- */
-extern osIface *gpOS;
+#include "mwfw2.h"
 
+// #include "osIface.h"
+// /**
+//  * @brief Global pointer to an instance of the `osIface` class.
+//  *
+//  * This variable provides a globally accessible interface to operating system-related
+//  * functionalities through the `osIface` class. It is used throughout the codebase for
+//  * working with file paths, file operations, log generation, URL manipulation, and
+//  * other OS-specific tasks.
+//  *
+//  * The `gpOS` variable must be initialized as an instance of the `osIface` class
+//  * before its functionalities can be utilized. It serves as a centralized mechanism
+//  * for operations like:
+//  * - Accessing files and directories.
+//  * - Generating paths and URLs for logs, schemas, CGI binaries, etc.
+//  * - Parsing and manipulating file names.
+//  *
+//  * @note Proper initialization of `gpOS` is critical for its usage to prevent
+//  * undefined behavior across the codebase.
+//  */
+// extern osIface *gpOS;
 
-////////////////////////////////////////////////////
-// This define declares the fully qualified file
-// specification of the application log file
-//#define LOG_FILESPEC "gecore-main.log"
 
 /**
  * @class CLog
@@ -207,26 +202,26 @@ public:
 
 };
 
-/**
- * @brief Global pointer to an instance of the CLog class.
- *
- * This variable is used as a globally accessible logging mechanism,
- * allowing various parts of the application to log messages,
- * events, or other diagnostic information. The associated CLog
- * instance provides methods for managing and writing log entries
- * to a specified logfile.
- *
- * @see CLog
- */
-extern CLog *g_pLog;
-/**
- * @brief Represents the position or point of reference in a coordinate system or a related context.
- *
- * The `pOS` variable may typically store a position or a state information
- * depending on the specific implementation and intended use-case within an application.
- * Its usage and meaning should be defined by the context in which it is utilized.
- */
-extern osIface *pOS;
+// /**
+//  * @brief Global pointer to an instance of the CLog class.
+//  *
+//  * This variable is used as a globally accessible logging mechanism,
+//  * allowing various parts of the application to log messages,
+//  * events, or other diagnostic information. The associated CLog
+//  * instance provides methods for managing and writing log entries
+//  * to a specified logfile.
+//  *
+//  * @see CLog
+//  */
+// extern CLog *g_pLog;
+// /**
+//  * @brief Represents the position or point of reference in a coordinate system or a related context.
+//  *
+//  * The `pOS` variable may typically store a position or a state information
+//  * depending on the specific implementation and intended use-case within an application.
+//  * Its usage and meaning should be defined by the context in which it is utilized.
+//  */
+// extern osIface *pOS;
 
 #endif //CLOG_HPP
 

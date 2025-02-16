@@ -8,28 +8,86 @@
 
 #include "std.h"
 #include "fw-limits.h"
+
+#ifndef gpSysLog
 #include "CSysLog.hpp"
 extern CSysLog * gpSysLog;
+#endif
+
+#ifndef gpEnv
 #include "environment.h"
-#include "shared.h"
-#include "osIface.h"
-#include "CLog.hpp"
+extern environment * gpEnv;
+#endif
+
+#include "cgicc.h"
+#include <cgicc/Cgicc.h>
+#include <cgicc/CgiDefs.h>
+#include <cgicc/CgiEnvironment.h>
+#include <cgicc/FormEntry.h>
+#include <cgicc/HTTPHTMLHeader.h>
+#include <cgicc/HTMLClasses.h>
+
+using namespace cgicc;
+extern Cgicc * gpCgi;
+
+#ifndef gpCgiBind
 #include "cgibind.h"
 extern cgibind * gpCgiBind;
+#endif
+
+#ifndef gpDash
+#include "dashboard.h"
+extern dashboard * gpDash;
+#endif
+
+#ifndef gpHtml
 #include "cgihtml.h"
 extern cgihtml * gpHtml;
-#include "password.h"
-#include "readCsv.h"
-extern readCsv * gpCsv;
-//#include "notesave.h"
-//#include "journal.h"
-//#include "render.h"
-//#include "diagnose.h"
-//include "logout.h"
+#endif
+
+
+#ifndef gpLog
+#include "CLog.hpp"
+extern CLog * gpLog;
+#endif
+
+#ifndef gpOS
+#include "osIface.h"
+extern osIface * gpOS;
+#endif
+
+
+#ifndef gpSchema
 #include "schema.h"
 extern schema * gpSchema;
+#endif
+
+#ifndef gpSh
+#include "shared.h"
+extern shared * gpSh;
+#endif
+
+#ifndef gpPassword
+#include "password.h"
+extern password * gpPassword;
+#endif
+
+#ifndef gpCsv
 #include "readCsv.h"
 extern readCsv * gpCsv;
+#endif
+
+#ifndef gpSchCC
+#include "schemaCompiler.h"
+extern schemaCompiler * gpSchCC;
+#endif
+
+#ifndef gpTest
+#include "test.h"
+extern test * gpTest;
+#endif
+
+#include "logout.h"
 
 /**
  * @class mwfw2

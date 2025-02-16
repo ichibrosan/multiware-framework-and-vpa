@@ -3,7 +3,7 @@
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.            //
 //////////////////////////////////////////////////////////////////////////////
 
-#include "notesave.h"
+#include "mwfw2.h"
 
 /**
  * The main function initializes necessary objects, retrieves input values from a CGI form, writes the input to a file, and outputs success information to the client.
@@ -12,20 +12,14 @@
  *         If there is an error opening the file, it still returns EXIT_SUCCESS (0) but logs a message indicating the problem.
  */
 int main() {
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+
     bool bCGI = false;
     char * ptr = getenv("SERVER_PORT");
     if(nullptr != ptr) {
         bCGI = true;
         std::cout << "content-type:\ttext/html\n\n" << std::endl;
     }
-
-    gpLog     = new CLog(__FILE__, __FUNCTION__);
-    gpSh      = new shared();
-    gpEnv     = new environment();
-    gpOS      = new osIface();
-    gpCgi     = new Cgicc();
-    gpCgiBind = new cgibind();
-
 
     std::string ssNote  = gpCgiBind->get_form_variable("journaltextarea");
     std::string ssFile  = gpCgiBind->get_form_variable("fileName");

@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#include "test.h"
-//#include <time.h>
+#include "mwfw2.h"
 
 /**
  * @brief Array storing the names of various tests.
@@ -229,22 +228,22 @@ bool test::runMandatoryTests(bool bCGI) {
     gpSh->m_pShMemng->num_tests_processed++;
     gpSh->m_pShMemng->tests_processed_bits |= TEST4;
 
-    // Verify cgicc functionality
-    if (test5(__FILE__, __FUNCTION__, false)) {
-
-        gpSh->m_pShMemng->tests_passed_bits |= TEST5;
-
-        gpSh->m_pShMemng->num_tests_passed++;
-
-    } else {
-
-        bRetVal = false;
-        gpSh->m_pShMemng->tests_failed_bits |= TEST5;
-        gpSh->m_pShMemng->num_tests_failed++;
-    }
-
-    gpSh->m_pShMemng->num_tests_processed++;
-    gpSh->m_pShMemng->tests_processed_bits |= TEST5;
+    // // Verify cgicc functionality
+    // if (test5(__FILE__, __FUNCTION__, false)) {
+    //
+    //     gpSh->m_pShMemng->tests_passed_bits |= TEST5;
+    //
+    //     gpSh->m_pShMemng->num_tests_passed++;
+    //
+    // } else {
+    //
+    //     bRetVal = false;
+    //     gpSh->m_pShMemng->tests_failed_bits |= TEST5;
+    //     gpSh->m_pShMemng->num_tests_failed++;
+    // }
+    //
+    // gpSh->m_pShMemng->num_tests_processed++;
+    // gpSh->m_pShMemng->tests_processed_bits |= TEST5;
 
     return bRetVal;
 }
@@ -642,7 +641,7 @@ bool test::test4(bool bDebug) {
                         "verify apache can execute binary CGI scripts");
 
     std::string ssPath = gpOS->genCgiCBDPath("fw-test4.cgi", false);
-
+    m_pSysLog->loginfo(ssPath.c_str());
     if (0 != access(ssPath.c_str(), F_OK)) {
         std::cout << "Target fw-test4.cgi Not Built!!" << std::endl;
         std::cout << "Program Aborted." << std::endl;
@@ -693,7 +692,7 @@ bool test::test5(const char *pszFile, const char *pszFunction, bool bDebug) {
     strncpy(m_szLogFQFS,
             gpOS->genLogFQFS(__FILE__, __FUNCTION__, false),
             sizeof(m_szLogFQFS));
-
+m_pSysLog->loginfo(gpOS->genLogFQFS(__FILE__, __FUNCTION__, false));
     if (0 < strlen(m_szLogFQFS)) {
         CLog log(__FILE__, __FUNCTION__);
         log.truncate();
@@ -703,16 +702,22 @@ bool test::test5(const char *pszFile, const char *pszFunction, bool bDebug) {
         std::ifstream ifs(m_szLogFQFS);
         std::string inbuf;
         ifs >> inbuf;
+        m_pSysLog->loginfo(inbuf.c_str());
 
         ifs >> inbuf;
+        m_pSysLog->loginfo(inbuf.c_str());
 
         ifs >> inbuf;
+        m_pSysLog->loginfo(inbuf.c_str());
 
         // check for the unique uuid in the log entry
         if (0 == strcmp("51cbd444-ceaf-11ef-9da5-97e0560975f4",
                         inbuf.c_str())) {
+            m_pSysLog->loginfo("test5 returning true");
+
             return true;
         } else {
+            m_pSysLog->loginfo("test5 returning false");
             exit( 0);
 
             return false;

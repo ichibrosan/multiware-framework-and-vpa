@@ -4,8 +4,7 @@
 // Originally written by Marcus Franklin, some edits by Douglas Goodall     //
 //////////////////////////////////////////////////////////////////////////////
 
-#include "noteload.h"
-
+#include "mwfw2.h"
 
 /**
  * Logs and outputs an error message with context information including
@@ -39,6 +38,8 @@ void process_error(const char *pszErrMsg,int iLineNumber )
  *         it returns EXIT_SUCCESS (0) upon successful completion.
  */
 int main() {
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+
     char szTemp[128];               // 2025/02/06 18:38 dwg -
     char szPath[256];
     std::vector<std::vector<std::string>> journal_params;
@@ -49,14 +50,6 @@ int main() {
         bCGI = true;
         std::cout << "content-type:\ttext/html\n\n" << std::endl;
     }
-
-    gpSysLog  = new CSysLog();       // 2025/02/06 18:38 dwg -
-    gpLog     = new CLog(__FILE__, __FUNCTION__);
-    gpSh      = new shared();
-    gpEnv     = new environment();
-    gpOS      = new osIface();
-    gpCgi     = new Cgicc();
-    gpCgiBind = new cgibind();
 
     journal_params.push_back({"style","journal_style"});
 

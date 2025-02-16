@@ -3,10 +3,11 @@
 // Derived from xmlrpc-c/examples/cpp/xmlrpc_sample_add_client.cpp //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
 /////////////////////////////////////////////////////////////////////
-
-#include <cstdlib>
-#include <string>
-#include <iostream>
+#include "mwfw2.h"
+//
+// #include <cstdlib>
+// #include <string>
+// #include <iostream>
 
 using namespace std;
 
@@ -14,11 +15,6 @@ using namespace std;
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/client_simple.hpp>
 
-#include "CSysLog.hpp"
-#include "shared.h"
-
-CSysLog * gpSysLog = nullptr;
-shared  * gpSh = nullptr;
 
 /**
  * @brief Main entry point for the application. This program makes a client
@@ -34,11 +30,7 @@ shared  * gpSh = nullptr;
 
 int
 main(int argc, char **) {
-    char szTemp[128];
-    sprintf(szTemp,"%s::%s running ",__FILE__,__FUNCTION__);
-    gpSysLog = new CSysLog();
-    gpSysLog->loginfo(szTemp);
-    gpSh = new shared();
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
     if (argc-1 > 0) {
         cerr << "This program has no arguments" << endl;
@@ -53,9 +45,6 @@ main(int argc, char **) {
         xmlrpc_c::clientSimple myClient;
         xmlrpc_c::value result;
 
-        // sprintf(szTemp,"%s::%s running at line %d",__FILE__,__FUNCTION__,__LINE__);
-        // gpSysLog->loginfo(szTemp);
-
         myClient.call(  serverUrl,
                         methodName,
                         "iis",
@@ -64,9 +53,6 @@ main(int argc, char **) {
                          7,
                          gpSh->m_pShMemng->szRpcUuid);
 
-        // sprintf(szTemp,"%s::%s running at line %d - returned from myClient.call",
-        //     __FILE__,__FUNCTION__,__LINE__);
-        // gpSysLog->loginfo(szTemp);
 
         //int const sum = xmlrpc_c::value_int(result);
         std::string ssValue = xmlrpc_c::value_string(result);

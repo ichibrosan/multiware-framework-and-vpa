@@ -6,45 +6,50 @@
 #ifndef FW_TEST_H
 #define FW_TEST_H
 
-#include "std.h"
-#include "fw-limits.h"
-#include "cgicc.h"
-using namespace cgicc;
-#include "osIface.h"
-/**
- * @brief A global pointer to the operating system interface.
- *
- * The variable `gpOS` is a global pointer that holds the instance of
- * the operating system interface. It serves as the primary access
- * point for interacting with OS-specific functionalities in the
- * application.
- *
- * Proper initialization of `gpOS` is required before its use to
- * ensure that the necessary OS-level operations or interactions can
- * be performed reliably. This variable is commonly utilized to
- * abstract OS-dependent features, making the application code more
- * portable and modular.
- */
-extern osIface *gpOS;
-#include "test.h"
-#include "CLog.hpp"
-#include "shared.h"
-/**
- * @brief Global pointer to an instance of the `shared` class.
- *
- * This global variable is used to manage shared resources and perform
- * operations that involve sharing data or resources between processes
- * or entities in the application. It is typically initialized in the
- * main function and serves as a central access point for shared functionalities.
- *
- * The `shared` class provides methods for resource management, data sharing,
- * and error handling, enhancing the overall efficiency and robustness of
- * the application.
- *
- * Care should be taken to properly initialize and clean up this global
- * variable to avoid memory leaks and ensure optimal functionality.
- */
-extern shared  *gpSh;
+#include "mwfw2.h"
+
+// #include "std.h"
+// #include "fw-limits.h"
+// #include "cgicc.h"
+// using namespace cgicc;
+
+// #include "osIface.h"
+// /**
+//  * @brief A global pointer to the operating system interface.
+//  *
+//  * The variable `gpOS` is a global pointer that holds the instance of
+//  * the operating system interface. It serves as the primary access
+//  * point for interacting with OS-specific functionalities in the
+//  * application.
+//  *
+//  * Proper initialization of `gpOS` is required before its use to
+//  * ensure that the necessary OS-level operations or interactions can
+//  * be performed reliably. This variable is commonly utilized to
+//  * abstract OS-dependent features, making the application code more
+//  * portable and modular.
+//  */
+// extern osIface *gpOS;
+
+// #include "test.h"
+// #include "CLog.hpp"
+
+// #include "shared.h"
+// /**
+//  * @brief Global pointer to an instance of the `shared` class.
+//  *
+//  * This global variable is used to manage shared resources and perform
+//  * operations that involve sharing data or resources between processes
+//  * or entities in the application. It is typically initialized in the
+//  * main function and serves as a central access point for shared functionalities.
+//  *
+//  * The `shared` class provides methods for resource management, data sharing,
+//  * and error handling, enhancing the overall efficiency and robustness of
+//  * the application.
+//  *
+//  * Care should be taken to properly initialize and clean up this global
+//  * variable to avoid memory leaks and ensure optimal functionality.
+//  */
+// extern shared  *gpSh;
 
 
 enum {

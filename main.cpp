@@ -3,7 +3,7 @@
 // Copyright (c) Douglas Wade Goodall. All Rights Reserved.               //
 ////////////////////////////////////////////////////////////////////////////
 
-#include "main.h"
+#include "mwfw2.h"
 
 ///////////////////////////////////////
 // Allocate pointers to user classes //
@@ -21,19 +21,13 @@
  *         or EXIT_FAILURE if there is an error preventing startup.
  ******************************************************/
 int main(int argc, char **argv) {
-    //std::cout << argv[0] << std::endl;
-
-    gpLog = new CLog(__FILE__,__FUNCTION__);
-    gpLog->truncate();
+    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
     CLog log(__FILE__,__FUNCTION__);
     log.truncate();
 
-    gpOS  = new osIface();
 
-    gpSh  = new shared();
 
-    gpEnv = new environment();
     gpEnv->extract_username();
 
     if(! gpEnv->is_curl_present()) {
@@ -48,8 +42,6 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    // Instantiate Prerequisite Class Objects
-    gpOS   = new osIface();
     gpTest = new test(false,false);
 
     gpTest->logHistograms();

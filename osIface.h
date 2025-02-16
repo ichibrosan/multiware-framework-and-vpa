@@ -6,7 +6,7 @@
 #ifndef INDEX_CGI_OSIFACE_H
 #define INDEX_CGI_OSIFACE_H
 
-#include "std.h"
+#include "mwfw2.h"
 
 /**
  * @class osIface

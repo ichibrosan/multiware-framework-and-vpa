@@ -3,7 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.     //
 ////////////////////////////////////////////////////////////////////////////
 
-#include "CLog.hpp"
+#include "mwfw2.h"
 
 /************************************************************************
  * Create the fully qualified file specification based on __FILE__
