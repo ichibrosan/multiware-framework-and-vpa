@@ -87,7 +87,6 @@ extern schemaCompiler * gpSchCC;
 extern test * gpTest;
 #endif
 
-#include "logout.h"
 
 /**
  * @class mwfw2

@@ -70,7 +70,6 @@ add_library( mwfw2 STATIC
 ##############################################################################
 add_executable( diagnose.cgi
         diagnose.cpp
-        diagnose.h
         #        		CLog.hpp
         #                osIface.h
         #                shared.h
@@ -95,8 +94,7 @@ target_link_libraries(diagnose.cgi
 ########################################################
 add_executable( fw
                 main.cpp
-                main.h
-#        		shared.h
+		#        		shared.h
 #				shmemng.h
 #                test.h
 #                CLog.hpp
@@ -162,8 +160,7 @@ target_link_libraries(index.cgi
 ####################################################################
 add_executable( journal.cgi
         journal.cpp
-        journal.h
-        #                cgicc.h
+		#                cgicc.h
         #		        shmemng.h
         #                shared.h
         #                CLog.hpp
@@ -189,7 +186,7 @@ target_link_libraries(journal.cgi
 ############################################################################
 add_executable( login.cgi
                 login.cpp
-                login.h
+#                login.h
 #                cgicc.h
 #                CLog.hpp
 #		        osIface.h
@@ -217,8 +214,7 @@ target_link_libraries(login.cgi
 #####################################################################
 add_executable( logout.cgi
         logout.cpp
-        logout.h
-        #                cgicc.h
+		#                cgicc.h
         #                CLog.hpp
         #                osIface.h
         #                shared.h
@@ -264,7 +260,7 @@ target_link_libraries(look
 ###########################################################
 add_executable( menu.cgi
                 menu.cpp
-                menu.h
+#                menu.h
 #                cgicc.h
 #                CLog.hpp
 #                osIface.h
@@ -291,7 +287,7 @@ target_link_libraries(menu.cgi
 #####################################################################
 add_executable( notesave.cgi
                 notesave.cpp
-                notesave.h
+#                notesave.h
 #                cgicc.h
 #                shared.h
 #                CLog.hpp
@@ -370,8 +366,7 @@ target_link_libraries(render.cgi
 ######################################################################
 add_executable( vpad
         vpad.cpp
-        vpad.h
-        #                cgicc.h
+		#                cgicc.h
         #				 shmemng.h
         #                shared.h
         #                CLog.hpp

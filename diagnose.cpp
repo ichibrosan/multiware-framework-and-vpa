@@ -3,7 +3,6 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.    //
 ///////////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
-//#include "diagnose.h"
 
 
 int main() {

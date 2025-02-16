@@ -18,11 +18,6 @@ char * gpszServerPort; /**
  * reassigned or deallocated.
  */
 
-logout::logout()
-{
-
-}
-
 /**
  * Main program entry point. Initializes necessary components, processes
  * CGI environment if present, invalidates user authentication credentials,
@@ -32,16 +27,7 @@ logout::logout()
  */
 int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
-
-  //char *ptr = getenv("SERVER_PORT");
-  //bool bCGI = false;
-  //if (nullptr != ptr) {
-//    bCGI = true;
-//    std::cout << "content-type:\ttext/html\n\n" << std::endl;
-//  }
-
-
-  int iHandle = atoi(gpCgiBind->get_form_variable("handle").c_str());
+    int iHandle = atoi(gpCgiBind->get_form_variable("handle").c_str());
 
   /**
    * Invalidate authentication information in shared
