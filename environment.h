@@ -400,6 +400,28 @@ public:
      *************************************************************************/
 	void        set_styles_root(bool bDebug);
 
+	/***************************************************************************
+	 * Retrieves the root file path for styles.
+	 *
+	 * @param bDebug A boolean flag indicating if the environment is in debug mode.
+	 *               It does not currently affect the returned value.
+	 * @return A string representing the root file directory path for styles.
+	 ***********************************************************************/
+	std::string get_styles_file_root(bool bDebug);
+
+	/***************************************************************************
+ 	* @brief Configures and sets the styles filesystem root path for the
+ 	* environment.
+ 	*
+ 	* This method constructs the styles root path based on user information, and
+ 	* a predefined path structure, and then sets it to the shared memory's
+ 	* styles root path variable.
+ 	*
+ 	* @param bDebug A boolean flag to indicate if debugging configuration is
+ 	*               enabled.
+ 	***************************************************************************/
+	void set_styles_file_root(bool bDebug);
+
     /************************************************************************
 	 * Retrieves the root directory of the journal system.
 	 *

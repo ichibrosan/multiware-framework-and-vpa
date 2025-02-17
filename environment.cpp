@@ -120,6 +120,12 @@ environment::environment() {
 	set_styles_root(false);
 
 	/********************************************************************
+	 * Create the base filesystem root for filesystem access to styles
+	 * for instance: "/home/monk/public_html/fw/styles/"
+	 ***********************************************************************/
+	set_styles_file_root(false);
+
+	/********************************************************************
 	 * Create the base path for accessing Journal files
 	 * for instance: "/home/doug/Documents/Fw_Notes/"
      ***********************************************************************/
@@ -476,6 +482,39 @@ void environment::set_styles_root(bool bDebug)
   ssStylesRoot.append("/fw/styles/");
   strcpy(gpSh->m_pShMemng->szStylesRoot,ssStylesRoot.c_str());
 }
+
+/***************************************************************************
+ * Retrieves the root file path for styles.
+ *
+ * @param bDebug A boolean flag indicating if the environment is in debug mode.
+ *               It does not currently affect the returned value.
+ * @return A string representing the root file directory path for styles.
+ ***********************************************************************/
+std::string environment::get_styles_file_root(bool bDebug)
+{
+	std::string ssStylesRoot = gpSh->m_pShMemng->szStylesFileRoot;
+	return ssStylesRoot;
+}
+
+/***************************************************************************
+ * @brief Configures and sets the styles filesystem root path for the
+ * environment.
+ *
+ * This method constructs the styles root path based on
+ * user information, and a predefined path structure, and then sets it to the
+ * shared memory's styles root path variable.
+ *
+ * @param bDebug A boolean flag to indicate if debugging configuration is
+ *               enabled.
+ */
+void environment::set_styles_file_root(bool bDebug)
+{
+	std::string ssStylesFileRoot = "/home/";
+	ssStylesFileRoot.append(gpSh->m_pShMemng->szUser);
+	ssStylesFileRoot.append("/public_html/fw/styles/");
+	strcpy(gpSh->m_pShMemng->szStylesFileRoot,ssStylesFileRoot.c_str());
+}
+
 
 /***************************************************************************
  * Retrieves the journal root directory path.
