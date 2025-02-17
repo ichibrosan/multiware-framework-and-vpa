@@ -693,6 +693,27 @@ void form_select_end();
 	void open_html();
 
 	/**
+ 	* Generates an HTML meta tag using a list as its argument.
+ 	*
+ 	* @param metaData Takes in a list of arbitrary length to be parsed into an
+ 	* html meta line. Every pair of elements are to be in the next array position.
+ 	* Example: {"class", "button",
+ 	*           "id", "button1",
+ 	*           ...}
+ 	*/
+	void gen_meta_line(std::initializer_list<std::string> metaData);
+
+	/**
+ 	* Generates an HTML meta tag using a string as its argument.
+ 	*
+ 	* @param ssMetaLine Takes in a string to be inserted into an html meta line.
+ 	* As quotes must be escaped with this implementation, I've elected to use
+ 	* the other function overload that uses the arbitrary list of strings.
+ 	* Example: "class=\"button\" id=\"button1\"..."
+ 	*/
+	void gen_meta_line(std::string ssMetaLine);
+
+	/**
 	 * Opens a script file located at the specified path, reads its contents,
 	 * and prepares it for execution or further processing.
 	 *

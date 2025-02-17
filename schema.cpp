@@ -466,25 +466,18 @@ void schema::gen_from_schema(int iHandle,
 
     int iRow  = 0;
     int iCol  = 0;
-
-    std::string ssStyleGrid = gpCsv->m_parsed_data[ROW_META_DATA][COL_META_STYLE];
-    if (0 == std::strncmp("passed:",ssStyleGrid.c_str(),strlen("passed:")))
-    {   ssStyleGrid = ssStyleGrid.substr(ssStyleGrid.find(':') + 1);
-        for (int i_VarName = 0;
-             i_VarName <= svvsPassedValues.size() - 1;
-             i_VarName++)
-        {   if (0 == std::strncmp(ssStyleGrid.c_str(),
-                                  svvsPassedValues[i_VarName][VARIABLE_NAME].c_str(),
-                                   strlen(ssStyleGrid.c_str()))) {
-                gpCsv->m_parsed_data[ROW_META_DATA][COL_META_STYLE] = svvsPassedValues[i_VarName][VARIABLE_VALUE];
-            }
-        }
-    }
-
     char szTemp[BUFSIZ];
     memset(szTemp,0,sizeof(szTemp));
     gpHtml->open_html();
     gpHtml->open_head();
+    gpHtml->gen_meta_line({"http-equiv", "Cache-control",
+                      "content", "no-cache, no-store, must-revalidate"});
+    gpHtml->gen_meta_line({"http-equiv", "Pragma",
+                      "content", "no-cache"});
+    gpHtml->gen_meta_line({"http-equiv", "Expires",
+                      "content", "0"});
+//    gpHtml->set_meta("http-equiv=Cache-control \""
+//                     "content=no-cache");
     sprintf(szTemp,"%s%s%s",
             gpSh->m_pShMemng->szProtocol,
             gpSh->m_pShMemng->szIP,
@@ -492,7 +485,7 @@ void schema::gen_from_schema(int iHandle,
     gpHtml->title(szTemp);
 
 
-    gpHtml->set_style("default_style");
+    gpHtml->set_style("default");
         // gpCsv->m_parsed_data
         // [ROW_META_DATA]
         // [COL_META_STYLE].c_str());
@@ -569,25 +562,16 @@ void schema::gen_from_schema(int iHandle,
 
     int iRow  = 0;
     int iCol  = 0;
-
-    std::string ssStyleGrid = gpCsv->m_parsed_data[ROW_META_DATA][COL_META_STYLE];
-    if (0 == std::strncmp("passed:",ssStyleGrid.c_str(),strlen("passed:")))
-    {   ssStyleGrid = ssStyleGrid.substr(ssStyleGrid.find(':') + 1);
-        for (int i_VarName = 0;
-             i_VarName <= svvsPassedValues.size() - 1;
-             i_VarName++)
-        {   if (0 == std::strncmp(ssStyleGrid.c_str(),
-                                  svvsPassedValues[i_VarName][VARIABLE_NAME].c_str(),
-                                   strlen(ssStyleGrid.c_str()))) {
-                gpCsv->m_parsed_data[ROW_META_DATA][COL_META_STYLE] = svvsPassedValues[i_VarName][VARIABLE_VALUE];
-            }
-        }
-    }
-
     char szTemp[BUFSIZ];
     memset(szTemp,0,sizeof(szTemp));
     gpHtml->open_html();
     gpHtml->open_head();
+    gpHtml->gen_meta_line({"http-equiv", "Cache-control",
+                        "content", "no-cache, no-store, must-revalidate"});
+    gpHtml->gen_meta_line({"http-equiv", "Pragma",
+                      "content", "no-cache"});
+    gpHtml->gen_meta_line({"http-equiv", "Expires",
+                      "content", "0"});
     sprintf(szTemp,"%s%s%s",
             gpSh->m_pShMemng->szProtocol,
             gpSh->m_pShMemng->szIP,
@@ -595,7 +579,7 @@ void schema::gen_from_schema(int iHandle,
     gpHtml->title(szTemp);
 
 
-    gpHtml->set_style("default_style");
+    gpHtml->set_style("default");
         // gpCsv->m_parsed_data
         // [ROW_META_DATA]
         // [COL_META_STYLE].c_str());

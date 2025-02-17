@@ -2,6 +2,12 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-16 19:30 mf - Added in a meta line generator into the html class.
+Began adding facilities to modify css filenames according to their modified 
+date time, but halted the progress in order to add in the meta line generator 
+to send out information to cease caching altogether, as html files get
+generated automatically.
+
 2025-02-15 17:30 mf - fixups on contenttype emitters, 
 and putting the journal styles into the default stylesheet. Some attempts on
 test4.

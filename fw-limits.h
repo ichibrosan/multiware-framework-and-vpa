@@ -22,6 +22,7 @@
 #define UT_NAMESIZE 32
 #define UT_TIMESIZE 32
 #define UUID_SIZE   (36+1)
+#define DATE_LENGTH 14
 
 #define ZERO_TERMINATOR_SIZE 1
 #endif //HTML_LIMITS_H

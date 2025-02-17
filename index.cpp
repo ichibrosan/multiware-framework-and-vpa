@@ -44,7 +44,6 @@ int main() {
   // }
 
   gpLog = new CLog(__FILE__, __FUNCTION__);
-
   gpSchema = new schema("index.csv");
   gpSchema->gen_from_schema(0);
 
