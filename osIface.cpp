@@ -724,6 +724,67 @@ std::string osIface::genSchemaFQFS(const char * pszSchema,bool bDebug)
     return ssFile;
 }
 
+/**
+ * Retrieves the last modified date of the style in the filename.
+ *
+ * @param ssStyle The name of the stylesheet sans .css or date modified.
+ * @return A string containing the date in the filename.
+ */
+std::string osIface::getStyleModDate(std::string ssStyle)
+{
+    // Retrieving all the FQFS of the files in the style file root directory.
+    std::vector<std::string> vsStylesheets =
+        gpOS->allfilesindir(gpEnv->get_styles_file_root(false));
+
+    // Instantiating this value here for later use in the for loop.
+    std::string sscheckedStyle;
+
+    // lmd = Last Modified Date.
+    std::string sstrueStyleName = ssStyle + "-lmd-";
+
+    // Setting the default value in the case that we can't find the name
+    // of the style.
+    std::string sslastModified = "Style not found";
+
+    // We loop over vsStylesheets.
+    for (std::string& style :  vsStylesheets)
+    {
+        // We strip down the FQFS just to the filenames.
+        sscheckedStyle = gpOS->file2filename(style.c_str());
+
+        // If we find a match for the full filename including "-lmd-".
+        if (std::string::npos != sscheckedStyle.find(sstrueStyleName))
+        {
+            // We set the return value to the date following "-lmd-".
+            sslastModified = sscheckedStyle.substr(
+                sstrueStyleName.length(),
+                DATE_LENGTH);
+            // Since we've found a match, we leave the for loop.
+            break;
+        }
+    }
+    // We return the string, whether we found a match or not.
+    return sslastModified;
+}
+
+/**
+ * Modifies the date in the filename of the style if it's not the same
+ * as the last modified date of the file itself.
+ *
+ * @param ssStyle The name of the stylesheet to modify the date.
+ */
+void osIface::setStyleModDate(std::string ssStyle)
+{
+    std::string ssPath = gpEnv->get_styles_file_root(false)
+                       + ssStyle
+                       + "-lmd-"
+                       + gpOS->getStyleModDate(ssStyle)
+                       + ".css";
+
+    //auto fileDate = std::filesystem::last_write_time(ssPath);
+    //std::time_t convtime = std::chrono::system_clock::to_time_t(fileDate);
+    //std::cout << "fileDate" << fileDate;
+}
 
 /**
  * @brief Parses a given schema name string and separates it into its components.

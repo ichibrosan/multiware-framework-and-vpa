@@ -881,7 +881,7 @@ void cgihtml::form_select_array(
         std::string ssPureOption = gpOS->file2filename(option.c_str());
 
         std::cout << "<option value=\"" << ssPureOption << "\""
-                  << ">" << ssPureOption << "</option>";
+                  << ">" << ssPureOption << "</option>" << std::endl;
     }
     std::cout << "</select>";
 }
@@ -1266,6 +1266,54 @@ void cgihtml::open_head()
 void cgihtml::open_html()
 {
     std::cout << "<html>";
+}
+
+/**
+ * Generates an HTML meta tag using a list as its argument.
+ *
+ * @param metaData Takes in a list of arbitrary length to be parsed into an
+ * html meta line. Every pair of elements are to be in the next array position.
+ * Example: {"class", "button",
+ *           "id", "button1",
+ *           ...}
+ */
+void cgihtml::gen_meta_line(std::initializer_list<std::string> metaData)
+{
+    std::string metaHeader = "<meta ";
+    int iArgCount = 0;
+    for (auto data : metaData)
+    {
+        // If iArgCount is even, then it takes the current data element and
+        // inserts it into the line.
+//        if (0 == iArgCount++%2)
+        if (0 == (1 & iArgCount++))
+        {
+            metaHeader.append(data + "=");
+        }
+        else
+        {
+            // If iArgCount is odd, then we take the current data element and
+            // insert it after the equal sign with quotes.
+            metaHeader.append("\"" + data + "\" ");
+        }
+    }
+    // Erases the last character of the string, which should be a " ".
+    metaHeader.pop_back();
+    std::cout << metaHeader << ">" << std::endl;
+}
+
+
+/**
+ * Generates an HTML meta tag using a string as its argument.
+ *
+ * @param ssMetaLine Takes in a string to be inserted into an html meta line.
+ * As quotes must be escaped with this implementation, I've elected to use
+ * the other function overload that uses the arbitrary list of strings.
+ * Example: "class=\"button\" id=\"button1\"..."
+ */
+void cgihtml::gen_meta_line(std::string ssMetaLine)
+{
+    std::cout << "<meta " << ssMetaLine << ">" << std::endl;
 }
 
 

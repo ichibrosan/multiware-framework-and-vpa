@@ -1,22 +1,22 @@
 
-.default_button
-{
-    text-decoration:  none;
-    color: #ffffff;
-    font-size: 24px;
-    font-family: Arial;
-    background:linear-gradient(#ffff00, #ff0000);
-    box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;
-    border-top: #ffff00 3px groove;
-    border-left: #ffff00 3px groove;
-    border-right: #ff0000 3px groove;
-    border-bottom: #ff0000 3px groove;
-    border-radius: 10px;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #000000;
-    padding-left: 10px;
-    padding-right: 10px;
-}
+/*.default_button*/
+/*{*/
+/*    text-decoration:  none;*/
+/*    color: #ffffff;*/
+/*    font-size: 24px;*/
+/*    font-family: Arial;*/
+/*    background:linear-gradient(#ffff00, #ff0000);*/
+/*    box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;*/
+/*    border-top: #ffff00 3px groove;*/
+/*    border-left: #ffff00 3px groove;*/
+/*    border-right: #ff0000 3px groove;*/
+/*    border-bottom: #ff0000 3px groove;*/
+/*    border-radius: 10px;*/
+/*    -webkit-text-stroke-width: 1px;*/
+/*    -webkit-text-stroke-color: #000000;*/
+/*    padding-left: 10px;*/
+/*    padding-right: 10px;*/
+/*}*/
 
 /*
     width: 56ch;
@@ -124,23 +124,3 @@ Ruler:
     max-height:100%;
     max-width: 100%;
 }
-
-
-/*.default_button*/
-/*{*/
-/*    text-decoration:  none;*/
-/*    color: #ffffff;*/
-/*    font-size: 24px;*/
-/*    font-family: Arial;*/
-/*    background:linear-gradient(#ffff00, #ff0000);*/
-/*    box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;*/
-/*    border-top: #ffff00 3px groove;*/
-/*    border-left: #ffff00 3px groove;*/
-/*    border-right: #ff0000 3px groove;*/
-/*    border-bottom: #ff0000 3px groove;*/
-/*    border-radius: 10px;*/
-/*    -webkit-text-stroke-width: 1px;*/
-/*    -webkit-text-stroke-color: #000000;*/
-/*    padding-left: 10px;*/
-/*    padding-right: 10px;*/
-/*}*/

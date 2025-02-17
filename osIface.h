@@ -205,6 +205,15 @@ public:
 	 */
 	std::string genSchemaFQFS(const char * pszSchema,bool bDebug);
 
+
+	/**
+	 * Modifies the date in the filename of the style if it's not the same
+	 * as the last modified date of the file itself.
+	 *
+	 * @param ssStyle The name of the stylesheet to modify the date.
+	 */
+	void setStyleModDate(std::string ssStyle);
+
 	/**
 	 * Constructs the complete file path for a given schema name by appending it
 	 * to the directory path derived from the current file location, and optionally
@@ -215,6 +224,15 @@ public:
 	 * @return The full path to the schema as a string.
 	 */
 	std::string parseSchemaName(std::string ssSchemaName,bool bDebug);
+
+	/**
+	 * Retrieves the last modified date of the style in the filename.
+	 *
+	 * @param ssStyle The name of the stylesheet sans .css or date modified.
+	 * @return A string containing the date in the filename.
+	 */
+	std::string getStyleModDate(std::string ssStyle);
+
 	/**
 	 * Converts an integer number into its binary representation and prints it as a string with a specified number of digits.
 	 *
