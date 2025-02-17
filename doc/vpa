@@ -1,17 +1,6 @@
-# this file must be installed in /etc/xinetd.d
+# daphne.goodall.com:/etc/xinetd.d/vpa 2025-02-17 04:39 dwg - :-)
 
-service vpad-start
-{
-	port 		= 65353
-	disable		= no
-	id		= vpad-start
-	socket_type	= stream
-	protocol	= tcp
-	user		= doug
-	wait		= no
-	server		= /home/doug/public_html/fw/scripts/start-vpad.sh
-}
-
+# This service activates an xmlrpc responder to handle an incoming RPC request
 service vpa
 {
 	port		= 5164
@@ -24,15 +13,43 @@ service vpa
 	server		= /home/doug/public_html/fw/cmake-build-debug/xmlrpc_inetd_server
 }
 
-# This is the udp version.
-service vpa-disc
+# This service runs a script that starts the virtual protocol adapter daemon
+service vpad-start
 {
-	port		= 5164
+	port 		= 65353
 	disable		= no
-	id		= vpa-disc
-	socket_type	= dgram
-	protocol	= udp
+	id		= vpad-start
+	socket_type	= stream
+	protocol	= tcp
 	user		= doug
 	wait		= no
 	server		= /home/doug/public_html/fw/scripts/start-vpad.sh
 }
+
+# This service runs a script that calls the netstat utility and redirects output to /tmp
+service vpa-netstat
+{
+	port 		= 65354
+	disable		= no
+	id		= vpa-netstat
+	socket_type	= stream
+	protocol	= tcp
+	user		= doug
+	wait		= no
+	server		= /home/doug/public_html/fw/scripts/inetd-netstat-redirect.sh
+}
+
+# This service runs a script that calls the ip utility and redirects output to /tmp
+service vpa-ip
+{
+	port 		= 65355
+	disable		= no
+	id		= vpa-ip
+	socket_type	= stream
+	protocol	= tcp
+	user		= doug
+	wait		= no
+	server		= /home/doug/public_html/fw/scripts/inetd-ip-redirect.sh
+}
+
+

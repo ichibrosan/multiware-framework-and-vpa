@@ -87,6 +87,10 @@ extern schemaCompiler * gpSchCC;
 extern test * gpTest;
 #endif
 
+#ifndef gpXinetd
+#include "xinetdctl.h"
+extern xinetdctl * gpXinetd;
+#endif
 
 /**
  * @class mwfw2

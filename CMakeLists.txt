@@ -2,6 +2,7 @@
 # daphne.goodall.com:/home/doug/public_html/fw/CmakeLists.txt 2025/02/14  #
 # Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.           #
 ###########################################################################
+# 2025-02-17 04:24 dwg - added xinetdctl to mwfw2 library                 #
 # 2025/02/14 08:17 dwg - optimize, suspended possibly unnecessary headers #
 # 2025/02/09 03:19 dwg - added xmlrpc_inetd_server target to build        #
 # 2025/02/02 02:31 use new library mwfw for most but highest level code.  #
@@ -61,6 +62,7 @@ add_library( mwfw2 STATIC
         schemaCompiler.cpp	schemaCompiler.h
         test.cpp			test.h
         config.cpp          config.h
+		xinetdctl.cpp		xinetdctl.h			# 2025-02-17 04:22 dwg -
         cgicc.h
 
 )

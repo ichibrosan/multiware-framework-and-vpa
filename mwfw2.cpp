@@ -20,7 +20,7 @@ readCsv			* gpCsv;
 test			* gpTest;
 schemaCompiler	* gpSchCC;
 password		* gpPassword;
-
+xinetdctl		* gpXinetd;
 /**
  * Constructor for the mwfw class. Initializes the CGI mode based
  * on the SERVER_PORT environment variable and sets up the system
@@ -49,7 +49,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 
 	gpSysLog = new CSysLog();
 	gpSysLog->loginfo(__PRETTY_FUNCTION__);
-
+	gpXinetd = new xinetdctl();
     gpSh = new shared();
     gpEnv = new environment();
     gpLog = new CLog(__FILE__,__FUNCTION__);
