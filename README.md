@@ -3,6 +3,9 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
 2025-02-17 04:25 dwg - added xinetdctl::trigger(port) function
+See new vpa file in doc folder and inetd-netstat-redirect.sh in scripts
+
+2025-02-17 04:25 dwg - added xinetdctl::trigger(port) function
 to trigger xinetd controlled scripts:
 #define VPA_PORT          5164    // services: vpa/tcp vpa-disc/udp
 #define VPAD_START_PORT  65353    // services: vpad-start
