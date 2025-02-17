@@ -6,7 +6,8 @@ Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 Began adding facilities to modify css filenames according to their modified 
 date time, but halted the progress in order to add in the meta line generator 
 to send out information to cease caching altogether, as html files get
-generated automatically.
+generated automatically. Renamed default_styles.css to default.css, and updated
+the relevant references accordingly.
 
 2025-02-15 17:30 mf - fixups on contenttype emitters, 
 and putting the journal styles into the default stylesheet. Some attempts on
