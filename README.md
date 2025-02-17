@@ -4,6 +4,12 @@ Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
 2025-02-17 04:25 dwg - added xinetdctl::trigger(port) function
 See new vpa file in doc folder and inetd-netstat-redirect.sh in scripts
+Add new entries at end of /etc/services file
+# Add services for Goodall Multiware Framework
+vpad-start	65353/tcp
+vpa-netstat	65354/tcp
+vpa-ip		65355/tcp
+
 
 2025-02-17 04:25 dwg - added xinetdctl::trigger(port) function
 to trigger xinetd controlled scripts:
