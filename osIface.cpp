@@ -101,6 +101,7 @@ osIface::osIface() {
 std::vector<std::string> osIface::allfilesindir(std::string osPath)
 {
     std::vector<std::string> allFiles;
+    here;
     for (const auto &
          osFile :
          std::filesystem::directory_iterator(osPath)) {
@@ -350,6 +351,48 @@ const char * osIface::genJournalFQFS(const char *pszFile,bool bDebug)
     // return gszPath;
 }
 
+/************************************************************************
+ * Function: osIface::genScriptFQFS
+ *
+ * Description:
+ * This function generates the fully qualified file system path to a script
+ * file within a user's web directory. The path includes the base directory,
+ * user-specific subdirectory, and file name. Additionally, this function
+ * optionally provides debug information through standard error outputs.
+ *
+ * Parameters:
+ * - pszFile: Pointer to a null-terminated string containing the script file
+ *            name to be appended to the constructed path.
+ * - bDebug:  Boolean flag indicating whether debug information should be
+ *            printed to standard error. If true, intermediate path details
+ *            are output to help trace the path generation process.
+ *
+ * Returns:
+ * - A pointer to a null-terminated string containing the fully qualified
+ *   path of the requested script file. The returned string is stored in
+ *   a global buffer (gszPath).
+ *
+ * Remarks:
+ * - The function uses a global shared memory object (m_pShMemng) to obtain
+ *   user-specific information for constructing the path.
+ * - Debugging information is conditionally printed based on the value of
+ *   the bDebug parameter.
+ ************************************************************************/
+const char * osIface::genScriptFQFS(const char *pszFile,bool bDebug) {
+    CLog log(__FILE__,__FUNCTION__);
+    log.truncate();
+    std::string ssFile = pszFile;
+    if(bDebug) { std::cerr << "ssFile      is " << ssFile << std::endl; }
+    std::string ssPath = "/home/";
+    if(bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
+    ssPath.append(gpSh->m_pShMemng->szUser);
+    if(bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
+    ssPath.append("/public_html/fw/scripts/");
+    if(bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
+    ssPath.append(pszFile);
+    strcpy(gszPath,ssPath.c_str());
+    return gszPath;
+}
 
 /************************************************************************
  * Generates a fully qualified file system path for a log file based on

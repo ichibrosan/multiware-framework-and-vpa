@@ -533,18 +533,22 @@ void cgihtml::dump_shm_vars()
 
     std::cout << "<tr><th>test_processed_bits</th><td>";
     gpOS->printBinary(gpSh->m_pShMemng->tests_processed_bits,7);
+    printf(" 0x%02x",gpSh->m_pShMemng->tests_processed_bits);
     std::cout << "</td></tr>";
 
     std::cout << "<tr><th>test_passed_bits</th><td>";
     gpOS->printBinary(gpSh->m_pShMemng->tests_passed_bits,7);
+    printf(" 0x%02x",gpSh->m_pShMemng->tests_passed_bits);
     std::cout << "</td></tr>";
 
     std::cout << "<tr><th>test_failed_bits</th><td>";
     gpOS->printBinary(gpSh->m_pShMemng->tests_failed_bits,7);
+    printf(" 0x%02x",gpSh->m_pShMemng->tests_failed_bits);
     std::cout << "</td></tr>";
 
     std::cout << "<tr><th>test_skipped_bits</th><td>";
     gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits,7);
+    printf(" 0x%02x",gpSh->m_pShMemng->tests_skipped_bits);
     std::cout << "</td></tr>";
 
     std::cout << "<tr><th>num_tests_processed</th><td>";
@@ -904,17 +908,21 @@ void cgihtml::form_select_files(
         const char * pszSelectPath,
         const char * pszSelectClass)
 {
+    here;
     std::vector<std::string> selectValues;
-
+here;
     if (0 == strcmp("default",pszSelectPath)) {
+here;
         selectValues =
             gpOS->allfilesindir(gpEnv->get_journal_root(false));
     } else {
+        here;
         selectValues =
             gpOS->allfilesindir(pszSelectPath);
     }
-
+here;
     form_select_array(pszSelectName,selectValues,pszSelectClass);
+    here;
 }
 
 

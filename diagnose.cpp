@@ -6,37 +6,18 @@
 
 
 int main() {
+    gpSysLog = new CSysLog();
+    here;
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+    here;
 
-    char *ptr = getenv("SERVER_PORT");
-    bool bCGI = false;
-    if (nullptr != ptr) {
-        bCGI = true;
-        std::cout << "content-type:\ttext/html\n\n" << std::endl;
-    }
+    std::cout << "Content-type:\ttext/html\n\n" << std::endl;
+    std::cout << "Hello World!!" << std::endl;
+    // int iHandle    =
+    //    atoi(gpCgiBind->get_form_variable("handle").c_str());
 
-    //gpLog = new CLog(__FILE__, __FUNCTION__);
-    //gpLog->truncate();
-
-    //gpSh = new shared();
-
-
-    //gpCgi = new Cgicc();
-    //gpCgiBind = new cgibind();
-
-    int iHandle    =
-       atoi(gpCgiBind->get_form_variable("handle").c_str());
-    //std::cout << "handle is " << iHandle << std::endl;
-
-    std::string ssHttpReferrer = gpCgi->getEnvironment().getReferrer();
-    std::string ssReferrerPath =
-        std::filesystem::path(ssHttpReferrer).remove_filename();
-    std::string ssReferrerFile =
-        ssHttpReferrer.substr(ssReferrerPath.length(), ssHttpReferrer.length());
-
-    //gpEnv = new environment();
-
-    gpSchema = new schema("journal.csv");
-    gpSchema->gen_from_schema(iHandle);
+    //gpTest = new test(true,pMwFw->isCGI());
+    //gpSchema = new schema("login.csv");
+    //gpSchema->gen_from_schema(iHandle);
     return EXIT_SUCCESS;
 }

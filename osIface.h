@@ -205,6 +205,22 @@ public:
 	 */
 	std::string genSchemaFQFS(const char * pszSchema,bool bDebug);
 
+	/**
+	 * @brief Generates a fully qualified file system path or script content output.
+	 *
+	 * The genScriptFQFS function constructs or generates a specific fully qualified output
+	 * based on the provided script and debug flag. The actual behavior, such as returning
+	 * a file path or processed script output, depends on the context of implementation.
+	 *
+	 * @param pszScript A constant character pointer representing the input script or script path.
+	 *                  Its validity and format should be ensured by the caller.
+	 * @param bDebug A boolean flag indicating whether to enable debug-specific functionality
+	 *               or output during script generation.
+	 *
+	 * @return A std::string containing the generated output, which may vary based
+	 *         on the parameters provided and the overall implementation.
+	 */
+	const char * genScriptFQFS(const char * pszScript,bool bDebug);
 
 	/**
 	 * Modifies the date in the filename of the style if it's not the same

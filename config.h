@@ -16,9 +16,12 @@
 #define VPAD_START_PORT  65353    // services: vpad-start
 #define VPA_NETSTAT_PORT 65354    // services: vpa-netstat
 #define VPA_IP_PORT      65355    // services: vpa-ip
+#define VPA_CURL_PORT    65356    // services: vpa-curl
 
 #define OCULAR_FQDN   "ocularstation.goodall.com"
 #define OCULAR_INADDR "47-143-222-184.vng01.snbb.ca.frontiernet.net"
+
+#define here gpSysLog->here(__FILE__,__FUNCTION__,__LINE__);
 
 class config {
 public:

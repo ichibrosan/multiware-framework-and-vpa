@@ -2,6 +2,9 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-17 19:16 dwg/mf - patched up things in environment
+regarding temp paths and gen of scripts, needs work to make automatic.
+
 2025-02-17 04:25 dwg - added xinetdctl::trigger(port) function
 See new vpa file in doc folder and inetd-netstat-redirect.sh in scripts
 Add new entries at end of /etc/services file
@@ -9,7 +12,7 @@ Add new entries at end of /etc/services file
 vpad-start	65353/tcp
 vpa-netstat	65354/tcp
 vpa-ip		65355/tcp
-
+vpa-curl    65356/tcp
 
 2025-02-17 04:25 dwg - added xinetdctl::trigger(port) function
 to trigger xinetd controlled scripts:

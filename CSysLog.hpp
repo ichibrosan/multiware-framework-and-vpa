@@ -34,6 +34,9 @@ public:
 	 * @param pszMsg A pointer to a null-terminated string, which is the message to be logged.
 	 */
 	void loginfo(const char *);
+
+	void here(const char *,const char *,int);
+
 	/**
 	 * Destructor for the CSysLog class.
 	 *

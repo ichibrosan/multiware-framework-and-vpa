@@ -3,6 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.      //
 /////////////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
+#include "shared.h"
 
 #define GET_HOSTNAME_AND_PROTOCOL
 #define GET_INTERFACE
@@ -46,6 +47,7 @@ std::string gssUser;
  *			required resources and configurations set up.
  *******************************************************************/
 environment::environment() {
+	here;
   char szTemp[128];
 
 	/********************************************************************
@@ -53,40 +55,47 @@ environment::environment() {
 	 * by instantiating the CSysLog class via a pointer in member data.
      ***********************************************************************/
     m_pSysLog = new CSysLog();
+	here;
 
 	/********************************************************************
 	 * Determine the username under which this application is running
 	 * and save the result in the shared segment.
      ***********************************************************************/
     extract_username();
+	here;
 
 	/********************************************************************
 	 * Determine whether the curl utility is installed on the system
 	 * and set a local boolean reflecting that question.
      ***********************************************************************/
     m_bCurlPresent = check_curl_installed();
+	here;
 
 	/********************************************************************
 	 * Determine the name of the primary network interface in use and
 	 * save it in the shared segment.
      ***********************************************************************/
     get_interface(false);
+	here;
 
 	/********************************************************************
 	 * Determine the hostname of the system on which this software is running.
      ***********************************************************************/
     set_hostname(false);
+	here;
 
 	/********************************************************************
 	 * Determine the protocol supported by Apache2 on the current system and
 	 * save to the shared system. It would be https:// or http://
      ***********************************************************************/
     set_protocol(false);
+	here;
 
     /********************************************************************
      * Determine the script name
      */
     get_scriptname();
+	here;
 
 	/********************************************************************
 	 * Determine the local IPv4 number of the host system and save in the
@@ -94,47 +103,54 @@ environment::environment() {
 	 * debug information should be generated.
      ***********************************************************************/
     get_ip(false);
+	here;
 
 	/********************************************************************
 	 * Determine the publically visible IPv4 number of the host system
 	 * and save in the shared segment.
      ***********************************************************************/
 	set_public_ip();
+	here;
 
 	/********************************************************************
 	 * Create the base URL for calling our CGIs
 	 * for instance: "http://172.20.10.4/cgi-bin/"
      ***********************************************************************/
     set_cgi_root(false);
+	here;
 
 	/********************************************************************
 	 * Create the base URL for accessing images
 	 * for instance: "http://172.20.10.4/~doug/fw/images/"
      ***********************************************************************/
     set_img_root(false);
+	here;
 
 	/********************************************************************
 	 * Create the base URL for accessing styles
 	 * for instance: "http://172.20.10.4/~doug/fw/styles/"
      ***********************************************************************/
 	set_styles_root(false);
-
+	here;
 	/********************************************************************
 	 * Create the base filesystem root for filesystem access to styles
 	 * for instance: "/home/monk/public_html/fw/styles/"
 	 ***********************************************************************/
 	set_styles_file_root(false);
+	here;
 
 	/********************************************************************
 	 * Create the base path for accessing Journal files
 	 * for instance: "/home/doug/Documents/Fw_Notes/"
      ***********************************************************************/
 	set_journal_root(false);
+	here;
 
     /********************************************************************
      * Create the base path for temp files
      ***********************************************************************/
     set_tmp_root(false);
+	here;
 
 	/********************************************************************
 	 * Create the initialization script that runs the Virtual Protocol Adapter.
@@ -142,6 +158,8 @@ environment::environment() {
 	 * "/home/$USER/public_html/fw/scripts/start-vpad.sh"
      ***********************************************************************/
 	gen_vpad_script();
+	here;
+
 }
 
 /***********************************************************************
@@ -545,7 +563,8 @@ void environment::set_journal_root(bool bDebug)
     ssJournalRoot.append(gpSh->m_pShMemng->szUser);
     ssJournalRoot.append("/Documents/Fw_Notes/");
     strcpy(gpSh->m_pShMemng->szJournalRoot,ssJournalRoot.c_str());
-}
+}   /* TODO: access into system call to check whether this dir exists, and to make
+	 it if not */
 
 
 /***********************************************************************
@@ -586,14 +605,77 @@ void environment::set_tmp_root(bool bDebug)
  * @return The name of the network interface as a string.
  ***********************************************************************/
 std::string environment::get_interface(bool bDebug) {
-    system("netstat -r > /tmp/netstat.out");
-    FILE *nsfd = fopen("/tmp/netstat.out", "r");
-    char szBuffer[BUFSIZ];
-    fgets(szBuffer, sizeof(szBuffer), nsfd);
-    fgets(szBuffer, sizeof(szBuffer), nsfd);
-    fgets(szBuffer, sizeof(szBuffer), nsfd);
-    strncpy(m_szIface, &szBuffer[73], IFNAMSIZ);
-    m_szIface[strlen(m_szIface) - 1] = 0;
+	here;
+
+	gpXinetd->trigger(VPA_NETSTAT_PORT);
+	here;
+
+	char szNetstatStdoutFQFS[128];
+	strcpy(szNetstatStdoutFQFS,"/home/doug/public_html/fw/tmp/netstat.stdout");
+	sleep(2);
+	here;
+	gpSysLog->loginfo(szNetstatStdoutFQFS);
+		// FILE *fd = fopen(szNetstatStdoutFQFS, "r");
+		// char szTemp[BUFSIZ];
+		// sprintf(szTemp, "fd is %p", fd);
+		// gpSysLog->loginfo(szTemp);
+		//
+		//
+		// //assert(nsfd != nullptr);
+		// here;
+
+	char szBuffer[BUFSIZ];
+
+	std::ifstream ifs(szNetstatStdoutFQFS);
+	here;
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;
+	gpSysLog->loginfo(szBuffer);
+
+
+	//  fgets(szBuffer, sizeof(szBuffer), fd);
+    // fgets(szBuffer, sizeof(szBuffer), fd);
+    // fgets(szBuffer, sizeof(szBuffer), fd);
+    //strncpy(m_szIface, &szBuffer[73], IFNAMSIZ);
+	strncpy(m_szIface, szBuffer, IFNAMSIZ);
+    //m_szIface[strlen(m_szIface) - 1] = 0;
     strncpy(gpSh->m_pShMemng->szIface, m_szIface, IFNAMSIZ);
     std::string ssRetVal = m_szIface;
     return ssRetVal;
@@ -615,13 +697,26 @@ std::string environment::get_ip(bool bDebug)
 	// /tmp/ip.out file.
 	char szBuffer[BUFSIZ];
 
-	// execute the ip command and redirect the
-	// output where we can find it.
-	system("ip a > /tmp/ip.out");
+	std::ofstream ofs("/home/doug/public_html/fw/scripts/inetd-ip-redirect.sh", std::ios::out);
 
+	char szTemp[BUFSIZ];
+	sprintf(szTemp, "szIface is %s",gpSh->m_pShMemng->szIface);
+	gpSysLog->loginfo(szTemp);
+
+	ofs << "#!/bin/bash" << std::endl
+	    << "ip addr show "
+		<< m_szIface
+		<< " > /home/doug/public_html/fw/tmp/ip.stdout"
+		<< std::endl;
+
+	ofs.close();
+	system("chmod +x /home/doug/public_html/fw/scripts/inetd-ip-redirect.sh");
+	gpXinetd->trigger(VPA_IP_PORT);
+	sleep(1);
+	here;
 	// Open the read for input
-	FILE *ipfd = fopen("/tmp/ip.out", "r");
-
+	FILE *ipfd = fopen("/home/doug/public_html/fw/tmp/ip.stdout", "r");
+	here;
 	// define a buffer to hold our interface
 	// name with a postpended colon.
 	char szIfaceColon[BUFSIZ];
@@ -637,7 +732,8 @@ std::string environment::get_ip(bool bDebug)
 
 	// read a line from the file into a zero terminated string
 	fgets(szBuffer, sizeof(szBuffer), ipfd);
-
+	here;
+	gpSysLog->loginfo(szBuffer);
 	// convcert the zero terminated string to a standard string
 	std::string ssBuffer = szBuffer;
 
@@ -646,6 +742,7 @@ std::string environment::get_ip(bool bDebug)
 
 		// get another line
 		fgets(szBuffer, sizeof(szBuffer), ipfd);
+		gpSysLog->loginfo(szBuffer);
 
 		// convert to a std::string
 		ssBuffer = szBuffer;
@@ -679,7 +776,8 @@ std::string environment::get_ip(bool bDebug)
 
 	// convert the zero terminated IP to std::string
     std::string ssRetVal = gpSh->m_pShMemng->szIP;
-
+	here;
+	gpSysLog->loginfo(m_szIP);
 	// return the std::string  version of the IP number
     return ssRetVal;
 }

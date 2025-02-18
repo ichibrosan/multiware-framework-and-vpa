@@ -113,6 +113,7 @@ void schema::preprocess_row_data(
 void schema::process_schema_data(std::vector<std::vector<std::string>>
                                  svvsPassedValues)
 {
+    here;
     gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
     CLog log(__FILE__,__FUNCTION__);
     log.write("instantiated");
@@ -243,11 +244,13 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
             // if type is select_files
             if (0 == strcmp("select_files",
                             gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
+                here;
                 gpHtml->form_select_files(
                     gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_NAME].c_str(),
                     gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_PATH].c_str(),
                     gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_CLASS].c_str()
                     );
+                here;
             }
 
             // if type is date
@@ -476,8 +479,8 @@ void schema::gen_from_schema(int iHandle,
                       "content", "no-cache"});
     gpHtml->gen_meta_line({"http-equiv", "Expires",
                       "content", "0"});
-//    gpHtml->set_meta("http-equiv=Cache-control \""
-//                     "content=no-cache");
+   // gpHtml->set_meta("http-equiv=Cache-control \""
+   //                  "content=no-cache");
     sprintf(szTemp,"%s%s%s",
             gpSh->m_pShMemng->szProtocol,
             gpSh->m_pShMemng->szIP,
@@ -626,6 +629,7 @@ void schema::gen_from_schema(int iHandle,
                        gpCsv->m_parsed_data[iRow][iCol].c_str())) {
             //iCol = COL_META_COLUMNS;
             // Process Schema Data
+            here;
             process_schema_data(svvsPassedValues);
 
         } else {

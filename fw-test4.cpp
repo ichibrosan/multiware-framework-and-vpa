@@ -6,12 +6,12 @@
 
 
 int main() {
-    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+    //mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
-    std::cout << "content-type:\ttext/html\n\n" << std::endl;
+    std::cout << "Content-type:\ttext/html\n\n" << std::endl;
     // Cgicc *pCgi = new Cgicc();
-    std::string ssServerSoftware;
-    ssServerSoftware = gpCgi->getEnvironment().getServerSoftware();
-    std::cout << ssServerSoftware << std::endl;
+    //std::string ssServerSoftware;
+    //ssServerSoftware = gpCgi->getEnvironment().getServerSoftware();
+    std::cout << "Hello World!!" << std::endl;
     return 0;
 }

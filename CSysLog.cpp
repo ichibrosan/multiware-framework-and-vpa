@@ -29,6 +29,13 @@ CSysLog::CSysLog()
 
 }
 
+void CSysLog::here(const char *pszFile,const char *pszFunction,int iLine) {
+    char szTemp[1024];
+    sprintf(szTemp,"%s::%s()#%d",pszFile,pszFunction,iLine);
+    loginfo(szTemp);
+}
+
+
 /**
  * Logs an informational message to the system log.
  *

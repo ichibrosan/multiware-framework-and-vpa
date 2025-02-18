@@ -158,6 +158,17 @@ void test::logHistograms() {
  */
 bool test::runMandatoryTests(bool bCGI) {
 
+    gpSh->m_pShMemng->tests_skipped_bits   = 0;
+    gpSh->m_pShMemng->tests_passed_bits    = 0;
+    gpSh->m_pShMemng->tests_failed_bits    = 0;
+    gpSh->m_pShMemng->tests_processed_bits = 0;
+
+    gpSh->m_pShMemng->num_tests_processed  = 0;
+    gpSh->m_pShMemng->num_tests_skipped    = 0;
+    gpSh->m_pShMemng->num_tests_failed     = 0;
+    gpSh->m_pShMemng->num_tests_passed     = 0;
+
+
     m_pSysLog->loginfo("test::runMandatoryTests() called");
     if (bCGI == false) {
       std::cout << "Running Mandatory Tests" << std::endl;
@@ -176,6 +187,7 @@ bool test::runMandatoryTests(bool bCGI) {
     }
     gpSh->m_pShMemng->num_tests_processed++;
     gpSh->m_pShMemng->tests_processed_bits |= TEST0;
+
 
     // Verify http:// functionality
     if (test1()) {
@@ -650,22 +662,35 @@ bool test::test4(bool bDebug) {
         exit(EXIT_FAILURE);
     }
 
+    char szDateTime[25];
+    gpLog->getTimeDateStamp(szDateTime);
+    char szScriptFQFS[FILENAME_MAX];
+    strcpy(szScriptFQFS,gpOS->genScriptFQFS("inetd-curl-redirect.sh", false));
+    std::string ssScriptFQFS = szScriptFQFS;
+    std::ofstream ofs(ssScriptFQFS);
+    ofs << "#!/bin/bash" << std::endl;
+    ofs << "# daphne.goodall.com:/home/doug/public_html/fw/scripts/inetd-curl-redirect.sh "
+        << szDateTime
+        << "#"
+        << std::endl;
+    ofs << "# Automatically generated, do not edit!!" << std::endl;
+    ofs << "curl "
+        << gpOS->genCgiCBDUrl("fw-test4.cgi > /tmp/curl.stdout",false)
+        << std::endl;
+    ofs.close();
 
-    std::string ssCommand;
-
-    ssCommand = "curl ";
-
-    ssCommand.append(gpOS->genCgiCBDUrl("fw-test4.cgi", false));
-
-    ssCommand.append(" > /tmp/fw-test4.stdout 2> /tmp/fw-test4.stderr");
+    std::string ssCommand = "chmod +x " + ssScriptFQFS;
     system(ssCommand.c_str());
+
+    gpXinetd->trigger(VPA_CURL_PORT);
+    sleep(1);
 
     std::string filename = "/tmp/fw-test4.stdout";
     std::ifstream ifs(filename);
     std::string inbuf;
     ifs >> inbuf;
-
-
+    ifs >> inbuf;
+    ifs >> inbuf;
     std::string token = inbuf.substr(0, 6);
     if (0 == token.compare("Apache")) {
         return true;
@@ -693,7 +718,7 @@ bool test::test5(const char *pszFile, const char *pszFunction, bool bDebug) {
     strncpy(m_szLogFQFS,
             gpOS->genLogFQFS(__FILE__, __FUNCTION__, false),
             sizeof(m_szLogFQFS));
-m_pSysLog->loginfo(gpOS->genLogFQFS(__FILE__, __FUNCTION__, false));
+    m_pSysLog->loginfo(gpOS->genLogFQFS(__FILE__, __FUNCTION__, false));
     if (0 < strlen(m_szLogFQFS)) {
         CLog log(__FILE__, __FUNCTION__);
         log.truncate();
@@ -715,12 +740,9 @@ m_pSysLog->loginfo(gpOS->genLogFQFS(__FILE__, __FUNCTION__, false));
         if (0 == strcmp("51cbd444-ceaf-11ef-9da5-97e0560975f4",
                         inbuf.c_str())) {
             m_pSysLog->loginfo("test5 returning true");
-
             return true;
         } else {
             m_pSysLog->loginfo("test5 returning false");
-            exit( 0);
-
             return false;
         }
     } else {
