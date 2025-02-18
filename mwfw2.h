@@ -92,6 +92,8 @@ extern test * gpTest;
 extern xinetdctl * gpXinetd;
 #endif
 
+#include "config.h"
+
 /**
  * @class mwfw2
  * @brief This class provides foundational functionality for the middleware

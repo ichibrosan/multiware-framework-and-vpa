@@ -2,6 +2,18 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025002-18 01:52 dwg - I had an epiphany about the way things are working.
+Each executable is calling the environment class to setup the shared
+with all its valuable constructs. Actually the environment constructor
+only needs to be called when the shared instantiates for the first time
+(use of the create flag). After that the shared is already populated and
+all you need to do is use it. One way to optimize this, is to make each
+init call in the environment constructor conditional on the value of the
+associated shared data. For instance, if the szIface variable is empty,
+go ahead and call set_iface(). If szIP is empty, call set(ip()...
+This will hugely speed up the cgi scripts and utilities and save a lot of 
+machine cycles.
+
 2025-02-17 19:16 dwg/mf - patched up things in environment
 regarding temp paths and gen of scripts, needs work to make automatic.
 

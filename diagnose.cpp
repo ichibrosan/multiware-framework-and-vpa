@@ -19,5 +19,7 @@ int main() {
     //gpTest = new test(true,pMwFw->isCGI());
     //gpSchema = new schema("login.csv");
     //gpSchema->gen_from_schema(iHandle);
+
+    system("sudo ip a >/tmp/redir-test.stdout 2>/tmp/redir-test.stderr");
     return EXIT_SUCCESS;
 }

@@ -31,20 +31,20 @@ using namespace std;
 int
 main(int argc, char **) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
-
+    here;
     if (argc-1 > 0) {
         cerr << "This program has no arguments" << endl;
         exit(1);
     }
-
+    here;
     try {
-        string const serverUrl("http://localhost:5164/RPC2");
+        string const serverUrl("http://daphne:5164/RPC2");
         //string const methodName("sample.add");
         string const methodName("diagnose");
 
         xmlrpc_c::clientSimple myClient;
         xmlrpc_c::value result;
-
+        here;
         myClient.call(  serverUrl,
                         methodName,
                         "iis",
@@ -52,19 +52,21 @@ main(int argc, char **) {
                          5,
                          7,
                          gpSh->m_pShMemng->szRpcUuid);
-
+        here;
 
         //int const sum = xmlrpc_c::value_int(result);
         std::string ssValue = xmlrpc_c::value_string(result);
-
+        here;
         //cout << "Result of RPC (sum of 5 and 7): " << sum << endl;
         cout << "Result of diagnose: " << ssValue << endl;
-
+        here;
     } catch (exception const& e) {
+        here;
         cerr << "Client threw error: " << e.what() << endl;
     } catch (...) {
+        here;
         cerr << "Client threw unexpected error." << endl;
     }
-
+    here;
     return 0;
 }

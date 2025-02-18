@@ -206,7 +206,7 @@ public:
 	std::string genSchemaFQFS(const char * pszSchema,bool bDebug);
 
 	/**
-	 * @brief Generates a fully qualified file system path or script content output.
+	 * @brief Generates a fully qualified file system path to the script folder.
 	 *
 	 * The genScriptFQFS function constructs or generates a specific fully qualified output
 	 * based on the provided script and debug flag. The actual behavior, such as returning

@@ -412,7 +412,7 @@ target_link_libraries(xmlrpc_client
         libxmlrpc_xmltok.a
         libxmlrpc_util.a
         pthread
-        curl
+        libcurl.so.4.8.0
         libxmlrpc_packetsocket.a
         uuid.a            # uuid.so         use static library instead
 		libcgicc.a
@@ -444,6 +444,7 @@ target_link_libraries(xmlrpc_inetd_server
         pthread
         uuid.a            # uuid.so         use static library instead
 		libcgicc.a
+		libcurl.so.4.8.0
 )
 
 

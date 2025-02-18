@@ -61,7 +61,10 @@ environment::environment() {
 	 * Determine the username under which this application is running
 	 * and save the result in the shared segment.
      ***********************************************************************/
-    extract_username();
+	if (0 == strlen(gpSh->m_pShMemng->szUser)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szUser");
+		extract_username();
+	}
 	here;
 
 	/********************************************************************
@@ -75,20 +78,29 @@ environment::environment() {
 	 * Determine the name of the primary network interface in use and
 	 * save it in the shared segment.
      ***********************************************************************/
-    get_interface(false);
+	if (0 == strlen(gpSh->m_pShMemng->szIface)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szIface");
+		get_interface(false);
+	}
 	here;
 
 	/********************************************************************
 	 * Determine the hostname of the system on which this software is running.
      ***********************************************************************/
-    set_hostname(false);
+	if (0 == strlen(gpSh->m_pShMemng->szHostname)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szHostname");
+		set_hostname(false);
+	}
 	here;
 
 	/********************************************************************
 	 * Determine the protocol supported by Apache2 on the current system and
 	 * save to the shared system. It would be https:// or http://
      ***********************************************************************/
-    set_protocol(false);
+	if (0 == strlen(gpSh->m_pShMemng->szProtocol)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szProtocol");
+		set_protocol(false);
+	}
 	here;
 
     /********************************************************************
@@ -102,54 +114,79 @@ environment::environment() {
 	 * shared memory segment. The parameter is a boolean indicating whether
 	 * debug information should be generated.
      ***********************************************************************/
-    get_ip(false);
+	if (0 == strlen(gpSh->m_pShMemng->szIP)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szIP");
+		get_ip(false);
+	}
 	here;
 
 	/********************************************************************
 	 * Determine the publically visible IPv4 number of the host system
 	 * and save in the shared segment.
      ***********************************************************************/
-	set_public_ip();
+	if (0 == strlen(gpSh->m_pShMemng->szPublicIP)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szPublicIP");
+		set_public_ip();
+	}
 	here;
 
 	/********************************************************************
 	 * Create the base URL for calling our CGIs
 	 * for instance: "http://172.20.10.4/cgi-bin/"
      ***********************************************************************/
-    set_cgi_root(false);
+	if (0 == strlen(gpSh->m_pShMemng->szCgiRoot)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szCgiRoot");
+		set_cgi_root(false);
+	}
 	here;
 
 	/********************************************************************
 	 * Create the base URL for accessing images
 	 * for instance: "http://172.20.10.4/~doug/fw/images/"
      ***********************************************************************/
-    set_img_root(false);
+	if (0 == strlen(gpSh->m_pShMemng->szImgRoot)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szImgRoot");
+		set_img_root(false);
+	}
 	here;
 
 	/********************************************************************
 	 * Create the base URL for accessing styles
 	 * for instance: "http://172.20.10.4/~doug/fw/styles/"
      ***********************************************************************/
-	set_styles_root(false);
+	if (0 == strlen(gpSh->m_pShMemng->szStylesRoot)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szStylesRoot");
+		set_styles_root(false);
+	}
 	here;
+
 	/********************************************************************
 	 * Create the base filesystem root for filesystem access to styles
 	 * for instance: "/home/monk/public_html/fw/styles/"
 	 ***********************************************************************/
-	set_styles_file_root(false);
+	if (0 == strlen(gpSh->m_pShMemng->szStylesFileRoot)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szStylesFileRoot");
+		set_styles_file_root(false);
+	}
 	here;
 
 	/********************************************************************
 	 * Create the base path for accessing Journal files
 	 * for instance: "/home/doug/Documents/Fw_Notes/"
      ***********************************************************************/
-	set_journal_root(false);
+	if (0 == strlen(gpSh->m_pShMemng->szJournalRoot)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szJournalRoot");
+		set_journal_root(false);
+	}
 	here;
 
     /********************************************************************
      * Create the base path for temp files
      ***********************************************************************/
-    set_tmp_root(false);
+	if (0 == strlen(gpSh->m_pShMemng->szTmpRoot)) {
+		m_pSysLog->loginfo("environment::environment: Extracting szTmpRoot");
+		set_tmp_root(false);
+	}
 	here;
 
 	/********************************************************************
@@ -157,7 +194,12 @@ environment::environment() {
 	 * The file should generate as:
 	 * "/home/$USER/public_html/fw/scripts/start-vpad.sh"
      ***********************************************************************/
-	gen_vpad_script();
+
+	std::string ssStartScriptFQFS = gpOS->genScriptFQFS("start-vpad.sh",false);
+	if (0 != access(ssStartScriptFQFS.c_str(),F_OK)) {
+		m_pSysLog->loginfo("environment::environment: Generating start-vpad.sh");
+		gen_vpad_script();
+	}
 	here;
 
 }

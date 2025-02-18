@@ -55,12 +55,14 @@ public:
         char szPayload[FILENAME_MAX];
          if (0 == strcmp(auth.c_str(),
                         gpSh->m_pShMemng->szRpcUuid)) {
+
             sprintf(szPayload, "%s::%s() on %s at line %d %s",
                 __FILE__,__FUNCTION__,__DATE__,__LINE__,
                 gpSh->m_pShMemng->szStylesRoot
-            );
+
+                );
         } else {
-            strcpy(szPayload,"Synchronozation Error!!");
+            strcpy(szPayload,"Synchronization Error!!");
         }
 
         *retvalP = xmlrpc_c::value_string(szPayload);

@@ -54,25 +54,25 @@ int
 main(int           const, 
      const char ** const) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
-
+    here;
 
     char szTemp[128];
 
     xmlrpc_c::registry myRegistry;
-
+    here;
     xmlrpc_c::methodPtr const diagnoseMethodP(new diagnoseMethod);
-
+    here;
     myRegistry.addMethod("diagnose", diagnoseMethodP);
-
+    here;
     xmlrpc_c::serverAbyss myAbyssServer(
          xmlrpc_c::serverAbyss::constrOpt()
          .registryP(&myRegistry));
-
+    here;
     myAbyssServer.runConn(STDIN_FILENO);
         /* This reads the HTTP POST request from Standard Input and
            executes the indicated RPC.
         */
-
+    here;
     return 0;
 }
 
