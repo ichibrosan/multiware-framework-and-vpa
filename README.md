@@ -2,6 +2,11 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-18 14:29 - mf
+fixed the hardcoded paths in environment
+
+couldn't test it as I didn't have the vpa xinetd service file setup correctly.
+
 2025002-18 01:52 dwg - I had an epiphany about the way things are working.
 Each executable is calling the environment class to setup the shared
 with all its valuable constructs. Actually the environment constructor
