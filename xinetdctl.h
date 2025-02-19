@@ -15,6 +15,7 @@
 #define VPA_CURL_PORT    65356    // services: vpa-curl
 #define VPA_HTTP_PORT    65357    // services: vpa-http
 #define VPA_HTTPS_PORT   65358    // services: vpa-https
+#define VPA_IPCS_PORT    65359    // services: vpa-ipcs
 
 class xinetdctl {
 public:

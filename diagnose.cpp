@@ -16,7 +16,7 @@ int main() {
     // int iHandle    =
     //    atoi(gpCgiBind->get_form_variable("handle").c_str());
 
-    //gpTest = new test(true,pMwFw->isCGI());
+    gpTest = new test(true,pMwFw->isCGI());
     //gpSchema = new schema("login.csv");
     //gpSchema->gen_from_schema(iHandle);
 

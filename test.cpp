@@ -427,6 +427,8 @@ bool test::test2() {
  *               If true, additional log information may be produced.
  * @return true if the shared memory segment matches the expected size,
  *         ownership, and permissions; false otherwise.
+ * 0x00005164 557072     doug       660        22976      1
+
  */
 bool test::test2_1(bool bDebug)
 {
@@ -496,9 +498,12 @@ bool test::test2_1(bool bDebug)
         std::string nattach;
     } sms;
 
-    system("ipcs > /tmp/ipcs.stdout 2> /tmp/ipcs.stderr");
-    const std::string filename = "/tmp/ipcs.stdout";
-    std::ifstream ifs(filename);
+    gpXinetd->trigger(VPA_IPCS_PORT);
+    sleep(1);
+    std::string ssIpcsFQFS = gpOS->genTempFQFS("ipcs.stdout",
+                                                false);
+
+    std::ifstream ifs(ssIpcsFQFS);
     std::string inbuf;
 
     ifs >> inbuf;

@@ -729,6 +729,37 @@ std::string osIface::genCgiCBDUrl(const char * pszCgiName,bool bDebug)
 }
 
 
+std::string osIface::genTempFQFS(std::string ssFilename, bool bDebug) {
+    here;
+
+    if(bDebug) {
+        std::cout << __FUNCTION__ << " called" << std::endl;
+    }
+
+    std::string ssPath = __FILE__;
+    if (bDebug) {
+        std::cout << "ssPath is " << ssPath << std::endl;
+    }
+
+    ssPath = std::filesystem::path(ssPath).remove_filename();
+    if (bDebug) {
+        std::cout << "ssPath is " << ssPath << std::endl;
+    }
+
+    ssPath.append("tmp/");
+    if (bDebug) {
+        std::cout << "ssPath is " << ssPath << std::endl;
+    }
+
+    ssPath.append(ssFilename);
+    if (bDebug) {
+        std::cout << "ssPath is " << ssPath << std::endl;
+    }
+
+    return ssPath;
+}
+
+
 /************************************************************************
  * Generates the fully qualified file system path for a given schema file.
  *

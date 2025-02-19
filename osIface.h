@@ -223,6 +223,21 @@ public:
 	const char * genScriptFQFS(const char * pszScript,bool bDebug);
 
 	/**
+	 * @fn std::string genTempFQFS(const char * pszFilename, bool bDebug)
+	 * @brief Generates a fully qualified temporary file system path.
+	 *
+	 * This function creates a temporary path based on the provided filename and additional debug settings.
+	 * It ensures that the returned path is properly formatted and ready for use in a file system operation.
+	 *
+	 * @param pszFilename A pointer to a null-terminated character array representing the base filename.
+	 * @param bDebug A boolean flag indicating whether the function should include additional debug information in the path.
+	 * @return A string containing the generated temporary fully qualified file system path.
+	 *
+	 * @warning The caller must ensure that pszFilename is not a null or invalid pointer before passing it to this function.
+	 */
+	std::string genTempFQFS(std::string ssFilename,bool bDebug);
+
+	/**
 	 * Modifies the date in the filename of the style if it's not the same
 	 * as the last modified date of the file itself.
 	 *
