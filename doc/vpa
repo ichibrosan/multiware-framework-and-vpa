@@ -26,7 +26,7 @@ service vpad-start
 	server		= /home/devo/public_html/fw/scripts/start-vpad.sh
 }
 
-# This service runs a script that calls the netstat utility and redirects output to /tmp
+# This service runs a script that calls the netstat utility and redirects output
 service vpa-netstat
 {
 	port 		= 65354
@@ -39,7 +39,7 @@ service vpa-netstat
 	server		= /home/devo/public_html/fw/scripts/inetd-netstat-redirect.sh
 }
 
-# This service runs a script that calls the ip utility and redirects output to /tmp
+# This service runs a script that calls the ip utility and redirects output
 service vpa-ip
 {
 	port 		= 65355
@@ -79,3 +79,15 @@ service vpa-https
 	server		= /home/devo/public_html/fw/scripts/inetd-https-redirect.sh
 }
 
+# This service runs a script that calls ipcs to show the shared status and redirects output
+service vpa-ipcs
+{
+	port		= 65359
+	disable		= no
+	id		= vpa-ipcs
+	socket_type	= stream
+	protocol	= tcp
+	user		= 1000
+	wait		= no
+	server		= /home/devo/public_html/fw/scripts/inetd-ipcs-redirect.sh
+}
