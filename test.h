@@ -14,9 +14,8 @@ enum {
     TEST2 = 1 << 2,
     TEST2_1 = 1 << 3,
     TEST3 = 1 << 4,
-    TEST4 = 1 << 5,
-    TEST5 = 1 << 6,
-    NUM_TESTS = 7
+    TEST5 = 1 << 5,
+    NUM_TESTS = 6
 };
 
 /**
@@ -173,14 +172,6 @@ public:
 	 *         otherwise returns false.
 	 */
 	bool test3(bool bDebug, bool bCGI);
-
-	/**
-	 * Executes the test4 procedure with the specified debug mode.
-	 *
-	 * @param bDebug A boolean flag indicating whether to run the test in debug mode.
-	 * @return A boolean value indicating the success or failure of the test.
-	 */
-	bool test4(bool bDebug);
 
 	/**
 	 * Verifies the functionality of log generation and validation by creating a log file

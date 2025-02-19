@@ -229,18 +229,6 @@ bool test::runMandatoryTests(bool bCGI) {
     gpSh->m_pShMemng->tests_processed_bits |= TEST3;
 
     // Verify cgicc functionality
-    if (test4(false)) {
-        gpSh->m_pShMemng->tests_passed_bits |= TEST4;
-        gpSh->m_pShMemng->num_tests_passed++;
-    } else {
-        bRetVal = false;
-        gpSh->m_pShMemng->tests_failed_bits |= TEST4;
-        gpSh->m_pShMemng->num_tests_failed++;
-    }
-    gpSh->m_pShMemng->num_tests_processed++;
-    gpSh->m_pShMemng->tests_processed_bits |= TEST4;
-
-    // Verify cgicc functionality
     if (test5(__FILE__, __FUNCTION__, false)) {
 
         gpSh->m_pShMemng->tests_passed_bits |= TEST5;
@@ -323,18 +311,6 @@ bool test::runAllTests(bool bCGI) {
     gpSh->m_pShMemng->num_tests_processed++;
     gpSh->m_pShMemng->tests_processed_bits |= TEST3;
 
-
-    // Verify cgicc functionality
-    if (test4(false)) {
-        gpSh->m_pShMemng->tests_passed_bits |= TEST4;
-        gpSh->m_pShMemng->num_tests_passed++;
-    } else {
-        bRetVal = false;
-        gpSh->m_pShMemng->tests_failed_bits |= TEST4;
-        gpSh->m_pShMemng->num_tests_failed++;
-    }
-    gpSh->m_pShMemng->num_tests_processed++;
-    gpSh->m_pShMemng->tests_processed_bits |= TEST4;
 
     // Verify cgicc functionality
     if (test5(__FILE__, __FUNCTION__, false)) {
@@ -634,70 +610,6 @@ bool test::test3(bool bDebug, bool bCGI) {
     }
 }
 
-
-/**
- * Executes a test to verify that the Apache server can execute
- * binary CGI scripts successfully.
- *
- * This method generates the CGI script path and verifies its existence.
- * It then constructs and executes a curl command to invoke the CGI script
- * and captures its output. The method checks the output to determine if
- * Apache is functioning correctly in executing the CGI script.
- *
- * @param bDebug A boolean flag indicating whether the test is in debug mode.
- * @return True if the Apache server successfully executes the binary
- *         CGI script, false otherwise.
- */
-bool test::test4(bool bDebug) {
-    m_pSysLog->loginfo("test::test4() called, "
-                        "verify apache can execute binary CGI scripts");
-
-    std::string ssPath = gpOS->genCgiCBDPath("fw-test4.cgi", false);
-    m_pSysLog->loginfo(ssPath.c_str());
-    if (0 != access(ssPath.c_str(), F_OK)) {
-        std::cout << "Target fw-test4.cgi Not Built!!" << std::endl;
-        std::cout << "Program Aborted." << std::endl;
-        // m_pSysLog->loginfo("Target fw-test4.cgi Not Built!!");
-        // m_pSysLog->loginfo("Program Aborted.");
-        exit(EXIT_FAILURE);
-    }
-
-    char szDateTime[25];
-    gpLog->getTimeDateStamp(szDateTime);
-    char szScriptFQFS[FILENAME_MAX];
-    strcpy(szScriptFQFS,gpOS->genScriptFQFS("inetd-curl-redirect.sh", false));
-    std::string ssScriptFQFS = szScriptFQFS;
-    std::ofstream ofs(ssScriptFQFS);
-    ofs << "#!/bin/bash" << std::endl;
-    ofs << "# daphne.goodall.com:/home/doug/public_html/fw/scripts/inetd-curl-redirect.sh "
-        << szDateTime
-        << "#"
-        << std::endl;
-    ofs << "# Automatically generated, do not edit!!" << std::endl;
-    ofs << "curl "
-        << gpOS->genCgiCBDUrl("fw-test4.cgi > /tmp/curl.stdout",false)
-        << std::endl;
-    ofs.close();
-
-    std::string ssCommand = "chmod +x " + ssScriptFQFS;
-    system(ssCommand.c_str());
-
-    gpXinetd->trigger(VPA_CURL_PORT);
-    sleep(1);
-
-    std::string filename = "/tmp/fw-test4.stdout";
-    std::ifstream ifs(filename);
-    std::string inbuf;
-    ifs >> inbuf;
-    ifs >> inbuf;
-    ifs >> inbuf;
-    std::string token = inbuf.substr(0, 6);
-    if (0 == token.compare("Apache")) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 
 /**

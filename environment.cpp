@@ -249,6 +249,7 @@ void environment::set_vpad_startup_script() {
  *
  * Note: This method uses system commands and file I/O operations, which
  * could pose security and reliability concerns in certain environments.
+ * TODO: re-write to use xinetd script instead of system
  ***********************************************************************/
 void environment::set_public_ip()
 {
@@ -302,7 +303,7 @@ char * environment::get_public_ip()
 
 	std::string ssVpadLauncher = "/home/";
 	ssVpadLauncher.append(gpSh->m_pShMemng->szUser);
-	ssVpadLauncher.append("/public_html/fw/scripts/start-vpad.sh");
+	ssVpadLauncher.append("/public_html/fw/scripts/x.sh");
 
 	/**
 	 *	Attempts to load the file and checks whether or not it actually did
@@ -333,6 +334,14 @@ char * environment::get_public_ip()
 		 */
 
 		fprintf(fp,"#!/bin/sh\n");
+		fprintf(fp,"###############################################################"
+						 "##############################\n");
+		fprintf(fp,"# daphne.goodall.com:/home/doug/public_html/fw/scripts/inetd-ne"
+						 "tstat-redirect.sh 2025-02-17 #\n");
+		fprintf(fp,"# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.""                             #\n");
+		fprintf(fp,"###############################################################"
+						 "##############################\n");
+
 	    fprintf(fp,"# Automatically generated, Do Not Edit!!\n");
 	    fprintf(fp,"/home/%s/public_html/fw/cmake-build-debug/vpad &\n",
 	        gpSh->m_pShMemng->szUser);

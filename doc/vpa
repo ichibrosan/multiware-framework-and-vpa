@@ -3,14 +3,14 @@
 # This service activates an xmlrpc responder to handle an incoming RPC request
 service vpa
 {
-	port		= 5164
+	port		= 8080
 	disable     	= no
 	id		= vpa
 	socket_type	= stream
 	protocol	= tcp
-	user		= doug
+	user		= 1000
 	wait		= no
-	server		= /home/doug/public_html/fw/cmake-build-debug/xmlrpc_inetd_server
+	server		= /opt/xmlrpc-c/examples/cpp/xmlrpc_inetd_server
 }
 
 # This service runs a script that starts the virtual protocol adapter daemon
@@ -21,9 +21,9 @@ service vpad-start
 	id		= vpad-start
 	socket_type	= stream
 	protocol	= tcp
-	user		= doug
+	user		= 1000
 	wait		= no
-	server		= /home/doug/public_html/fw/scripts/start-vpad.sh
+	server		= /home/devo/public_html/fw/scripts/start-vpad.sh
 }
 
 # This service runs a script that calls the netstat utility and redirects output to /tmp
@@ -34,9 +34,9 @@ service vpa-netstat
 	id		= vpa-netstat
 	socket_type	= stream
 	protocol	= tcp
-	user		= doug
+	user		= 1000
 	wait		= no
-	server		= /home/doug/public_html/fw/scripts/inetd-netstat-redirect.sh
+	server		= /home/devo/public_html/fw/scripts/inetd-netstat-redirect.sh
 }
 
 # This service runs a script that calls the ip utility and redirects output to /tmp
@@ -47,9 +47,35 @@ service vpa-ip
 	id		= vpa-ip
 	socket_type	= stream
 	protocol	= tcp
-	user		= doug
+	user		= 1000
 	wait		= no
-	server		= /home/doug/public_html/fw/scripts/inetd-ip-redirect.sh
+	server		= /home/devo/public_html/fw/scripts/inetd-ip-redirect.sh
 }
 
+
+# This service runs a script that calls curl to load the default web page with http:// protocol
+service vpa-http
+{
+	port		= 65357
+	disable		= no
+	id		= vpa-http
+	socket_type	= stream
+	protocol	= tcp
+	user		= 1000
+	wait		= no
+	server		= /home/devo/public_html/fw/scripts/inetd-http-redirect.sh
+}
+
+# This service runs a script that calls curl to load the default web page with https:// protocol
+service vpa-https
+{
+	port		= 65358
+	disable		= no
+	id		= vpa-https
+	socket_type	= stream
+	protocol	= tcp
+	user		= 1000
+	wait		= no
+	server		= /home/devo/public_html/fw/scripts/inetd-https-redirect.sh
+}
 
