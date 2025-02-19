@@ -648,16 +648,17 @@ void environment::set_tmp_root(bool bDebug)
  ***********************************************************************/
 std::string environment::get_interface(bool bDebug) {
 	here;
-	std::string ssHostname = m_szHostName;
+	std::string ssUser = gpSh->m_pShMemng->szUser;
 	gpXinetd->trigger(VPA_NETSTAT_PORT);
 	here;
 
 	char szNetstatStdoutFQFS[128];
 	strcpy(szNetstatStdoutFQFS,
 		("/home/"
-			+ ssHostname
+			+ ssUser
 			+ "/public_html/fw/tmp/netstat.stdout").c_str());
 
+	gpSysLog->loginfo(szNetstatStdoutFQFS);
 	sleep(2);
 	here;
 	gpSysLog->loginfo(szNetstatStdoutFQFS);
@@ -742,10 +743,11 @@ std::string environment::get_ip(bool bDebug)
 	// define a buffer for reading lines from the
 	// /tmp/ip.out file.
 	char szBuffer[BUFSIZ];
-	std::string ssHostname = m_szHostName;
+	std::string ssUser = gpSh->m_pShMemng->szUser;
+	gpSysLog->loginfo(ssUser.c_str());
 
 	std::ofstream ofs("/home/"
-					  + ssHostname
+					  + ssUser
 					  + "/public_html/fw/scripts/inetd-ip-redirect.sh",
 		std::ios::out);
 
@@ -757,20 +759,20 @@ std::string environment::get_ip(bool bDebug)
 	    << "ip addr show "
 		<< m_szIface
 		<< " > /home/"
-		<< ssHostname
+		<< ssUser
 		<< "/public_html/fw/tmp/ip.stdout"
 		<< std::endl;
 
 	ofs.close();
 	system(("chmod +x /home/"
-					+ ssHostname
+					+ ssUser
 					+ "/public_html/fw/scripts/inetd-ip-redirect.sh").c_str());
 	gpXinetd->trigger(VPA_IP_PORT);
 	sleep(1);
 	here;
 	// Open the read for input
 	FILE *ipfd = fopen(("/home/"
-								+ ssHostname
+								+ ssUser
 								+ "/public_html/fw/tmp/ip.stdout").c_str(),
 								"r");
 	here;

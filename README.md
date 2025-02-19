@@ -2,6 +2,10 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-19 19:34 - mf
+fixed bug in environment where hostname was being concatenated instead of
+the user in the hardcoded paths.
+
 2025-02-18 14:29 - mf
 fixed the hardcoded paths in environment
 
