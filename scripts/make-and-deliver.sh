@@ -2,6 +2,7 @@
 # daphne.goodall.com:/home/doug/public_html/fw/scripts/make-and-deliver.sh
 # copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.
 clear
+cp -v /etc/xinetd.d/vpa ~/public_html/fw/doc/
 #rm -r -f ~/public_html/fw/build
 #mkdir    ~/public_html/fw/build
 cd       ~/public_html/fw/build
