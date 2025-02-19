@@ -2,6 +2,14 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-19 05:22 dwg - I found we were also using system redirection 
+in one of the test. We were calling ipcs and verifying the shared
+memory parameters. I added another xinetd invocation for that, bringing
+us to 7 trigger scritps.  I also fixed the http and https test used in 
+the determination of szProtocol. I also eliminated test4. Everything
+seems to be working now, exc ept the xmlrpc stuff I will work on next.
+
+
 2025-02-19 19:34 - mf
 fixed bug in environment where hostname was being concatenated instead of
 the user in the hardcoded paths.
@@ -29,7 +37,6 @@ regarding temp paths and gen of scripts, needs work to make automatic.
 2025-02-17 04:25 dwg - added xinetdctl::trigger(port) function
 See new vpa file in doc folder and inetd-netstat-redirect.sh in scripts
 Add new entries at end of /etc/services file
-# Add services for Goodall Multiware Framework
 vpad-start	65353/tcp
 vpa-netstat	65354/tcp
 vpa-ip		65355/tcp
