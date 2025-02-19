@@ -1,4 +1,4 @@
-# daphne.goodall.com:/etc/xinetd.d/vpa 2025-02-17 04:39 dwg - :-)
+# daphne.goodall.com:/etc/xinetd.d/vpa 2025-02-19 05:15 dwg - :-)
 
 # This service activates an xmlrpc responder to handle an incoming RPC request
 service vpa
