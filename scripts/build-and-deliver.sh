@@ -1,6 +1,8 @@
-#!/bin/sh
-# daphne.goodall.com:/home/doug/public_html/fw/scripts/build-and-deliver.sh
-# copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.
+#!/bin/bash
+########################################################################################
+# daphne.goodall.com:/home/doug/public_html/fw/scripts/build-and-deliver.sh 2025-02-19 #
+# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.                        #
+########################################################################################
 clear
 cp -v /etc/xinetd.d/vpa ~/public_html/fw/doc/
 rm -r -f ~/public_html/fw/build
