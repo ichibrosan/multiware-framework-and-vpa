@@ -14,8 +14,8 @@
 #define RVERSION_STRING_LONG   "1.0.0.0"
 #define RVERSION_STRING_DATE   __DATE__
 #define RVERSION_STRING_TIME   __TIME__
-#define RVERSION_STRING_BUILD  "0"
-#define RVERSION_STRING_TYPE   "Release"
+#define RVERSION_STRING_BUILD  "e46122b"
+#define RVERSION_STRING_TYPE   "Debug"
 #define RVERSION_STRING_ARCH   "x86_64"
 #define RVERSION_STRING_OS     "Linux"
 #define RVERSION_STRING_HOST   "daphne"
