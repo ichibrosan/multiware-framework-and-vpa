@@ -1,7 +1,7 @@
-////////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/doug/public_html/fw/CLog.hpp 2025/01/10 03:19 //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.     //
-////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// /home/doug/public_html/fw/CLog.hpp 2025/01/10 03:19                //
+// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
+////////////////////////////////////////////////////////////////////////
 
 #ifndef CLOG_HPP
 #define CLOG_HPP
@@ -9,7 +9,7 @@
 #include "mwfw2.h"
 
 
-/**
+/******************************************************************************************
  * @class CLog
  * @brief A class designed to handle logging operations within an application.
  *
@@ -24,7 +24,7 @@
  * - Configuring settings like log retention, file rotation, or verbosity levels.
  *
  * Thread safety and performance considerations are dependent on specific implementation details.
- */
+ ******************************************************************************************/
 class CLog {
 	/**
 	 * @brief A variable that typically stores a fully qualified file system path as a null-terminated string.
@@ -180,27 +180,6 @@ public:
 	void getTimeDateStamp(char *);
 
 };
-
-// /**
-//  * @brief Global pointer to an instance of the CLog class.
-//  *
-//  * This variable is used as a globally accessible logging mechanism,
-//  * allowing various parts of the application to log messages,
-//  * events, or other diagnostic information. The associated CLog
-//  * instance provides methods for managing and writing log entries
-//  * to a specified logfile.
-//  *
-//  * @see CLog
-//  */
-// extern CLog *g_pLog;
-// /**
-//  * @brief Represents the position or point of reference in a coordinate system or a related context.
-//  *
-//  * The `pOS` variable may typically store a position or a state information
-//  * depending on the specific implementation and intended use-case within an application.
-//  * Its usage and meaning should be defined by the context in which it is utilized.
-//  */
-// extern osIface *pOS;
 
 #endif //CLOG_HPP
 
