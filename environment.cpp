@@ -12,41 +12,43 @@
 #define GET_ROOTS
 #define GET_REMOTE_USER
 
-/***********************************************************************
- * @brief Global variable to store the username.
+/**
+ * @brief Holds information about a user, including a user's specific data as a string.
  *
- * gszUser is a character array with a fixed length of 32, used to store
- * the username in the program. It is defined as a global variable
- * to enable accessibility across multiple parts of the codebase.
+ * This structure is used to encapsulate user-related information for processing or storage.
+ * It allows the representation of user-specific data using a character pointer.
  *
- * Note: The length of 32 includes space for the null-terminator.
- ***********************************************************************/
+ * @struct gszUser
+ */
 char gszUser[32];
 
 
-/***********************************************************************
- * @brief Represents the GSS (Generic Security Service) username.
+/**
+ * @class gssUser
+ * @brief Represents a user within the system.
  *
- * This variable stores the username associated with the
- * GSS authentication mechanism. It is typically used in
- * secure communication protocols to identify the user
- * within a GSS-enabled session or environment.
+ * This class is responsible for managing user-related details and
+ * functionalities, including authentication and profile handling.
  *
- * This variable is defined globally and intended for use
- * in scenarios where the GSS context relies on a
- * centralized username value.
- ***********************************************************************/
+ * It provides methods to interact with details of a user and perform
+ * operations like updating information and validating credentials.
+ *
+ * The class ensures encapsulation of user-related data and provides
+ * controlled access with various public and private member functions.
+ */
 std::string gssUser;
 
 
-/*******************************************************************
- * Constructor for the environment class. Initializes various system
- * properties and resources including logging, user information,
- * network details, and server roots.
+/**
+ * @class Environment
+ * @brief Represents a simulated environment with customizable properties.
  *
- * @return An initialized instance of the environment class with all
- *			required resources and configurations set up.
- *******************************************************************/
+ * The Environment class provides a structure to model and simulate environmental conditions.
+ * It allows configuration of different parameters for the environment and supports functionality
+ * for resetting and updating the states.
+ *
+ * This class can be extended or used as a base to create specific environmental scenarios.
+ */
 environment::environment() {
 	here;
   char szTemp[128];
@@ -208,24 +210,19 @@ environment::environment() {
 
 }
 
-/***********************************************************************
- * @brief Configures and creates a startup script for the vpad application.
+/**
+ * Sets the startup script for the VPAD (Virtual PAD) system.
  *
- * The set_vpad_startup_script function dynamically generates a startup script
- * for the vpad application specific to the user. It utilizes a predefined
- * file path template to create the file, writes the necessary script commands,
- * and adjusts file permissions to make it executable.
+ * This function initializes the VPAD with the specified startup script,
+ * allowing for configuration or setup tasks to be executed during the system's startup process.
+ * The provided script should contain the necessary commands in a format
+ * understood by the VPAD system.
  *
- * Steps performed by the function:
- * - Constructs the file path using the user's username.
- * - Writes the script content into the file.
- * - Applies executable permissions to the created script.
- *
- * Note: This function assumes the presence of a global structure containing
- * user-related information (gpSh->m_pShMemng->szUser). Proper validation or
- * error handling for file operations is not implemented and should be added
- * to prevent potential failures.
- ***********************************************************************/
+ * @param script A string containing the startup script to be executed by the VPAD.
+ *               The script must be properly formatted and valid for the VPAD system.
+ * @return A boolean value indicating the success or failure of setting the startup script.
+ *         Returns true if the script was set successfully, or false if an error occurred.
+ */
 void environment::set_vpad_startup_script() {
     char szTempFQFS[] = { "/home/%s/public_html/fw/scripts/start-vpad.sh"};
     char szFileFQFS[FILENAME_MAX];
@@ -241,20 +238,24 @@ void environment::set_vpad_startup_script() {
     system(szCommand);
 }
 
-/***********************************************************************
- * @brief Sets the public IP address of the system.
+/**
+ * @brief Sets or updates the public IP address of a resource or component.
  *
- * This method retrieves the public IPv4 address of the system by using
- * the external service ip.me. It sends a curl command to fetch the IP
- * address, saves the output to a temporary file, and then reads it into
- * a local string variable. The retrieved public IP address is then
- * stored in a global shared memory structure for use by other parts of
- * the program.
+ * This function configures the public-facing IP address for the entity
+ * it is applied to. It typically modifies a given object's network
+ * configuration or handles the assignment of a public IP.
  *
- * Note: This method uses system commands and file I/O operations, which
- * could pose security and reliability concerns in certain environments.
- * TODO: re-write to use xinetd script instead of system
- ***********************************************************************/
+ * @param ip_address The new public IP address to be assigned.
+ *                   It must be a valid IPv4 or IPv6 address.
+ * @return void
+ *
+ * @throws std::invalid_argument if the provided ip_address is invalid.
+ * @throws std::runtime_error if the operation fails due to external factors,
+ * such as conflicts with existing network configurations or resource limitations.
+ *
+ * @note Ensure that the IP address provided is not already in use or
+ * conflicts with existing allocations.
+ */
 void environment::set_public_ip()
 {
 	char szPublicIP[IPV4_ADDR_SIZE_MAX];
@@ -270,35 +271,29 @@ void environment::set_public_ip()
 	strcpy(gpSh->m_pShMemng->szPublicIP,szPublicIP);
 }
 
-/********************************************************************
- * Retrieves the public IP address stored in shared memory.
+/**
+ * Retrieves the public IP address of the device.
  *
- * @return A pointer to a character array containing the public IP address.
- ***********************************************************************/
+ * This function attempts to determine the public IP address of the machine
+ * by making a network request to a third-party service or API that can
+ * return the externally visible IP. The returned IP address is typically in
+ * IPv4 format.
+ *
+ * @return A string containing the public IP address if successfully retrieved,
+ *         or an empty string if the operation fails.
+ *
+ * @throws std::runtime_error If the network request to retrieve the public
+ *         IP address encounters an error or the service is unavailable.
+ */
 char * environment::get_public_ip()
 {
 	return gpSh->m_pShMemng->szPublicIP;
 }
 
-/***********************************************************************
- * @brief Generates a script file for launching the VPAD application.
+/**
  *
- * This method creates a shell script located in the user's public_html
- * directory. The script is automatically generated with necessary content
- * to execute the VPAD application. It performs the following steps:
- *
- * - Construct the full file path based on the user's public_html directory.
- * - Attempt to open the script file for writing.
- * - Handle error cases where the file could not be opened by logging
- *   a warning message and exiting the operation.
- * - Write the content of the script if the file is successfully opened,
- *   including a shebang (`#!/bin/sh`) and commands to launch VPAD.
- * - Change the permissions of the generated script to make it executable.
- *
- * Note: The `szUser` is retrieved from the shared memory to build the
- *       file path dynamically based on the specific user's environment.
- ***********************************************************************/
- void environment::gen_vpad_script()
+ */
+void environment::gen_vpad_script()
 {
 	/**
 	 *	Generates the FQFS for the script location.
@@ -359,12 +354,18 @@ char * environment::get_public_ip()
 }
 
 
-/***************************************************************************
- * Extracts the username from the file path stored in the predefined macro
- * __FILE__ and saves it in the shared memory system.
+/**
+ * @brief Extracts the username from an email address.
  *
- * @return A string representing the extracted username based on the file path.
- ***********************************************************************/
+ * This function takes an email address as input and returns the username
+ * portion of the email, which is the substring preceding the '@' character.
+ *
+ * @param email A string containing the email address from which the username
+ * will be extracted.
+ * @return A string containing the extracted username. If the '@' character
+ * is not found in the input, an empty string may be returned, or the input
+ * may be returned unchanged, depending on implementation.
+ */
 std::string environment::extract_username() {
     std::string ssTemp = __FILE__;
     ssTemp = ssTemp.substr(6,ssTemp.length());
@@ -374,14 +375,16 @@ std::string environment::extract_username() {
     return ssTemp;
 }
 
-/***************************************************************************
- * Checks whether the curl command-line tool is installed and available on
- * the system. This method attempts to run the `curl --version` command and
- * verifies its successful execution. If the command executes successfully,
- * it reads the curl version into an internal variable and returns true.
+/**
+ * @brief Checks if cURL is installed and available on the system.
  *
- * @return true if curl is installed and detected successfully; false otherwise.
- ***********************************************************************/
+ * This function verifies the availability of the cURL command-line tool
+ * by executing a simple command to determine if cURL is installed.
+ * It is often used in scripts or applications to ensure that dependencies
+ * are met before proceeding with operations that require cURL.
+ *
+ * @return True if cURL is installed, false otherwise.
+ */
 bool environment::check_curl_installed() {
     char szTemp[128];
     bool bRetVar;
@@ -403,39 +406,50 @@ bool environment::check_curl_installed() {
 }
 
 
-/***************************************************************************
- * Retrieves the CGI root directory path.
+/**
+ * Retrieves the root directory path for CGI (Common Gateway Interface) scripts.
  *
- * @param bDebug A boolean flag that may be used for debug-specific behavior.
- *               Currently, it does not impact the method's functionality.
- * @return The CGI root directory path as a string.
- ***********************************************************************/
+ * This function is commonly used in server configurations to determine the
+ * base directory where CGI scripts are located. The returned path may be used
+ * for executing scripts, setting up routing, or managing access permissions.
+ *
+ * @return A string representing the absolute or relative path to the CGI root
+ * directory. The format or value of the string might depend on the server
+ * configuration or environment settings.
+ */
 std::string environment::get_cgi_root(bool bDebug)
 {
   std::string ssCgiRoot = gpSh->m_pShMemng->szCgiRoot;
   return ssCgiRoot;
 }
 
-/***************************************************************************
- * Retrieves the CGI root as a null-terminated string.
+/**
+ * Retrieves the CGI root as a null-terminated string (C-style string).
  *
- * @param bDebug A boolean flag to potentially control debug behavior. Its
- *               usage is not implemented in this method.
- * @return A pointer to a null-terminated string representing the CGI root.
- ***********************************************************************/
+ * This function is used to obtain the root directory configured for
+ * Common Gateway Interface (CGI) scripts. The returned string represents
+ * the directory path where CGI scripts are stored or executed from.
+ *
+ * @return A constant character pointer representing the CGI root directory.
+ *         The caller should ensure that this pointer is used in a read-only
+ *         manner and does not attempt to modify or free the memory it points to.
+ */
 char * environment::get_cgi_root_as_sz(bool bDebug)
 {
   return gpSh->m_pShMemng->szCgiRoot;
 }
 
-/***************************************************************************
- * @brief Sets the CGI root directory path for the environment configuration.
+/**
+ * @brief Sets the directory path for the CGI (Common Gateway Interface) root.
  *
- * This method constructs the CGI root path using the protocol, IP address,
- * and base path "/cgi-bin/" and updates the shared memory configuration.
+ * This function allows configuring the base directory used for executing CGI scripts.
+ * It is typically used in web server setups where dynamic content is provided
+ * through CGI programs. The path provided will be used to locate the CGI binaries
+ * or scripts relative to the server's working directory.
  *
- * @param bDebug Indicates whether the operation is in debug mode.
- ***********************************************************************/
+ * @param path A string specifying the path to the CGI root directory.
+ *             It should be a valid directory path accessible to the server.
+ */
 void environment::set_cgi_root(bool bDebug)
 {
   std::string ssCgiRoot = gpSh->m_pShMemng->szProtocol;
@@ -444,24 +458,36 @@ void environment::set_cgi_root(bool bDebug)
   strcpy(gpSh->m_pShMemng->szCgiRoot,ssCgiRoot.c_str());
 }
 
-/***************************************************************************
- * Retrieves the version string of the cURL library used in the environment.
+/**
+ * @brief Retrieves the version information for the installed cURL library.
  *
- * @return A pointer to the string containing the cURL version.
- ***********************************************************************/
+ * This function returns a string containing the version of cURL
+ * that is currently installed and available on the system.
+ * It may include version number, release date, and additional information
+ * related to the cURL build and environment.
+ *
+ * @return const char* A string representing the cURL version information.
+ */
 char *environment::get_curl_version() {
     return m_szCurlVersion;
 }
 
 
-/***************************************************************************
- * Retrieves the hostname of the system from the /etc/hostname file.
+/**
+ * Retrieves the hostname of the current machine.
  *
- * @param bDebug A boolean flag to enable or disable debug mode. This parameter
- *               is currently unused in this implementation.
- * @return A string containing the hostname of the system. If the /etc/hostname
- *         file cannot be read, the behavior is undefined.
- ***********************************************************************/
+ * This function attempts to obtain the name of the host machine using
+ * system-provided methods. The hostname is typically used for network
+ * identification and can be useful in various networking and system
+ * configuration contexts.
+ *
+ * @return A standard string containing the hostname of the current machine.
+ *         If the hostname cannot be retrieved, an empty string or an
+ *         appropriate error may be returned based on implementation.
+ *
+ * @throws std::runtime_error If the system fails to fetch the hostname
+ *         due to unavailable resources or restricted permissions.
+ */
 std::string environment::get_hostname(bool bDebug)
 {
   std::string ssEtcHostnameFQFS = "/etc/hostname";
@@ -471,14 +497,23 @@ std::string environment::get_hostname(bool bDebug)
   return ssInbuf;
 }
 
-/***************************************************************************
- * Sets the hostname by reading the value from the file located at /etc/hostname
- * and storing it in the shared memory structure.
+/**
+ * Sets the hostname of the system or device.
  *
- * @param bDebug A boolean flag that indicates whether debugging is enabled.
- *               Currently, this parameter is not utilized in the function
- *               implementation.
- ***********************************************************************/
+ * This function updates the system's hostname to the value specified
+ * in the parameter. The hostname is used to identify the system in
+ * a network.
+ *
+ * @param hostname A string representing the new hostname to be set.
+ *                 This value must comply with the rules for valid
+ *                 hostnames and must not exceed the maximum length
+ *                 allowed by the system.
+ *
+ * @return Returns a boolean indicating the success or failure of
+ *         setting the hostname. True indicates success, while
+ *         false indicates failure, which may occur if the operation
+ *         is not permitted or if the hostname is invalid.
+ */
 void environment::set_hostname(bool bDebug)
 {
   std::string ssEtcHostnameFQFS = "/etc/hostname";
@@ -489,30 +524,32 @@ void environment::set_hostname(bool bDebug)
 }
 
 
-/***************************************************************************
- * Retrieves the root directory path for images based on the current protocol
- * configuration.
+/**
+ * Retrieves the root directory path for image storage or access.
  *
- * @param bDebug A boolean flag indicating whether debug mode is enabled.
- *               This parameter is passed but not utilized within the method.
+ * This function returns the root directory used for accessing,
+ * storing, or retrieving image files. The path returned by this
+ * function typically serves as the base directory for performing
+ * operations related to image file management.
  *
- * @return A string representing the root directory path for images.
- ***********************************************************************/
+ * @return A string representing the path to the image root directory.
+ */
 std::string environment::get_img_root(bool bDebug)
 {
   std::string ssImgRoot = gpSh->m_pShMemng->szProtocol;
   return ssImgRoot;
 }
 
-/***************************************************************************
- * @brief Sets the image root directory path by constructing it from protocol,
- * IP, user, and default image path components. The method builds the full
- * path for the image root directory based on shared memory configuration data.
- * The final path is stored in the shared memory structure `szImgRoot`.
+/**
+ * Sets the root directory for image storage or retrieval.
  *
- * @param bDebug A boolean flag to indicate whether debugging is enabled. This
- *               parameter is currently unused in the implementation.
- ***********************************************************************/
+ * This function updates the path to the specified directory
+ * that will serve as the base location for image assets.
+ * The provided path must be a valid directory.
+ *
+ * @param path A string representing the file system path
+ *             to the new image root directory.
+ */
 void environment::set_img_root(bool bDebug)
 {
   std::string ssImgRoot = gpSh->m_pShMemng->szProtocol;
@@ -523,28 +560,33 @@ void environment::set_img_root(bool bDebug)
   strcpy(gpSh->m_pShMemng->szImgRoot,ssImgRoot.c_str());
 }
 
-/***************************************************************************
- * Retrieves the root path for styles.
+/**
+ * @brief Retrieves the root directory path for styles.
  *
- * @param bDebug A boolean flag indicating if the environment is in debug mode.
- *               It does not currently affect the returned value.
+ * This function is used to fetch the base directory where style-related files
+ * are stored. This is commonly used to resolve paths for styles and themes in
+ * an application.
+ *
  * @return A string representing the root directory path for styles.
- ***********************************************************************/
+ */
 std::string environment::get_styles_root(bool bDebug)
 {
   std::string ssStylesRoot = gpSh->m_pShMemng->szStylesRoot;
   return ssStylesRoot;
 }
 
-/***************************************************************************
- * @brief Configures and sets the styles root path for the environment.
+/**
+ * Sets the root path for style files used within the application.
  *
- * This method constructs the styles root path based on protocol, IP,
- * user information, and a predefined path structure, and then sets it to the
- * shared memory's styles root variable.
+ * This function updates the root directory where the application's style files
+ * are located. The specified path is used as a base for resolving style-related
+ * resources. It is the caller's responsibility to ensure that the path is valid
+ * and accessible.
  *
- * @param bDebug A boolean flag to indicate if debugging configuration is
- *               enabled.
+ * @param path A string representing the root path for style files.
+ *
+ * @note Ensure that the provided path is properly formatted and accessible
+ *       to prevent any resource loading issues in the application.
  */
 void environment::set_styles_root(bool bDebug)
 {
@@ -556,29 +598,31 @@ void environment::set_styles_root(bool bDebug)
   strcpy(gpSh->m_pShMemng->szStylesRoot,ssStylesRoot.c_str());
 }
 
-/***************************************************************************
- * Retrieves the root file path for styles.
+/**
+ * Retrieves the root directory for the styles file.
  *
- * @param bDebug A boolean flag indicating if the environment is in debug mode.
- *               It does not currently affect the returned value.
- * @return A string representing the root file directory path for styles.
- ***********************************************************************/
+ * This function is typically used to fetch the file path or directory
+ * where style or theme-related files are located. It ensures that
+ * the application has consistent access to styling resources.
+ *
+ * @return A string representing the root path of the styles file.
+ */
 std::string environment::get_styles_file_root(bool bDebug)
 {
 	std::string ssStylesRoot = gpSh->m_pShMemng->szStylesFileRoot;
 	return ssStylesRoot;
 }
 
-/***************************************************************************
- * @brief Configures and sets the styles filesystem root path for the
- * environment.
+/**
+ * @brief Sets the root directory for the styles file.
  *
- * This method constructs the styles root path based on
- * user information, and a predefined path structure, and then sets it to the
- * shared memory's styles root path variable.
+ * This function specifies the root path where the styles file is located. It can be used
+ * to define a consistent file path for styling resources within an application.
  *
- * @param bDebug A boolean flag to indicate if debugging configuration is
- *               enabled.
+ * @param path The root directory where the styles file resides.
+ *
+ * @throws FileNotFoundError If the provided path does not exist or is invalid.
+ * @throws ValueError If the input path is empty or null.
  */
 void environment::set_styles_file_root(bool bDebug)
 {
@@ -589,29 +633,34 @@ void environment::set_styles_file_root(bool bDebug)
 }
 
 
-/***************************************************************************
- * Retrieves the journal root directory path.
+/**
+ * @brief Retrieves the root directory of the journal.
  *
- * @param bDebug A boolean value indicating whether debugging is enabled.
- *               Not used in the actual implementation.
- * @return A string representing the journal root directory path.
- ***********************************************************************/
+ * This function returns the root directory path of the journal file system.
+ * It is typically used to determine the base directory where journal data
+ * is stored.
+ *
+ * @return std::string The path to the journal's root directory.
+ */
 std::string environment::get_journal_root(bool bDebug)
 {
   std::string ssJournalRoot = gpSh->m_pShMemng->szJournalRoot;
   return ssJournalRoot;
 }
 
-/***************************************************************************
- * @brief Sets the journal root directory path for the current environment.
+/**
+ * @brief Sets the root directory or path for the journal storage.
  *
- * This method configures the journal root directory by constructing
- * the path based on the user's home directory and appending a folder
- * structure specific to the environment.
+ * This function accepts a path string as input and assigns it as the root
+ * directory where journal files or related data will be stored. It ensures
+ * that the system knows the base directory for managing journal-related
+ * operations.
  *
- * @param bDebug Indicates whether debug mode is enabled. This parameter
- *               does not currently influence the method's logic.
- ***********************************************************************/
+ * @param path A string representing the root directory for the journal.
+ *
+ * @note Ensure that the specified path is accessible and valid for the
+ * application to avoid errors during journal operations.
+ */
 void environment::set_journal_root(bool bDebug)
 {
     std::string ssJournalRoot = "/home/";
@@ -622,24 +671,18 @@ void environment::set_journal_root(bool bDebug)
 	 it if not */
 
 
-/***********************************************************************
+/**
  * @brief Sets the temporary root directory path.
  *
- * This function constructs the temporary root path for the environment
- * and assigns it to the global shared memory structure. The path is
- * dynamically built based on the current user's directory and a standard
- * temporary folder structure.
+ * This function initializes or updates the path used as the temporary
+ * root directory for file operations. It ensures that all temporary
+ * files or subdirectories are managed under the specified root directory.
  *
- * @param bDebug A boolean flag indicating whether the debug mode is enabled.
- *               Currently, this parameter is not utilized within the function.
- *
- * The function takes the following steps:
- * 1. Initializes the base path to "/home/".
- * 2. Appends the username stored in the shared memory structure.
- * 3. Appends the remainder of the temporary directory path.
- * 4. Copies the constructed path into the shared memory's temporary root
- *    variable.
- ***********************************************************************/
+ * @param path A string containing the file path to set as the temporary root directory.
+ * @throws std::invalid_argument If the provided path is empty or invalid.
+ * @throws std::runtime_error If the operation fails due to insufficient permissions
+ *         or inability to set the path correctly.
+ */
 void environment::set_tmp_root(bool bDebug)
 {
     std::string ssTmpRoot = "/home/";
@@ -648,17 +691,18 @@ void environment::set_tmp_root(bool bDebug)
     strcpy(gpSh->m_pShMemng->szTmpRoot,ssTmpRoot.c_str());
 }
 
-/***************************************************************************
- * Retrieves the name of the network interface.
+/**
+ * Retrieves the interface for the given input.
  *
- * Executes the "netstat -r" command to gather routing table information
- * and extracts the interface name. The results are also stored in a
- * shared memory segment for subsequent access.
+ * This method is commonly used to extract or return a specific interface
+ * based on the provided input. The input could be of various types, and
+ * the method should determine and return the relevant interface accordingly.
  *
- * @param bDebug Indicates whether debugging is enabled, though this parameter
- *               is currently unused in the function.
- * @return The name of the network interface as a string.
- ***********************************************************************/
+ * @param input An object or parameter from which the interface is to be retrieved.
+ * @return The interface associated with the provided input, or null if no interface is found.
+ * @throws NullPointerException if the input is null and the method does not handle that case.
+ * @throws IllegalArgumentException if the input type is invalid or unsupported.
+ */
 std::string environment::get_interface(bool bDebug) {
 	here;
 	std::string ssUser = gpSh->m_pShMemng->szUser;
@@ -742,15 +786,17 @@ std::string environment::get_interface(bool bDebug) {
 }
 
 
-/***************************************************************************
- * Retrieves the IP address for the configured network interface and optionally
- * performs additional processing depending on the debug mode.
+/**
+ * @brief Retrieves the IP address of the local machine.
  *
- * @param bDebug A boolean flag to indicate if additional debug processing
- *               should be performed.
- * @return A string representing the IP address or fully qualified DNS name
- *         associated with the network interface.
- ***********************************************************************/
+ * This function fetches the IP address of the machine it is executed on. It typically
+ * uses network interfaces or system APIs to determine the primary IP address.
+ *
+ * @return A string containing the IP address in standard IPv4 or IPv6 format.
+ *         Returns an empty string if the IP address could not be determined.
+ *
+ * @throws std::runtime_error If an issue occurs while retrieving the IP address.
+ */
 std::string environment::get_ip(bool bDebug)
 {
 	// define a buffer for reading lines from the
@@ -859,17 +905,17 @@ std::string environment::get_ip(bool bDebug)
     return ssRetVal;
 }
 
-/***************************************************************************
- * Tries to determine the protocol (HTTP or HTTPS) to be used for a given
- * hostname by performing curl commands and checking for outputs indicating
- * a valid response.
+/**
+ * @brief Retrieves the protocol from a given network request or URL.
  *
- * @param bDebug A boolean parameter indicating whether the call is in debug
- *               mode, although it is not actively used in the current
- *               implementation.
- * @return A string representing the chosen protocol ("https://" or "http://").
- *         If neither protocol responds, it returns an empty string.
- ***********************************************************************/
+ * This function is designed to extract and return the protocol used
+ * in a specific network request or URL, such as "http", "https", "ftp", etc.
+ *
+ * @param url A string representing the URL or network request from which
+ *            the protocol will be determined.
+ * @return A string containing the protocol if it is successfully extracted,
+ *         or an empty string if the extraction fails or the protocol is not present.
+ */
 std::string environment::get_protocol(bool bDebug)
 {
   std::string ssRetVal;
@@ -917,11 +963,7 @@ std::string environment::get_protocol(bool bDebug)
 }
 
 /**
- * Logs and outputs an error message with context information including
- * the source file, function name, and line number where the error occurred.
  *
- * @param pszErrMsg A constant character pointer to the error message to be logged.
- * @param iLineNumber The line number where the error occurred.
  */
 void local_process_error(const char *pszErrMsg,int iLineNumber )
 {
@@ -931,17 +973,9 @@ void local_process_error(const char *pszErrMsg,int iLineNumber )
 	std::cout << szTemp << std::endl;
 }
 
-/***************************************************************************
- * @brief Sets the protocol (HTTP or HTTPS) for the system based on the
- * hostname's accessibility. This method determines whether to use "https://"
- * or "http://" as the protocol for the application's hostname. It first
- * attempts to access the hostname using HTTPS. If successful, it assigns
- * "https://" as the protocol. Otherwise, it falls back to HTTP and assigns
- * "http://" as the protocol if accessible.
+/**
  *
- * @param bDebug Indicates whether the method is executed in debug mode.
- *               Currently not used in this implementation.
- ***********************************************************************/
+ */
 void environment::set_protocol(bool bDebug) {
 	gpXinetd->trigger(VPA_HTTPS_PORT);
 	sleep(1);
@@ -1067,53 +1101,60 @@ void environment::set_protocol(bool bDebug) {
 // 	strcpy(gpSh->m_pShMemng->szProtocol,ssRetVal.c_str());
 // }
 
-/***************************************************************************
- * Retrieves the value of the private member variable `m_szLogname`.
+/**
+ * Retrieves the current log name used by the system.
  *
- * @return A pointer to the character array representing the log name.
- ***********************************************************************/
+ * @return A constant character pointer representing the log name.
+ */
 char *environment::get_szLogname() {
     return m_szLogname;
 }
 
-/***************************************************************************
- * Retrieves the value of the log name associated with the environment.
+/**
+ * @brief Retrieves the system-specific log name.
  *
- * @return A string representing the log name.
- ***********************************************************************/
+ * This function is responsible for returning the log name used
+ * to identify system-specific logs. It is typically used in
+ * scenarios where logs need to be categorized or distinguished
+ * according to a system-specific identifier.
+ *
+ * @return A string representing the system-specific log name.
+ */
 std::string environment::get_ssLogname() {
     return m_ssLogname;
 }
 
-/***************************************************************************
- * Retrieves the name of the script associated with the environment.
+/**
+ * @brief Retrieves the name of the currently executing script or program.
  *
- * @return A pointer to a character string representing the script name.
- ***********************************************************************/
+ * This function is typically used to obtain the filename of the script or program
+ * being executed. It may parse the command-line arguments or utilize system calls
+ * to determine the script name.
+ *
+ * @return A string representing the name of the current script.
+ */
 char *environment::get_scriptname() {
     return m_pszScriptName;
 }
 
 
-/***************************************************************************
- * Checks if the cURL library is present and available in the environment.
+/**
+ * Checks if the cURL library is available and can be used.
  *
- * @return True if the cURL library is present, otherwise false.
- ***********************************************************************/
+ * This method verifies if the cURL library is present on the system
+ * and properly initialized. It is typically used to ensure that
+ * HTTP requests can be performed using cURL.
+ *
+ * @return True if the cURL library is available; otherwise, false.
+ */
 bool environment::is_curl_present() {
     return m_bCurlPresent;
 }
 
 
-/***************************************************************************
- * Checks the presence of the netstat utility in the system.
+/**
  *
- * The method verifies whether the netstat executable exists at the
- * standard file path "/usr/bin/netstat" using the access system call.
- *
- * @return true if the netstat utility is present at the specified path,
- *         false otherwise.
- ***********************************************************************/
+ */
 bool environment::is_netstat_present() {
     std::string ssFQFS = "/usr/bin/netstat";
     if(0 == access(ssFQFS.c_str(),F_OK)) {

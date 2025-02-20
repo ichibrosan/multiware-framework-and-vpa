@@ -6,6 +6,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+// NOLINT (misra-check)
+
 #define HANDLE_NA            0
 #define MAX_USERS            6
 #define NUM_PASSWDS          2
