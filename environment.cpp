@@ -1,7 +1,8 @@
-/////////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/doug/public_html/fw/environment.cpp 2025/01/10 //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.      //
-/////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// /home/devo/public_html/fw/environment.cpp 2025/02/19               //
+// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
+////////////////////////////////////////////////////////////////////////
+///
 #include "mwfw2.h"
 #include "shared.h"
 
@@ -175,7 +176,7 @@ environment::environment() {
 
 	/********************************************************************
 	 * Create the base path for accessing Journal files
-	 * for instance: "/home/doug/Documents/Fw_Notes/"
+	 * for instance: "/home/devo/Documents/Fw_Notes/"
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szJournalRoot)) {
 		m_pSysLog->loginfo("environment::environment: Extracting szJournalRoot");
@@ -339,7 +340,7 @@ char * environment::get_public_ip()
 		fprintf(fp,"#!/bin/sh\n");
 		fprintf(fp,"###############################################################"
 						 "##############################\n");
-		fprintf(fp,"# daphne.goodall.com:/home/doug/public_html/fw/scripts/inetd-ne"
+		fprintf(fp,"# daphne.goodall.com:/home/devo/public_html/fw/scripts/inetd-ne"
 						 "tstat-redirect.sh 2025-02-17 #\n");
 		fprintf(fp,"# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.""                             #\n");
 		fprintf(fp,"###############################################################"

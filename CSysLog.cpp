@@ -1,12 +1,7 @@
 ////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/doug/public_html/fw/CSyslog.cpp  2021/10  //
+// /home/devo/public_html/fw/CSyslog.cpp  2025/02/19                  //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
-
-// CLog.cpp 2021/10/dwg - updated opening modes for use
-// with MAVlink process.
-// Copyright (c) 2021 RMD Systems, All Rights Reserved.
-// Written by Douglas Goodall.
 
 #include "CSysLog.hpp"
 

@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/doug/public_html/fw/shared.h 2025/01/18    //
+// daphne.goodall.com:/home/devo/public_html/fw/shared.h 2025/01/18    //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 // 2025-01-18 04:19 added mkshared function for aux shared segments    //

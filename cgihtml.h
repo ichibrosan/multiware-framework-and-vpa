@@ -1,8 +1,7 @@
-/**
- * daphne.goodall.com:/var/www/cgihtml.h 2024/12/30 02:25 dwg -
- * Copyright (c) 2024 Douglas Wade Goodall. All Rights Reserved.
- * This file is part of the Goodall Multiware Framework.
- */
+//#################################################################
+//# /home/devo/public_html/fw/cgihtml.h 2025-02-19                #
+//# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved. #
+//#################################################################
 
 #ifndef MULTIWARE_CGIHTML_H
 #define MULTIWARE_CGIHTML_H

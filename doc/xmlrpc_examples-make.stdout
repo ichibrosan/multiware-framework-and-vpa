@@ -1,6 +1,6 @@
-ln -s /home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/examples/cpp/../../xmlrpc_config.h config.h
+ln -s /home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/examples/cpp/../../xmlrpc_config.h config.h
 
-g++ -c -I. -I/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/include -I/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/include     xmlrpc_inetd_server.cpp
+g++ -c -I. -I/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/include -I/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/include     xmlrpc_inetd_server.cpp
 
 g++
 -o xmlrpc_inetd_server xmlrpc_inetd_server.o

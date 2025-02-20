@@ -83,26 +83,26 @@ main(int           const,
 g++
     -c
     -I.
-    -I/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/include
-    -I/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/include
+    -I/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/include
+    -I/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/include
     xmlrpc_inetd_server.cpp
 
 g++
 -o xmlrpc_inetd_server xmlrpc_inetd_server.o
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp/libxmlrpc_server_abyss++.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp/libxmlrpc_server++.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/abyss++/libxmlrpc_abyss++.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/libxmlrpc_server_abyss.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/libxmlrpc_server.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/abyss/src/libxmlrpc_abyss.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp/libxmlrpc_server_abyss++.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp/libxmlrpc_server++.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/abyss++/libxmlrpc_abyss++.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/libxmlrpc_server_abyss.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/libxmlrpc_server.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/abyss/src/libxmlrpc_abyss.a
 -lssl
 -lcrypto
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp/libxmlrpc++.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil++/libxmlrpc_util++.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/libxmlrpc.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmlparse/libxmlrpc_xmlparse.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmltok/libxmlrpc_xmltok.a
-/home/doug/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil/libxmlrpc_util.a -lpthread
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp/libxmlrpc++.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil++/libxmlrpc_util++.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/src/libxmlrpc.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmlparse/libxmlrpc_xmlparse.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmltok/libxmlrpc_xmltok.a
+/home/devo/proj/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil/libxmlrpc_util.a -lpthread
 
  *
  */

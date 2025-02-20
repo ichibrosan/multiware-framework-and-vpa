@@ -1,6 +1,7 @@
-//
-// Created by doug on 1/20/25.
-//
+//#################################################################
+//# /home/devo/public_html/fw/dashboard.h 2025-02-19              #
+//# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved. #
+//#################################################################
 
 #ifndef DASHBOARD_H
 #define DASHBOARD_H
