@@ -362,30 +362,6 @@ target_link_libraries(render.cgi
 )
 
 
-######################################################################
-# vpad is a command line program #
-######################################################################
-add_executable( vpad
-        vpad.cpp
-		#                cgicc.h
-        #				 shmemng.h
-        #                shared.h
-        #                CLog.hpp
-        #                osIface.h
-        #                environment.h
-        #	             CSysLog.hpp
-        #                schema.h
-        #		         cgihtml.h
-        #	             readCsv.h
-        #		         cgibind.h
-        #                config.h
-)
-target_link_libraries(vpad
-        mwfw2
-        libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
-)
-
 
 add_executable(xmlrpc_client
         xmlrpc_client.cpp
@@ -445,6 +421,42 @@ target_link_libraries(xmlrpc_inetd_server
         uuid.a            # uuid.so         use static library instead
 		libcgicc.a
 		libcurl.so.4.8.0
+)
+
+######################################################################
+# xmlrpc_sample_add_server is a command line program #
+######################################################################
+add_executable( vpad
+		vpad.cpp
+)
+link_directories(
+		/opt/xmlrpc-c/src/cpp
+		/opt/xmlrpc-c/src
+		/opt/xmlrpc-c/lib/libutil++
+		/opt/xmlrpc-c/lib/expat/xmlparse
+		/opt/xmlrpc-c/lib/expat/xmltok
+		/opt/xmlrpc-c/lib/libutil
+)
+target_link_libraries(vpad
+		mwfw2
+		libxmlrpc_server_abyss++.a
+		libxmlrpc_server++.a
+		libxmlrpc_abyss++.a
+		libxmlrpc_server_abyss.a
+		libxmlrpc_server.a
+		libxmlrpc_abyss.a
+		ssl
+		crypto
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcgicc.a
+		uuid.a            # uuid.so         use static library instead
+
 )
 
 

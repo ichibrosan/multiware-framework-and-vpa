@@ -1,6 +1,8 @@
-//
-// Created by doug on 2/17/25.
-//
+/////////////////////////////////////////////////////////////////////////////
+// daphne.goodall.com:/home/devo/public_html/fw/xinetctl.cpp 2025/01/10    //
+// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.      //
+/////////////////////////////////////////////////////////////////////////////
+
 #include "mwfw2.h"
 #include "xinetdctl.h"
 

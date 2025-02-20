@@ -9,6 +9,7 @@
 // NOLINT (misra-check)
 
 #define HANDLE_NA            0
+#define FORK_CHILD           0
 #define MAX_USERS            6
 #define NUM_PASSWDS          2
 
