@@ -981,7 +981,7 @@ void environment::set_protocol(bool bDebug) {
 	sleep(1);
 	here;
 
-	std::string ssHttpsFQFS = gpOS->genTempFQFS("https.stdout",true);
+	std::string ssHttpsFQFS = gpOS->genTempFQFS("https.stdout",false);
 	FILE * fpHttps = fopen(ssHttpsFQFS.c_str(), "r");
 	if(nullptr == fpHttps) {
 		local_process_error("fopen failed",__LINE__);
@@ -1012,7 +1012,7 @@ void environment::set_protocol(bool bDebug) {
 		sleep(1);
 		here;
 
-		std::string ssHttpsFQFS = gpOS->genTempFQFS("http.stdout",true);
+		std::string ssHttpsFQFS = gpOS->genTempFQFS("http.stdout",false);
 		FILE * fpHttp = fopen(ssHttpsFQFS.c_str(), "r");
 		if(nullptr == fpHttp) {
 			local_process_error("fopen failed",__LINE__);

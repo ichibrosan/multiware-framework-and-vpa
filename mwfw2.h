@@ -8,6 +8,7 @@
 
 #include "std.h"
 #include "fw-limits.h"
+#include "version.h"
 
 #ifndef gpSysLog
 #include "CSysLog.hpp"

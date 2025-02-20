@@ -117,6 +117,12 @@ dashboard::dashboard(
         std::cout << "<tr>"
                 << "<th>Authenticated Username</th>"
                 << "<td>" << m_szAuthUserName << "</td>"
+                << "<th>Semantic Version</th>"
+                << "<td>" << RVERSION_STRING_LONG
+                << " ("
+                << RVERSION_STRING_TYPE
+                << ")"
+                << "</td>"
                 << "</tr>"
                 << std::endl;
     }
@@ -128,6 +134,12 @@ dashboard::dashboard(
                 << "<th>Authenticated User</th>"
                 << "<td>" << m_szAuthFirstName << " "
                 << m_szAuthLastName << "</td>"
+                << "<th>Current Build</th>"
+                << "<td>"
+                << RVERSION_STRING_DATE
+                << " "
+                << RVERSION_STRING_TIME
+                << "</td>"
                 << "</tr>"
                 << std::endl;
     }
@@ -138,6 +150,7 @@ dashboard::dashboard(
         std::cout << "<tr>"
                 << "<th>Privilege Level</th>"
                 << "<td>" << m_szAuthLevel << "</td>"
+
                 << "</tr>"
                 << std::endl;
     }

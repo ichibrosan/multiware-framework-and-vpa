@@ -64,6 +64,7 @@ add_library( mwfw2 STATIC
         config.cpp          config.h
 		xinetdctl.cpp		xinetdctl.h			# 2025-02-17 04:22 dwg -
         cgicc.h
+		version.h
 
 )
 
@@ -72,7 +73,8 @@ add_library( mwfw2 STATIC
 ##############################################################################
 add_executable( diagnose.cgi
         diagnose.cpp
-        #        		CLog.hpp
+		version.h
+		#        		CLog.hpp
         #                osIface.h
         #                shared.h
         #		        readCsv.h
@@ -96,6 +98,7 @@ target_link_libraries(diagnose.cgi
 ########################################################
 add_executable( fw
                 main.cpp
+		version.h
 		#        		shared.h
 #				shmemng.h
 #                test.h
@@ -118,6 +121,7 @@ target_link_libraries(fw
 #############################################
 add_executable( fw-test4.cgi
                 fw-test4.cpp
+		version.h
 		#                config.h
 )
 target_link_libraries(fw-test4.cgi
@@ -132,7 +136,8 @@ target_link_libraries(fw-test4.cgi
 ##########################################################
 add_executable( index.cgi
                 index.cpp
-#                index.h
+		version.h
+		#                index.h
 #                cgicc.h
 #                mwfw.h
 #                CLog.hpp
@@ -161,6 +166,7 @@ target_link_libraries(index.cgi
 ####################################################################
 add_executable( journal.cgi
         journal.cpp
+		version.h
 		#                cgicc.h
         #		        shmemng.h
         #                shared.h
@@ -187,7 +193,8 @@ target_link_libraries(journal.cgi
 ############################################################################
 add_executable( login.cgi
                 login.cpp
-#                login.h
+		version.h
+		#                login.h
 #                cgicc.h
 #                CLog.hpp
 #		        osIface.h
@@ -215,6 +222,7 @@ target_link_libraries(login.cgi
 #####################################################################
 add_executable( logout.cgi
         logout.cpp
+		version.h
 		#                cgicc.h
         #                CLog.hpp
         #                osIface.h
@@ -240,7 +248,8 @@ target_link_libraries(logout.cgi
 ######################################################################
 add_executable( look
         look.cpp
-        #               cgicc.h
+		version.h
+		#               cgicc.h
         #   			shmemng.h
         #               shared.h
         #               CLog.hpp
@@ -261,7 +270,8 @@ target_link_libraries(look
 ###########################################################
 add_executable( menu.cgi
                 menu.cpp
-#                menu.h
+		version.h
+		#                menu.h
 #                cgicc.h
 #                CLog.hpp
 #                osIface.h
@@ -288,7 +298,8 @@ target_link_libraries(menu.cgi
 #####################################################################
 add_executable( notesave.cgi
                 notesave.cpp
-#                notesave.h
+		version.h
+		#                notesave.h
 #                cgicc.h
 #                shared.h
 #                CLog.hpp
@@ -316,7 +327,8 @@ target_link_libraries(notesave.cgi
 #####################################################################
 add_executable( noteload.cgi
 		        noteload.cpp
-#                noteload.h
+		version.h
+		#                noteload.h
 #                cgicc.h
 #		        shared.h
 #		        CLog.hpp
@@ -341,7 +353,8 @@ target_link_libraries(noteload.cgi
 #####################################################################
 add_executable( render.cgi
                 render.cpp
-#                cgicc.h
+		version.h
+		#                cgicc.h
 #                shmemng.h
 #                shared.h
 #                CLog.hpp
@@ -368,6 +381,7 @@ add_executable(xmlrpc_client
         config.cpp	        config.h
         CSysLog.cpp			CSysLog.hpp
         shared.cpp          shared.h
+		version.h
 )
 link_directories(
         /opt/xmlrpc-c/src/cpp
@@ -400,6 +414,7 @@ add_executable(xmlrpc_inetd_server
         config.cpp	        config.h
         CSysLog.cpp			CSysLog.hpp
         shared.cpp          shared.h
+		version.h
 )
 target_link_libraries(xmlrpc_inetd_server
 		mwfw2
@@ -428,6 +443,7 @@ target_link_libraries(xmlrpc_inetd_server
 ######################################################################
 add_executable( vpad
 		vpad.cpp
+		version.h
 )
 link_directories(
 		/opt/xmlrpc-c/src/cpp
