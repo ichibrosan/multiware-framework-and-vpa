@@ -1,1 +1,14 @@
 .idea/
+log/*.log
+scripts/inetd-ip-redirect.sh
+tmp/*.stdout
+tmp/*.sterr
+build/
+cmake-build-debug/*.cgi
+cmake-build-debug/fw
+cmake-build-debug/look
+cmake-build-debug/vpad
+cmake-build-debug/xmlrpc_client
+cmake-build-debug/xmlrpc_inetd_server
+cmake-build-debug/*.a
+cmake-build-debug/*.so

@@ -2,6 +2,9 @@ daphne.goodall.com:/home/doug/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-19 16:21 mf - created a .gitignore file and added in several
+directories and files to it that were automatically generated.
+
 2025-02-19 05:22 dwg - I found we were also using system redirection 
 in one of the test. We were calling ipcs and verifying the shared
 memory parameters. I added another xinetd invocation for that, bringing
