@@ -770,7 +770,7 @@ std::string environment::get_ip(bool bDebug)
 	ofs << "#!/bin/bash" << std::endl;
 	ofs << "###############################################################"
 		   "##############################" << std::endl;
-	ofs << "# daphne.goodall.com:/home/doug/public_html/fw/scripts/inetd-ne"
+	ofs << "# daphne.goodall.com:/home/devo/public_html/fw/scripts/inetd-ne"
 		   "tstat-redirect.sh 2025-02-17 #" << std::endl;
 	ofs << "# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved."
 		   "                             #"	<< std::endl;
