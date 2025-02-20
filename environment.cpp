@@ -97,11 +97,14 @@ environment::environment() {
 	 * Determine the protocol supported by Apache2 on the current system and
 	 * save to the shared system. It would be https:// or http://
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szProtocol)) {
+	if ( 0 == strcmp("http://",gpSh->m_pShMemng->szProtocol)  ||
+		 0 == strcmp("https://",gpSh->m_pShMemng->szProtocol) ) {
+		m_pSysLog->loginfo("environment::environment: valid szProtocol already set");
+	} else {
 		m_pSysLog->loginfo("environment::environment: Extracting szProtocol");
 		set_protocol(false);
 	}
-	here;
+
 
     /********************************************************************
      * Determine the script name
@@ -907,6 +910,20 @@ std::string environment::get_protocol(bool bDebug)
   return ssRetVal;
 }
 
+/**
+ * Logs and outputs an error message with context information including
+ * the source file, function name, and line number where the error occurred.
+ *
+ * @param pszErrMsg A constant character pointer to the error message to be logged.
+ * @param iLineNumber The line number where the error occurred.
+ */
+void local_process_error(const char *pszErrMsg,int iLineNumber )
+{
+	char szTemp[128];
+	sprintf(szTemp,"%s in %s::%s line #%d",
+		pszErrMsg,__FILE__,"main()",iLineNumber);
+	std::cout << szTemp << std::endl;
+}
 
 /***************************************************************************
  * @brief Sets the protocol (HTTP or HTTPS) for the system based on the
@@ -919,51 +936,130 @@ std::string environment::get_protocol(bool bDebug)
  * @param bDebug Indicates whether the method is executed in debug mode.
  *               Currently not used in this implementation.
  ***********************************************************************/
-void environment::set_protocol(bool bDebug)
-{
-  std::string ssRetVal;
+void environment::set_protocol(bool bDebug) {
+	gpXinetd->trigger(VPA_HTTPS_PORT);
+	sleep(1);
+	here;
 
-  // try https://
-  std::string ssCommand;
-  std::string ssCurlStdoutFQFS = "/tmp/curl.stdout";
-  std::string ssCurlStderrFQFS = "/tmp/curl.stderr";
-  ssCommand = "curl ";
-  ssCommand.append("https://");
-  ssCommand.append(gpSh->m_pShMemng->szHostname);
-  ssCommand.append(" > ");
-  ssCommand.append(ssCurlStdoutFQFS);
-  ssCommand.append(" 2> ");
-  ssCommand.append(ssCurlStderrFQFS);
-  system(ssCommand.c_str());
-  std::ifstream ifs(ssCurlStdoutFQFS);
-  std::string ssInbuf;
-  ifs >> ssInbuf;
-  if(ssInbuf.empty()) {
-    ssCommand = "curl ";
-    ssCommand.append("http://");
-    ssCommand.append(gpSh->m_pShMemng->szHostname);
-    ssCommand.append(" > ");
-    ssCommand.append(ssCurlStdoutFQFS);
-    ssCommand.append(" 2> ");
-    ssCommand.append(ssCurlStderrFQFS);
-    system(ssCommand.c_str());
-    std::ifstream ifs(ssCurlStdoutFQFS);
-    std::string ssInbuf;
-    ifs >> ssInbuf;
-    if(ssInbuf.empty()) {
-        ;
-    } else {
-      if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
-        ssRetVal = "http://";
-      }
-    }
-  } else {
-    if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
-      ssRetVal = "https://";
-    }
-  }
-  strcpy(gpSh->m_pShMemng->szProtocol,ssRetVal.c_str());
+	std::string ssHttpsFQFS = gpOS->genTempFQFS("https.stdout",true);
+	FILE * fpHttps = fopen(ssHttpsFQFS.c_str(), "r");
+	if(nullptr == fpHttps) {
+		local_process_error("fopen failed",__LINE__);
+		exit( EXIT_FAILURE);
+	}
+
+	int iFseekRetcode =	fseek(fpHttps,0,SEEK_END);
+	if (-1 == iFseekRetcode) {
+		char szFseek[80];
+		sprintf(szFseek,"fseek failed (errno=%d)",errno);
+		local_process_error(szFseek,__LINE__-5);
+		exit( EXIT_FAILURE);
+	}
+
+	long l_fSize = ftell(fpHttps);
+	if (-1 == l_fSize) {
+		char szFtell[80];
+		sprintf(szFtell,"ftell failed (errno=%d)",errno);
+		local_process_error(szFtell,__LINE__-3);
+		exit( EXIT_FAILURE);
+	}
+
+	if (0l != l_fSize) {
+		strcpy(gpSh->m_pShMemng->szProtocol,"https://");
+	} else {
+		here;
+		gpXinetd->trigger(VPA_HTTP_PORT);
+		sleep(1);
+		here;
+
+		std::string ssHttpsFQFS = gpOS->genTempFQFS("http.stdout",true);
+		FILE * fpHttp = fopen(ssHttpsFQFS.c_str(), "r");
+		if(nullptr == fpHttp) {
+			local_process_error("fopen failed",__LINE__);
+			exit( EXIT_FAILURE);
+		}
+
+		int iFseekRetcode =	fseek(fpHttp,0,SEEK_END);
+		if (-1 == iFseekRetcode) {
+			char szFseek[80];
+			sprintf(szFseek,"fseek failed (errno=%d)",errno);
+			local_process_error(szFseek,__LINE__-5);
+			exit( EXIT_FAILURE);
+		}
+
+		long l_fSize = ftell(fpHttp);
+		if (-1 == l_fSize) {
+			char szFtell[80];
+			sprintf(szFtell,"ftell failed (errno=%d)",errno);
+			local_process_error(szFtell,__LINE__-3);
+			exit( EXIT_FAILURE);
+		}
+
+		if (0l != l_fSize) {
+			strcpy(gpSh->m_pShMemng->szProtocol,"http://");
+		} else {
+			local_process_error("Unable to determine protocol",__LINE__);
+			exit( EXIT_FAILURE);
+		}
+	}
 }
+
+// /***************************************************************************
+//  * @brief Sets the protocol (HTTP or HTTPS) for the system based on the
+//  * hostname's accessibility. This method determines whether to use "https://"
+//  * or "http://" as the protocol for the application's hostname. It first
+//  * attempts to access the hostname using HTTPS. If successful, it assigns
+//  * "https://" as the protocol. Otherwise, it falls back to HTTP and assigns
+//  * "http://" as the protocol if accessible.
+//  *
+//  * @param bDebug Indicates whether the method is executed in debug mode.
+//  *               Currently not used in this implementation.
+//  ***********************************************************************/
+// void environment::set_protocol(bool bDebug)
+// {
+// 	std::string ssRetVal;
+//
+// 	// try https://
+// 	std::string ssCommand;
+// 	std::string ssCurlStdoutFQFS = "/tmp/curl.stdout";
+// 	std::string ssCurlStderrFQFS = "/tmp/curl.stderr";
+// 	ssCommand = "curl ";
+// 	ssCommand.append("https://");
+// 	ssCommand.append(gpSh->m_pShMemng->szHostname);
+// 	ssCommand.append(" > ");
+// 	ssCommand.append(ssCurlStdoutFQFS);
+// 	ssCommand.append(" 2> ");
+// 	ssCommand.append(ssCurlStderrFQFS);
+// 	system(ssCommand.c_str());
+// 	std::ifstream ifs(ssCurlStdoutFQFS);
+// 	std::string ssInbuf;
+// 	ifs >> ssInbuf;
+// 	if(ssInbuf.empty()) {
+// 		ssCommand = "curl ";
+// 		ssCommand.append("http://");
+// 		ssCommand.append(gpSh->m_pShMemng->szHostname);
+// 		ssCommand.append(" > ");
+// 		ssCommand.append(ssCurlStdoutFQFS);
+// 		ssCommand.append(" 2> ");
+// 		ssCommand.append(ssCurlStderrFQFS);
+// 		system(ssCommand.c_str());
+// 		std::ifstream ifs(ssCurlStdoutFQFS);
+// 		std::string ssInbuf;
+// 		ifs >> ssInbuf;
+// 		if(ssInbuf.empty()) {
+// 			;
+// 		} else {
+// 			if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
+// 				ssRetVal = "http://";
+// 			}
+// 		}
+// 	} else {
+// 		if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
+// 			ssRetVal = "https://";
+// 		}
+// 	}
+// 	strcpy(gpSh->m_pShMemng->szProtocol,ssRetVal.c_str());
+// }
 
 /***************************************************************************
  * Retrieves the value of the private member variable `m_szLogname`.
