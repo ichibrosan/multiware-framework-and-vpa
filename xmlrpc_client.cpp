@@ -16,7 +16,7 @@ using namespace std;
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/client_simple.hpp>
 
-std::string ssValue;
+std::string ssValueRetcode;
 
 std::string vpa_call(vpa_request_t& req) {
     try {
@@ -36,13 +36,13 @@ std::string vpa_call(vpa_request_t& req) {
                          // VPA_RPC_PSK(for VPA_REQ_AUTH)
                          req.szAuth);
 
-        ssValue = xmlrpc_c::value_string(result);
+        ssValueRetcode = xmlrpc_c::value_string(result);
         } catch (exception const& e) {
         cerr << "Client threw error: " << e.what() << endl;
     } catch (...) {
         cerr << "Client threw unexpected error." << endl;
     }
-    return ssValue;
+    return ssValueRetcode;
 }
 
 /**
@@ -66,17 +66,15 @@ main(int argc, char **) {
         exit(1);
     }
 
-    vpa_request_t req = { VPAD_REQ_PARMS,
-                          0,
-                          VPAD_TYPE_NONE,
-                          "",
-                          VPAD_TYPE_NONE,
-                          "",
-                          ""
-    };
+    vpa_request_t req;
+    strcpy(req.szRemoteHost,"127.0.0.1");
     req.eReqFunc = VPAD_REQ_AUTH;
+    req.iParm2 = 0;
+    req.eParm3Type = VPAD_TYPE_NONE;
+    req.eParm4Type = VPAD_TYPE_NONE;
     strcpy(req.szAuth,VPA_RPC_PSK);
     std::string ssAuth = vpa_call(req);
-    std::cout << "ssAuth: " << ssValue << std::endl;
+    std::cout << "ssAuth: " << ssValueRetcode << std::endl;
+
     return 0;
 }

@@ -65,6 +65,8 @@ add_library( mwfw2 STATIC
 		xinetdctl.cpp		xinetdctl.h			# 2025-02-17 04:22 dwg -
         cgicc.h
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 
 )
 
@@ -74,6 +76,8 @@ add_library( mwfw2 STATIC
 add_executable( diagnose.cgi
         diagnose.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#        		CLog.hpp
         #                osIface.h
         #                shared.h
@@ -90,6 +94,19 @@ target_link_libraries(diagnose.cgi
         mwfw2
         libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
+		libcurl.so.4.8.0
+
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libxmlrpc_packetsocket.a
+
 )
 
 
@@ -99,6 +116,8 @@ target_link_libraries(diagnose.cgi
 add_executable( fw
                 main.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#        		shared.h
 #				shmemng.h
 #                test.h
@@ -113,6 +132,18 @@ target_link_libraries(fw
 		mwfw2
 		libcgicc.a        # libcgicc.so         use static library instead
         uuid.a            # uuid.so         use static library instead
+
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
 )
 
 
@@ -122,12 +153,26 @@ target_link_libraries(fw
 add_executable( fw-test4.cgi
                 fw-test4.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#                config.h
 )
 target_link_libraries(fw-test4.cgi
 		mwfw2
 		libcgicc.a        # libcgicc.so         use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
+
 )
 
 
@@ -137,6 +182,8 @@ target_link_libraries(fw-test4.cgi
 add_executable( index.cgi
                 index.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#                index.h
 #                cgicc.h
 #                mwfw.h
@@ -158,6 +205,17 @@ target_link_libraries(index.cgi
 		mwfw2
 		libcgicc.a          # libcgicc.so       use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
 )
 
 
@@ -167,6 +225,8 @@ target_link_libraries(index.cgi
 add_executable( journal.cgi
         journal.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#                cgicc.h
         #		        shmemng.h
         #                shared.h
@@ -185,6 +245,18 @@ target_link_libraries(journal.cgi
         mwfw2
         libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
+
 )
 
 
@@ -194,6 +266,8 @@ target_link_libraries(journal.cgi
 add_executable( login.cgi
                 login.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#                login.h
 #                cgicc.h
 #                CLog.hpp
@@ -214,6 +288,18 @@ target_link_libraries(login.cgi
 		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
+
 )
 
 
@@ -223,6 +309,8 @@ target_link_libraries(login.cgi
 add_executable( logout.cgi
         logout.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#                cgicc.h
         #                CLog.hpp
         #                osIface.h
@@ -240,6 +328,17 @@ target_link_libraries(logout.cgi
         mwfw2
         libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
 )
 
 
@@ -249,6 +348,8 @@ target_link_libraries(logout.cgi
 add_executable( look
         look.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#               cgicc.h
         #   			shmemng.h
         #               shared.h
@@ -262,6 +363,17 @@ target_link_libraries(look
         mwfw2
         libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
 )
 
 
@@ -271,6 +383,8 @@ target_link_libraries(look
 add_executable( menu.cgi
                 menu.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#                menu.h
 #                cgicc.h
 #                CLog.hpp
@@ -289,6 +403,17 @@ target_link_libraries(menu.cgi
 		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
 )
 
 
@@ -299,6 +424,8 @@ target_link_libraries(menu.cgi
 add_executable( notesave.cgi
                 notesave.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#                notesave.h
 #                cgicc.h
 #                shared.h
@@ -318,16 +445,25 @@ target_link_libraries(notesave.cgi
 		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
 )
 
-
-#####################################################################
-# noteload.cgi is called as a result of pressing the Submit button  #
-# in the journal entry page                                         #
 #####################################################################
 add_executable( noteload.cgi
 		        noteload.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#                noteload.h
 #                cgicc.h
 #		        shared.h
@@ -345,6 +481,18 @@ target_link_libraries(noteload.cgi
 		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
+
 )
 
 
@@ -354,6 +502,8 @@ target_link_libraries(noteload.cgi
 add_executable( render.cgi
                 render.cpp
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 		#                cgicc.h
 #                shmemng.h
 #                shared.h
@@ -372,6 +522,18 @@ target_link_libraries(render.cgi
 		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
+
 )
 
 
@@ -382,6 +544,8 @@ add_executable(xmlrpc_client
         CSysLog.cpp			CSysLog.hpp
         shared.cpp          shared.h
 		version.h
+		rpcbind.cpp
+		rpcbind.h
 )
 link_directories(
         /opt/xmlrpc-c/src/cpp
@@ -409,34 +573,36 @@ target_link_libraries(xmlrpc_client
 )
 
 
-add_executable(xmlrpc_inetd_server
-        xmlrpc_inetd_server.cpp
-        config.cpp	        config.h
-        CSysLog.cpp			CSysLog.hpp
-        shared.cpp          shared.h
-		version.h
-)
-target_link_libraries(xmlrpc_inetd_server
-		mwfw2
-        libxmlrpc_server_abyss++.a
-        libxmlrpc_server++.a
-        libxmlrpc_abyss++.a
-        libxmlrpc_server_abyss.a
-        libxmlrpc_server.a
-        libxmlrpc_abyss.a
-        libxmlrpc++.a
-        libxmlrpc_util++.a
-        libxmlrpc.a
-        libxmlrpc_xmlparse.a
-        libxmlrpc_xmltok.a
-        libxmlrpc_util.a
-        ssl
-        crypto
-        pthread
-        uuid.a            # uuid.so         use static library instead
-		libcgicc.a
-		libcurl.so.4.8.0
-)
+#add_executable(xmlrpc_inetd_server
+#        xmlrpc_inetd_server.cpp
+#        config.cpp	        config.h
+#        CSysLog.cpp			CSysLog.hpp
+#        shared.cpp          shared.h
+#		version.h
+#		rpcbind.cpp
+#		rpcbind.h
+#)
+#target_link_libraries(xmlrpc_inetd_server
+#		mwfw2
+#        libxmlrpc_server_abyss++.a
+#        libxmlrpc_server++.a
+#        libxmlrpc_abyss++.a
+#        libxmlrpc_server_abyss.a
+#        libxmlrpc_server.a
+#        libxmlrpc_abyss.a
+#        libxmlrpc++.a
+#        libxmlrpc_util++.a
+#        libxmlrpc.a
+#        libxmlrpc_xmlparse.a
+#        libxmlrpc_xmltok.a
+#        libxmlrpc_util.a
+#        ssl
+#        crypto
+#        pthread
+#        uuid.a            # uuid.so         use static library instead
+#		libcgicc.a
+#		libcurl.so.4.8.0
+#)
 
 ######################################################################
 # xmlrpc_sample_add_server is a command line program #
@@ -472,6 +638,11 @@ target_link_libraries(vpad
 		pthread
 		libcgicc.a
 		uuid.a            # uuid.so         use static library instead
+
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
 
 )
 

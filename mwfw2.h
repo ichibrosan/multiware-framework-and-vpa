@@ -93,6 +93,14 @@ extern test * gpTest;
 extern xinetdctl * gpXinetd;
 #endif
 
+#include <xmlrpc-c/girerr.hpp>
+#include <xmlrpc-c/base.hpp>
+#include <xmlrpc-c/client_simple.hpp>
+#ifndef gpRpcbind
+#include "rpcbind.h"
+extern rpcbind * gpRpcbind;
+#endif
+
 #include "config.h"
 
 /**

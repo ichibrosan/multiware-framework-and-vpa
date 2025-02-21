@@ -36,6 +36,7 @@ enum VPAD_TYPES_T {
 };
 
 typedef struct vpa_request_t {
+    char szRemoteHost[DNS_FQDN_SIZE_MAX];
     VPAD_REQ_FUNCS_T eReqFunc;
     int iParm2;
     VPAD_TYPES_T eParm3Type;
