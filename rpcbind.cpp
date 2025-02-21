@@ -7,12 +7,42 @@
 
 #include "rpcbind.h"
 
+/**
+ * @brief Constructor for the rpcbind class.
+ *
+ * Initializes an instance of the rpcbind class.
+ * This constructor is used to set up any necessary internal
+ * state or resources required for the object.
+ */
 rpcbind::rpcbind() {
 
 }
 
+/**
+ * A global variable used to store the string result value obtained from the RPC call.
+ *
+ * This variable is updated within the `rpcbind::vpa_call` function after retrieving
+ * the result from an XML-RPC server. It holds the string representation of the
+ * XML-RPC response and is returned as the output of the function.
+ */
 std::string ssValue;
 
+/**
+ * \brief Makes a remote procedure call (RPC) to a specified server and retrieves the result.
+ *
+ * This function constructs a server URL based on the provided vpa_request_t structure
+ * and invokes the XML-RPC method 'diagnose' on the remote server. Parameters for the
+ * call are passed through the vpa_request_t structure, and the response is retrieved as
+ * a string.
+ *
+ * \param req A reference to a vpa_request_t structure containing parameters required
+ *            for the remote procedure call, such as the remote host, function, and
+ *            authentication details.
+ * \return A string representing the response from the remote procedure call.
+ *
+ * \throws std::exception Catches and displays exceptions if thrown while performing
+ *         the RPC call.
+ */
 std::string rpcbind::vpa_call(vpa_request_t& req) {
     char szServerURL[1024];
     try {
