@@ -905,65 +905,72 @@ std::string environment::get_ip(bool bDebug)
     return ssRetVal;
 }
 
-/**
- * @brief Retrieves the protocol from a given network request or URL.
- *
- * This function is designed to extract and return the protocol used
- * in a specific network request or URL, such as "http", "https", "ftp", etc.
- *
- * @param url A string representing the URL or network request from which
- *            the protocol will be determined.
- * @return A string containing the protocol if it is successfully extracted,
- *         or an empty string if the extraction fails or the protocol is not present.
- */
-std::string environment::get_protocol(bool bDebug)
-{
-  std::string ssRetVal;
+// /**
+//  * @brief Retrieves the protocol from a given network request or URL.
+//  *
+//  * This function is designed to extract and return the protocol used
+//  * in a specific network request or URL, such as "http", "https", "ftp", etc.
+//  *
+//  * @param url A string representing the URL or network request from which
+//  *            the protocol will be determined.
+//  * @return A string containing the protocol if it is successfully extracted,
+//  *         or an empty string if the extraction fails or the protocol is not present.
+//  */
+// std::string environment::get_protocol(bool bDebug)
+// {
+//   std::string ssRetVal;
+//
+//   // try https://
+//   std::string ssCommand;
+//   std::string ssCurlStdoutFQFS = "/tmp/curl.stdout";
+//   std::string ssCurlStderrFQFS = "/tmp/curl.stderr";
+//   ssCommand = "curl ";
+//   ssCommand.append("https://");
+//   ssCommand.append(gpSh->m_pShMemng->szHostname);
+//   ssCommand.append(" > ");
+//   ssCommand.append(ssCurlStdoutFQFS);
+//   ssCommand.append(" 2> ");
+//   ssCommand.append(ssCurlStderrFQFS);
+//   system(ssCommand.c_str());
+//   std::ifstream ifs(ssCurlStdoutFQFS);
+//   std::string ssInbuf;
+//   ifs >> ssInbuf;
+//   if(ssInbuf.empty()) {
+//     ssCommand = "curl ";
+//     ssCommand.append("http://");
+//     ssCommand.append(gpSh->m_pShMemng->szHostname);
+//     ssCommand.append(" > ");
+//     ssCommand.append(ssCurlStdoutFQFS);
+//     ssCommand.append(" 2> ");
+//     ssCommand.append(ssCurlStderrFQFS);
+//     system(ssCommand.c_str());
+//     std::ifstream ifs(ssCurlStdoutFQFS);
+//     std::string ssInbuf;
+//     ifs >> ssInbuf;
+//     if(ssInbuf.empty()) {
+//       ;
+//     } else {
+//       if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
+//         ssRetVal = "http://";
+//       }
+//     }
+//   } else {
+//     if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
+//       ssRetVal = "https://";
+//     }
+//   }
+//   return ssRetVal;
+// }
 
-  // try https://
-  std::string ssCommand;
-  std::string ssCurlStdoutFQFS = "/tmp/curl.stdout";
-  std::string ssCurlStderrFQFS = "/tmp/curl.stderr";
-  ssCommand = "curl ";
-  ssCommand.append("https://");
-  ssCommand.append(gpSh->m_pShMemng->szHostname);
-  ssCommand.append(" > ");
-  ssCommand.append(ssCurlStdoutFQFS);
-  ssCommand.append(" 2> ");
-  ssCommand.append(ssCurlStderrFQFS);
-  system(ssCommand.c_str());
-  std::ifstream ifs(ssCurlStdoutFQFS);
-  std::string ssInbuf;
-  ifs >> ssInbuf;
-  if(ssInbuf.empty()) {
-    ssCommand = "curl ";
-    ssCommand.append("http://");
-    ssCommand.append(gpSh->m_pShMemng->szHostname);
-    ssCommand.append(" > ");
-    ssCommand.append(ssCurlStdoutFQFS);
-    ssCommand.append(" 2> ");
-    ssCommand.append(ssCurlStderrFQFS);
-    system(ssCommand.c_str());
-    std::ifstream ifs(ssCurlStdoutFQFS);
-    std::string ssInbuf;
-    ifs >> ssInbuf;
-    if(ssInbuf.empty()) {
-      ;
-    } else {
-      if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
-        ssRetVal = "http://";
-      }
-    }
-  } else {
-    if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
-      ssRetVal = "https://";
-    }
-  }
-  return ssRetVal;
-}
-
 /**
+ * @brief Logs and outputs an error message, including file and line details.
  *
+ * This function formats an error message for debugging or logging purposes.
+ * It includes the error description, the file where the error occurred,
+ * the function name, and the line number to provide detailed context about the error.
+ *
+ * @param pszErrMsg The error message to be formatted and displayed.
+ * @param iLineNumber The line number where the error occurred.
  */
 void local_process_error(const char *pszErrMsg,int iLineNumber )
 {
@@ -1044,62 +1051,6 @@ void environment::set_protocol(bool bDebug) {
 	}
 }
 
-// /***************************************************************************
-//  * @brief Sets the protocol (HTTP or HTTPS) for the system based on the
-//  * hostname's accessibility. This method determines whether to use "https://"
-//  * or "http://" as the protocol for the application's hostname. It first
-//  * attempts to access the hostname using HTTPS. If successful, it assigns
-//  * "https://" as the protocol. Otherwise, it falls back to HTTP and assigns
-//  * "http://" as the protocol if accessible.
-//  *
-//  * @param bDebug Indicates whether the method is executed in debug mode.
-//  *               Currently not used in this implementation.
-//  ***********************************************************************/
-// void environment::set_protocol(bool bDebug)
-// {
-// 	std::string ssRetVal;
-//
-// 	// try https://
-// 	std::string ssCommand;
-// 	std::string ssCurlStdoutFQFS = "/tmp/curl.stdout";
-// 	std::string ssCurlStderrFQFS = "/tmp/curl.stderr";
-// 	ssCommand = "curl ";
-// 	ssCommand.append("https://");
-// 	ssCommand.append(gpSh->m_pShMemng->szHostname);
-// 	ssCommand.append(" > ");
-// 	ssCommand.append(ssCurlStdoutFQFS);
-// 	ssCommand.append(" 2> ");
-// 	ssCommand.append(ssCurlStderrFQFS);
-// 	system(ssCommand.c_str());
-// 	std::ifstream ifs(ssCurlStdoutFQFS);
-// 	std::string ssInbuf;
-// 	ifs >> ssInbuf;
-// 	if(ssInbuf.empty()) {
-// 		ssCommand = "curl ";
-// 		ssCommand.append("http://");
-// 		ssCommand.append(gpSh->m_pShMemng->szHostname);
-// 		ssCommand.append(" > ");
-// 		ssCommand.append(ssCurlStdoutFQFS);
-// 		ssCommand.append(" 2> ");
-// 		ssCommand.append(ssCurlStderrFQFS);
-// 		system(ssCommand.c_str());
-// 		std::ifstream ifs(ssCurlStdoutFQFS);
-// 		std::string ssInbuf;
-// 		ifs >> ssInbuf;
-// 		if(ssInbuf.empty()) {
-// 			;
-// 		} else {
-// 			if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
-// 				ssRetVal = "http://";
-// 			}
-// 		}
-// 	} else {
-// 		if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
-// 			ssRetVal = "https://";
-// 		}
-// 	}
-// 	strcpy(gpSh->m_pShMemng->szProtocol,ssRetVal.c_str());
-// }
 
 /**
  * Retrieves the current log name used by the system.
@@ -1153,7 +1104,12 @@ bool environment::is_curl_present() {
 
 
 /**
+ * @brief Checks if the netstat utility is present on the system.
  *
+ * This method verifies the presence of the netstat executable
+ * at its expected location in the filesystem.
+ *
+ * @return True if the netstat utility is found, otherwise false.
  */
 bool environment::is_netstat_present() {
     std::string ssFQFS = "/usr/bin/netstat";
