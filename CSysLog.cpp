@@ -24,6 +24,17 @@ CSysLog::CSysLog()
 
 }
 
+/**
+ * Logs the current file name, function name, and line number as an informational message.
+ *
+ * The method formats the provided file name, function name, and line number into a string
+ * and sends it to the logging mechanism. It assists in tracking the exact location in the
+ * source code where the logging occurs, which can aid in debugging or tracing program execution.
+ *
+ * @param pszFile A pointer to a null-terminated string representing the name of the file.
+ * @param pszFunction A pointer to a null-terminated string representing the name of the function.
+ * @param iLine An integer representing the line number in the source file.
+ */
 void CSysLog::here(const char *pszFile,const char *pszFunction,int iLine) {
     char szTemp[1024];
     sprintf(szTemp,"%s::%s()#%d",pszFile,pszFunction,iLine);
