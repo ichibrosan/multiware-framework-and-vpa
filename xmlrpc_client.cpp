@@ -21,12 +21,9 @@ std::string ssValue;
 std::string vpa_call(vpa_request_t& req) {
     try {
         string const serverUrl("http://daphne:5164/RPC2");
-        //string const methodName("sample.add");
         string const methodName("diagnose");
-
         xmlrpc_c::clientSimple myClient;
         xmlrpc_c::value result;
-        here;
         myClient.call(  serverUrl,
                         methodName,
                         "iiisiss",
@@ -35,20 +32,14 @@ std::string vpa_call(vpa_request_t& req) {
                          req.iParm2,
                          req.eParm3Type,req.szParm3,
                          req.eParm4Type,req.szParm4,
+                         // req.szAuth s/b szRpcUuid or
+                         // VPA_RPC_PSK(for VPA_REQ_AUTH)
                          req.szAuth);
-        here;
 
-        //int const sum = xmlrpc_c::value_int(result);
         ssValue = xmlrpc_c::value_string(result);
-        here;
-        //cout << "Result of RPC (sum of 5 and 7): " << sum << endl;
-        cout << "Result of diagnose: " << ssValue << endl;
-        here;
-    } catch (exception const& e) {
-        here;
+        } catch (exception const& e) {
         cerr << "Client threw error: " << e.what() << endl;
     } catch (...) {
-        here;
         cerr << "Client threw unexpected error." << endl;
     }
     return ssValue;
@@ -83,8 +74,9 @@ main(int argc, char **) {
                           "",
                           ""
     };
-    strcpy(req.szAuth,gpSh->m_pShMemng->szRpcUuid);
-    std::string ssValue = vpa_call(req);
-    std::cout << "ssValue: " << ssValue << std::endl;
+    req.eReqFunc = VPAD_REQ_AUTH;
+    strcpy(req.szAuth,VPA_RPC_PSK);
+    std::string ssAuth = vpa_call(req);
+    std::cout << "ssAuth: " << ssValue << std::endl;
     return 0;
 }

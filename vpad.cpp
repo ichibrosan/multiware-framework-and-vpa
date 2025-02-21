@@ -84,6 +84,14 @@ public:
                    *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
                 }
                 break;
+            case VPAD_REQ_AUTH:
+                if (0 == strcmp(ssAuth.c_str(),VPA_RPC_PSK)) {
+                    *retvalP = xmlrpc_c::value_string(gpSh->m_pShMemng->szRpcUuid);
+                } else {
+                    sleep(10); // make them pay a time penalty to obviate attacks
+                    *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
+                }
+                break;
             case VPAD_REQ_PARMS:
                 if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
                     sprintf(szPayload, "iParm1=%d,iParm2=%d,iParm3Type=%d,ssParm3=%s,iParm4Type=%d,ssParm4=%s,ssAuth=%s",

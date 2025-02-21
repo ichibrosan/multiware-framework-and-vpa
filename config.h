@@ -16,6 +16,9 @@
 #define OCULAR_FQDN   "ocularstation.goodall.com"
 #define OCULAR_INADDR "47-143-222-184.vng01.snbb.ca.frontiernet.net"
 
+// Generated with: head -c 4096 /dev/urandom | sha256sum | cut -b1-32
+#define VPA_RPC_PSK    "348bcdbe62fead7028c8010490b27332"
+
 #define here gpSysLog->here(__FILE__,__FUNCTION__,__LINE__);
 
 class config {
