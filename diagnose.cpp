@@ -5,6 +5,19 @@
 #include "mwfw2.h"
 
 
+/**
+ * @brief Entry point of the diagnose application.
+ *
+ * The main function is responsible for initializing necessary components, including
+ * system logging and application-specific configurations. It performs the following operations:
+ * - Initializes the global system logger `gpSysLog` object.
+ * - Creates an instance of the `mwfw2` class to manage CGI and debug-related functionality.
+ * - Outputs HTTP headers and a basic "Hello World!" message to the standard output if necessary.
+ * - Instantiates a `test` object to facilitate further testing and diagnostic operations.
+ * - Executes a system command to capture network interface information and logs it in temporary files.
+ *
+ * @return `EXIT_SUCCESS` when the program terminates successfully.
+ */
 int main() {
     gpSysLog = new CSysLog();
     here;
