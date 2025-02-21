@@ -18,11 +18,32 @@
  * @constant VPAD_REQ_STATUS Represents a request to check the status of the virtual pad.
  * @constant VPAD_REQ_COUNT Represents the count of total request types defined.
  */
-enum VPAD_REQUESTS_T {
-    VPAD_REQ_INIT,
+enum VPAD_REQ_FUNCS_T {
+    VPAD_REQ_VERSION,
+    VPAD_REQ_AUTH,
+    VPAD_REQ_PARMS,
     VPAD_REQ_STATUS,
     VPAD_REQ_COUNT
 };
+
+enum VPAD_TYPES_T {
+    VPAD_TYPE_NONE,
+    VPAD_TYPE_INT,
+    VPAD_TYPE_STRING,
+    VPAD_TYPE_FLOAT,
+    VPAD_TYPE_BOOL,
+    VPAD_TYPE_COUNT
+};
+
+typedef struct vpa_request_t {
+    VPAD_REQ_FUNCS_T eReqFunc;
+    int iParm2;
+    VPAD_TYPES_T eParm3Type;
+    char szParm3[BUFSIZ];
+    VPAD_TYPES_T eParm4Type;
+    char szParm4[BUFSIZ];
+    char szAuth[FILENAME_MAX];
+} vpa_req_t;
 
 /**
  * @enum VPAD_RESP_T

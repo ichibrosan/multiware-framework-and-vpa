@@ -41,7 +41,7 @@ public:
         // signature and help strings are documentation -- the client
         // can query this information with a system.methodSignature and
         // system.methodHelp RPC.
-        this->_signature = "i:ii";
+        this->_signature = "s:iiisiss";
             // method's result and two arguments are integers
         this->_help = "This method adds two integers together";
     }
@@ -67,17 +67,35 @@ public:
     execute(xmlrpc_c::paramList const& paramList,
             xmlrpc_c::value *   const  retvalP) {
         
-        int const addend(paramList.getInt(0));
-        int const adder(paramList.getInt(1));
-        
-        paramList.verifyEnd(2);
-        
-        *retvalP = xmlrpc_c::value_int(addend + adder);
-
-        // Sometimes, make it look hard (so client can see what it's like
-        // to do an RPC that takes a while).
-        if (adder == 1)
-            sleep(2);
+        int const iParm1(paramList.getInt(0));
+        int const iParm2(paramList.getInt(1));
+        int const iParm3Type(paramList.getInt(2));
+        std::string ssParm3(paramList.getString(3));
+        int const iParm4Type(paramList.getInt(4));
+        std::string ssParm4(paramList.getString(5));
+        std::string ssAuth(paramList.getString(6));
+        paramList.verifyEnd(7);
+        char szPayload[FILENAME_MAX];
+        switch (iParm1) {
+            case VPAD_REQ_VERSION:
+                if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
+                   *retvalP = xmlrpc_c::value_string(RVERSION_STRING_LONG);
+                } else {
+                   *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
+                }
+                break;
+            case VPAD_REQ_PARMS:
+                if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
+                    sprintf(szPayload, "iParm1=%d,iParm2=%d,iParm3Type=%d,ssParm3=%s,iParm4Type=%d,ssParm4=%s,ssAuth=%s",
+                        iParm1,iParm2,iParm3Type,ssParm3.c_str(),iParm4Type,ssParm4.c_str(),ssAuth.c_str());
+                    *retvalP = xmlrpc_c::value_string(szPayload);
+                } else {
+                    *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
+                }
+                break;
+            default:
+                *retvalP = xmlrpc_c::value_string("Unknown Request");
+        }
     }
 };
 
@@ -145,17 +163,13 @@ main(int           const,
 
         try {
             xmlrpc_c::registry myRegistry;
-
             xmlrpc_c::methodPtr const diagnoseMethodP(new diagnoseMethod);
             myRegistry.addMethod("diagnose", diagnoseMethodP);
-
             xmlrpc_c::serverAbyss myAbyssServer(
                 xmlrpc_c::serverAbyss::constrOpt()
                 .registryP(&myRegistry)
                 .portNumber(5164));
-
             myAbyssServer.run();
-            // xmlrpc_c::serverAbyss.run() never returns
             assert(false);
         } catch (exception const& e) {
             cerr << "Something failed.  " << e.what() << endl;

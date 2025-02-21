@@ -4,7 +4,8 @@
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
 /////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
-//
+#include "vpadDefs.h"
+
 // #include <cstdlib>
 // #include <string>
 // #include <iostream>
@@ -15,6 +16,43 @@ using namespace std;
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/client_simple.hpp>
 
+std::string ssValue;
+
+std::string vpa_call(vpa_request_t& req) {
+    try {
+        string const serverUrl("http://daphne:5164/RPC2");
+        //string const methodName("sample.add");
+        string const methodName("diagnose");
+
+        xmlrpc_c::clientSimple myClient;
+        xmlrpc_c::value result;
+        here;
+        myClient.call(  serverUrl,
+                        methodName,
+                        "iiisiss",
+                         &result,
+                         req.eReqFunc,
+                         req.iParm2,
+                         req.eParm3Type,req.szParm3,
+                         req.eParm4Type,req.szParm4,
+                         req.szAuth);
+        here;
+
+        //int const sum = xmlrpc_c::value_int(result);
+        ssValue = xmlrpc_c::value_string(result);
+        here;
+        //cout << "Result of RPC (sum of 5 and 7): " << sum << endl;
+        cout << "Result of diagnose: " << ssValue << endl;
+        here;
+    } catch (exception const& e) {
+        here;
+        cerr << "Client threw error: " << e.what() << endl;
+    } catch (...) {
+        here;
+        cerr << "Client threw unexpected error." << endl;
+    }
+    return ssValue;
+}
 
 /**
  * @brief Main entry point for the application. This program makes a client
@@ -36,38 +74,17 @@ main(int argc, char **) {
         cerr << "This program has no arguments" << endl;
         exit(1);
     }
-    here;
-    try {
-        string const serverUrl("http://daphne:5164/RPC2");
-        //string const methodName("sample.add");
-        string const methodName("diagnose");
 
-        xmlrpc_c::clientSimple myClient;
-        xmlrpc_c::value result;
-        here;
-        myClient.call(  serverUrl,
-                        methodName,
-                        "ii",
-                         &result,
-                         5,
-                         7
-        //                 ,gpSh->m_pShMemng->szRpcUuid
-                         );
-        here;
-
-        int const sum = xmlrpc_c::value_int(result);
-        //std::string ssValue = xmlrpc_c::value_string(result);
-        here;
-        //cout << "Result of RPC (sum of 5 and 7): " << sum << endl;
-        cout << "Result of diagnose: " << sum << endl;
-        here;
-    } catch (exception const& e) {
-        here;
-        cerr << "Client threw error: " << e.what() << endl;
-    } catch (...) {
-        here;
-        cerr << "Client threw unexpected error." << endl;
-    }
-    here;
+    vpa_request_t req = { VPAD_REQ_PARMS,
+                          0,
+                          VPAD_TYPE_NONE,
+                          "",
+                          VPAD_TYPE_NONE,
+                          "",
+                          ""
+    };
+    strcpy(req.szAuth,gpSh->m_pShMemng->szRpcUuid);
+    std::string ssValue = vpa_call(req);
+    std::cout << "ssValue: " << ssValue << std::endl;
     return 0;
 }
