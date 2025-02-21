@@ -147,7 +147,6 @@ main(int           const,
             xmlrpc_c::registry myRegistry;
 
             xmlrpc_c::methodPtr const diagnoseMethodP(new diagnoseMethod);
-
             myRegistry.addMethod("diagnose", diagnoseMethodP);
 
             xmlrpc_c::serverAbyss myAbyssServer(

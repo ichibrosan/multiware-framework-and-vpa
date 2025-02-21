@@ -47,18 +47,19 @@ main(int argc, char **) {
         here;
         myClient.call(  serverUrl,
                         methodName,
-                        "iis",
+                        "ii",
                          &result,
                          5,
-                         7,
-                         gpSh->m_pShMemng->szRpcUuid);
+                         7
+        //                 ,gpSh->m_pShMemng->szRpcUuid
+                         );
         here;
 
-        //int const sum = xmlrpc_c::value_int(result);
-        std::string ssValue = xmlrpc_c::value_string(result);
+        int const sum = xmlrpc_c::value_int(result);
+        //std::string ssValue = xmlrpc_c::value_string(result);
         here;
         //cout << "Result of RPC (sum of 5 and 7): " << sum << endl;
-        cout << "Result of diagnose: " << ssValue << endl;
+        cout << "Result of diagnose: " << sum << endl;
         here;
     } catch (exception const& e) {
         here;
