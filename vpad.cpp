@@ -76,6 +76,9 @@ public:
         std::string ssAuth(paramList.getString(6));
         paramList.verifyEnd(7);
         char szPayload[FILENAME_MAX];
+        sprintf(szPayload, "iParm1=%d,iParm2=%d,iParm3Type=%d,ssParm3=%s,iParm4Type=%d,ssParm4=%s,ssAuth=%s",
+            iParm1,iParm2,iParm3Type,ssParm3.c_str(),iParm4Type,ssParm4.c_str(),ssAuth.c_str());
+        gpSysLog->loginfo(szPayload);
         switch (iParm1) {
             case VPAD_REQ_VERSION:
                 if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
@@ -94,8 +97,6 @@ public:
                 break;
             case VPAD_REQ_PARMS:
                 if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
-                    sprintf(szPayload, "iParm1=%d,iParm2=%d,iParm3Type=%d,ssParm3=%s,iParm4Type=%d,ssParm4=%s,ssAuth=%s",
-                        iParm1,iParm2,iParm3Type,ssParm3.c_str(),iParm4Type,ssParm4.c_str(),ssAuth.c_str());
                     *retvalP = xmlrpc_c::value_string(szPayload);
                 } else {
                     *retvalP = xmlrpc_c::value_string("Synchronization Error!!");

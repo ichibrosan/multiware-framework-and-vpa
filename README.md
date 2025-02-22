@@ -2,6 +2,11 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-21 06:10 dwg - 
+Remove environment::gen_vpad_script. It used to be dynamically generated,
+but no longer since devo.
+Change public ip discovery to use fw/tmp instead of /tmp.
+
 2025-02-21 21:09 dwg - Term Vpad logic all functional now, parent and child.
 Xmlrpc howto documented in VPA Developer's Manual (see doc). I am very happy 
 with the current state of the XMLRPC-C support which is working perfectly and

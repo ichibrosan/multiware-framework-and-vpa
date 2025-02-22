@@ -50,7 +50,6 @@ std::string gssUser;
  * This class can be extended or used as a base to create specific environmental scenarios.
  */
 environment::environment() {
-	here;
   char szTemp[128];
 
 	/********************************************************************
@@ -58,7 +57,6 @@ environment::environment() {
 	 * by instantiating the CSysLog class via a pointer in member data.
      ***********************************************************************/
     m_pSysLog = new CSysLog();
-	here;
 
 	/********************************************************************
 	 * Determine the username under which this application is running
@@ -68,14 +66,12 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szUser");
 		extract_username();
 	}
-	here;
 
 	/********************************************************************
 	 * Determine whether the curl utility is installed on the system
 	 * and set a local boolean reflecting that question.
      ***********************************************************************/
     m_bCurlPresent = check_curl_installed();
-	here;
 
 	/********************************************************************
 	 * Determine the name of the primary network interface in use and
@@ -85,7 +81,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szIface");
 		get_interface(false);
 	}
-	here;
 
 	/********************************************************************
 	 * Determine the hostname of the system on which this software is running.
@@ -94,7 +89,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szHostname");
 		set_hostname(false);
 	}
-	here;
 
 	/********************************************************************
 	 * Determine the protocol supported by Apache2 on the current system and
@@ -113,7 +107,6 @@ environment::environment() {
      * Determine the script name
      */
     get_scriptname();
-	here;
 
 	/********************************************************************
 	 * Determine the local IPv4 number of the host system and save in the
@@ -124,7 +117,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szIP");
 		get_ip(false);
 	}
-	here;
 
 	/********************************************************************
 	 * Determine the publically visible IPv4 number of the host system
@@ -134,7 +126,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szPublicIP");
 		set_public_ip();
 	}
-	here;
 
 	/********************************************************************
 	 * Create the base URL for calling our CGIs
@@ -144,7 +135,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szCgiRoot");
 		set_cgi_root(false);
 	}
-	here;
 
 	/********************************************************************
 	 * Create the base URL for accessing images
@@ -154,7 +144,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szImgRoot");
 		set_img_root(false);
 	}
-	here;
 
 	/********************************************************************
 	 * Create the base URL for accessing styles
@@ -164,7 +153,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szStylesRoot");
 		set_styles_root(false);
 	}
-	here;
 
 	/********************************************************************
 	 * Create the base filesystem root for filesystem access to styles
@@ -174,7 +162,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szStylesFileRoot");
 		set_styles_file_root(false);
 	}
-	here;
 
 	/********************************************************************
 	 * Create the base path for accessing Journal files
@@ -184,7 +171,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szJournalRoot");
 		set_journal_root(false);
 	}
-	here;
 
     /********************************************************************
      * Create the base path for temp files
@@ -193,20 +179,6 @@ environment::environment() {
 		m_pSysLog->loginfo("environment::environment: Extracting szTmpRoot");
 		set_tmp_root(false);
 	}
-	here;
-
-	/********************************************************************
-	 * Create the initialization script that runs the Virtual Protocol Adapter.
-	 * The file should generate as:
-	 * "/home/$USER/public_html/fw/scripts/start-vpad.sh"
-     ***********************************************************************/
-
-	std::string ssStartScriptFQFS = gpOS->genScriptFQFS("start-vpad.sh",false);
-	if (0 != access(ssStartScriptFQFS.c_str(),F_OK)) {
-		m_pSysLog->loginfo("environment::environment: Generating start-vpad.sh");
-		gen_vpad_script();
-	}
-	here;
 
 }
 
@@ -259,9 +231,13 @@ void environment::set_vpad_startup_script() {
 void environment::set_public_ip()
 {
 	char szPublicIP[IPV4_ADDR_SIZE_MAX];
-	char szTempFQFS[] = { "/tmp/myv4ip.txt"};
-	char szCommand[80];
+	char szTempFQFS[FILENAME_MAX];
+	char szCommand[FILENAME_MAX];
 	std::string ssMyIp;
+
+	// s/b: /home/devo/public_html/fw/tmp/myv4ip.txt
+	strcpy(szTempFQFS,
+		gpOS->genTempFQFS("myv4ip.txt",false).c_str());
 
 	sprintf(szCommand,"curl ip.me >%s",szTempFQFS);
 	system(szCommand);
@@ -272,7 +248,7 @@ void environment::set_public_ip()
 }
 
 /**
- * Retrieves the public IP address of the device.
+ * Standard getter for the public IP address of the host.
  *
  * This function attempts to determine the public IP address of the machine
  * by making a network request to a third-party service or API that can
@@ -289,70 +265,6 @@ char * environment::get_public_ip()
 {
 	return gpSh->m_pShMemng->szPublicIP;
 }
-
-/**
- *
- */
-void environment::gen_vpad_script()
-{
-	/**
-	 *	Generates the FQFS for the script location.
-	 *
-	 */
-
-	std::string ssVpadLauncher = "/home/";
-	ssVpadLauncher.append(gpSh->m_pShMemng->szUser);
-	ssVpadLauncher.append("/public_html/fw/scripts/x.sh");
-
-	/**
-	 *	Attempts to load the file and checks whether or not it actually did
-	 *	get loaded.
-	 *
-	 */
-
-	FILE * fp = fopen(ssVpadLauncher.c_str(),"w");
-	if (nullptr == fp)
-	{
-		/**
-		 *	If it did not get loaded, we print to the standard output and
-		 *	close the file.
-		 *
-		 */
-
-		std::cout << "can't open file" << ssVpadLauncher
-				  << "and couldn't create initialization script"
-				  << std::endl;
-		fclose(fp);
-	}
-	else
-	{
-		/**
-		 *	If it did get loaded, we write out the script contents to the
-		 *	file and then close it.
-		 *
-		 */
-
-		fprintf(fp,"#!/bin/sh\n");
-		fprintf(fp,"###############################################################"
-						 "##############################\n");
-		fprintf(fp,"# daphne.goodall.com:/home/devo/public_html/fw/scripts/inetd-ne"
-						 "tstat-redirect.sh 2025-02-17 #\n");
-		fprintf(fp,"# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.""                             #\n");
-		fprintf(fp,"###############################################################"
-						 "##############################\n");
-
-	    fprintf(fp,"# Automatically generated, Do Not Edit!!\n");
-	    fprintf(fp,"/home/%s/public_html/fw/cmake-build-debug/vpad &\n",
-	        gpSh->m_pShMemng->szUser);
-		fclose(fp);
-	}
-
-    // 2025-02-11 11:25 dwg - assure +x
-    char szCommand[128];
-    sprintf(szCommand,"chmod +x %s",ssVpadLauncher.c_str());
-    system(szCommand);
-}
-
 
 /**
  * @brief Extracts the username from an email address.
