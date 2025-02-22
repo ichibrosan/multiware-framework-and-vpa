@@ -365,11 +365,7 @@ void dashboard::process_toggles(
             sleep(2);
 
             char szCommand[1024];
-            sprintf(szCommand,"sudo kill -9 %d",gpSh->m_pShMemng->vpad_child_pid);
-            char szMessage[1024];
-            sprintf(szMessage,"command was %s",szCommand);
-            gpSysLog->loginfo(szMessage);
-
+            sprintf(szCommand,"kill -9 %d",gpSh->m_pShMemng->vpad_child_pid);
             system(szCommand);
 
         }
