@@ -12,6 +12,9 @@
 #define FORK_CHILD           0
 #define MAX_USERS            6
 #define NUM_PASSWDS          2
+#define NO_HANDLE            0
+#define PRE_STARTING_HANDLE  2
+#define STARTING_HANDLE      3
 
 #define OCULAR_FQDN   "ocularstation.goodall.com"
 #define OCULAR_INADDR "47-143-222-184.vng01.snbb.ca.frontiernet.net"

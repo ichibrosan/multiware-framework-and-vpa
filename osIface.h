@@ -271,6 +271,19 @@ public:
 	 * @param digits The number of binary digits to be displayed in the output. The output is truncated to match this count.
 	 */
 	void printBinary(int,int);
+
+
+	/**
+	 * @brief Gets the handle of the current user, and returns the stylesheet
+	 * to use for the webpage based on their username.
+	 * \n\n
+	 * Defaults to the "default.css" stylesheet if the handle isn't
+	 * associated with an authenticated user.
+	 *
+	 * @param iHandle The handle of the user.
+	 * @return Returns the stylesheet to use for the passed handle.
+	 */
+	std::string get_handle_style(int iHandle);
 };
 
 /**
