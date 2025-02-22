@@ -2,6 +2,11 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-21 21:09 dwg - Term Vpad logic all functional now, parent and child.
+Xmlrpc howto documented in VPA Developer's Manual (see doc). I am very happy 
+with the current state of the XMLRPC-C support which is working perfectly and
+without any mysteries.
+
 2025-02-19 16:21 mf - created a .gitignore file and added in several
 directories and files to it that were automatically generated.
 
