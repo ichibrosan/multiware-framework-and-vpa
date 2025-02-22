@@ -2,6 +2,10 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-21 07:39 dwg - 
+Renamed CSysLog::here() to CSysLog::herefunc() and changed macro also.
+Added config.h to mwfw2.h include list
+
 2025-02-22 03:12 mf - added functionality to allow for dynamic css stylesheet
 injection into the dynamically generated html pages, by using the handle.
 messed with doxygen a bit, and put the resulting Doxyfile in the doc folder,

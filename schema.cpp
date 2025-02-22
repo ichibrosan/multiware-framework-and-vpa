@@ -431,13 +431,6 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
 
         }
 
-        //        else {
-//            gpHtml->para(); gpHtml->print("Data row is not active");
-//            gpHtml->para(); gpHtml->print(
-//                    gpCsv->m_parsed_data[iRow][COL_DATA_ACTIVE].c_str());
-//
-//        } // data active
-
         iRow++;
         iDataRows--;
     } // while
@@ -477,8 +470,6 @@ void schema::gen_from_schema(int iHandle,
                       "content", "no-cache"});
     gpHtml->gen_meta_line({"http-equiv", "Expires",
                       "content", "0"});
-   // gpHtml->set_meta("http-equiv=Cache-control \""
-   //                  "content=no-cache");
     sprintf(szTemp,"%s%s%s",
             gpSh->m_pShMemng->szProtocol,
             gpSh->m_pShMemng->szIP,
@@ -493,20 +484,10 @@ void schema::gen_from_schema(int iHandle,
 
     gpHtml->close_head();
     gpHtml->open_body();
-    // gpHtml->open_script();
-    // gpHtml->script_button("TryIt","Click Me");
-    // gpHtml->close_script();
-    //gpHtml->imgsrc("our-office.png",896/3,676/3);
-
-    // // Experimental 2025/01/15 03:47 dwg -
-    // char szCGIPath[FILENAME_MAX];
-    // strcpy(szCGIPath,gpCsv->m_parsed_data
-    //                 [ROW_META_DATA][COL_META_CGINAME].c_str());
 
     gpHtml->open_form(
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_SCHEMA].c_str(),
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_CGINAME].c_str(),
-          //"GET",iHandle);
           "POST",
           iHandle,
           "default",
@@ -521,10 +502,8 @@ void schema::gen_from_schema(int iHandle,
        strcmp("true",
               gpCsv->m_parsed_data[iRow][iCol].c_str())) {
         iCol = COL_META_VERSION;
-        if(0 == strcmp("1",
+        if(0 == strcmp(META_VERSION,
                        gpCsv->m_parsed_data[iRow][iCol].c_str())) {
-            //iCol = COL_META_COLUMNS;
-            // Process Schema Data
             process_schema_data(svvsPassedValues);
 
         } else {
@@ -535,7 +514,6 @@ void schema::gen_from_schema(int iHandle,
         gpHtml->para(); gpHtml->print("Schema is not active");
     }
 
-    //gpHtml->close_form();
     gpHtml->close_body();
     gpHtml->close_html();
 }
@@ -588,27 +566,15 @@ void schema::gen_from_schema(int iHandle,
     gpHtml->close_head();
     gpHtml->open_body();
 
-    // // If the user authenticated, select the menu screen
     gpDash = new dashboard(iHandle,
                            iButtons,
                            pszFile,
                            ssUsername,
                            ssPassword);
 
-    // gpHtml->open_script();
-    // gpHtml->script_button("TryIt","Click Me");
-    // gpHtml->close_script();
-    //gpHtml->imgsrc("our-office.png",896/3,676/3);
-
-    // // Experimental 2025/01/15 03:47 dwg -
-    // char szCGIPath[FILENAME_MAX];
-    // strcpy(szCGIPath,gpCsv->m_parsed_data
-    //                 [ROW_META_DATA][COL_META_CGINAME].c_str());
-
     gpHtml->open_form(
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_SCHEMA].c_str(),
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_CGINAME].c_str(),
-          //"GET",iHandle);
           "POST",
           iHandle,
           "default",
@@ -623,7 +589,7 @@ void schema::gen_from_schema(int iHandle,
        strcmp("true",
               gpCsv->m_parsed_data[iRow][iCol].c_str())) {
         iCol = COL_META_VERSION;
-        if(0 == strcmp("1",
+        if(0 == strcmp(META_VERSION,
                        gpCsv->m_parsed_data[iRow][iCol].c_str())) {
             //iCol = COL_META_COLUMNS;
             // Process Schema Data

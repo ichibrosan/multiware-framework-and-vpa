@@ -35,7 +35,7 @@ public:
 	 */
 	void loginfo(const char *);
 
-	void here(const char *,const char *,int);
+	void herefunc(const char *,const char *,int);
 
 	/**
 	 * Destructor for the CSysLog class.
