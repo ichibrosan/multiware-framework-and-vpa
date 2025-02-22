@@ -13,7 +13,7 @@ directories and files to it that were automatically generated.
 2025-02-19 05:22 dwg - I found we were also using system redirection 
 in one of the test. We were calling ipcs and verifying the shared
 memory parameters. I added another xinetd invocation for that, bringing
-us to 7 trigger scritps.  I also fixed the http and https test used in 
+us to 7 trigger scripts.  I also fixed the http and https test used in 
 the determination of szProtocol. I also eliminated test4. Everything
 seems to be working now, exc ept the xmlrpc stuff I will work on next.
 
