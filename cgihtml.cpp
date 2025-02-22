@@ -505,9 +505,13 @@ void cgihtml::dump_shm_vars()
 
     if(gpSh->m_pShMemng->vpad_running) {
 
-        // std::cout << "<tr><th>vpad_pid</th><td>";
-        // std::cout << gpSh->m_pShMemng->vpad_pid;
-        // std::cout << "</td></tr>";
+        std::cout << "<tr><th>vpad_parent_pid</th><td>";
+        std::cout << gpSh->m_pShMemng->vpad_parent_pid;
+        std::cout << "</td></tr>";
+
+        std::cout << "<tr><th>vpad_child_pid</th><td>";
+        std::cout << gpSh->m_pShMemng->vpad_child_pid;
+        std::cout << "</td></tr>";
 
         std::cout << "<tr><th>sz_vpad_start_time</th><td>";
         std::cout << gpSh->m_pShMemng->sz_vpad_start_time;
@@ -1195,7 +1199,8 @@ void cgihtml::hidden(const char * pszName,const char *pszValue)
 
 
 /**
- * Generates and outputs an HTML `<img>` tag with the specified image file name, width, and height.
+ * Generates and outputs an HTML `<img>` tag with the specified image file
+ *  name, width, and height.
  *
  * @param pszImageFN The file name of the image to be included in the `<img>` tag.
  * @param width The width of the image as it should appear in the HTML.

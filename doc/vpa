@@ -92,15 +92,3 @@ service vpa-ipcs
 	server		= /home/devo/public_html/fw/scripts/inetd-ipcs-redirect.sh
 }
 
-# This service runs a script that sends a VPA_REQ_TERM request to the responder
-service vpad-term
-{
-	port		= 65360
-	disable		= no
-	id		= vpad-stop
-	socket_type	= stream
-	protocol	= tcp
-	user		= 1000
-	wait		= no
-	server		= /home/devo/public_html/fw/scripts/inetd-term-vpad.sh
-}

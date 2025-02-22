@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/vpad.cpp 2025/02/20                      //
+// /home/devo/public_html/fw/vpad.cpp 2025/02/21 20:28 dwg            //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
@@ -156,12 +156,12 @@ main(int           const,
 
     printf("vpad Copyright (c) 2025 Douglas Wade Goodall. "
            "All Rights Reserved.\n");
-
+    gpSh->m_pShMemng->vpad_parent_pid = getpid();
     pid_t pid = fork();
     if(pid != FORK_CHILD) {
         gpLog       = new CLog(__FILE__, __FUNCTION__);
         gpLog->getTimeDateStamp(szTimestamp);
-        gpSh->m_pShMemng->vpad_pid = getpid();
+        gpSh->m_pShMemng->vpad_parent_pid = getpid();
         //std::cout << "From Vpad: " << getpid() << std::endl;
         strcpy(gpSh->m_pShMemng->szVpad_date,__DATE__);
         strcpy(gpSh->m_pShMemng->szVpad_time,__TIME__);
@@ -174,7 +174,7 @@ main(int           const,
 
         return EXIT_SUCCESS;
     } else {
-
+        gpSh->m_pShMemng->vpad_child_pid = getpid();
         try {
             xmlrpc_c::registry myRegistry;
             xmlrpc_c::methodPtr const diagnoseMethodP(new diagnoseMethod);

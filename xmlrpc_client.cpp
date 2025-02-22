@@ -66,15 +66,26 @@ main(int argc, char **) {
         exit(1);
     }
 
-    vpa_request_t req;
-    strcpy(req.szRemoteHost,"127.0.0.1");
-    req.eReqFunc = VPAD_REQ_TERM;
-    req.iParm2 = 0;
-    req.eParm3Type = VPAD_TYPE_NONE;
-    req.eParm4Type = VPAD_TYPE_NONE;
-    strcpy(req.szAuth,gpSh->m_pShMemng->szRpcUuid);
-    std::string ssAuth = vpa_call(req);
-    std::cout << "ssAuth: " << ssValueRetcode << std::endl;
+
+    char szCommand[1024];
+    sprintf(szCommand,"sudo kill -9 %d",gpSh->m_pShMemng->vpad_child_pid);
+
+    char szMessage[1024];
+    sprintf(szMessage,"command was %s",szCommand);
+    pMwFw->sl_loginfo(szMessage);
+
+    system(szCommand);
+
+
+    // vpa_request_t req;
+    // strcpy(req.szRemoteHost,"127.0.0.1");
+    // req.eReqFunc = VPAD_REQ_TERM;
+    // req.iParm2 = 0;
+    // req.eParm3Type = VPAD_TYPE_NONE;
+    // req.eParm4Type = VPAD_TYPE_NONE;
+    // strcpy(req.szAuth,gpSh->m_pShMemng->szRpcUuid);
+    // std::string ssAuth = vpa_call(req);
+    // std::cout << "ssAuth: " << ssValueRetcode << std::endl;
 
     return 0;
 }

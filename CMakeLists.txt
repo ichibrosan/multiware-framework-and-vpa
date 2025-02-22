@@ -538,8 +538,8 @@ target_link_libraries(render.cgi
 
 
 
-add_executable(vpad-term
-        vpad-term.cpp
+add_executable(xmlrpc_client
+        xmlrpc_client.cpp
         config.cpp	        config.h
         CSysLog.cpp			CSysLog.hpp
         shared.cpp          shared.h
@@ -555,7 +555,7 @@ link_directories(
         /opt/xmlrpc-c/lib/expat/xmltok
         /opt/xmlrpc-c/lib/libutil
 )
-target_link_libraries(vpad-term
+target_link_libraries(xmlrpc_client
 		mwfw2
         libxmlrpc_client++.a
         libxmlrpc_client.a

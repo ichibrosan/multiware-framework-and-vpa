@@ -5,4 +5,4 @@
 #################################################################
 cd ~/public_html/fw/
 doxygen ~/public_html/fw/doc/Doxyfile
-firefox html/index.html
+firefox /home/devo/public_html/fw/html/index.html

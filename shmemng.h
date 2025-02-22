@@ -56,38 +56,39 @@ struct MFW_SHMEMNG_T {
         char szRemoteAddr[DNS_FQDN_SIZE_MAX];   // 253   // from Apache2
         char szHttpUserAgent[128];              // 128   // from Apache2
 
-    } creds[ROW_DATA+MAX_USERS];    // sizeof(creds) = 7236
+    } creds[ROW_DATA+MAX_USERS];     // sizeof(creds) = 7236
 
-    bool  vpad_running;           // control vpad while loop
-    pid_t vpad_pid;               // process id of VPA Daemon
-    int   vpad_exit_status;
-    int   vpad_uptime_seconds;
-    char sz_vpad_start_time[24];                                                                                                                                                                                                                                                                               //
-    int vpad_req_bits;               // functional request bits
-    int vpad_resp_bits;              // functional response bits
-    int vpad_errno[VPAD_REQ_COUNT];
-    char szVpad_date[80];            // date stamp of vpad.cpp
-    char szVpad_time[80];            // time stamp of vpad.cpp
+    bool   vpad_running;              // control vpad while loop
+    pid_t  vpad_parent_pid;           // process id of VPA Daemon Parent
+    pid_t  vpad_child_pid;            // process id of VPA Daemon Child
+    int    vpad_exit_status;
+    int    vpad_uptime_seconds;
+    char   sz_vpad_start_time[24];                                                                                                                                                                                                                                                                               //
+    int    vpad_req_bits;               // functional request bits
+    int    vpad_resp_bits;              // functional response bits
+    int    vpad_errno[VPAD_REQ_COUNT];
+    char   szVpad_date[80];            // date stamp of vpad.cpp
+    char   szVpad_time[80];            // time stamp of vpad.cpp
 
-    bool tests_started;
+    bool   tests_started;
     time_t time_started;
-    char szTimeStarted[UT_TIMESIZE];
-    int tests_processed_bits;
-    int tests_passed_bits;
-    int tests_failed_bits;
-    int tests_skipped_bits;
-    int num_tests_processed;
-    int num_tests_skipped;
-    int num_tests_passed;
-    int num_tests_failed;
-    bool tests_completed;
-    bool overall_test_results;
+    char   szTimeStarted[UT_TIMESIZE];
+    int    tests_processed_bits;
+    int    tests_passed_bits;
+    int    tests_failed_bits;
+    int    tests_skipped_bits;
+    int    num_tests_processed;
+    int    num_tests_skipped;
+    int    num_tests_passed;
+    int    num_tests_failed;
+    bool   tests_completed;
+    bool   overall_test_results;
     time_t time_completed;
-    char szTimeCompleted[UT_TIMESIZE];
+    char   szTimeCompleted[UT_TIMESIZE];
 
-    bool bDisplayShmVars;
-    bool bDisplayEnvVars;
-    bool bDisplaySchema;
+    bool   bDisplayShmVars;
+    bool   bDisplayEnvVars;
+    bool   bDisplaySchema;
 
 } *m_pShMemng;
 
