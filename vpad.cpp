@@ -101,6 +101,12 @@ public:
                     *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
                 }
                 break;
+            case VPAD_REQ_TERM:
+                here;
+                *retvalP = xmlrpc_c::value_string("VPAD Shutting Down!!");
+                here;
+                exit(EXIT_SUCCESS);
+                break;
             default:
                 *retvalP = xmlrpc_c::value_string("Unknown Request");
         }

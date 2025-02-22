@@ -1326,7 +1326,7 @@ void cgihtml::gen_meta_line(std::string ssMetaLine)
 
 
 /**
- *
+ * Opens a script tag by outputting the HTML `<script>` element.
  */
 void cgihtml::open_script()
 {
@@ -1335,7 +1335,9 @@ void cgihtml::open_script()
 
 
 /**
+ * Opens a new HTML div element with the specified class attribute.
  *
+ * @param pszDivClass The class name to be assigned to the div element.
  */
 void cgihtml::open_div(const char * pszDivClass)
 {
@@ -1345,7 +1347,8 @@ void cgihtml::open_div(const char * pszDivClass)
 
 
 /**
- * @*/
+ * Outputs the opening HTML paragraph tag.
+ */
 void cgihtml::para()
 {
     std::cout << "<p>";
@@ -1448,7 +1451,9 @@ void cgihtml::printvar(const char *pszName,double dValue)
 
 
 /**
+ * Opens an HTML table with a specified border width.
  *
+ * @param border The width of the border for the HTML table.
  */
 void cgihtml::open_table(int border)
 {
@@ -1480,7 +1485,12 @@ void cgihtml::script_button(const char * pszButtonName,
 
 
 /**
+ * Sets the style for the specified element or component.
  *
+ * @param styleName The name of the style to be applied.
+ *                  It should correspond to a defined style key.
+ * @param value The value of the style to be applied.
+ *              This typically represents the properties and formatting for the style.
  */
 void cgihtml::set_style(const char * pszStylesheet)
 {
@@ -1492,7 +1502,9 @@ void cgihtml::set_style(const char * pszStylesheet)
 
 
 /**
+ * Sets the title for the HTML page by outputting it within <title> tags.
  *
+ * @param szTitle The title to be displayed in the HTML document.
  */
 void cgihtml::title(const char * szTitle)
 {
