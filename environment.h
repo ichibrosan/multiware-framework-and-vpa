@@ -519,7 +519,6 @@ public:
 	 * @return The name of the currently executing script as a string.
      *************************************************************************/
 	char *get_scriptname();
-
 };
 
 #endif //MULTIWARE_ENVIRONMENT_H

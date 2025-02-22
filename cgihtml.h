@@ -824,7 +824,6 @@ void form_select_end();
 	void xahref(const char * pszLink,
 				const char * pszButtonClass,
 				const char * pszButtonDisplay);
-
 };
 
 

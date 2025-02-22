@@ -488,7 +488,7 @@ void schema::gen_from_schema(int iHandle,
     gpHtml->title(szTemp);
 
 
-    gpHtml->set_style("default");
+    gpHtml->set_style(gpOS->get_handle_style(iHandle).c_str());
         // gpCsv->m_parsed_data
         // [ROW_META_DATA]
         // [COL_META_STYLE].c_str());
@@ -582,7 +582,7 @@ void schema::gen_from_schema(int iHandle,
     gpHtml->title(szTemp);
 
 
-    gpHtml->set_style("default");
+    gpHtml->set_style(gpOS->get_handle_style(iHandle).c_str());
         // gpCsv->m_parsed_data
         // [ROW_META_DATA]
         // [COL_META_STYLE].c_str());

@@ -880,6 +880,32 @@ std::string osIface::parseSchemaName(std::string ssSchemaName,bool bDebug) {
     return ssPath;
 }
 
+/**
+ * @brief Gets the handle of the current user, and returns the stylesheet
+ * to use for the webpage based on their username.
+ * \n\n
+ * Defaults to the "default.css" stylesheet if the handle isn't
+ * associated with an authenticated user.
+ *
+ * @param iHandle The handle of the user.
+ * @return Returns the stylesheet to use for the passed handle.
+ */
+std::string osIface::get_handle_style(int iHandle)
+{
+    std::string ssUsername;
+
+    if (iHandle > PRE_STARTING_HANDLE)
+    {
+        ssUsername = gpSh->m_pShMemng->creds[iHandle].szAuthUserName;
+    }
+    else
+    {
+        ssUsername = "default";
+    }
+
+	return ssUsername;
+}
+
 ///////////////////////
 // eof - osIface.cpp //
 ///////////////////////
