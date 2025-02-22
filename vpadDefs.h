@@ -27,6 +27,7 @@ enum VPAD_REQ_FUNCS_T {
     VPAD_REQ_COUNT
 };
 
+
 enum VPAD_TYPES_T {
     VPAD_TYPE_NONE,
     VPAD_TYPE_INT,
@@ -35,6 +36,7 @@ enum VPAD_TYPES_T {
     VPAD_TYPE_BOOL,
     VPAD_TYPE_COUNT
 };
+
 
 typedef struct vpa_request_t {
     char szRemoteHost[DNS_FQDN_SIZE_MAX];

@@ -13,6 +13,22 @@ using namespace std;
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
 
+const char * vpad_req_names[] = {
+    "VERSION",
+    "AUTH",
+    "PARMS",
+    "STATUS",
+    "TERM"
+};
+
+const char * vpad_type_names[] = {
+    "NONE",
+    "INT",
+    "STRING",
+    "FLOAT",
+    "BOOL"
+};
+
 /********************************************************************************
  * @class diagnoseMethod
  * @brief Custom implementation of an XML-RPC method for adding two integers.
@@ -76,14 +92,20 @@ public:
         std::string ssAuth(paramList.getString(6));
         paramList.verifyEnd(7);
         char szPayload[FILENAME_MAX];
-        sprintf(szPayload, "iParm1=%d,iParm2=%d,iParm3Type=%d,ssParm3=%s,iParm4Type=%d,ssParm4=%s,ssAuth=%s",
-            iParm1,iParm2,iParm3Type,ssParm3.c_str(),iParm4Type,ssParm4.c_str(),ssAuth.c_str());
+
+        sprintf(szPayload,
+            "RPC: P1=%s,P2=%d,P3Type=%s,"
+                  "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
+            vpad_req_names[iParm1],iParm2,
+            vpad_type_names[iParm3Type],ssParm3.c_str(),
+            vpad_type_names[iParm4Type],ssParm4.c_str(),ssAuth.c_str());
         gpSysLog->loginfo(szPayload);
         switch (iParm1) {
             case VPAD_REQ_VERSION:
                 if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
                    *retvalP = xmlrpc_c::value_string(RVERSION_STRING_LONG);
                 } else {
+                    sleep(10); // make them pay a time penalty to obviate attacks
                    *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
                 }
                 break;
@@ -99,6 +121,7 @@ public:
                 if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
                     *retvalP = xmlrpc_c::value_string(szPayload);
                 } else {
+                    sleep(10); // make them pay a time penalty to obviate attacks
                     *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
                 }
                 break;
@@ -154,12 +177,18 @@ main(int           const,
     mwfw2 * pMwfw = new mwfw2(__FILE__,__FUNCTION__);
 
     char szTimestamp[128];
+    char szSine[128];
 
     printf("vpad Copyright (c) 2025 Douglas Wade Goodall. "
            "All Rights Reserved.\n");
     gpSh->m_pShMemng->vpad_parent_pid = getpid();
     pid_t pid = fork();
     if(pid != FORK_CHILD) {
+
+        sprintf(szSine,"%s::%s::Parent PID: %d\n",
+            __FILE__,__FUNCTION__,getpid());
+        gpSysLog->loginfo(szSine);
+
         gpLog       = new CLog(__FILE__, __FUNCTION__);
         gpLog->getTimeDateStamp(szTimestamp);
         gpSh->m_pShMemng->vpad_parent_pid = getpid();
@@ -175,6 +204,11 @@ main(int           const,
 
         return EXIT_SUCCESS;
     } else {
+
+        sprintf(szSine,"%s::%s::Child  PID: %d\n",
+            __FILE__,__FUNCTION__,getpid());
+        gpSysLog->loginfo(szSine);
+
         gpSh->m_pShMemng->vpad_child_pid = getpid();
         try {
             xmlrpc_c::registry myRegistry;
