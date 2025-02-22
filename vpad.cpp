@@ -81,7 +81,7 @@ public:
      ************************************************************************/
     void
     execute(xmlrpc_c::paramList const& paramList,
-            xmlrpc_c::value *   const  retvalP) {
+            xmlrpc_c::value *   const  retvalP) override {
         
         int const iParm1(paramList.getInt(0));
         int const iParm2(paramList.getInt(1));
@@ -130,7 +130,6 @@ public:
                 *retvalP = xmlrpc_c::value_string("VPAD Shutting Down!!");
                 here;
                 exit(EXIT_SUCCESS);
-                break;
             default:
                 *retvalP = xmlrpc_c::value_string("Unknown Request");
         }
@@ -172,15 +171,15 @@ public:
  * code in case of failure.
  **************************************************************************************/
 int
-main(int           const, 
-     const char ** const) {
-    mwfw2 * pMwfw = new mwfw2(__FILE__,__FUNCTION__);
-
+main(int argc,char ** argv) {
+    auto * pMwfw = new mwfw2(__FILE__,__FUNCTION__);
     char szTimestamp[128];
     char szSine[128];
 
-    printf("vpad Copyright (c) 2025 Douglas Wade Goodall. "
-           "All Rights Reserved.\n");
+    printf("vpad Copyright (c) 2025 "
+            "Douglas Wade Goodall. "
+            "All Rights Reserved.\n");
+
     gpSh->m_pShMemng->vpad_parent_pid = getpid();
     pid_t pid = fork();
     if(pid != FORK_CHILD) {
@@ -201,7 +200,6 @@ main(int           const,
             gpSh->m_pShMemng->vpad_uptime_seconds++;
             sleep(1);
         }
-
         return EXIT_SUCCESS;
     } else {
 
@@ -222,7 +220,7 @@ main(int           const,
             assert(false);
         } catch (exception const& e) {
             cerr << "Something failed.  " << e.what() << endl;
+            return EXIT_FAILURE;
         }
-        return 0;
     }
 }

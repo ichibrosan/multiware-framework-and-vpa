@@ -143,7 +143,7 @@ public:
 	 * @param handle An integer value used as a query parameter to uniquely identify the session or context.
 	 * @return A string containing the fully constructed CGI URL.
 	 */
-	std::string form_cgi(
+	static std::string form_cgi(
         const char *pszName,
         int handle);
 
@@ -182,19 +182,6 @@ public:
 	 * - If the message cannot be sent successfully, an error message is displayed and the application exits.
 	 */
 	void start_vpad();
-
-	/**
-	 * Executes a system command in a separate thread.
-	 *
-	 * This method is used to perform system-level operations by executing the provided
-	 * shell command asynchronously. It creates a new thread to handle the execution,
-	 * ensuring that the main application flow is not blocked by the system call.
-	 *
-	 * @param ssCmd A string representing the system command to execute. This should be
-	 *              a valid shell command that can be interpreted by the operating system.
-	 *              Improper or malformed commands may result in errors or undefined behavior.
-	 */
-	static void threadSystemCall(std::string ssCmd);
 
 	/**
 	 * Generates the navigation bar for the dashboard and handles toggle options,

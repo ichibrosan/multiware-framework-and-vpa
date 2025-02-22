@@ -33,7 +33,7 @@ public:
 	 *
 	 * @param pszMsg A pointer to a null-terminated string, which is the message to be logged.
 	 */
-	void loginfo(const char *);
+	static void loginfo(const char *pszMsg);
 
 	void herefunc(const char *,const char *,int);
 

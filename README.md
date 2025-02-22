@@ -7,7 +7,7 @@ Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 2025-02-22 07:46 dwg - removed sudo in kill -9 command to kill vpad child
 
 2025-02-22 07:39 dwg - 
-Renamed CSysLog::here() to CSysLog::herefunc() and changed macro also.
+Renamed "CSysLog::here()" to "CSysLog::herefunc()" and changed macro also.
 Added config.h to mwfw2.h include list
 
 2025-02-22 03:12 mf - added functionality to allow for dynamic css stylesheet
@@ -46,14 +46,14 @@ fixed the hardcoded paths in environment
 couldn't test it as I didn't have the vpa xinetd service file setup correctly.
 
 2025002-18 01:52 dwg - I had an epiphany about the way things are working.
-Each executable is calling the environment class to setup the shared
+Each executable is calling the environment class to set up the shared
 with all its valuable constructs. Actually the environment constructor
 only needs to be called when the shared instantiates for the first time
-(use of the create flag). After that the shared is already populated and
+(use of the "create" flag). After that the shared is already populated and
 all you need to do is use it. One way to optimize this, is to make each
 init call in the environment constructor conditional on the value of the
 associated shared data. For instance, if the szIface variable is empty,
-go ahead and call set_iface(). If szIP is empty, call set(ip()...
+go ahead and call set_iface(). If szIP is empty, call set_ip()...
 This will hugely speed up the cgi scripts and utilities and save a lot of 
 machine cycles.
 
@@ -91,11 +91,11 @@ test4.
 display, enhanced xmlrpc_client and xmlrpc_inetd_server to use 
 shared::szRpcUuid as auth token in xmlrpc calls.
 
-2025-02-13 17:12 dwg - About the Broken curl code in github
+2025-02-13 17:12 dwg - About the Broken curl code in gh
 Last night in the middle of the night, my copy of xmlrpc_client and xmlrpc_inet_server
 stopped working and started spouting weird error messages. After hours of horror, I 
 discovered that the maintainers of the curl distribution just pushed changes into the
-curl/curl repository at github the break xmlrpc-c compatibility. After much heartache,
+curl/curl repository at gh the break xmlrpc-c compatibility. After much heartache,
 identified a version that still works which I have names good-curl.tgz. To reproduce
 our working infrastructure, you have to configure build and install the good-curl,
 then build and install the xmlrpc module, then rebuild our project. Whew!!
@@ -139,7 +139,7 @@ work on noteload. many of these changes were within the schema preprocessor.
 2025-02-06 19:23 mf - fixed up noteload and modified the journal schema to
 generate the iframe again.
 
-2025-20-06 14:03 mf - made the schema meta data uniform across all used
+2025-20-06 14:03 mf - made the schema metadata uniform across all used
 schemas.
 
 2025-02-06 03:32 dwg - enhancement to vpad to increment the uptime counter 
@@ -165,7 +165,7 @@ once I placed the mwfw library above the other linked libraries,
 it worked like a charm.
 
 2025/02/02 16:06 mf - 
-edited the row meta data, style column for the journal schema, to
+edited the row metadata, style column for the journal schema, to
 fix the journal page.
 
 2025/02/02 02:47 dwg - 
@@ -189,7 +189,7 @@ is required to call that function. Passing in values is completely
 optional, and probably should only be done if required.
 the key:value pair works from the schema. the syntax is "passed:VALUE".
 passed: is what the preprocessor looks for in the schema cell to know
-to pull from the vector vector string array.
+to pull from the vector-vector string array.
 additionally this preprocessor can insert values from html form submits,
 by using the syntax "from:VALUE". from: is what the preprocessor looks for
 in the schema cell to know to pull from the form data that was submitted
@@ -203,7 +203,7 @@ button, iframe, and probably some others. Definitely made changes to the
 text element as well.
 
 edited the schema metadata line to allow for more precise targeting of 
-the default form, whether or not to put a submit button
+the default form, whether to put a submit button
 by default at the end of generating a schema via a boolean value, as well as 
 changing the css stylesheet that the page loads with.
 
@@ -233,7 +233,7 @@ Modified index.cpp so a new test class is made when index.cgi is run.
 - Marcus Franklin 15:24 2025-01-22
 
 2025/01/22 03:35 dwg - About the anti-hacking measure... lines 39-42
-* code added to login.cpp assures that you can only call login from index
+* code added to "login.cpp" assures that you can only call login from index
 or login itself. Any other caller is illegal and causes the login script
 to abort with a Synchronization Error. FYI, Synchronization Error is what
 you used to get in 1984 if you had a copy of CP/M that had been pirated and
@@ -293,7 +293,7 @@ objects though global pointers and make local instances of them as required,
 to be deleted in their time, with their associated data.
 
 One excellent development has been the use of the __FILE__ macro to locate
-the development environment during runtime. Placing the developmnent 
+the development environment during runtime. Placing the development 
 environment in the USERDIR ( $HOME/public_html/fw ) works very well because
 folders in the development environment are within the usable web server data,
 both for HTML and CGI access.
@@ -303,7 +303,7 @@ default cgi-bin directory that usually is in /usr/lib/cgi-bin/.
 
 <p>Our setup for the framework executes CGI scripts from two places...
 <ul>/home/$USER/public_html/fw/cmake-build-debug</ul>
-<ul>/home/$USER/public_html/fw/cgi-bin/</ul></p>
+<ul>/home/$USER/public_html/fw/cgi-bin/</ul>
 
 <p> Our setup for the framework serves HTML pages from one place...
-<ul>/home/$USER/public_html/fw/html/</ul></p>
+<ul>/home/$USER/public_html/fw/html/</ul>
