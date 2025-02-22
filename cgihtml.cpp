@@ -1195,6 +1195,11 @@ void cgihtml::hidden(const char * pszName,const char *pszValue)
 
 
 /**
+ * Generates and outputs an HTML `<img>` tag with the specified image file name, width, and height.
+ *
+ * @param pszImageFN The file name of the image to be included in the `<img>` tag.
+ * @param width The width of the image as it should appear in the HTML.
+ * @param height The height of the image as it should appear in the HTML.
  */
 void cgihtml::imgsrc(const char *pszImageFN,int width,int height)
 {
