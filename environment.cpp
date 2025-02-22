@@ -63,7 +63,7 @@ environment::environment() {
 	 * and save the result in the shared segment.
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szUser)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szUser");
+		//m_pSysLog->loginfo("environment::environment: Extracting szUser");
 		extract_username();
 	}
 
@@ -78,7 +78,7 @@ environment::environment() {
 	 * save it in the shared segment.
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szIface)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szIface");
+		//m_pSysLog->loginfo("environment::environment: Extracting szIface");
 		get_interface(false);
 	}
 
@@ -86,7 +86,7 @@ environment::environment() {
 	 * Determine the hostname of the system on which this software is running.
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szHostname)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szHostname");
+		//m_pSysLog->loginfo("environment::environment: Extracting szHostname");
 		set_hostname(false);
 	}
 
@@ -96,9 +96,9 @@ environment::environment() {
      ***********************************************************************/
 	if ( 0 == strcmp("http://",gpSh->m_pShMemng->szProtocol)  ||
 		 0 == strcmp("https://",gpSh->m_pShMemng->szProtocol) ) {
-		m_pSysLog->loginfo("environment::environment: valid szProtocol already set");
+		//m_pSysLog->loginfo("environment::environment: valid szProtocol already set");
 	} else {
-		m_pSysLog->loginfo("environment::environment: Extracting szProtocol");
+		//m_pSysLog->loginfo("environment::environment: Extracting szProtocol");
 		set_protocol(false);
 	}
 
@@ -114,7 +114,7 @@ environment::environment() {
 	 * debug information should be generated.
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szIP)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szIP");
+		//m_pSysLog->loginfo("environment::environment: Extracting szIP");
 		get_ip(false);
 	}
 
@@ -123,7 +123,7 @@ environment::environment() {
 	 * and save in the shared segment.
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szPublicIP)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szPublicIP");
+		//m_pSysLog->loginfo("environment::environment: Extracting szPublicIP");
 		set_public_ip();
 	}
 
@@ -132,7 +132,7 @@ environment::environment() {
 	 * for instance: "http://172.20.10.4/cgi-bin/"
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szCgiRoot)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szCgiRoot");
+		//m_pSysLog->loginfo("environment::environment: Extracting szCgiRoot");
 		set_cgi_root(false);
 	}
 
@@ -141,7 +141,7 @@ environment::environment() {
 	 * for instance: "http://172.20.10.4/~doug/fw/images/"
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szImgRoot)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szImgRoot");
+		//m_pSysLog->loginfo("environment::environment: Extracting szImgRoot");
 		set_img_root(false);
 	}
 
@@ -150,7 +150,7 @@ environment::environment() {
 	 * for instance: "http://172.20.10.4/~doug/fw/styles/"
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szStylesRoot)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szStylesRoot");
+		//m_pSysLog->loginfo("environment::environment: Extracting szStylesRoot");
 		set_styles_root(false);
 	}
 
@@ -159,7 +159,7 @@ environment::environment() {
 	 * for instance: "/home/monk/public_html/fw/styles/"
 	 ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szStylesFileRoot)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szStylesFileRoot");
+		//m_pSysLog->loginfo("environment::environment: Extracting szStylesFileRoot");
 		set_styles_file_root(false);
 	}
 
@@ -168,7 +168,7 @@ environment::environment() {
 	 * for instance: "/home/devo/Documents/Fw_Notes/"
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szJournalRoot)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szJournalRoot");
+		//m_pSysLog->loginfo("environment::environment: Extracting szJournalRoot");
 		set_journal_root(false);
 	}
 
@@ -176,7 +176,7 @@ environment::environment() {
      * Create the base path for temp files
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szTmpRoot)) {
-		m_pSysLog->loginfo("environment::environment: Extracting szTmpRoot");
+		//m_pSysLog->loginfo("environment::environment: Extracting szTmpRoot");
 		set_tmp_root(false);
 	}
 
@@ -267,23 +267,30 @@ char * environment::get_public_ip()
 }
 
 /**
- * @brief Extracts the username from an email address.
+ * @brief Extracts the username from source code filename.
  *
- * This function takes an email address as input and returns the username
- * portion of the email, which is the substring preceding the '@' character.
+ * This function returns the username portion of this file's
+ * filename.
  *
- * @param email A string containing the email address from which the username
- * will be extracted.
- * @return A string containing the extracted username. If the '@' character
- * is not found in the input, an empty string may be returned, or the input
- * may be returned unchanged, depending on implementation.
+ * @return A string containing the extracted username.
  */
 std::string environment::extract_username() {
-    std::string ssTemp = __FILE__;
-    ssTemp = ssTemp.substr(6,ssTemp.length());
-    int offset = ssTemp.find('/');
-    ssTemp = ssTemp.substr(0,offset);
-    strcpy(gpSh->m_pShMemng->szUser,ssTemp.c_str());
+
+	std::string ssTemp = __FILE__;
+	// /home/doug/public_html/fw/extract.cpp
+	// 012345^
+
+	ssTemp = ssTemp.substr(6,ssTemp.length());
+	// doug/public_html/fw/extract.cpp
+
+	int offset = ssTemp.find('/');
+	// doug/public_html/fw/extract.cpp
+	// 0123^	<-- offset of /
+
+	ssTemp = ssTemp.substr(0,offset);
+	// doug     <-- username substring
+
+	strcpy(gpSh->m_pShMemng->szUser,ssTemp.c_str());
     return ssTemp;
 }
 
@@ -412,19 +419,7 @@ std::string environment::get_hostname(bool bDebug)
 /**
  * Sets the hostname of the system or device.
  *
- * This function updates the system's hostname to the value specified
- * in the parameter. The hostname is used to identify the system in
- * a network.
- *
- * @param hostname A string representing the new hostname to be set.
- *                 This value must comply with the rules for valid
- *                 hostnames and must not exceed the maximum length
- *                 allowed by the system.
- *
- * @return Returns a boolean indicating the success or failure of
- *         setting the hostname. True indicates success, while
- *         false indicates failure, which may occur if the operation
- *         is not permitted or if the hostname is invalid.
+ * This function updates the system's hostname in the shared region.
  */
 void environment::set_hostname(bool bDebug)
 {
@@ -437,7 +432,7 @@ void environment::set_hostname(bool bDebug)
 
 
 /**
- * Retrieves the root directory path for image storage or access.
+ * This is a standard getter for the image root.
  *
  * This function returns the root directory used for accessing,
  * storing, or retrieving image files. The path returned by this
@@ -453,14 +448,10 @@ std::string environment::get_img_root(bool bDebug)
 }
 
 /**
- * Sets the root directory for image storage or retrieval.
+ * Determines the root directory for image storage or retrieval
+ * and updates the shared region string.
  *
- * This function updates the path to the specified directory
- * that will serve as the base location for image assets.
- * The provided path must be a valid directory.
- *
- * @param path A string representing the file system path
- *             to the new image root directory.
+ * @param bDebug A boolean controlling debug output.
  */
 void environment::set_img_root(bool bDebug)
 {
@@ -616,10 +607,8 @@ void environment::set_tmp_root(bool bDebug)
  * @throws IllegalArgumentException if the input type is invalid or unsupported.
  */
 std::string environment::get_interface(bool bDebug) {
-	here;
 	std::string ssUser = gpSh->m_pShMemng->szUser;
 	gpXinetd->trigger(VPA_NETSTAT_PORT);
-	here;
 
 	char szNetstatStdoutFQFS[128];
 	strcpy(szNetstatStdoutFQFS,
@@ -629,69 +618,19 @@ std::string environment::get_interface(bool bDebug) {
 
 	gpSysLog->loginfo(szNetstatStdoutFQFS);
 	sleep(2);
-	here;
 	gpSysLog->loginfo(szNetstatStdoutFQFS);
-		// FILE *fd = fopen(szNetstatStdoutFQFS, "r");
-		// char szTemp[BUFSIZ];
-		// sprintf(szTemp, "fd is %p", fd);
-		// gpSysLog->loginfo(szTemp);
-		//
-		//
-		// //assert(nsfd != nullptr);
-		// here;
 
 	char szBuffer[BUFSIZ];
-
 	std::ifstream ifs(szNetstatStdoutFQFS);
-	here;
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
-	ifs >> szBuffer;
-	gpSysLog->loginfo(szBuffer);
+	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
+	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
+	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
+	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
+	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
+	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
+	ifs >> szBuffer;	ifs >> szBuffer;
 
-
-	//  fgets(szBuffer, sizeof(szBuffer), fd);
-    // fgets(szBuffer, sizeof(szBuffer), fd);
-    // fgets(szBuffer, sizeof(szBuffer), fd);
-    //strncpy(m_szIface, &szBuffer[73], IFNAMSIZ);
 	strncpy(m_szIface, szBuffer, IFNAMSIZ);
-    //m_szIface[strlen(m_szIface) - 1] = 0;
     strncpy(gpSh->m_pShMemng->szIface, m_szIface, IFNAMSIZ);
     std::string ssRetVal = m_szIface;
     return ssRetVal;
@@ -722,10 +661,6 @@ std::string environment::get_ip(bool bDebug)
 					  + "/public_html/fw/scripts/inetd-ip-redirect.sh",
 		std::ios::out);
 
-	char szTemp[BUFSIZ];
-	sprintf(szTemp, "szIface is %s",gpSh->m_pShMemng->szIface);
-	gpSysLog->loginfo(szTemp);
-
 	ofs << "#!/bin/bash" << std::endl;
 	ofs << "###############################################################"
 		   "##############################" << std::endl;
@@ -745,13 +680,11 @@ std::string environment::get_ip(bool bDebug)
 					+ "/public_html/fw/scripts/inetd-ip-redirect.sh").c_str());
 	gpXinetd->trigger(VPA_IP_PORT);
 	sleep(1);
-	here;
 	// Open the read for input
 	FILE *ipfd = fopen(("/home/"
 								+ ssUser
 								+ "/public_html/fw/tmp/ip.stdout").c_str(),
 								"r");
-	here;
 	// define a buffer to hold our interface
 	// name with a postpended colon.
 	char szIfaceColon[BUFSIZ];
@@ -767,7 +700,6 @@ std::string environment::get_ip(bool bDebug)
 
 	// read a line from the file into a zero terminated string
 	fgets(szBuffer, sizeof(szBuffer), ipfd);
-	here;
 	gpSysLog->loginfo(szBuffer);
 	// convcert the zero terminated string to a standard string
 	std::string ssBuffer = szBuffer;
@@ -801,78 +733,15 @@ std::string environment::get_ip(bool bDebug)
         m_szIP[destindex++] = szBuffer[index++];
     }
 
-	// // If it happens to be Doug's workstation, convert the IP
-	// // number to a fully qualified DNS name.
- //    if (0 == strcmp("192.168.4.17", m_szIP)) {
- //        strncpy(m_szIP, "daphne.goodall.com", DNS_FQDN_SIZE_MAX);
- //    }
-	// write the zero terminated IP number to the shared
     strncpy(gpSh->m_pShMemng->szIP, m_szIP, DNS_FQDN_SIZE_MAX);
 
 	// convert the zero terminated IP to std::string
     std::string ssRetVal = gpSh->m_pShMemng->szIP;
-	here;
 	gpSysLog->loginfo(m_szIP);
 	// return the std::string  version of the IP number
     return ssRetVal;
 }
 
-// /**
-//  * @brief Retrieves the protocol from a given network request or URL.
-//  *
-//  * This function is designed to extract and return the protocol used
-//  * in a specific network request or URL, such as "http", "https", "ftp", etc.
-//  *
-//  * @param url A string representing the URL or network request from which
-//  *            the protocol will be determined.
-//  * @return A string containing the protocol if it is successfully extracted,
-//  *         or an empty string if the extraction fails or the protocol is not present.
-//  */
-// std::string environment::get_protocol(bool bDebug)
-// {
-//   std::string ssRetVal;
-//
-//   // try https://
-//   std::string ssCommand;
-//   std::string ssCurlStdoutFQFS = "/tmp/curl.stdout";
-//   std::string ssCurlStderrFQFS = "/tmp/curl.stderr";
-//   ssCommand = "curl ";
-//   ssCommand.append("https://");
-//   ssCommand.append(gpSh->m_pShMemng->szHostname);
-//   ssCommand.append(" > ");
-//   ssCommand.append(ssCurlStdoutFQFS);
-//   ssCommand.append(" 2> ");
-//   ssCommand.append(ssCurlStderrFQFS);
-//   system(ssCommand.c_str());
-//   std::ifstream ifs(ssCurlStdoutFQFS);
-//   std::string ssInbuf;
-//   ifs >> ssInbuf;
-//   if(ssInbuf.empty()) {
-//     ssCommand = "curl ";
-//     ssCommand.append("http://");
-//     ssCommand.append(gpSh->m_pShMemng->szHostname);
-//     ssCommand.append(" > ");
-//     ssCommand.append(ssCurlStdoutFQFS);
-//     ssCommand.append(" 2> ");
-//     ssCommand.append(ssCurlStderrFQFS);
-//     system(ssCommand.c_str());
-//     std::ifstream ifs(ssCurlStdoutFQFS);
-//     std::string ssInbuf;
-//     ifs >> ssInbuf;
-//     if(ssInbuf.empty()) {
-//       ;
-//     } else {
-//       if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
-//         ssRetVal = "http://";
-//       }
-//     }
-//   } else {
-//     if(0 == strcmp("<!DOCTYPE",ssInbuf.c_str())) {
-//       ssRetVal = "https://";
-//     }
-//   }
-//   return ssRetVal;
-// }
 
 /**
  * @brief Logs and outputs an error message, including file and line details.
@@ -893,12 +762,23 @@ void local_process_error(const char *pszErrMsg,int iLineNumber )
 }
 
 /**
+ * @brief Determines and sets the appropriate protocol (HTTP or HTTPS) for
+ *			the environment.
  *
+ * This method attempts to configure either HTTPS or HTTP as the
+ * communication protocol based on the availability of their
+ * respective descriptors (e.g., files or output streams).
+ * It utilizes temporary files and checks their sizes to determine
+ * if each protocol is operational and sets the protocol accordingly.
+ * If neither protocol can be set, the method terminates execution
+ * with an error.
+ *
+ * @param bDebug Indicates whether debug mode is enabled, which could
+ * influence internal operations.
  */
 void environment::set_protocol(bool bDebug) {
 	gpXinetd->trigger(VPA_HTTPS_PORT);
 	sleep(1);
-	here;
 
 	std::string ssHttpsFQFS = gpOS->genTempFQFS("https.stdout",false);
 	FILE * fpHttps = fopen(ssHttpsFQFS.c_str(), "r");
@@ -926,10 +806,8 @@ void environment::set_protocol(bool bDebug) {
 	if (0l != l_fSize) {
 		strcpy(gpSh->m_pShMemng->szProtocol,"https://");
 	} else {
-		here;
 		gpXinetd->trigger(VPA_HTTP_PORT);
 		sleep(1);
-		here;
 
 		std::string ssHttpsFQFS = gpOS->genTempFQFS("http.stdout",false);
 		FILE * fpHttp = fopen(ssHttpsFQFS.c_str(), "r");

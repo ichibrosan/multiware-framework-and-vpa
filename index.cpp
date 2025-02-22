@@ -27,7 +27,6 @@
  */
 int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
-    pMwFw->sl_loginfo(__PRETTY_FUNCTION__);
 
   /*
    * Note: 2025/01/25 12:04 dwg - The schema constructor calls genSchemaFQFS

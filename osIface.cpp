@@ -101,7 +101,6 @@ osIface::osIface() {
 std::vector<std::string> osIface::allfilesindir(std::string osPath)
 {
     std::vector<std::string> allFiles;
-    here;
     for (const auto &
          osFile :
          std::filesystem::directory_iterator(osPath)) {
@@ -730,7 +729,6 @@ std::string osIface::genCgiCBDUrl(const char * pszCgiName,bool bDebug)
 
 
 std::string osIface::genTempFQFS(std::string ssFilename, bool bDebug) {
-    here;
 
     if(bDebug) {
         std::cout << __FUNCTION__ << " called" << std::endl;

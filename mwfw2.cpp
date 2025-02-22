@@ -39,28 +39,20 @@ xinetdctl		* gpXinetd;
 mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 {
 	gpSysLog = new CSysLog();
-	here;
 
 	m_bCGI = false;
 	char * ptr = getenv("SERVER_PORT");
 	if(nullptr != ptr) {
 		m_bCGI = true;
 	}
-	here;
 	if(isCGI()) {
-		std::cout << "content-type:\ttext/html\n\n" << std::endl;
+		std::cout << "Content-type:\ttext/html\n\n" << std::endl;
 	}
-	here;
-	gpSysLog->loginfo(__PRETTY_FUNCTION__);
 	gpXinetd = new xinetdctl();
-	here;
 	gpSh = new shared();
-	here;
     gpEnv = new environment();
-	here;
     gpLog = new CLog(__FILE__,__FUNCTION__);
     gpOS = new osIface();
-	here;
     gpCgi = new Cgicc();
     gpCgiBind = new cgibind();
 }

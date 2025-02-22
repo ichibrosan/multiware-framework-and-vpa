@@ -55,9 +55,9 @@ void schema::preprocess_row_data(
 {
     // 2025/02/06 18:26 dwg - for code verification purposes
     char szTemp[256];
-    sprintf(szTemp,"svvsPassedValues.size() is %ld",
-        svvsPassedValues.size());
-    m_pSysLog->loginfo(szTemp);
+    // sprintf(szTemp,"svvsPassedValues.size() is %ld",
+    //     svvsPassedValues.size());
+    // m_pSysLog->loginfo(szTemp);
     int iMaxCols = atoi(gpCsv->m_parsed_data
         [ROW_META_DATA][COL_META_DATA_COLUMNS].c_str());
 
@@ -113,7 +113,6 @@ void schema::preprocess_row_data(
 void schema::process_schema_data(std::vector<std::vector<std::string>>
                                  svvsPassedValues)
 {
-    here;
     gpLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
     CLog log(__FILE__,__FUNCTION__);
     log.write("instantiated");
@@ -250,7 +249,6 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
                     gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_PATH].c_str(),
                     gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_CLASS].c_str()
                     );
-                here;
             }
 
             // if type is date
@@ -629,7 +627,6 @@ void schema::gen_from_schema(int iHandle,
                        gpCsv->m_parsed_data[iRow][iCol].c_str())) {
             //iCol = COL_META_COLUMNS;
             // Process Schema Data
-            here;
             process_schema_data(svvsPassedValues);
 
         } else {

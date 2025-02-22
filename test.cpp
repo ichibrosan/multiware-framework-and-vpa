@@ -39,11 +39,11 @@ std::string test_names[NUM_TESTS] = { "Test-1", "Test-2", "Test-2.1",
  */
 test::test(bool bDebug, bool bCGI) {
     m_pSysLog = new CSysLog();
-    if(bDebug) {
-        m_pSysLog->loginfo("test::test(true) called");
-    } else {
-        m_pSysLog->loginfo("test::test(false) called");
-    }
+    // if(bDebug) {
+    //     m_pSysLog->loginfo("test::test(true) called");
+    // } else {
+    //     m_pSysLog->loginfo("test::test(false) called");
+    // }
     m_bDebug = false;
 
     gpSh->m_pShMemng->tests_processed_bits = 0;
@@ -590,11 +590,9 @@ bool test::test2_1(bool bDebug)
  * @param bCGI If true, the method assumes CGI functionality is enabled and returns true.
  *             If false, the function tests CGI execution by validating the output of a predefined script.
  * @return Returns true if CGI functionality is verified successfully, false otherwise.
+ * TODO: fix the path, s/b fw/tmp, not /tmp
  */
 bool test::test3(bool bDebug, bool bCGI) {
-    m_pSysLog->loginfo("test::test3() called, "
-                        "verify apache can execute CGI scripts");
-
     if (bCGI) {
 	    return true;
     }
@@ -630,8 +628,6 @@ bool test::test3(bool bDebug, bool bCGI) {
  *         identifier is not found.
  */
 bool test::test5(const char *pszFile, const char *pszFunction, bool bDebug) {
-    m_pSysLog->loginfo("test::test5() called, verify genLogFQFS");
-
     strncpy(m_szLogFQFS,
             gpOS->genLogFQFS(__FILE__, __FUNCTION__, false),
             sizeof(m_szLogFQFS));
@@ -656,10 +652,8 @@ bool test::test5(const char *pszFile, const char *pszFunction, bool bDebug) {
         // check for the unique uuid in the log entry
         if (0 == strcmp("51cbd444-ceaf-11ef-9da5-97e0560975f4",
                         inbuf.c_str())) {
-            m_pSysLog->loginfo("test5 returning true");
             return true;
         } else {
-            m_pSysLog->loginfo("test5 returning false");
             return false;
         }
     } else {
