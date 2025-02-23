@@ -5,7 +5,7 @@
 
 #include "mwfw2.h"
 #include "stylist.h"
-
+#include "webcolors.h"
 /**
  * @brief Provides a CSS style definition for a default button.
  *
@@ -208,8 +208,8 @@ char sz_table[] = {
 char sz_body[] = {
 "    body\n"
 "    {\n"
-"        color: #000000;\n"
-"        background: #d7e0ab;\n"
+"        color: #%06X;\n"
+"        background: #%06X;\n"
 "    }\n"
 };
 
@@ -320,7 +320,7 @@ stylist::stylist() {
     fprintf(fp,"%s\n",journal_reset());
     fprintf(fp,"%s\n",journal_textarea());
     fprintf(fp,"%s\n",table());
-    fprintf(fp,"%s\n",body());
+    fprintf(fp,"%s\n",body(magenta,lightgreen));
     fprintf(fp,"%s\n",tr());
     fprintf(fp,"%s\n",th());
     fprintf(fp,"%s\n",dot_dashboard());
@@ -453,8 +453,9 @@ const char * stylist::table() {
  * @return A constant character pointer to the string containing the
  * CSS representation of the body element's style.
  */
-const char * stylist::body() {
-    sprintf(szReturn,"%s",sz_body);
+const char * stylist::body(svgcolors_t color,
+                           svgcolors_t background) {
+    sprintf(szReturn,sz_body,color,background);
     return szReturn;
 }
 

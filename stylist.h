@@ -5,7 +5,7 @@
 
 #ifndef STYLIST_H
 #define STYLIST_H
-
+#include "webcolors.h"
 /**
  * @class stylist
  * @brief Provides CSS styling details for various web elements.
@@ -114,7 +114,7 @@ public:
   * @return A constant character pointer to the CSS styling string
   * for the body element.
   */
- const char * body();
+ const char * body(svgcolors_t color,svgcolors_t background);
 
  /**
   * Returns the style rules defined for the `tr` HTML element.

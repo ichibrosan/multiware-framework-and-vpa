@@ -507,6 +507,7 @@ add_executable( render.cgi
 		version.h
 		rpcbind.cpp
 		rpcbind.h
+		webcolors.h
 		#                cgicc.h
 #                shmemng.h
 #                shared.h
@@ -549,6 +550,7 @@ add_executable(xmlrpc_client
 		version.h
 		rpcbind.cpp
 		rpcbind.h
+		webcolors.h
 )
 link_directories(
         /opt/xmlrpc-c/src/cpp
@@ -613,6 +615,7 @@ target_link_libraries(xmlrpc_client
 add_executable( vpad
 		vpad.cpp
 		version.h
+		webcolors.h
 )
 link_directories(
 		/opt/xmlrpc-c/src/cpp
