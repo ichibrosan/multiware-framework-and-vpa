@@ -216,6 +216,10 @@ void dashboard::navbar(
         std::string ssCgiLogout = form_cgi("logout.cgi", handle);
         gpHtml->ahref(ssCgiLogout.c_str(), "btn_logout.png", 150, 38);
     }
+    if (buttons & PREFS) {
+        std::string ssCgiPrefs = form_cgi("prefs.cgi", handle);
+        gpHtml->ahref(ssCgiPrefs.c_str(), "btn_prefs.png", 150, 38);
+    }
 
     std::string ssSelfCgi = ssCgiName;
 

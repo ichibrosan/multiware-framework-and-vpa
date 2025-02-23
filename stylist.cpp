@@ -324,7 +324,7 @@ stylist::stylist() {
     fprintf(fp,"%s\n",tr(orange,violet));
     fprintf(fp,"%s\n",th(orange,linen));
     fprintf(fp,"%s\n",dot_dashboard(darkblue,lightblue));
-    fprintf(fp,"%s\n",td(darkgreen,palegreen));
+    fprintf(fp,"%s\n",td(black,linen));
 
     fclose(fp);
 }

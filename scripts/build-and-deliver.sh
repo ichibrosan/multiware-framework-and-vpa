@@ -17,3 +17,5 @@ cp -v libmwfw*.a ~/public_html/fw/cmake-build-debug/
 rm -f           ~/public_html/fw/cmake-build-debug/vpad
 cp -v vpad*      ~/public_html/fw/cmake-build-debug/
 cp -v xmlrpc*   ~/public_html/fw/cmake-build-debug/
+cp -v prefs*   ~/public_html/fw/cmake-build-debug/
+

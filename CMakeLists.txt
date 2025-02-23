@@ -652,6 +652,23 @@ target_link_libraries(vpad
 
 )
 
+add_executable( prefs.cgi
+		prefs.cpp
+)
+link_directories(
+		/opt/xmlrpc-c/src/cpp
+		/opt/xmlrpc-c/src
+		/opt/xmlrpc-c/lib/libutil++
+		/opt/xmlrpc-c/lib/expat/xmlparse
+		/opt/xmlrpc-c/lib/expat/xmltok
+		/opt/xmlrpc-c/lib/libutil
+)
+target_link_libraries(prefs.cgi
+		mwfw2
+		libcgicc.a
+		uuid.a            # uuid.so         use static library instead
+)
+
 
 ###############
 # end-of-file #

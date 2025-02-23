@@ -112,7 +112,7 @@ int main() {
   // gpDash = new dashboard(
   //   handle,JOURNAL | LOGOUT,__FILE__,ssUsername,ssPassword);
 
-  gpSchema->gen_from_schema(handle,JOURNAL | LOGOUT,__FILE__,ssUsername,ssPassword);
+  gpSchema->gen_from_schema(handle, PREFS |JOURNAL | LOGOUT,__FILE__,ssUsername,ssPassword);
 
   if(pMwFw->isCGI()) {
     std::string ssHttpReferrer = gpCgiBind->get_referrer();

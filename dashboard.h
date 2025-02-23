@@ -12,7 +12,8 @@ enum {
     JOURNAL = 1<<0,
     LOGOUT  = 1<<1,
     MENU    = 1<<2,
-    NUM_DASHBOARD_BUTTONS = 3
+	PREFS   = 1<<3,
+    NUM_DASHBOARD_BUTTONS = 4
 };
 
 /**
