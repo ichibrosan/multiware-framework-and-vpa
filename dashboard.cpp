@@ -94,9 +94,9 @@ dashboard::dashboard(
         gpOS->genImgPath(ssAvatar.c_str(),F_OK))) {
         bAvatarExists = true;
         gpHtml->open_table(4);
-        std::cout << "<tr><td>";
+        std::cout << "<tr><td class=\"dashboard\">";
         gpHtml->imgsrc(ssAvatar.c_str(), 110, 110);
-        std::cout << "</td><td>";
+        std::cout << "</td><td class=\"dashboard\">";
     }
 
     /*
