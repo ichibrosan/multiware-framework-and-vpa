@@ -99,7 +99,7 @@ char sz_journal_save[] = {
 "        grid-row-start: 2;\n"
 "        margin: auto;\n"
 "        text-decoration:  none;\n"
-"        color: #ffffff;\n"
+"        color: #%06X;\n"
 "        font-size: 24px;\n"
 "        font-family: Arial;\n"
 "        background:linear-gradient(#ffff00, #ff0000);\n"
@@ -193,8 +193,8 @@ char sz_journal_textarea[] = {
 char sz_table[] = {
 "   table\n"
 "   {\n"
-"       color: #000000;\n"
-"       background: #d7e0ab;\n"
+"       color: #%06X;\n"
+"       background: #%06X;\n"
 "   }\n"
 };
 
@@ -223,8 +223,8 @@ char sz_body[] = {
 char sz_tr[] = {
 "    tr\n"
 "    {\n"
-"        color: #000000;\n"
-"        background: #7060d0;\n"
+"        color: #%06X;\n"
+"        background: #%06X;\n"
 "    }\n"
 };
 
@@ -239,8 +239,8 @@ char sz_tr[] = {
 char sz_th[] = {
 "    th\n"
 "    {\n"
-"        color: #000000;\n"
-"        background: #405060;\n"
+"        color: #%06X;\n"
+"        background: #%06X;\n"
 "    }\n"
 };
 
@@ -259,8 +259,8 @@ char sz_th[] = {
 char sz_dot_dashboard[] = {
 "   .dashboard\n"
 "    {\n"
-"        color: #ffffff;\n"
-"        background: #cacaac;\n"
+"        color: #%06X;\n"
+"        background: #%06X;\n"
 "    }\n"
 };
 
@@ -274,8 +274,8 @@ char sz_dot_dashboard[] = {
 char sz_td[] = {
 "   td\n"
 "    {\n"
-"        color: #4040404;\n"
-"        background: #4050d0;\n"
+"        color: #%06X;\n"
+"        background: #%06X;\n"
 "    }\n"
 };
 
@@ -310,7 +310,7 @@ char szReturn[BUFSIZ];
  */
 stylist::stylist() {
     std::string ssCssFQFS =
-        "/home/devo/public_html/fw/styles/dynamic.css";
+        "/home/devo/public_html/fw/styles/doug.css";
     FILE * fp = fopen(ssCssFQFS.c_str(),"w");
     fprintf(fp,"%s\n",default_button());
     fprintf(fp,"%s\n",journal_container());
@@ -319,12 +319,12 @@ stylist::stylist() {
     fprintf(fp,"%s\n",journal_save());
     fprintf(fp,"%s\n",journal_reset());
     fprintf(fp,"%s\n",journal_textarea());
-    fprintf(fp,"%s\n",table());
+    fprintf(fp,"%s\n",table(papayawhip,slateblue));
     fprintf(fp,"%s\n",body(magenta,lightgreen));
-    fprintf(fp,"%s\n",tr());
-    fprintf(fp,"%s\n",th());
-    fprintf(fp,"%s\n",dot_dashboard());
-    fprintf(fp,"%s\n",td());
+    fprintf(fp,"%s\n",tr(orange,violet));
+    fprintf(fp,"%s\n",th(orange,linen));
+    fprintf(fp,"%s\n",dot_dashboard(darkblue,lightblue));
+    fprintf(fp,"%s\n",td(darkgreen,palegreen));
 
     fclose(fp);
 }
@@ -439,8 +439,8 @@ const char * stylist::journal_textarea() {
  * @return A pointer to a constant character array containing the CSS
  * style rules for the "table" element.
  */
-const char * stylist::table() {
-    sprintf(szReturn,"%s",sz_table);
+const char * stylist::table(svgcolors_t color,svgcolors_t background) {
+    sprintf(szReturn,sz_table,color,background);
     return szReturn;
 }
 
@@ -468,8 +468,8 @@ const char * stylist::body(svgcolors_t color,
  * @return A constant pointer to a character string containing the CSS
  *         definition for the "tr" element.
  */
-const char * stylist::tr() {
-    sprintf(szReturn,"%s",sz_tr);
+const char * stylist::tr(svgcolors_t color,svgcolors_t background) {
+    sprintf(szReturn,sz_tr,color,background);
     return szReturn;
 }
 
@@ -482,8 +482,8 @@ const char * stylist::tr() {
  * @return A pointer to a constant character string containing the
  * CSS properties and values for the styles applied to table header elements.
  */
-const char * stylist::th() {
-    sprintf(szReturn,"%s",sz_th);
+const char * stylist::th(svgcolors_t color,svgcolors_t background) {
+    sprintf(szReturn,sz_th,color,background);
     return szReturn;
 }
 
@@ -497,8 +497,8 @@ const char * stylist::th() {
  * @return A constant character pointer containing the CSS style
  * definition for the "dot_dashboard" element.
  */
-const char * stylist::dot_dashboard() {
-    sprintf(szReturn,"%s",sz_dot_dashboard);
+const char * stylist::dot_dashboard(svgcolors_t color,svgcolors_t background) {
+    sprintf(szReturn,sz_dot_dashboard,color,background);
     return szReturn;
 }
 
@@ -508,8 +508,8 @@ const char * stylist::dot_dashboard() {
  * @return A constant pointer to a character array containing the
  * CSS style rules for the `<td>` element.
  */
-const char * stylist::td() {
-    sprintf(szReturn,"%s",sz_td);
+const char * stylist::td(svgcolors_t color,svgcolors_t background) {
+    sprintf(szReturn,sz_td,color,background);
     return szReturn;
 }
 
