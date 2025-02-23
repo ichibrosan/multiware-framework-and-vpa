@@ -1,0 +1,41 @@
+Active,Version,Meta Columns,Data Columns,Schema,CgiName,Target,PageForm,Style,Description
+true,1,10,9,prefs.csv,prefs-action.cgi,_self,true,default_style,Copyright &copy; 2024-2025 Douglas Wade Goodall,default_style
+Active,PrePara,PostPara,ElementType,Parm1,Parm2,Parm3,Parm4,Parm5,Parm6
+true,no,yes,image,our-office.png,250,100
+true,yes,no,select,color,Choose foreground color,fgcolor,color
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,yes,no,select,color,Choose background color,bgcolor,color
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,yes,no,reset
