@@ -310,7 +310,7 @@ char szReturn[BUFSIZ];
  */
 stylist::stylist() {
     std::string ssCssFQFS =
-        "/home/devo/public_html/fw/styles/exp.css";
+        "/home/devo/public_html/fw/styles/dynamic.css";
     FILE * fp = fopen(ssCssFQFS.c_str(),"w");
     fprintf(fp,"%s\n",default_button());
     fprintf(fp,"%s\n",journal_container());
