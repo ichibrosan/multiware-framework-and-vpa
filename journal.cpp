@@ -35,5 +35,21 @@ int main() {
                              ssUsername,
                              ssPassword,
     journal_params);
+    if(pMwFw->isCGI()) {
+        std::string ssHttpReferrer = gpCgiBind->get_referrer();
+        std::string ssReferrerPath = gpCgiBind->get_referrer_path();
+        std::string ssReferrerFile = gpCgiBind->get_referrer_file();
+        //gpHtml->dump_referrer(ssHttpReferrer,ssReferrerPath,ssReferrerFile);
+        if (gpSh->m_pShMemng->bDisplaySchema) {
+            gpHtml->dump_schema();
+        }
+        if (gpSh->m_pShMemng->bDisplayEnvVars) {
+            gpHtml->dump_env_vars();
+        }
+        if (gpSh->m_pShMemng->bDisplayShmVars) {
+            gpHtml->dump_shm_vars();
+        }
+    }
+
     return EXIT_SUCCESS;
 }

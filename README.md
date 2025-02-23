@@ -2,6 +2,8 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-22 19:08 dwg - enable devo buttons in journal
+
 2025-02-22 17:30 mf - added support for body to the stylesheets, and fixed
 a bug in xmlrpc_client that would call to daphne when trying to reach
 the server.

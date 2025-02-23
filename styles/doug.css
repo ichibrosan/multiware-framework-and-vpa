@@ -112,7 +112,7 @@ Ruler:
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 5;
-    background: #dbffdb;
+    background: #d0e7ab;
     color: black;
     margin: 0;
     padding: 0;
@@ -125,20 +125,32 @@ Ruler:
     max-width: 100%;
 }
 
+table
+{
+    color: #000000;
+    background: #d7e0ab;
+}
+
 body
 {
-    color: #ffff00;
-    background: #ffffff;
+    color: #000000;
+    background: #d7e0ab;
 }
 
 tr
 {
-    color: #ffff00;
+    color: #000000;
     background: #ffffff;
 }
 
 th
 {
-    color: #ffff00;
+    color: #000000;
+    background: #ffffff;
+}
+
+td
+{
+    color: #4040404;
     background: #ffffff;
 }
