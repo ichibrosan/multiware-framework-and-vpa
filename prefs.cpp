@@ -13,37 +13,40 @@ using namespace std;
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
 
-const char * vpad_req_names[] = {
-    "VERSION",
-    "AUTH",
-    "PARMS",
-    "STATUS",
-    "TERM"
-};
 
-const char * vpad_type_names[] = {
-    "NONE",
-    "INT",
-    "STRING",
-    "FLOAT",
-    "BOOL"
-};
-
+/**
+ * @brief A class to manage user or application preferences.
+ *
+ * This class provides an interface for managing settings or configurations
+ * that can be customized according to user or application requirements.
+ */
 class preferences {
+    /**
+     * @class preferences
+     *
+     * @brief The preferences class is used to manage user or system configuration settings related to the application.
+     *
+     * This class provides an interface for storing, retrieving, and managing preferences
+     * that might be needed for customization, optimization, or functionality extension.
+     */
 public:
     preferences();
 };
 
-/**************************************************************************************
- * @brief Entry point of the prefs CGI script.
+/**
+ * The main function serves as the entry point of the application. It initializes
+ * various resources, processes input variables from a CGI context, and handles
+ * different tasks such as logging, schema generation, and environment variable
+ * display based on provided configurations.
  *
+ * @param argc The number of command-line arguments passed to the application.
+ * @param argv An array of null-terminated strings representing the command-line
+ * arguments, where the first element is the program name.
  *
- * @param argc The number of command-line arguments passed to the program.
- * @param argv An array of character pointers listing all command-line
- *              arguments.
- * @return Returns `EXIT_SUCCESS` (0) upon successful execution or an error
- * code in case of failure.
- **************************************************************************************/
+ * @return An integer value which indicates the exit status of the application.
+ * Typically, a return value of 0 indicates successful execution, and non-zero
+ * values indicate errors or exceptions.
+ */
 int
 main(int argc,char ** argv) {
     auto * pMwfw = new mwfw2(__FILE__,__FUNCTION__);
