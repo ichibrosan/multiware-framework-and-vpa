@@ -8,7 +8,7 @@
 #include "mwfw2.h"
 #include "vpadDefs.h"
 using namespace std;
-
+#include "stylist.h"
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
@@ -179,6 +179,8 @@ main(int argc,char ** argv) {
     printf("vpad Copyright (c) 2025 "
             "Douglas Wade Goodall. "
             "All Rights Reserved.\n");
+
+    stylist * pStylist = new stylist();
 
     gpSh->m_pShMemng->vpad_parent_pid = getpid();
     pid_t pid = fork();

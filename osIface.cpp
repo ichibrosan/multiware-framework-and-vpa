@@ -727,6 +727,63 @@ std::string osIface::genCgiCBDUrl(const char * pszCgiName,bool bDebug)
     return ssUrl;
 }
 
+/************************************************************************
+ * Function: osIface::genStyleFQFS
+ *
+ * Description:
+ * This function generates a fully qualified file system path to a CSS file
+ * located in the "styles" directory relative to the current source file.
+ * It takes the name of the CSS file and a debug flag as inputs. When the
+ * debug flag is set to true, the function outputs intermediate values and
+ * actions to the standard output for debugging purposes.
+ *
+ * Parameters:
+ * - pszCssName: A pointer to a null-terminated string representing the
+ *               name of the CSS file.
+ * - bDebug: A boolean flag indicating whether debugging information should
+ *           be printed during the execution of the function.
+ *
+ * Returns:
+ * A std::string containing the fully qualified path to the CSS file.
+ *
+ * Remarks:
+ * - The function uses the `__FILE__` macro to determine the absolute path
+ *   of the current source file and derives the "styles" directory path
+ *   based on that location.
+ * - If the debug flag is true, step-by-step details of the path building
+ *   process are printed, including the initial path, the modified path
+ *   without the filename, the appended "styles" directory, and the final
+ *   CSS file path.
+ ************************************************************************/
+std::string genStyleFQFS(const char *pszCssName,bool bDebug) {
+
+    if(bDebug) {
+        std::cout << __FUNCTION__ << " called" << std::endl;
+    }
+
+    std::string ssPath = __FILE__;
+    if (bDebug) {
+        std::cout << "ssPath is " << ssPath << std::endl;
+    }
+
+    ssPath = std::filesystem::path(ssPath).remove_filename();
+    if (bDebug) {
+        std::cout << "ssPath is " << ssPath << std::endl;
+    }
+
+    ssPath.append("styles/");
+    if (bDebug) {
+        std::cout << "ssPath is " << ssPath << std::endl;
+    }
+
+    ssPath.append(pszCssName);
+    if (bDebug) {
+        std::cout << "ssPath is " << ssPath << std::endl;
+    }
+
+    return ssPath;
+
+}
 
 std::string osIface::genTempFQFS(std::string ssFilename, bool bDebug) {
 

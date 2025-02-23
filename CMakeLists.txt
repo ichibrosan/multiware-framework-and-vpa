@@ -67,7 +67,8 @@ add_library( mwfw2 STATIC
 		version.h
 		rpcbind.cpp
 		rpcbind.h
-
+		stylist.cpp
+		stylist.h
 )
 
 ##############################################################################
@@ -78,6 +79,8 @@ add_executable( diagnose.cgi
 		version.h
 		rpcbind.cpp
 		rpcbind.h
+#		stylist.cpp
+#		stylist.h
 		#        		CLog.hpp
         #                osIface.h
         #                shared.h

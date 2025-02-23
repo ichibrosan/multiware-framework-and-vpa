@@ -107,6 +107,24 @@ public:
 	std::string file2filenamesansext(const char *pszFile);
 
 	/**
+	 * @fn std::string genStyleFQFS(const char *pszCssName, bool bDebug)
+	 * @brief Generates a fully qualified file system path for a given CSS style.
+	 *
+	 * This function constructs a fully qualified file system path based on the provided CSS style name.
+	 * It can optionally include debugging information if the related parameter is enabled.
+	 *
+	 * @param pszCssName A pointer to a null-terminated C-string representing the name of the CSS style.
+	 *                   This parameter must not be null.
+	 * @param bDebug A boolean value that determines whether debugging information should be included.
+	 *               If true, the function will generate debug-specific output.
+	 *
+	 * @return A std::string containing the fully qualified file system path for the specified CSS style.
+	 *
+	 * @note The caller must handle the validity and memory of the pszCssName parameter.
+	 */
+	std::string genStyleFQFS(const char *pszCssName,bool bDebug);
+
+	/**
 	 * Generates a Fully Qualified File System (FQFS) path for a given journal.
 	 *
 	 * This method constructs a valid, fully qualified file system path
