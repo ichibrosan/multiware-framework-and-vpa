@@ -51,7 +51,28 @@ main(int argc,char ** argv) {
     // printf("prefs Copyright (c) 2025 "
     //         "Douglas Wade Goodall. "
     //         "All Rights Reserved.\n");
+
+    int handle = atoi(gpCgiBind->get_form_variable("handle").c_str());
+    std::string ssUsername = gpCgiBind->get_form_variable("username");
+    std::string ssPassword = gpCgiBind->get_form_variable("pwname");
     gpSchema = new schema("prefs.csv");
-    gpSchema->gen_from_schema(0);
+    gpSchema->gen_from_schema(handle,
+        JOURNAL | LOGOUT,__FILE__,ssUsername,ssPassword);
+
+    if(pMwfw->isCGI()) {
+        std::string ssHttpReferrer = gpCgiBind->get_referrer();
+        std::string ssReferrerPath = gpCgiBind->get_referrer_path();
+        std::string ssReferrerFile = gpCgiBind->get_referrer_file();
+        //gpHtml->dump_referrer(ssHttpReferrer,ssReferrerPath,ssReferrerFile);
+        if (gpSh->m_pShMemng->bDisplaySchema) {
+            gpHtml->dump_schema();
+        }
+        if (gpSh->m_pShMemng->bDisplayEnvVars) {
+            gpHtml->dump_env_vars();
+        }
+        if (gpSh->m_pShMemng->bDisplayShmVars) {
+            gpHtml->dump_shm_vars();
+        }
+    }
 
 }
