@@ -131,6 +131,7 @@ table
     background: #d7e0ab;
 }
 
+
 body
 {
     color: #000000;
@@ -140,17 +141,17 @@ body
 tr
 {
     color: #000000;
-    background: #ffffff;
+    background: #7060d0;
 }
 
 th
 {
     color: #000000;
-    background: #ffffff;
+    background: #405060;
 }
 
 td
 {
     color: #4040404;
-    background: #ffffff;
+    background: #4050d0;
 }
