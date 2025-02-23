@@ -2,6 +2,10 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-23 12:28 dwg - added prefs.csv and prefs.cpp(cgi) as well as 
+Preferences button in dashboard to go to form with foreground and background 
+select elements. Still to be added is the prefs-action.cgi.
+
 2025-02-23 03:08 dwg - add stylist.cpp/h to dynamically create style sheets
 
 2025-02-22 19:08 dwg - enable devo buttons in journal
