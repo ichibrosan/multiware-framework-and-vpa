@@ -127,6 +127,18 @@ Ruler:
 
 body
 {
-    color: #000000;
+    color: #ffff00;
+    background: #ffffff;
+}
+
+tr
+{
+    color: #ffff00;
+    background: #ffffff;
+}
+
+th
+{
+    color: #ffff00;
     background: #ffffff;
 }
