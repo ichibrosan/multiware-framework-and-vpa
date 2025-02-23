@@ -20,7 +20,7 @@ std::string ssValueRetcode;
 
 std::string vpa_call(vpa_request_t& req) {
     try {
-        string const serverUrl("http://daphne:5164/RPC2");
+        string const serverUrl("http://127.0.0.1:5164/RPC2");
         string const methodName("diagnose");
         xmlrpc_c::clientSimple myClient;
         xmlrpc_c::value result;

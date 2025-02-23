@@ -91,4 +91,3 @@ service vpa-ipcs
 	wait		= no
 	server		= /home/devo/public_html/fw/scripts/inetd-ipcs-redirect.sh
 }
-
