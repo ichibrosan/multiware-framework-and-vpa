@@ -423,6 +423,20 @@ void cgihtml::dump_shm_vars()
     std::cout << gpSh->m_pShMemng->iSignature;
     std::cout << "</td></tr>";
 
+    std::cout << "<tr><th>szRemoteHost</th><td>";
+    std::cout << gpSh->m_pShMemng->szRemoteHost;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>szRemoteAddr</th><td>";
+    std::cout << gpSh->m_pShMemng->szRemoteAddr;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>szRemoteAuth</th><td>";
+    std::cout << gpSh->m_pShMemng->szRemoteAuth;
+    std::cout << "</td></tr>";
+
+
+
     std::cout << "<tr><th>szHostName</th><td>";
     std::cout << gpSh->m_pShMemng->szHostname;
     std::cout << "</td></tr>";
@@ -504,6 +518,7 @@ void cgihtml::dump_shm_vars()
     std::cout << "</td></tr>";
 
     if(gpSh->m_pShMemng->vpad_running) {
+
 
         std::cout << "<tr><th>vpad_parent_pid</th><td>";
         std::cout << gpSh->m_pShMemng->vpad_parent_pid;

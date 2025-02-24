@@ -4,7 +4,9 @@
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
 /////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
+#include "config.h"
 #include "vpadDefs.h"
+#include "xinetdctl.h"
 
 // #include <cstdlib>
 // #include <string>
@@ -19,8 +21,19 @@ using namespace std;
 std::string ssValueRetcode;
 
 std::string vpa_call(vpa_request_t& req) {
+    char szPort[16];
+    sprintf(szPort,"%d",VPA_PORT);
+    std::string ssUrl;
+    ssUrl.append(gpSh->m_pShMemng->szProtocol);
+    ssUrl.append(DANTE_IP_ADDR);
+    ssUrl.append(":");
+    ssUrl.append(szPort);
+    ssUrl.append("/RPC2");
+
     try {
-        string const serverUrl("http://127.0.0.1:5164/RPC2");
+//      string const serverUrl("http://127.0.0.1:5164/RPC2");
+        string const serverUrl(ssUrl);
+
         string const methodName("diagnose");
         xmlrpc_c::clientSimple myClient;
         xmlrpc_c::value result;
@@ -66,16 +79,22 @@ main(int argc, char **) {
         exit(1);
     }
 
+    // Set these to the desired remote VPA system
+    strcpy(gpSh->m_pShMemng->szRemoteHost,"dante.goodall.com");
+    strcpy(gpSh->m_pShMemng->szRemoteAddr,DANTE_PUBLIC_IP_ADDR);
 
     vpa_request_t req;
-    strcpy(req.szRemoteHost,"127.0.0.1");
-    req.eReqFunc = VPAD_REQ_VERSION;
+    strcpy(req.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
+    req.eReqFunc = VPAD_REQ_AUTH;
     req.iParm2 = 0;
     req.eParm3Type = VPAD_TYPE_NONE;
     req.eParm4Type = VPAD_TYPE_NONE;
-    strcpy(req.szAuth,gpSh->m_pShMemng->szRpcUuid);
+//    strcpy(req.szAuth,gpSh->m_pShMemng->szRpcUuid);
+    strcpy(req.szAuth,VPA_RPC_PSK);
     std::string ssReturn = vpa_call(req);
-    std::cout << "Return value: " << ssReturn << std::endl;
+    strcpy(gpSh->m_pShMemng->szRemoteAuth,ssReturn.c_str());
+
+    std::cout << "Remote Auth is: " << ssReturn << std::endl;
 
     return 0;
 }

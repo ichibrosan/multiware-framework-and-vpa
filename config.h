@@ -24,6 +24,9 @@
 // Generated with: head -c 4096 /dev/urandom | sha256sum | cut -b1-32
 #define VPA_RPC_PSK    "348bcdbe62fead7028c8010490b27332"
 
+#define DANTE_IP_ADDR "192.168.4.194"
+#define DANTE_PUBLIC_IP_ADDR "12.74.98.86"
+
 #define here gpSysLog->herefunc(__FILE__,__FUNCTION__,__LINE__);
 
 class config {

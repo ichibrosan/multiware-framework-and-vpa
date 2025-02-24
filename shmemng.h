@@ -32,6 +32,10 @@ struct MFW_SHMEMNG_T {
     char szUser[UT_NAMESIZE];
     char szRpcUuid[UUID_SIZE];             // 37
 
+    char szRemoteHost[DNS_FQDN_SIZE_MAX];
+    char szRemoteAddr[IPV4_ADDR_SIZE_MAX];
+    char szRemoteAuth[UUID_SIZE];
+
     /*************************************************************************
      * creds is a vector of structures. it needs to be indexed using         *
      * the (int)handle returned by the password::lookup_username_password()  *
