@@ -12,6 +12,7 @@
  * to best practices.
  */
 
+#define VPA_VERSION_SIZE_MAX 32
 #define DNS_FQDN_SIZE_MAX  253
 #define HTML_TAG_NAME_SIZE_MAX 1024
 #define INET_PROT_NAME_MAX 32

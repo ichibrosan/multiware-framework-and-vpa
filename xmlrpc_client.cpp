@@ -83,18 +83,35 @@ main(int argc, char **) {
     strcpy(gpSh->m_pShMemng->szRemoteHost,"dante.goodall.com");
     strcpy(gpSh->m_pShMemng->szRemoteAddr,DANTE_PUBLIC_IP_ADDR);
 
-    vpa_request_t req;
-    strcpy(req.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
-    req.eReqFunc = VPAD_REQ_AUTH;
-    req.iParm2 = 0;
-    req.eParm3Type = VPAD_TYPE_NONE;
-    req.eParm4Type = VPAD_TYPE_NONE;
-//    strcpy(req.szAuth,gpSh->m_pShMemng->szRpcUuid);
-    strcpy(req.szAuth,VPA_RPC_PSK);
-    std::string ssReturn = vpa_call(req);
+    /**
+     * Call the remote system and request auth token using Private Shared Key
+     */
+    vpa_request_t reqAuth;
+    strcpy(reqAuth.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
+    reqAuth.eReqFunc = VPAD_REQ_AUTH;
+    reqAuth.iParm2 = 0;
+    reqAuth.eParm3Type = VPAD_TYPE_NONE;
+    reqAuth.eParm4Type = VPAD_TYPE_NONE;
+    strcpy(reqAuth.szAuth,VPA_RPC_PSK);
+    std::string ssReturn = vpa_call(reqAuth);
     strcpy(gpSh->m_pShMemng->szRemoteAuth,ssReturn.c_str());
+    std::cout << "Remote Auth Token is: " << ssReturn << std::endl;
 
-    std::cout << "Remote Auth is: " << ssReturn << std::endl;
+    /**
+     * Call the remote system and request version using auth token
+     */
+    vpa_request_t reqVer;
+    strcpy(reqVer.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
+    reqVer.eReqFunc = VPAD_REQ_VERSION;
+    reqVer.iParm2 = 0;
+    reqVer.eParm3Type = VPAD_TYPE_NONE;
+    reqVer.eParm4Type = VPAD_TYPE_NONE;
+    strcpy(reqVer.szAuth,gpSh->m_pShMemng->szRemoteAuth);
+    ssReturn = vpa_call(reqVer);
+    strcpy(gpSh->m_pShMemng->szRemoteVersion,ssReturn.c_str());
+    std::cout << "Remote Version is:    " << ssReturn << std::endl;
+
+
 
     return 0;
 }

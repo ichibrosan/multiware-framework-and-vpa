@@ -35,6 +35,7 @@ struct MFW_SHMEMNG_T {
     char szRemoteHost[DNS_FQDN_SIZE_MAX];
     char szRemoteAddr[IPV4_ADDR_SIZE_MAX];
     char szRemoteAuth[UUID_SIZE];
+    char szRemoteVersion[RVERSION_SIZE_MAX];
 
     /*************************************************************************
      * creds is a vector of structures. it needs to be indexed using         *

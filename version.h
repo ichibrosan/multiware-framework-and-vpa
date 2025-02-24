@@ -24,5 +24,5 @@
 #define RVERSION_STRING_IP     "47-143-222-184"
 #define RVERSION_STRING_MAC    "c8:7f:54:6a:6b:42"
 #define RVERSION_STRING_CPU    "x86_64"
-
+#define RVERSION_SIZE_MAX      (sizeof("255.255.255.255")+1)
 #endif //VERSION_H

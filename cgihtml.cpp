@@ -435,7 +435,9 @@ void cgihtml::dump_shm_vars()
     std::cout << gpSh->m_pShMemng->szRemoteAuth;
     std::cout << "</td></tr>";
 
-
+    std::cout << "<tr><th>szRemoteVersion</th><td>";
+    std::cout << gpSh->m_pShMemng->szRemoteVersion;
+    std::cout << "</td></tr>";
 
     std::cout << "<tr><th>szHostName</th><td>";
     std::cout << gpSh->m_pShMemng->szHostname;
