@@ -2,6 +2,9 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-02-24 04:34 dwg -
+Further work on the Developer's Manual
+
 2025-02-24 03:26 
 xmlrpc_client call to dante.goodall.com public ip for VPAD_REQ_AUTH 
 now working beautifully :-)

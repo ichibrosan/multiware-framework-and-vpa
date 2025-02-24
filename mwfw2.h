@@ -97,12 +97,14 @@ extern xinetdctl * gpXinetd;
 #include <xmlrpc-c/girerr.hpp>
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/client_simple.hpp>
+
 #ifndef gpRpcbind
 #include "rpcbind.h"
 extern rpcbind * gpRpcbind;
 #endif
 
 #include "config.h"
+#include "vpadDefs.h"
 
 /**
  * @class mwfw2

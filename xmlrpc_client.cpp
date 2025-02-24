@@ -1,26 +1,46 @@
 /////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/xmlrpc_client.cpp 2025-02-09 04:27    //
+// /home/devo/public_html/fw/xmlrpc_client.cpp 2025-02-24 03:56    //
 // Derived from xmlrpc-c/examples/cpp/xmlrpc_sample_add_client.cpp //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
 /////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
-#include "config.h"
-#include "vpadDefs.h"
-#include "xinetdctl.h"
-
-// #include <cstdlib>
-// #include <string>
-// #include <iostream>
 
 using namespace std;
 
-#include <xmlrpc-c/girerr.hpp>
-#include <xmlrpc-c/base.hpp>
-#include <xmlrpc-c/client_simple.hpp>
-
+/**
+ * @brief A global string variable used to store the return code
+ *        result from an XML-RPC call in the `vpa_call` function.
+ */
 std::string ssValueRetcode;
 
+/**
+ * Executes an XML-RPC call to a remote server with the provided request parameters.
+ *
+ * This function constructs the server URL dynamically based on predefined
+ * constants and configuration values, and then makes an XML-RPC call using
+ * the "diagnose" method. The function sends various request parameters and
+ * captures the result. If any exceptions occur during the process, they are
+ * caught and logged.
+ *
+ * @param req A reference to a `vpa_request_t` structure containing all the parameters
+ *            required by the remote method, including function type, parameter values,
+ *            types, and authentication data.
+ *
+ * @return A string representing the result of the XML-RPC call. If an error occurs,
+ *         the function logs the details.
+ *
+ * Exception Safety:
+ * - Handles and logs exceptions from the XML-RPC client library.
+ * - Logs unexpected exceptions to standard error.
+ *
+ * Notes:
+ * - `VPA_PORT` defines the port used to connect to the server.
+ * - Relies on predefined global variables and framework to construct the server URL
+ *   and manage communication.
+ */
 std::string vpa_call(vpa_request_t& req) {
+
+    // s/b like "http://127.0.0.1:5164/RPC2"
     char szPort[16];
     sprintf(szPort,"%d",VPA_PORT);
     std::string ssUrl;
@@ -31,9 +51,7 @@ std::string vpa_call(vpa_request_t& req) {
     ssUrl.append("/RPC2");
 
     try {
-//      string const serverUrl("http://127.0.0.1:5164/RPC2");
         string const serverUrl(ssUrl);
-
         string const methodName("diagnose");
         xmlrpc_c::clientSimple myClient;
         xmlrpc_c::value result;
@@ -41,13 +59,13 @@ std::string vpa_call(vpa_request_t& req) {
                         methodName,
                         "iiisiss",
                          &result,
-                         req.eReqFunc,
-                         req.iParm2,
-                         req.eParm3Type,req.szParm3,
-                         req.eParm4Type,req.szParm4,
-                         // req.szAuth s/b szRpcUuid or
-                         // VPA_RPC_PSK(for VPA_REQ_AUTH)
-                         req.szAuth);
+                         req.eReqFunc,      // integer (enum)
+                         req.iParm2,        // integer
+                         req.eParm3Type,    // integer (enum)
+                         req.szParm3,       // string
+                         req.eParm4Type,    // integer (enum)
+                         req.szParm4,       // string
+                         req.szAuth);       // string
 
         ssValueRetcode = xmlrpc_c::value_string(result);
         } catch (exception const& e) {
@@ -59,15 +77,18 @@ std::string vpa_call(vpa_request_t& req) {
 }
 
 /**
- * @brief Main entry point for the application. This program makes a client
- *        call to a remote server using XML-RPC to invoke a method and fetches
- *        its result.
+ * @brief The main function for executing the program.
  *
- * @param argc The count of command-line arguments passed to the program.
- * @param argv Array of command-line arguments. In this program, command-line
- * arguments are not used.
- * @return int Returns 0 on successful execution, and exits with 1 if there
- *             are command-line arguments or an error occurs.
+ * This function initializes the application, verifies that no command-line arguments are passed,
+ * and performs operations to interact with a remote VPA (Virtual Process Automation) system.
+ * It makes two remote procedure calls (RPCs):
+ *
+ * 1. Requests an authentication token using a private shared key.
+ * 2. Requests the remote system version using the acquired authentication token.
+ *
+ * @param argc The argument count.
+ * @param argv The argument vector.
+ * @return Returns 0 upon successful execution.
  */
 
 int
