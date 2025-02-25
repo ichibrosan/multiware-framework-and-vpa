@@ -12,6 +12,7 @@ shared			* gpSh;
 osIface			* gpOS;
 CLog			* gpLog;
 CSysLog			* gpSysLog;
+bool			  gbHere;
 cgibind			* gpCgiBind;
 cgihtml			* gpHtml;
 Cgicc			* gpCgi;
@@ -39,6 +40,7 @@ xinetdctl		* gpXinetd;
 mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 {
 	gpSysLog = new CSysLog();
+	gbHere = false;
 
 	m_bCGI = false;
 	char * ptr = getenv("SERVER_PORT");

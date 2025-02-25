@@ -14,6 +14,7 @@
 #ifndef gpSysLog
 #include "CSysLog.hpp"
 extern CSysLog * gpSysLog;
+extern bool gbHere;
 #endif
 
 #ifndef gpEnv

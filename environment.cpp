@@ -633,6 +633,11 @@ std::string environment::get_interface(bool bDebug) {
 	strncpy(m_szIface, szBuffer, IFNAMSIZ);
     strncpy(gpSh->m_pShMemng->szIface, m_szIface, IFNAMSIZ);
     std::string ssRetVal = m_szIface;
+
+	sprintf(szBuffer,"%s::%s#%d: szIface is %s",
+		__FILE__,__FUNCTION__,__LINE__,gpSh->m_pShMemng->szIface);
+
+
     return ssRetVal;
 }
 

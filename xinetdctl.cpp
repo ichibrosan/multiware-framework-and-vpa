@@ -36,7 +36,8 @@ xinetdctl::xinetdctl() {
  *       appropriate error code.
  */
 void xinetdctl::trigger(int iPort) {
-
+    gbHere = false;
+    here;
   #define USE_STREAM_SOCKET
 //#define USE_DGRAM_SOCKET
 
@@ -48,31 +49,35 @@ void xinetdctl::trigger(int iPort) {
     struct sockaddr_in server;      /* server address                      */
     int s;                          /* client socket                       */
     socklen_t server_address_length = sizeof(server);
+    here;
     hostnm = gethostbyname("localhost");
-
+    here;
     /*
      * Put the server information into the server structure.
      * The port must be put into network byte order.
      */
     server.sin_family = AF_INET;    /* Address Family: Internet           */
-
+    here;
     /*
      * Convert the port number from host to network byte order
      */
     server.sin_port = htons(iPort);
-
+    here;
     /*
      * Set the IP address of the target
      */
     server.sin_addr.s_addr = *((unsigned long *) hostnm->h_addr);
-
+    here;
     /*
      * Get a socket.
      */
     if ((s = socket(AF_INET,
                     SOCK_STREAM
                     , 0)) < 0) {
+        here;
         printf("%s", "socket error");
+        here;
+        gbHere = false;
         exit(3);
     }
 
@@ -80,7 +85,10 @@ void xinetdctl::trigger(int iPort) {
      * Connect to the server.
      */
     if (connect(s, (struct sockaddr *) &server, sizeof(server)) < 0) {
-        printf("%s", "connect error");
+        printf("%s::%s#%d %s",
+            __FILE__,__FUNCTION__,__LINE__,"connect error");
+        here;
+        gbHere = false;
         exit(4);
     }
 
@@ -88,18 +96,24 @@ void xinetdctl::trigger(int iPort) {
      * Send a message to the destination to wake up xinetd
      */
     char szBuffer[] = {"Wake up, sleepyhead!!"};
+    here;
     if (send(s, // socket descriptor
              szBuffer, // output buffer
              sizeof(szBuffer), // size of output buffer
              0) < 0) // flags (none required)
     {
+        here;
         printf("%s", "Send error");
+        here;
+        gbHere = false;
         exit(5);
     }
 
     /*
      * Close the session and socket
      */
+    here;
     close(s);
+    here;
 }
 

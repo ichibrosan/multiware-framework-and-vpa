@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "CSysLog.hpp"
-
+extern bool gbHere;
 /**
  * Constructor for the CSysLog class.
  *
@@ -37,8 +37,10 @@ CSysLog::CSysLog()
  */
 void CSysLog::herefunc(const char *pszFile,const char *pszFunction,int iLine) {
     char szTemp[1024];
-    sprintf(szTemp,"%s::%s()#%d",pszFile,pszFunction,iLine);
-    loginfo(szTemp);
+    if (gbHere) {
+        sprintf(szTemp,"%s::%s()#%d",pszFile,pszFunction,iLine);
+        loginfo(szTemp);
+    }
 }
 
 
