@@ -20,11 +20,14 @@
 
 #define OCULAR_FQDN   "ocularstation.goodall.com"
 #define OCULAR_INADDR "47-143-222-184.vng01.snbb.ca.frontiernet.net"
+#define OCULAR_ADDR   "47.143.222.184"
 
 // Generated with: head -c 4096 /dev/urandom | sha256sum | cut -b1-32
 #define VPA_RPC_PSK    "348bcdbe62fead7028c8010490b27332"
 
-#define DANTE_IP_ADDR "192.168.4.194"
+#define DANTE_LOCAL_IP_ADDR "192.168.4.194"
+#define DANTE_PUBLIC_IP_ADDR "12.74.98.86"
+
 #define DANTE_PUBLIC_IP_ADDR "12.74.98.86"
 
 #define here gpSysLog->herefunc(__FILE__,__FUNCTION__,__LINE__);

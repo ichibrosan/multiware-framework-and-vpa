@@ -13,6 +13,22 @@ using namespace std;
  */
 std::string ssValueRetcode;
 
+const char * vpad_req_names[] = {
+    "VERSION",
+    "AUTH",
+    "PARMS",
+    "STATUS",
+    "TERM"
+};
+
+const char * vpad_type_names[] = {
+    "NONE",
+    "INT",
+    "STRING",
+    "FLOAT",
+    "BOOL"
+};
+
 /**
  * Executes an XML-RPC call to a remote server with the provided request parameters.
  *
@@ -40,12 +56,27 @@ std::string ssValueRetcode;
  */
 std::string vpa_call(vpa_request_t& req) {
 
+    char szLog[256];
+    sprintf(szLog,
+    "RPC: Addr= %s P1=%s,P2=%d,P3Type=%s,"
+          "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
+            req.szRemoteHost,
+            vpad_req_names[req.eReqFunc],
+            req.iParm2,
+            vpad_type_names[req.eParm3Type],
+            req.szParm3,
+            vpad_type_names[req.eParm4Type],
+            req.szParm4,
+            req.szAuth);
+    gpSysLog->loginfo(szLog);
+
     // s/b like "http://127.0.0.1:5164/RPC2"
     char szPort[16];
     sprintf(szPort,"%d",VPA_PORT);
     std::string ssUrl;
     ssUrl.append(gpSh->m_pShMemng->szProtocol);
-    ssUrl.append(DANTE_IP_ADDR);
+    //ssUrl.append(OCULAR_ADDR);
+    ssUrl.append(gpSh->m_pShMemng->szRemoteAddr);
     ssUrl.append(":");
     ssUrl.append(szPort);
     ssUrl.append("/RPC2");
@@ -100,9 +131,14 @@ main(int argc, char **) {
         exit(1);
     }
 
-    // Set these to the desired remote VPA system
-    strcpy(gpSh->m_pShMemng->szRemoteHost,"dante.goodall.com");
-    strcpy(gpSh->m_pShMemng->szRemoteAddr,DANTE_PUBLIC_IP_ADDR);
+// Set these to the desired remote VPA system
+//  strcpy(gpSh->m_pShMemng->szRemoteHost,"dante.goodall.com");
+//  strcpy(gpSh->m_pShMemng->szRemoteAddr,"47.143.222.184");  // occularstation public ip
+//  strcpy(gpSh->m_pShMemng->szRemoteAddr,"172.20.10.3");     // iphone2 usb tether public ip
+//  strcpy(gpSh->m_pShMemng->szRemoteAddr,"108.147.196.79");
+//  strcpy(gpSh->m_pShMemng->szRemoteAddr,"12.74.98.86");
+    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.194");
+
 
     /**
      * Call the remote system and request auth token using Private Shared Key
