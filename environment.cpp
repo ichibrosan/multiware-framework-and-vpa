@@ -310,10 +310,14 @@ bool environment::check_curl_installed() {
 
     m_bCurlPresent = false;
 
-    int retval = system(
-        "curl --version >/tmp/curl_version.txt 2>/tmp/curl.err");
+	std::string ssCurlStdout = gpOS->genTempFQFS("curl.stdout",false);
+	std::string ssCurlStderr = gpOS->genTempFQFS("curl.stderr",false);
+	sprintf(szTemp, "curl --version >%s 2>%s",
+		ssCurlStdout.c_str(), ssCurlStderr.c_str());
+
+    int retval = system(szTemp);
     if (0 == retval) {
-        FILE *fd = fopen("/tmp/curl_version.txt", "r");
+        FILE *fd = fopen(ssCurlStdout.c_str(), "r");
         char szCurlVersion[BUFSIZ];
         fgets(szCurlVersion, sizeof(szCurlVersion), fd);
         strcpy(m_szCurlVersion, szCurlVersion);

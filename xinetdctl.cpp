@@ -36,6 +36,11 @@ xinetdctl::xinetdctl() {
  *       appropriate error code.
  */
 void xinetdctl::trigger(int iPort) {
+    char szInfo[1024];
+    sprintf(szInfo,"xinetdctl::trigger(%d)",iPort);
+    gpSysLog->loginfo(szInfo);
+
+
     gbHere = false;
     here;
   #define USE_STREAM_SOCKET

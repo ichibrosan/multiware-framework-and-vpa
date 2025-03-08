@@ -3,14 +3,14 @@
 # This service activates an xmlrpc responder to handle an incoming RPC request
 service vpa
 {
-	port		= 8080
+	port		= 5164
 	disable     	= no
 	id		= vpa
 	socket_type	= stream
 	protocol	= tcp
 	user		= 1000
 	wait		= no
-	server		= /opt/xmlrpc-c/examples/cpp/xmlrpc_inetd_server
+	server		= /opt/fw/xmlrpc-c/examples/cpp/xmlrpc_inetd_server
 }
 
 # This service runs a script that starts the virtual protocol adapter daemon

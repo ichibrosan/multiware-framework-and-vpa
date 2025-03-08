@@ -59,7 +59,7 @@ std::string vpa_call(vpa_request_t& req) {
     char szLog[256];
     sprintf(szLog,
     "RPC: Addr= %s P1=%s,P2=%d,P3Type=%s,"
-          "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
+          "Client P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
             req.szRemoteHost,
             vpad_req_names[req.eReqFunc],
             req.iParm2,
@@ -131,14 +131,8 @@ main(int argc, char **) {
         exit(1);
     }
 
-// Set these to the desired remote VPA system
-//  strcpy(gpSh->m_pShMemng->szRemoteHost,"dante.goodall.com");
-//  strcpy(gpSh->m_pShMemng->szRemoteAddr,"47.143.222.184");  // occularstation public ip
-//  strcpy(gpSh->m_pShMemng->szRemoteAddr,"172.20.10.3");     // iphone2 usb tether public ip
-//  strcpy(gpSh->m_pShMemng->szRemoteAddr,"108.147.196.79");
-//  strcpy(gpSh->m_pShMemng->szRemoteAddr,"12.74.98.86");
-    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.194");
-
+    // Set this to the desired remote VPA system
+    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.223");
 
     /**
      * Call the remote system and request auth token using Private Shared Key
