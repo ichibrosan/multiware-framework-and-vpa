@@ -17,6 +17,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_COMPILER clang++)
 include_directories(
         "."
+		"include"
         "/usr/local/include"
         "/opt/xmlrpc-c/include"
 )
@@ -47,50 +48,33 @@ include_directories(
 # pointers, thereby cleaning up the cluttered application include situation.
 
 add_library( mwfw2 STATIC
-        mwfw2.cpp			mwfw2.h
-        shared.cpp          shared.h
-        cgibind.cpp		    cgibind.h
-        cgihtml.cpp		    cgihtml.h
-        CLog.cpp			CLog.hpp
-        CSysLog.cpp		    CSysLog.hpp
-        dashboard.cpp		dashboard.h
-        environment.cpp	    environment.h
-        osIface.cpp		    osIface.h
-        password.cpp		password.h
-        readCsv.cpp		    readCsv.h
-        schema.cpp			schema.h
-        schemaCompiler.cpp	schemaCompiler.h
-        test.cpp			test.h
-        config.cpp          config.h
-		xinetdctl.cpp		xinetdctl.h			# 2025-02-17 04:22 dwg -
-        cgicc.h
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		stylist.cpp
-		stylist.h
+        mwfw2.cpp			include/mwfw2.h
+        shared.cpp          include/shared.h
+        cgibind.cpp		    include/cgibind.h
+        cgihtml.cpp		    include/cgihtml.h
+        CLog.cpp			include/CLog.hpp
+        CSysLog.cpp		    include/CSysLog.hpp
+        dashboard.cpp		include/dashboard.h
+        environment.cpp	    include/environment.h
+        osIface.cpp		    include/osIface.h
+        password.cpp		include/password.h
+        readCsv.cpp		    include/readCsv.h
+        schema.cpp			include/schema.h
+        schemaCompiler.cpp	include/schemaCompiler.h
+        test.cpp			include/test.h
+        config.cpp          include/config.h
+		xinetdctl.cpp		include/xinetdctl.h
+		include/cgicc.h		include/version.h
+		rpcbind.cpp			include/rpcbind.h
+		stylist.cpp			include/stylist.h
 )
 
 ##############################################################################
 # diagnose.cgi is intended to be a diagnostic invoked by the Diagnose button #
 ##############################################################################
 add_executable( diagnose.cgi
-        diagnose.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-#		stylist.cpp
-#		stylist.h
-		#        		CLog.hpp
-        #                osIface.h
-        #                shared.h
-        #		        readCsv.h
-        #		        cgihtml.h
-        #                schema.h
-        #              	environment.h
-        #                cgibind.h
-        #				CSysLog.hpp
-        #                config.h
+        diagnose.cpp		include/version.h
+		rpcbind.cpp			include/rpcbind.h
 )
 link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(diagnose.cgi
@@ -98,7 +82,6 @@ target_link_libraries(diagnose.cgi
         libcgicc.a        # libcgicc.so     use static library instead
         uuid.a            # uuid.so         use static library instead
 		libcurl.so.4.8.0
-
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -117,25 +100,13 @@ target_link_libraries(diagnose.cgi
 # fw is the command line version of the test framework #
 ########################################################
 add_executable( fw
-                main.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#        		shared.h
-#				shmemng.h
-#                test.h
-#                CLog.hpp
-#                osIface.h
-#		        environment.h
-#                schemaCompiler.h
-#		        CSysLog.hpp
-#                config.h
+                main.cpp		include/version.h
+		rpcbind.cpp				include/rpcbind.h
 )
 target_link_libraries(fw
 		mwfw2
 		libcgicc.a        # libcgicc.so         use static library instead
         uuid.a            # uuid.so         use static library instead
-
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -155,10 +126,8 @@ target_link_libraries(fw
 #############################################
 add_executable( fw-test4.cgi
                 fw-test4.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#                config.h
+		include/version.h
+		rpcbind.cpp		include/rpcbind.h
 )
 target_link_libraries(fw-test4.cgi
 		mwfw2
@@ -183,26 +152,8 @@ target_link_libraries(fw-test4.cgi
 # index.cgi is the starting CGI script for the framework #
 ##########################################################
 add_executable( index.cgi
-                index.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#                index.h
-#                cgicc.h
-#                mwfw.h
-#                CLog.hpp
-#                osIface.h
-#                shared.h
-#                readCsv.h
-#                cgihtml.h
-#                schema.h
-#                environment.h
-#                schemaCompiler.h
-#				cgibind.h
-#               	dashboard.h
-#	            test.h
-#				CSysLog.hpp
-#                config.h
+                index.cpp		include/version.h
+		rpcbind.cpp				include/rpcbind.h
 )
 target_link_libraries(index.cgi
 		mwfw2
@@ -226,23 +177,8 @@ target_link_libraries(index.cgi
 # journal.cgi is called as a result of pressing the Journal button #
 ####################################################################
 add_executable( journal.cgi
-        journal.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#                cgicc.h
-        #		        shmemng.h
-        #                shared.h
-        #                CLog.hpp
-        #                osIface.h
-        #                environment.h
-        #                cgibind.h
-        #                schema.h
-        #                cgihtml.h
-        #                readCsv.h
-        #                dashboard.h
-        #		        CSysLog.hpp
-        #                config.h
+        journal.cpp		include/version.h
+		rpcbind.cpp		include/rpcbind.h
 )
 target_link_libraries(journal.cgi
         mwfw2
@@ -267,24 +203,8 @@ target_link_libraries(journal.cgi
 # login.cgi is invoked by the index.csv as the processing cgi for the form #
 ############################################################################
 add_executable( login.cgi
-                login.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#                login.h
-#                cgicc.h
-#                CLog.hpp
-#		        osIface.h
-#                shared.h
-#                readCsv.h
-#                cgihtml.h
-#                schema.h
-#               	environment.h
-#                cgibind.h
-#        		password.h
-#				dashboard.h
-#	            CSysLog.hpp
-#                config.h
+                login.cpp		include/version.h
+		rpcbind.cpp				include/rpcbind.h
 )
 link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(login.cgi
@@ -310,21 +230,8 @@ target_link_libraries(login.cgi
 #  logout.cgi is called as the result of pressing the Logout button #
 #####################################################################
 add_executable( logout.cgi
-        logout.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#                cgicc.h
-        #                CLog.hpp
-        #                osIface.h
-        #                shared.h
-        #                readCsv.h
-        #                cgihtml.h
-        #                schema.h
-        #                environment.h
-        #                cgibind.h
-        #	            CSysLog.hpp
-        #                config.h
+        logout.cpp		include/version.h
+		rpcbind.cpp		include/rpcbind.h
 )
 link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(logout.cgi
@@ -349,18 +256,8 @@ target_link_libraries(logout.cgi
 # look is a command line program that displays shared segment values #
 ######################################################################
 add_executable( look
-        look.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#               cgicc.h
-        #   			shmemng.h
-        #               shared.h
-        #               CLog.hpp
-        #               osIface.h
-        #       	    environment.h
-        #	        	CSysLog.hpp
-        #               config.h
+        look.cpp		include/version.h
+		rpcbind.cpp		include/rpcbind.h
 )
 target_link_libraries(look
         mwfw2
@@ -384,23 +281,8 @@ target_link_libraries(look
 # menu.cgi is intended to be a top level navigation point #
 ###########################################################
 add_executable( menu.cgi
-                menu.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#                menu.h
-#                cgicc.h
-#                CLog.hpp
-#                osIface.h
-#                shared.h
-#                readCsv.h
-#                cgihtml.h
-#                schema.h
-#                environment.h
-#                cgibind.h
-#                dashboard.h
-#		        CSysLog.hpp
-#                config.h
+                menu.cpp		include/version.h
+		rpcbind.cpp				include/rpcbind.h
 )
 target_link_libraries(menu.cgi
 		mwfw2
@@ -425,24 +307,8 @@ target_link_libraries(menu.cgi
 # in the journal entry page                                         #
 #####################################################################
 add_executable( notesave.cgi
-                notesave.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#                notesave.h
-#                cgicc.h
-#                shared.h
-#                CLog.hpp
-#                osIface.h
-#              	environment.h
-#                cgibind.h
-#                dashboard.cpp
-#                cgihtml.h
-#    			readCsv.h
-#	            schema.h
-#	    		CSysLog.hpp
-#                schema.h
-#                config.h
+                notesave.cpp	include/version.h
+		rpcbind.cpp				include/rpcbind.h
 )
 target_link_libraries(notesave.cgi
 		mwfw2
@@ -463,22 +329,8 @@ target_link_libraries(notesave.cgi
 
 #####################################################################
 add_executable( noteload.cgi
-		        noteload.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		#                noteload.h
-#                cgicc.h
-#		        shared.h
-#		        CLog.hpp
-#		        osIface.h
-#		        environment.h
-#		        cgibind.h
-#		        cgihtml.h
-#		        readCsv.h
-#		        schema.h
-#		        CSysLog.hpp
-#                config.h
+		        noteload.cpp		include/version.h
+		rpcbind.cpp					include/rpcbind.h
 )
 target_link_libraries(noteload.cgi
 		mwfw2
@@ -503,24 +355,9 @@ target_link_libraries(noteload.cgi
 # render.cgi is a generic CGI script used to load specified schemas #
 #####################################################################
 add_executable( render.cgi
-                render.cpp
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		webcolors.h
-		#                cgicc.h
-#                shmemng.h
-#                shared.h
-#                CLog.hpp
-#                osIface.h
-#                environment.h
-#                cgibind.h
-#                schema.h
-#                cgihtml.h
-#                readCsv.h
-#                dashboard.h
-#		        CSysLog.hpp
-#                config.h
+                render.cpp		include/version.h
+		rpcbind.cpp				include/rpcbind.h
+								include/webcolors.h
 )
 target_link_libraries(render.cgi
 		mwfw2
@@ -544,14 +381,13 @@ target_link_libraries(render.cgi
 
 add_executable(xmlrpc_client
         xmlrpc_client.cpp
-        config.cpp	        config.h
-        CSysLog.cpp			CSysLog.hpp
-        shared.cpp          shared.h
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		webcolors.h
-		diagnoseMethod.h
+        config.cpp	        include/config.h
+        CSysLog.cpp			include/CSysLog.hpp
+        shared.cpp          include/shared.h
+							include/version.h
+		rpcbind.cpp			include/rpcbind.h
+							include/webcolors.h
+							include/diagnoseMethod.h
 )
 link_directories(
         /opt/xmlrpc-c/src/cpp
@@ -581,13 +417,12 @@ target_link_libraries(xmlrpc_client
 
 add_executable(xmlrpc_inetd_server
         xmlrpc_inetd_server.cpp
-        config.cpp	        config.h
-        CSysLog.cpp			CSysLog.hpp
-        shared.cpp          shared.h
-		version.h
-		rpcbind.cpp
-		rpcbind.h
-		diagnoseMethod.h
+        config.cpp	        include/config.h
+        CSysLog.cpp			include/CSysLog.hpp
+        shared.cpp          include/shared.h
+							include/version.h
+		rpcbind.cpp			include/rpcbind.h
+							include/diagnoseMethod.h
 )
 target_link_directories(xmlrpc_inetd_server PRIVATE
 		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp
@@ -623,13 +458,12 @@ target_link_libraries(xmlrpc_inetd_server
 		libcurl.so.4.8.0
 )
 
-######################################################################
-# xmlrpc_sample_add_server is a command line program #
-######################################################################
+##################################
+# vpad is a command line program #
+##################################
 add_executable( vpad
-		vpad.cpp
-		version.h
-		webcolors.h
+		vpad.cpp		include/version.h
+						include/webcolors.h
 )
 link_directories(
 		/opt/xmlrpc-c/src/cpp

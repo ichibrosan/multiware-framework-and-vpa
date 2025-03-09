@@ -375,10 +375,12 @@ char * environment::get_cgi_root_as_sz(bool bDebug)
  */
 void environment::set_cgi_root(bool bDebug)
 {
-  std::string ssCgiRoot = gpSh->m_pShMemng->szProtocol;
-  ssCgiRoot.append(gpSh->m_pShMemng->szIP);
-  ssCgiRoot.append("/cgi-bin/");
-  strcpy(gpSh->m_pShMemng->szCgiRoot,ssCgiRoot.c_str());
+	std::string ssCgiRoot = gpSh->m_pShMemng->szProtocol;
+	ssCgiRoot.append(gpSh->m_pShMemng->szIP);
+	ssCgiRoot.append("/~");
+	ssCgiRoot.append(gpSh->m_pShMemng->szUser);
+	ssCgiRoot.append("/fw/cgi-bin/");
+	strcpy(gpSh->m_pShMemng->szCgiRoot,ssCgiRoot.c_str());
 }
 
 /**

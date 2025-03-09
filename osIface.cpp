@@ -683,7 +683,8 @@ std::string osIface::genCgiCBDPath(const char *pszCgiName, bool bDebug) {
         std::cout << "ssPath is " << ssPath << std::endl;
     }
 
-    ssPath.append("cmake-build-debug/");
+    //ssPath.append("cmake-build-debug/");
+    ssPath.append("cgi-bin/");
     if (bDebug) {
         std::cout << "ssPath is " << ssPath << std::endl;
     }
@@ -720,9 +721,9 @@ std::string osIface::genCgiCBDUrl(const char * pszCgiName,bool bDebug)
     std::string ssUrl = gpSh->m_pShMemng->szProtocol;
     ssUrl.append(gpSh->m_pShMemng->szIP);
     ssUrl.append("/~");
-    //ssUrl.append(getenv("LOGNAME"));
     ssUrl.append(gpSh->m_pShMemng->szUser);
-    ssUrl.append("/fw/cmake-build-debug/");
+    //ssUrl.append("/fw/cmake-build-debug/");
+    ssUrl.append("/fw/cgi-bin/");
     ssUrl.append(pszCgiName);
     return ssUrl;
 }

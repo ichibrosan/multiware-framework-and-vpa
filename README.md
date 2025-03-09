@@ -2,6 +2,17 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-03-09 03:48 dwg - There is just one concerning problem with our current
+code base. That is the function in the environment.cpp that determines the IP
+number of the host computer.
+
+When Linux starts up, the xinitd start up because the
+"systemctl enable xinetd" command has been issued. If the
+/home/devo/public_html/fw/scripts/ip-redirect.sh command has not been properly
+written or does not exist, the xinetd will not enable the "vpa". 
+Manual restarting of the xinetd is required to get past the chicken/egg 
+problem.
+
 2025-03-08 18:15 dwg - We are now at v1.2.0.0 with a combined version having
 fw & vpa in the multiware-framework repository. We are now using the 
 xmlrpc_inetd_server method where the VPA responder gets invoked when a request
