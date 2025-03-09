@@ -6,10 +6,7 @@
 #define WIN32_LEAN_AND_MEAN  /* required by xmlrpc-c/server_abyss.hpp */
 
 #include "mwfw2.h"
-#include "vpadDefs.h"
 using namespace std;
-#include "stylist.h"
-#include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
 
@@ -67,14 +64,14 @@ const char * vpad_type_names[] = {
 int
 main(int argc,char ** argv) {
     auto * pMwfw = new mwfw2(__FILE__,__FUNCTION__);
+    pMwfw->sl_loginfo(__PRETTY_FUNCTION__);
+
     char szTimestamp[128];
     char szSine[128];
 
     printf("vpad Copyright (c) 2025 "
             "Douglas Wade Goodall. "
             "All Rights Reserved.\n");
-
-    stylist * pStylist = new stylist();
 
     gpSh->m_pShMemng->vpad_parent_pid = getpid();
     pid_t pid = fork();
