@@ -9,14 +9,10 @@
 #ifndef _WIN32
 #  include <unistd.h>
 #endif
-#include <cassert>
 
 #include "mwfw2.h"
-#include "vpadDefs.h"
 
 using namespace std;
-#include "stylist.h"
-#include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
 
@@ -82,17 +78,18 @@ const char * vpad_type_names[] = {
  *      `xmlrpc_c::serverAbyss`.
  * - Listens for incoming HTTP POST requests from the standard input (STDIN).
  *
- * @param[in] const Integer placeholder, not utilized in this implementation.
- * @param[in] const char** Array of constant character pointers, not utilized
+ * @param[in] argc Integer placeholder, not utilized in this implementation.
+ * @param[in] argv char** Array of constant character pointers, not utilized
  *      in this implementation.
  *
  * @return Returns 0 on successful execution of the server.
  ***************************************************************************/
 int
-main(int           const, 
-     const char ** const) {
+main(int           argc,
+     char ** argv) {
 
-    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+    auto * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+    pMwFw->sl_loginfo(__PRETTY_FUNCTION__);
 
     xmlrpc_c::registry myRegistry;
 
