@@ -551,6 +551,7 @@ add_executable(xmlrpc_client
 		rpcbind.cpp
 		rpcbind.h
 		webcolors.h
+		diagnoseMethod.h
 )
 link_directories(
         /opt/xmlrpc-c/src/cpp
@@ -586,6 +587,7 @@ add_executable(xmlrpc_inetd_server
 		version.h
 		rpcbind.cpp
 		rpcbind.h
+		diagnoseMethod.h
 )
 target_link_directories(xmlrpc_inetd_server PRIVATE
 		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp
