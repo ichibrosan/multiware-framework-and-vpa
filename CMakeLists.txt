@@ -578,36 +578,48 @@ target_link_libraries(xmlrpc_client
 )
 
 
-#add_executable(xmlrpc_inetd_server
-#        xmlrpc_inetd_server.cpp
-#        config.cpp	        config.h
-#        CSysLog.cpp			CSysLog.hpp
-#        shared.cpp          shared.h
-#		version.h
-#		rpcbind.cpp
-#		rpcbind.h
-#)
-#target_link_libraries(xmlrpc_inetd_server
-#		mwfw2
-#        libxmlrpc_server_abyss++.a
-#        libxmlrpc_server++.a
-#        libxmlrpc_abyss++.a
-#        libxmlrpc_server_abyss.a
-#        libxmlrpc_server.a
-#        libxmlrpc_abyss.a
-#        libxmlrpc++.a
-#        libxmlrpc_util++.a
-#        libxmlrpc.a
-#        libxmlrpc_xmlparse.a
-#        libxmlrpc_xmltok.a
-#        libxmlrpc_util.a
-#        ssl
-#        crypto
-#        pthread
-#        uuid.a            # uuid.so         use static library instead
-#		libcgicc.a
-#		libcurl.so.4.8.0
-#)
+add_executable(xmlrpc_inetd_server
+        xmlrpc_inetd_server.cpp
+        config.cpp	        config.h
+        CSysLog.cpp			CSysLog.hpp
+        shared.cpp          shared.h
+		version.h
+		rpcbind.cpp
+		rpcbind.h
+)
+target_link_directories(xmlrpc_inetd_server PRIVATE
+		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp
+		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/src
+		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/abyss++
+		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil++
+		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmlparse
+		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmltok
+		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil
+)
+
+target_link_libraries(xmlrpc_inetd_server
+		mwfw2
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc_server_abyss++.a
+        libxmlrpc_server++.a
+        libxmlrpc_abyss++.a
+        libxmlrpc_server_abyss.a
+        libxmlrpc_server.a
+        libxmlrpc_abyss.a
+        libxmlrpc++.a
+        libxmlrpc_util++.a
+        libxmlrpc.a
+        libxmlrpc_xmlparse.a
+        libxmlrpc_xmltok.a
+        libxmlrpc_util.a
+        ssl
+        crypto
+        pthread
+        uuid.a            # uuid.so         use static library instead
+		libcgicc.a
+		libcurl.so.4.8.0
+)
 
 ######################################################################
 # xmlrpc_sample_add_server is a command line program #

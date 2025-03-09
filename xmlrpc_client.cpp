@@ -58,8 +58,8 @@ std::string vpa_call(vpa_request_t& req) {
 
     char szLog[256];
     sprintf(szLog,
-    "RPC: Addr= %s P1=%s,P2=%d,P3Type=%s,"
-          "Client P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
+    "Client RPC: Addr= %s P1=%s,P2=%d,P3Type=%s,"
+          " P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
             req.szRemoteHost,
             vpad_req_names[req.eReqFunc],
             req.iParm2,
@@ -99,11 +99,13 @@ std::string vpa_call(vpa_request_t& req) {
                          req.szAuth);       // string
 
         ssValueRetcode = xmlrpc_c::value_string(result);
-        } catch (exception const& e) {
+
+    } catch (exception const& e) {
         cerr << "Client threw error: " << e.what() << endl;
     } catch (...) {
         cerr << "Client threw unexpected error." << endl;
     }
+
     return ssValueRetcode;
 }
 
@@ -132,7 +134,9 @@ main(int argc, char **) {
     }
 
     // Set this to the desired remote VPA system
-    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.223");
+
+    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.17");
+//    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.223");
 
     /**
      * Call the remote system and request auth token using Private Shared Key

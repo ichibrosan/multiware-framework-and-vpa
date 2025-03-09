@@ -28,31 +28,13 @@
 #  include <unistd.h>
 #endif
 #include <cassert>
-
 #include "mwfw2.h"
 #include "vpadDefs.h"
-
 using namespace std;
-#include "stylist.h"
+
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
-
-const char * vpad_req_names[] = {
-    "VERSION",
-    "AUTH",
-    "PARMS",
-    "STATUS",
-    "TERM"
-};
-
-const char * vpad_type_names[] = {
-    "NONE",
-    "INT",
-    "STRING",
-    "FLOAT",
-    "BOOL"
-};
 
 // class sampleAddMethod : public xmlrpc_c::method {
 // public:
@@ -141,7 +123,7 @@ public:
         char szPayload[FILENAME_MAX];
 
         sprintf(szPayload,
-            "Server RPC: P1=%s,P2=%d,P3Type=%s,"
+            "RPC: P1=%s,P2=%d,P3Type=%s,"
                   "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
             vpad_req_names[iParm1],iParm2,
             vpad_type_names[iParm3Type],ssParm3.c_str(),
@@ -188,13 +170,11 @@ int
 main(int           const, 
      const char ** const) {
 
-    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
-
     xmlrpc_c::registry myRegistry;
 
-    xmlrpc_c::methodPtr const diagnoseMethodP(new diagnoseMethod);
+    xmlrpc_c::methodPtr const sampleAddMethodP(new sampleAddMethod);
 
-    myRegistry.addMethod("diagnose", diagnoseMethodP);
+    myRegistry.addMethod("sample.add", sampleAddMethodP);
 
     xmlrpc_c::serverAbyss myAbyssServer(
          xmlrpc_c::serverAbyss::constrOpt()
