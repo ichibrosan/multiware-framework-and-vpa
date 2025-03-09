@@ -10,8 +10,7 @@ service vpa
 	protocol	= tcp
 	user		= 1000
 	wait		= no
-#	server		= /opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/examples/cpp/xmlrpc_inetd_server
-	server		= /home/devo/public_html/fw/cmake-build-debug/xmlrpc_inetd_server
+	server		= /home/devo/public_html/fw/bin/xmlrpc_inetd_server
 }
 
 # This service runs a script that starts the virtual protocol adapter daemon

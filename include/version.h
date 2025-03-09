@@ -9,9 +9,9 @@
 #define RMIN_VERSION          2
 #define RREV_VERSION           0
 #define RBUILD_VERSION         0
-#define RVERSION_STRING        "1.2.0.0"
-#define RVERSION_STRING_SHORT  "1.2.0"
-#define RVERSION_STRING_LONG   "1.2.0.0"
+#define RVERSION_STRING        "5.3.9.7"
+#define RVERSION_STRING_SHORT  "5.3.9"
+#define RVERSION_STRING_LONG   RVERSION_STRING
 #define RVERSION_STRING_DATE   __DATE__
 #define RVERSION_STRING_TIME   __TIME__
 #define RVERSION_STRING_BUILD  "e46122b"
