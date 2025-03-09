@@ -49,11 +49,11 @@ dashboard::dashboard(
     bool bAuthenticated = false;
     int iEffectiveButtons = 0;
 
-    int iBorder;
+    int iBorder = 2;
 
-    std::string ssFile;
-    std::string ssFilePath;
-    std::string ssCgiName;
+    std::string ssFile = pszFile;
+//    std::string ssFilePath;
+//    std::string ssCgiName;
 
     m_pCgiBind = new cgibind();
 
@@ -82,9 +82,9 @@ dashboard::dashboard(
     strcpy(m_szAuthLevel, gpSh->m_pShMemng->creds[handle].szAuthLevel);
     strcpy(m_szAuthUUID, gpSh->m_pShMemng->creds[handle].szAuthUUID);
 
-    ssFile = pszFile;
-    ssFilePath = std::filesystem::path(ssFile).remove_filename();
-    ssCgiName = ssFile.substr(ssFilePath.length(), ssFile.length());
+//    ssFile = pszFile;
+    std::string ssFilePath = std::filesystem::path(ssFile).remove_filename();
+    std::string ssCgiName = ssFile.substr(ssFilePath.length(), ssFile.length());
     ssCgiName = std::filesystem::path(ssCgiName).replace_extension(".cgi");
 
     std::string ssAvatar = m_szAuthUserName;
@@ -103,7 +103,7 @@ dashboard::dashboard(
      * Use the iBorder variable so we can avoid using a magic number in the
      * cout stream below/
      */
-    iBorder = 2;
+
     std::cout
             << "<table border=" << iBorder << ">" << std::endl
             << "<tr><h3><th>Goodall MultiWare Framework Dashboard</th></h3></tr>"
@@ -321,8 +321,7 @@ void dashboard::navbar(
  *****************************************************************************/
 std::string dashboard::form_cgi(const char *pszName, int handle) {
     char szHandle[128];
-    std::string ssBuffer;
-    ssBuffer = gpOS->genCgiCBDUrl(pszName, false);
+    std::string ssBuffer = gpOS->genCgiCBDUrl(pszName, false);
     ssBuffer.append("?handle=");
     sprintf(szHandle, "%d", handle);
     ssBuffer.append(szHandle);
@@ -443,12 +442,12 @@ void dashboard::start_vpad() {
 
     // The attempt to use the DGRAM  to start the vpad didn't work
 
-    unsigned short port;            /* port client will connect to         */
-    char buf[BUFSIZ];               /* data buffer for sending & receiving */
+//    unsigned short port;            /* port client will connect to         */
+//    char buf[BUFSIZ];               /* data buffer for sending & receiving */
     struct hostent *hostnm;         /* server host name information        */
     struct sockaddr_in server;      /* server address                      */
     int s;                          /* client socket                       */
-    socklen_t server_address_length = sizeof(server);
+//    socklen_t server_address_length = sizeof(server);
     hostnm = gethostbyname("localhost");
 
     /*
