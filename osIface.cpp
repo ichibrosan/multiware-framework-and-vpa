@@ -722,8 +722,7 @@ std::string osIface::genCgiCBDUrl(const char * pszCgiName,bool bDebug)
     ssUrl.append(gpSh->m_pShMemng->szIP);
     ssUrl.append("/~");
     ssUrl.append(gpSh->m_pShMemng->szUser);
-    //ssUrl.append("/fw/cmake-build-debug/");
-    ssUrl.append("/fw/cgi-bin/");
+    ssUrl.append("/fw/cmake-build-debug/");
     ssUrl.append(pszCgiName);
     return ssUrl;
 }
