@@ -1,9 +1,8 @@
 ////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/xmlrpc_inetd_server.cpp 2025-03-08 18:32 //
+// /home/devo/public_html/fw/xmlrpc_inetd_server.cpp 2025-03-08 19:26 //
 // Derived from xmlrpc-c/examples/cpp/xmlrpc_sample_add_client.cpp    //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.      //
 ////////////////////////////////////////////////////////////////////////
-
 
 #define WIN32_LEAN_AND_MEAN  /* required by xmlrpc-c/server_abyss.hpp */
 
