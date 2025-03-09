@@ -1,26 +1,9 @@
-/* A simple XML-RPC server that runs under Inetd.  I.e. it lets the invoking
-   program handle all the connection switching and simply processes one
-   RPC on the provided connection (Standard Input) and exits.
+////////////////////////////////////////////////////////////////////////
+// /home/devo/public_html/fw/xmlrpc_inetd_server.cpp 2025-03-08 18:32 //
+// Derived from xmlrpc-c/examples/cpp/xmlrpc_sample_add_client.cpp    //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.      //
+////////////////////////////////////////////////////////////////////////
 
-   A typical example of where this would be useful is with an Inetd
-   "super server."
-
-   xmlrpc_sample_add_server.cpp is a server that does the same thing,
-   but you give it a TCP port number and it listens for TCP connections
-   and processes RPCs ad infinitum.  xmlrpc_socket_server.c is halfway
-   in between those -- you give it an already bound and listening
-   socket, and it listens for TCP connections and processes RPCs ad
-   infinitum.
-
-   Here is an easy way to test this program:
-
-     socketexec --accept --local_port=8080 --stdin -- ./xmlrpc_inetd_server
-
-   Now run the client program 'xmlrpc_sample_add_client'.  Socketexec
-   will accept the connection that the client program requests and pass it
-   to this program on Standard Input.  This program will perform the RPC,
-   respond to the client, then exit.
-*/
 
 #define WIN32_LEAN_AND_MEAN  /* required by xmlrpc-c/server_abyss.hpp */
 
@@ -38,6 +21,21 @@ using namespace std;
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
 
+/**
+ * @brief Array of request names for the Virtual PAD (VPAD) system.
+ *
+ * This array contains string constants representing various request
+ * types that the VPAD system can handle. These names are typically
+ * used for logging or identifying a specific request type in the
+ * system's request handling logic.
+ *
+ * The available request types are:
+ * - "VERSION" : Request related to system version.
+ * - "AUTH"    : Request for authentication.
+ * - "PARMS"   : Request for parameters.
+ * - "STATUS"  : Request for system status.
+ * - "TERM"    : Request to terminate the system.
+ */
 const char * vpad_req_names[] = {
     "VERSION",
     "AUTH",
@@ -46,6 +44,16 @@ const char * vpad_req_names[] = {
     "TERM"
 };
 
+/**
+ * @brief Array of strings representing the names of variable parameter types.
+ *
+ * This array is used to map integer type identifiers to their corresponding
+ * string representations, providing a way to handle and log different types
+ * of variable parameters (e.g., NONE, INT, STRING, FLOAT, BOOL) within the system.
+ *
+ * @note The order of elements in the array should correspond to the enumerated
+ *       values or integer representations of the types used in the application.
+ */
 const char * vpad_type_names[] = {
     "NONE",
     "INT",
@@ -54,50 +62,32 @@ const char * vpad_type_names[] = {
     "BOOL"
 };
 
-// class sampleAddMethod : public xmlrpc_c::method {
-// public:
-//     sampleAddMethod() {
-//         // signature and help strings are documentation -- the client
-//         // can query this information with a system.methodSignature and
-//         // system.methodHelp RPC.
-//         this->_signature = "i:ii";  // method's arguments are two integers
-//         this->_help = "This method adds two integers together";
-//     }
-//     void
-//     execute(xmlrpc_c::paramList const& paramList,
-//             xmlrpc_c::value *   const  retvalP) {
-//
-//         int const addend(paramList.getInt(0));
-//         int const adder(paramList.getInt(1));
-//
-//         paramList.verifyEnd(2);
-//
-//         *retvalP = xmlrpc_c::value_int(addend + adder);
-//     }
-// };
 
-/********************************************************************************
+/***************************************************************************
  * @class diagnoseMethod
- * @brief Custom implementation of an XML-RPC method for adding two integers.
+ * @brief A class implementing an XML-RPC method to handle various server
+ *        diagnostic and operational requests.
  *
- * This class inherits from the xmlrpc_c::method class and implements an XML-RPC
- * method that adds two integers and returns the result. It provides a brief
- * description of the functionality and the expected parameter and return types
- * so that it can be queried via system.methodSignature and system.methodHelp.
- ********************************************************************************/
+ * This class inherits from `xmlrpc_c::method` and serves as a handler for
+ * XML-RPC requests. It processes specific diagnostic requests such as
+ * obtaining the server version, authentication handling, retrieving
+ * parameters, and terminating the server.
+ *
+ * The method provides detailed logging of requests and applies security
+ * measures, including authentication verification and intentional delays
+ * to mitigate attacks.
+ */
 class diagnoseMethod : public xmlrpc_c::method {
     /**
-     * @brief Constructor for the diagnoseMethod class.
+     * A method implementing the "diagnose" functionality for an XML-RPC
+     * server. This class encapsulates the behavior needed to perform
+     * operations related to the "diagnose" method, providing both the
+     * signature and help metadata for XML-RPC clients to query.
      *
-     * This method sets up the RPC method by defining its signature and help description.
-     * The signature "i:ii" indicates that the method returns an integer and accepts
-     * two integer arguments. The help string provides information about the functionality
-     * of the method.
-     *
-     * @details
-     * The diagnoseMethod is designed to add two integers together. The signature and help
-     * strings can be queried using system.methodSignature and system.methodHelp RPC calls,
-     * enabling clients to retrieve metadata about the method.
+     * The class is derived from `xmlrpc_c::method`, making it suitable
+     * to be integrated into an XML-RPC server. The signature describes
+     * the method's input and return types, while the help string provides
+     * context about its operation for client-side documentation.
      */
 public:
     diagnoseMethod() {
@@ -109,23 +99,35 @@ public:
         this->_help = "This method adds two integers together";
     }
 
-    /************************************************************************
-     * @brief Executes the method logic for adding two integers.
+    /*************************************************************************
+     * Executes a server-side XML-RPC method to handle specific client
+     *    requests.
      *
-     * This function retrieves two integer parameters from the paramList,
-     * verifies that no additional parameters are supplied, and then computes
-     * the sum of the two integers. The result is stored in the provided
-     * xmlrpc_c::value pointer.
+     * This override processes a list of parameters sent via XML-RPC,
+     * performs the necessary actions based on the specified request
+     * type, and sets the result appropriately. The following requests
+     * are supported:
      *
-     * @param paramList The parameter list containing the input arguments.
-     *                  It expects exactly two integers.
-     * @param retvalP A pointer to an xmlrpc_c::value object where the result
-     *                of the addition will be stored.
+     * - VPAD_REQ_VERSION: Returns the version string if the client provides
+     *      valid authentication.
+     * - VPAD_REQ_AUTH: Returns an authentication token upon correct
+     *      pre-shared key verification.
+     * - VPAD_REQ_PARMS: Returns request parameters as a serialized payload
+     *      if authentication is valid.
+     * - VPAD_REQ_TERM: Terminates the server after returning a shutdown
+     *      message.
+     * - Default: Returns an "Unknown Request" error for unrecognized
+     *      requests.
      *
-     * @note If the second integer parameter is 1, the method execution will
-     *       be artificially delayed by 2 seconds to simulate a long-running
-     *       operation.
-     ************************************************************************/
+     * Security measures are implemented to delay responses for invalid
+     * authentication, mitigating potential brute force attacks.
+     *
+     * @param paramList A const reference to the parameter list passed by
+     *                  the client. It includes various arguments relevant
+     *                  to the specific request.
+     * @param retvalP A pointer to an XML-RPC value object where the
+     *                  response is stored.
+     ***********************************************************************/
     void
     execute(xmlrpc_c::paramList const& paramList,
             xmlrpc_c::value *   const  retvalP) override {
@@ -184,7 +186,30 @@ public:
 };
 
 
-int 
+/*****************************************************************************
+ * Main function, serves as the entry point of the xmlrpc_inetd_server
+ * application.
+ *
+ * This function initializes necessary system components, sets up an XML-RPC
+ * server, and begins processing incoming requests. A `diagnoseMethod`
+ * instance is registered to the XML-RPC registry, allowing the server to
+ * handle requests for the "diagnose" method.
+ *
+ * - Creates and initializes an instance of `mwfw2` for environment setup
+ *      and logging.
+ * - Registers a custom XML-RPC method, `diagnoseMethod`, to the
+ *      `xmlrpc_c::registry`.
+ * - Configures and starts an XML-RPC Abyss server using
+ *      `xmlrpc_c::serverAbyss`.
+ * - Listens for incoming HTTP POST requests from the standard input (STDIN).
+ *
+ * @param[in] const Integer placeholder, not utilized in this implementation.
+ * @param[in] const char** Array of constant character pointers, not utilized
+ *      in this implementation.
+ *
+ * @return Returns 0 on successful execution of the server.
+ *****************************************************************************/
+int
 main(int           const, 
      const char ** const) {
 

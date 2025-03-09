@@ -2,6 +2,13 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-03-08 18:15 dwg - We are now at v1.2.0.0 with a combined version having
+fw & vpa in the multiware-framework repository. We are now using the 
+xmlrpc_inetd_server method where the VPA responder gets invoked when a request
+arrives at the VPA port (5164). This is accomplished via the xinetd.d/vpa
+configuration that invokes: 
+/home/devo/public_html/fw/cmake-build-debug/xmlrpc_inetd_server
+
 2025-02-24 04:34 dwg -
 Further work on the Developer's Manual
 
