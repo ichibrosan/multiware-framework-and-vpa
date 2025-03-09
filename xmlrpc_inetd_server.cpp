@@ -49,10 +49,12 @@ const char * vpad_req_names[] = {
  *
  * This array is used to map integer type identifiers to their corresponding
  * string representations, providing a way to handle and log different types
- * of variable parameters (e.g., NONE, INT, STRING, FLOAT, BOOL) within the system.
+ * of variable parameters (e.g., NONE, INT, STRING, FLOAT, BOOL) within the
+ * system.
  *
- * @note The order of elements in the array should correspond to the enumerated
- *       values or integer representations of the types used in the application.
+ * @note The order of elements in the array should correspond to the
+ * enumerated values or integer representations of the types used in the
+ * application.
  */
 const char * vpad_type_names[] = {
     "NONE",
@@ -64,7 +66,7 @@ const char * vpad_type_names[] = {
 
 #include "diagnoseMethod.h"
 
-/*****************************************************************************
+/****************************************************************************
  * Main function, serves as the entry point of the xmlrpc_inetd_server
  * application.
  *
@@ -86,7 +88,7 @@ const char * vpad_type_names[] = {
  *      in this implementation.
  *
  * @return Returns 0 on successful execution of the server.
- *****************************************************************************/
+ ***************************************************************************/
 int
 main(int           const, 
      const char ** const) {
@@ -109,3 +111,7 @@ main(int           const,
         */
     return 0;
 }
+
+///////////////////////////////////
+// eof - xmlrpc_inetd_server.cpp //
+///////////////////////////////////

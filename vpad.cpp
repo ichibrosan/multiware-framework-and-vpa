@@ -31,7 +31,7 @@ const char * vpad_type_names[] = {
 
 #include "diagnoseMethod.h"
 
-/**************************************************************************************
+/****************************************************************************
  * @brief Entry point of the vpad application.
  *
  * This function serves as the main entry point of the vpad application.
@@ -63,7 +63,7 @@ const char * vpad_type_names[] = {
  *              arguments.
  * @return Returns `EXIT_SUCCESS` (0) upon successful execution or an error
  * code in case of failure.
- **************************************************************************************/
+ ***************************************************************************/
 int
 main(int argc,char ** argv) {
     auto * pMwfw = new mwfw2(__FILE__,__FUNCTION__);
@@ -84,7 +84,7 @@ main(int argc,char ** argv) {
             __FILE__,__FUNCTION__,getpid());
         gpSysLog->loginfo(szSine);
 
-        gpLog       = new CLog(__FILE__, __FUNCTION__);
+        gpLog = new CLog(__FILE__, __FUNCTION__);
         gpLog->getTimeDateStamp(szTimestamp);
         gpSh->m_pShMemng->vpad_parent_pid = getpid();
         //std::cout << "From Vpad: " << getpid() << std::endl;
@@ -120,3 +120,7 @@ main(int argc,char ** argv) {
         }
     }
 }
+
+////////////////////
+// eof - vpad.cpp //
+////////////////////
