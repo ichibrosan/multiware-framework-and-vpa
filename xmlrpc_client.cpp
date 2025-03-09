@@ -136,7 +136,7 @@ main(int argc, char **) {
     // Set this to the desired remote VPA system
 
 //    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.17");
-    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.223");
+    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.17");
 
     /**
      * Call the remote system and request auth token using Private Shared Key
