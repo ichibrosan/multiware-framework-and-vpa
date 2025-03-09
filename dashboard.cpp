@@ -16,18 +16,19 @@
 #include "mwfw2.h"
 
 /**
- * Constructs a dashboard object and initializes the display and configurations
- * of an authenticated or unauthenticated user's dashboard based on the input
- * credentials. It manages UI components including headers, tables, and a
- * navigation bar depending on the authentication status.
+ * Constructs a dashboard object and initializes the display and
+ * configurations of an authenticated or unauthenticated user's dashboard
+ * based on the input credentials. It manages UI components including
+ * headers, tables, and a navigation bar depending on the authentication
+ * status.
  *
- * @param handle The authentication handle for the user. A valid handle ensures
- *               the user is authenticated, while an invalid one leads to an
+ * @param handle The authentication handle for the user. A valid handle
+ * ensures the user is authenticated, while an invalid one leads to an
  *               unauthenticated state.
- * @param buttons The set of buttons available for the authenticated user. This
- *                is replaced with default values if the user is unauthenticated.
- * @param pszFile The file path string for the dashboard setup. Used to determine
- *                additional configuration details such as CGI file name.
+ * @param buttons The set of buttons available for the authenticated user.
+ * This is replaced with default values if the user is unauthenticated.
+ * @param pszFile The file path string for the dashboard setup. Used to
+ * determine additional configuration details such as CGI file name.
  * @param ssUsername The username provided for authentication.
  * @param ssPassword The password provided for authentication.
  * @return None. This is a constructor and does not return a value.
@@ -52,9 +53,6 @@ dashboard::dashboard(
     int iBorder = 2;
 
     std::string ssFile = pszFile;
-//    std::string ssFilePath;
-//    std::string ssCgiName;
-
     m_pCgiBind = new cgibind();
 
     /*
@@ -76,16 +74,23 @@ dashboard::dashboard(
      * Look up the users credentials and copy to member data so it's
      * available to the dashboard code.
      */
-    strcpy(m_szAuthUserName, gpSh->m_pShMemng->creds[handle].szAuthUserName);
-    strcpy(m_szAuthFirstName, gpSh->m_pShMemng->creds[handle].szAuthFirstName);
-    strcpy(m_szAuthLastName, gpSh->m_pShMemng->creds[handle].szAuthLastName);
-    strcpy(m_szAuthLevel, gpSh->m_pShMemng->creds[handle].szAuthLevel);
-    strcpy(m_szAuthUUID, gpSh->m_pShMemng->creds[handle].szAuthUUID);
+    strcpy(m_szAuthUserName,
+           gpSh->m_pShMemng->creds[handle].szAuthUserName);
+    strcpy(m_szAuthFirstName,
+           gpSh->m_pShMemng->creds[handle].szAuthFirstName);
+    strcpy(m_szAuthLastName,
+           gpSh->m_pShMemng->creds[handle].szAuthLastName);
+    strcpy(m_szAuthLevel,
+           gpSh->m_pShMemng->creds[handle].szAuthLevel);
+    strcpy(m_szAuthUUID,gpSh->m_pShMemng->creds[handle].szAuthUUID);
 
 //    ssFile = pszFile;
-    std::string ssFilePath = std::filesystem::path(ssFile).remove_filename();
-    std::string ssCgiName = ssFile.substr(ssFilePath.length(), ssFile.length());
-    ssCgiName = std::filesystem::path(ssCgiName).replace_extension(".cgi");
+    std::string ssFilePath =
+        std::filesystem::path(ssFile).remove_filename();
+    std::string ssCgiName =
+        ssFile.substr(ssFilePath.length(), ssFile.length());
+    ssCgiName =
+        std::filesystem::path(ssCgiName).replace_extension(".cgi");
 
     std::string ssAvatar = m_szAuthUserName;
     ssAvatar.append("-avatar.png");
@@ -106,7 +111,8 @@ dashboard::dashboard(
 
     std::cout
             << "<table border=" << iBorder << ">" << std::endl
-            << "<tr><h3><th>Goodall MultiWare Framework Dashboard</th></h3></tr>"
+            << "<tr><h3><th>Goodall MultiWare Framework Dashboard"
+               "</th></h3></tr>"
             << "</table>"
             << std::endl;
 
@@ -174,7 +180,8 @@ dashboard::dashboard(
      * unauthenticated, iEffectiveButtons has been set to 0 so the
      * user doesn't get any buttons before authentication.
      */
-    navbar(handle, iEffectiveButtons, ssCgiName, ssUsername, ssPassword);
+    navbar(handle, iEffectiveButtons,
+         ssCgiName, ssUsername, ssPassword);
 
     if (bAvatarExists) {
         std::cout << "</td></tr>" << std::endl;
@@ -183,24 +190,25 @@ dashboard::dashboard(
 }
 
 
-/*****************************************************************************
+/***************************************************************************
  * Generates and displays navigation buttons for a web-based dashboard.
  * Based on the specified parameters, the function determines which buttons
  * to include in the navbar, such as "Journal", "Logout", and other
- * administrative or customizable buttons depending on user roles and settings.
+ * administrative or customizable buttons depending on user roles and
+ * settings.
  *
- * @param handle A unique identifier for the session or request being processed.
- * @param buttons A bitmask specifying which buttons to include in the navbar.
- *                Flags such as JOURNAL and LOGOUT determine the displayed
- *                buttons.
- * @param ssCgiName The CGI name of the current page or context, indicating the
- *                  source.
+ * @param handle A unique identifier for the session or request being
+ * processed.
+ * @param buttons A bitmask specifying which buttons to include in the
+ * navbar. Flags such as JOURNAL and LOGOUT determine the displayed buttons.
+ * @param ssCgiName The CGI name of the current page or context, indicating
+ * the source.
  * @param ssUsername The username of the currently authenticated user, used
  *                   for authorization or specific actions.
  * @param ssPassword The password of the currently authenticated user,
- *                   typically used for authentication of specific requests or
- *                   actions.
- *****************************************************************************/
+ *                   typically used for authentication of specific requests
+ *                   or actions.
+ ***************************************************************************/
 void dashboard::navbar(
     int handle,
     int buttons,
@@ -229,7 +237,8 @@ void dashboard::navbar(
         0 == strcmp("devo", m_szAuthLevel)) {
 #ifdef SHOW_VPAD_BUTTONS
         if (gpSh->m_pShMemng->vpad_running) {
-            std::string ssCgiVpa = form_cgi(ssSelfCgi.c_str(), handle);
+            std::string ssCgiVpa =
+                form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiVpa.append("&bTermVpad=true");
             ssCgiVpa.append("&username=");
             ssCgiVpa.append(ssUsername);
@@ -237,7 +246,8 @@ void dashboard::navbar(
             ssCgiVpa.append(ssPassword);
             gpHtml->ahref(ssCgiVpa.c_str(), "btn_term_vpad.png", 150, 38);
         } else {
-            std::string ssCgiVpa = form_cgi(ssSelfCgi.c_str(), handle);
+            std::string ssCgiVpa =
+                form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiVpa.append("&bStartVpad=true");
             ssCgiVpa.append("&username=");
             ssCgiVpa.append(ssUsername);
@@ -249,15 +259,18 @@ void dashboard::navbar(
 
 #ifdef SHOW_SCHEMA_BUTTONS
         if (gpSh->m_pShMemng->bDisplaySchema) {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
+            std::string ssCgiMenu =
+                form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplaySchema=false");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(), "btn_minus_schema.png", 150, 38);
+            gpHtml->ahref(ssCgiMenu.c_str(),
+                "btn_minus_schema.png", 150, 38);
         } else {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
+            std::string ssCgiMenu =
+                form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplaySchema=true");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
@@ -269,35 +282,42 @@ void dashboard::navbar(
 
 #ifdef SHOW_SHMVAR_BUTTONS
         if (gpSh->m_pShMemng->bDisplayShmVars) {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
+            std::string ssCgiMenu =
+                form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayShmVars=false");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(), "btn_minus_shmvars.png", 150, 38);
+            gpHtml->ahref(ssCgiMenu.c_str(),
+                "btn_minus_shmvars.png", 150, 38);
         } else {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
+            std::string ssCgiMenu =
+                form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayShmVars=true");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(), "btn_plus_shmvars.png", 150, 38);
+            gpHtml->ahref(ssCgiMenu.c_str(),
+                "btn_plus_shmvars.png", 150, 38);
         }
 #endif // SHOW_SHMVAR_BUTTONS
 
 #ifdef SHOW_ENVVAR_BUTTONS
         if (gpSh->m_pShMemng->bDisplayEnvVars) {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
+            std::string ssCgiMenu =
+                form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayEnvVars=false");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
-            gpHtml->ahref(ssCgiMenu.c_str(), "btn_minus_envvars.png", 150, 38);
+            gpHtml->ahref(ssCgiMenu.c_str(),
+                "btn_minus_envvars.png", 150, 38);
         } else {
-            std::string ssCgiMenu = form_cgi(ssSelfCgi.c_str(), handle);
+            std::string ssCgiMenu =
+                form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayEnvVars=true");
             ssCgiMenu.append("&username=");
             ssCgiMenu.append(ssUsername);
@@ -310,15 +330,15 @@ void dashboard::navbar(
 }
 
 
-/******************************************************************************
+/****************************************************************************
  * Generates a CGI URL with an appended handle parameter.
  *
  * @param pszName The name used to generate the base CGI URL.
- * @param handle An integer value representing the handle to be appended to the
- *               URL.
- * @return A string representing the complete CGI URL with the handle parameter
- *               included.
- *****************************************************************************/
+ * @param handle An integer value representing the handle to be appended to
+ * the URL.
+ * @return A string representing the complete CGI URL with the handle
+ * parameter included.
+ ***************************************************************************/
 std::string dashboard::form_cgi(const char *pszName, int handle) {
     char szHandle[128];
     std::string ssBuffer = gpOS->genCgiCBDUrl(pszName, false);
@@ -329,7 +349,7 @@ std::string dashboard::form_cgi(const char *pszName, int handle) {
 }
 
 
-/*****************************************************************************
+/***************************************************************************
  * Processes CGI toggle inputs and modifies shared memory variables
  * or initiates specific actions based on the provided flags.
  * Access to toggle actions is restricted to users with admin or
@@ -338,8 +358,8 @@ std::string dashboard::form_cgi(const char *pszName, int handle) {
  * @param ssCgiName The CGI name string used for processing form variables.
  * @param ssUsername The username string for authorization verification.
  * @param ssPassword The password string for authorization verification.
- * @param handle An integer handle used for processing connections or sessions.
- *****************************************************************************/
+ * @param handle An integer handle used for processing connections/sessions.
+ ***************************************************************************/
 void dashboard::process_toggles(
     std::string ssCgiName,
     std::string ssUsername,
@@ -368,7 +388,8 @@ void dashboard::process_toggles(
             sleep(2);
 
             char szCommand[1024];
-            sprintf(szCommand,"kill -9 %d",gpSh->m_pShMemng->vpad_child_pid);
+            sprintf(szCommand,"kill -9 %d",
+                gpSh->m_pShMemng->vpad_child_pid);
             system(szCommand);
 
         }
@@ -442,12 +463,9 @@ void dashboard::start_vpad() {
 
     // The attempt to use the DGRAM  to start the vpad didn't work
 
-//    unsigned short port;            /* port client will connect to         */
-//    char buf[BUFSIZ];               /* data buffer for sending & receiving */
     struct hostent *hostnm;         /* server host name information        */
     struct sockaddr_in server;      /* server address                      */
     int s;                          /* client socket                       */
-//    socklen_t server_address_length = sizeof(server);
     hostnm = gethostbyname("localhost");
 
     /*
