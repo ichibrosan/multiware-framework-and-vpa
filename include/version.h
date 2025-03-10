@@ -5,11 +5,11 @@
 
 #ifndef VERSION_H
 #define VERSION_H
-#define RMAJ_VERSION          1
-#define RMIN_VERSION          2
-#define RREV_VERSION           0
-#define RBUILD_VERSION         0
-#define RVERSION_STRING        "5.3.9.7"
+#define RMAJ_VERSION           5
+#define RMIN_VERSION           3
+#define RREV_VERSION           9
+#define RBUILD_VERSION         19
+#define RVERSION_STRING        "5.3.9.19"
 #define RVERSION_STRING_SHORT  "5.3.9"
 #define RVERSION_STRING_LONG   RVERSION_STRING
 #define RVERSION_STRING_DATE   __DATE__
