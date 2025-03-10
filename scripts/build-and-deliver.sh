@@ -1,10 +1,9 @@
 #!/bin/bash
 #####################################################################
-# /home/devo/public_html/fw/scripts/build-and-deliver.sh 2025-03-09 #
+# /home/devo/public_html/fw/scripts/build-and-deliver.sh 2025-03-10 #
 # Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.     #
 #####################################################################
 clear
-cp -v /etc/xinetd.d/vpa ~/public_html/fw/doc/
 rm -r -f                ~/public_html/fw/build
 mkdir                   ~/public_html/fw/build
 cd                      ~/public_html/fw/build

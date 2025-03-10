@@ -1,10 +1,9 @@
 #!/bin/sh
 ####################################################################
-# /home/devo/public_html/fw/scripts/make-and-deliver.sh 2025-03-09 #
+# /home/devo/public_html/fw/scripts/make-and-deliver.sh 2025-03-10 #
 # Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.    #
 ####################################################################
 clear
-cp -v /etc/xinetd.d/vpa ~/public_html/fw/doc/
 cd                      ~/public_html/fw/build
 make
 cp -v *.cgi             ~/public_html/fw/cgi-bin/

@@ -1,94 +1,120 @@
-# daphne.goodall.com:/etc/xinetd.d/vpa 2025-02-19 05:15 dwg - :-)
+///////////////////////////////////////////////////
+// /etc/xinetd.d/vpa 2025/03/10 10:13 dwg -      //
+// Copyright (c) 2021-2025 Douglas Wade Goodall. //
+///////////////////////////////////////////////////
 
-# This service activates an xmlrpc responder to handle an incoming RPC request
+####################################################################
+# This service activates an xmlrpc responder to handle an incoming #
+# RPC request                                                      #
+####################################################################
 service vpa
 {
-	port		= 5164
-	disable     	= no
-	id		= vpa
+	port = 5164
+	disable	= no
+	id = vpa
 	socket_type	= stream
-	protocol	= tcp
-	user		= 1000
-	wait		= no
-	server		= /home/devo/public_html/fw/bin/xmlrpc_inetd_server
+	protocol = tcp
+	user = 1000
+	wait = no
+	server = /home/devo/public_html/fw/bin/xmlrpc_inetd_server
 }
 
-# This service runs a script that starts the virtual protocol adapter daemon
+###############################################################
+# This service runs a script that starts the virtual protocol #
+# adapter daemon                                              #
+###############################################################
 service vpad-start
 {
-	port 		= 65353
-	disable		= no
-	id		= vpad-start
+	port = 65353
+	disable	= no
+	id = vpad-start
 	socket_type	= stream
-	protocol	= tcp
-	user		= 1000
-	wait		= no
-	server		= /home/devo/public_html/fw/scripts/start-vpad.sh
+	protocol = tcp
+	user = 1000
+	wait = no
+	server = /home/devo/public_html/fw/scripts/start-vpad.sh
 }
 
-# This service runs a script that calls the netstat utility and redirects output
+#################################################################
+# This service runs a script that calls the netstat utility and #
+# redirects output                                              #
+#################################################################
 service vpa-netstat
 {
-	port 		= 65354
-	disable		= no
-	id		= vpa-netstat
+	port = 65354
+	disable = no
+	id = vpa-netstat
 	socket_type	= stream
-	protocol	= tcp
-	user		= 1000
-	wait		= no
-	server		= /home/devo/public_html/fw/scripts/inetd-netstat-redirect.sh
+	protocol = tcp
+	user = 1000
+	wait = no
+	server = /home/devo/public_html/fw/scripts/inetd-netstat-redirect.sh
 }
 
-# This service runs a script that calls the ip utility and redirects output
+############################################################
+# This service runs a script that calls the ip utility and #
+# redirects output                                         #
+############################################################
 service vpa-ip
 {
-	port 		= 65355
-	disable		= no
-	id		= vpa-ip
+	port = 65355
+	disable	= no
+	id = vpa-ip
 	socket_type	= stream
-	protocol	= tcp
-	user		= 1000
-	wait		= no
-	server		= /home/devo/public_html/fw/scripts/inetd-ip-redirect.sh
+	protocol = tcp
+	user = 1000
+	wait = no
+	server = /home/devo/public_html/fw/scripts/inetd-ip-redirect.sh
 }
 
-
-# This service runs a script that calls curl to load the default web page with http:// protocol
+##################################################################
+# This service runs a script that calls curl to load the default #
+# web page with http:// protocol                                 #
+##################################################################
 service vpa-http
 {
-	port		= 65357
-	disable		= no
-	id		= vpa-http
+	port = 65357
+	disable	= no
+	id = vpa-http
 	socket_type	= stream
-	protocol	= tcp
-	user		= 1000
-	wait		= no
-	server		= /home/devo/public_html/fw/scripts/inetd-http-redirect.sh
+	protocol = tcp
+	user = 1000
+	wait = no
+	server = /home/devo/public_html/fw/scripts/inetd-http-redirect.sh
 }
 
-# This service runs a script that calls curl to load the default web page with https:// protocol
+##################################################################
+# This service runs a script that calls curl to load the default #
+# web page with https:// protocol                                #
+##################################################################
 service vpa-https
 {
-	port		= 65358
-	disable		= no
-	id		= vpa-https
+	port = 65358
+	disable	= no
+	id = vpa-https
 	socket_type	= stream
-	protocol	= tcp
-	user		= 1000
-	wait		= no
-	server		= /home/devo/public_html/fw/scripts/inetd-https-redirect.sh
+	protocol = tcp
+	user = 1000
+	wait = no
+	server = /home/devo/public_html/fw/scripts/inetd-https-redirect.sh
 }
 
-# This service runs a script that calls ipcs to show the shared status and redirects output
+########################################################################
+# This service runs a script that calls ipcs to show the shared status #
+# and redirects output                                                 #
+########################################################################
 service vpa-ipcs
 {
-	port		= 65359
-	disable		= no
-	id		= vpa-ipcs
+	port = 65359
+	disable = no
+	id = vpa-ipcs
 	socket_type	= stream
-	protocol	= tcp
-	user		= 1000
-	wait		= no
-	server		= /home/devo/public_html/fw/scripts/inetd-ipcs-redirect.sh
+	protocol = tcp
+	user = 1000
+	wait = no
+	server = /home/devo/public_html/fw/scripts/inetd-ipcs-redirect.sh
 }
 
+#############
+# eof - vpa #
+#############
