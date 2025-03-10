@@ -599,7 +599,7 @@ bool test::test3(bool bDebug, bool bCGI) {
 
     else {
 
-            system(gpOS->genCgiBinUrl("fw-test3.py",false).c_str());
+            system(gpOS->genCurlCgiBinUrl("fw-test3.py",false).c_str());
 
             const std::string filename = "/tmp/fw-test3.stdout";
             std::ifstream ifs(filename);

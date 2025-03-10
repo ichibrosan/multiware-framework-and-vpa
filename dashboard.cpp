@@ -341,7 +341,7 @@ void dashboard::navbar(
  ***************************************************************************/
 std::string dashboard::form_cgi(const char *pszName, int handle) {
     char szHandle[128];
-    std::string ssBuffer = gpOS->genCgiCBDUrl(pszName, false);
+    std::string ssBuffer = gpOS->genCgiBinUrl(pszName, false);
     ssBuffer.append("?handle=");
     sprintf(szHandle, "%d", handle);
     ssBuffer.append(szHandle);

@@ -189,6 +189,21 @@ public:
 	 * @param bDebug A boolean flag indicating whether to output debug information.
 	 * @return A string representing the full URL to the CGI script.
 	 */
+	std::string genCurlCgiBinUrl(const char *pszCgiName,bool bDebug);
+
+	/**
+	 * @brief Generates a URL pointing to a CGI script in the server's cgi-bin directory.
+	 *
+	 * This function constructs the URL by appending the necessary components such as
+	 * protocol, hostname, user directory path, and CGI script name. These components
+	 * are retrieved from shared memory or passed as arguments to the function.
+	 *
+	 * @param pszCgiName The name of the CGI script to include in the URL.
+	 * @param bDebug A flag indicating whether debug output should be enabled. If true,
+	 *        the function will print each step of the URL construction process to the console.
+	 *
+	 * @return A string representing the fully constructed URL for the specified CGI script.
+	 */
 	std::string genCgiBinUrl(const char *pszCgiName,bool bDebug);
 
 	/**

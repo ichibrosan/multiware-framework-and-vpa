@@ -456,7 +456,7 @@ const char * osIface::genLogFQFS(const char *pszFile,
  * The command execution output is redirected to log files (.stdout and
  * .stderr) located in the /tmp directory.
  ************************************************************************/
-std::string osIface::genCgiBinUrl(const char *pszCgiName,
+std::string osIface::genCurlCgiBinUrl(const char *pszCgiName,
                                   bool bDebug)
 {
     if(bDebug) {
@@ -538,6 +538,71 @@ std::string osIface::genCgiBinUrl(const char *pszCgiName,
     }
 
     return ssCommand;
+}
+
+
+/************************************************************************
+ * This function generates a CGI-bin URL for executing a CGI script.
+ *
+ * @param pszCgiName The name of the CGI script to be executed.
+ * @param bDebug A boolean flag indicating whether debugging messages
+ *               should be printed to standard output.
+ *
+ * @return A string containing the constructed command for executing the
+ *         CGI script using curl. It includes the protocol, host, user,
+ *         script path, and directs output to associated log files.
+ *
+ * The generated URL is constructed step by step by appending various
+ * components such as protocol, host, user name, and CGI script path.
+ * If debugging is enabled, each step is logged to standard output.
+ * The command execution output is redirected to log files (.stdout and
+ * .stderr) located in the /tmp directory.
+ ************************************************************************/
+std::string osIface::genCgiBinUrl(const char *pszCgiName,
+                                  bool bDebug)
+{
+    if(bDebug) {
+        std::cout << __FUNCTION__ << " called" << std::endl;
+    }
+
+// system("curl http://daphne.goodall.com/~doug/fw/cgi-bin/fw-test3.py"
+//        "> /tmp/fw-test3.stdout 2> /tmp/fw-test3.stderr");
+
+    std::string ssURL;
+
+    // fetch the appropriate protocol based on host (kludge)
+    ssURL.append(gpSh->m_pShMemng->szProtocol);  // http://
+    if(bDebug) {
+        std::cout << ssURL << std::endl;
+    }
+
+    ssURL.append(gpSh->m_pShMemng->szIP);        // daphne.goodall.com
+    if(bDebug) {
+        std::cout << ssURL << std::endl;
+    }
+
+    ssURL.append("/~");                         // /~
+    if(bDebug) {
+        std::cout << ssURL << std::endl;
+    }
+
+    //ssCommand.append(getenv("LOGNAME"));           // doug
+    ssURL.append(gpSh->m_pShMemng->szUser);
+    if(bDebug) {
+        std::cout << ssURL << std::endl;
+    }
+
+    ssURL.append("/fw/cgi-bin/");              // /fw/cgi-bin/
+    if(bDebug) {
+        std::cout << ssURL << std::endl;
+    }
+
+    ssURL.append(pszCgiName);                  // fw-test3.py
+    if(bDebug) {
+        std::cout << ssURL << std::endl;
+    }
+
+    return ssURL;
 }
 
 
