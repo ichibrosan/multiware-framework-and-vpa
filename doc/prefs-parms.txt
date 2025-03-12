@@ -1,0 +1,13 @@
+http://192.168.4.17/~doug/fw/cgi-bin/prefs-action.cgi?handle=4
+&bodyfgcolor=webcolors_silver
+&bodybgcolor=webcolors_olive
+&tablefgcolor=webcolors_gray
+&tablebgcolor=webcolors_line
+&trfgcolor=webcolors_black
+&trbgcolor=webcolors_green
+&thfgcolor=webcolors_red
+&thbgcolor=webcolors_aqua
+&tdfgcolor=webcolors_maroon
+&tdbgcolor=webcolors_teal
+&dbfgcolor=webcolors_yellow
+&dbbgcolor=webcolors_blue

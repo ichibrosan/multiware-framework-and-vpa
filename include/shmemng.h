@@ -63,6 +63,21 @@ struct MFW_SHMEMNG_T {
 
     } creds[ROW_DATA+MAX_USERS];     // sizeof(creds) = 7236
 
+    struct {
+        char szBodyFGcolor[COLOR_SIZE_MAX];
+        char szBodyBGcolor[COLOR_SIZE_MAX];
+        char szTableFGcolor[COLOR_SIZE_MAX];
+        char szTableBGcolor[COLOR_SIZE_MAX];
+        char szTrFGcolor[COLOR_SIZE_MAX];
+        char szTrBGcolor[COLOR_SIZE_MAX];
+        char szThFGcolor[COLOR_SIZE_MAX];
+        char szThBGcolor[COLOR_SIZE_MAX];
+        char szTdFGcolor[COLOR_SIZE_MAX];
+        char szTdBGcolor[COLOR_SIZE_MAX];
+        char szDbFGcolor[COLOR_SIZE_MAX];
+        char szDbBGcolor[COLOR_SIZE_MAX];
+    } prefs[ROW_DATA+MAX_USERS];
+
     bool   vpad_running;              // control vpad while loop
     pid_t  vpad_parent_pid;           // process id of VPA Daemon Parent
     pid_t  vpad_child_pid;            // process id of VPA Daemon Child

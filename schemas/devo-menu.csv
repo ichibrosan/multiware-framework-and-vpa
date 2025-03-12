@@ -1,9 +1,9 @@
-Active,Version,Meta Columns,Data Columns,Schema,CgiName,Target,PageForm,Style,Description
-true,1,10,9,devo-menu.csv,menu.cgi,_self,true,default_style,Copyright &copy; 2024-2025 Douglas Wade Goodall,default_style
+Active,Version,Meta Columns,Data Columns,Schema,CgiName,Method,Target,PageForm,Style,Description
+true,1,11,9,devo-menu.csv,menu.cgi,post,_self,true,default_style,Copyright &copy; 2024-2025 Douglas Wade Goodall,default_style
 Active,PrePara,PostPara,ElementType,Parm1,Parm2,Parm3,Parm4,Parm5,Parm6
-true,no,yes,image,our-office.png,250,100
+false,no,yes,image,our-office.png,250,100
 false,no,no,imagelink,/doc/spec.html,btn_specification.png,150,38
 false,false,false,text,username,userid,doug,32,Username:,enter username here
-true,no,yes,postcheckbox,isActive,isActive,checked,Active Duty
+false,no,yes,postcheckbox,isActive,isActive,checked,Active Duty
 false,yes,yes,label,This is a textarea element (below)
 false,no,yes,textarea,areaName,4,25

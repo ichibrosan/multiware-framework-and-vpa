@@ -1492,12 +1492,15 @@ void cgihtml::open_table(int border)
 
 
 /**
- * @brief Generates a JavaScript function to create a button dynamically in HTML.
+ * @brief Generates a JavaScript function to create a button dynamically
+ * in HTML.
  *
- * This method writes a JavaScript function that creates an HTML button with a specific name
+ * This method writes a JavaScript function that creates an HTML button
+ * with a specific name
  * and visible label, and appends it to the document body.
  *
- * @param pszButtonName The name to be associated with the button in the generated JavaScript function.
+ * @param pszButtonName The name to be associated with the button in the
+ * generated JavaScript function.
  **/
 void cgihtml::script_button(const char * pszButtonName,
                             const char * pszVisible)
@@ -1517,7 +1520,8 @@ void cgihtml::script_button(const char * pszButtonName,
  * @param styleName The name of the style to be applied.
  *                  It should correspond to a defined style key.
  * @param value The value of the style to be applied.
- *              This typically represents the properties and formatting for the style.
+ *              This typically represents the properties and formatting
+ *              for the style.
  */
 void cgihtml::set_style(const char * pszStylesheet)
 {

@@ -309,8 +309,15 @@ char szReturn[BUFSIZ];
  * @return void
  */
 stylist::stylist() {
-    std::string ssCssFQFS =
-        "/home/devo/public_html/fw/styles/doug.css";
+
+    // std::string ssCssFQFS =
+    //     "/home/devo/public_html/fw/styles/doug.css";
+
+    std::string ssUser    = gpSh->m_pShMemng->szUser;
+    std::string ssCssFQFS = gpOS->genStyleFQFS(
+        ssUser.append(".css").c_str(),false);
+    gpSysLog->loginfo(ssCssFQFS.c_str());
+
     FILE * fp = fopen(ssCssFQFS.c_str(),"w");
     fprintf(fp,"%s\n",default_button());
     fprintf(fp,"%s\n",journal_container());

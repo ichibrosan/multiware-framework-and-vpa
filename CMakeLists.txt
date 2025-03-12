@@ -350,6 +350,44 @@ target_link_libraries(noteload.cgi
 
 )
 
+add_executable(prefs-action.cgi
+		prefs-action.cpp
+		config.cpp	        include/config.h
+		CSysLog.cpp			include/CSysLog.hpp
+		shared.cpp          include/shared.h
+		include/version.h
+		rpcbind.cpp			include/rpcbind.h
+		include/webcolors.h
+		include/diagnoseMethod.h
+)
+target_link_directories(prefs-action.cgi PRIVATE
+		/opt/xmlrpc-c/src/cpp
+		/opt/xmlrpc-c/src
+		/opt/xmlrpc-c/lib/libutil++
+		/opt/xmlrpc-c/lib/expat/xmlparse
+		/opt/xmlrpc-c/lib/expat/xmltok
+		/opt/xmlrpc-c/lib/libutil
+)
+target_link_libraries(prefs-action.cgi
+		mwfw2
+		libxmlrpc_client++.a
+		libxmlrpc_client.a
+		libxmlrpc++.a
+		libxmlrpc_util++.a
+		libxmlrpc.a
+		libxmlrpc_xmlparse.a
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
+		uuid.a            # uuid.so         use static library instead
+		libcgicc.a
+)
+
+
+
+
 
 add_executable(query_remote.cgi
 		queryremote.cpp

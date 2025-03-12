@@ -117,7 +117,7 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
     CLog log(__FILE__,__FUNCTION__);
     log.write("instantiated");
 
-    bool bSubmitRequired = false;
+    bool bSubmitRequired = true;
     bool bPageForm = false;
 
     if (0 == strcmp("true",
@@ -166,13 +166,13 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
             if(0 == strcmp("openform",
                            gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
                 gpHtml->open_form(
-                "UNUSED",
-                gpCsv->m_parsed_data[iRow][COL_FORM_ACTION].c_str(),
-                gpCsv->m_parsed_data[iRow][COL_FORM_PROTOCOL].c_str(),
-                atoi(gpCsv->m_parsed_data[iRow][COL_FORM_HANDLE].c_str()),
-                gpCsv->m_parsed_data[iRow][COL_FORM_ID].c_str(),
-                gpCsv->m_parsed_data[iRow][COL_FORM_TARGET].c_str()
-                    );
+                    "UNUSED",
+                    gpCsv->m_parsed_data[iRow][COL_FORM_ACTION].c_str(),
+                    gpCsv->m_parsed_data[iRow][COL_FORM_PROTOCOL].c_str(),
+                    atoi(gpCsv->m_parsed_data[iRow][COL_FORM_HANDLE].c_str()),
+                   gpCsv->m_parsed_data[iRow][COL_FORM_ID].c_str(),
+                   gpCsv->m_parsed_data[iRow][COL_FORM_TARGET].c_str()
+                );
             }
 
             // If type is opendiv
@@ -226,7 +226,9 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
                     gpCsv->m_parsed_data[iRow][COL_PARM2].c_str(),  // labelvis
                     gpCsv->m_parsed_data[iRow][COL_PARM3].c_str(),  // selid
                     gpCsv->m_parsed_data[iRow][COL_PARM4].c_str()); // selname
-            }
+                bSubmitRequired = true;
+
+                            }
 
             if (0 == strcmp("selectopt",
                             gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
@@ -238,6 +240,8 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
             if (0 == strcmp("selectend",
                            gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
                 gpHtml->form_select_end();
+                bSubmitRequired = true;
+
             }
 
             // if type is select_files
@@ -460,7 +464,7 @@ void schema::gen_from_schema(int iHandle,
 
     int iRow  = 0;
     int iCol  = 0;
-    char szTemp[BUFSIZ];
+    char szTemp[16384];
     memset(szTemp,0,sizeof(szTemp));
     gpHtml->open_html();
     gpHtml->open_head();
@@ -488,10 +492,10 @@ void schema::gen_from_schema(int iHandle,
     gpHtml->open_form(
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_SCHEMA].c_str(),
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_CGINAME].c_str(),
-          "POST",
-          iHandle,
-          "default",
-          gpCsv->m_parsed_data[ROW_META_DATA][COL_META_TARGET].c_str());
+            gpCsv->m_parsed_data[ROW_META_DATA][COL_META_METHOD].c_str(),
+            iHandle,
+           "default",
+           gpCsv->m_parsed_data[ROW_META_DATA][COL_META_TARGET].c_str());
 
     sprintf(szHandle,"%d",iHandle);
     gpHtml->hidden("handle",szHandle);
@@ -575,7 +579,7 @@ void schema::gen_from_schema(int iHandle,
     gpHtml->open_form(
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_SCHEMA].c_str(),
             gpCsv->m_parsed_data[ROW_META_DATA][COL_META_CGINAME].c_str(),
-          "POST",
+            gpCsv->m_parsed_data[ROW_META_DATA][COL_META_METHOD].c_str(),
           iHandle,
           "default",
           gpCsv->m_parsed_data[ROW_META_DATA][COL_META_TARGET].c_str());
@@ -603,7 +607,7 @@ void schema::gen_from_schema(int iHandle,
         gpHtml->para(); gpHtml->print("Schema is not active");
     }
 
-    //gpHtml->close_form();
+    gpHtml->close_form();
     gpHtml->close_body();
     gpHtml->close_html();
 }

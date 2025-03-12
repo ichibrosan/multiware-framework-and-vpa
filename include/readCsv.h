@@ -8,7 +8,7 @@
 
 #include "mwfw2.h"
 
-#define MAX_ROWS 42
+#define MAX_ROWS 500
 #define MAX_COLS 20
 
 /**

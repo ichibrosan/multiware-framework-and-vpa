@@ -1,8 +1,9 @@
-Active,Version,Meta Columns,Data Columns,Schema,CgiName,Target,PageForm,Style,Description
-true,1,10,9,prefs.csv,prefs-action.cgi,_self,true,default_style,Copyright &copy; 2024-2025 Douglas Wade Goodall,default_style
+Active,Version,Meta Columns,Data Columns,Schema,CgiName,Method,Target,PageForm,Style,Description
+true,1,11,9,prefs.csv,prefs-action.cgi,get,_self,true,default_style,Copyright &copy; 2024-2025 Douglas Wade Goodall,default_style
 Active,PrePara,PostPara,ElementType,Parm1,Parm2,Parm3,Parm4,Parm5,Parm6
-true,no,yes,image,our-office.png,250,100
-true,yes,no,select,color,Choose foreground color,fgcolor,color
+false,no,yes,image,our-office.png,250,100
+true,yes,no,label,bodycolor
+true,no,no,select,bodyfgcolor,foreground color,bodyfgcolor,bodyfgcolor
 true,no,no,selectopt,webcolors_white,White
 true,no,no,selectopt,webcolors_silver,Silver
 true,no,no,selectopt,webcolors_gray,Grey
@@ -20,7 +21,192 @@ true,no,no,selectopt,webcolors_navy,Navy
 true,no,no,selectopt,webcolors_fuchsia,Fuchsia
 true,no,no,selectopt,webcolors_purple,Purple
 true,no,no,selectend
-true,yes,no,select,color,Choose background color,bgcolor,color
+true,no,no,select,bodybgcolor,background color,bodybgcolor,bodybgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,yes,no,label,tablecolor
+true,no,no,select,tablefgcolor,foreground color,tablefgcolor,tablefgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,no,no,select,tablebgcolor,background color,tablebgcolor,tablebgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,yes,no,label,trcolor
+true,no,no,select,trfgcolor,foreground color,trfgcolor,trfgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,no,no,select,trbgcolor,background color,trbgcolor,trbgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,yes,no,label,thcolor
+true,no,no,select,thfgcolor,foreground color,thfgcolor,thfgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,no,no,select,thbgcolor,background color,thbgcolor,thbgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,yes,no,label,tdcolor
+true,no,no,select,tdfgcolor,foreground color,tdfgcolor,tdfgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,no,no,select,tdbgcolor,background color,tdbgcolor,tdbgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,yes,no,label,dbcolor
+true,no,no,select,dbfgcolor,foreground color,dbfgcolor,dbfgcolor
+true,no,no,selectopt,webcolors_white,White
+true,no,no,selectopt,webcolors_silver,Silver
+true,no,no,selectopt,webcolors_gray,Grey
+true,no,no,selectopt,webcolors_black,Black
+true,no,no,selectopt,webcolors_red,Red
+true,no,no,selectopt,webcolors_maroon,Maroon
+true,no,no,selectopt,webcolors_yellow,Yellow
+true,no,no,selectopt,webcolors_olive,Olive
+true,no,no,selectopt,webcolors_line,Lime
+true,no,no,selectopt,webcolors_green,Green
+true,no,no,selectopt,webcolors_aqua,Aqua
+true,no,no,selectopt,webcolors_teal,Teal
+true,no,no,selectopt,webcolors_blue,Blue
+true,no,no,selectopt,webcolors_navy,Navy
+true,no,no,selectopt,webcolors_fuchsia,Fuchsia
+true,no,no,selectopt,webcolors_purple,Purple
+true,no,no,selectend
+true,no,no,select,dbbgcolor,background color,dbbgcolor,dbbgcolor
 true,no,no,selectopt,webcolors_white,White
 true,no,no,selectopt,webcolors_silver,Silver
 true,no,no,selectopt,webcolors_gray,Grey

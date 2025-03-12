@@ -1,5 +1,5 @@
-Active,Version,Meta Columns,Data Columns,Schema,CgiName,Target,PageForm,Style,Description
-true,1,10,8,user-menu.csv,menu.cgi,_self,true,default_style,Copyright &copy; 2024-2025 Douglas Wade Goodall
+Active,Version,Meta Columns,Data Columns,Schema,CgiName,Method,Target,PageForm,Style,Description
+true,1,11,8,user-menu.csv,menu.cgi,post,_self,true,default_style,Copyright &copy; 2024-2025 Douglas Wade Goodall
 Active,PrePara,PostPara,ElementType,Parm1,Parm2,Parm3,Parm4,Parm5,Parm6
 true,no,yes,image,our-office.png,250,100
 false,no,no,imagelink,render.cgi?schema=experimental.csv,btn_render_exp.png,150,38

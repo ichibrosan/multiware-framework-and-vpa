@@ -24,6 +24,6 @@
 #define UT_TIMESIZE 32
 #define UUID_SIZE   (36+1)
 #define DATE_LENGTH 14
-
+#define COLOR_SIZE_MAX 24
 #define ZERO_TERMINATOR_SIZE 1
 #endif //HTML_LIMITS_H
