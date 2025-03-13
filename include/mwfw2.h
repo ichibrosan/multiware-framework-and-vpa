@@ -106,7 +106,7 @@ extern rpcbind * gpRpcbind;
 
 #include "config.h"
 #include "vpadDefs.h"
-
+#include "stylist.h"
 /**
  * @class mwfw2
  * @brief This class provides foundational functionality for the middleware

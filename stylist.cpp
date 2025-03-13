@@ -4,7 +4,7 @@
 /////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include "stylist.h"
+//#include "stylist.h"
 #include "webcolors.h"
 /**
  * @brief Provides a CSS style definition for a default button.
@@ -308,14 +308,13 @@ char szReturn[BUFSIZ];
  *
  * @return void
  */
-stylist::stylist() {
-
+stylist::stylist(int handle) {
     // std::string ssCssFQFS =
     //     "/home/devo/public_html/fw/styles/doug.css";
 
     std::string ssUser    = gpSh->m_pShMemng->szUser;
     std::string ssCssFQFS = gpOS->genStyleFQFS(
-        ssUser.append(".css").c_str(),false);
+        (const char *)ssUser.append(".css").c_str(),false);
     gpSysLog->loginfo(ssCssFQFS.c_str());
 
     FILE * fp = fopen(ssCssFQFS.c_str(),"w");
@@ -326,12 +325,36 @@ stylist::stylist() {
     fprintf(fp,"%s\n",journal_save());
     fprintf(fp,"%s\n",journal_reset());
     fprintf(fp,"%s\n",journal_textarea());
-    fprintf(fp,"%s\n",table(papayawhip,slateblue));
-    fprintf(fp,"%s\n",body(magenta,lightgreen));
-    fprintf(fp,"%s\n",tr(orange,violet));
-    fprintf(fp,"%s\n",th(orange,linen));
-    fprintf(fp,"%s\n",dot_dashboard(darkblue,lightblue));
-    fprintf(fp,"%s\n",td(black,linen));
+
+    fprintf(fp,"%s\n",table(
+        gpSh->m_pShMemng->prefs[handle].szTableFGcolor,
+        gpSh->m_pShMemng->prefs[handle].szTableFGcolor)
+    );
+
+    fprintf(fp,"%s\n",body(
+        gpSh->m_pShMemng->prefs[handle].szBodyFGcolor,
+        gpSh->m_pShMemng->prefs[handle].szBodyBGcolor)
+    );
+
+    fprintf(fp,"%s\n",tr(
+        gpSh->m_pShMemng->prefs[handle].szTrFGcolor,
+        gpSh->m_pShMemng->prefs[handle].szTrBGcolor)
+    );
+
+    fprintf(fp,"%s\n",th(
+        gpSh->m_pShMemng->prefs[handle].szThFGcolor,
+        gpSh->m_pShMemng->prefs[handle].szThBGcolor)
+    );
+
+    fprintf(fp,"%s\n",dot_dashboard(
+        gpSh->m_pShMemng->prefs[handle].szDbFGcolor,
+        gpSh->m_pShMemng->prefs[handle].szDbBGcolor)
+    );
+
+    fprintf(fp,"%s\n",td(
+        gpSh->m_pShMemng->prefs[handle].szTdFGcolor,
+        gpSh->m_pShMemng->prefs[handle].szTdBGcolor)
+    );
 
     fclose(fp);
 }
@@ -446,7 +469,7 @@ const char * stylist::journal_textarea() {
  * @return A pointer to a constant character array containing the CSS
  * style rules for the "table" element.
  */
-const char * stylist::table(svgcolors_t color,svgcolors_t background) {
+const char * stylist::table(char * color,char * background) {
     sprintf(szReturn,sz_table,color,background);
     return szReturn;
 }
@@ -460,8 +483,7 @@ const char * stylist::table(svgcolors_t color,svgcolors_t background) {
  * @return A constant character pointer to the string containing the
  * CSS representation of the body element's style.
  */
-const char * stylist::body(svgcolors_t color,
-                           svgcolors_t background) {
+const char * stylist::body(char * color,char * background) {
     sprintf(szReturn,sz_body,color,background);
     return szReturn;
 }
@@ -475,7 +497,7 @@ const char * stylist::body(svgcolors_t color,
  * @return A constant pointer to a character string containing the CSS
  *         definition for the "tr" element.
  */
-const char * stylist::tr(svgcolors_t color,svgcolors_t background) {
+const char * stylist::tr(char * color,char * background) {
     sprintf(szReturn,sz_tr,color,background);
     return szReturn;
 }
@@ -489,7 +511,7 @@ const char * stylist::tr(svgcolors_t color,svgcolors_t background) {
  * @return A pointer to a constant character string containing the
  * CSS properties and values for the styles applied to table header elements.
  */
-const char * stylist::th(svgcolors_t color,svgcolors_t background) {
+const char * stylist::th(char * color,char * background) {
     sprintf(szReturn,sz_th,color,background);
     return szReturn;
 }
@@ -504,7 +526,7 @@ const char * stylist::th(svgcolors_t color,svgcolors_t background) {
  * @return A constant character pointer containing the CSS style
  * definition for the "dot_dashboard" element.
  */
-const char * stylist::dot_dashboard(svgcolors_t color,svgcolors_t background) {
+const char * stylist::dot_dashboard(char *color,char * background) {
     sprintf(szReturn,sz_dot_dashboard,color,background);
     return szReturn;
 }
@@ -515,8 +537,7 @@ const char * stylist::dot_dashboard(svgcolors_t color,svgcolors_t background) {
  * @return A constant pointer to a character array containing the
  * CSS style rules for the `<td>` element.
  */
-const char * stylist::td(svgcolors_t color,svgcolors_t background) {
+const char * stylist::td(char * color,char *  background) {
     sprintf(szReturn,sz_td,color,background);
     return szReturn;
 }
-

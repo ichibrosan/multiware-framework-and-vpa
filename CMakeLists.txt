@@ -359,8 +359,11 @@ add_executable(prefs-action.cgi
 		rpcbind.cpp			include/rpcbind.h
 		include/webcolors.h
 		include/diagnoseMethod.h
+		stylist.cpp
+		osIface.cpp
 )
 target_link_directories(prefs-action.cgi PRIVATE
+		/home/devo/public_html/fw/lib
 		/opt/xmlrpc-c/src/cpp
 		/opt/xmlrpc-c/src
 		/opt/xmlrpc-c/lib/libutil++

@@ -730,8 +730,9 @@ void cgihtml::form_select(		const char * pszLabelFor,
  * @param pszOptionValue The value attribute of the `<option>` element.
  * @param pszOptionVisible The visible text to display for the `<option>` element.
  */
-void cgihtml::form_select_opt(	const char * pszOptionValue,
-                         const char * pszOptionVisible)
+void cgihtml::form_select_opt(  const char * pszDefaultBoolean,
+                                const char * pszOptionValue,
+                                const char * pszOptionVisible)
 {
 
     /*
@@ -743,12 +744,21 @@ void cgihtml::form_select_opt(	const char * pszOptionValue,
         </select>
     */
 
-    std::cout << "<option value=\""
-              << pszOptionValue
-              << "\">"
-              << pszOptionVisible
-              << "</option>"
-              << std::endl;
+    if (0 == strcmp("true",pszDefaultBoolean)) {
+        std::cout << "<option value=\"" << pszOptionValue << "\""
+                  << " selected=\"selected\""
+                  << ">"
+                  << pszOptionVisible
+                  << "</option>"
+                  << std::endl;
+    } else {
+        std::cout << "<option value=\""
+                  << pszOptionValue
+                  << "\">"
+                  << pszOptionVisible
+                  << "</option>"
+                  << std::endl;
+    }
 }
 
 /**

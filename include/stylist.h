@@ -25,7 +25,7 @@ class stylist {
     * necessary internal state and producing CSS for further use.
     */
 public:
-    stylist();
+    stylist(int handle);
 
     /**
      * Generates and returns the CSS string defining the default button
@@ -106,7 +106,7 @@ public:
      * @return A pointer to a constant character array containing the
      * CSS styles for the "table" element.
      */
-    const char * table(svgcolors_t color, svgcolors_t background);
+    const char * table(char * color, char * background);
 
  /**
   * Retrieves the CSS styling for the body element.
@@ -114,7 +114,7 @@ public:
   * @return A constant character pointer to the CSS styling string
   * for the body element.
   */
- const char * body(svgcolors_t color,svgcolors_t background);
+ const char * body(char * color,char * background);
 
  /**
   * Returns the style rules defined for the `tr` HTML element.
@@ -122,7 +122,7 @@ public:
   * @return A const char pointer to a string containing CSS rules
   *         for the `tr` HTML element.
   */
- const char * tr(svgcolors_t color, svgcolors_t background);
+ const char * tr(char * color, char * background);
 
  /**
   * Provides the CSS styling for HTML table headers (`<th>` elements).
@@ -130,7 +130,7 @@ public:
   * @return A constant character pointer containing the CSS properties
   * and values for the styles applied to table header elements.
   */
- const char * th(svgcolors_t color,svgcolors_t background);
+ const char * th(char * color,char * background);
 
     /**
      * Retrieves the CSS style definition for the dashboard class.
@@ -138,7 +138,7 @@ public:
      * @return A C-string containing the CSS style definition for the
      * dashboard class.
      */
-    const char * dot_dashboard(svgcolors_t color, svgcolors_t background);
+    const char * dot_dashboard(char * color, char * background);
 
  /**
   * Retrieves the CSS style definitions for the `<td>` element.
@@ -146,7 +146,7 @@ public:
   * @return A constant pointer to a character array containing the
   * CSS style rules for the `<td>` element.
   */
- const char * td(svgcolors_t color,svgcolors_t background);
+ const char * td(char * color,char * background);
 };
 
 #endif //STYLIST_H

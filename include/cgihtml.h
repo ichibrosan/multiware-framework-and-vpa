@@ -413,8 +413,10 @@ void form_select(		const char * pszLabelFor,
  * @param pszOptionVisible The text to be displayed to the user for the
  *						option element.
  *************************************************************************/
-void form_select_opt(	const char * pszOptionValue,
-						 const char * pszOptionVisible);
+void form_select_opt(
+		const char * pszSelectBool,
+		const char * pszOptionValue,
+		const char * pszOptionVisible);
 
 /*************************************************************************
  * @brief Marks the end of a select HTML form element in the CGI output.

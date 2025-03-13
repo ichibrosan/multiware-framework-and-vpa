@@ -820,7 +820,7 @@ std::string osIface::genCgiCBDUrl(const char * pszCgiName,bool bDebug)
  *   without the filename, the appended "styles" directory, and the final
  *   CSS file path.
  ************************************************************************/
-std::string genStyleFQFS(const char *pszCssName,bool bDebug) {
+std::string osIface::genStyleFQFS(const char *pszCssName,bool bDebug) {
 
     if(bDebug) {
         std::cout << __FUNCTION__ << " called" << std::endl;

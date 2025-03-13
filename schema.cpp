@@ -234,7 +234,8 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
                             gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
                 gpHtml->form_select_opt(
                     gpCsv->m_parsed_data[iRow][COL_PARM1].c_str(),
-                    gpCsv->m_parsed_data[iRow][COL_PARM2].c_str());
+                    gpCsv->m_parsed_data[iRow][COL_PARM2].c_str(),
+                    gpCsv->m_parsed_data[iRow][COL_PARM3].c_str());
             }
 
             if (0 == strcmp("selectend",
