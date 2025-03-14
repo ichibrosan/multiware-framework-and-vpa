@@ -1,9 +1,55 @@
-//
-// Created by doug on 3/8/25.
-//
+/////////////////////////////////////////////////////////////////////
+// /home/devo/public_html/fw/diagnoseMethod.h 2025-03-148 12:28    //
+// Derived from xmlrpc-c/examples/cpp/xmlrpc_sample_add_client.cpp //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
+/////////////////////////////////////////////////////////////////////
 
 #ifndef DIAGNOSEMETHOD_H
 #define DIAGNOSEMETHOD_H
+
+/**
+ * @brief Array of request names for the Virtual Protocol Adapter.
+ *
+ * This array contains string constants representing various request
+ * types that the VPAD system can handle. These names are typically
+ * used for logging or identifying a specific request type in the
+ * system's request handling logic.
+ *
+ * The available request types are:
+ * - "VERSION" : Request related to system version.
+ * - "AUTH"    : Request for authentication.
+ * - "PARMS"   : Request for parameters.
+ * - "STATUS"  : Request for system status.
+ * - "TERM"    : Request to terminate the system.
+ */
+const char * vpad_req_names[] = {
+    "VERSION",
+    "AUTH",
+    "PARMS",
+    "STATUS",
+    "TERM"
+};
+
+/**
+ * @brief Array of strings representing the names of variable parameter types.
+ *
+ * This array is used to map integer type identifiers to their corresponding
+ * string representations, providing a way to handle and log different types
+ * of variable parameters (e.g., NONE, INT, STRING, FLOAT, BOOL) within the
+ * system.
+ *
+ * @note The order of elements in the array should correspond to the
+ * enumerated values or integer representations of the types used in the
+ * application.
+ */
+const char * vpad_type_names[] = {
+    "NONE",
+    "INT",
+    "STRING",
+    "FLOAT",
+    "BOOL"
+};
+
 /***************************************************************************
  * @class diagnoseMethod
  * @brief A class implementing an XML-RPC method to handle various server

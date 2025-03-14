@@ -2,6 +2,7 @@
 # /home/devo/public_html/fw/CmakeLists.txt 2025/02/19           #
 # Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved. #
 ###########################################################################
+# 2025-03-14 12:07 dwg - suspend diagnose.cgi compilation                 #
 # 2025-02-17 04:24 dwg - added xinetdctl to mwfw2 library                 #
 # 2025/02/14 08:17 dwg - optimize, suspended possibly unnecessary headers #
 # 2025/02/09 03:19 dwg - added xmlrpc_inetd_server target to build        #
@@ -69,31 +70,31 @@ add_library( mwfw2 STATIC
 		stylist.cpp			include/stylist.h
 )
 
-##############################################################################
-# diagnose.cgi is intended to be a diagnostic invoked by the Diagnose button #
-##############################################################################
-add_executable( diagnose.cgi
-        diagnose.cpp		include/version.h
-		rpcbind.cpp			include/rpcbind.h
-)
-link_directories(/usr/lib/x86_64-linux-gnu)
-target_link_libraries(diagnose.cgi
-        mwfw2
-        libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
-		libcurl.so.4.8.0
-		libxmlrpc_client++.a
-		libxmlrpc_client.a
-		libxmlrpc++.a
-		libxmlrpc_util++.a
-		libxmlrpc.a
-		libxmlrpc_xmlparse.a
-		libxmlrpc_xmltok.a
-		libxmlrpc_util.a
-		pthread
-		libxmlrpc_packetsocket.a
-
-)
+###############################################################
+# diagnose.cgi is a diagnostic invoked by the Diagnose button #
+###############################################################
+#add_executable( diagnose.cgi
+#        diagutil.cpp		include/version.h
+#		rpcbind.cpp			include/rpcbind.h
+#)
+#link_directories(/usr/lib/x86_64-linux-gnu)
+#target_link_libraries(diagnose.cgi
+#        mwfw2
+#        libcgicc.a        # libcgicc.so     use static library instead
+#        uuid.a            # uuid.so         use static library instead
+#		libcurl.so.4.8.0
+#		libxmlrpc_client++.a
+#		libxmlrpc_client.a
+#		libxmlrpc++.a
+#		libxmlrpc_util++.a
+#		libxmlrpc.a
+#		libxmlrpc_xmlparse.a
+#		libxmlrpc_xmltok.a
+#		libxmlrpc_util.a
+#		pthread
+#		libxmlrpc_packetsocket.a
+#
+#)
 
 
 ########################################################
@@ -102,6 +103,7 @@ target_link_libraries(diagnose.cgi
 add_executable( fw
                 main.cpp		include/version.h
 		rpcbind.cpp				include/rpcbind.h
+		include/diagnoseRegister.h
 )
 target_link_libraries(fw
 		mwfw2

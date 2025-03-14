@@ -16,49 +16,6 @@ using namespace std;
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
 
-/**
- * @brief Array of request names for the Virtual Protocol Adapter.
- *
- * This array contains string constants representing various request
- * types that the VPAD system can handle. These names are typically
- * used for logging or identifying a specific request type in the
- * system's request handling logic.
- *
- * The available request types are:
- * - "VERSION" : Request related to system version.
- * - "AUTH"    : Request for authentication.
- * - "PARMS"   : Request for parameters.
- * - "STATUS"  : Request for system status.
- * - "TERM"    : Request to terminate the system.
- */
-const char * vpad_req_names[] = {
-    "VERSION",
-    "AUTH",
-    "PARMS",
-    "STATUS",
-    "TERM"
-};
-
-/**
- * @brief Array of strings representing the names of variable parameter types.
- *
- * This array is used to map integer type identifiers to their corresponding
- * string representations, providing a way to handle and log different types
- * of variable parameters (e.g., NONE, INT, STRING, FLOAT, BOOL) within the
- * system.
- *
- * @note The order of elements in the array should correspond to the
- * enumerated values or integer representations of the types used in the
- * application.
- */
-const char * vpad_type_names[] = {
-    "NONE",
-    "INT",
-    "STRING",
-    "FLOAT",
-    "BOOL"
-};
-
 #include "diagnoseMethod.h"
 
 /****************************************************************************
@@ -93,9 +50,7 @@ main(int           argc,
 
     xmlrpc_c::registry myRegistry;
 
-    xmlrpc_c::methodPtr const diagnoseMethodP(new diagnoseMethod);
-
-    myRegistry.addMethod("diagnose", diagnoseMethodP);
+#include "diagnoseRegister.h"
 
     xmlrpc_c::serverAbyss myAbyssServer(
          xmlrpc_c::serverAbyss::constrOpt()

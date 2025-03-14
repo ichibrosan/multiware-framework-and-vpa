@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/vpad.cpp 2025/03/08 19:26 dwg            //
+// /home/devo/public_html/fw/vpad.cpp 2025/03/14 12:21 dwg            //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
+// 2025-03-14 12:22 dwg - #include Method/Register components         //
 ////////////////////////////////////////////////////////////////////////
 
 #define WIN32_LEAN_AND_MEAN  /* required by xmlrpc-c/server_abyss.hpp */
@@ -10,57 +11,23 @@ using namespace std;
 #include <xmlrpc-c/registry.hpp>
 #include <xmlrpc-c/server_abyss.hpp>
 
-const char * vpad_req_names[] = {
-    "VERSION",
-    "AUTH",
-    "PARMS",
-    "STATUS",
-    "TERM"
-};
-
-const char * vpad_type_names[] = {
-    "NONE",
-    "INT",
-    "STRING",
-    "FLOAT",
-    "BOOL"
-};
-
 #include "diagnoseMethod.h"
 
-/****************************************************************************
- * @brief Entry point of the vpad application.
+/**
+ * Entry point of the application.
  *
- * This function serves as the main entry point of the vpad application.
- * It creates an instance of the `mwfw2` class for system and process
- * initialization, prints a copyright message, and forks the process into
- * parent and child processes. Each process performs distinct operations:
+ * This function initializes essential components, logs initial system state,
+ * and manages process forking to establish a parent and child process.
+ * The parent process updates uptime information and runtime metadata,
+ * while the child process sets up an XML-RPC server for remote procedure
+ * call handling.
  *
- * - The parent process:
- *   1. Initializes the logging system (`CLog`) and retrieves the process
- *      timestamp.
- *   2. Records process-specific information such as the process ID,
- *      compilation date, time, and uptime.
- *   3. Enters a loop to maintain the state of the `vpad` process,
- *      continuously updating its uptime until a termination signal is
- *      received.
- *
- * - The child process:
- *   1. Sets up an XML-RPC server using the `xmlrpc_c` library.
- *   2. Binds the "diagnose" RPC method to the server for XML-RPC
- *      communication.
- *   3. Starts the XML-RPC server on port 5164, allowing for XML-RPC calls.
- *
- * The primary functionality of the child process is to handle incoming
- * XML-RPC requests, while the parent process maintains the runtime state
- * of the application.
- *
- * @param argc The number of command-line arguments passed to the program.
- * @param argv An array of character pointers listing all command-line
- *              arguments.
- * @return Returns `EXIT_SUCCESS` (0) upon successful execution or an error
- * code in case of failure.
- ***************************************************************************/
+ * @param argc The number of command-line arguments passed.
+ * @param argv Array of command-line arguments.
+ * @return An integer status code. Returns 0 (EXIT_SUCCESS) if the program
+ * completes successfully in the parent process. The child process may \
+ * return different codes based on server operation.
+ */
 int
 main(int argc,char ** argv) {
     auto * pMwfw = new mwfw2(__FILE__,__FUNCTION__);
@@ -84,7 +51,6 @@ main(int argc,char ** argv) {
         gpLog = new CLog(__FILE__, __FUNCTION__);
         gpLog->getTimeDateStamp(szTimestamp);
         gpSh->m_pShMemng->vpad_parent_pid = getpid();
-        //std::cout << "From Vpad: " << getpid() << std::endl;
         strcpy(gpSh->m_pShMemng->szVpad_date,__DATE__);
         strcpy(gpSh->m_pShMemng->szVpad_time,__TIME__);
         strcpy(gpSh->m_pShMemng->sz_vpad_start_time,szTimestamp);
@@ -103,8 +69,9 @@ main(int argc,char ** argv) {
         gpSh->m_pShMemng->vpad_child_pid = getpid();
         try {
             xmlrpc_c::registry myRegistry;
-            xmlrpc_c::methodPtr const diagnoseMethodP(new diagnoseMethod);
-            myRegistry.addMethod("diagnose", diagnoseMethodP);
+
+#include "diagnoseRegister.h"
+
             xmlrpc_c::serverAbyss myAbyssServer(
                 xmlrpc_c::serverAbyss::constrOpt()
                 .registryP(&myRegistry)
