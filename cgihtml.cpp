@@ -459,6 +459,10 @@ void cgihtml::dump_shm_vars()
     std::cout << gpSh->m_pShMemng->szProtocol;
     std::cout << "</td></tr>";
 
+    std::cout << "<tr><th>szConfigRoot</th><td>";
+    std::cout << gpSh->m_pShMemng->szConfigRoot;
+    std::cout << "</td></tr>";
+
     std::cout << "<tr><th>szImgRoot</th><td>";
     std::cout << gpSh->m_pShMemng->szImgRoot;
     std::cout << "</td></tr>";

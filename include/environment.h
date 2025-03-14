@@ -194,7 +194,9 @@ class environment {
 public:
     environment();
 
-    void set_tmp_root(bool bDebug);
+	void set_config_root();
+
+	void set_tmp_root(bool bDebug);
 
     void set_vpad_startup_script();
 

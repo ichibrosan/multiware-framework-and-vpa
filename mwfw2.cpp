@@ -23,7 +23,8 @@ test			* gpTest;
 schemaCompiler	* gpSchCC;
 password		* gpPassword;
 xinetdctl		* gpXinetd;
-//stylist			* gpStylist;
+//stylist		* gpStylist;
+config			* gpConfig;
 
 /**
  * Constructor for the mwfw class. Initializes the CGI mode based
@@ -61,6 +62,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
     gpCgi = new Cgicc();
     gpCgiBind = new cgibind();
 	//gpStylist = new stylist();
+	gpConfig = new config();
 }
 
 /**

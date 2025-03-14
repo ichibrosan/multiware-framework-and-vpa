@@ -180,7 +180,28 @@ environment::environment() {
 		set_tmp_root(false);
 	}
 
+	set_config_root();
+
 }
+
+
+/***************************************************************************
+ * @brief Configures and sets the root directory for user-specific settings.
+ * This function constructs the configuration root path for a user by
+ * appending the username and predefined directory structure to the base
+ * path "/home/". The resulting path is stored in a shared memory structure
+ * to be utilized by other components of the system for user-specific
+ * configurations.
+ * @note The function relies on shared memory to fetch user information
+ *       and to store the constructed configuration path.
+ ***************************************************************************/
+void environment::set_config_root() {
+	std::string ssConfigRoot = "/home/";
+	ssConfigRoot.append(gpSh->m_pShMemng->szUser);
+	ssConfigRoot.append("/.config/multiware");
+	strcpy(gpSh->m_pShMemng->szConfigRoot,ssConfigRoot.c_str());
+}
+
 
 /**
  * Sets the startup script for the VPAD (Virtual PAD) system.

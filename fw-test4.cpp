@@ -5,6 +5,14 @@
 #include "mwfw2.h"
 
 
+/**
+ * @brief Entry point of the program.
+ *
+ * This function initializes the program, outputs HTTP content type
+ * and a simple "Hello World!!" message to the console.
+ *
+ * @return An integer value of 0 indicating successful program execution.
+ */
 int main() {
     //mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 

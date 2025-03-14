@@ -29,6 +29,7 @@ struct MFW_SHMEMNG_T {
     char szStylesRoot[INET_URL_SIZE_MAX];
     char szStylesFileRoot[INET_URL_SIZE_MAX];
     char szTmpRoot[FILENAME_MAX];
+    char szConfigRoot[FILENAME_MAX];
     char szUser[UT_NAMESIZE];
     char szRpcUuid[UUID_SIZE];             // 37
 

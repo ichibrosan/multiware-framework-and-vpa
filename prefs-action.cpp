@@ -7,13 +7,18 @@
 #include "stylist.h"
 
 /**
- * The main function serves as the entry point of the program. It initializes
- * various components including logging, CGI processing, environment variables,
- * schema handling, and dashboard setup. It handles CGI detection and outputs
- * HTML headers accordingly. Schema generation and debugging outputs are provided
- * when in CGI mode.
+ * The main function initializes necessary components, processes form
+ * variables, updates shared memory with preferences, and creates objects
+ * for user preferences, dashboard, and stylist. It performs the
+ * following operations:
+ * - Initializes schema and shared memory management.
+ * - Retrieves and updates user preferences from a form.
+ * - Sets preferences such as colors for body, table, rows, headers,
+ *   and database elements.
+ * - Prepares a dashboard and applies user-specific styles.
  *
- * @return Returns 0 to indicate successful program execution.
+ * @return An integer indicating the execution status. Returns 0 on
+ *          successful execution.
  */
 int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);

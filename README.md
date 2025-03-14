@@ -2,6 +2,13 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-03-13 06:00 dwg - I have done a lot of work on prefs.cpp and 
+prefs-action.cpp and webcolors.h. After login, you can click on Preferences 
+and select the foreground and background colors for my css variables and a new
+$USER.css file gets written. You can log out and log back in and see news 
+colors, but they are not as expected. I am having trouble figuiring out what 
+is going on. For now, I will just keep using my favorite doug.css.
+
 2025-03-09 03:48 dwg - There is just one concerning problem with our current
 code base. That is the function in the environment.cpp that determines the IP
 number of the host computer.

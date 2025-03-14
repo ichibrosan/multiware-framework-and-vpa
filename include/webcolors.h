@@ -7,7 +7,7 @@
 #include <bits/chrono.h>
 
 enum webcolors_t {
-    webcolors_white     = 0x0FFFFFF,
+    webcolors_white     = 0xFFFFFF,
     webcolors_silver    = 0xC0C0C0,
     webcolors_gray      = 0x808080,
     webcolors_black     = 0x000000,
