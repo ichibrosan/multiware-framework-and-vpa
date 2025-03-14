@@ -3,7 +3,7 @@
 //
 
 #include "mwfw2.h"
-#include "vpadDefs.h"
+#include "diagnoseDefs.h"
 
 #include "rpcbind.h"
 

@@ -22,7 +22,7 @@
  * - "STATUS"  : Request for system status.
  * - "TERM"    : Request to terminate the system.
  */
-const char * vpad_req_names[] = {
+const char * diagnose_req_names[] = {
     "VERSION",
     "AUTH",
     "PARMS",
@@ -42,7 +42,7 @@ const char * vpad_req_names[] = {
  * enumerated values or integer representations of the types used in the
  * application.
  */
-const char * vpad_type_names[] = {
+const char * diagnose_type_names[] = {
     "NONE",
     "INT",
     "STRING",
@@ -132,12 +132,12 @@ public:
         sprintf(szPayload,
             "Server RPC: P1=%s,P2=%d,P3Type=%s,"
                   "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
-            vpad_req_names[iParm1],iParm2,
-            vpad_type_names[iParm3Type],ssParm3.c_str(),
-            vpad_type_names[iParm4Type],ssParm4.c_str(),ssAuth.c_str());
+            diagnose_req_names[iParm1],iParm2,
+            diagnose_type_names[iParm3Type],ssParm3.c_str(),
+            diagnose_type_names[iParm4Type],ssParm4.c_str(),ssAuth.c_str());
         gpSysLog->loginfo(szPayload);
         switch (iParm1) {
-            case VPAD_REQ_VERSION:
+            case DIAGNOSE_REQ_VERSION:
                 if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
                    *retvalP = xmlrpc_c::value_string(RVERSION_STRING_LONG);
                 } else {
@@ -145,7 +145,7 @@ public:
                    *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
                 }
                 break;
-            case VPAD_REQ_AUTH:
+            case DIAGNOSE_REQ_AUTH:
                 if (0 == strcmp(ssAuth.c_str(),VPA_RPC_PSK)) {
                     *retvalP = xmlrpc_c::value_string(gpSh->m_pShMemng->szRpcUuid);
                 } else {
@@ -153,7 +153,7 @@ public:
                     *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
                 }
                 break;
-            case VPAD_REQ_PARMS:
+            case DIAGNOSE_REQ_PARMS:
                 if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
                     *retvalP = xmlrpc_c::value_string(szPayload);
                 } else {
@@ -161,7 +161,7 @@ public:
                     *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
                 }
                 break;
-            case VPAD_REQ_TERM:
+            case DIAGNOSE_REQ_TERM:
                 here;
                 *retvalP = xmlrpc_c::value_string("VPAD Shutting Down!!");
                 here;

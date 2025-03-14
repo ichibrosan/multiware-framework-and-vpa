@@ -2,6 +2,11 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-03-14 12:34 dwg - vpad.cpp and xmlrpc_inet_server.cpp now include 
+diagnoseMethod.h and diagnoseRegister.h in order to make vpad and 
+xmlrpc_inet_server more generic in order to allow support of multiple
+endpoints.
+
 2025-03-13 06:00 dwg - I have done a lot of work on prefs.cpp and 
 prefs-action.cpp and webcolors.h. After login, you can click on Preferences 
 and select the foreground and background colors for my css variables and a new

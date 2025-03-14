@@ -105,7 +105,7 @@ extern rpcbind * gpRpcbind;
 #endif
 
 #include "config.h"
-#include "vpadDefs.h"
+#include "diagnoseDefs.h"
 #include "stylist.h"
 /**
  * @class mwfw2

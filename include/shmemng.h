@@ -87,7 +87,7 @@ struct MFW_SHMEMNG_T {
     char   sz_vpad_start_time[24];                                                                                                                                                                                                                                                                               //
     int    vpad_req_bits;               // functional request bits
     int    vpad_resp_bits;              // functional response bits
-    int    vpad_errno[VPAD_REQ_COUNT];
+    int    vpad_errno[DIAGNOSE_REQ_COUNT];
     char   szVpad_date[80];            // date stamp of vpad.cpp
     char   szVpad_time[80];            // time stamp of vpad.cpp
 

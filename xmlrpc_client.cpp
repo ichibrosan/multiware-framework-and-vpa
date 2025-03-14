@@ -143,10 +143,10 @@ main(int argc, char **) {
      */
     vpa_request_t reqAuth;
     strcpy(reqAuth.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
-    reqAuth.eReqFunc = VPAD_REQ_AUTH;
+    reqAuth.eReqFunc = DIAGNOSE_REQ_AUTH;
     reqAuth.iParm2 = 0;
-    reqAuth.eParm3Type = VPAD_TYPE_NONE;
-    reqAuth.eParm4Type = VPAD_TYPE_NONE;
+    reqAuth.eParm3Type = DIAGNOSE_TYPE_NONE;
+    reqAuth.eParm4Type = DIAGNOSE_TYPE_NONE;
     strcpy(reqAuth.szAuth,VPA_RPC_PSK);
     std::string ssReturn = vpa_call(reqAuth);
     strcpy(gpSh->m_pShMemng->szRemoteAuth,ssReturn.c_str());
@@ -157,10 +157,10 @@ main(int argc, char **) {
      */
     vpa_request_t reqVer;
     strcpy(reqVer.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
-    reqVer.eReqFunc = VPAD_REQ_VERSION;
+    reqVer.eReqFunc = DIAGNOSE_REQ_VERSION;
     reqVer.iParm2 = 0;
-    reqVer.eParm3Type = VPAD_TYPE_NONE;
-    reqVer.eParm4Type = VPAD_TYPE_NONE;
+    reqVer.eParm3Type = DIAGNOSE_TYPE_NONE;
+    reqVer.eParm4Type = DIAGNOSE_TYPE_NONE;
     strcpy(reqVer.szAuth,gpSh->m_pShMemng->szRemoteAuth);
     ssReturn = vpa_call(reqVer);
     strcpy(gpSh->m_pShMemng->szRemoteVersion,ssReturn.c_str());
