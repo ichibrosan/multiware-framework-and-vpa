@@ -2,6 +2,9 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-03-14 13:03 dwg - Marcus Franklin has resigned from the project and
+his code will be deprecated as he is not here to support it.
+
 2025-03-14 12:34 dwg - vpad.cpp and xmlrpc_inet_server.cpp now include 
 diagnoseMethod.h and diagnoseRegister.h in order to make vpad and 
 xmlrpc_inet_server more generic in order to allow support of multiple
