@@ -4,6 +4,7 @@
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
 /////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
+#include "iHex.h"
 
 using namespace std;
 
@@ -133,10 +134,18 @@ main(int argc, char **) {
         exit(1);
     }
 
-    // Set this to the desired remote VPA system
+    // std::string buffer =
+    //     gpHex->structure_to_intel_hex(gpSh->m_pShMemng,
+    //         gpSh->m_pShMemng->stShMemSize,0);
 
-//    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.17");
-    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.223");
+    // Set this to the desired remote VPA system
+    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.17");
+    strcpy(gpSh->m_pShMemng->szRemoteHost,"daphne.goodall.com");
+
+//    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.223");
+
+    std::cout << "Remote Addr is:       " << gpSh->m_pShMemng->szRemoteAddr
+              << std::endl;
 
     /**
      * Call the remote system and request auth token using Private Shared Key
@@ -166,6 +175,19 @@ main(int argc, char **) {
     strcpy(gpSh->m_pShMemng->szRemoteVersion,ssReturn.c_str());
     std::cout << "Remote Version is:    " << ssReturn << std::endl;
 
+    // /**
+    //  * Call the remote system and request shm using auth token
+    //  */
+    // vpa_request_t reqShm;
+    // strcpy(reqShm.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
+    // reqShm.eReqFunc = DIAGNOSE_REQ_GETSHM;
+    // reqShm.iParm2 = 0;
+    // reqShm.eParm3Type = DIAGNOSE_TYPE_NONE;
+    // reqShm.eParm4Type = DIAGNOSE_TYPE_NONE;
+    // strcpy(reqShm.szAuth,gpSh->m_pShMemng->szRemoteAuth);
+    // ssReturn = vpa_call(reqShm);
+    // std::cout << "Remote Shared Memory is:    " << std::endl;
+    // std::cout << ssReturn << std::endl;
 
 
     return 0;

@@ -82,6 +82,7 @@ shared::shared() {
 
     if (bJustCreated) {
         m_pShMemng->iSignature = UNIVERSAL_ANSWER;
+        m_pShMemng->stShMemSize = size;
         size_t credsSize = sizeof(MFW_SHMEMNG_T::creds);
 
         /* each time the shared region is created, a new and unique

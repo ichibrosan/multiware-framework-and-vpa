@@ -22,6 +22,9 @@ include_directories(
         "/usr/local/include"
         "/opt/xmlrpc-c/include"
 )
+link_directories(
+		/home/devo/public_html/fw/lib
+		/usr/lib/x86_64-linux-gnu)
 
 #add_library( mwfw STATIC
 #        mwfw.cpp			mwfw.h
@@ -68,6 +71,7 @@ add_library( mwfw2 STATIC
 		include/cgicc.h		include/version.h
 		rpcbind.cpp			include/rpcbind.h
 		stylist.cpp			include/stylist.h
+		iHex.cpp			include/iHex.h
 )
 
 ###############################################################
@@ -105,6 +109,10 @@ add_executable( fw
 		rpcbind.cpp				include/rpcbind.h
 		include/diagnoseRegister.h
 )
+target_link_directories(fw PRIVATE
+		/home/devo/public_html/fw/lib
+		/usr/lib/x86_64-linux-gnu)
+
 target_link_libraries(fw
 		mwfw2
 		libcgicc.a        # libcgicc.so         use static library instead
@@ -207,6 +215,7 @@ target_link_libraries(journal.cgi
 add_executable( login.cgi
                 login.cpp		include/version.h
 		rpcbind.cpp				include/rpcbind.h
+		include/license.h
 )
 link_directories(/usr/lib/x86_64-linux-gnu)
 target_link_libraries(login.cgi

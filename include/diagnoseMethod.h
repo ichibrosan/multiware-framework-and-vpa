@@ -119,6 +119,8 @@ public:
     execute(xmlrpc_c::paramList const& paramList,
             xmlrpc_c::value *   const  retvalP) override {
 
+        std::string ssBuffer;
+
         int const iParm1(paramList.getInt(0));
         int const iParm2(paramList.getInt(1));
         int const iParm3Type(paramList.getInt(2));
@@ -166,6 +168,15 @@ public:
                 *retvalP = xmlrpc_c::value_string("VPAD Shutting Down!!");
                 here;
                 exit(EXIT_SUCCESS);
+            case DIAGNOSE_REQ_GETSHM:
+                here;
+                ssBuffer =
+                    gpHex->structure_to_intel_hex(gpSh->m_pShMemng,
+                        gpSh->m_pShMemng->stShMemSize,0);
+                here;
+                *retvalP = xmlrpc_c::value_string(ssBuffer);
+                here;
+                break;
             default:
                 *retvalP = xmlrpc_c::value_string("Unknown Request");
         }

@@ -6,7 +6,9 @@
 #include "mwfw2.h"
 
 #include "dashboard.h"
+
 #include "stylist.h"
+
 dashboard		* gpDash;
 environment		* gpEnv;
 shared			* gpSh;
@@ -25,6 +27,7 @@ password		* gpPassword;
 xinetdctl		* gpXinetd;
 //stylist		* gpStylist;
 config			* gpConfig;
+iHex			* gpHex;
 
 /**
  * Constructor for the mwfw class. Initializes the CGI mode based
@@ -63,6 +66,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
     gpCgiBind = new cgibind();
 	//gpStylist = new stylist();
 	gpConfig = new config();
+	gpHex = new iHex();
 }
 
 /**

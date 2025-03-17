@@ -107,6 +107,12 @@ extern rpcbind * gpRpcbind;
 #include "config.h"
 #include "diagnoseDefs.h"
 #include "stylist.h"
+
+#ifndef gpHex
+#include "iHex.h"
+extern iHex * gpHex;
+#endif
+
 /**
  * @class mwfw2
  * @brief This class provides foundational functionality for the middleware

@@ -18,6 +18,7 @@ struct MFW_SHMEMNG_T {
 
     // Shared Environmental Value, set by environment::environment()
     int iSignature;
+    size_t stShMemSize;
     char szHostname[DNS_FQDN_SIZE_MAX];
     char szIP[DNS_FQDN_SIZE_MAX];
     char szPublicIP[DNS_FQDN_SIZE_MAX];
