@@ -22,7 +22,7 @@ const char * vpad_req_names[] = {
     "TERM"
 };
 
-const char * vpad_type_names[] = {
+const char * rpc_type_names[] = {
     "NONE",
     "INT",
     "STRING",
@@ -30,31 +30,15 @@ const char * vpad_type_names[] = {
     "BOOL"
 };
 
-/**
- * Executes an XML-RPC call to a remote server with the provided request parameters.
- *
- * This function constructs the server URL dynamically based on predefined
- * constants and configuration values, and then makes an XML-RPC call using
- * the "diagnose" method. The function sends various request parameters and
- * captures the result. If any exceptions occur during the process, they are
- * caught and logged.
- *
- * @param req A reference to a `vpa_request_t` structure containing all the parameters
- *            required by the remote method, including function type, parameter values,
- *            types, and authentication data.
- *
- * @return A string representing the result of the XML-RPC call. If an error occurs,
- *         the function logs the details.
- *
- * Exception Safety:
- * - Handles and logs exceptions from the XML-RPC client library.
- * - Logs unexpected exceptions to standard error.
- *
- * Notes:
- * - `VPA_PORT` defines the port used to connect to the server.
- * - Relies on predefined global variables and framework to construct the server URL
- *   and manage communication.
- */
+const char * rest_req_names[] = {
+    "GET",
+    "HEAD",
+    "OPTIONS",
+    "PUT",
+    "DELETE",
+    "POST"
+};
+
 std::string vpa_call(vpa_request_t& req) {
 
     char szLog[256];
@@ -64,9 +48,9 @@ std::string vpa_call(vpa_request_t& req) {
             req.szRemoteHost,
             vpad_req_names[req.eReqFunc],
             req.iParm2,
-            vpad_type_names[req.eParm3Type],
+            rpc_type_names[req.eParm3Type],
             req.szParm3,
-            vpad_type_names[req.eParm4Type],
+            rpc_type_names[req.eParm4Type],
             req.szParm4,
             req.szAuth);
     gpSysLog->loginfo(szLog);
