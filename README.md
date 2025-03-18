@@ -2,6 +2,9 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-03-18 03:31 dwg - adding RESTful capability based on the XMLRPC
+instead of raw HTML. adding restDefs.h, restRegister.h and restMethod.h.
+
 2025-03-14 13:03 dwg - Marcus Franklin has resigned from the project and
 his code will be deprecated as he is not here to support it.
 

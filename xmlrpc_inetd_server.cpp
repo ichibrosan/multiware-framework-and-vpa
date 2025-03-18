@@ -17,6 +17,7 @@ using namespace std;
 #include <xmlrpc-c/server_abyss.hpp>
 
 #include "diagnoseMethod.h"
+#include "restMethod.h"
 
 /****************************************************************************
  * Main function, serves as the entry point of the xmlrpc_inetd_server
@@ -51,6 +52,7 @@ main(int           argc,
     xmlrpc_c::registry myRegistry;
 
 #include "diagnoseRegister.h"
+#include "restRegister.h"
 
     xmlrpc_c::serverAbyss myAbyssServer(
          xmlrpc_c::serverAbyss::constrOpt()

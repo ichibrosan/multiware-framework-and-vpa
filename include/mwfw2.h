@@ -105,7 +105,10 @@ extern rpcbind * gpRpcbind;
 #endif
 
 #include "config.h"
+
 #include "diagnoseDefs.h"
+#include "restDefs.h"
+
 #include "stylist.h"
 
 #ifndef gpHex
