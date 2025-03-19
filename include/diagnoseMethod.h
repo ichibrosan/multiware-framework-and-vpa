@@ -132,7 +132,7 @@ public:
         char szPayload[FILENAME_MAX];
 
         sprintf(szPayload,
-            "Server RPC: P1=%s,P2=%d,P3Type=%s,"
+            "vpad: Server RPC: P1=%s,P2=%d,P3Type=%s,"
                   "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
             diagnose_req_names[iParm1],iParm2,
             diagnose_type_names[iParm3Type],ssParm3.c_str(),

@@ -21,13 +21,12 @@
  * - "STATUS"  : Request for system status.
  * - "TERM"    : Request to terminate the system.
  */
-const char * rest_req_names[] = {
-    "GET",
-    "HEAD",
-    "OPTIONS",
-    "PUT",
-    "DELETE",
-    "POST"
+const char * rest_req_func_names[] = {
+    "GET","HEAD","OPTIONS","PUT","DELETE","POST"
+};
+
+const char * rest_req_get_names[] = {
+    "VER"
 };
 
 /**
@@ -57,8 +56,7 @@ public:
         // can query this information with a system.methodSignature and
         // system.methodHelp RPC.
         this->_signature = "s:iiisiss";
-            // method's result and two arguments are integers
-        this->_help = "This method adds two integers together";
+        this->_help = "This method is a multipurpose interface to mwfw";
     }
 
     void
@@ -66,31 +64,48 @@ public:
             xmlrpc_c::value *   const  retvalP) override {
 
         std::string ssBuffer;
+        char szErrMsg[FILENAME_MAX];
 
-        int const iParm1(paramList.getInt(0));
-        int const iParm2(paramList.getInt(1));
+        int const iFunc(paramList.getInt(0));
+        REST_REQ_FUNCS_T eFunc = (REST_REQ_FUNCS_T)iFunc;
+        int const iSubFunc(paramList.getInt(1));
+        REST_REQ_SUBFNS_T eSubFunc = (REST_REQ_SUBFNS_T)iSubFunc;
+
         int const iParm3Type(paramList.getInt(2));
         std::string ssParm3(paramList.getString(3));
+
         int const iParm4Type(paramList.getInt(4));
         std::string ssParm4(paramList.getString(5));
+
         std::string ssAuth(paramList.getString(6));
+
         paramList.verifyEnd(7);
+
         char szPayload[FILENAME_MAX];
 
+        if (0 != strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
+            sleep(10); // make them pay a time penalty
+            *retvalP = xmlrpc_c::value_string(
+                "Synchronization Error!!");
+        }
+
         sprintf(szPayload,
-            "Server RPC: P1=%s,P2=%d,P3Type=%s,"
+            "VPA Server RPC: Func=%s,SubFunc=%s,P3Type=%s,"
                   "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
-            rest_req_names[iParm1],iParm2,
+            rest_req_func_names[iFunc],rest_req_get_names[iSubFunc],
             rest_type_names[iParm3Type],ssParm3.c_str(),
             rest_type_names[iParm4Type],ssParm4.c_str(),ssAuth.c_str());
         gpSysLog->loginfo(szPayload);
-        switch (iParm1) {
+        switch (eFunc) {
             case REST_REQ_GET:
-                if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
-                   *retvalP = xmlrpc_c::value_string(RVERSION_STRING_LONG);
+                if (REST_REQ_SUB_VER == eSubFunc) {
+                   *retvalP = xmlrpc_c::value_string(
+                       RVERSION_STRING_LONG);
                 } else {
-                    sleep(10); // make them pay a time penalty to obviate attacks
-                   *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
+                    sleep(10); // make them pay a time penalty
+                    sprintf(szErrMsg,"Error!! Unknown SubFunc(%d)",
+                        eSubFunc);
+                   *retvalP = xmlrpc_c::value_string(szErrMsg);
                 }
                 break;
             case REST_REQ_HEAD:
