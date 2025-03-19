@@ -5,34 +5,38 @@
 #ifndef RESTDEFS_H
 #define RESTDEFS_H
 
-enum RESTFUL_REQ_FUNCS_T {
-    RESTFUL_REQ_GET,
-    RESTFUL_REQ_HEAD,
-    RESTFUL_REQ_OPTIONS,
-    RESTFUL_REQ_PUT,
-    RESTFUL_REQ_DELETE,
-    RESTFUL_REQ_POST,
-    RESTFUL_REQ_COUNT
+enum REST_REQ_FUNCS_T {
+    REST_REQ_GET,
+    REST_REQ_HEAD,
+    REST_REQ_OPTIONS,
+    REST_REQ_PUT,
+    REST_REQ_DELETE,
+    REST_REQ_POST,
+    REST_REQ_COUNT
 };
 
+enum REST_REQ_SUBFNS_T {
+    REST_REQ_SUB_VER,
+    REST_REQ_SUB_COUNT
+};
 
-enum RESTFUL_TYPES_T {
-    RESTFUL_TYPE_NONE,
-    RESTFUL_TYPE_INT,
-    RESTFUL_TYPE_STRING,
-    RESTFUL_TYPE_FLOAT,
-    RESTFUL_TYPE_BOOL,
-    RESTFUL_TYPE_COUNT
+enum REST_TYPES_T {
+    REST_TYPE_NONE,
+    REST_TYPE_INT,
+    REST_TYPE_STRING,
+    REST_TYPE_FLOAT,
+    REST_TYPE_BOOL,
+    REST_TYPE_COUNT
 };
 
 
 typedef struct rest_request_t {
     char szRemoteHost[DNS_FQDN_SIZE_MAX];
-    RESTFUL_REQ_FUNCS_T eReqFunc;
-    int iParm2;
-    RESTFUL_TYPES_T eParm3Type;
+    REST_REQ_FUNCS_T eReqFunc;
+    REST_REQ_SUBFNS_T eReqSubFunc;
+    REST_TYPES_T eParm3Type;
     char szParm3[BUFSIZ];
-    RESTFUL_TYPES_T eParm4Type;
+    REST_TYPES_T eParm4Type;
     char szParm4[BUFSIZ];
     char szAuth[FILENAME_MAX];
 } rest_req_t;
@@ -50,10 +54,10 @@ typedef struct rest_request_t {
  * @var RESTFUL_RESP_FAILURE
  * Indicates that the RESTFUL operation failed to complete successfully.
  */
-enum RESTFUL_RESP_T {
-    RESTFUL_RESP_IDLE,
-    RESTFUL_RESP_SUCCESS,
-    RESTFUL_RESP_FAILURE
+enum REST_RESP_T {
+    REST_RESP_IDLE,
+    REST_RESP_SUCCESS,
+    REST_RESP_FAILURE
 };
 
 

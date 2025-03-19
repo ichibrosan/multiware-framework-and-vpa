@@ -85,7 +85,7 @@ public:
             rest_type_names[iParm4Type],ssParm4.c_str(),ssAuth.c_str());
         gpSysLog->loginfo(szPayload);
         switch (iParm1) {
-            case RESTFUL_REQ_GET:
+            case REST_REQ_GET:
                 if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
                    *retvalP = xmlrpc_c::value_string(RVERSION_STRING_LONG);
                 } else {
@@ -93,15 +93,15 @@ public:
                    *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
                 }
                 break;
-            case RESTFUL_REQ_HEAD:
+            case REST_REQ_HEAD:
                 break;
-            case RESTFUL_REQ_OPTIONS:
+            case REST_REQ_OPTIONS:
                 break;
-            case RESTFUL_REQ_PUT:
+            case REST_REQ_PUT:
                 break;
-            case RESTFUL_REQ_DELETE:
+            case REST_REQ_DELETE:
                 break;
-            case RESTFUL_REQ_POST:
+            case REST_REQ_POST:
                 break;
             default:
                 *retvalP = xmlrpc_c::value_string("Unknown Request");
