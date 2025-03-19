@@ -110,12 +110,13 @@ const char * rest_req_names[] = {
 std::string vpa_call(vpa_request_t& req) {
     char szLog[256];
     sprintf(szLog,
-    "Client RPC: Addr= %s P1=%s,P2=%d,P3Type=%s,"
-          " P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
+    "vpa: Client RPC: Addr=%s Func=%s,P2=%d,P3Type=%s,"
+          "P3=%s,P4Type=%s,P4=%s,Auth=%s",
             req.szRemoteHost,
             vpad_req_names[req.eReqFunc],  req.iParm2,
             rpc_type_names[req.eParm3Type],req.szParm3,
             rpc_type_names[req.eParm4Type],req.szParm4,req.szAuth);
+    std::cout << szLog << std::endl;
     char szPort[16];
     sprintf(szPort,"%d",VPA_PORT);
     std::string ssUrl;
@@ -170,12 +171,13 @@ std::string vpa_call(vpa_request_t& req) {
 std::string rest_call(rest_request_t& req) {
     char szLog[256];
     sprintf(szLog,
-    "Client RPC: Addr= %s P1=%s,P2=%d,P3Type=%s,"
-          " P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
+    "REST Client RPC: Addr=%s Func=%s,P2=%d,P3Type=%s,"
+          "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
             req.szRemoteHost,
             rest_req_names[req.eReqFunc],  req.eReqSubFunc,
             rpc_type_names[req.eParm3Type],req.szParm3,
             rpc_type_names[req.eParm4Type],req.szParm4,req.szAuth);
+    std::cout << szLog << std::endl;
     char szPort[16];
     sprintf(szPort,"%d",VPA_PORT);
     std::string ssUrl;
@@ -243,9 +245,10 @@ main(int argc, char **) {
     strcpy(gpSh->m_pShMemng->szRemoteHost,"daphne.goodall.com");
 //    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.223");
 
-    std::cout << "Remote Addr is:       " << gpSh->m_pShMemng->szRemoteAddr
-              << std::endl;
+    // std::cout << "Remote Addr is:        " << gpSh->m_pShMemng->szRemoteAddr
+    //           << std::endl;
 
+    std::cout << std::endl;
     vpa_request_t reqAuth;
     strcpy(reqAuth.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
     reqAuth.eReqFunc = DIAGNOSE_REQ_AUTH;
@@ -256,6 +259,7 @@ main(int argc, char **) {
     std::string ssReturn = vpa_call(reqAuth);
     strcpy(gpSh->m_pShMemng->szRemoteAuth,ssReturn.c_str());
     std::cout << "Remote Auth Token is: " << ssReturn << std::endl;
+    std::cout << std::endl;
 
     vpa_request_t reqVer;
     strcpy(reqVer.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
@@ -267,6 +271,7 @@ main(int argc, char **) {
     ssReturn = vpa_call(reqVer);
     strcpy(gpSh->m_pShMemng->szRemoteVersion,ssReturn.c_str());
     std::cout << "Remote Version is:    " << ssReturn << std::endl;
+    std::cout << std::endl;
 
     // vpa_request_t reqShm;
     // strcpy(reqShm.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
@@ -278,6 +283,7 @@ main(int argc, char **) {
     // ssReturn = vpa_call(reqShm);
     // std::cout << "Remote Shared Memory is:    " << std::endl;
     // std::cout << ssReturn << std::endl;
+    //std::cout << std::endl;
 
 
     rest_request_t restReqAuth;
@@ -288,8 +294,9 @@ main(int argc, char **) {
     restReqAuth.eParm4Type = REST_TYPE_NONE;
     strcpy(restReqAuth.szAuth,gpSh->m_pShMemng->szRemoteAuth);
     std::string ssAuthReturn = rest_call(restReqAuth);
-    std::cout << "REST_REQ_GET::REST_REQ_SUB_VER returns: "
-              << ssAuthReturn << std::endl;
+    std::cout << "Remote Version is:    "
+              << ssAuthReturn << std::endl
+              << std::endl;
 
 
     return 0;

@@ -23,11 +23,7 @@
  * - "TERM"    : Request to terminate the system.
  */
 const char * diagnose_req_names[] = {
-    "VERSION",
-    "AUTH",
-    "PARMS",
-    "STATUS",
-    "TERM"
+    "VERSION","AUTH","PARMS","STATUS","TERM"
 };
 
 /**
@@ -43,11 +39,7 @@ const char * diagnose_req_names[] = {
  * application.
  */
 const char * diagnose_type_names[] = {
-    "NONE",
-    "INT",
-    "STRING",
-    "FLOAT",
-    "BOOL"
+    "NONE","INT","STRING","FLOAT","BOOL"
 };
 
 /***************************************************************************
@@ -86,7 +78,7 @@ public:
         this->_help = "This method adds two integers together";
     }
 
-    /*************************************************************************
+    /***********************************************************************
      * Executes a server-side XML-RPC method to handle specific client
      *    requests.
      *
@@ -114,14 +106,14 @@ public:
      *                  to the specific request.
      * @param retvalP A pointer to an XML-RPC value object where the
      *                  response is stored.
-     ***********************************************************************/
+     *********************************************************************/
     void
     execute(xmlrpc_c::paramList const& paramList,
             xmlrpc_c::value *   const  retvalP) override {
 
         std::string ssBuffer;
 
-        int const iParm1(paramList.getInt(0));
+        int const iFunc(paramList.getInt(0));
         int const iParm2(paramList.getInt(1));
         int const iParm3Type(paramList.getInt(2));
         std::string ssParm3(paramList.getString(3));
@@ -132,40 +124,49 @@ public:
         char szPayload[FILENAME_MAX];
 
         sprintf(szPayload,
-            "vpad: Server RPC: P1=%s,P2=%d,P3Type=%s,"
-                  "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
-            diagnose_req_names[iParm1],iParm2,
+            "vpad Server RPC: Func=%s,P2=%d,P3Type=%s,"
+                  "P3=%s,P4Type=%s,P4=%s,Auth=%s",
+            diagnose_req_names[iFunc],iParm2,
             diagnose_type_names[iParm3Type],ssParm3.c_str(),
             diagnose_type_names[iParm4Type],ssParm4.c_str(),ssAuth.c_str());
         gpSysLog->loginfo(szPayload);
         switch (iParm1) {
             case DIAGNOSE_REQ_VERSION:
-                if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
-                   *retvalP = xmlrpc_c::value_string(RVERSION_STRING_LONG);
+                if (0 == strcmp(ssAuth.c_str(),
+                    gpSh->m_pShMemng->szRpcUuid)) {
+                   *retvalP = xmlrpc_c::value_string(
+                       RVERSION_STRING_LONG);
                 } else {
-                    sleep(10); // make them pay a time penalty to obviate attacks
-                   *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
+                    sleep(10); // make them pay a time penalty
+                    *retvalP = xmlrpc_c::value_string(
+                        "Synchronization Error!!");
                 }
                 break;
             case DIAGNOSE_REQ_AUTH:
                 if (0 == strcmp(ssAuth.c_str(),VPA_RPC_PSK)) {
-                    *retvalP = xmlrpc_c::value_string(gpSh->m_pShMemng->szRpcUuid);
+                    *retvalP =
+                        xmlrpc_c::value_string(
+                            gpSh->m_pShMemng->szRpcUuid);
                 } else {
-                    sleep(10); // make them pay a time penalty to obviate attacks
-                    *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
+                    sleep(10); // make them pay a time penalty
+                    *retvalP = xmlrpc_c::value_string(
+                        "Synchronization Error!!");
                 }
                 break;
             case DIAGNOSE_REQ_PARMS:
-                if (0 == strcmp(ssAuth.c_str(),gpSh->m_pShMemng->szRpcUuid)) {
+                if (0 == strcmp(ssAuth.c_str(),
+                    gpSh->m_pShMemng->szRpcUuid)) {
                     *retvalP = xmlrpc_c::value_string(szPayload);
                 } else {
-                    sleep(10); // make them pay a time penalty to obviate attacks
-                    *retvalP = xmlrpc_c::value_string("Synchronization Error!!");
+                    sleep(10); // make them pay a time penalty
+                    *retvalP = xmlrpc_c::value_string(
+                        "Synchronization Error!!");
                 }
                 break;
             case DIAGNOSE_REQ_TERM:
                 here;
-                *retvalP = xmlrpc_c::value_string("VPAD Shutting Down!!");
+                *retvalP = xmlrpc_c::value_string(
+                    "VPAD Shutting Down!!");
                 here;
                 exit(EXIT_SUCCESS);
             case DIAGNOSE_REQ_GETSHM:
@@ -178,7 +179,8 @@ public:
                 here;
                 break;
             default:
-                *retvalP = xmlrpc_c::value_string("Unknown Request");
+                *retvalP = xmlrpc_c::value_string(
+                    "Unknown Request");
         }
     }
 };

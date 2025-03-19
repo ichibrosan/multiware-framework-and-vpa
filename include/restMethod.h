@@ -42,11 +42,7 @@ const char * rest_req_get_names[] = {
  * application.
  */
 const char * rest_type_names[] = {
-    "NONE",
-    "INT",
-    "STRING",
-    "FLOAT",
-    "BOOL"
+    "NONE","INT","STRING","FLOAT","BOOL"
 };
 
 class restMethod : public xmlrpc_c::method {
@@ -91,7 +87,7 @@ public:
 
         sprintf(szPayload,
             "VPA Server RPC: Func=%s,SubFunc=%s,P3Type=%s,"
-                  "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
+                  "P3=%s,P4Type=%s,P4=%s,Auth=%s",
             rest_req_func_names[iFunc],rest_req_get_names[iSubFunc],
             rest_type_names[iParm3Type],ssParm3.c_str(),
             rest_type_names[iParm4Type],ssParm4.c_str(),ssAuth.c_str());
