@@ -7,10 +7,10 @@
 #define VERSION_H
 #define RMAJ_VERSION           5
 #define RMIN_VERSION           3
-#define RREV_VERSION           15
-#define RBUILD_VERSION         20
-#define RVERSION_STRING        "5.3.15.20"
-#define RVERSION_STRING_SHORT  "5.3.15"
+#define RREV_VERSION           23
+#define RBUILD_VERSION         12
+#define RVERSION_STRING        "5.3.23.12"
+#define RVERSION_STRING_SHORT  "5.3.23"
 #define RVERSION_STRING_LONG   RVERSION_STRING
 #define RVERSION_STRING_DATE   __DATE__
 #define RVERSION_STRING_TIME   __TIME__

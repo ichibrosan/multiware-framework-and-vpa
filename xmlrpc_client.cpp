@@ -116,15 +116,14 @@ std::string ssValueRetcode;
 int
 main(int argc, char **) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
-    here;
-    if (argc-1 > 0) {
-        cerr << "This program has no arguments" << endl;
-        exit(1);
-    }
 
-    diagnose * pDiagnose = new diagnose("192.168.4.17");
+    diagnose * pDiagnose = new diagnose(gpSh->m_pShMemng->szIP);
 
+    diagnose_request_t request;
+    request.eReqFunc = DIAGNOSE_REQ_VERSION;
+    std::string ssVersion = pDiagnose->call(request);
 
+    std::cout << "Remote Version is:    " << ssVersion << std::endl;
 
     return 0;
 }

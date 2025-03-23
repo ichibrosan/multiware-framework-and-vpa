@@ -1,17 +1,67 @@
-//
-// Created by doug on 3/23/25.
-//
+////////////////////////////////////////////////////////////////////////
+// /home/devo/public_html/fw/diagnose.cpp  2025/03/23                 //
+// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
+////////////////////////////////////////////////////////////////////////
 
 #include "std.h"
 #include "include/diagnose.h"
 
 
+/**
+ * @brief An array containing the names of the diagnostic request functions.
+ *
+ * The array maps diagnostic request function identifiers to their respective
+ * string representations. The identifiers correspond to the constants defined
+ * in the DIAGNOSE_REQ_FUNCS_T enum in diagnoseDefs.h. This array allows
+ * diagnostic systems to interpret and log request function types in a
+ * human-readable manner.
+ *
+ * Values:
+ * - "NONE": Represents no diagnostic request.
+ * - "VERSION": Retrieves version information.
+ * - "AUTH": Handles authentication requests.
+ * - "PARMS": Retrieves or sets parameters.
+ * - "STATUS": Provides status information.
+ * - "TERM": Terminates diagnostic requests.
+ * - "GETSHM": Retrieves shared memory information.
+ */
 const char * diagnose_req_names[] =
     { "NONE","VERSION", "AUTH", "PARMS", "STATUS", "TERM", "GETSHM" };
 
+/**
+ * @brief Array of string representations for the diagnose type enum values.
+ *
+ * This array provides human-readable names for the values defined in the
+ * DIAGNOSE_TYPES_T enumeration. It is intended to map each diagnosis type
+ * to its corresponding string name.
+ *
+ * @note The order of the strings in this array must match the order of the
+ *       enumeration values defined in DIAGNOSE_TYPES_T to ensure correctness.
+ *
+ * @see DIAGNOSE_TYPES_T
+ */
 const char * diagnose_type_names[] =
     { "None","Int","String","Float","Bool" };
 
+/**
+ * @brief Constructor for the `diagnose` class.
+ *
+ * This function initializes the `diagnose` object by setting up the necessary
+ * parameters for performing a remote procedure call (RPC) to diagnose a node
+ * identified by its IP address. It configures the RPC URL, port, method, and
+ * format, and attempts to retrieve an authentication token from the remote server.
+ *
+ * @param ssNodeIP A string containing the IP address of the target node for diagnosis.
+ *
+ * The function accomplishes the following tasks:
+ * - Logs information about the RPC client and method using the system logger.
+ * - Constructs the RPC URL using the protocol, IP, and port.
+ * - Executes the RPC call using the configured method, format, and parameters.
+ * - Retrieves and stores the authentication token for further communication.
+ *
+ * @throws std::exception If the RPC client encounters an error during execution.
+ * @throws unknown exception If an unexpected error occurs.
+ */
 diagnose::diagnose(std::string ssNodeIP) {
     std::string ssValueRetcode;
 
@@ -29,7 +79,8 @@ diagnose::diagnose(std::string ssNodeIP) {
             diagnose_req_names[DIAGNOSE_REQ_NONE],
             diagnose_type_names[DIAGNOSE_TYPE_NONE],"",
             diagnose_type_names[DIAGNOSE_TYPE_NONE],"",VPA_RPC_PSK);
-    std::cout << szLog << std::endl;
+    gpSysLog->loginfo(szLog);
+    //std::cout << szLog << std::endl;
 
     m_ssUrl = gpSh->m_pShMemng->szProtocol;
     m_ssUrl.append(gpSh->m_pShMemng->szIP);
@@ -40,17 +91,13 @@ diagnose::diagnose(std::string ssNodeIP) {
     try {
         xmlrpc_c::clientSimple myClient;
         xmlrpc_c::value result;
-        myClient.call(  m_ssUrl,
-                        m_ssMethod,
-                        m_ssFormat,
-                        &result,
+        myClient.call(  m_ssUrl,m_ssMethod,m_ssFormat,&result,
                          DIAGNOSE_REQ_AUTH, DIAGNOSE_REQ_NONE,
-                         DIAGNOSE_TYPE_NONE,"",
-                         DIAGNOSE_TYPE_NONE,"",
+                         DIAGNOSE_TYPE_NONE,"",DIAGNOSE_TYPE_NONE,"",
                          VPA_RPC_PSK);
 
         ssValueRetcode = xmlrpc_c::value_string(result);
-        std::cout << "Auth Token: " << ssValueRetcode << std::endl;
+        //std::cout << "Auth Token: " << ssValueRetcode << std::endl;
         m_ssAuth = ssValueRetcode;
     } catch (std::exception const& e) {
         std::cerr << "Client threw error: " << e.what() << std::endl;
@@ -59,6 +106,9 @@ diagnose::diagnose(std::string ssNodeIP) {
     }
 }
 
+/**
+ * @brief Constructor for the `call` class.
+ */
 std::string diagnose::call(diagnose_request_t request) {
     std::string ssValueRetcode;
 
