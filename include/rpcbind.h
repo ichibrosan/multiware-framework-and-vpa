@@ -10,7 +10,7 @@
 class rpcbind {
 public:
     rpcbind();
-    std::string vpa_call(vpa_request_t& req);
+    std::string vpa_call(diagnose_request_t& req);
 };
 
 

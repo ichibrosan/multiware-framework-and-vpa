@@ -43,7 +43,7 @@ std::string ssValue;
  * \throws std::exception Catches and displays exceptions if thrown while performing
  *         the RPC call.
  */
-std::string rpcbind::vpa_call(vpa_request_t& req) {
+std::string rpcbind::vpa_call(diagnose_request_t& req) {
     char szServerURL[1024];
     try {
 

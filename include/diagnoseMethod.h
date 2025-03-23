@@ -130,7 +130,7 @@ public:
             diagnose_type_names[iParm3Type],ssParm3.c_str(),
             diagnose_type_names[iParm4Type],ssParm4.c_str(),ssAuth.c_str());
         gpSysLog->loginfo(szPayload);
-        switch (iParm1) {
+        switch (iFunc) {
             case DIAGNOSE_REQ_VERSION:
                 if (0 == strcmp(ssAuth.c_str(),
                     gpSh->m_pShMemng->szRpcUuid)) {

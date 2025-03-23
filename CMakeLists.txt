@@ -72,6 +72,7 @@ add_library( mwfw2 STATIC
 		rpcbind.cpp			include/rpcbind.h
 		stylist.cpp			include/stylist.h
 		iHex.cpp			include/iHex.h
+		diagnose.cpp		include/diagnose.h
 )
 
 ###############################################################

@@ -39,8 +39,9 @@ enum DIAGNOSE_TYPES_T {
 };
 
 
-typedef struct vpa_request_t {
+typedef struct diagnose_request_t {
     char szRemoteHost[DNS_FQDN_SIZE_MAX];
+    char szFormat[8];
     DIAGNOSE_REQ_FUNCS_T eReqFunc;
     int iParm2;
     DIAGNOSE_TYPES_T eParm3Type;

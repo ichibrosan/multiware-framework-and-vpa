@@ -107,7 +107,7 @@ const char * rest_req_names[] = {
  *         error occurs during the RPC call, the returned value may be
  *         incomplete or invalid.
  */
-std::string vpa_call(vpa_request_t& req) {
+std::string vpa_call(diagnose_request_t& req) {
     char szLog[256];
     sprintf(szLog,
     "vpa: Client RPC: Addr=%s Func=%s,P2=%d,P3Type=%s,"
@@ -240,63 +240,23 @@ main(int argc, char **) {
         exit(1);
     }
 
-    // Set this to the desired remote VPA system
-    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.17");
-    strcpy(gpSh->m_pShMemng->szRemoteHost,"daphne.goodall.com");
-//    strcpy(gpSh->m_pShMemng->szRemoteAddr,"192.168.4.223");
-
-    // std::cout << "Remote Addr is:        " << gpSh->m_pShMemng->szRemoteAddr
-    //           << std::endl;
-
-    std::cout << std::endl;
-    vpa_request_t reqAuth;
-    strcpy(reqAuth.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
-    reqAuth.eReqFunc = DIAGNOSE_REQ_AUTH;
-    reqAuth.iParm2 = 0;
-    reqAuth.eParm3Type = DIAGNOSE_TYPE_NONE;
-    reqAuth.eParm4Type = DIAGNOSE_TYPE_NONE;
-    strcpy(reqAuth.szAuth,VPA_RPC_PSK);
-    std::string ssReturn = vpa_call(reqAuth);
-    strcpy(gpSh->m_pShMemng->szRemoteAuth,ssReturn.c_str());
-    std::cout << "Remote Auth Token is: " << ssReturn << std::endl;
+    diagnose * pDiagnose = new diagnose(gpSh->m_pShMemng->szIP);
+    diagnose_request_t request;
+    request.eReqFunc = DIAGNOSE_REQ_VERSION;
+    std::cout << pDiagnose->diagnoseCall(request);
     std::cout << std::endl;
 
-    vpa_request_t reqVer;
-    strcpy(reqVer.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
-    reqVer.eReqFunc = DIAGNOSE_REQ_VERSION;
-    reqVer.iParm2 = 0;
-    reqVer.eParm3Type = DIAGNOSE_TYPE_NONE;
-    reqVer.eParm4Type = DIAGNOSE_TYPE_NONE;
-    strcpy(reqVer.szAuth,gpSh->m_pShMemng->szRemoteAuth);
-    ssReturn = vpa_call(reqVer);
-    strcpy(gpSh->m_pShMemng->szRemoteVersion,ssReturn.c_str());
-    std::cout << "Remote Version is:    " << ssReturn << std::endl;
-    std::cout << std::endl;
-
-    // vpa_request_t reqShm;
-    // strcpy(reqShm.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
-    // reqShm.eReqFunc = DIAGNOSE_REQ_GETSHM;
-    // reqShm.iParm2 = 0;
-    // reqShm.eParm3Type = DIAGNOSE_TYPE_NONE;
-    // reqShm.eParm4Type = DIAGNOSE_TYPE_NONE;
-    // strcpy(reqShm.szAuth,gpSh->m_pShMemng->szRemoteAuth);
-    // ssReturn = vpa_call(reqShm);
-    // std::cout << "Remote Shared Memory is:    " << std::endl;
-    // std::cout << ssReturn << std::endl;
-    //std::cout << std::endl;
-
-
-    rest_request_t restReqAuth;
-    strcpy(restReqAuth.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
-    restReqAuth.eReqFunc = REST_REQ_GET;
-    restReqAuth.eReqSubFunc = REST_REQ_SUB_VER;
-    restReqAuth.eParm3Type = REST_TYPE_NONE;
-    restReqAuth.eParm4Type = REST_TYPE_NONE;
-    strcpy(restReqAuth.szAuth,gpSh->m_pShMemng->szRemoteAuth);
-    std::string ssAuthReturn = rest_call(restReqAuth);
-    std::cout << "Remote Version is:    "
-              << ssAuthReturn << std::endl
-              << std::endl;
+//     rest_request_t restReqAuth;
+//     strcpy(restReqAuth.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
+//     restReqAuth.eReqFunc = REST_REQ_GET;
+//     restReqAuth.eReqSubFunc = REST_REQ_SUB_VER;
+//     restReqAuth.eParm3Type = REST_TYPE_NONE;
+//     restReqAuth.eParm4Type = REST_TYPE_NONE;
+//     strcpy(restReqAuth.szAuth,gpSh->m_pShMemng->szRemoteAuth);
+//     std::string ssAuthReturn = rest_call(restReqAuth);
+//     std::cout << "Remote Version is:    "
+//               << ssAuthReturn << std::endl
+//               << std::endl;
 
 
     return 0;
