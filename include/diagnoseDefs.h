@@ -19,6 +19,7 @@
  * @constant DIAGNOSE_REQ_COUNT Represents the count of total request types defined.
  */
 enum DIAGNOSE_REQ_FUNCS_T {
+    DIAGNOSE_REQ_NONE,
     DIAGNOSE_REQ_VERSION,
     DIAGNOSE_REQ_AUTH,
     DIAGNOSE_REQ_PARMS,
@@ -49,7 +50,7 @@ typedef struct diagnose_request_t {
     DIAGNOSE_TYPES_T eParm4Type;
     char szParm4[BUFSIZ];
     char szAuth[FILENAME_MAX];
-} vpa_req_t;
+} diag_req_t;
 
 /**
  * @enum DIAGNOSE_RESP_T

@@ -54,7 +54,7 @@ const char * vpad_type_names[] = {
  * - Relies on predefined global variables and framework to construct the server URL
  *   and manage communication.
  */
-std::string vpa_call(vpa_request_t& req) {
+std::string vpa_call(diagnose_request_t& req) {
 
     char szLog[256];
     sprintf(szLog,
@@ -141,7 +141,7 @@ main(int argc, char **) {
     /**
      * Call the remote system and request auth token using Private Shared Key
      */
-    vpa_request_t reqAuth;
+    diagnose_request_t reqAuth;
     strcpy(reqAuth.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
     reqAuth.eReqFunc = DIAGNOSE_REQ_AUTH;
     reqAuth.iParm2 = 0;
@@ -155,7 +155,7 @@ main(int argc, char **) {
     /**
      * Call the remote system and request version using auth token
      */
-    vpa_request_t reqVer;
+    diagnose_request_t reqVer;
     strcpy(reqVer.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
     reqVer.eReqFunc = DIAGNOSE_REQ_VERSION;
     reqVer.iParm2 = 0;

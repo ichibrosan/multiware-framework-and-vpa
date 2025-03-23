@@ -478,6 +478,8 @@ add_executable(xmlrpc_client
 		rpcbind.cpp			include/rpcbind.h
 							include/webcolors.h
 							include/diagnoseMethod.h
+		diagnose.cpp
+		include/diagnose.h
 )
 link_directories(
         /opt/xmlrpc-c/src/cpp

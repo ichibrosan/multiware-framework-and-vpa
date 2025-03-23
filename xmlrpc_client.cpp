@@ -24,186 +24,68 @@ using namespace std;
  */
 std::string ssValueRetcode;
 
-/**
- * @brief Array containing names of the different request functions
- *        for the Virtual Payload Application Daemon (VPAD).
- *
- * This array maps indexes to their corresponding request function
- * names, which can be used for forming or identifying requests to
- * the VPAD service. The array elements include:
- * - VERSION: Used for version requests.
- * - AUTH: Used for authentication requests.
- * - PARMS: Used for parameter management requests.
- * - STATUS: Used for status requests.
- * - TERM: Used for termination requests.
- *
- * The array should be indexed using an enum or an appropriate
- * request identifier.
- */
-const char * vpad_req_names[] = {
-    "VERSION","AUTH","PARMS","STATUS","TERM"
-};
+// /**
+//  * @brief Array containing names of the different request functions
+//  *        for the Virtual Payload Application Daemon (VPAD).
+//  *
+//  * This array maps indexes to their corresponding request function
+//  * names, which can be used for forming or identifying requests to
+//  * the VPAD service. The array elements include:
+//  * - VERSION: Used for version requests.
+//  * - AUTH: Used for authentication requests.
+//  * - PARMS: Used for parameter management requests.
+//  * - STATUS: Used for status requests.
+//  * - TERM: Used for termination requests.
+//  *
+//  * The array should be indexed using an enum or an appropriate
+//  * request identifier.
+//  */
+// const char * vpad_req_names[] = {
+//     "VERSION","AUTH","PARMS","STATUS","TERM"
+// };
 
-/**
- * @brief An array of string representations for different RPC data types.
- *
- * This array maps each numerical value of an RPC data type to its
- * corresponding string
- * representation. The indices correspond to enumerated values defined in
- * DIAGNOSE_TYPES_T
- * or REST_TYPES_T. These strings are used for logging and communication
- * within the system.
- *
- * @note The elements of this array must match the enumeration values in
- * their respective
- *       enums to ensure correct usage during lookup or mapping.
- *
- * @details The supported RPC data types and their mappings are:
- *          - NONE: Represents the absence of a value or type.
- *          - INT: Represents an integer type.
- *          - STRING: Represents a string type.
- *          - FLOAT: Represents a floating-point number type.
- *          - BOOL: Represents a boolean type.
- */
-const char * rpc_type_names[] = {
-    "NONE","INT","STRING","FLOAT","BOOL"
-};
+// /**
+//  * @brief An array of string representations for different RPC data types.
+//  *
+//  * This array maps each numerical value of an RPC data type to its
+//  * corresponding string
+//  * representation. The indices correspond to enumerated values defined in
+//  * DIAGNOSE_TYPES_T
+//  * or REST_TYPES_T. These strings are used for logging and communication
+//  * within the system.
+//  *
+//  * @note The elements of this array must match the enumeration values in
+//  * their respective
+//  *       enums to ensure correct usage during lookup or mapping.
+//  *
+//  * @details The supported RPC data types and their mappings are:
+//  *          - NONE: Represents the absence of a value or type.
+//  *          - INT: Represents an integer type.
+//  *          - STRING: Represents a string type.
+//  *          - FLOAT: Represents a floating-point number type.
+//  *          - BOOL: Represents a boolean type.
+//  */
+// const char * rpc_type_names[] = {
+//     "NONE","INT","STRING","FLOAT","BOOL"
+// };
 
-/**
- * @brief Array containing string representations of REST request methods.
- *
- * This array maps REST request enumerations to their corresponding string
- * names, such as "GET", "HEAD", "OPTIONS", "PUT", "DELETE", and "POST".
- *
- * Example mappings:
- * - REST_REQ_GET -> "GET"
- * - REST_REQ_POST -> "POST"
- *
- * This array is utilized in various components of the system to represent
- * or log REST request types in string format.
- */
-const char * rest_req_names[] = {
-    "GET","HEAD","OPTIONS","PUT","DELETE","POST"
-};
+// /**
+//  * @brief Array containing string representations of REST request methods.
+//  *
+//  * This array maps REST request enumerations to their corresponding string
+//  * names, such as "GET", "HEAD", "OPTIONS", "PUT", "DELETE", and "POST".
+//  *
+//  * Example mappings:
+//  * - REST_REQ_GET -> "GET"
+//  * - REST_REQ_POST -> "POST"
+//  *
+//  * This array is utilized in various components of the system to represent
+//  * or log REST request types in string format.
+//  */
+// const char * rest_req_names[] = {
+//     "GET","HEAD","OPTIONS","PUT","DELETE","POST"
+// };
 
-/**
- * Makes an XML-RPC call to a remote VPA (Virtual Protocol Adapter) system
- * based on the provided request details and returns the response.
- *
- * This function constructs the server URL using global shared memory
- * settings and the specified VPA port. It logs the request details and
- * sends the request to the server using the `diagnose` method. The method
- * takes several parameters, including request function, parameters, and
- * authentication details.
- *
- * Error handling is performed for exceptions thrown during the XML-RPC call.
- * In case of an error, it is logged to the standard error stream.
- *
- * @param req A reference to a structure containing the VPA request details,
- *            including the remote host address, requested function,
- *            parameters, and authentication information.
- *
- * @return A string containing the response from the VPA system. If any
- *         error occurs during the RPC call, the returned value may be
- *         incomplete or invalid.
- */
-std::string vpa_call(diagnose_request_t& req) {
-    char szLog[256];
-    sprintf(szLog,
-    "vpa: Client RPC: Addr=%s Func=%s,P2=%d,P3Type=%s,"
-          "P3=%s,P4Type=%s,P4=%s,Auth=%s",
-            req.szRemoteHost,
-            vpad_req_names[req.eReqFunc],  req.iParm2,
-            rpc_type_names[req.eParm3Type],req.szParm3,
-            rpc_type_names[req.eParm4Type],req.szParm4,req.szAuth);
-    std::cout << szLog << std::endl;
-    char szPort[16];
-    sprintf(szPort,"%d",VPA_PORT);
-    std::string ssUrl;
-    ssUrl.append(gpSh->m_pShMemng->szProtocol);
-    ssUrl.append(gpSh->m_pShMemng->szRemoteAddr);
-    ssUrl.append(":");
-    ssUrl.append(szPort);
-    ssUrl.append("/RPC2");
-    try {
-        string const serverUrl(ssUrl);
-        string const methodName("diagnose");
-        xmlrpc_c::clientSimple myClient;
-        xmlrpc_c::value result;
-        myClient.call(  serverUrl,methodName,"iiisiss",&result,
-                         req.eReqFunc,  req.iParm2,
-                         req.eParm3Type,req.szParm3,
-                         req.eParm4Type,req.szParm4,
-                         req.szAuth);
-        ssValueRetcode = xmlrpc_c::value_string(result);
-    } catch (exception const& e) {
-        cerr << "Client threw error: " << e.what() << endl;
-    } catch (...) {
-        cerr << "Client threw unexpected error." << endl;
-    }
-    return ssValueRetcode;
-}
-
-/**
- * Makes a remote REST call using the provided request object.
- *
- * This function constructs the request URL for the REST RPC call by
- * dynamically formatting the necessary parameters. It then utilizes the
- * `xmlrpc_c::clientSimple` library to perform the remote procedure call
- * using the provided input parameters encapsulated in the `rest_request_t`
- * structure.
- *
- * The method ensures safety by catching any exceptions that might occur
- * during the remote call and logs errors if they happen.
- *
- * @param req The `rest_request_t` object containing details such as the
- *            remote host, request function type, parameter details, and
- *            authentication information.
- *
- * @return The result of the REST call as a `std::string` containing the
- *            return value code sent back from the remote server.
- *
- * @throws std::exception and other uncaught exceptions during the call
- *            process are logged but not propagated back to the caller.
- *            Any errors encountered will result in an error message
- *            being printed to `stderr`.
- */
-std::string rest_call(rest_request_t& req) {
-    char szLog[256];
-    sprintf(szLog,
-    "REST Client RPC: Addr=%s Func=%s,P2=%d,P3Type=%s,"
-          "P3=%s,P4Type=%s,P4=%s,ssAuth=%s",
-            req.szRemoteHost,
-            rest_req_names[req.eReqFunc],  req.eReqSubFunc,
-            rpc_type_names[req.eParm3Type],req.szParm3,
-            rpc_type_names[req.eParm4Type],req.szParm4,req.szAuth);
-    std::cout << szLog << std::endl;
-    char szPort[16];
-    sprintf(szPort,"%d",VPA_PORT);
-    std::string ssUrl;
-    ssUrl.append(gpSh->m_pShMemng->szProtocol);
-    ssUrl.append(gpSh->m_pShMemng->szRemoteAddr);
-    ssUrl.append(":");
-    ssUrl.append(szPort);
-    ssUrl.append("/RPC2");
-    try {
-        string const serverUrl(ssUrl);
-        string const methodName("rest");
-        xmlrpc_c::clientSimple myClient;
-        xmlrpc_c::value result;
-        myClient.call(  serverUrl,methodName,"iiisiss",&result,
-                         req.eReqFunc,  req.eReqSubFunc,
-                         req.eParm3Type,req.szParm3,
-                         req.eParm4Type,req.szParm4,
-                         req.szAuth);
-        ssValueRetcode = xmlrpc_c::value_string(result);
-    } catch (exception const& e) {
-        cerr << "Client threw error: " << e.what() << endl;
-    } catch (...) {
-        cerr << "Client threw unexpected error." << endl;
-    }
-    return ssValueRetcode;
-}
 
 /**
  * @brief Entry point of the application.
@@ -240,23 +122,8 @@ main(int argc, char **) {
         exit(1);
     }
 
-    diagnose * pDiagnose = new diagnose(gpSh->m_pShMemng->szIP);
-    diagnose_request_t request;
-    request.eReqFunc = DIAGNOSE_REQ_VERSION;
-    std::cout << pDiagnose->diagnoseCall(request);
-    std::cout << std::endl;
+    diagnose * pDiagnose = new diagnose("192.168.4.17");
 
-//     rest_request_t restReqAuth;
-//     strcpy(restReqAuth.szRemoteHost,gpSh->m_pShMemng->szRemoteAddr);
-//     restReqAuth.eReqFunc = REST_REQ_GET;
-//     restReqAuth.eReqSubFunc = REST_REQ_SUB_VER;
-//     restReqAuth.eParm3Type = REST_TYPE_NONE;
-//     restReqAuth.eParm4Type = REST_TYPE_NONE;
-//     strcpy(restReqAuth.szAuth,gpSh->m_pShMemng->szRemoteAuth);
-//     std::string ssAuthReturn = rest_call(restReqAuth);
-//     std::cout << "Remote Version is:    "
-//               << ssAuthReturn << std::endl
-//               << std::endl;
 
 
     return 0;
