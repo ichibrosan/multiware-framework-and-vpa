@@ -73,6 +73,7 @@ add_library( mwfw2 STATIC
 		stylist.cpp			include/stylist.h
 		iHex.cpp			include/iHex.h
 		diagnose.cpp		include/diagnose.h
+		shmvars.cpp			include/shmvars.h
 )
 
 ###############################################################

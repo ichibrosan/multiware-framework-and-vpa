@@ -83,6 +83,20 @@ shared::shared() {
     if (bJustCreated) {
         m_pShMemng->iSignature = UNIVERSAL_ANSWER;
         m_pShMemng->stShMemSize = size;
+
+        // DEMO DATA FOR SHMVARS
+        strcpy(m_pShMemng->shmvar[0].svar_name, "kawabunga");
+               m_pShMemng->shmvar[0].svar_status = SVAR_STATUS_OK;
+               m_pShMemng->shmvar[0].svar_type   = SVAR_TYPE_CHAR;
+        strcpy(m_pShMemng->shmvar[0].svar_value.uChar.data,"Kawabunga");
+
+        // DEMA DATA FOR SHMVARS
+        strcpy(m_pShMemng->shmvar[1].svar_name, "kawabucha");
+               m_pShMemng->shmvar[1].svar_status = SVAR_STATUS_OK;
+               m_pShMemng->shmvar[1].svar_type   = SVAR_TYPE_INT;
+               m_pShMemng->shmvar[1].svar_value.uInt.data = 42;
+
+
         size_t credsSize = sizeof(MFW_SHMEMNG_T::creds);
 
         /* each time the shared region is created, a new and unique

@@ -9,12 +9,15 @@
 #include "fw-limits.h"
 #include <net/if.h>
 
+
 /**
  * If you change the MFW_SHMEM_T schema, you need to reboot to assure
  * that you don't use a stale shared memory segment that is mis-aligned.
  * 2024/12/30 08:33 This is the shmemng structure for the HTML project.
  */
 struct MFW_SHMEMNG_T {
+
+    shmvar_t shmvar[2];
 
     // Shared Environmental Value, set by environment::environment()
     int iSignature;

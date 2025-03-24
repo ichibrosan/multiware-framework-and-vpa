@@ -65,6 +65,11 @@ extern osIface * gpOS;
 extern schema * gpSchema;
 #endif
 
+#ifndef gpShmVars
+#include "shmvars.h"
+extern shmvars * gpShmVars;
+#endif
+
 #ifndef gpSh
 #include "shared.h"
 extern shared * gpSh;
