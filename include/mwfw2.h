@@ -59,16 +59,10 @@ extern CLog * gpLog;
 extern osIface * gpOS;
 #endif
 
-
 #ifndef gpSchema
 #include "schema.h"
 extern schema * gpSchema;
 #endif
-
-// #ifndef gpShmVars
-// #include "shmvars.h"
-// extern shmvars * gpShmVars;
-// #endif
 
 #ifndef gpSh
 #include "shared.h"
@@ -104,13 +98,7 @@ extern xinetdctl * gpXinetd;
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/client_simple.hpp>
 
-#ifndef gpRpcbind
-#include "rpcbind.h"
-extern rpcbind * gpRpcbind;
-#endif
-
 #include "config.h"
-
 #include "diagnoseDefs.h"
 #include "restDefs.h"
 #include "diagnose.h"

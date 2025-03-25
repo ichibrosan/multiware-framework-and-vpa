@@ -107,7 +107,29 @@ diagnose::diagnose(std::string ssNodeIP) {
 }
 
 /**
- * @brief Constructor for the `call` class.
+ * @brief Executes a diagnostic call using the given request parameters.
+ *
+ * This method performs a remote procedure call (RPC) using the data provided
+ * in the `diagnose_request_t` structure. It constructs a log entry with the
+ * details of the request, sends the RPC query via an XML-RPC client, and
+ * captures the remote response. In case of an exception during the RPC
+ * execution, error details are logged.
+ *
+ * @param request The diagnostic request containing the parameters for the
+ *                RPC operation.
+ *        - `request.eReqFunc`: Specifies the diagnostic request function
+ *                              to be called.
+ *        - `request.iParm2`: An integer parameter passed to the remote
+ *                            function.
+ *        - `request.eParm3Type`: The type of the third parameter.
+ *        - `request.szParm3`: The third parameter value.
+ *        - `request.eParm4Type`: The type of the fourth parameter.
+ *        - `request.szParm4`: The fourth parameter value.
+ *        - `request.szAuth`: Authentication information.
+ *
+ * @return A string representing the result from the remote procedure call.
+ *         If an exception occurs, an error is logged, and the return
+ *         value may be undefined.
  */
 std::string diagnose::call(diagnose_request_t request) {
     std::string ssValueRetcode;

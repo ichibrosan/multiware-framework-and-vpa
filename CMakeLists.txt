@@ -22,27 +22,10 @@ include_directories(
         "/usr/local/include"
         "/opt/xmlrpc-c/include"
 )
-link_directories(
-		/home/devo/public_html/fw/lib
-		/usr/lib/x86_64-linux-gnu)
 
-#add_library( mwfw STATIC
-#        mwfw.cpp			mwfw.h
-#        cgibind.cpp		cgibind.h
-#        cgihtml.cpp		cgihtml.h
-#        CLog.cpp			CLog.hpp
-#        CSysLog.cpp		CSysLog.hpp
-#        dashboard.cpp		dashboard.h
-#        environment.cpp	environment.h
-#        osIface.cpp		osIface.h
-#        password.cpp		password.h
-#        readCsv.cpp		readCsv.h
-#        schema.cpp			schema.h
-#        schemaCompiler.cpp	schemaCompiler.h
-#        shared.cpp			shared.h
-#        test.cpp			test.h
-#        config.cpp         config.h
-#        cgicc.h
+#link_directories(
+#		/home/devo/public_html/fw/lib
+#		/usr/lib/x86_64-linux-gnu
 #)
 
 # The purpose of mwfw2 is to replace mwfw. The difference being that in mwfw,
@@ -69,56 +52,24 @@ add_library( mwfw2 STATIC
         config.cpp          include/config.h
 		xinetdctl.cpp		include/xinetdctl.h
 		include/cgicc.h		include/version.h
-		rpcbind.cpp			include/rpcbind.h
 		stylist.cpp			include/stylist.h
 		iHex.cpp			include/iHex.h
-		diagnose.cpp		include/diagnose.h
-#		shmvars.cpp			include/shmvars.h
-)
-
-###############################################################
-# diagnose.cgi is a diagnostic invoked by the Diagnose button #
-###############################################################
-#add_executable( diagnose.cgi
-#        diagutil.cpp		include/version.h
-#		rpcbind.cpp			include/rpcbind.h
-#)
-#link_directories(/usr/lib/x86_64-linux-gnu)
-#target_link_libraries(diagnose.cgi
-#        mwfw2
-#        libcgicc.a        # libcgicc.so     use static library instead
-#        uuid.a            # uuid.so         use static library instead
-#		libcurl.so.4.8.0
-#		libxmlrpc_client++.a
-#		libxmlrpc_client.a
-#		libxmlrpc++.a
-#		libxmlrpc_util++.a
-#		libxmlrpc.a
-#		libxmlrpc_xmlparse.a
-#		libxmlrpc_xmltok.a
-#		libxmlrpc_util.a
-#		pthread
-#		libxmlrpc_packetsocket.a
-#
-#)
-
+		diagnose.cpp		include/diagnose.h)
 
 ########################################################
 # fw is the command line version of the test framework #
 ########################################################
 add_executable( fw
-                main.cpp		include/version.h
-		rpcbind.cpp				include/rpcbind.h
-		include/diagnoseRegister.h
+        main.cpp			include/version.h
+							include/diagnoseRegister.h
 )
 target_link_directories(fw PRIVATE
 		/home/devo/public_html/fw/lib
 		/usr/lib/x86_64-linux-gnu)
-
 target_link_libraries(fw
 		mwfw2
-		libcgicc.a        # libcgicc.so         use static library instead
-        uuid.a            # uuid.so         use static library instead
+		libcgicc.a
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -129,22 +80,16 @@ target_link_libraries(fw
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
-)
-
+		libxmlrpc_packetsocket.a)
 
 #############################################
 # fw-test4.cgi is the c++ compiled test CGI #
 #############################################
-add_executable( fw-test4.cgi
-                fw-test4.cpp
-		include/version.h
-		rpcbind.cpp		include/rpcbind.h
-)
+add_executable( fw-test4.cgi fw-test4.cpp)
 target_link_libraries(fw-test4.cgi
 		mwfw2
-		libcgicc.a        # libcgicc.so         use static library instead
-        uuid.a            # uuid.so         use static library instead
+		libcgicc.a
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -156,21 +101,17 @@ target_link_libraries(fw-test4.cgi
 		pthread
 		libcurl.so.4.8.0
 		libxmlrpc_packetsocket.a
-
 )
 
 
 ##########################################################
 # index.cgi is the starting CGI script for the framework #
 ##########################################################
-add_executable( index.cgi
-                index.cpp		include/version.h
-		rpcbind.cpp				include/rpcbind.h
-)
+add_executable(index.cgi index.cpp)
 target_link_libraries(index.cgi
 		mwfw2
-		libcgicc.a          # libcgicc.so       use static library instead
-        uuid.a            # uuid.so         use static library instead
+		libcgicc.a
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -181,17 +122,12 @@ target_link_libraries(index.cgi
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
-)
-
+		libxmlrpc_packetsocket.a)
 
 ####################################################################
 # journal.cgi is called as a result of pressing the Journal button #
 ####################################################################
-add_executable( journal.cgi
-        journal.cpp		include/version.h
-		rpcbind.cpp		include/rpcbind.h
-)
+add_executable(journal.cgi journal.cpp)
 target_link_libraries(journal.cgi
         mwfw2
         libcgicc.a        # libcgicc.so     use static library instead
@@ -206,20 +142,14 @@ target_link_libraries(journal.cgi
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
-
-)
-
+		libxmlrpc_packetsocket.a)
 
 ############################################################################
 # login.cgi is invoked by the index.csv as the processing cgi for the form #
 ############################################################################
-add_executable( login.cgi
-                login.cpp		include/version.h
-		rpcbind.cpp				include/rpcbind.h
-		include/license.h
-)
-link_directories(/usr/lib/x86_64-linux-gnu)
+add_executable(login.cgi login.cpp)
+target_link_directories(login.cgi PRIVATE
+		/usr/lib/x86_64-linux-gnu)
 target_link_libraries(login.cgi
 		mwfw2
 		libcgicc.a        # libcgicc.so     use static library instead
@@ -234,23 +164,18 @@ target_link_libraries(login.cgi
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
-
-)
-
+		libxmlrpc_packetsocket.a)
 
 #####################################################################
 #  logout.cgi is called as the result of pressing the Logout button #
 #####################################################################
-add_executable( logout.cgi
-        logout.cpp		include/version.h
-		rpcbind.cpp		include/rpcbind.h
-)
-link_directories(/usr/lib/x86_64-linux-gnu)
+add_executable(logout.cgi logout.cpp)
+target_link_directories(logout.cgi PRIVATE
+		/usr/lib/x86_64-linux-gnu)
 target_link_libraries(logout.cgi
         mwfw2
-        libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
+        libcgicc.a
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -261,21 +186,16 @@ target_link_libraries(logout.cgi
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
-)
-
+		libxmlrpc_packetsocket.a)
 
 ######################################################################
 # look is a command line program that displays shared segment values #
 ######################################################################
-add_executable( look
-        look.cpp		include/version.h
-		rpcbind.cpp		include/rpcbind.h
-)
+add_executable(look look.cpp)
 target_link_libraries(look
         mwfw2
-        libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
+        libcgicc.a
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -286,21 +206,16 @@ target_link_libraries(look
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
-)
-
+		libxmlrpc_packetsocket.a)
 
 ###########################################################
 # menu.cgi is intended to be a top level navigation point #
 ###########################################################
-add_executable( menu.cgi
-                menu.cpp		include/version.h
-		rpcbind.cpp				include/rpcbind.h
-)
+add_executable(menu.cgi menu.cpp)
 target_link_libraries(menu.cgi
 		mwfw2
-		libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
+		libcgicc.a
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -311,22 +226,17 @@ target_link_libraries(menu.cgi
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
-)
-
+		libxmlrpc_packetsocket.a)
 
 #####################################################################
 # notesave.cgi is called as a result of pressing the Submit button  #
 # in the journal entry page                                         #
 #####################################################################
-add_executable( notesave.cgi
-                notesave.cpp	include/version.h
-		rpcbind.cpp				include/rpcbind.h
-)
+add_executable( notesave.cgi notesave.cpp)
 target_link_libraries(notesave.cgi
 		mwfw2
-		libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
+		libcgicc.a
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -337,18 +247,13 @@ target_link_libraries(notesave.cgi
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
-)
+		libxmlrpc_packetsocket.a)
 
-#####################################################################
-add_executable( noteload.cgi
-		        noteload.cpp		include/version.h
-		rpcbind.cpp					include/rpcbind.h
-)
+add_executable(noteload.cgi noteload.cpp)
 target_link_libraries(noteload.cgi
 		mwfw2
-		libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
+		libcgicc.a
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -359,22 +264,9 @@ target_link_libraries(noteload.cgi
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
+		libxmlrpc_packetsocket.a)
 
-)
-
-add_executable(prefs-action.cgi
-		prefs-action.cpp
-		config.cpp	        include/config.h
-		CSysLog.cpp			include/CSysLog.hpp
-		shared.cpp          include/shared.h
-		include/version.h
-		rpcbind.cpp			include/rpcbind.h
-		include/webcolors.h
-		include/diagnoseMethod.h
-		stylist.cpp
-		osIface.cpp
-)
+add_executable(prefs-action.cgi prefs-action.cpp)
 target_link_directories(prefs-action.cgi PRIVATE
 		/home/devo/public_html/fw/lib
 		/opt/xmlrpc-c/src/cpp
@@ -382,8 +274,7 @@ target_link_directories(prefs-action.cgi PRIVATE
 		/opt/xmlrpc-c/lib/libutil++
 		/opt/xmlrpc-c/lib/expat/xmlparse
 		/opt/xmlrpc-c/lib/expat/xmltok
-		/opt/xmlrpc-c/lib/libutil
-)
+		/opt/xmlrpc-c/lib/libutil)
 target_link_libraries(prefs-action.cgi
 		mwfw2
 		libxmlrpc_client++.a
@@ -397,32 +288,17 @@ target_link_libraries(prefs-action.cgi
 		pthread
 		libcurl.so.4.8.0
 		libxmlrpc_packetsocket.a
-		uuid.a            # uuid.so         use static library instead
-		libcgicc.a
-)
+		uuid.a
+		libcgicc.a)
 
-
-
-
-
-add_executable(query_remote.cgi
-		queryremote.cpp
-		config.cpp	        include/config.h
-		CSysLog.cpp			include/CSysLog.hpp
-		shared.cpp          include/shared.h
-		include/version.h
-		rpcbind.cpp			include/rpcbind.h
-		include/webcolors.h
-		include/diagnoseMethod.h
-)
+add_executable(query_remote.cgi	queryremote.cpp)
 target_link_directories(query_remote.cgi PRIVATE
 		/opt/xmlrpc-c/src/cpp
 		/opt/xmlrpc-c/src
 		/opt/xmlrpc-c/lib/libutil++
 		/opt/xmlrpc-c/lib/expat/xmlparse
 		/opt/xmlrpc-c/lib/expat/xmltok
-		/opt/xmlrpc-c/lib/libutil
-)
+		/opt/xmlrpc-c/lib/libutil)
 target_link_libraries(query_remote.cgi
 		mwfw2
 		libxmlrpc_client++.a
@@ -436,24 +312,17 @@ target_link_libraries(query_remote.cgi
 		pthread
 		libcurl.so.4.8.0
 		libxmlrpc_packetsocket.a
-		uuid.a            # uuid.so         use static library instead
-		libcgicc.a
-)
-
-
+		uuid.a
+		libcgicc.a)
 
 #####################################################################
 # render.cgi is a generic CGI script used to load specified schemas #
 #####################################################################
-add_executable( render.cgi
-                render.cpp		include/version.h
-		rpcbind.cpp				include/rpcbind.h
-								include/webcolors.h
-)
+add_executable( render.cgi render.cpp)
 target_link_libraries(render.cgi
 		mwfw2
-		libcgicc.a        # libcgicc.so     use static library instead
-        uuid.a            # uuid.so         use static library instead
+		libcgicc.a
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libxmlrpc++.a
@@ -464,32 +333,16 @@ target_link_libraries(render.cgi
 		libxmlrpc_util.a
 		pthread
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
+		libxmlrpc_packetsocket.a)
 
-)
-
-
-
-add_executable(xmlrpc_client
-        xmlrpc_client.cpp
-        config.cpp	        include/config.h
-        CSysLog.cpp			include/CSysLog.hpp
-        shared.cpp          include/shared.h
-							include/version.h
-		rpcbind.cpp			include/rpcbind.h
-							include/webcolors.h
-							include/diagnoseMethod.h
-		diagnose.cpp
-		include/diagnose.h
-)
-link_directories(
+add_executable(xmlrpc_client xmlrpc_client.cpp)
+target_link_directories(xmlrpc_client PRIVATE
         /opt/xmlrpc-c/src/cpp
         /opt/xmlrpc-c/src
         /opt/xmlrpc-c/lib/libutil++
         /opt/xmlrpc-c/lib/expat/xmlparse
         /opt/xmlrpc-c/lib/expat/xmltok
-        /opt/xmlrpc-c/lib/libutil
-)
+        /opt/xmlrpc-c/lib/libutil)
 target_link_libraries(xmlrpc_client
 		mwfw2
         libxmlrpc_client++.a
@@ -503,30 +356,18 @@ target_link_libraries(xmlrpc_client
         pthread
         libcurl.so.4.8.0
         libxmlrpc_packetsocket.a
-        uuid.a            # uuid.so         use static library instead
-		libcgicc.a
-)
+        uuid.a
+		libcgicc.a)
 
-
-add_executable(xmlrpc_inetd_server
-        xmlrpc_inetd_server.cpp
-        config.cpp	        include/config.h
-        CSysLog.cpp			include/CSysLog.hpp
-        shared.cpp          include/shared.h
-							include/version.h
-		rpcbind.cpp			include/rpcbind.h
-							include/diagnoseMethod.h
-)
+add_executable(xmlrpc_inetd_server xmlrpc_inetd_server.cpp)
 target_link_directories(xmlrpc_inetd_server PRIVATE
-		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp
-		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/src
-		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/abyss++
-		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil++
-		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmlparse
-		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmltok
-		/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil
-)
-
+	/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/src/cpp
+	/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/src
+	/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/abyss++
+	/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil++
+	/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmlparse
+	/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/expat/xmltok
+	/opt/multiware/Dougs-Networking-Prerequisites/xmlrpc-c/lib/libutil)
 target_link_libraries(xmlrpc_inetd_server
 		mwfw2
 		libxmlrpc_client++.a
@@ -546,26 +387,21 @@ target_link_libraries(xmlrpc_inetd_server
         ssl
         crypto
         pthread
-        uuid.a            # uuid.so         use static library instead
+        uuid.a
 		libcgicc.a
-		libcurl.so.4.8.0
-)
+		libcurl.so.4.8.0)
 
 ##################################
 # vpad is a command line program #
 ##################################
-add_executable( vpad
-		vpad.cpp		include/version.h
-						include/webcolors.h
-)
-link_directories(
+add_executable(vpad vpad.cpp)
+target_link_directories(vpad PRIVATE
 		/opt/xmlrpc-c/src/cpp
 		/opt/xmlrpc-c/src
 		/opt/xmlrpc-c/lib/libutil++
 		/opt/xmlrpc-c/lib/expat/xmlparse
 		/opt/xmlrpc-c/lib/expat/xmltok
-		/opt/xmlrpc-c/lib/libutil
-)
+		/opt/xmlrpc-c/lib/libutil)
 target_link_libraries(vpad
 		mwfw2
 		libxmlrpc_server_abyss++.a
@@ -584,32 +420,24 @@ target_link_libraries(vpad
 		libxmlrpc_util.a
 		pthread
 		libcgicc.a
-		uuid.a            # uuid.so         use static library instead
-
+		uuid.a
 		libxmlrpc_client++.a
 		libxmlrpc_client.a
 		libcurl.so.4.8.0
-		libxmlrpc_packetsocket.a
+		libxmlrpc_packetsocket.a)
 
-)
-
-add_executable( prefs.cgi
-		prefs.cpp
-)
-link_directories(
+add_executable(prefs.cgi prefs.cpp)
+target_link_directories(prefs.cgi PRIVATE
 		/opt/xmlrpc-c/src/cpp
 		/opt/xmlrpc-c/src
 		/opt/xmlrpc-c/lib/libutil++
 		/opt/xmlrpc-c/lib/expat/xmlparse
 		/opt/xmlrpc-c/lib/expat/xmltok
-		/opt/xmlrpc-c/lib/libutil
-)
+		/opt/xmlrpc-c/lib/libutil)
 target_link_libraries(prefs.cgi
 		mwfw2
 		libcgicc.a
-		uuid.a            # uuid.so         use static library instead
-)
-
+		uuid.a)
 
 ###############
 # end-of-file #
