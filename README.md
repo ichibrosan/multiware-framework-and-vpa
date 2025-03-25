@@ -2,6 +2,8 @@ daphne.goodall.com:/home/devo/public_html/fw/README.md 2025/02/09
 
 Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
 
+2025-03-24 18:04 dwg - suspend all shmvars activity, unable to debug
+
 2025-03-23 02:51 dwg - added diagnose class for easy access to 
 xmlrpc diagnose method, with authentication.
 
