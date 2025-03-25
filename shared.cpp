@@ -84,17 +84,39 @@ shared::shared() {
         m_pShMemng->iSignature = UNIVERSAL_ANSWER;
         m_pShMemng->stShMemSize = size;
 
-        // DEMO DATA FOR SHMVARS
-        strcpy(m_pShMemng->shmvar[0].svar_name, "kawabunga");
-               m_pShMemng->shmvar[0].svar_status = SVAR_STATUS_OK;
-               m_pShMemng->shmvar[0].svar_type   = SVAR_TYPE_CHAR;
-        strcpy(m_pShMemng->shmvar[0].svar_value.uChar.data,"Kawabunga");
+        // gpShmVars->set(SV_RMAJ,"SV_RMAJ",RMAJ);
+        // gpShmVars->set(SV_RMIN,"SV_RMIN",RMIN);
+        // gpShmVars->set(SV_RREV,"SV_RREV",RREV);
+        // gpShmVars->set(SV_RBLD,"SV_RBLD",RBLD);
+        //
+        // gpShmVars->set(SV_RSTRING,"SV_RSTRING",RSTRING);
+        // gpShmVars->set(SV_RSHORT,"SV_RSTRING",RSHORT);
+        // gpShmVars->set(SV_RLONG,"SV_RSTRING",RLONG);
+        // gpShmVars->set(SV_RDATE,"SV_RDATE",RDATE);
+        // gpShmVars->set(SV_RTIME,"SV_RTIME",RTIME);
+        // gpShmVars->set(SV_RBUILD,"SV_RBUILD",RBUILD);
+        // gpShmVars->set(SV_RTYPE,"SV_RTYPE",RTYPE);
+        // gpShmVars->set(SV_RARCH,"SV_RARCH",RARCH);
+        // gpShmVars->set(SV_ROS,"SV_ROS",ROS);
+        // gpShmVars->set(SV_RHOST,"SV_RHOST",RHOST);
+        // gpShmVars->set(SV_RUSER,"SV_RUSER",RUSER);
+        // gpShmVars->set(SV_RDOMAIN,"SV_RDOMAIN",RDOMAIN);
+        // gpShmVars->set(SV_RIP,"SV_RIP",RIP);
+        // gpShmVars->set(SV_RMAC,"SV_RMAC",RMAC);
+        // gpShmVars->set(SV_RCPU,"SV_RCPU",RCPU);
+        // gpShmVars->set(SV_RCOMMENT,"SV_RCOMMENT",RCOMMENT);
 
-        // DEMA DATA FOR SHMVARS
-        strcpy(m_pShMemng->shmvar[1].svar_name, "kawabucha");
-               m_pShMemng->shmvar[1].svar_status = SVAR_STATUS_OK;
-               m_pShMemng->shmvar[1].svar_type   = SVAR_TYPE_INT;
-               m_pShMemng->shmvar[1].svar_value.uInt.data = 42;
+        // // DEMO DATA FOR SHMVARS
+        // strcpy(m_pShMemng->shmvar[0].svar_name, "kawabunga");
+        //        m_pShMemng->shmvar[0].svar_status = SVAR_STATUS_OK;
+        //        m_pShMemng->shmvar[0].svar_type   = SVAR_TYPE_CHAR;
+        // strcpy(m_pShMemng->shmvar[0].svar_value.uChar.data,"Kawabunga");
+        //
+        // // DEMA DATA FOR SHMVARS
+        // strcpy(m_pShMemng->shmvar[1].svar_name, "kawabucha");
+        //        m_pShMemng->shmvar[1].svar_status = SVAR_STATUS_OK;
+        //        m_pShMemng->shmvar[1].svar_type   = SVAR_TYPE_INT;
+        //        m_pShMemng->shmvar[1].svar_value.uInt.data = 42;
 
 
         size_t credsSize = sizeof(MFW_SHMEMNG_T::creds);

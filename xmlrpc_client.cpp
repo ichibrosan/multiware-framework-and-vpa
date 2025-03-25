@@ -125,10 +125,8 @@ main(int argc, char **) {
 
     std::cout << "Remote Version is:    " << ssVersion << std::endl;
 
-    std::cout << "svars: " << gpShmVars->get_string(KAWABUNGA)
-              << std::endl;
+    // std::cout << "svars: " << gpShmVars->get_string(SV_RMAC)
+    //           << std::endl;
 
-    std::cout << "svars: " << gpShmVars->get_string(KAWABUCHA)
-          << std::endl;
     return 0;
 }

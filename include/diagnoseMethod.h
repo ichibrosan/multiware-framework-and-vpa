@@ -135,7 +135,7 @@ public:
                 if (0 == strcmp(ssAuth.c_str(),
                     gpSh->m_pShMemng->szRpcUuid)) {
                    *retvalP = xmlrpc_c::value_string(
-                       RVERSION_STRING_LONG);
+                       RLONG);
                 } else {
                     sleep(10); // make them pay a time penalty
                     *retvalP = xmlrpc_c::value_string(

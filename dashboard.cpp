@@ -124,9 +124,9 @@ dashboard::dashboard(
                 << "<th>Authenticated Username</th>"
                 << "<td>" << m_szAuthUserName << "</td>"
                 << "<th>Semantic Version</th>"
-                << "<td>" << RVERSION_STRING_LONG
+                << "<td>" << RLONG
                 << " ("
-                << RVERSION_STRING_TYPE
+                << RTYPE
                 << ")"
                 << "</td>"
                 << "</tr>"
@@ -142,9 +142,9 @@ dashboard::dashboard(
                 << m_szAuthLastName << "</td>"
                 << "<th>Current Build</th>"
                 << "<td>"
-                << RVERSION_STRING_DATE
+                << RDATE
                 << " "
-                << RVERSION_STRING_TIME
+                << RTIME
                 << "</td>"
                 << "</tr>"
                 << std::endl;

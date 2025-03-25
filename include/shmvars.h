@@ -22,14 +22,33 @@ enum svar_status_t {
 };
 
 enum shmvar_index_t {
-    KAWABUNGA,
-    KAWABUCHA
+    SV_RMAJ,
+    SV_RMIN,
+    SV_RREV,
+    SV_RBLD,
+    SV_RSTRING,
+    SV_RSHORT,
+    SV_RLONG,
+    SV_RDATE,
+    SV_RTIME,
+    SV_RBUILD,
+    SV_RTYPE,
+    SV_RARCH,
+    SV_ROS,
+    SV_RHOST,
+    SV_RUSER,
+    SV_RDOMAIN,
+    SV_RIP,
+    SV_RMAC,
+    SV_RCPU,
+    SV_RCOMMENT,
+    SHMVAR_COUNT
 };
 
 typedef struct shmvar_t {
     char               svar_name[SHMVAR_NAME_SIZE_MAX];
-    enum svar_type_t   svar_type;
-    enum svar_status_t svar_status;
+    int  svar_type;
+    int  svar_status;
     union {
         struct {
             int data;
@@ -50,6 +69,11 @@ typedef struct shmvar_t {
 class shmvars {
 public:
     shmvars();
+    void set(
+        shmvar_index_t index,std::string ssName,std::string ssValue);
+    void set(
+        shmvar_index_t index,std::string ssName,int iValue);
+
     std::string get_string(int index);
 };
 

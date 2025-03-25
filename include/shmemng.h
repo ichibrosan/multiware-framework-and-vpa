@@ -17,7 +17,7 @@
  */
 struct MFW_SHMEMNG_T {
 
-    shmvar_t shmvar[2];
+    //shmvar_t shmvar[SHMVAR_COUNT];
 
     // Shared Environmental Value, set by environment::environment()
     int iSignature;

@@ -11,7 +11,7 @@
 
 dashboard		* gpDash;
 environment		* gpEnv;
-shmvars			* gpShmVars;
+//shmvars			* gpShmVars;
 shared			* gpSh;
 osIface			* gpOS;
 CLog			* gpLog;
@@ -59,7 +59,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 		std::cout << "Content-type:\ttext/html\n\n" << std::endl;
 	}
 	gpXinetd = new xinetdctl();
-	gpShmVars = new shmvars();
+	//gpShmVars = new shmvars();
 	gpSh = new shared();
     gpEnv = new environment();
     gpLog = new CLog(__FILE__,__FUNCTION__);

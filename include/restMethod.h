@@ -96,7 +96,7 @@ public:
             case REST_REQ_GET:
                 if (REST_REQ_SUB_VER == eSubFunc) {
                    *retvalP = xmlrpc_c::value_string(
-                       RVERSION_STRING_LONG);
+                       RLONG);
                 } else {
                     sleep(10); // make them pay a time penalty
                     sprintf(szErrMsg,"Error!! Unknown SubFunc(%d)",
