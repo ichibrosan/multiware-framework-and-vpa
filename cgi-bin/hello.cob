@@ -1,0 +1,5 @@
+        IDENTIFICATION DIVISION.
+        PROGRAM-ID. hello.
+        PROCEDURE DIVISION.
+           DISPLAY CBL_GET_CURRENT_DIR.
+        STOP RUN.
