@@ -155,3 +155,35 @@ std::string htmlbind::hb_form_datetime(
     ssBuffer.append(">\n");
     return ssBuffer;
 }
+
+std::string htmlbind::hb_form_label(const char *pszVisible)
+{
+    return pszVisible;
+}
+
+std::string htmlbind::hb_form_month(
+        const char *pszName,
+        const char *pszId,
+        const char *pszValue,
+        const char *pszDescr)
+{
+    std::string ssBuffer;
+    ssBuffer = "<label";
+    ssBuffer.append(" for=\"");
+    ssBuffer.append(pszId);
+    ssBuffer.append("\">");
+    ssBuffer.append(pszDescr);
+    ssBuffer.append("</label>\n");
+    ssBuffer.append("<input");
+    ssBuffer.append(" type=\"month\"");
+    ssBuffer.append(" name=\"");
+    ssBuffer.append(pszName);
+    ssBuffer.append("\"");
+    ssBuffer.append(" value=\"");
+    ssBuffer.append(pszId);
+    ssBuffer.append("\"");
+    ssBuffer.append(" size=\"");
+    ssBuffer.append(pszValue);
+    ssBuffer.append("\?>");
+    return ssBuffer;
+}

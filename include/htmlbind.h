@@ -39,6 +39,14 @@ public:
             const char *pszValue,
             const char *pszDescr);
 
-};
+    std::string hb_form_label(
+        const char * pszVisible);
 
+
+    std::string hb_form_month(
+        const char *pszName,
+        const char *pszId,
+        const char *pszValue,
+        const char *pszDescr);
+};
 #endif //HTMLBIND_H

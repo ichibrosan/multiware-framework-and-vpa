@@ -135,6 +135,6 @@ main(int argc, char **) {
 //    std::string buffer = gpHB->hb_form_datetime("name","id","value","descr");
 
 
-    std::cout << buffer << std::endl;
+    ///std::cout << buffer << std::endl;
     return 0;
 }
