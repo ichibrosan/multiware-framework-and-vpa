@@ -21,6 +21,24 @@ public:
         int width,
         int height);
 
+    std::string hb_close_body();
+    std::string hb_close_form();
+    std::string hb_close_head();
+    std::string hb_close_html();
+    std::string hb_close_table();
+
+    std::string hb_form_date(
+        const char *pszName,
+        const char *pszID,
+        const char *pszValue,
+        const char *pszDescr);
+
+    std::string hb_form_datetime(
+            const char *pszName,
+            const char *pszID,
+            const char *pszValue,
+            const char *pszDescr);
+
 };
 
 #endif //HTMLBIND_H

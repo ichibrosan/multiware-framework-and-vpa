@@ -53,8 +53,6 @@ extern cgihtml * gpHtml;
 extern  htmlbind * gpHB;
 #endif
 
-
-
 #ifndef gpLog
 #include "CLog.hpp"
 extern CLog * gpLog;

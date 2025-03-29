@@ -128,7 +128,13 @@ main(int argc, char **) {
     // std::cout << "svars: " << gpShmVars->get_string(SV_RMAC)
     //           << std::endl;
 
-    std::string buffer = gpHB->hb_ahref("target.cgi","our-office.png",200,50);
+    //std::string buffer = gpHB->hb_ahref("target.cgi","our-office.png",200,50);
+
+    //std::string buffer = gpHB->hb_form_date("name","id","value","descr");
+
+//    std::string buffer = gpHB->hb_form_datetime("name","id","value","descr");
+
+
     std::cout << buffer << std::endl;
     return 0;
 }

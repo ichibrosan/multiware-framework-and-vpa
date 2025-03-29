@@ -73,6 +73,85 @@ std::string htmlbind::hb_imgsrc(
     ssBuffer.append(std::to_string(width));
     ssBuffer.append("\" height=\"");
     ssBuffer.append(std::to_string(height));
-    ssBuffer.append("\" />");
+    ssBuffer.append("\" />\n");
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_close_body() {
+    std::string ssBuffer;
+    ssBuffer = "</body>\n";
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_close_form()
+{
+    std::string ssBuffer;
+    ssBuffer = "</form>\n";
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_close_head()
+{
+    std::string ssBuffer;
+    ssBuffer = "</head>\n";
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_close_html()
+{
+    std::string ssBuffer;
+    ssBuffer = "</html>\n";
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_form_date(
+        const char *pszName,
+        const char *pszID,
+        const char *pszValue,
+        const char *pszDescr)
+{
+    std::string ssBuffer;
+    ssBuffer = "<label";
+    ssBuffer.append(" for=\"");
+    ssBuffer.append(pszID);
+    ssBuffer.append("\">");
+    ssBuffer.append(pszDescr);
+    ssBuffer.append("</label>\n");
+    ssBuffer.append("<input");
+    ssBuffer.append(" type=\"date\"");
+    ssBuffer.append(" name=\"");
+    ssBuffer.append(pszName);
+    ssBuffer.append("\"");
+    ssBuffer.append(" id=\"");
+    ssBuffer.append(pszID);
+    ssBuffer.append("\"");
+    ssBuffer.append(" value=\"");
+    ssBuffer.append(pszValue);
+    ssBuffer.append("\" />\n");
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_form_datetime(
+        const char *pszName,
+        const char *pszID,
+        const char *pszValue,
+        const char *pszDescr)
+{
+    std::string ssBuffer;
+    ssBuffer = "<label";
+    ssBuffer.append(" for=\"");
+    ssBuffer.append(pszID);
+    ssBuffer.append("\">");
+    ssBuffer.append(pszDescr);
+    ssBuffer.append("</label>\n");
+    ssBuffer.append("<input");
+    ssBuffer.append(" type=\"datetime-local\"");
+    ssBuffer.append(" name=\"");
+    ssBuffer.append(pszName);
+    ssBuffer.append("\"");
+    ssBuffer.append(" id=\"");
+    ssBuffer.append(pszID);
+    ssBuffer.append("\"");
+    ssBuffer.append(">\n");
     return ssBuffer;
 }
