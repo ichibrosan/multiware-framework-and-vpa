@@ -48,6 +48,12 @@ extern dashboard * gpDash;
 extern cgihtml * gpHtml;
 #endif
 
+#ifndef gpHB
+#include "htmlbind.h"
+extern  htmlbind * gpHB;
+#endif
+
+
 
 #ifndef gpLog
 #include "CLog.hpp"

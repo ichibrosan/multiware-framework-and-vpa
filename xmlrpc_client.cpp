@@ -128,5 +128,7 @@ main(int argc, char **) {
     // std::cout << "svars: " << gpShmVars->get_string(SV_RMAC)
     //           << std::endl;
 
+    std::string buffer = gpHB->hb_ahref("target.cgi","our-office.png",200,50);
+    std::cout << buffer << std::endl;
     return 0;
 }

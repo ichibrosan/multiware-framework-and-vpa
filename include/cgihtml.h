@@ -5,7 +5,7 @@
 
 #ifndef MULTIWARE_CGIHTML_H
 #define MULTIWARE_CGIHTML_H
-#include "mwfw2.h"
+//#include "mwfw2.h"
 
 
 /**
@@ -13,12 +13,14 @@
  * @brief A class designed for handling HTML generation and CGI scripts.
  *
  * This class provides utilities for creating HTML output programmatically
- * and processing CGI inputs in web applications. It encapsulates functionality
- * for constructing HTML documents, handling form data, and managing interactions
- * between the server and the client through the Common Gateway Interface.
+ * and processing CGI inputs in web applications. It encapsulates
+ * functionality for constructing HTML documents, handling form data, and
+ * managing interactions between the server and the client through the
+ * Common Gateway Interface.
  *
  * The primary purpose of this class is to simplify the process of handling
- * web-based content generation and server communication for CGI-based web services.
+ * web-based content generation and server communication for CGI-based web
+ * services.
  */
 class cgihtml {
 	/**
@@ -30,7 +32,7 @@ class cgihtml {
 	 * @return A string containing the generated HTML code.
 	 */
 public:
-    cgihtml();
+	cgihtml();
 
 	/**
 	 * Creates a hyperlink in text with the given display text and URL.
@@ -39,21 +41,23 @@ public:
 	 * @param url The URL that the hyperlink will point to.
 	 * @return A string containing the formatted hyperlink.
 	 */
-	void ahref(const char *,const char *,int,int);
+	void ahref(const char *, const char *, int, int);
 
 	/**
 	 * @brief Closes the body section of an HTML document.
 	 *
-	 * This method outputs the closing </body> tag for an HTML document to the standard output.
-	 * It is intended to be used in conjunction with other methods that structure and output
-	 * HTML content.
+	 * This method outputs the closing </body> tag for an HTML document to
+	 * the standard output. It is intended to be used in conjunction with
+	 * other methods that structure and output HTML content.
 	 */
 	void close_body();
+
 	/**
-	 * Closes the currently open form, releasing any resources associated with it.
-	 * This method finalizes any pending operations and cleans up any resources
-	 * used by the form to prevent resource leaks. It is intended to be called
-	 * when the form is no longer necessary or its lifecycle is completed.
+	 * Closes the currently open form, releasing any resources associated
+	 * with it. This method finalizes any pending operations and cleans up
+	 * any resources used by the form to prevent resource leaks. It is
+	 * intended to be called when the form is no longer necessary or its
+	 * lifecycle is completed.
 	 *
 	 * If the form is already closed, this method has no effect.
 	 *
@@ -61,28 +65,30 @@ public:
 	 * if the operation encounters unexpected errors during execution.
 	 */
 	void close_form();
+
 	/**
-	 * Closes the current head of a data structure or stream, releasing any resources
-	 * associated with it. This method is commonly used in scenarios where the head
-	 * of a structure or stream represents the active or top-most resource, and it
-	 * is no longer needed or must be terminated to maintain integrity or free up
-	 * resources.
+	 * Closes the current head of a data structure or stream, releasing
+	 * any resources associated with it. This method is commonly used in
+	 * scenarios where the head of a structure or stream represents the
+	 * active or top-most resource, and it is no longer needed or must
+	 * be terminated to maintain integrity or free up resources.
 	 *
-	 * It is the caller's responsibility to ensure that any actions dependent on
-	 * the head being open are completed before invoking this method. Failure to do
-	 * so may result in unexpected behavior or errors.
+	 * It is the caller's responsibility to ensure that any actions
+	 * dependent on the head being open are completed before invoking this
+	 * method. Failure to do so may result in unexpected behavior or errors.
 	 *
-	 * This method does not return a value, and any necessary cleanup operations
-	 * should be handled internally. In the case of an error during the closure
-	 * process, appropriate exceptions should be thrown.
+	 * This method does not return a value, and any necessary cleanup
+	 * operations should be handled internally. In the case of an error
+	 * during the closure process, appropriate exceptions should be thrown.
 	 *
 	 * Exceptions:
-	 * - Throws an IllegalStateException if the head is already closed or closing
-	 *   cannot be completed due to an invalid state.
-	 * - Throws an IOException for errors related to external resources during closure,
-	 *   such as file system or network-related issues.
+	 * - Throws an IllegalStateException if the head is already closed or
+	 *   closing cannot be completed due to an invalid state.
+	 * - Throws an IOException for errors related to external resources
+	 *   during closure, such as file system or network-related issues.
 	 */
 	void close_head();
+
 	/**
 	 * Closes an open HTML document by writing the required closing tags.
 	 *
@@ -95,6 +101,7 @@ public:
 	 *         if an attempt is made to close a non-existent document structure.
 	 */
 	void close_html();
+
 	/**
 	 * @brief Closes an open `<script>` HTML tag.
 	 *
@@ -105,6 +112,7 @@ public:
 	 * and prevents malformed scripts in the generated HTML output.
 	 */
 	void close_script();
+
 	/**
 	 * @brief Closes an HTML table by outputting the closing table tag.
 	 *
@@ -113,6 +121,7 @@ public:
 	 * methods to properly format an HTML table in the generated output.
 	 */
 	void close_table();
+
 	/**
 	 * @brief Closes an open HTML `<div>` element.
 	 *
@@ -143,6 +152,7 @@ public:
 	 *       information such as authentication tokens or credentials.
 	 */
 	void dump_env_vars();
+
 	/**
 	 * Dumps the current state of shared memory variables for inspection or debugging.
 	 *
@@ -175,6 +185,7 @@ public:
 	 *   depending on implementation specifics.
 	 */
 	void dump_shm_vars();
+
 	/**
 	 * @brief Dumps the contents of a password CSV file formatted as HTML tables.
 	 *
@@ -195,6 +206,7 @@ public:
 	 * printed to the `std::cout` stream in an HTML-friendly syntax for rendering.
 	 */
 	void dump_passwd();
+
 	/**
 	 * Outputs a table displaying information about the referrer.
 	 *
@@ -203,9 +215,10 @@ public:
 	 * @param ssReferrerFile The file name of the referrer.
 	 */
 	void dump_referrer(
-        std::string ssReferrer,
-        std::string ssReferrerPath,
-        std::string ssReferrerFile);
+		std::string ssReferrer,
+		std::string ssReferrerPath,
+		std::string ssReferrerFile);
+
 	/**
 	 * @brief Exports the database schema to a specified format or output.
 	 *
@@ -230,10 +243,10 @@ public:
 	 * @param buttonType The type of the button (e.g., submit, reset, button).
 	 * @param onClickAction The function or action to execute when the button is clicked.
 	 */
-	void form_button(const char * pszType,
-					 const char * pszForm,
-					 const char * pszButtonClass,
-					 const char * pszButtonDisplay);
+	void form_button(const char *pszType,
+	                 const char *pszForm,
+	                 const char *pszButtonClass,
+	                 const char *pszButtonDisplay);
 
 	/**
 	 * Generates and returns a string containing an HTML iframe element
@@ -244,12 +257,12 @@ public:
 	 * @param height An integer specifying the height of the iframe in pixels.
 	 * @return A string containing the constructed iframe HTML element.
 	 */
-	void form_iframe(const char * pszIframeDefaultPage,
-					 const char * pszIframeTitle,
-					 const char * pszIframeName,
-					 const char * pszIframeClass,
-					 int i_IframeWidth,
-					 int i_IframeHeight);
+	void form_iframe(const char *pszIframeDefaultPage,
+	                 const char *pszIframeTitle,
+	                 const char *pszIframeName,
+	                 const char *pszIframeClass,
+	                 int i_IframeWidth,
+	                 int i_IframeHeight);
 
 	/**
 	 * Generates and returns an iframe button configured with the provided parameters.
@@ -260,16 +273,16 @@ public:
 	 * @param url The URL to be loaded within the iframe.
 	 * @param properties Additional CSS or HTML properties to apply to the iframe button.
 	 */
-	void form_iframe_button(const char * pszLink,
-							const char * pszImage,
-							const char * pszTarget,
-							const char * pszButtonClass,
-							const char * pszButtonDisplay);
+	void form_iframe_button(const char *pszLink,
+	                        const char *pszImage,
+	                        const char *pszTarget,
+	                        const char *pszButtonClass,
+	                        const char *pszButtonDisplay);
 
-    void form_date(         const char *,   // COL_DATE_NAME
-                            const char *,   // COL_DATE_ID
-                            const char *,   // COL_DATE_VALUE
-                            const char *); /**
+	void form_date(const char *, // COL_DATE_NAME
+	               const char *, // COL_DATE_ID
+	               const char *, // COL_DATE_VALUE
+	               const char *); /**
                              * Generates an HTML `date` input field with an associated label.
                              *
                              * @param pszName Specifies the name attribute of the `date` input element.
@@ -279,10 +292,10 @@ public:
                              */
 
 
-	void form_datetime(     const char *,   // COL_DATETIME_NAME
-							const char *,   // COL_DATETIME_ID
-							const char *,   // COL_DATETIME_VALUE
-							const char *);  // COL_DATETIME_DESCR
+	void form_datetime(const char *, // COL_DATETIME_NAME
+	                   const char *, // COL_DATETIME_ID
+	                   const char *, // COL_DATETIME_VALUE
+	                   const char *); // COL_DATETIME_DESCR
 
 	/**
 	 * Generates and returns a label associated with a given form field.
@@ -295,10 +308,10 @@ public:
 	 */
 	void form_label(const char *);
 
-    void form_month(        const char *,   // COL_MONTH_NAME
-                            const char *,   // COL_MONTH_ID
-                            const char *,   // COL_MONTH_VALUE
-                            const char *); /**
+	void form_month(const char *, // COL_MONTH_NAME
+	                const char *, // COL_MONTH_ID
+	                const char *, // COL_MONTH_VALUE
+	                const char *); /**
                              * @brief Forms a date string by combining the provided month and year.
                              *
                              * This method takes a numeric month and year as input and combines
@@ -309,17 +322,17 @@ public:
                              * @return A string representing the formatted date in the format: "MM-YYYY".
                              */
 
-	void form_password(     const char *pszName,    // COL_PASSWORD_NAME
-							const char *pszId,      // COL_PASSWORD_ID
-							const char *pszValue,   // COL_PASSWORD_VALUE
-							const char *pszsize,    // COL_PASSWORD_SIZE
-							const char *pszVisible, // COL_PASSWORD_VISIBLE
-							const char *pszDescr);  // COL_PASSWORD_DESCR
+	void form_password(const char *pszName, // COL_PASSWORD_NAME
+	                   const char *pszId, // COL_PASSWORD_ID
+	                   const char *pszValue, // COL_PASSWORD_VALUE
+	                   const char *pszsize, // COL_PASSWORD_SIZE
+	                   const char *pszVisible, // COL_PASSWORD_VISIBLE
+	                   const char *pszDescr); // COL_PASSWORD_DESCR
 
-    void form_postcheckbox( const char *,    // COL_CHECKBOX_NAME
-                            const char *,    // COL_CHECKBOX_VALUE
-                            const char *,    // COL_CHECKBOX_VISIBLE
-                            const char *); /**
+	void form_postcheckbox(const char *, // COL_CHECKBOX_NAME
+	                       const char *, // COL_CHECKBOX_VALUE
+	                       const char *, // COL_CHECKBOX_VISIBLE
+	                       const char *); /**
                              * Processes a checkbox form field and applies user-defined configurations.
                              *
                              * This method is designed to handle the initialization and configuration of
@@ -331,10 +344,10 @@ public:
                              * @param attributes Additional attributes to be applied to the checkbox field.
                              */
 
-	void form_precheckbox(  const char *,    // COL_CHECKBOX_NAME
-							const char *,    // COL_CHECKBOX_VALUE
-							const char *,    // COL_CHECKBOX_VISIBLE
-							const char *);   // COL_CHECKBOX_DESCRIPTION
+	void form_precheckbox(const char *, // COL_CHECKBOX_NAME
+	                      const char *, // COL_CHECKBOX_VALUE
+	                      const char *, // COL_CHECKBOX_VISIBLE
+	                      const char *); // COL_CHECKBOX_DESCRIPTION
 	/**
 	 * Resets a form to its initial state by clearing all input fields and
 	 * resetting any modified form data to the default values. This method
@@ -367,74 +380,72 @@ public:
 	 * @throws NoSuchAlgorithmException If the specified hashing algorithm is invalid or unsupported.
 	 */
 	void form_password(const char *pszName,
-					   const char *pszValue,
-					   const char *pszsize,
-					   const char *pszVisible,
-					   const char *pszDescr);
+	                   const char *pszValue,
+	                   const char *pszsize,
+	                   const char *pszVisible,
+	                   const char *pszDescr);
 
 
+	/**************************************************************************
+	 * @brief Generates and outputs an HTML select form element with associated
+	 *			labels.
+	 *
+	 * This function is used to create an HTML form select element, along with
+	 * associated labels for accessibility and display purposes. It takes
+	 * parameters for the label text, the select element's ID, and name
+	 * attributes to ensure proper identification and behavior within an HTML
+	 * form.
+	 *
+	 * @param pszLabelFor Pointer to a string that specifies the `for`
+	 *		attribute of the label, linking it to a select element by its ID.
+	 * @param pszLabelVisible Pointer to a string that specifies the visible
+	 *		text for the label associated with the select element.
+	 * @param pszSelectID Pointer to a string that specifies the ID attribute
+	 *		of the select element, used to uniquely identify it within the HTML
+	 *		document.
+	 * @param pszSelectName Pointer to a string that specifies the name
+	 *		attribute of the select element, used to identify its value when
+	 *		form data is submitted.
+	 */
+	void form_select(const char *pszLabelFor,
+	                 const char *pszLabelVisible,
+	                 const char *pszSelectID,
+	                 const char *pszSelectName);
 
-/**************************************************************************
- * @brief Generates and outputs an HTML select form element with associated
- *			labels.
- *
- * This function is used to create an HTML form select element, along with
- * associated labels for accessibility and display purposes. It takes
- * parameters for the label text, the select element's ID, and name
- * attributes to ensure proper identification and behavior within an HTML
- * form.
- *
- * @param pszLabelFor Pointer to a string that specifies the `for`
- *		attribute of the label, linking it to a select element by its ID.
- * @param pszLabelVisible Pointer to a string that specifies the visible
- *		text for the label associated with the select element.
- * @param pszSelectID Pointer to a string that specifies the ID attribute
- *		of the select element, used to uniquely identify it within the HTML
- *		document.
- * @param pszSelectName Pointer to a string that specifies the name
- *		attribute of the select element, used to identify its value when
- *		form data is submitted.
- */
-void form_select(		const char * pszLabelFor,
-						 const char * pszLabelVisible,
-						 const char * pszSelectID,
-						 const char * pszSelectName);
+	/**************************************************************************
+	 * @brief Adds an option to a select HTML form element with specified value
+	 * and visible text. This function is used to create and append an option
+	 * element to a select form control in an HTML document. The added option
+	 * will display a visible label and have an associated value that can be
+	 * submitted.
+	 *
+	 * @param pszOptionValue The value to be assigned to the option element.
+	 *                       This value is submitted when the corresponding
+	 *                       option is selected.
+	 * @param pszOptionVisible The text to be displayed to the user for the
+	 *						option element.
+	 *************************************************************************/
+	void form_select_opt(
+		const char *pszSelectBool,
+		const char *pszOptionValue,
+		const char *pszOptionVisible);
 
-/**************************************************************************
- * @brief Adds an option to a select HTML form element with specified value
- * and visible text. This function is used to create and append an option
- * element to a select form control in an HTML document. The added option
- * will display a visible label and have an associated value that can be
- * submitted.
- *
- * @param pszOptionValue The value to be assigned to the option element.
- *                       This value is submitted when the corresponding
- *                       option is selected.
- * @param pszOptionVisible The text to be displayed to the user for the
- *						option element.
- *************************************************************************/
-void form_select_opt(
-		const char * pszSelectBool,
-		const char * pszOptionValue,
-		const char * pszOptionVisible);
-
-/*************************************************************************
- * @brief Marks the end of a select HTML form element in the CGI output.
- *
- * This function is used to properly close a select form element when
- * generating dynamic HTML content. It ensures the proper syntax for an
- * HTML select element is followed, allowing for the form selection options
- * to function as intended within a web application.
- *
- * This function should be used in conjunction with the corresponding
- * function(s) that initiate and populate the select element, ensuring
- * well-formed HTML structure in generated pages.
- *
- * Misuse or omission of this function may lead to malformed HTML output
- * or unexpected behavior in rendered user interfaces.
- *************************************************************************/
-void form_select_end();
-
+	/*************************************************************************
+	 * @brief Marks the end of a select HTML form element in the CGI output.
+	 *
+	 * This function is used to properly close a select form element when
+	 * generating dynamic HTML content. It ensures the proper syntax for an
+	 * HTML select element is followed, allowing for the form selection options
+	 * to function as intended within a web application.
+	 *
+	 * This function should be used in conjunction with the corresponding
+	 * function(s) that initiate and populate the select element, ensuring
+	 * well-formed HTML structure in generated pages.
+	 *
+	 * Misuse or omission of this function may lead to malformed HTML output
+	 * or unexpected behavior in rendered user interfaces.
+	 *************************************************************************/
+	void form_select_end();
 
 
 	/**
@@ -471,9 +482,9 @@ void form_select_end();
 	 * @param element_name Name of the element to select from the form.
 	 * @param value The value or criteria to use for selecting the form element.
 	 */
-	void form_select_array(const char * pszSelectName,
-						   std::vector<std::string> selectValues,
-						   const char *pszSelectClass);
+	void form_select_array(const char *pszSelectName,
+	                       std::vector<std::string> selectValues,
+	                       const char *pszSelectClass);
 
 	/**
 	 * Allows the user to select specific files from a form submission for processing.
@@ -490,9 +501,9 @@ void form_select_end();
 	 *                      be stored after processing. This container is modified
 	 *                      in place by the method.
 	 */
-	void form_select_files(const char * pszSelectName,
-						   const char * pszSelectPath,
-						   const char * pszSelectClass);
+	void form_select_files(const char *pszSelectName,
+	                       const char *pszSelectPath,
+	                       const char *pszSelectClass);
 
 	/**
 	 * Processes the input text to perform certain transformations or operations.
@@ -508,39 +519,39 @@ void form_select_end();
 	 *               be stored as output.
 	 */
 	void form_text(const char *pszName,
-				   const char *pszSize,
-				   const char *pszValue,
-				   const char *pszVisible,
-				   const char *pszReadonly,
-				   const char *pszDescr,
-				   const char *pszClass);
+	               const char *pszSize,
+	               const char *pszValue,
+	               const char *pszVisible,
+	               const char *pszReadonly,
+	               const char *pszDescr,
+	               const char *pszClass);
 
-    void form_text(const char *pszName,    // COL_TEXT_NAME
-                   const char *pszId,      // COL_TEXT_ID
-                   const char *pszSize,    // COL_TEXT_SIZE
-                   const char *pszValue,   // COL_TEXT_VALUE
-                   const char *pszVisible, // COL_TEXT_VISIBLE
-                   const char *pszDescr); /**
+	void form_text(const char *pszName, // COL_TEXT_NAME
+	               const char *pszId, // COL_TEXT_ID
+	               const char *pszSize, // COL_TEXT_SIZE
+	               const char *pszValue, // COL_TEXT_VALUE
+	               const char *pszVisible, // COL_TEXT_VISIBLE
+	               const char *pszDescr); /**
                     * Processes and formats the input text according to specific rules or conditions.
                     *
                     * @param text A string representing the input text to be processed.
                     * @return A string containing the processed and formatted version of the input text.
                     */
 
-	void form_text(const char * szName,
-				   const char * szID,
-				   const char * szValue,
-				   const char * szSize,
-				   const char * szVisible,
-				   const char * szReadonly,
-				   const char * szDescr,
-				   const char * szClass);
+	void form_text(const char *szName,
+	               const char *szID,
+	               const char *szValue,
+	               const char *szSize,
+	               const char *szVisible,
+	               const char *szReadonly,
+	               const char *szDescr,
+	               const char *szClass);
 
-    void form_textarea(const char *pszName,    // COL_TEXTAREA_NAME
-                       const char *pszID,      // COL_TEXTAREA_ID
-                       const char *pszCols,    // COL_TEXTAREA_COLS
-                       const char *pszRows,    // COL_TEXTAREA_ROWS
-                       const char *pszWrap); /**
+	void form_textarea(const char *pszName, // COL_TEXTAREA_NAME
+	                   const char *pszID, // COL_TEXTAREA_ID
+	                   const char *pszCols, // COL_TEXTAREA_COLS
+	                   const char *pszRows, // COL_TEXTAREA_ROWS
+	                   const char *pszWrap); /**
                         * Processes and formats the input text for display in a text area.
                         *
                         * @param text The input string to be formatted and displayed.
@@ -552,17 +563,17 @@ void form_select_end();
                         */
 
 	void form_textarea(const char *pszName,
-					   const char * pszID,
-					   const char * pszCols,
-					   const char * pszRows,
-					   const char * pszWrap,
-					   const char * pszClass,
-					   const char * pszValue);
+	                   const char *pszID,
+	                   const char *pszCols,
+	                   const char *pszRows,
+	                   const char *pszWrap,
+	                   const char *pszClass,
+	                   const char *pszValue);
 
-    void form_time(    const char *pszName,    // COL_DATE_NAME
-                       const char *pszId,      // COL_DATE_ID
-                       const char *pszValue,   // COL_DATE_VALUE
-                       const char *pszDescr); /**
+	void form_time(const char *pszName, // COL_DATE_NAME
+	               const char *pszId, // COL_DATE_ID
+	               const char *pszValue, // COL_DATE_VALUE
+	               const char *pszDescr); /**
                         * Converts individual components of time (hour, minute, second)
                         * into a standard time representation.
                         *
@@ -572,10 +583,10 @@ void form_select_end();
                         * @return A formatted time representation combining the hour, minute, and second inputs.
                         */
 
-	void form_week(    const char *pszName,    // COL_WEEK_NAME
-					   const char *pszId,      // COL_WEEK_ID
-					   const char *pszValue,   // COL_WEEK_VALUE
-					   const char *pszDescr);  // COL_WEEK_DESCR
+	void form_week(const char *pszName, // COL_WEEK_NAME
+	               const char *pszId, // COL_WEEK_ID
+	               const char *pszValue, // COL_WEEK_VALUE
+	               const char *pszDescr); // COL_WEEK_DESCR
 
 	/**
 	 * Calculates the sum of two integers.
@@ -584,16 +595,16 @@ void form_select_end();
 	 * @param b The second integer to be added.
 	 * @return The sum of the two integers.
 	 */
-	void hidden(const char *pszName,const char *pszValue);
+	void hidden(const char *pszName, const char *pszValue);
 
 	/**
 	 * Sets the source path of the image to be rendered or displayed.
 	 *
 	 * @param src The file path or URI of the image to be loaded.
 	 */
-	void imgsrc(const char *,int,int);
+	void imgsrc(const char *, int, int);
 
-    // MORE TAG PRIMITIVES
+	// MORE TAG PRIMITIVES
 
 	/**
 	 * Opens the body of a specific entity or resource.
@@ -628,7 +639,7 @@ void form_select_end();
 	 * @param numerator The numerator value for the division operation.
 	 * @param denominator The denominator value for the division operation. It should not be zero to avoid division errors.
 	 */
-	void open_div(const char * pszDivClass);
+	void open_div(const char *pszDivClass);
 
 	/**
 	 * Opens the specified form for the user.
@@ -641,12 +652,12 @@ void form_select_end();
 	 * @param show_in_fullscreen Indicates whether the form should be displayed
 	 *        in fullscreen mode. Set to true for fullscreen; false otherwise.
 	 */
-	void open_form(const char * pszSchemaName,
-				   const char * pszCgiFilename,
-				   const char * pszProt,
-				   int          handle,
-				   const char * pszID,
-				   const char * pszTarget = "_self");
+	void open_form(const char *pszSchemaName,
+	               const char *pszCgiFilename,
+	               const char *pszProt,
+	               int handle,
+	               const char *pszID,
+	               const char *pszTarget = "_self");
 
 	/**
 	 * @brief Opens the head of a specified entity or resource.
@@ -667,8 +678,9 @@ void form_select_end();
 	 * @throw std::runtime_error If the operation fails due to
 	 *                           an unexpected error.
 	 */
-    void open_head();
-//    void open_head(std::string ssCssName);
+	void open_head();
+
+	//    void open_head(std::string ssCssName);
 
 	/**
 	 * Opens the given HTML content in a web viewer.
@@ -762,35 +774,40 @@ void form_select_end();
 	 * @param message The string message to be printed.
 	 */
 	void print(const char *);
+
 	/**
 	 * Prints the content of a vector to the standard output.
 	 * Each element of the vector is printed followed by a space.
 	 *
 	 * @param vec The vector whose elements are to be printed.
 	 */
-	void printv(const char *pszFormat,...);
+	void printv(const char *pszFormat, ...);
+
 	/**
 	 * Prints the given variable to the standard output.
 	 *
 	 * @param var The variable to be printed. It can be of any type that supports output streaming (e.g., int, float, string).
 	 */
-	void printvar(const char *,const char *);
+	void printvar(const char *, const char *);
+
 	/**
 	 * Prints the value of a variable to the standard output.
 	 *
 	 * @param var The variable whose value is to be printed. This can be of any type that supports output via the stream operator.
 	 */
-	void printvar(const char *,int);
+	void printvar(const char *, int);
+
 	/**
 	 * Prints the given variable to the standard output.
 	 *
 	 * @param var The variable to be printed. It can be of any data type that supports output streaming.
 	 */
-	void printvar(const char *,double);
+	void printvar(const char *, double);
+
 	/**
 	 *
 	 */
-	void printvar(const char *,bool);
+	void printvar(const char *, bool);
 
 	/**
 	 * Creates a button element in a script, sets its attributes, and appends it to the document body.
@@ -798,7 +815,7 @@ void form_select_end();
 	 * @param pszButtonName The name of the button, used to identify and create a unique function for it.
 	 * @param pszVisible The text or label that will be displayed on the button.
 	 */
-	void script_button(const char * pszButtonName,const char * pszVisible);
+	void script_button(const char *pszButtonName, const char *pszVisible);
 
 	/**
 	 * Sets the style of the specified element or object.
@@ -807,7 +824,7 @@ void form_select_end();
 	 * @param style A string defining the style to be applied to the target element.
 	 * @param value A string representing the value of the style property to set.
 	 */
-	void set_style(const char * pszStylesheet);
+	void set_style(const char *pszStylesheet);
 
 	/**
 	 * Sets the specified title for an HTML document by outputting it as an HTML `<title>` tag.
@@ -823,9 +840,9 @@ void form_select_end();
 	 * @param pszButtonClass The CSS class to style the anchor tag.
 	 * @param pszButtonDisplay The text that will be displayed within the anchor tag.
 	 */
-	void xahref(const char * pszLink,
-				const char * pszButtonClass,
-				const char * pszButtonDisplay);
+	void xahref(const char *pszLink,
+	            const char *pszButtonClass,
+	            const char *pszButtonDisplay);
 };
 
 
