@@ -240,3 +240,52 @@ std::string htmlbind::hb_form_select_end() {
     ssBuffer = "</select>\n";
     return ssBuffer;
 }
+
+std::string htmlbind::hb_form_text(
+        const char * szName,
+        const char * szValue,
+        const char * szSize,
+        const char * szVisible,
+        const char * szDescr) {
+    std::string ssBuffer;
+    ssBuffer.append("<input");
+    ssBuffer.append(" type=\"text\"");
+    ssBuffer.append(" name=\"");
+    ssBuffer.append(szName);
+    ssBuffer.append("\"");
+    ssBuffer.append(" value=\"");
+    ssBuffer.append(szValue);
+    ssBuffer.append("\"");
+    ssBuffer.append(" size=\"");
+    ssBuffer.append(szSize);
+    ssBuffer.append("\">\n");
+    return ssBuffer;
+}
+
+
+std::string htmlbind::hb_form_password(
+        const char *pszName,
+        const char *pszId,
+        const char *pszValue,
+        const char *pszSize,
+        const char *pszVisible,
+        const char *pszDescr) {
+    std::string ssBuffer;
+    ssBuffer.append("<label for=\"");
+    ssBuffer.append(pszId);
+    ssBuffer.append("\">");
+    ssBuffer.append(pszVisible);
+    ssBuffer.append("</label>\n");
+    ssBuffer.append("<input");
+    ssBuffer.append(" type=\"password\"");
+    ssBuffer.append(" id=\"");
+    ssBuffer.append(pszId);
+    ssBuffer.append("\"");
+    ssBuffer.append(" name=\"");
+    ssBuffer.append(pszName);
+    ssBuffer.append("\"");
+    ssBuffer.append(" size=\"");
+    ssBuffer.append(pszSize);
+    ssBuffer.append("\" required>\n");
+    return ssBuffer;
+};
