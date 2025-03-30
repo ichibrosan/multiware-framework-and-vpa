@@ -48,5 +48,19 @@ public:
         const char *pszId,
         const char *pszValue,
         const char *pszDescr);
+
+    std::string hb_form_select(
+        const char * pszLabelFor,
+        const char * pszLabelVisible,
+        const char * pszSelectID,
+        const char * pszSelectName);
+
+    std::string hb_form_select_opt(
+        const char * pszDefaultBoolean,
+        const char * pszOptionValue,
+        const char * pszOptionVisible);
+
+    std::string hb_form_select_end();
+
 };
 #endif //HTMLBIND_H

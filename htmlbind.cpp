@@ -187,3 +187,56 @@ std::string htmlbind::hb_form_month(
     ssBuffer.append("\?>");
     return ssBuffer;
 }
+
+std::string htmlbind::hb_form_select(
+        const char * pszLabelFor,
+        const char * pszLabelVisible,
+        const char * pszSelectID,
+        const char * pszSelectName) {
+    std::string ssBuffer;
+    ssBuffer = "<label";
+    ssBuffer.append(" for=\"");
+    ssBuffer.append(pszLabelFor);
+    ssBuffer.append("\">");
+    ssBuffer.append(pszLabelVisible);
+    ssBuffer.append("</label>\n");
+    ssBuffer.append("<select");
+    ssBuffer.append(" id=\"");
+    ssBuffer.append(pszSelectID);
+    ssBuffer.append("\"");
+    ssBuffer.append(" name=\"");
+    ssBuffer.append(pszSelectName);
+    ssBuffer.append("\">\n");
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_form_select_opt(
+        const char * pszDefaultBoolean,
+        const char * pszOptionValue,
+        const char * pszOptionVisible) {
+    std::string ssBuffer;
+    if (0 == strcmp("true",pszDefaultBoolean)) {
+        ssBuffer = "<option";
+        ssBuffer.append(" value=\"");
+        ssBuffer.append(pszOptionValue);
+        ssBuffer.append("\"");
+        ssBuffer.append(" selected=\"selected\"");
+        ssBuffer.append(">");
+        ssBuffer.append(pszOptionVisible);
+        ssBuffer.append("</option>\n");
+    } else {
+        ssBuffer = "<option";
+        ssBuffer.append(" value=\"");
+        ssBuffer.append(pszOptionValue);
+        ssBuffer.append("\"");
+        ssBuffer.append(pszOptionVisible);
+        ssBuffer.append("</option>\n");
+    }
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_form_select_end() {
+    std::string ssBuffer;
+    ssBuffer = "</select>\n";
+    return ssBuffer;
+}
