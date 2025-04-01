@@ -895,7 +895,7 @@ void cgihtml::form_password(
             "<label for=\"%s\">%s</label>"
             "<input type=\"password\" id=\"%s\" name=\"%s\""
             " size=\"%s\""
-            "placeholder=\"%s\" required>",
+            " placeholder=\"%s\" required>",
             pszId,pszVisible,pszId,pszName,pszSize,pszDescr);
     std::cout << szTemp << std::endl;
 }
