@@ -5,12 +5,12 @@
 
 #ifndef VERSION_H
 #define VERSION_H
-#define RMAJ           5
-#define RMIN           3
-#define RREV           28
-#define RBLD           0
-#define RSTRING        "5.3.28.0"
-#define RSHORT  "5.3.28"
+#define RMAJ    5
+#define RMIN    3
+#define RREV    31
+#define RBLD    16
+#define RSTRING "5.3.31.16"
+#define RSHORT  "5.3.31"
 #define RLONG   RSTRING
 #define RDATE   __DATE__
 #define RTIME   __TIME__
@@ -25,5 +25,5 @@
 #define RMAC    "c8:7f:54:6a:6b:42"
 #define RCPU    "x86_64"
 #define RVERSION_SIZE_MAX      (sizeof("255.255.255.255")+1)
-#define RCOMMENT       "Post Marcus Version"
+#define RCOMMENT "Lord have mercy on our country"
 #endif //VERSION_H
