@@ -910,7 +910,7 @@ std::string osIface::genSchemaFQFS(const char * pszSchema,bool bDebug)
 
     std::string ssFile = __FILE__;
     ssFile = std::filesystem::path(ssFile.c_str()).remove_filename();
-    ssFile.append("schemas/");
+    ssFile.append("schemas/v1/");
     ssFile.append(pszSchema);
     if(bDebug) {
         std::cout << "genSchemaFQFS says ssFile is " << ssFile << std::endl;

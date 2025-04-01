@@ -23,8 +23,10 @@
  * - "TERM"    : Request to terminate the system.
  */
 const char * diagnose_req_names[] = {
-    "VERSION","AUTH","PARMS","STATUS","TERM"
+    "NONE","VERSION","AUTH","PARMS","STATUS","TERM","GETSHM",
+    "GETIMGROOT"
 };
+
 
 /**
  * @brief Array of strings representing the names of variable parameter types.
@@ -178,6 +180,12 @@ public:
                 *retvalP = xmlrpc_c::value_string(ssBuffer);
                 here;
                 break;
+
+            case DIAGNOSE_GET_IMGROOT:
+                *retvalP = xmlrpc_c::value_string(
+                         gpSh->m_pShMemng->szImgRoot);
+                break;
+
             default:
                 *retvalP = xmlrpc_c::value_string(
                     "Unknown Request");

@@ -120,21 +120,14 @@ main(int argc, char **) {
     diagnose * pDiagnose = new diagnose(gpSh->m_pShMemng->szIP);
 
     diagnose_request_t request;
-    request.eReqFunc = DIAGNOSE_REQ_VERSION;
+    request.eReqFunc      = DIAGNOSE_REQ_VERSION;
     std::string ssVersion = pDiagnose->call(request);
+    std::cout << "Ver: " << ssVersion << std::endl;
 
-    std::cout << "Remote Version is:    " << ssVersion << std::endl;
-
-    // std::cout << "svars: " << gpShmVars->get_string(SV_RMAC)
-    //           << std::endl;
-
-    //std::string buffer = gpHB->hb_ahref("target.cgi","our-office.png",200,50);
-
-    //std::string buffer = gpHB->hb_form_date("name","id","value","descr");
-
-//    std::string buffer = gpHB->hb_form_datetime("name","id","value","descr");
+    request.eReqFunc      = DIAGNOSE_GET_IMGROOT;
+    std::string ssImgRoot = pDiagnose->call(request);
+    std::cout << "Img: " << ssImgRoot << std::endl;
 
 
-    ///std::cout << buffer << std::endl;
     return 0;
 }
