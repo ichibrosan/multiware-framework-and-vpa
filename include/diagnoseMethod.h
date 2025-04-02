@@ -24,7 +24,8 @@
  */
 const char * diagnose_req_names[] = {
     "NONE","VERSION","AUTH","PARMS","STATUS","TERM","GETSHM",
-    "GETIMGROOT"
+    "GETIMGROOT",
+    "GETCRED","GETUSERNAME","GETFIRSTNAME","GETLASTNAME","GETLEVEL"
 };
 
 
@@ -114,6 +115,7 @@ public:
             xmlrpc_c::value *   const  retvalP) override {
 
         std::string ssBuffer;
+        int iHandle;
 
         int const iFunc(paramList.getInt(0));
         int const iParm2(paramList.getInt(1));
@@ -185,6 +187,36 @@ public:
                 *retvalP = xmlrpc_c::value_string(
                          gpSh->m_pShMemng->szImgRoot);
                 break;
+
+            case DIAGNOSE_GET_CRED:
+                // Tested OK 2025-04-01 17:32 dwg -
+                gpCsv = new readCsv("passwd.csv");
+                gpCsv->parseData();
+                iHandle = gpPassword->lookup_username_password(
+                            ssParm3,ssParm4);
+                sprintf(szPayload,"%d",iHandle);
+                *retvalP = xmlrpc_c::value_string(szPayload);
+                break;
+
+            case DIAGNOSE_GET_AUTH_USER_NAME:
+                *retvalP = xmlrpc_c::value_string(
+                    gpSh->m_pShMemng->creds[iParm2].szAuthUserName);
+            break;
+
+            case DIAGNOSE_GET_AUTH_FIRST_NAME:
+                *retvalP = xmlrpc_c::value_string(
+                    gpSh->m_pShMemng->creds[iParm2].szAuthFirstName);
+            break;
+
+            case DIAGNOSE_GET_AUTH_LAST_NAME:
+                *retvalP = xmlrpc_c::value_string(
+                    gpSh->m_pShMemng->creds[iParm2].szAuthLastName);
+            break;
+
+            case DIAGNOSE_GET_AUTH_LEVEL:
+                *retvalP = xmlrpc_c::value_string(
+                    gpSh->m_pShMemng->creds[iParm2].szAuthLevel);
+            break;
 
             default:
                 *retvalP = xmlrpc_c::value_string(

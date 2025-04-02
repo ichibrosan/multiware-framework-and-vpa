@@ -128,6 +128,48 @@ main(int argc, char **) {
     std::string ssImgRoot = pDiagnose->call(request);
     std::cout << "Img: " << ssImgRoot << std::endl;
 
+    //////////////////////////////////////////////////
+    // Tested OK 2025-04-01 17:33 dwg -
+    //////////////////////////////////////////////////
+    request.eReqFunc = DIAGNOSE_GET_CRED;
+    strcpy(request.szParm3,USERNAME);
+    strcpy(request.szParm4,PASSWORD);
+    std::string ssHandle = pDiagnose->call(request);
+    std::cout << "Handle: " << ssHandle << std::endl;
+    int iHandle = atoi(ssHandle.c_str());
+
+    //////////////////////////////////////////////////
+    // Tested OK 2025-04-01 17:52 dwg -
+    //////////////////////////////////////////////////
+    request.eReqFunc = DIAGNOSE_GET_AUTH_USER_NAME;
+    request.iParm2 = iHandle;
+    std::string ssUserName = pDiagnose->call(request);
+    std::cout << "User: " << ssUserName << std::endl;
+
+    //////////////////////////////////////////////////
+    // Tested OK 2025-04-01 17:52 dwg -
+    //////////////////////////////////////////////////
+    request.eReqFunc = DIAGNOSE_GET_AUTH_FIRST_NAME;
+    request.iParm2 = iHandle;
+    std::string ssFirstName = pDiagnose->call(request);
+    std::cout << "First: " << ssFirstName << std::endl;
+
+    //////////////////////////////////////////////////
+    // Tested OK 2025-04-01 17:52 dwg -
+    //////////////////////////////////////////////////
+    request.eReqFunc = DIAGNOSE_GET_AUTH_LAST_NAME;
+    request.iParm2 = iHandle;
+    std::string ssLastName = pDiagnose->call(request);
+    std::cout << "Last: " << ssLastName << std::endl;
+
+    //////////////////////////////////////////////////
+    // Tested OK 2025-04-01 17:52 dwg -
+    //////////////////////////////////////////////////
+    request.eReqFunc = DIAGNOSE_GET_AUTH_LEVEL;
+    request.iParm2 = iHandle;
+    std::string ssUserLevel = pDiagnose->call(request);
+    std::cout << "Level: " << ssUserLevel << std::endl;
+
 
     return 0;
 }

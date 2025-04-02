@@ -539,8 +539,8 @@ void schema::gen_from_schema(int iHandle,
                               const char * pszFile,
                               std::string ssUsername,
                               std::string ssPassword,
-                             std::vector<std::vector<std::string>>
-                             svvsPassedValues)
+                              std::vector<std::vector<std::string>>
+                              svvsPassedValues)
 {
     char szHandle[4];
 

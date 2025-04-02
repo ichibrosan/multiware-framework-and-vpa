@@ -15,7 +15,8 @@
 #define NO_HANDLE            0
 #define PRE_STARTING_HANDLE  2
 #define STARTING_HANDLE      3
-
+#define USERNAME             "doug"
+#define PASSWORD             "melange"
 #define META_VERSION         "1"
 
 #define OCULAR_FQDN   "ocularstation.goodall.com"
