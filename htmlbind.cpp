@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include "htmlbind.h"
+//#include "htmlbind.h"
 
 /**************************************************
  * Default constructor for the htmlbind class.
@@ -87,6 +87,12 @@ std::string htmlbind::hb_close_form()
 {
     std::string ssBuffer;
     ssBuffer = "</form>\n";
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_close_h3() {
+    std::string ssBuffer;
+    ssBuffer.append("</h3>\n");
     return ssBuffer;
 }
 
@@ -289,3 +295,111 @@ std::string htmlbind::hb_form_password(
     ssBuffer.append("\" required>\n");
     return ssBuffer;
 };
+
+std::string ssBuffer;
+
+std::string htmlbind::hb_dashboard(int iHandle,int iButtons)
+{
+    bool bAuthenticated = true;
+    bool bAvatarExists = false;
+    int iBorder = 2;
+
+    int iEffectiveButtons = iButtons;
+    if (ROW_DATA_HDR < iHandle) {
+        bAuthenticated = false;
+        iEffectiveButtons = 0;
+    } else {
+        gpSh->m_pShMemng->bDisplaySchema = false;
+        gpSh->m_pShMemng->bDisplayShmVars = false;
+        gpSh->m_pShMemng->bDisplayEnvVars = false;
+    }
+
+    std::string ssAvatar = gpSh->m_pShMemng->creds[iHandle].szAuthUserName;
+    ssAvatar.append("_avatar.jpg");
+//    std::string ssBuffer;
+
+     if (std::filesystem::is_regular_file(
+        gpOS->genImgPath(ssAvatar.c_str(),F_OK))) {
+        bAvatarExists = true;
+        hb_open_table(4);
+        ssBuffer.append("<tr><td class=\"dashboard\">");
+        hb_imgsrc(ssAvatar.c_str(), 110, 110);
+        ssBuffer.append("</td><td class=\"dashboard\">");
+    }
+    //
+    ssBuffer.append(hb_open_table(iBorder));
+
+      ssBuffer.append(hb_open_tr());
+     // ssBuffer.append(hb_open_h3());
+     // ssBuffer.append(hb_open_th());
+     // ssBuffer.append("Goodall MultiWare Framework Dashboard");
+     // ssBuffer.append(hb_close_th());
+     // ssBuffer.append(hb_close_h3());
+     // ssBuffer.append(hb_close_tr());
+     // ssBuffer.append(hb_close_table());
+     //
+     // ssBuffer.append(hb_open_table(1));
+     // ssBuffer.append(hb_open_tr());
+     // ssBuffer.append(hb_open_th());
+     // ssBuffer.append("Authenticated Username");
+     // ssBuffer.append(hb_close_th());
+     // ssBuffer.append(hb_open_td());
+     // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthUserName);
+     // ssBuffer.append(hb_close_td());
+     // ssBuffer.append(hb_open_th());
+     // ssBuffer.append("Semantic Version");
+     // ssBuffer.append(hb_close_th());
+     // ssBuffer.append(hb_open_td());
+     // ssBuffer.append(RLONG);
+     // ssBuffer.append(" (");
+     // ssBuffer.append(RTYPE);
+     // ssBuffer.append(")");
+     // ssBuffer.append(hb_close_td());
+     // ssBuffer.append(hb_close_tr());
+     //
+     // ssBuffer.append(hb_open_tr());
+     // ssBuffer.append(hb_open_th());
+     // ssBuffer.append("Authenticated User");
+     // ssBuffer.append(hb_close_th());
+     // ssBuffer.append(hb_open_td());
+     // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthFirstName);
+     // ssBuffer.append(" ");
+     // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthLastName);
+     // ssBuffer.append(hb_close_td());
+     // ssBuffer.append(hb_open_th());
+     // ssBuffer.append("Current Build");
+     // ssBuffer.append(hb_close_th());
+     // ssBuffer.append(hb_open_td());
+     // ssBuffer.append(RDATE);
+     // ssBuffer.append(" ");
+     // ssBuffer.append(RTIME);
+     // ssBuffer.append(hb_close_td());
+     // ssBuffer.append(hb_close_tr());
+     //
+     // ssBuffer.append(hb_open_tr());
+     // ssBuffer.append(hb_open_th());
+     // ssBuffer.append("Privilege Level");
+     // ssBuffer.append(hb_close_th());
+     // ssBuffer.append(hb_open_td());
+     // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthLevel);
+     // ssBuffer.append(hb_close_td());
+     // ssBuffer.append(hb_close_tr());
+     //
+     // ssBuffer.append(hb_close_table());
+}
+
+std::string htmlbind::hb_open_h3() {
+    std::string ssBuffer;
+    ssBuffer.append("<h3>\n");
+    return ssBuffer;
+}
+
+std::string htmlbind::hb_open_table(int iBorder) {
+    std::string ssBuffer;
+    ssBuffer.append("<table");
+    ssBuffer.append(" border=\"");
+    ssBuffer.append(std::to_string(iBorder));
+    ssBuffer.append("\">\n");
+    return ssBuffer;
+}
+

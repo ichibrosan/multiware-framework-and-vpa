@@ -55,7 +55,8 @@ add_library( mwfw2 STATIC
 		stylist.cpp			include/stylist.h
 		iHex.cpp			include/iHex.h
 		diagnose.cpp		include/diagnose.h
-		htmlbind.cpp		include/htmlbind.h)
+#		htmlbind.cpp		include/htmlbind.h
+)
 
 ########################################################
 # fw is the command line version of the test framework #

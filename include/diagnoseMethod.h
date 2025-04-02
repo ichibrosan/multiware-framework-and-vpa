@@ -26,6 +26,7 @@ const char * diagnose_req_names[] = {
     "NONE","VERSION","AUTH","PARMS","STATUS","TERM","GETSHM",
     "GETIMGROOT",
     "GETCRED","GETUSERNAME","GETFIRSTNAME","GETLASTNAME","GETLEVEL"
+    "GETDASHBOARD"
 };
 
 
@@ -217,6 +218,11 @@ public:
                 *retvalP = xmlrpc_c::value_string(
                     gpSh->m_pShMemng->creds[iParm2].szAuthLevel);
             break;
+
+            // case DIAGNOSE_GET_DASHBOARD:
+            //     *retvalP = xmlrpc_c::value_string(
+            //         gpHB->hb_dashboard(iHandle,0));
+            //     break;
 
             default:
                 *retvalP = xmlrpc_c::value_string(

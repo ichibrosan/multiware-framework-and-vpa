@@ -29,7 +29,7 @@ xinetdctl		* gpXinetd;
 //stylist		* gpStylist;
 config			* gpConfig;
 iHex			* gpHex;
-htmlbind        * gpHB;
+//htmlbind        * gpHB;
 
 /**
  * Constructor for the mwfw class. Initializes the CGI mode based
@@ -70,7 +70,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 	//gpStylist = new stylist();
 	gpConfig = new config();
 	gpHex = new iHex();
-	gpHB = new htmlbind();
+	//gpHB = new htmlbind();
 }
 
 /**

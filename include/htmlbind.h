@@ -23,9 +23,15 @@ public:
 
     std::string hb_close_body();
     std::string hb_close_form();
+    std::string hb_close_h3();
     std::string hb_close_head();
     std::string hb_close_html();
     std::string hb_close_table();
+    std::string hb_close_td();
+    std::string hb_close_th();
+    std::string hb_close_tr();
+
+    std::string hb_dashboard(int iHandle,int iButtons);
 
     std::string hb_form_date(
         const char *pszName,
@@ -77,6 +83,11 @@ public:
             const char *pszVisible,
             const char *pszDescr);
 
+    std::string hb_open_h3();
+    std::string hb_open_table(int iBorder);
+    std::string hb_open_tr();
+    std::string hb_open_td();
+    std::string hb_open_th();
 
 };
 #endif //HTMLBIND_H
