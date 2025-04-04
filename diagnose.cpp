@@ -83,7 +83,7 @@ diagnose::diagnose(std::string ssNodeIP) {
     //std::cout << szLog << std::endl;
 
     m_ssUrl = gpSh->m_pShMemng->szProtocol;
-    m_ssUrl.append(gpSh->m_pShMemng->szIP);
+    m_ssUrl.append(m_ssNodeIP);
     m_ssUrl.append(":");
     m_ssUrl.append(m_szPort);
     m_ssUrl.append("/RPC2");

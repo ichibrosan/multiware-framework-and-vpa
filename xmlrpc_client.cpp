@@ -117,7 +117,7 @@ int
 main(int argc, char **) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
-    diagnose * pDiagnose = new diagnose(gpSh->m_pShMemng->szIP);
+    diagnose * pDiagnose = new diagnose("192.168.4.204");
 
     diagnose_request_t request;
     request.eReqFunc      = DIAGNOSE_REQ_VERSION;
