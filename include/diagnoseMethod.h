@@ -219,10 +219,9 @@ public:
                     gpSh->m_pShMemng->creds[iParm2].szAuthLevel);
             break;
 
-            // case DIAGNOSE_GET_DASHBOARD:
-            //     *retvalP = xmlrpc_c::value_string(
-            //         gpHB->hb_dashboard(iHandle,0));
-            //     break;
+            case DIAGNOSE_GET_IP:
+                *retvalP = xmlrpc_c::value_string(gpSh->m_pShMemng->szIP);
+                break;
 
             default:
                 *retvalP = xmlrpc_c::value_string(
