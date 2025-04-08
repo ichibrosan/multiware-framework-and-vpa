@@ -1,1 +1,338 @@
-now hosted on gitlab
+2025-04-07 18:21 dwg - now hosted on gitlab
+
+2025-03-26 05:14 dwg - add cobol docs
+
+2025-03-24 18:04 dwg - suspend all shmvars activity, unable to debug
+
+2025-03-23 02:51 dwg - added diagnose class for easy access to
+xmlrpc diagnose method, with authentication.
+
+2025-03-18 03:31 dwg - adding RESTful capability based on the XMLRPC
+instead of raw HTML. adding restDefs.h, restRegister.h and restMethod.h.
+
+2025-03-14 13:03 dwg - Marcus Franklin has resigned from the project and
+his code will be deprecated as he is not here to support it.
+
+2025-03-14 12:34 dwg - vpad.cpp and xmlrpc_inet_server.cpp now include
+diagnoseMethod.h and diagnoseRegister.h in order to make vpad and
+xmlrpc_inet_server more generic in order to allow support of multiple
+endpoints.
+
+2025-03-13 06:00 dwg - I have done a lot of work on prefs.cpp and
+prefs-action.cpp and webcolors.h. After login, you can click on Preferences
+and select the foreground and background colors for my css variables and a new
+$USER.css file gets written. You can log out and log back in and see news
+colors, but they are not as expected. I am having trouble figuiring out what
+is going on. For now, I will just keep using my favorite doug.css.
+
+2025-03-09 03:48 dwg - There is just one concerning problem with our current
+code base. That is the function in the environment.cpp that determines the IP
+number of the host computer.
+
+When Linux starts up, the xinitd start up because the
+"systemctl enable xinetd" command has been issued. If the
+/home/devo/public_html/fw/scripts/ip-redirect.sh command has not been properly
+written or does not exist, the xinetd will not enable the "vpa".
+Manual restarting of the xinetd is required to get past the chicken/egg
+problem.
+
+2025-03-08 18:15 dwg - We are now at v1.2.0.0 with a combined version having
+fw & vpa in the multiware-framework repository. We are now using the
+xmlrpc_inetd_server method where the VPA responder gets invoked when a request
+arrives at the VPA port (5164). This is accomplished via the xinetd.d/vpa
+configuration that invokes:
+/home/devo/public_html/fw/cmake-build-debug/xmlrpc_inetd_server
+
+2025-02-24 04:34 dwg -
+Further work on the Developer's Manual
+
+2025-02-24 03:26
+xmlrpc_client call to dante.goodall.com public ip for VPAD_REQ_AUTH
+now working beautifully :-)
+Added szRemoteHost, szRemoteAddr, and szRemoteAuth to shared region.
+
+2025-02-23 12:28 dwg - added prefs.csv and prefs.cpp(cgi) as well as
+Preferences button in dashboard to go to form with foreground and background
+select elements. Still to be added is the prefs-action.cgi.
+
+2025-02-23 03:08 dwg - add stylist.cpp/h to dynamically create style sheets
+
+2025-02-22 19:08 dwg - enable devo buttons in journal
+
+2025-02-22 17:30 mf - added support for body to the stylesheets, and fixed
+a bug in xmlrpc_client that would call to daphne when trying to reach
+the server.
+
+2025-02-22 08:31 dwg - syslog work in vpad to display rpc parms
+
+2025-02-22 07:46 dwg - removed sudo in kill -9 command to kill vpad child
+
+2025-02-22 07:39 dwg -
+Renamed "CSysLog::here()" to "CSysLog::herefunc()" and changed macro also.
+Added config.h to mwfw2.h include list
+
+2025-02-22 03:12 mf - added functionality to allow for dynamic css stylesheet
+injection into the dynamically generated html pages, by using the handle.
+messed with doxygen a bit, and put the resulting Doxyfile in the doc folder,
+along with the output folder as well.
+
+2025-02-21 06:10 dwg -
+Remove environment::gen_vpad_script. It used to be dynamically generated,
+but no longer since devo.
+Change public ip discovery to use fw/tmp instead of /tmp.
+
+2025-02-21 21:09 dwg - Term Vpad logic all functional now, parent and child.
+Xmlrpc howto documented in VPA Developer's Manual (see doc). I am very happy
+with the current state of the XMLRPC-C support which is working perfectly and
+without any mysteries.
+
+2025-02-19 16:21 mf - created a .gitignore file and added in several
+directories and files to it that were automatically generated.
+
+2025-02-19 05:22 dwg - I found we were also using system redirection
+in one of the test. We were calling ipcs and verifying the shared
+memory parameters. I added another xinetd invocation for that, bringing
+us to 7 trigger scripts.  I also fixed the http and https test used in
+the determination of szProtocol. I also eliminated test4. Everything
+seems to be working now, exc ept the xmlrpc stuff I will work on next.
+
+
+2025-02-19 19:34 - mf
+fixed bug in environment where hostname was being concatenated instead of
+the user in the hardcoded paths.
+
+2025-02-18 14:29 - mf
+fixed the hardcoded paths in environment
+
+couldn't test it as I didn't have the vpa xinetd service file setup correctly.
+
+2025002-18 01:52 dwg - I had an epiphany about the way things are working.
+Each executable is calling the environment class to set up the shared
+with all its valuable constructs. Actually the environment constructor
+only needs to be called when the shared instantiates for the first time
+(use of the "create" flag). After that the shared is already populated and
+all you need to do is use it. One way to optimize this, is to make each
+init call in the environment constructor conditional on the value of the
+associated shared data. For instance, if the szIface variable is empty,
+go ahead and call set_iface(). If szIP is empty, call set_ip()...
+This will hugely speed up the cgi scripts and utilities and save a lot of
+machine cycles.
+
+2025-02-17 19:16 dwg/mf - patched up things in environment
+regarding temp paths and gen of scripts, needs work to make automatic.
+
+2025-02-17 04:25 dwg - added xinetdctl::trigger(port) function
+See new vpa file in doc folder and inetd-netstat-redirect.sh in scripts
+Add new entries at end of /etc/services file
+vpad-start	65353/tcp
+vpa-netstat	65354/tcp
+vpa-ip		65355/tcp
+vpa-curl    65356/tcp
+
+2025-02-17 04:25 dwg - added xinetdctl::trigger(port) function
+to trigger xinetd controlled scripts:
+#define VPA_PORT          5164    // services: vpa/tcp vpa-disc/udp
+#define VPAD_START_PORT  65353    // services: vpad-start
+#define VPA_NETSTAT_PORT 65354    // services: vpa-netstat
+#define VPA_IP_PORT      65355    // services: vpa-ip
+
+
+2025-02-16 19:30 mf - Added in a meta line generator into the html class.
+Began adding facilities to modify css filenames according to their modified
+date time, but halted the progress in order to add in the meta line generator
+to send out information to cease caching altogether, as html files get
+generated automatically. Renamed default_styles.css to default.css, and updated
+the relevant references accordingly.
+
+2025-02-15 17:30 mf - fixups on contenttype emitters,
+and putting the journal styles into the default stylesheet. Some attempts on
+test4.
+
+2025-02-13 20:45 dwg - added szUser and szRpcUuid to +shmvars
+display, enhanced xmlrpc_client and xmlrpc_inetd_server to use
+shared::szRpcUuid as auth token in xmlrpc calls.
+
+2025-02-13 17:12 dwg - About the Broken curl code in gh
+Last night in the middle of the night, my copy of xmlrpc_client and xmlrpc_inet_server
+stopped working and started spouting weird error messages. After hours of horror, I
+discovered that the maintainers of the curl distribution just pushed changes into the
+curl/curl repository at gh the break xmlrpc-c compatibility. After much heartache,
+identified a version that still works which I have names good-curl.tgz. To reproduce
+our working infrastructure, you have to configure build and install the good-curl,
+then build and install the xmlrpc module, then rebuild our project. Whew!!
+
+2025-02-12 07:18 dwg - extracted diagnoseMethod.h from xmlrpc_inetd_server.cpp
+The xmlrpc-c hooks and xinetd integration is working beautifully. :-)
+
+2025-02-10 23:15 mf - added function gen_vpa_script to environment .cpp and .h,
+and placed it at the bottom of the environment class constructor.
+
+2025-02-09 04:19 dwg - added xmlrpc_client module to project
+
+2025-02-09 03:30 dwg - added xmlrpc_inetd_server module to project
+
+2025-02-08 18:30 dwg - added new schema element types to support schema
+configured drop down boxes, "select", "selectopt" & "selectend".
+
+2025-02-08 18:08 mf -
+modified the naming conventions of the existing html select element functions
+and schema implementations to make room for new ones by dwg.
+
+2025-02-08 12:40 dwg -
+add image to dashboard is avatar exists
+
+2025-02-07 20:34 dwg - fix bug in std::string environment::get_ip(bool bDebug)
+that caused infinite loop if target interface in "ip a" was number 10 or more.
+Fixed with some modern find magic, thanks Marcus.
+
+2025-02-07 11:13 dwg - updated ROW_META_DATA and ROW_DATA_HDR in all schemas.
+
+2025-02-07 08:30 dwg - fixed bug in noteload (spurious tail data) and
+updated code and doc.
+
+2025-02-06 20:39 mf - fixed journal by fixing the preprocessor, to use
+ROW_META_DATA instead of ROW_META_HDR.
+
+2025-02-06 20:26 mf - changed some variable names to make it more standard,
+modified a couple for loops to only have < instead of <=, and did some
+work on noteload. many of these changes were within the schema preprocessor.
+
+2025-02-06 19:23 mf - fixed up noteload and modified the journal schema to
+generate the iframe again.
+
+2025-20-06 14:03 mf - made the schema metadata uniform across all used
+schemas.
+
+2025-02-06 03:32 dwg - enhancement to vpad to increment the uptime counter
+in the shared data every second. Removed superfluous debug logging in the
+environment module.
+
+2025-02-05 19:30 dwg - enhancement to dashboard so that xinetd can
+start the vpad using the scripts/start-vpad.sh script. Remember to
+install xinetd (apt install xinetd) and enable it (systemctl enable xinetd)
+and start it (systemctl start xinetd). See config in doc.
+
+2025-02-04 13:23 dwg -
+Rehosted project as ichibrosan/Virtual-Protocol-Adapter
+
+2025-02-04 12:00 mf -
+Reverted CMakeList header changes, and added in some header files where
+appropriate.
+
+2025-02-02 16:13 mf -
+Fixed the CMakeLists.txt so there's no redundant sources.
+It appears the issue was the order the libraries were linked,
+once I placed the mwfw library above the other linked libraries,
+it worked like a charm.
+
+2025/02/02 16:06 mf -
+edited the row metadata, style column for the journal schema, to
+fix the journal page.
+
+2025/02/02 02:47 dwg -
+CMakeLists.txt enhanced for library build. Several small aberrations
+still exist I am having trouble resolving. Several of the target have
+one or more redundant sources remaining and I can't explain why. But
+it is much faster nonetheless.
+
+2025/01/31 18:55 mf -
+fixed the issue with ip being sourced after img_root, journal_root,
+styles_root, and cgi_root.
+
+2025/01/31 sometime after about 01:00 mf -
+Major revisions:
+
+added a preprocessor to the schema processor to allow for passing down
+values via a std::vector<std::vector<std::string>> array ala JSON data
+structures, except with only a Key:Value pair.
+This value is by default = {} within gen_from_schema, so only the handle
+is required to call that function. Passing in values is completely
+optional, and probably should only be done if required.
+the key:value pair works from the schema. the syntax is "passed:VALUE".
+passed: is what the preprocessor looks for in the schema cell to know
+to pull from the vector-vector string array.
+additionally this preprocessor can insert values from html form submits,
+by using the syntax "from:VALUE". from: is what the preprocessor looks for
+in the schema cell to know to pull from the form data that was submitted
+to the page.
+
+added xahref, an ahref alternative that allows for passing in a class
+to the element for css integration.
+
+added various functions to print out html elements: open/close form/div,
+button, iframe, and probably some others. Definitely made changes to the
+text element as well.
+
+edited the schema metadata line to allow for more precise targeting of
+the default form, whether to put a submit button
+by default at the end of generating a schema via a boolean value, as well as
+changing the css stylesheet that the page loads with.
+
+2025/01/26 09:39 dwg -
+login display toggles working perfectly now. Some code will need to be
+migrated to other CGI scripts.
+
+2025/01/25 02:19 dwg -
+Fixed logout shared creds clearing bug.
+Added dashboard navigation button enablement with or'ed options
+
+2025/01/24 04:26 dwg -
+Added usercreds vector support in shared with code mods in login, logout,
+dashboard, shmemng, and CMakeLists.txt. One open bug, logout isn't clearing
+the associated creds vector properly. TBD
+
+2025/01/22 15:24 mf -
+Added test.h, test.cpp to the required build for index in the CMakeLists.txt
+file.
+Modified the test class to pass the bCGI variable from top-level code to member
+functions.
+Replaced many ~getenv("LOGNAME")~ calls with ~gpSh-\>m\_ShMemng-\>szUser~ in
+test.cpp, and osiface.cpp.
+Changed test3 so if bCGI is true it returns true without running the
+procedure.
+Modified index.cpp so a new test class is made when index.cgi is run.
+- Marcus Franklin 15:24 2025-01-22
+
+2025/01/22 03:35 dwg - About the anti-hacking measure... lines 39-42
+* code added to "login.cpp" assures that you can only call login from index
+or login itself. Any other caller is illegal and causes the login script
+to abort with a Synchronization Error. FYI, Synchronization Error is what
+you used to get in 1984 if you had a copy of CP/M that had been pirated and
+had a bogus serial number. When a customer called up and asked what a
+Synchronization error was, they were busted. In the MultiWare framework, we
+use this check to detect if someone is poking at out CGIs trying to log in.
+If you want to test the feature, login and go to the Render(exp), then click
+on the Bogus Login button
+
+2025/01/22 03:06 dwg -
+* display of shared variable, environment variables, and schema in login.cgi
+is now conditional on the auth level of the user. admin gets it, user does not.
+
+2025/01/22 01:46 dwg -
+* suspended display of shared variables, and environment variable, and
+schema in the index.cgi script, because unauthenticated users shouldn't
+see the internal data structures of the framework.
+
+-------------------------------------------------------------------------
+2025/01/21 21:14 dwg -
+* added script/remove-shared-memory.sh to remove all existing shared
+memory regions used for Goodall Multiware Framework. Use this when you
+make changes to the schema of the shared region and the size changes.
+
+2025/01/21 20:00 dwg -
+* added images/btn_render.png - This  button just says "Render" on it.
+* In the schemas/menu.csv (line 6) - I left the imglink pointing to the
+btn_render_exp.png  so you would know that when you pressed it, you would
+go to the experimental.csv.
+* There is some new code I am trying to get working in the look program
+to display the start and completed times for the self test. In case you are
+not familiar with time in Unix/Linux, the way you handle time is to create
+a time_t variable which is really just a glorified long. Then, when you use
+the time() function and pass it the ptr to your time_t variable, it stores
+a value in the variable which is the number of seconds since some date around
+1984 (birth of Unix). Then you use the strftime function to convert the time_t
+variable to a formatted string. I was having trouble compiling my strftime
+code, so I will keep working on that, so look can tell you the start and
+completion times for the self-test code.
+
+-------------------------------------------------------------------------
