@@ -9,6 +9,11 @@
 #include "fw-limits.h"
 #include <net/if.h>
 
+#include <fcntl.h>           /* For O_* constants */
+#include <sys/stat.h>        /* For mode constants */
+#include <semaphore.h>
+#include <system_error>
+#include <memory>
 
 /**
  * If you change the MFW_SHMEM_T schema, you need to reboot to assure
@@ -116,5 +121,67 @@ struct MFW_SHMEMNG_T {
     bool   bDisplaySchema;
 
 } *m_pShMemng;
+
+class SharedMemoryMutex {
+public:
+    SharedMemoryMutex(const char* name) {
+        // Create or open a named semaphore
+        mutex_ = sem_open(name, O_CREAT, 0644, 1);
+        if (mutex_ == SEM_FAILED) {
+            throw std::system_error(errno, std::system_category(), "sem_open failed");
+        }
+    }
+
+    ~SharedMemoryMutex() {
+        if (mutex_ != SEM_FAILED) {
+            sem_close(mutex_);
+        }
+    }
+
+    void lock() {
+        if (sem_wait(mutex_) != 0) {
+            throw std::system_error(errno, std::system_category(), "sem_wait failed");
+        }
+    }
+
+    void unlock() {
+        if (sem_post(mutex_) != 0) {
+            throw std::system_error(errno, std::system_category(), "sem_post failed");
+        }
+    }
+
+private:
+    sem_t* mutex_;
+};
+
+class SharedMemoryManager {
+public:
+    SharedMemoryManager() 
+        : mutex_("/fw_shmem_mutex") { // Create mutex with unique name
+    }
+
+    void lockSharedMemory() {
+        std::lock_guard<SharedMemoryMutex> lock(mutex_);
+    }
+
+    void accessSharedMemory() {
+        // RAII-style locking
+        std::lock_guard<SharedMemoryMutex> lock(mutex_);
+        
+        // Now you can safely access m_pShMemng
+        //m_pShMemng->iSignature++;
+        // ... other operations ...
+    }
+
+    void releaseSharedMemory() {
+        // RAII-style unlocking
+        std::lock_guard<SharedMemoryMutex> unlock(mutex_);
+    }
+
+private:
+    SharedMemoryMutex mutex_;
+};
+
+
 
 #endif //MULTIWARE_SHMEMNG_H
