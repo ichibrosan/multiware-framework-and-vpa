@@ -605,7 +605,8 @@ void cgihtml::dump_shm_vars()
  * element of type "date", used to allow date selection in an HTML form.
  *
  * @param pszName The name attribute of the date input element.
- * @param pszId The id attribute of the date input element, also referenced by the label element.
+ * @param pszId The id attribute of the date input element, also referenced
+ *              by the label element.
  * @param pszValue The value attribute of the date input element.
  * @param pszDescr The description used as the content of the label element.
  */
@@ -634,7 +635,8 @@ void cgihtml::form_date(const char *pszName,   // COL_DATE_NAME
  * customized with the provided parameters.
  *
  * @param pszName The name attribute of the input field.
- * @param pszId The id attribute of the input field and the value used in the `for` attribute of the label.
+ * @param pszId The id attribute of the input field and the value used in the
+ * `for` attribute of the label.
  * @param pszValue The value attribute of the input field.
  * @param pszDescr The descriptive text for the label.
  */
@@ -669,7 +671,8 @@ void cgihtml::form_label(const char *pszVisible)
  * Generates HTML for a form input of type "month" including a label.
  *
  * @param pszName The name attribute for the input element.
- * @param pszId The id attribute for the input element and for the label's "for" attribute.
+ * @param pszId The id attribute for the input element and for the label's
+ * "for" attribute.
  * @param pszValue The value attribute for the input element.
  * @param pszDescr The text content for the label element.
  */
@@ -734,7 +737,8 @@ void cgihtml::form_select(		const char * pszLabelFor,
  * Generates an HTML `<option>` tag with the specified value and visible text.
  *
  * @param pszOptionValue The value attribute of the `<option>` element.
- * @param pszOptionVisible The visible text to display for the `<option>` element.
+ * @param pszOptionVisible The visible text to display for the `<option>`
+ * element.
  */
 void cgihtml::form_select_opt(  const char * pszDefaultBoolean,
                                 const char * pszOptionValue,
@@ -794,14 +798,18 @@ void cgihtml::form_select_end()
  * variable value using the bound CGI object.
  *
  * @param szName The name attribute of the input field.
- * @param szValue The value attribute for the field. If it starts with "from:",
- * the actual value is retrieved dynamically.
- * @param szSize The size attribute defining the visible width of the input field.
- * @param szVisible Determines the visibility or additional presentation of the
+ * @param szValue The value attribute for the field. If it starts with
+ * "from:", the actual value is retrieved dynamically.
+ * @param szSize The size attribute defining the visible width of the
+ *               input field.
+ * @param szVisible Determines the visibility or additional presentation
+ *               of the
  * input field.
- * @param szReadonly The readonly attribute specifies if the field is read-only.
+ * @param szReadonly The readonly attribute specifies if the field is
+ * read-only.
  * @param szDescr A description or additional commentary related to the field.
- * @param szClass Specifies the CSS class attribute for styling the input field.
+ * @param szClass Specifies the CSS class attribute for styling the input
+ * field.
  */
 void cgihtml::form_text(const char * szName,
                         const char * szValue,
@@ -837,9 +845,11 @@ void cgihtml::form_text(const char * szName,
  *
  * @param szName The name attribute of the input field.
  * @param szID The id attribute of the input field.
- * @param szValue The initial value of the input field, or a form variable reference if prefixed with "from:".
+ * @param szValue The initial value of the input field, or a form variable
+ * reference if prefixed with "from:".
  * @param szSize The size attribute of the input field.
- * @param szVisible Additional visibility control for the input field's HTML output.
+ * @param szVisible Additional visibility control for the input field's HTML
+ * output.
  * @param szReadonly Specifies if the input field is readonly.
  * @param szDescr A description or additional information for the input field.
  * @param szClass The CSS class attribute of the input field.
@@ -873,16 +883,22 @@ void cgihtml::form_text(const char * szName,
 /**
  * Generates and outputs an HTML password input field.
  *
- * This function constructs an HTML password input element with an associated label
- * based on the specified parameters. It will output the generated HTML structure
- * to the standard output.
+ * This function constructs an HTML password input element with an
+ * associated label
+ * based on the specified parameters. It will output the generated HTML
+ * structure to the standard output.
  *
  * @param pszName The 'name' attribute of the HTML input element.
- * @param pszId The 'id' attribute of the HTML input element and the value of the 'for' attribute in the label element.
- * @param pszValue The default value for the input field. Currently, it is unused in this implementation.
- * @param pszSize The 'size' attribute of the HTML input element, which controls the width of the input field.
- * @param pszVisible The text for the label associated with the password input field.
- * @param pszDescr The placeholder text for the input field, describing the expected input.
+ * @param pszId The 'id' attribute of the HTML input element and the value
+ * of the 'for' attribute in the label element.
+ * @param pszValue The default value for the input field. Currently, it is
+ * unused in this implementation.
+ * @param pszSize The 'size' attribute of the HTML input element, which
+ * controls the width of the input field.
+ * @param pszVisible The text for the label associated with the password
+ * input field.
+ * @param pszDescr The placeholder text for the input field, describing the
+ * expected input.
  */
 void cgihtml::form_password(
         const char *pszName,        // COL_PASSWORD_NAME
@@ -904,10 +920,12 @@ void cgihtml::form_password(
 
 
 /**
- * Generates an HTML select element with the provided name, options, and class.
+ * Generates an HTML select element with the provided name, options, and
+ * class.
  *
  * @param pszSelectName Name attribute for the select HTML element.
- * @param selectValues Vector containing the option values for the select element.
+ * @param selectValues Vector containing the option values for the select
+ * element.
  * @param pszSelectClass Class attribute for the select HTML element.
  */
 void cgihtml::form_select_array(
@@ -929,16 +947,19 @@ void cgihtml::form_select_array(
 
 
 /**
- * Generates and populates a dropdown (select) input element with file options.
+ * Generates and populates a dropdown (select) input element with file
+ * options.
  *
  * This method retrieves a list of files from the specified directory path
  * or from the default journal directory if "default" is specified, and
  * populates a dropdown menu with these files.
  *
  * @param pszSelectName The name attribute for the select element.
- * @param pszSelectPath The path from which to load the list of files. If "default"
- *                      is provided, files from the default journal directory will be used.
- * @param pszSelectClass The class attribute for the select element, defining its styling.
+ * @param pszSelectPath The path from which to load the list of files. If
+ * "default" is provided, files from the default journal directory will
+ * be used.
+ * @param pszSelectClass The class attribute for the select element,
+ * defining its styling.
  */
 void cgihtml::form_select_files(
         const char * pszSelectName,
@@ -964,12 +985,15 @@ here;
 
 
 /**
- * Generates an HTML checkbox input element with specified attributes and writes it to the standard output.
+ * Generates an HTML checkbox input element with specified attributes and
+ * writes it to the standard output.
  *
  * @param pszName The name attribute of the checkbox input element.
  * @param pszId The id attribute of the checkbox input element.
- * @param pszValue A string indicating whether the checkbox should be checked. If the value is "true", the checkbox is marked as checked.
- * @param pszVisible The visible text displayed alongside the checkbox element.
+ * @param pszValue A string indicating whether the checkbox should be checked.
+ * If the value is "true", the checkbox is marked as checked.
+ * @param pszVisible The visible text displayed alongside the checkbox
+ * element.
  */
 void cgihtml::form_postcheckbox(
         const char *pszName,
@@ -998,7 +1022,9 @@ void cgihtml::form_postcheckbox(
  *
  * @param pszName The name attribute of the checkbox.
  * @param pszId The id attribute of the checkbox.
- * @param pszValue The value indicating whether the checkbox should be checked. If "true", the checkbox will be checked, otherwise it will be unchecked.
+ * @param pszValue The value indicating whether the checkbox should be
+ * checked. If "true", the checkbox will be checked, otherwise it will be
+ * unchecked.
  * @param pszVisible The visible label displayed next to the checkbox.
  */
 void cgihtml::form_precheckbox(
@@ -1026,8 +1052,8 @@ void cgihtml::form_precheckbox(
 /**
  * Outputs a reset button as an HTML input element.
  *
- * This method writes an HTML `<input type="reset">` element to standard output,
- * allowing users to reset form fields to their initial values.
+ * This method writes an HTML `<input type="reset">` element to standard
+ * output, allowing users to reset form fields to their initial values.
  */
 void cgihtml::form_reset()
 {
@@ -1045,18 +1071,22 @@ void cgihtml::form_submit()
 
 
 /**
- * Generates an HTML text input element along with a label and outputs it to the standard output stream.
+ * Generates an HTML text input element along with a label and outputs it to
+ * the standard output stream.
  *
- * The method creates an HTML form element consisting of a label and a text input field.
- * The label is associated with the input field through the "for" attribute, and the input
- * field contains several customizable attributes such as id, name, size, placeholder, and visibility.
+ * The method creates an HTML form element consisting of a label and a text
+ * input field. The label is associated with the input field through the
+ * "for" attribute, and the input field contains several customizable
+ * attributes such as id, name, size, placeholder, and visibility.
  *
  * @param szName The name attribute for the input field.
- * @param szId The id attribute for the input field and the "for" attribute for the label.
+ * @param szId The id attribute for the input field and the "for" attribute
+ * for the label.
  * @param szValue The value attribute for the input field (currently unused).
  * @param szSize The size attribute specifying the width of the input field.
  * @param szVisible The text to display in the label for the input field.
- * @param szDescr The placeholder text that gives input guidance in the input field.
+ * @param szDescr The placeholder text that gives input guidance in the
+ * input field.
  */
 void cgihtml::form_text(const char * szName,
                         const char * szId,
@@ -1077,9 +1107,11 @@ void cgihtml::form_text(const char * szName,
 
 
 /**
- * Generates and outputs an HTML `<textarea>` element with the provided attributes.
+ * Generates and outputs an HTML `<textarea>` element with the provided
+ * attributes.
  * It dynamically resolves the value of the `<textarea>` if the `pszValue`
- * string starts with "from:", by using the `gpCgiBind` object to fetch the associated variable.
+ * string starts with "from:", by using the `gpCgiBind` object to fetch the
+ * associated variable.
  *
  * @param*/
 void cgihtml::form_textarea(const char *pszName,
@@ -1114,13 +1146,17 @@ void cgihtml::form_textarea(const char *pszName,
 /**
  * @brief Generates an HTML form field for a time input.
  *
- * This function creates and outputs an HTML label and input element with type="time".
- * It uses the provided parameters for the input field's name, ID, value, and label description.
+ * This function creates and outputs an HTML label and input element with
+ * type="time".
+ * It uses the provided parameters for the input field's name, ID, value,
+ * and label description.
  *
  * @param pszName The name attribute of the time input element.
- * @param pszId The ID attribute to associate the input element with its label.
+ * @param pszId The ID attribute to associate the input element with its
+ * label.
  * @param pszValue The value attribute of the time input field.
- * @param pszDescr The description for the input element, displayed as a label.
+ * @param pszDescr The description for the input element, displayed as a
+ * label.
  */
 void cgihtml::form_time(const char *pszName,   // COL_TIME_NAME
                         const char *pszId,     // COL_TIME_ID
@@ -1140,12 +1176,17 @@ void cgihtml::form_time(const char *pszName,   // COL_TIME_NAME
 
 // Marcus Franklin 15:02 1-26-2025
 /**
- * Generates an HTML iframe element with specified attributes and outputs it to the standard output.
+ * Generates an HTML iframe element with specified attributes and outputs
+ * it to the standard output.
  *
- * @param pszIframeDefaultPage The default URL or page that the iframe will load as its source.
- * @param pszIframeTitle       The title attribute of the iframe, which provides additional information about the iframe's content.
- * @param pszIframeName        The name attribute of the iframe, used for targeting in forms or scripts.
- * @param pszIframeClass       The class attribute of the iframe, used for styling purposes.
+ * @param pszIframeDefaultPage The default URL or page that the iframe will
+ * load as its source.
+ * @param pszIframeTitle       The title attribute of the iframe, which
+ * provides additional information about the iframe's content.
+ * @param pszIframeName        The name attribute of the iframe, used for
+ * targeting in forms or scripts.
+ * @param pszIframeClass       The class attribute of the iframe, used for
+ * styling purposes.
  * @param i_IframeWidth        The width of the iframe in pixels.
  * @param i_IframeHeight       The height of the iframe in pixels.
  */
@@ -1176,7 +1217,8 @@ void cgihtml::form_iframe(const char * pszIframeDefaultPage,
  * with the specified attributes.
  *
  * @param pszName The name attribute for the HTML input element.
- * @param pszId The id attribute for the HTML input element, also used by the label's for attribute.
+ * @param pszId The id attribute for the HTML input element, also used by
+ * the label's for attribute.
  * @param pszValue The value attribute for the HTML input element.
  * @param pszDescr The descriptive text for the HTML label element.
  */
@@ -1198,9 +1240,11 @@ void cgihtml::form_week(const char *pszName,   // COL_WEEK_NAME
 
 
 /**
- * Generates an HTML button element with the specified attributes and displays it.
+ * Generates an HTML button element with the specified attributes and
+ * displays it.
  *
- * @param pszType The type attribute of the button element (e.g., "submit", "reset", "button").
+ * @param pszType The type attribute of the button element (e.g., "submit",
+ * "reset", "button").
  * @param pszForm The ID of the form to which the button is associated.
  * @param pszButtonClass The class attribute for styling the button.
  * @param pszButtonDisplay The display text or content of the button.
@@ -1235,7 +1279,8 @@ void cgihtml::hidden(const char * pszName,const char *pszValue)
  * Generates and outputs an HTML `<img>` tag with the specified image file
  *  name, width, and height.
  *
- * @param pszImageFN The file name of the image to be included in the `<img>` tag.
+ * @param pszImageFN The file name of the image to be included in the
+ * `<img>` tag.
  * @param width The width of the image as it should appear in the HTML.
  * @param height The height of the image as it should appear in the HTML.
  */
@@ -1272,14 +1317,20 @@ void cgihtml::open_body()
 
 
 /**
- * Opens and initializes an HTML form by generating and printing the associated HTML form tag.
+ * Opens and initializes an HTML form by generating and printing the
+ * associated HTML form tag.
  *
- * @param pszSchemaName Specifies the schema name. This parameter is currently unused in the method.
- * @param pszCgiFilename Defines the CGI filename to be included in the "action" attribute of the form.
- * @param pszProt Specifies the protocol (e.g., "GET" or "POST") to be used in the "method" attribute of the form.
+ * @param pszSchemaName Specifies the schema name. This parameter is
+ * currently unused in the method.
+ * @param pszCgiFilename Defines the CGI filename to be included in the
+ * "action" attribute of the form.
+ * @param pszProt Specifies the protocol (e.g., "GET" or "POST") to be used
+ * in the "method" attribute of the form.
  * @param handle An integer handle, currently unused in the function.
- * @param pszID The unique identifier for the form, assigned to the "id" attribute of the form.
- * @param pszTarget Indicates the target for the form, assigned to the "target" attribute of the form.
+ * @param pszID The unique identifier for the form, assigned to the "id"
+ * attribute of the form.
+ * @param pszTarget Indicates the target for the form, assigned to the
+ * "target" attribute of the form.
  */
 void cgihtml::open_form(    const char * pszSchemaName,
                             const char * pszCgiFilename,
@@ -1479,13 +1530,16 @@ void cgihtml::printvar(const char *pszName,int iValue)
 
 
 /**
- * Prints a variable name and its associated double value to the standard output.
+ * Prints a variable name and its associated double value to the standard
+ * output.
  *
  * The function outputs the given variable name and value in the format:
  * `name = value`, followed by a new line.
  *
- * @param pszName The name of the variable to be printed. Must be a null-terminated string.
- * @param dValue The double value associated with the variable name to be printed.
+ * @param pszName The name of the variable to be printed. Must be a
+ * null-terminated string.
+ * @param dValue The double value associated with the variable name to be
+ * printed.
  */
 void cgihtml::printvar(const char *pszName,double dValue)
 {
