@@ -65,8 +65,8 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 	gpXinetd = new xinetdctl();
 	//gpShmVars = new shmvars();
 	gpSh = new shared();
-	gpShMemMutex = new SharedMemoryMutex("/fw_shmem_mutex");
-	gpShMemMgr = new SharedMemoryManager("/fw_shmem_mutex");
+	gpShMemMutex = new SharedMemoryMutex(CFG_MUTEX_NAME);
+	gpShMemMgr = new SharedMemoryManager(CFG_MUTEX_NAME);
     gpEnv = new environment();
     gpLog = new CLog(__FILE__,__FUNCTION__);
     gpOS = new osIface();

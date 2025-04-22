@@ -58,7 +58,7 @@ int main() {
 
     gpDash      = new dashboard(h,JOURNAL | LOGOUT,__FILE__,
                                 ssUsername,ssPassword);
-    gpSchema->gen_from_schema(HANDLE_NA);
+    gpSchema->gen_from_schema(CFG_HANDLE_NA);
     // if(pMwFw->isCGI()) {
     //     gpHtml->dump_schema();
     //     gpHtml->dump_shm_vars();

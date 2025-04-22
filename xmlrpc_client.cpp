@@ -132,8 +132,8 @@ main(int argc, char **) {
     // Tested OK 2025-04-01 17:33 dwg -
     //////////////////////////////////////////////////
     request.eReqFunc = DIAGNOSE_GET_CRED;
-    strcpy(request.szParm3,USERNAME);
-    strcpy(request.szParm4,PASSWORD);
+    strcpy(request.szParm3,CFG_USERNAME);
+    strcpy(request.szParm4,CFG_PASSWORD);
     std::string ssHandle = pDiagnose->call(request);
     std::cout << "Handle: " << ssHandle << std::endl;
     int iHandle = atoi(ssHandle.c_str());

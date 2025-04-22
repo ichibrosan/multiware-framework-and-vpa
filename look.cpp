@@ -53,7 +53,7 @@ int main() {
     gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits,iNumTests);
 
     printf("\n\nCredentials of Authenticated Users:");
-    for (int iRow=3;iRow<MAX_USERS+ROW_DATA;iRow++) {
+    for (int iRow=3;iRow<CFG_MAX_USERS+ROW_DATA;iRow++) {
         if (0 < gpSh->m_pShMemng->creds[iRow].iAuthHandle) {
             printf("\n-------------------------------------------\n");
             printf(    "szAuthUserName  is %s\n",

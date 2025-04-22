@@ -147,7 +147,7 @@ main(int argc, char **) {
     reqAuth.iParm2 = 0;
     reqAuth.eParm3Type = DIAGNOSE_TYPE_NONE;
     reqAuth.eParm4Type = DIAGNOSE_TYPE_NONE;
-    strcpy(reqAuth.szAuth,VPA_RPC_PSK);
+    strcpy(reqAuth.szAuth,CFG_VPA_RPC_PSK);
     std::string ssReturn = vpa_call(reqAuth);
     strcpy(gpSh->m_pShMemng->szRemoteAuth,ssReturn.c_str());
     std::cout << "<p>Remote Auth Token is: " << ssReturn << std::endl;

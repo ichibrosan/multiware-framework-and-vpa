@@ -71,7 +71,7 @@ struct MFW_SHMEMNG_T {
         char szRemoteAddr[DNS_FQDN_SIZE_MAX];   // 253   // from Apache2
         char szHttpUserAgent[128];              // 128   // from Apache2
 
-    } creds[ROW_DATA+MAX_USERS];     // sizeof(creds) = 7236
+    } creds[ROW_DATA+CFG_MAX_USERS];     // sizeof(creds) = 7236
 
     struct {
         char szBodyFGcolor[COLOR_SIZE_MAX];
@@ -86,7 +86,7 @@ struct MFW_SHMEMNG_T {
         char szTdBGcolor[COLOR_SIZE_MAX];
         char szDbFGcolor[COLOR_SIZE_MAX];
         char szDbBGcolor[COLOR_SIZE_MAX];
-    } prefs[ROW_DATA+MAX_USERS];
+    } prefs[ROW_DATA+CFG_MAX_USERS];
 
     bool   vpad_running;              // control vpad while loop
     pid_t  vpad_parent_pid;           // process id of VPA Daemon Parent

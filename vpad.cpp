@@ -42,7 +42,7 @@ main(int argc,char ** argv) {
 
     gpSh->m_pShMemng->vpad_parent_pid = getpid();
     pid_t pid = fork();
-    if(pid != FORK_CHILD) {
+    if(pid != CFG_FORK_CHILD) {
 
         sprintf(szSine,"%s::%s::Parent PID: %d\n",
             __FILE__,__FUNCTION__,getpid());

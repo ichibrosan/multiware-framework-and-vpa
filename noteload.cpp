@@ -138,7 +138,7 @@ int main() {
     }
 
     gpSchema = new schema("journal_textarea.csv");
-    gpSchema->gen_from_schema(HANDLE_NA,journal_params);
+    gpSchema->gen_from_schema(CFG_HANDLE_NA,journal_params);
 
     return EXIT_SUCCESS;;
 }

@@ -1014,7 +1014,7 @@ std::string osIface::get_handle_style(int iHandle)
 {
     std::string ssUsername;
 
-    if (iHandle > PRE_STARTING_HANDLE)
+    if (iHandle > CFG_PRE_STARTING_HANDLE)
     {
         ssUsername = gpSh->m_pShMemng->creds[iHandle].szAuthUserName;
     }

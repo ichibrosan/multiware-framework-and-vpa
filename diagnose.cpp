@@ -78,7 +78,7 @@ diagnose::diagnose(std::string ssNodeIP) {
             diagnose_req_names[DIAGNOSE_REQ_AUTH],
             diagnose_req_names[DIAGNOSE_REQ_NONE],
             diagnose_type_names[DIAGNOSE_TYPE_NONE],"",
-            diagnose_type_names[DIAGNOSE_TYPE_NONE],"",VPA_RPC_PSK);
+            diagnose_type_names[DIAGNOSE_TYPE_NONE],"",CFG_VPA_RPC_PSK);
     gpSysLog->loginfo(szLog);
     //std::cout << szLog << std::endl;
 
@@ -94,7 +94,7 @@ diagnose::diagnose(std::string ssNodeIP) {
         myClient.call(  m_ssUrl,m_ssMethod,m_ssFormat,&result,
                          DIAGNOSE_REQ_AUTH, DIAGNOSE_REQ_NONE,
                          DIAGNOSE_TYPE_NONE,"",DIAGNOSE_TYPE_NONE,"",
-                         VPA_RPC_PSK);
+                         CFG_VPA_RPC_PSK);
 
         ssValueRetcode = xmlrpc_c::value_string(result);
         //std::cout << "Auth Token: " << ssValueRetcode << std::endl;

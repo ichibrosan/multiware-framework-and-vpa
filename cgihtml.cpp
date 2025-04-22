@@ -491,7 +491,7 @@ void cgihtml::dump_shm_vars()
     print(gpSh->m_pShMemng->szRpcUuid);
     print("</td></tr>");
 
-    for (int iRow = ROW_DATA; iRow < ROW_DATA+MAX_USERS; iRow++) {
+    for (int iRow = ROW_DATA; iRow < ROW_DATA+CFG_MAX_USERS; iRow++) {
         if(gpSh->m_pShMemng->creds[iRow].iAuthHandle>2) {
             std::cout << "<tr><th>szAuthUserName</th><td>";
             std::cout << gpSh->m_pShMemng->creds[iRow].szAuthUserName;

@@ -148,7 +148,7 @@ public:
                 }
                 break;
             case DIAGNOSE_REQ_AUTH:
-                if (0 == strcmp(ssAuth.c_str(),VPA_RPC_PSK)) {
+                if (0 == strcmp(ssAuth.c_str(),CFG_VPA_RPC_PSK)) {
                     *retvalP =
                         xmlrpc_c::value_string(
                             gpSh->m_pShMemng->szRpcUuid);

@@ -507,7 +507,7 @@ void schema::gen_from_schema(int iHandle,
        strcmp("true",
               gpCsv->m_parsed_data[iRow][iCol].c_str())) {
         iCol = COL_META_VERSION;
-        if(0 == strcmp(META_VERSION,
+        if(0 == strcmp(CFG_META_VERSION,
                        gpCsv->m_parsed_data[iRow][iCol].c_str())) {
             process_schema_data(svvsPassedValues);
 
@@ -594,7 +594,7 @@ void schema::gen_from_schema(int iHandle,
        strcmp("true",
               gpCsv->m_parsed_data[iRow][iCol].c_str())) {
         iCol = COL_META_VERSION;
-        if(0 == strcmp(META_VERSION,
+        if(0 == strcmp(CFG_META_VERSION,
                        gpCsv->m_parsed_data[iRow][iCol].c_str())) {
             //iCol = COL_META_COLUMNS;
             // Process Schema Data
