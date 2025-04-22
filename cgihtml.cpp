@@ -418,6 +418,7 @@ void cgihtml::dump_shm_vars()
 
     int border=2;
     open_table(border);
+    gpShMemMgr->lockSharedMemory();
 
     std::cout << "<tr><th>iSignature</th><td>";
     std::cout << gpSh->m_pShMemng->iSignature;
@@ -591,6 +592,7 @@ void cgihtml::dump_shm_vars()
     std::cout << "<tr><th>num_tests_failed</th><td>";
     std::cout << gpSh->m_pShMemng->num_tests_failed;
     std::cout << "</td></tr>";
+    gpShMemMgr->releaseSharedMemory();
 
     close_table();
 }
