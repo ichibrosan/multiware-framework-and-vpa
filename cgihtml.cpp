@@ -966,21 +966,15 @@ void cgihtml::form_select_files(
         const char * pszSelectPath,
         const char * pszSelectClass)
 {
-    here;
     std::vector<std::string> selectValues;
-here;
     if (0 == strcmp("default",pszSelectPath)) {
-here;
         selectValues =
             gpOS->allfilesindir(gpEnv->get_journal_root(false));
     } else {
-        here;
         selectValues =
             gpOS->allfilesindir(pszSelectPath);
     }
-here;
     form_select_array(pszSelectName,selectValues,pszSelectClass);
-    here;
 }
 
 
@@ -1260,7 +1254,10 @@ void cgihtml::form_button(const char * pszType,
 
 
 /**
+ * Outputs an HTML hidden input field with the specified name and value.
  *
+ * @param pszName The name attribute of the hidden input field.
+ * @param pszValue The value attribute of the hidden input field.
  */
 void cgihtml::hidden(const char * pszName,const char *pszValue)
 {
@@ -1350,8 +1347,8 @@ void cgihtml::open_form(    const char * pszSchemaName,
 
 
 /**
- * @*/
-//void cgihtml::open_head(std::string ssCssName)
+ * Opens and writes the starting <head> tag to the output stream.
+ */
 void cgihtml::open_head()
 {
     std::cout << "<head>";
@@ -1387,7 +1384,6 @@ void cgihtml::gen_meta_line(std::initializer_list<std::string> metaData)
     {
         // If iArgCount is even, then it takes the current data element and
         // inserts it into the line.
-//        if (0 == iArgCount++%2)
         if (0 == (1 & iArgCount++))
         {
             metaHeader.append(data + "=");
@@ -1603,9 +1599,11 @@ void cgihtml::set_style(const char * pszStylesheet)
 
 
 /**
- * Sets the title for the HTML page by outputting it within <title> tags.
+ * Sets the title for the HTML document by generating a <title> tag with
+ * the specified text.
  *
- * @param szTitle The title to be displayed in the HTML document.
+ * @param szTitle A pointer to a character array representing the title
+ * text for the document.
  */
 void cgihtml::title(const char * szTitle)
 {

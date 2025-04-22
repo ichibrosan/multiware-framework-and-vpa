@@ -35,12 +35,10 @@ char gszUUID[37];
 password::password()
 {
     CLog log(__FILE__,__FUNCTION__);
-    gbHere = true;
-    here;
+    //gbHere = true;
+    //here;
     m_pSchema = new schema("passwd.csv");
-    here;
     m_iLines  = m_pSchema->getLines();
-    here;
     log.namedInt("m_iLines",m_iLines);
 }
 
@@ -117,52 +115,31 @@ std::string password::get_uuid()
 int password::lookup_username_password( std::string ssUsername,
 										std::string ssPassword)
 {
-    gbHere = true;
-    here;
     char szUUID[UUID_SIZE];
-    here;
     int iLines = gpCsv->getLines();
-    here;
     for(int iRow=3;iRow<iLines;iRow++) {
-        here;
         if (0 == strcmp("true",
                         gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str())) {
-            here;
             if( 0 == strcmp(
                         ssUsername.c_str(),
                         gpCsv->getData(iRow,COL_PASSWD_USERNAME).c_str())) {
-                here;
                 if(0 == strcmp(
                           ssPassword.c_str(),
                           gpCsv->getData(iRow,COL_PASSWD_PASSWORD).c_str())) {
                     // username and password were found...
                     // fetch all passwd file values for this user
-                    here;
                     std::string ssActiveAcct =
                       gpCsv->m_parsed_data[iRow][COL_PASSWD_ACTIVE];
-                    here;
                     std::string ssUserName =
                       gpCsv->m_parsed_data[iRow][COL_PASSWD_USERNAME];
-                    here;
                     std::string ssFirstName =
                       gpCsv->m_parsed_data[iRow][COL_PASSWD_FIRSTNAME];
-                    here;
                     std::string ssLastName =
                       gpCsv->m_parsed_data[iRow][COL_PASSWD_LASTNAME];
                     std::string ssAuthLevel =
                       gpCsv->m_parsed_data[iRow][COL_PASSWD_AUTHLEVEL];
                     std::string ssDescr =
                       gpCsv->m_parsed_data[iRow][COL_PASSWD_DESCR];
-
-                    // std::cout << "<H3>Welcome<i> "
-                    //           << ssFirstName
-                    //           << " "
-                    //           << ssLastName
-                    //           << " as <b>"
-                    //           << ssAuthLevel
-                    //           << " and "
-                    //           << ssDescr
-                    //           << "</b></i></h3>";
 
                     strcpy(gpSh->m_pShMemng->creds[iRow].szHttpUserAgent,
                            gpCgi->getEnvironment().getUserAgent().c_str());
@@ -185,3 +162,7 @@ int password::lookup_username_password( std::string ssUsername,
     } // for(iRow...
     return EXIT_FAILURE;
 }
+
+////////////////////////
+// eof - password.cpp //
+////////////////////////
