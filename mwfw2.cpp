@@ -13,6 +13,9 @@ dashboard		* gpDash;
 environment		* gpEnv;
 //shmvars			* gpShmVars;
 shared			* gpSh;
+SharedMemoryMutex	* gpShMemMutex;
+SharedMemoryManager * gpShMemMgr;
+
 osIface			* gpOS;
 CLog			* gpLog;
 CSysLog			* gpSysLog;
@@ -62,6 +65,8 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 	gpXinetd = new xinetdctl();
 	//gpShmVars = new shmvars();
 	gpSh = new shared();
+	gpShMemMutex = new SharedMemoryMutex("/fw_shmem_mutex");
+	gpShMemMgr = new SharedMemoryManager("/fw_shmem_mutex");
     gpEnv = new environment();
     gpLog = new CLog(__FILE__,__FUNCTION__);
     gpOS = new osIface();

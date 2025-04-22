@@ -21,10 +21,14 @@
 int main() {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
-    shared::SharedMemoryManager manager;
-    manager.lockSharedMemory();
+    // shared::SharedMemoryManager manager;
+    // manager.lockSharedMemory();
+    // gpSh->m_pShMemng->iSignature++;
+    // manager.releaseSharedMemory();
+
+    gpShMemMgr->lockSharedMemory();
     gpSh->m_pShMemng->iSignature++;
-    manager.releaseSharedMemory();
+    gpShMemMgr->releaseSharedMemory();
 
     printf("vpad Copyright (c) 2025 Douglas Wade Goodall. "
            "All Rights Reserved.\n");

@@ -73,6 +73,16 @@ extern schema * gpSchema;
 extern shared * gpSh;
 #endif
 
+#ifndef gpShMemMutex
+#include "shMemMutex.h"
+extern SharedMemoryMutex * gpShMemMutex;
+#endif
+
+#ifndef gpShMemMgr
+#include "shMemMgr.h"
+extern SharedMemoryManager * gpShMemMgr;
+#endif
+
 #ifndef gpPassword
 #include "password.h"
 extern password * gpPassword;

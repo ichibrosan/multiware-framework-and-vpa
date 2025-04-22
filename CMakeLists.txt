@@ -35,27 +35,29 @@ include_directories(
 # pointers, thereby cleaning up the cluttered application include situation.
 
 add_library( mwfw2 STATIC
-        mwfw2.cpp			include/mwfw2.h
-        shared.cpp          include/shared.h
-        cgibind.cpp		    include/cgibind.h
-        cgihtml.cpp		    include/cgihtml.h
-        CLog.cpp			include/CLog.hpp
-        CSysLog.cpp		    include/CSysLog.hpp
-        dashboard.cpp		include/dashboard.h
-        environment.cpp	    include/environment.h
-        osIface.cpp		    include/osIface.h
-        password.cpp		include/password.h
-        readCsv.cpp		    include/readCsv.h
-        schema.cpp			include/schema.h
-        schemaCompiler.cpp	include/schemaCompiler.h
-        test.cpp			include/test.h
-        config.cpp          include/config.h
-		xinetdctl.cpp		include/xinetdctl.h
-		include/cgicc.h		include/version.h
-		stylist.cpp			include/stylist.h
-		iHex.cpp			include/iHex.h
-		diagnose.cpp		include/diagnose.h
-#		htmlbind.cpp		include/htmlbind.h
+        mwfw2.cpp				include/mwfw2.h
+        shared.cpp          	include/shared.h
+		shMemMutex.cpp			include/shMemMutex.h
+		shMemMgr.cpp			include/shMemMgr.h
+        cgibind.cpp		    	include/cgibind.h
+        cgihtml.cpp		    	include/cgihtml.h
+        CLog.cpp				include/CLog.hpp
+        CSysLog.cpp		    	include/CSysLog.hpp
+        dashboard.cpp			include/dashboard.h
+        environment.cpp	    	include/environment.h
+        osIface.cpp		   		include/osIface.h
+        password.cpp			include/password.h
+        readCsv.cpp		    	include/readCsv.h
+        schema.cpp				include/schema.h
+        schemaCompiler.cpp		include/schemaCompiler.h
+        test.cpp				include/test.h
+        config.cpp          	include/config.h
+		xinetdctl.cpp			include/xinetdctl.h
+		include/cgicc.h			include/version.h
+		stylist.cpp				include/stylist.h
+		iHex.cpp				include/iHex.h
+		diagnose.cpp			include/diagnose.h
+#		htmlbind.cpp			include/htmlbind.h
 )
 
 ########################################################
