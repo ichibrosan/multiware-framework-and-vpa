@@ -10,6 +10,9 @@
 #include "stylist.h"
 
 dashboard		* gpDash;
+
+dotconfig		* gpDotCfg;
+
 environment		* gpEnv;
 //shmvars			* gpShmVars;
 shared			* gpSh;
@@ -53,6 +56,8 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 {
 	gpSysLog = new CSysLog();
 	gbHere = false;
+
+	gpDotCfg = new dotconfig();
 
 	m_bCGI = false;
 	char * ptr = getenv("SERVER_PORT");

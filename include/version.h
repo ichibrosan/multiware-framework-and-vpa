@@ -6,11 +6,11 @@
 #ifndef VERSION_H
 #define VERSION_H
 #define RMAJ    5
-#define RMIN    3
-#define RREV    31
-#define RBLD    16
-#define RSTRING "5.3.31.16"
-#define RSHORT  "5.3.31"
+#define RMIN    4
+#define RREV    28
+#define RBLD    19
+#define RSTRING "5.4.28.19"
+#define RSHORT  "5.4.28"
 #define RLONG   RSTRING
 #define RDATE   __DATE__
 #define RTIME   __TIME__

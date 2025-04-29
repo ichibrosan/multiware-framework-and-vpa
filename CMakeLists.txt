@@ -36,6 +36,7 @@ include_directories(
 
 add_library( mwfw2 STATIC
         mwfw2.cpp				include/mwfw2.h
+		dotconfig.cpp			include/dotconfig.h
         shared.cpp          	include/shared.h
 		shMemMutex.cpp			include/shMemMutex.h
 		shMemMgr.cpp			include/shMemMgr.h

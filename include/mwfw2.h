@@ -17,6 +17,11 @@ extern CSysLog * gpSysLog;
 extern bool gbHere;
 #endif
 
+#ifndef gpDotCfg
+#include "dotconfig.h"
+extern dotconfig * gpDotCfg;
+#endif
+
 #ifndef gpEnv
 #include "environment.h"
 extern environment * gpEnv;

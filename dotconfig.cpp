@@ -1,0 +1,10 @@
+////////////////////////////////////////////////////////////////////////
+// /home/devo/public_html/fw/dotconfig.cpp 2025/04/28                 //
+// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
+////////////////////////////////////////////////////////////////////////
+
+#include "include/mwfw2.h"
+
+dotconfig::dotconfig() {
+    m_bCTOR = true;
+}
