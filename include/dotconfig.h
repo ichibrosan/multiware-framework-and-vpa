@@ -12,6 +12,8 @@ class dotconfig {
     bool m_bCTOR;
 public:
     dotconfig();
+    bool isConfigDir();
+    bool assureConfigDir();
 };
 
 

@@ -58,6 +58,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 	gbHere = false;
 
 	gpDotCfg = new dotconfig();
+	gpDotCfg->assureConfigDir();
 
 	m_bCGI = false;
 	char * ptr = getenv("SERVER_PORT");
