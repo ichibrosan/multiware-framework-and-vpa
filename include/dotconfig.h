@@ -14,6 +14,7 @@ public:
     dotconfig();
     bool isConfigDir();
     bool assureConfigDir();
+    bool isLicenseUUID();
 };
 
 

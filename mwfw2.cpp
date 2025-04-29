@@ -59,7 +59,13 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 
 	gpDotCfg = new dotconfig();
 	gpDotCfg->assureConfigDir();
-
+	if (not gpDotCfg->isLicenseUUID()) {
+		std::cout << "Content-type:\ttext/html\n\n" << std::endl;
+		std::cout << "Synchronization Error!!" << std::endl;
+		std::cout << "Please contact doug@goodall.com" << std::endl;
+		std::cout << "Exiting..." << std::endl;
+		exit(1);
+	}
 	m_bCGI = false;
 	char * ptr = getenv("SERVER_PORT");
 	if(nullptr != ptr) {
