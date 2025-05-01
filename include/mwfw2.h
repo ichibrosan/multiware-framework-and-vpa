@@ -11,6 +11,11 @@
 #include "version.h"
 #include "config.h"
 
+#ifndef gpSemiGr
+#include "semigraphics.h"
+extern semigraphics * gpSemiGr;
+#endif
+
 #ifndef gpSysLog
 #include "CSysLog.hpp"
 extern CSysLog * gpSysLog;

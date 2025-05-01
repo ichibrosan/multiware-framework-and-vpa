@@ -16,6 +16,8 @@ project(fw)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_COMPILER clang++)
+
+
 include_directories(
         "."
 		"include"
@@ -36,6 +38,7 @@ include_directories(
 
 add_library( mwfw2 STATIC
         mwfw2.cpp				include/mwfw2.h
+		semigraphics.cpp		include/semigraphics.h
 		dotconfig.cpp			include/dotconfig.h
         shared.cpp          	include/shared.h
 		shMemMutex.cpp			include/shMemMutex.h

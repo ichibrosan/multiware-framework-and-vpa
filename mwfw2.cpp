@@ -30,6 +30,7 @@ schema			* gpSchema;
 readCsv			* gpCsv;
 test			* gpTest;
 schemaCompiler	* gpSchCC;
+semigraphics	* gpSemiGr;
 password		* gpPassword;
 xinetdctl		* gpXinetd;
 //stylist		* gpStylist;
@@ -54,6 +55,8 @@ iHex			* gpHex;
  */
 mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 {
+	gpSemiGr = new semigraphics();
+
 	gpSysLog = new CSysLog();
 	gbHere = false;
 

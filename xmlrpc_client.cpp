@@ -117,6 +117,9 @@ int
 main(int argc, char **) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
+    gpSemiGr->singlebox(0,0,80+2,16+2);
+    std::cout << std::endl;
+
     // by default use my local IP
     std::string ssTargetIP = gpSh->m_pShMemng->szIP;
 
