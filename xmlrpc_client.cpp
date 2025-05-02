@@ -117,21 +117,7 @@ int
 main(int argc, char **) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
-    // gpCrt->crtstyle(MODE_BOLD,FG_GREEN,BG_BLACK);
-    // gpSemiGr->singlebox(1,1,80+2,24+2);
-    // for (int count=0;count<10;count++) {
-    //     gpCrt->crtlc(3,3+count);
-    //     std::cout << 'A';
-    //     std::cout.flush();
-    //     sleep(1);
-    // }
-    // gpCrt->crtstyle(MODE_RESET,FG_CYAN,BG_BLACK);
-
     window * pWin = new window();
-    pWin->add_row("Hello World1!!");
-    pWin->add_row("Hello World2!!");
-    pWin->add_row("Hello World3!!");
-    pWin->render();
 
     // by default use my local IP
     std::string ssTargetIP = gpSh->m_pShMemng->szIP;
@@ -141,54 +127,48 @@ main(int argc, char **) {
     diagnose_request_t request;
     request.eReqFunc      = DIAGNOSE_REQ_VERSION;
     std::string ssVersion = pDiagnose->call(request);
-    std::cout << "Ver: " << ssVersion << std::endl;
+    std::string ssVersion2 = "Version: " + ssVersion;
+    pWin->add_row(ssVersion2);
 
     request.eReqFunc      = DIAGNOSE_GET_IMGROOT;
     std::string ssImgRoot = pDiagnose->call(request);
-    std::cout << "Img: " << ssImgRoot << std::endl;
+    std::string ssImgRoot2 = "ImgRoot: " + ssImgRoot;
+    pWin->add_row(ssImgRoot2);
 
-    //////////////////////////////////////////////////
-    // Tested OK 2025-04-01 17:33 dwg -
-    //////////////////////////////////////////////////
     request.eReqFunc = DIAGNOSE_GET_CRED;
     strcpy(request.szParm3,CFG_USERNAME);
     strcpy(request.szParm4,CFG_PASSWORD);
     std::string ssHandle = pDiagnose->call(request);
-    std::cout << "Handle: " << ssHandle << std::endl;
+    std::string ssHandle2 = "Handle:  " + ssHandle;
+    pWin->add_row(ssHandle2);
     int iHandle = atoi(ssHandle.c_str());
 
-    //////////////////////////////////////////////////
-    // Tested OK 2025-04-01 17:52 dwg -
-    //////////////////////////////////////////////////
     request.eReqFunc = DIAGNOSE_GET_AUTH_USER_NAME;
     request.iParm2 = iHandle;
     std::string ssUserName = pDiagnose->call(request);
-    std::cout << "User: " << ssUserName << std::endl;
+    std::string ssUserName2 = "User:    " + ssUserName;
+    pWin->add_row(ssUserName2);
 
-    //////////////////////////////////////////////////
-    // Tested OK 2025-04-01 17:52 dwg -
-    //////////////////////////////////////////////////
     request.eReqFunc = DIAGNOSE_GET_AUTH_FIRST_NAME;
     request.iParm2 = iHandle;
     std::string ssFirstName = pDiagnose->call(request);
-    std::cout << "First: " << ssFirstName << std::endl;
+    std::string ssFirstName2 = "First:   " + ssFirstName;
+    pWin->add_row(ssFirstName2);
 
-    //////////////////////////////////////////////////
-    // Tested OK 2025-04-01 17:52 dwg -
-    //////////////////////////////////////////////////
     request.eReqFunc = DIAGNOSE_GET_AUTH_LAST_NAME;
     request.iParm2 = iHandle;
     std::string ssLastName = pDiagnose->call(request);
-    std::cout << "Last: " << ssLastName << std::endl;
+    std::string ssLastName2 = "Last:    " + ssLastName;
+    pWin->add_row(ssLastName2);
 
-    //////////////////////////////////////////////////
-    // Tested OK 2025-04-01 17:52 dwg -
-    //////////////////////////////////////////////////
     request.eReqFunc = DIAGNOSE_GET_AUTH_LEVEL;
     request.iParm2 = iHandle;
     std::string ssUserLevel = pDiagnose->call(request);
-    std::cout << "Level: " << ssUserLevel << std::endl;
+    std::string ssUserLevel2 = "Level:   " + ssUserLevel;
+    pWin->add_row(ssUserLevel2);
 
+    pWin->render();
 
+    delete pWin;
     return 0;
 }
