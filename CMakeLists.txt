@@ -38,6 +38,7 @@ include_directories(
 
 add_library( mwfw2 STATIC
         mwfw2.cpp				include/mwfw2.h
+		mutations.cpp			include/mutations.h
 		crtbind.cpp				include/crtbind.h
 		semigraphics.cpp		include/semigraphics.h
 		window.cpp				include/window.h

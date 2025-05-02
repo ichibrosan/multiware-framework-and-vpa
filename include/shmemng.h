@@ -14,6 +14,7 @@
 #include <semaphore.h>
 #include <system_error>
 #include <memory>
+#include "mutations.h"
 
 /**
  * If you change the MFW_SHMEM_T schema, you need to reboot to assure
@@ -22,10 +23,13 @@
  */
 struct MFW_SHMEMNG_T {
 
+
     //shmvar_t shmvar[SHMVAR_COUNT];
 
     // Shared Environmental Value, set by environment::environment()
     int iSignature;
+    //muteInt * mute_iSignature = new muteInt("/fw_shmem_iSignature",&iSignature);
+
     size_t stShMemSize;
     char szHostname[DNS_FQDN_SIZE_MAX];
     char szIP[DNS_FQDN_SIZE_MAX];

@@ -11,6 +11,8 @@
 #include "version.h"
 #include "config.h"
 
+#include "mutations.h"
+
 #ifndef gpCrt
 #include "crtbind.h"
 extern crtbind * gpCrt;

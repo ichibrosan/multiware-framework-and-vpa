@@ -18,7 +18,7 @@
 #define CFG_PASSWORD                 "melange"
 #define CFG_META_VERSION             "1"
 #define CFG_MUTEX_NAME           "/fw_shmem_mutex"
-
+#define CFG_MUTEX_MAX_SIZE           64
 // Generated with: head -c 4096 /dev/urandom | sha256sum | cut -b1-32
 #define CFG_VPA_RPC_PSK    "348bcdbe62fead7028c8010490b27332"
 

@@ -124,6 +124,12 @@ main(int argc, char **) {
 
     diagnose * pDiagnose = new diagnose(ssTargetIP);
 
+    muteInt * mute_iSignature =
+        new muteInt("/fw_shmem_iSignature",&gpSh->m_pShMemng->iSignature);
+    std::string ssSignature = "iSignature is " + std::to_string(
+        mute_iSignature->get());
+    pWin->add_row(ssSignature);
+
     diagnose_request_t request;
     request.eReqFunc      = DIAGNOSE_REQ_VERSION;
     std::string ssVersion = pDiagnose->call(request);
