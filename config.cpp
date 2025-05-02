@@ -8,9 +8,9 @@
 config::config() {
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
     if (access(gpSh->m_pShMemng->szConfigRoot,F_OK)) {
-        gpSysLog->loginfo("config directory does not exist");
+        //gpSysLog->loginfo("config directory does not exist");
         std::filesystem::create_directories(gpSh->m_pShMemng->szConfigRoot);
     } else {
-        gpSysLog->loginfo("config directory exists");
+        //gpSysLog->loginfo("config directory exists");
     }
 }

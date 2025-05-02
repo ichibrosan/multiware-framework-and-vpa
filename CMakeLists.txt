@@ -38,7 +38,9 @@ include_directories(
 
 add_library( mwfw2 STATIC
         mwfw2.cpp				include/mwfw2.h
+		crtbind.cpp				include/crtbind.h
 		semigraphics.cpp		include/semigraphics.h
+		window.cpp				include/window.h
 		dotconfig.cpp			include/dotconfig.h
         shared.cpp          	include/shared.h
 		shMemMutex.cpp			include/shMemMutex.h

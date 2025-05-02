@@ -11,10 +11,18 @@
 #include "version.h"
 #include "config.h"
 
+#ifndef gpCrt
+#include "crtbind.h"
+extern crtbind * gpCrt;
+#endif
+
 #ifndef gpSemiGr
 #include "semigraphics.h"
 extern semigraphics * gpSemiGr;
 #endif
+
+
+#include "window.h"
 
 #ifndef gpSysLog
 #include "CSysLog.hpp"

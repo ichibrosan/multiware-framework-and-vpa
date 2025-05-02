@@ -117,8 +117,21 @@ int
 main(int argc, char **) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
-    gpSemiGr->singlebox(0,0,80+2,16+2);
-    std::cout << std::endl;
+    // gpCrt->crtstyle(MODE_BOLD,FG_GREEN,BG_BLACK);
+    // gpSemiGr->singlebox(1,1,80+2,24+2);
+    // for (int count=0;count<10;count++) {
+    //     gpCrt->crtlc(3,3+count);
+    //     std::cout << 'A';
+    //     std::cout.flush();
+    //     sleep(1);
+    // }
+    // gpCrt->crtstyle(MODE_RESET,FG_CYAN,BG_BLACK);
+
+    window * pWin = new window();
+    pWin->add_row("Hello World1!!");
+    pWin->add_row("Hello World2!!");
+    pWin->add_row("Hello World3!!");
+    pWin->render();
 
     // by default use my local IP
     std::string ssTargetIP = gpSh->m_pShMemng->szIP;

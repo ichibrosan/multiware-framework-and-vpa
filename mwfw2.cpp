@@ -9,6 +9,8 @@
 
 #include "stylist.h"
 
+crtbind			* gpCrt;
+
 dashboard		* gpDash;
 
 dotconfig		* gpDotCfg;
@@ -38,6 +40,7 @@ config			* gpConfig;
 iHex			* gpHex;
 //htmlbind        * gpHB;
 
+
 /**
  * Constructor for the mwfw class. Initializes the CGI mode based
  * on the SERVER_PORT environment variable and sets up the system
@@ -55,8 +58,8 @@ iHex			* gpHex;
  */
 mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 {
+	gpCrt = new crtbind();
 	gpSemiGr = new semigraphics();
-
 	gpSysLog = new CSysLog();
 	gbHere = false;
 
