@@ -1,6 +1,7 @@
-//
-// Created by doug on 5/2/25.
-//
+/////////////////////////////////////////////////////////////////////
+// /home/devo/public_html/fw/mutations.h   2025-05-02 18:20        //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
+/////////////////////////////////////////////////////////////////////
 
 #ifndef MUTATIONS_H
 #define MUTATIONS_H
@@ -22,5 +23,6 @@ public:
     int get();
     void put(int);
 };
+
 
 #endif //MUTATIONS_H

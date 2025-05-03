@@ -13,14 +13,14 @@
  * memory resources in a thread-safe manner.
  *
  * @param name A null-terminated C-string representing the unique name
- *             of the mutex. This name is critical to ensure proper
+ *             of the mutex. This name is critical to ensuring proper
  *             synchronization between processes or threads accessing
  *             the shared memory.
  * @return A created instance of SharedMemoryManager.
  */
 SharedMemoryManager::SharedMemoryManager(const char * name)
     : mutex_(name) {
-    // Create mutex with unique name
+    // Create mutex with a unique name
 }
 
 /**
@@ -87,8 +87,8 @@ void SharedMemoryManager::accessSharedMemory() {
  * - Proper usage involves locking the shared memory using the corresponding
  *   `lockSharedMemory()` method before calling this method.
  * - Failure to call this method after completing shared memory operations
- *   could lead to deadlock or resource contention in multi-threaded
- *   environments.
+ *   could lead to deadlock or resource contention in a multi-threaded
+ *   environment.
  *
  * Thread safety:
  * - This method uses a `std::lock_guard` to automatically manage the

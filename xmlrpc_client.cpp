@@ -12,18 +12,12 @@ using namespace std;
 //#define DISPLAY_VPAD_UPTIME_SECONDS
 
 /**
- * @brief A global variable to store the return code as a string
- *        for both XML-RPC and REST method calls.
+ * A global string variable used to store the return code or response value for
+ * XML-RPC client communications. The value of this variable is typically
+ * populated after making a remote procedure call using the XML-RPC protocol.
  *
- * This variable is used to capture and store the result of a
- * remote procedure call (RPC) or REST API call, specifically
- * the value returned by the server. It is populated after the
- * successful execution of a remote method invocation, such as
- * `vpa_call` or `rest_call`. The content of this variable is assigned
- * using the return value obtained from XML-RPC or REST methods.
- *
- * @note The variable's value is subject to change upon any invocation
- *       of the related RPC or REST functions.
+ * This variable is used across different parts of the application to access
+ * the result or status value returned from the remote server.
  */
 std::string ssValueRetcode;
 
@@ -91,30 +85,16 @@ std::string ssValueRetcode;
 
 
 /**
- * @brief Entry point of the application.
+ * Main entry point of the application.
  *
- * The main function initializes the application, sets the remote address
- * of the VPA system, and performs various operations such as
- * authentication, fetching remote version, and making REST API calls.
- * It also includes mechanisms for error handling and output of operation
- * results.
+ * This function initializes required components, processes diagnostic
+ * requests, and displays the output on a user interface window. Various
+ * diagnostic functions are executed to retrieve and display system
+ * information and credentials.
  *
- * @param argc Number of arguments passed to the program.
- * @param argv Array of character pointers listing all the arguments.
- * @return int Exit status of the program.
- *
- * @details
- * This program:
- * - Ensures no command-line arguments are provided, otherwise exits with
- *      an error message.
- * - Sets a predefined remote address and host for the VPA system.
- * - Authenticates with the VPA system and retrieves the authentication
- *      token.
- * - Fetches the remote system version using the authentication token.
- * - Optionally contains commented-out functionality to retrieve shared
- *      memory details.
- * - Makes a REST API request to retrieve version information and outputs
- *      the result.
+ * @param argc The number of arguments passed to the program.
+ * @param argv An array of argument strings passed to the program.
+ * @return Returns 0 on successful execution.
  */
 int
 main(int argc, char **) {
