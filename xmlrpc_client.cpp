@@ -8,6 +8,9 @@
 
 using namespace std;
 
+#define DISPLAY_ISIGNATURE
+//#define DISPLAY_VPAD_UPTIME_SECONDS
+
 /**
  * @brief A global variable to store the return code as a string
  *        for both XML-RPC and REST method calls.
@@ -124,19 +127,24 @@ main(int argc, char **) {
 
     diagnose * pDiagnose = new diagnose(ssTargetIP);
 
+#ifdef DISPLAY_ISIGNATURE
     muteInt * mute_iSignature =
         new muteInt("/fw_shmem_iSignature",
                     &gpSh->m_pShMemng->iSignature);
-    std::string ssSignature = "iSignature is " + std::to_string(
-        mute_iSignature->get());
+    std::string ssSignature =
+        "[iSignature] is " + std::to_string(mute_iSignature->get());
     pWin->add_row(ssSignature);
+#endif // DISPLAY_ISIGNATURE
 
+#ifdef DISPLAY_VPAD_UPTIME_SECONDS
     muteInt * mute_vpad_uptime_seconds =
         new muteInt("/fw_shmem_vpad_uptime_seconds",
                     &gpSh->m_pShMemng->vpad_uptime_seconds);
-    std::string ssUptime = "vpad_uptime_seconds is " + std::to_string(
-        mute_vpad_uptime_seconds->get());
+    std::string ssUptime =
+        "[vpad_uptime_seconds] is " +
+            std::to_string(mute_vpad_uptime_seconds->get());
     pWin->add_row(ssUptime);
+#endif // DISPLAY_VPAD_UPTIME_SECONDS
 
     diagnose_request_t request;
     request.eReqFunc      = DIAGNOSE_REQ_VERSION;

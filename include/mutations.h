@@ -17,7 +17,6 @@ class muteInt {
     int * m_pInt;
     char m_szMutexName[CFG_MUTEX_MAX_SIZE];
     sem_t* m_mutex_;
-
 public:
     muteInt(const char *,int *);
     int get();
