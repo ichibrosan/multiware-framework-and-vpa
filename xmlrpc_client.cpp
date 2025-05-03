@@ -125,10 +125,18 @@ main(int argc, char **) {
     diagnose * pDiagnose = new diagnose(ssTargetIP);
 
     muteInt * mute_iSignature =
-        new muteInt("/fw_shmem_iSignature",&gpSh->m_pShMemng->iSignature);
+        new muteInt("/fw_shmem_iSignature",
+                    &gpSh->m_pShMemng->iSignature);
     std::string ssSignature = "iSignature is " + std::to_string(
         mute_iSignature->get());
     pWin->add_row(ssSignature);
+
+    muteInt * mute_vpad_uptime_seconds =
+        new muteInt("/fw_shmem_vpad_uptime_seconds",
+                    &gpSh->m_pShMemng->vpad_uptime_seconds);
+    std::string ssUptime = "vpad_uptime_seconds is " + std::to_string(
+        mute_vpad_uptime_seconds->get());
+    pWin->add_row(ssUptime);
 
     diagnose_request_t request;
     request.eReqFunc      = DIAGNOSE_REQ_VERSION;

@@ -22,13 +22,7 @@
  * 2024/12/30 08:33 This is the shmemng structure for the HTML project.
  */
 struct MFW_SHMEMNG_T {
-
-
-    //shmvar_t shmvar[SHMVAR_COUNT];
-
-    // Shared Environmental Value, set by environment::environment()
     int iSignature;
-    //muteInt * mute_iSignature = new muteInt("/fw_shmem_iSignature",&iSignature);
 
     size_t stShMemSize;
     char szHostname[DNS_FQDN_SIZE_MAX];
