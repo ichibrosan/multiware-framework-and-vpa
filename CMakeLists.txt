@@ -65,6 +65,7 @@ add_library( mwfw2 STATIC
 		iHex.cpp				include/iHex.h
 		diagnose.cpp			include/diagnose.h
 #		htmlbind.cpp			include/htmlbind.h
+		vpadiscclient.cpp		include/vpadiscclient.h
 		vpadiscserver.cpp		include/vpadiscserver.h
 )
 

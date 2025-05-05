@@ -10,6 +10,7 @@
 #include "fw-limits.h"
 #include "version.h"
 #include "config.h"
+#include "vpadiscclient.h"
 #include "vpadiscserver.h"
 #include "mutations.h"
 
