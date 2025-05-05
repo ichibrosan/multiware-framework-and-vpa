@@ -10,7 +10,7 @@
 #include "fw-limits.h"
 #include "version.h"
 #include "config.h"
-
+#include "vpadiscserver.h"
 #include "mutations.h"
 
 #ifndef gpCrt
