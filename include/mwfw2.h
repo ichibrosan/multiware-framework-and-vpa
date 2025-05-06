@@ -12,6 +12,8 @@
 #include "config.h"
 #include "vpadiscclient.h"
 #include "vpadiscserver.h"
+#include "testdiscclient.h"
+#include "testdiscclient.h"
 #include "mutations.h"
 
 #ifndef gpCrt

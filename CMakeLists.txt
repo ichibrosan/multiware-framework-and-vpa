@@ -348,6 +348,18 @@ target_link_libraries(render.cgi
 		libcurl.so.4.8.0
 		libxmlrpc_packetsocket.a)
 
+add_executable(testdiscclient testdiscclient.cpp)
+target_link_libraries(testdiscclient
+		mwfw2
+)
+
+add_executable(testdiscserver testdiscserver.cpp)
+target_link_libraries(testdiscserver
+		mwfw2
+)
+
+
+
 add_executable(xmlrpc_client xmlrpc_client.cpp)
 target_link_directories(xmlrpc_client PRIVATE
         /opt/xmlrpc-c/src/cpp

@@ -9,6 +9,7 @@
 #define VPA_SERVER_PORT      5164
 
 vpadiscclient::vpadiscclient() {
+    std::cout << "vpadiscclient" << std::endl;
 
     int connectionFd;
     int in;
@@ -20,6 +21,7 @@ vpadiscclient::vpadiscclient() {
         perror("socket creation failed");
         exit(EXIT_FAILURE);
     }
+    std::cout << "socket created" << std::endl;
 
     memset(&servaddr,0,sizeof(servaddr));
 
@@ -33,6 +35,7 @@ vpadiscclient::vpadiscclient() {
         (const struct sockaddr *)&servaddr,
         sizeof(servaddr)
         );
+    std::cout << "sent packet" << std::endl;
     in = recv(connectionFd,
         timebuffer,MAX_BUFFER,0);
     timebuffer[in] = 0;

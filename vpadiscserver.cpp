@@ -20,6 +20,7 @@ int serverFd, msglen;
         perror("socket creation failed");
         exit(EXIT_FAILURE);
     }
+    std::cout << "socket created" << std::endl;
     memset(&servaddr,0,sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -38,15 +39,19 @@ int serverFd, msglen;
         // 5     __SOCKADDR_ARG __addr,
         // 6     socklen_t *__restrict __addr_len);
 
-
+        std::cout << "waiting for packet" << std::endl;
         msglen = recvfrom(
             serverFd,&timebuffer,MAX_BUFFER,0,
                                                 // Added Casts Here
             (__SOCKADDR_ARG)&from,              // (__SOCKADDR_ARG)
             (socklen_t * __restrict) &fromlen); // (socklen_t * __restrict)
+        std::cout << "received packet" << std::endl;
+        std::cout << "message length is " << msglen << std::endl;
+        std::cout << "message is " << timebuffer << std::endl;
         if (msglen == 0) {
             currentTime = time(NULL);
-            snprintf(timebuffer,MAX_BUFFER,"%s\n",ctime(&currentTime));
+            snprintf(timebuffer,MAX_BUFFER,
+                "current time is %s\n",ctime(&currentTime));
         }
     }
 
