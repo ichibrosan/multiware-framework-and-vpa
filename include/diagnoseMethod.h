@@ -26,7 +26,7 @@ const char * diagnose_req_names[] = {
     "NONE","VERSION","AUTH","PARMS","STATUS","TERM","GETSHM",
     "GETIMGROOT",
     "GETCRED","GETUSERNAME","GETFIRSTNAME","GETLASTNAME","GETLEVEL",
-    "GETDASHBOARD"
+    "GETDASHBOARD","GETIP"
 };
 
 

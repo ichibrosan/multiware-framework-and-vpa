@@ -451,6 +451,14 @@ target_link_libraries(vpad
 		libcurl.so.4.8.0
 		libxmlrpc_packetsocket.a)
 
+add_executable(vparegister vparegister.cpp)
+target_link_libraries(vparegister
+		mwfw2
+		uuid.a
+		libcgicc.a
+
+)
+
 add_executable(prefs.cgi prefs.cpp)
 target_link_directories(prefs.cgi PRIVATE
 		/opt/xmlrpc-c/src/cpp
