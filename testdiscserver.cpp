@@ -12,7 +12,19 @@
 #define PORT     5164
 #define MAXLINE 1024
 
-// Driver code
+/**
+ * @brief Entry point for the UDP server application.
+ *
+ * The main function initializes and sets up a UDP server that binds to a specified port.
+ * It waits for a message from a client, prints the received message, and responds with
+ * a predefined message "Hello from server".
+ *
+ * The server creates a socket, binds it to an address and port, and uses the socket for
+ * communication with the client.
+ *
+ * @return Returns 0 upon successful execution.
+ *         Exits the program with an error code if socket creation or binding fails.
+ */
 int main() {
     int sockfd;
     char buffer[MAXLINE];

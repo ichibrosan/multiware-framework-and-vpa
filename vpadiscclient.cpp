@@ -8,6 +8,15 @@
 #define VPA_SERVER_PORT_LIT "5164"
 #define VPA_SERVER_PORT      5164
 
+/**
+ * @brief Constructor for the vpadiscclient class that initializes a socket
+ * and sends a packet to a predefined server. It then receives and processes the response.
+ *
+ * The constructor creates a UDP socket, configures the server address, sends a packet to the
+ * server, and waits to receive a response. If the socket creation fails, the program exits.
+ *
+ * @return Constructed vpadiscclient object.
+ */
 vpadiscclient::vpadiscclient() {
     std::cout << "vpadiscclient" << std::endl;
 

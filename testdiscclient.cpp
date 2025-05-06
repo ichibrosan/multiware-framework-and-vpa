@@ -11,8 +11,27 @@
    
 #define PORT    5164
 #define MAXLINE 1024 
-   
-// Driver code 
+
+/**
+ * @brief Entry point of the Datagram-based client program.
+ *
+ * This function initializes and sets up a UDP socket, constructs the server
+ * address and communicates with the server by sending a message and awaiting
+ * a response. It handles socket creation, message transmission, and reception.
+ *
+ * @details
+ * 1. Creates a UDP socket using `socket()` API.
+ * 2. Configures server details including IP address and port.
+ * 3. Sends a predefined message to the server using `sendto()`.
+ * 4. Waits for a response from the server using `recvfrom()` and displays
+ *    the received message in the console.
+ * 5. Closes the socket before exiting the program.
+ *
+ * @return 0 on successful execution.
+ *
+ * @note In case of an error during socket creation, the program outputs
+ *       an error message and terminates with `EXIT_FAILURE`.
+ */
 int main() { 
     int sockfd; 
     char buffer[MAXLINE]; 
