@@ -18,6 +18,17 @@ semigraphics::semigraphics() {
 
 }
 
+void semigraphics::cosmetics(std::string ssUL,std::string ssUR,
+               std::string ssLL,std::string ssLR,
+               std::string ssHL,std::string ssVL) {
+    m_ssUL = ssUL;
+    m_ssUR = ssUR;
+    m_ssLL = ssLL;
+    m_ssLR = ssLR;
+    m_ssHL = ssHL;
+    m_ssVL = ssVL;
+}
+
 /**
  * @brief Draws a single-line box at the specified starting position and dimensions.
  *
@@ -40,31 +51,31 @@ void semigraphics::singlebox(int line, int col, int width, int height) {
 
 
     // Top line of box
-    std::cout << "┌";
+    std::cout << m_ssUL;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
-        std::cout << "─";
+        std::cout << m_ssHL;
     }
-    std::cout << "┐";
+    std::cout << m_ssUR;
     std::cout << std::endl;
 
     // Middle lines of box
     for (int iLinedex = 0; iLinedex<height; iLinedex++) {
         //gpCrt->crtlc(iLinedex+1,1);
-        std::cout << "│";
+        std::cout << m_ssVL;
         for (int iColdex = 0; iColdex<width-3; iColdex++) {
             std::cout << "\u0020";
         }
-        std::cout << "│";
+        std::cout << m_ssVL;
         std::cout << std::endl;
     }
 
     // Bottom line of box
     //gpCrt->crtlc(1+height,1);
-    std::cout << "╰";
+    std::cout << m_ssLL;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
-        std::cout << "─";
+        std::cout << m_ssHL;
     }
-    std::cout << "┘";
+    std::cout << m_ssLR;
     std::cout << std::endl;
 }
 
@@ -86,11 +97,11 @@ void semigraphics::topline(int line, int col, int width, int height) {
     gpCrt->crtlc(line,col);
 
     // Top line of box
-    std::cout << "┌";
+    std::cout << m_ssUL;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
-        std::cout << "─";
+        std::cout << m_ssHL;
     }
-    std::cout << "┐";
+    std::cout << m_ssUR;
     std::cout << std::endl;
 }
 
@@ -111,7 +122,7 @@ void semigraphics::topline(int line, int col, int width, int height) {
  * simply left-aligned within the line space.
  */
 void semigraphics::middleline(int line, int col, int width, int height, std::string ssText) {
-        std::cout << "│";
+        std::cout << m_ssVL;
         std::cout << ssText;
         int textlen = ssText.size();
         if (textlen < width-3) {
@@ -121,7 +132,7 @@ void semigraphics::middleline(int line, int col, int width, int height, std::str
             }
 
         }
-        std::cout << "│";
+        std::cout << m_ssVL;
         std::cout << std::endl;
 }
 
@@ -141,10 +152,10 @@ void semigraphics::middleline(int line, int col, int width, int height, std::str
  * that supports and properly renders Unicode characters such as "╰", "─", and "┘".
  */
 void semigraphics::endline(int line, int col, int width, int height) {
-    std::cout << "╰";
+    std::cout << m_ssLL;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
-        std::cout << "─";
+        std::cout << m_ssHL;
     }
-    std::cout << "┘";
+    std::cout << m_ssLR;
     std::cout << std::endl;
 }

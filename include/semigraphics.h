@@ -71,12 +71,22 @@
 
 
 class semigraphics {
+    std::string m_ssUL;
+    std::string m_ssUR;
+    std::string m_ssLL;
+    std::string m_ssLR;
+    std::string m_ssHL;
+    std::string m_ssVL;
+
 public:
     semigraphics();
     void singlebox(int line, int col, int width, int height);
     void topline(int line, int col, int width, int height);
     void middleline(int line, int col, int width, int height,std::string ssText);
     void endline(int line, int col, int width, int height);
+    void cosmetics(std::string UpperLeft,std::string UpperRight,
+                   std::string LowerLeft,std::string LowerRight,
+                   std::string HorizontalLine,std::string VerticalLine);
 };
 
 
