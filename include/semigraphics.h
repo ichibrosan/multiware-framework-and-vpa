@@ -6,8 +6,11 @@
 #ifndef SEMIGRAPHICS_H
 #define SEMIGRAPHICS_H
 
+#define COPR "©"
 #define SV  "│"     // single vertical
 #define SH  "─"     // single horizontal
+#define DV  "║"     // double vertical
+#define DH  "═"     // double horizontal
 
 // Single Rounded Corners
 #define SRUL "╭"    // single rounded upper left
@@ -42,6 +45,12 @@
 #define LRSHDV  "╜" // lower right single horizontal double vertical
 
 // Double Line Extentions
+#define SVSR "├"
+#define SVSL "┤"
+#define DVSR "╟"
+#define DVSL "╢"
+
+#define DVDHL "╣"    // double vertical double horizontal left
 #define DVDHR "╠"    // double vertical double right
 #define DHDVL "╣"    // double horizontal double vertical
 #define DHDVD "╦"   // double horizontal double vertical downward
@@ -75,6 +84,8 @@ class semigraphics {
     std::string m_ssUR;
     std::string m_ssLL;
     std::string m_ssLR;
+    std::string m_ssVSR;
+    std::string m_ssVSL;
     std::string m_ssHL;
     std::string m_ssVL;
 
@@ -83,9 +94,11 @@ public:
     void singlebox(int line, int col, int width, int height);
     void topline(int line, int col, int width, int height);
     void middleline(int line, int col, int width, int height,std::string ssText);
+    void vert_splitter(int line, int col, int width, int height);
     void endline(int line, int col, int width, int height);
     void cosmetics(std::string UpperLeft,std::string UpperRight,
                    std::string LowerLeft,std::string LowerRight,
+                   std::string VertSplitRight,std::string VertSplitLeft,
                    std::string HorizontalLine,std::string VerticalLine);
 };
 

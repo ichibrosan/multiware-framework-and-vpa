@@ -23,9 +23,28 @@ void window::add_row(std::string ssRow) {
     }
 };
 
+int window::get_height() {
+    return m_height;
+}
+
+int window::get_width() {
+    return m_width;
+}
+
+int window::get_x() {
+    return m_x;
+}
+
+int window::get_y() {
+    return m_y;
+}
+
+
 void window::render() {
     gpCrt->crtstyle(MODE_BOLD,FG_GREEN,BG_BLACK);
     gpSemiGr->topline(1,1,m_width,m_height);
+    gpSemiGr->middleline(1,1,m_width,m_height,m_ssTitle);
+    gpSemiGr->vert_splitter(1,1,m_width,m_height);
     for (const std::string& str : m_ssData ) {
         gpSemiGr->middleline(1,1,m_width,m_height,str);
     }
@@ -33,8 +52,32 @@ void window::render() {
     gpCrt->crtstyle(MODE_BOLD,FG_CYAN,BG_BLACK);
 }
 
+void window::render_frames() {
+    gpCrt->crtstyle(MODE_BOLD,FG_GREEN,BG_BLACK);
+    gpSemiGr->topline(1,1,m_width,m_height);
+    for (const std::string& str : m_ssData ) {
+        gpSemiGr->middleline(1,1,m_width,m_height,str);
+    }
+    gpSemiGr->endline(1,1,m_width,m_height);
+    gpCrt->crtstyle(MODE_BOLD,FG_CYAN,BG_BLACK);
+
+
+
+}
+
+void window::render_text() {
+
+}
+
+void window::set_title(std::string ssTitle) {
+    m_ssTitle = ssTitle;
+}
+
 void window::show() {
     std::cout << "windows descriptor:" << std::endl;
+    if (m_ssTitle.size() > 0) {
+        std::cout << "title: " << m_ssTitle << std::endl;
+    }
     std::cout << "x: " << m_x << std::endl;
     std::cout << "y: " << m_y << std::endl;
     std::cout << "width: " << m_width << std::endl;

@@ -19,12 +19,15 @@ semigraphics::semigraphics() {
 }
 
 void semigraphics::cosmetics(std::string ssUL,std::string ssUR,
-               std::string ssLL,std::string ssLR,
-               std::string ssHL,std::string ssVL) {
+                             std::string ssLL,std::string ssLR,
+                             std::string ssVSR,std::string ssVSL,
+                             std::string ssHL,std::string ssVL) {
     m_ssUL = ssUL;
     m_ssUR = ssUR;
     m_ssLL = ssLL;
     m_ssLR = ssLR;
+    m_ssVSR = ssVSR;
+    m_ssVSL = ssVSL;
     m_ssHL = ssHL;
     m_ssVL = ssVL;
 }
@@ -135,6 +138,18 @@ void semigraphics::middleline(int line, int col, int width, int height, std::str
         std::cout << m_ssVL;
         std::cout << std::endl;
 }
+
+void semigraphics::vert_splitter(int line, int col, int width, int height) {
+    gpCrt->crtlc(line,col);
+
+    std::cout << m_ssVSR;
+    for (int iColdex = col; iColdex<width-2; iColdex++) {
+        std::cout << m_ssHL;
+    }
+    std::cout << m_ssVSL;
+    std::cout << std::endl;
+}
+
 
 /**
  * @brief Renders the bottom line (endline) of a box or frame in semigraphics style.
