@@ -9,8 +9,8 @@
 #define RMIN    5
 #define RREV    1
 #define RBLD    19
-#define RSTRING "5.5.1.19"
-#define RSHORT  "5.5.1"
+#define RSTRING "5.5.14.19"
+#define RSHORT  "5.5.14"
 #define RLONG   RSTRING
 #define RDATE   __DATE__
 #define RTIME   __TIME__

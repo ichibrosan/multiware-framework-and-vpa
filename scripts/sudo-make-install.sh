@@ -53,6 +53,14 @@ sudo cp -v include/iHex.h            /usr/local/include/multiware/mwfw2/
 sudo cp -v include/diagnose.h        /usr/local/include/multiware/mwfw2/
 sudo cp -v include/vpadiscclient.h   /usr/local/include/multiware/mwfw2/
 sudo cp -v include/vpadiscserver.h   /usr/local/include/multiware/mwfw2/
+sudo cp -v include/std.h             /usr/local/include/multiware/mwfw2/
+sudo cp -v include/fw-limits.h       /usr/local/include/multiware/mwfw2/
+sudo cp -v include/testdiscclient.h  /usr/local/include/multiware/mwfw2/
+sudo cp -v include/cgicc.h           /usr/local/include/multiware/mwfw2/
+sudo cp -v include/diagnoseDefs.h    /usr/local/include/multiware/mwfw2/
+sudo cp -v include/shmemng.h         /usr/local/include/multiware/mwfw2/
+sudo cp -v include/restDefs.h        /usr/local/include/multiware/mwfw2/
+sudo cp -v include/webcolors.h       /usr/local/include/multiware/mwfw2/
 
 cd                      ~/public_html/fw/build
 sudo mkdir -p /usr/local/lib/multiware/mwfw2

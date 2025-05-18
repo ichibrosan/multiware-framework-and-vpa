@@ -7,6 +7,8 @@
 #define SEMIGRAPHICS_H
 
 #define COPR "©"
+#define CHECK "✓"
+
 #define SV  "│"     // single vertical
 #define SH  "─"     // single horizontal
 #define DV  "║"     // double vertical

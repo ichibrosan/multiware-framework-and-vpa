@@ -21,69 +21,6 @@ using namespace std;
  */
 std::string ssValueRetcode;
 
-// /**
-//  * @brief Array containing names of the different request functions
-//  *        for the Virtual Payload Application Daemon (VPAD).
-//  *
-//  * This array maps indexes to their corresponding request function
-//  * names, which can be used for forming or identifying requests to
-//  * the VPAD service. The array elements include:
-//  * - VERSION: Used for version requests.
-//  * - AUTH: Used for authentication requests.
-//  * - PARMS: Used for parameter management requests.
-//  * - STATUS: Used for status requests.
-//  * - TERM: Used for termination requests.
-//  *
-//  * The array should be indexed using an enum or an appropriate
-//  * request identifier.
-//  */
-// const char * vpad_req_names[] = {
-//     "VERSION","AUTH","PARMS","STATUS","TERM"
-// };
-
-// /**
-//  * @brief An array of string representations for different RPC data types.
-//  *
-//  * This array maps each numerical value of an RPC data type to its
-//  * corresponding string
-//  * representation. The indices correspond to enumerated values defined in
-//  * DIAGNOSE_TYPES_T
-//  * or REST_TYPES_T. These strings are used for logging and communication
-//  * within the system.
-//  *
-//  * @note The elements of this array must match the enumeration values in
-//  * their respective
-//  *       enums to ensure correct usage during lookup or mapping.
-//  *
-//  * @details The supported RPC data types and their mappings are:
-//  *          - NONE: Represents the absence of a value or type.
-//  *          - INT: Represents an integer type.
-//  *          - STRING: Represents a string type.
-//  *          - FLOAT: Represents a floating-point number type.
-//  *          - BOOL: Represents a boolean type.
-//  */
-// const char * rpc_type_names[] = {
-//     "NONE","INT","STRING","FLOAT","BOOL"
-// };
-
-// /**
-//  * @brief Array containing string representations of REST request methods.
-//  *
-//  * This array maps REST request enumerations to their corresponding string
-//  * names, such as "GET", "HEAD", "OPTIONS", "PUT", "DELETE", and "POST".
-//  *
-//  * Example mappings:
-//  * - REST_REQ_GET -> "GET"
-//  * - REST_REQ_POST -> "POST"
-//  *
-//  * This array is utilized in various components of the system to represent
-//  * or log REST request types in string format.
-//  */
-// const char * rest_req_names[] = {
-//     "GET","HEAD","OPTIONS","PUT","DELETE","POST"
-// };
-
-
 /**
  * Main entry point of the application.
  *

@@ -23,6 +23,14 @@ void window::add_row(std::string ssRow) {
     }
 };
 
+void window::set_title(std::string ssTitle) {
+    m_ssTitle = ssTitle;
+    int iTitleSize = ssTitle.size() + 3;
+    if (m_width < iTitleSize) {
+        m_width = iTitleSize;
+    }
+}
+
 int window::get_height() {
     return m_height;
 }
@@ -67,10 +75,6 @@ void window::render_frames() {
 
 void window::render_text() {
 
-}
-
-void window::set_title(std::string ssTitle) {
-    m_ssTitle = ssTitle;
 }
 
 void window::show() {
