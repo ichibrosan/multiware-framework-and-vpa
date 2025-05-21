@@ -5,6 +5,8 @@
 
 #ifndef MULTIWARE_SHMEMNG_H
 #define MULTIWARE_SHMEMNG_H
+#include "mwfw2.h"
+
 #include "config.h"
 #include "fw-limits.h"
 #include <net/if.h>
@@ -23,6 +25,10 @@
  */
 struct MFW_SHMEMNG_T {
     int iSignature;
+
+    int iMwfwDebug;
+    int iMwfwFeatures;
+    int iMwfwEvents;
 
     size_t stShMemSize;
     char szHostname[DNS_FQDN_SIZE_MAX];

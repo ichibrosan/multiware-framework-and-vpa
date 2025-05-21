@@ -33,6 +33,13 @@ int main() {
     printf("vpad Copyright (c) 2025 Douglas Wade Goodall. "
            "All Rights Reserved.\n");
 
+    if (gpSh->m_pShMemng->iMwfwFeatures & (1<<FEATURE_CGICC)) {
+        printf("Mwfw CGI/CC is enabled.\n");
+    } else {
+        printf("Mwfw CGI/CC is disabled.\n");
+    }
+
+
     printf("num_tests_processed is %d\n",
             gpSh->m_pShMemng->num_tests_processed);
     printf("num_tests_skipped is %d\n",

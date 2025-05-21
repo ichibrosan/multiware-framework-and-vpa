@@ -424,6 +424,12 @@ void cgihtml::dump_shm_vars()
     std::cout << gpSh->m_pShMemng->iSignature;
     std::cout << "</td></tr>";
 
+    std::cout << "<tr><th>iMwfwFeatures</th><td>";
+    gpOS->printBinary(gpSh->m_pShMemng->iMwfwFeatures,FEATURE_COUNT);
+    printf(" 0x%02x",gpSh->m_pShMemng->tests_processed_bits);
+    std::cout << "</td></tr>";
+
+
     std::cout << "<tr><th>szRemoteHost</th><td>";
     std::cout << gpSh->m_pShMemng->szRemoteHost;
     std::cout << "</td></tr>";

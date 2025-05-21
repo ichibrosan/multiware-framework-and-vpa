@@ -146,6 +146,60 @@ extern xinetdctl * gpXinetd;
 extern iHex * gpHex;
 #endif
 
+enum FEATURESET {
+	FEATURE_BASE,
+	FEATURE_CGICC,
+	FEATURE_CGIBIND,
+	FEATURE_CONFIG,
+	FEATURE_CRT,
+	FEATURE_ENVIRONMENT,
+	FEATURE_HEX,
+	FEATURE_CLOG,
+	FEATURE_OSIFACE,
+	FEATURE_SEMIGR,
+	FEATURE_SHARED,
+	FEATURE_SHAREDMEMORYMANAGER,
+	FEATURE_SHAREDMEMORYMUTEX,
+	FEATURE_SYSLOG,
+	// FEATURE_SH,
+	// FEATURE_SH_BIND,
+	// FEATURE_SH_MEM_MUTEX,
+	// FEATURE_SH_MEM_MGR,
+	FEATURE_XINETDCTL,
+	//
+	// FEATURE_XMLRPC,
+	// FEATURE_XMLRPC_BIND,
+	// FEATURE_XMLRPC_SERVER,
+	// FEATURE_SCHEMA,
+	// FEATURE_SCH_CC,
+	// FEATURE_TEST,
+	// FEATURE_CSV,
+	// FEATURE_LOG,
+	// FEATURE_WINDOW,
+	// FEATURE_REST,
+	// FEATURE_STYLIST,
+	// FEATURE_PASSWORD,
+	// FEATURE_DOT_CFG,
+	FEATURE_ENVIRONMENTS,
+	// FEATURE_CGI,
+	// FEATURE_CGI_BIND,
+	// FEATURE_DASH,
+	// FEATURE_HTML,
+	// FEATURE_HTML_BIND,
+	FEATURE_COUNT
+};
+
+
+enum EVENTSET {
+	EVENT_BASE = 0x00000001,
+	EVENT_COUNT
+};
+
+enum DEBUGSET {
+	DEBUG_BASE = 0x00000001,
+	DEBUG_COUNT
+};
+
 /**
  * @class mwfw2
  * @brief This class provides foundational functionality for the middleware
@@ -180,6 +234,11 @@ class mwfw2 {
 	 *
 	 * @return An instance of the mwfw class.
 	 */
+
+	int m_iFeatureset;
+	int m_iEventset;
+	int m_iDebugset;
+
 public:
   mwfw2(const char *pszFile,const char *pszFunction);
 	/**

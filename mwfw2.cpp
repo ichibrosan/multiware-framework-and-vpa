@@ -56,11 +56,16 @@ iHex			* gpHex;
  * @return A newly constructed mwfw instance with initialized
  *         CGI and logging mechanisms.
  */
-mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
-{
+mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 	gpCrt = new crtbind();
+	m_iFeatureset |= 1 << FEATURE_CRT;
+
 	gpSemiGr = new semigraphics();
+	m_iFeatureset |= 1 << FEATURE_SEMIGR;
+
 	gpSysLog = new CSysLog();
+	m_iFeatureset |= 1 << FEATURE_SYSLOG;
+
 	gbHere = false;
 
 	// gpDotCfg = new dotconfig();
@@ -72,6 +77,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 	// 	std::cout << "Exiting..." << std::endl;
 	// 	exit(1);
 	// }
+
 	m_bCGI = false;
 	char * ptr = getenv("SERVER_PORT");
 	if(nullptr != ptr) {
@@ -80,20 +86,45 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction)
 	if(isCGI()) {
 		std::cout << "Content-type:\ttext/html\n\n" << std::endl;
 	}
+
 	gpXinetd = new xinetdctl();
+	m_iFeatureset |= 1 << FEATURE_XINETDCTL;
+
 	//gpShmVars = new shmvars();
 	gpSh = new shared();
+	m_iFeatureset |= 1 << FEATURE_SHARED;
+
 	gpShMemMutex = new SharedMemoryMutex(CFG_MUTEX_NAME);
+	m_iFeatureset |= 1 << FEATURE_SHAREDMEMORYMUTEX;
+
 	gpShMemMgr = new SharedMemoryManager(CFG_MUTEX_NAME);
-    gpEnv = new environment();
-    gpLog = new CLog(__FILE__,__FUNCTION__);
-    gpOS = new osIface();
-    gpCgi = new Cgicc();
-    gpCgiBind = new cgibind();
+	m_iFeatureset |= 1 << FEATURE_SHAREDMEMORYMANAGER;
+
+	gpEnv = new environment();
+	m_iFeatureset |= 1 << FEATURE_ENVIRONMENT;
+
+	gpLog = new CLog(__FILE__,__FUNCTION__);
+	m_iFeatureset |= 1 << FEATURE_CLOG;
+
+	gpOS = new osIface();
+	m_iFeatureset |= 1 << FEATURE_OSIFACE;
+
+	gpCgi = new Cgicc();
+	m_iFeatureset |= 1 << FEATURE_CGICC;
+
+	gpCgiBind = new cgibind();
+	m_iFeatureset |= 1 << FEATURE_CGIBIND;
+
 	//gpStylist = new stylist();
+
 	gpConfig = new config();
+	m_iFeatureset |= 1 << FEATURE_CONFIG;
+
 	gpHex = new iHex();
+	m_iFeatureset |= 1 << FEATURE_HEX;
+
 	//gpHB = new htmlbind();
+	gpSh->m_pShMemng->iMwfwFeatures = m_iFeatureset;
 }
 
 /**
