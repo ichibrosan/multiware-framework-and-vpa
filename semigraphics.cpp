@@ -97,6 +97,12 @@ void semigraphics::singlebox(int line, int col, int width, int height) {
  * @param height The total height of the box. This parameter is currently not used in the function.
  */
 void semigraphics::topline(int line, int col, int width, int height) {
+
+    char szTemp[256];
+    sprintf(szTemp,"topline(l=%d,c=%d,w=%d,h=%d);",
+            line,col,width,height);
+    gpSysLog->loginfo(szTemp);
+
     gpCrt->crtlc(line,col);
 
     // Top line of box
@@ -124,22 +130,36 @@ void semigraphics::topline(int line, int col, int width, int height) {
  * width until reaching the right border. The text is not justified but
  * simply left-aligned within the line space.
  */
-void semigraphics::middleline(int line, int col, int width, int height, std::string ssText) {
-        std::cout << m_ssVL;
-        std::cout << ssText;
-        int textlen = ssText.size();
-        if (textlen < width-3) {
-            int fillsize = width-3-textlen;
-            for (int i = 0; i<fillsize; i++) {
-                std::cout << " ";
-            }
+void semigraphics::middleline(int line, int col,
+                              int width, int height,
+                              std::string ssText) {
 
+    char szTemp[256];
+    sprintf(szTemp,"middle(l=%d,c=%d,w=%d,h=%d,s=%s);",
+            line,col,width,height,ssText.c_str());
+    gpSysLog->loginfo(szTemp);
+
+    std::cout << m_ssVL;
+    std::cout << ssText;
+    int textlen = ssText.size();
+    if (textlen < width-3) {
+        int fillsize = width-3-textlen;
+        for (int i = 0; i<fillsize; i++) {
+            std::cout << " ";
         }
-        std::cout << m_ssVL;
-        std::cout << std::endl;
+    }
+    std::cout << m_ssVL;
+    std::cout << std::endl;
 }
 
 void semigraphics::vert_splitter(int line, int col, int width, int height) {
+
+    char szTemp[256];
+    sprintf(szTemp,"vsplit(l=%d,c=%d,w=%d,h=%d);",
+            line,col,width,height);
+    gpSysLog->loginfo(szTemp);
+
+
     gpCrt->crtlc(line,col);
 
     std::cout << m_ssVSR;
@@ -167,6 +187,12 @@ void semigraphics::vert_splitter(int line, int col, int width, int height) {
  * that supports and properly renders Unicode characters such as "╰", "─", and "┘".
  */
 void semigraphics::endline(int line, int col, int width, int height) {
+
+    char szTemp[256];
+    sprintf(szTemp,"endline(l=%d,c=%d,w=%d,h=%d);",
+            line,col,width,height);
+    gpSysLog->loginfo(szTemp);
+
     std::cout << m_ssLL;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
         std::cout << m_ssHL;
