@@ -9,7 +9,9 @@
 
 #include "stylist.h"
 
+#ifdef MWFW_SUPPORT_CRTBIND
 crtbind			* gpCrt;
+#endif // MWFW_SUPPORT_CRTBIND
 
 dashboard		* gpDash;
 
@@ -57,8 +59,11 @@ iHex			* gpHex;
  *         CGI and logging mechanisms.
  */
 mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
+
+#ifdef MWFW_SUPPORT_CRTBIND
 	gpCrt = new crtbind();
-	m_iFeatureset |= 1 << FEATURE_CRT;
+	m_iFeatureset |= 1 << FEATURE_CRTBIND;
+#endif // MWFW_SUPPORT_CRTBIND
 
 	gpSemiGr = new semigraphics();
 	m_iFeatureset |= 1 << FEATURE_SEMIGR;
@@ -111,6 +116,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 
 	gpCgi = new Cgicc();
 	m_iFeatureset |= 1 << FEATURE_CGICC;
+
 
 	gpCgiBind = new cgibind();
 	m_iFeatureset |= 1 << FEATURE_CGIBIND;

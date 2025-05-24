@@ -33,6 +33,12 @@ int main() {
     printf("vpad Copyright (c) 2025 Douglas Wade Goodall. "
            "All Rights Reserved.\n");
 
+    if (gpSh->m_pShMemng->iMwfwFeatures & (1<<FEATURE_CRTBIND)) {
+        printf("Mwfw CRTBIND is enabled.\n");
+    } else {
+        printf("Mwfw CRTBIND is disabled.\n");
+    }
+
     if (gpSh->m_pShMemng->iMwfwFeatures & (1<<FEATURE_CGICC)) {
         printf("Mwfw CGI/CC is enabled.\n");
     } else {

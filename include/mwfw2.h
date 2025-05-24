@@ -6,6 +6,10 @@
 #ifndef MWFW_H
 #define MWFW_H
 
+#define MWFW_SUPPORT_CRTBIND
+
+
+
 #include "std.h"
 #include "fw-limits.h"
 #include "version.h"
@@ -16,10 +20,12 @@
 #include "testdiscclient.h"
 #include "mutations.h"
 
+//#ifdef MWFW_SUPPORT_CRTBIND
 #ifndef gpCrt
 #include "crtbind.h"
 extern crtbind * gpCrt;
-#endif
+#endif // gpCrt
+//#endif // NWFW_SUPPORT_CRTBIND
 
 #ifndef gpSemiGr
 #include "semigraphics.h"
@@ -151,7 +157,7 @@ enum FEATURESET {
 	FEATURE_CGICC,
 	FEATURE_CGIBIND,
 	FEATURE_CONFIG,
-	FEATURE_CRT,
+	FEATURE_CRTBIND,
 	FEATURE_ENVIRONMENT,
 	FEATURE_HEX,
 	FEATURE_CLOG,
