@@ -19,7 +19,7 @@ SYNOPSIS
 DESCRIPTION
        A  thread's  CPU  affinity  mask determines the set of CPUs on which
        it is eligible to run.  On a multiprocessor system, setting the CPU
-       affinity mask can be used to obtain performance benefits.
+       affinity mask can be used to get performance benefits.
        For example, by dedicating one CPU to a particular thread
        (i.e., setting the affinity mask of that thread to specify a single
        CPU, and setting the affinity mask of all other threads to exclude
