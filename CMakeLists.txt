@@ -66,6 +66,7 @@ add_library( mwfw2 STATIC
 #		htmlbind.cpp			include/htmlbind.h
 		vpadiscclient.cpp		include/vpadiscclient.h
 		vpadiscserver.cpp		include/vpadiscserver.h
+		RTkGPIO.cpp				include/RTkGPIO.h
 )
 
 ########################################################

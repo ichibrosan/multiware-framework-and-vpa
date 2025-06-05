@@ -82,6 +82,7 @@ shared::shared() {
 
     if (bJustCreated) {
         m_pShMemng->iSignature = UNIVERSAL_ANSWER;
+        //strcpy(m_pShMemng->szStatus, "Initial Status OK");
         m_pShMemng->stShMemSize = size;
 
         // gpShmVars->set(SV_RMAJ,"SV_RMAJ",RMAJ);

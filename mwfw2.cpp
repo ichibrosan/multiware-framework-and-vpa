@@ -41,6 +41,7 @@ xinetdctl		* gpXinetd;
 config			* gpConfig;
 iHex			* gpHex;
 //htmlbind        * gpHB;
+RTkGPIO			* gpGPIO;
 
 
 /**
@@ -131,6 +132,10 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 
 	//gpHB = new htmlbind();
 	gpSh->m_pShMemng->iMwfwFeatures = m_iFeatureset;
+
+	gpGPIO = new RTkGPIO();
+
+	m_iFeatureset |= 1 << FEATURE_GPIO;
 }
 
 /**

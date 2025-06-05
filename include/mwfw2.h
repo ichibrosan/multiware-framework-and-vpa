@@ -72,6 +72,11 @@ extern cgibind * gpCgiBind;
 extern dashboard * gpDash;
 #endif
 
+#ifndef gpGPIOF
+#include "RTkGPIO.h"
+extern RTkGPIO * gpGPIOF;
+#endif
+
 #ifndef gpHtml
 #include "cgihtml.h"
 extern cgihtml * gpHtml;
@@ -192,6 +197,7 @@ enum FEATURESET {
 	// FEATURE_DASH,
 	// FEATURE_HTML,
 	// FEATURE_HTML_BIND,
+	FEATURE_GPIO,
 	FEATURE_COUNT
 };
 

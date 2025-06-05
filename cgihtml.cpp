@@ -11,8 +11,42 @@
  */
 cgihtml::cgihtml()
 {
+    /*
+     * Initialize LED Rendering Data
+     */
+    std::string ssImgroot = gpSh->m_pShMemng->szImgRoot;
+    gpSh->m_pShMemng->ssLedColors[LED_OFF] = ssImgroot + "led_off.png";
+    gpSh->m_pShMemng->ssLedColors[LED_BLUE_OFF] = ssImgroot + "led_bluke_off.png";
+    gpSh->m_pShMemng->ssLedColors[LED_BLUE_ON] = ssImgroot + "led_blue_on.png";
+    gpSh->m_pShMemng->ssLedColors[LED_ORANGE_ON] = ssImgroot + "led_orange_on.png";
+    gpSh->m_pShMemng->ssLedColors[LED_PINK_ON] = ssImgroot + "led_pink_on.png";
+    gpSh->m_pShMemng->ssLedColors[LED_RED_ON] = ssImgroot + "led_red_on.png";
+
 }
 
+// imgsrc(image,width,height);
+
+void cgihtml::render_leds() {
+    gpSh->m_pShMemng->bLedON[17] = true;
+    int border=2;
+    open_table(border);
+    for (int row=0;row<4;row++) {
+        std::cout << "<tr>";
+        for (int col=0;col<7;col++) {
+            int ledIndex = (row*7)+col;
+            std::cout << "<td>";
+            if (gpSh->m_pShMemng->bLedON[ledIndex]) {
+                imgsrc("led_blue_on.png",20,20);
+            } else {
+                imgsrc("led_blue_off.png",20,20);
+            }
+            std::cout << "</td>";
+        }
+        std::cout << "</tr>";
+    }
+
+    close_table();
+}
 
 /*******************************************************************************
  * Generates an HTML anchor tag (<a>) with an embedded image.
@@ -416,12 +450,24 @@ void cgihtml::dump_shm_vars()
 {
     char szTemp[BUFSIZ];
 
+    cgihtml();
+
     int border=2;
     open_table(border);
     gpShMemMgr->lockSharedMemory();
 
     std::cout << "<tr><th>iSignature</th><td>";
     std::cout << gpSh->m_pShMemng->iSignature;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>szStatus</th><td>";
+    std::cout << gpSh->m_pShMemng->szStatus;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>m_ssColors[LED_OFF]</th><td>";
+    //std::cout <<  m_ssColors[LED_OFF];
+    //std::cout << m_ssColors[LED_OFF].size(); // "Hello World!!";
+    std::cout << gpSh->m_pShMemng->ssLedColors[LED_OFF];
     std::cout << "</td></tr>";
 
     std::cout << "<tr><th>iMwfwFeatures</th><td>";
@@ -600,7 +646,10 @@ void cgihtml::dump_shm_vars()
     std::cout << "</td></tr>";
     gpShMemMgr->releaseSharedMemory();
 
+    render_leds();
+
     close_table();
+
 }
 
 

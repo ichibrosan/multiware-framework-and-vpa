@@ -26,6 +26,18 @@
 struct MFW_SHMEMNG_T {
     int iSignature;
 
+    char szStatus[128];
+    std::string ssLedColors[6];
+
+    //m_ssColors[LED_OFF] = ssImgroot + "led_off.png";
+    //m_ssColors[LED_BLUE_OFF] = ssImgroot + "led_bluke_off.png";
+    //m_ssColors[LED_BLUE_ON] = ssImgroot + "led_blue_on.png";
+    //m_ssColors[LED_ORANGE_ON] = ssImgroot + "led_orange_on.png";
+    //m_ssColors[LED_PINK_ON] = ssImgroot + "led_pink_on.png";
+    //m_ssColors[LED_RED_ON] = ssImgroot + "led_red_on.png";
+
+
+
     int iMwfwDebug;
     int iMwfwFeatures;
     int iMwfwEvents;
@@ -123,6 +135,9 @@ struct MFW_SHMEMNG_T {
     bool   bDisplayShmVars;
     bool   bDisplayEnvVars;
     bool   bDisplaySchema;
+
+
+    bool   bLedON[4*7];
 
 } *m_pShMemng;
 

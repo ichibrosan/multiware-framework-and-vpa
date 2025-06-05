@@ -5,7 +5,7 @@
 
 #ifndef MULTIWARE_CGIHTML_H
 #define MULTIWARE_CGIHTML_H
-//#include "mwfw2.h"
+#include "mwfw2.h"
 
 
 /**
@@ -31,8 +31,12 @@ class cgihtml {
 	 *
 	 * @return A string containing the generated HTML code.
 	 */
+
+	std::string m_ssColors[NUM_LED_COLORS];
 public:
 	cgihtml();
+
+	void render_leds();
 
 	/**
 	 * Creates a hyperlink in text with the given display text and URL.
@@ -42,6 +46,7 @@ public:
 	 * @return A string containing the formatted hyperlink.
 	 */
 	void ahref(const char *, const char *, int, int);
+
 
 	/**
 	 * @brief Closes the body section of an HTML document.
