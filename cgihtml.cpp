@@ -14,13 +14,9 @@ cgihtml::cgihtml()
     /*
      * Initialize LED Rendering Data
      */
-    std::string ssImgroot = gpSh->m_pShMemng->szImgRoot;
-    gpSh->m_pShMemng->ssLedColors[LED_OFF] = ssImgroot + "led_off.png";
-    gpSh->m_pShMemng->ssLedColors[LED_BLUE_OFF] = ssImgroot + "led_bluke_off.png";
-    gpSh->m_pShMemng->ssLedColors[LED_BLUE_ON] = ssImgroot + "led_blue_on.png";
-    gpSh->m_pShMemng->ssLedColors[LED_ORANGE_ON] = ssImgroot + "led_orange_on.png";
-    gpSh->m_pShMemng->ssLedColors[LED_PINK_ON] = ssImgroot + "led_pink_on.png";
-    gpSh->m_pShMemng->ssLedColors[LED_RED_ON] = ssImgroot + "led_red_on.png";
+
+    strcpy(gpSh->m_pShMemng->szLedOff,"led_off.png");
+    strcpy(gpSh->m_pShMemng->szLedOn,"led_orange_on.png");
 
 }
 
@@ -36,9 +32,9 @@ void cgihtml::render_leds() {
             int ledIndex = (row*7)+col;
             std::cout << "<td>";
             if (gpSh->m_pShMemng->bLedON[ledIndex]) {
-                imgsrc("led_blue_on.png",20,20);
+                imgsrc(gpSh->m_pShMemng->szLedOn,20,20);
             } else {
-                imgsrc("led_blue_off.png",20,20);
+                imgsrc(gpSh->m_pShMemng->szLedOff,20,20);
             }
             std::cout << "</td>";
         }

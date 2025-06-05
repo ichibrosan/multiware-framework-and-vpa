@@ -28,7 +28,10 @@ struct MFW_SHMEMNG_T {
 
     char szStatus[128];
     std::string ssLedColors[6];
+    char szLedOff[128];
+    char szLedOn[128];
 
+    //Colors[6][COLOR_SIZE_MAX];
     //m_ssColors[LED_OFF] = ssImgroot + "led_off.png";
     //m_ssColors[LED_BLUE_OFF] = ssImgroot + "led_bluke_off.png";
     //m_ssColors[LED_BLUE_ON] = ssImgroot + "led_blue_on.png";
