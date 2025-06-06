@@ -13,6 +13,23 @@ using namespace std;
 
 #include "diagnoseMethod.h"
 
+
+
+
+
+void render_leds() {
+    // for (int row=0;row<4;row++) {
+    //     for (int col=0;col<7;col++) {
+    //         int ledIndex = (row*7)+col;
+    //         if (gpSh->m_pShMemng->bLedON[ledIndex]) {
+    //             void RTkGPIO::gpio(char8_t pin, char8_t mode,char8_t state) {
+    //         } else {
+    //             void RTkGPIO::gpio(char8_t pin, char8_t mode,char8_t state) {
+    //         }
+    //     }
+    // }
+}
+
 /**
  * Entry point of the application.
  *
@@ -58,6 +75,8 @@ main(int argc,char ** argv) {
         while (gpSh->m_pShMemng->vpad_running) {
             gpSh->m_pShMemng->vpad_uptime_seconds++;
             sleep(1);
+
+            render_leds();
         }
         return EXIT_SUCCESS;
     } else {
