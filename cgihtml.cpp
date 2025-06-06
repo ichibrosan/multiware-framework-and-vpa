@@ -19,59 +19,248 @@ cgihtml::cgihtml()
 // imgsrc(image,width,height);
 
 void cgihtml::render_leds() {
+    gpGPIO->render();
     int iLedSize = 62;
     int border=1;
     open_table(border);
-    for (int row=0;row<4;row++) {
-        std::cout << "<tr>";
 
-        if (row == 0 || row == 1) {
-            std::cout << "<td>";
-            imgsrc("led_pink.png",iLedSize,iLedSize);
-            std::cout << "</td>";
-        }
-        if (row == 2 || row == 3) {
-            std::cout << "<td>";
-            imgsrc("led_red.png",iLedSize,iLedSize);
-            std::cout << "</td>";
-        }
-
-        for (int col=0;col<7;col++) {
-            int ledIndex = (row*7)+col;
-
-            std::cout << "<td>";
-
-            switch (ledIndex) {
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                    imgsrc("led_blue_off.png",iLedSize,iLedSize);
-                    break;
-                case 21:
-                    imgsrc("led_blue_on.png",iLedSize,iLedSize);
-                    break;
-                case 22:
-                    imgsrc("led_blue_on.png",iLedSize,iLedSize);
-                    break;
-                default:
-                    if (gpSh->m_pShMemng->bLedCntl[ledIndex]) {
-                        imgsrc("led_orange.png",iLedSize,iLedSize);
-                    } else {
-                        imgsrc("led_off.png",iLedSize,iLedSize);
-                    }
-                    break;
-            }
-            std::cout << "</td>";
-        }
-        std::cout << "</tr>";
+    std::cout << "<tr>";
+    std::cout << "<td>";
+    imgsrc("led_pink.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO17]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
     }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO18]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_blue_off.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_blue_off.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_blue_off.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_blue_off.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_blue_off.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "</tr>";
+
+    std::cout << "<tr>";
+    std::cout << "<td>";
+    imgsrc("led_pink.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+     imgsrc("led_blue_off.png",iLedSize,iLedSize);
+   std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_blue_off.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO24]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO25]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO5]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO6]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO16]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "</tr>";
+
+    std::cout << "<tr>";
+    std::cout << "<td>";
+    imgsrc("led_red.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO23]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO22]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_off.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_off.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO12]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO20]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO19]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "</tr>";
+
+    std::cout << "<tr>";
+    std::cout << "<td>";
+    imgsrc("led_red.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_blue_on.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    imgsrc("led_blue_on.png",iLedSize,iLedSize);
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO4]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO27]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO21]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO13]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "<td>";
+    if (gpSh->m_pShMemng->bLedCntl[IO26]) {
+        imgsrc("led_orange.png",iLedSize,iLedSize);
+    } else {
+        imgsrc("led_off.png",iLedSize,iLedSize);
+    }
+    std::cout << "</td>";
+    std::cout << "</tr>";
+
 
     close_table();
 }
+
+// void cgihtml::render_leds2() {
+//     gpGPIO->render();
+//     int iLedSize = 62;
+//     int border=1;
+//     open_table(border);
+//     for (int row=0;row<4;row++) {
+//         std::cout << "<tr>";
+//
+//         if (row == 0 || row == 1) {
+//             std::cout << "<td>";
+//             imgsrc("led_pink.png",iLedSize,iLedSize);
+//             std::cout << "</td>";
+//         }
+//         if (row == 2 || row == 3) {
+//             std::cout << "<td>";
+//             imgsrc("led_red.png",iLedSize,iLedSize);
+//             std::cout << "</td>";
+//         }
+//
+//         for (int col=0;col<7;col++) {
+//             int ledIndex = (row*7)+col;
+//
+//             std::cout << "<td>";
+//
+//             switch (ledIndex) {
+//                 case 2:
+//                 case 3:
+//                 case 4:
+//                 case 5:
+//                 case 6:
+//                 case 7:
+//                 case 8:
+//                     imgsrc("led_blue_off.png",iLedSize,iLedSize);
+//                     break;
+//                 case 21:
+//                     imgsrc("led_blue_on.png",iLedSize,iLedSize);
+//                     break;
+//                 case 22:
+//                     imgsrc("led_blue_on.png",iLedSize,iLedSize);
+//                     break;
+//                 default:
+//                     if (gpSh->m_pShMemng->bLedCntl[ledIndex]) {
+//                         imgsrc("led_orange.png",iLedSize,iLedSize);
+//                     } else {
+//                         imgsrc("led_off.png",iLedSize,iLedSize);
+//                     }
+//                     break;
+//             }
+//             std::cout << "</td>";
+//         }
+//         std::cout << "</tr>";
+//     }
+//
+//     close_table();
+// }
+
+
 
 /*******************************************************************************
  * Generates an HTML anchor tag (<a>) with an embedded image.

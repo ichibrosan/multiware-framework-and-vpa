@@ -74,7 +74,7 @@ extern dashboard * gpDash;
 
 #ifndef gpGPIOF
 #include "RTkGPIO.h"
-extern RTkGPIO * gpGPIOF;
+extern RTkGPIO * gpGPIO;
 #endif
 
 #ifndef gpHtml

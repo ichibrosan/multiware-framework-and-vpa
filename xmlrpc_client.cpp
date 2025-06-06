@@ -108,6 +108,10 @@ main(int argc, char **) {
 
     pWin->render();
 
+    gpGPIO->gpio(IO17P,PIN_MODE_OUTPUT,'1');
+    gpGPIO->gpio(IO18P,PIN_MODE_OUTPUT,'1');
+
+
     delete pWin;
     return 0;
 }

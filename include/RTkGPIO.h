@@ -91,6 +91,10 @@ public:
     RTkGPIO();
     std::string get_version();
     void gpio(char8_t pin, char8_t mode,char8_t state);
+    void set(pinch_t,led_ofs_t);
+    void reset(pinch_t,led_ofs_t);
+
+
     void render();
 
 };
