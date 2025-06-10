@@ -38,6 +38,7 @@ main(int argc, char **) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
     window * pWin = new window();
+    pWin->set_title(argv[0]);
 
     // by default use my local IP
     std::string ssTargetIP = gpSh->m_pShMemng->szIP;

@@ -36,7 +36,7 @@ include_directories(
 # pointers, thereby cleaning up the cluttered application include situation.
 
 add_library( mwfw2 STATIC
-        mwfw2.cpp				include/mwfw2.h
+		include/mwfw2.cpp include/mwfw2.h
 		mutations.cpp			include/mutations.h
 		crtbind.cpp				include/crtbind.h
 		semigraphics.cpp		include/semigraphics.h
@@ -67,6 +67,7 @@ add_library( mwfw2 STATIC
 		vpadiscclient.cpp		include/vpadiscclient.h
 		vpadiscserver.cpp		include/vpadiscserver.h
 		RTkGPIO.cpp				include/RTkGPIO.h
+		vparpc.cpp				include/vparpc.h
 )
 
 ########################################################
@@ -359,23 +360,69 @@ target_link_libraries(testdiscserver
 )
 
 
+add_executable(vparpc_client
+		vparpc_client.cpp		include/vparpc_client.h
+)
+target_link_libraries(vparpc_client
+		mwfw2
+		libxmlrpc_client++.a		# /usr/local/lib
+		libxmlrpc_client.a			# /usr/local/lib
+		libxmlrpc++.a				# /usr/local/lib
+		libxmlrpc_util++.a			# /usr/local/lib
+		libxmlrpc.a					# /usr/local/lib
+		libxmlrpc_xmlparse.a		# /usr/local/lib
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
+		uuid.a
+		libcgicc.a
+)
+
+add_executable(vparpc_server
+		vparpc_server.cpp		include/vparpc_server.h
+)
+target_link_libraries(vparpc_server
+		mwfw2
+		libxmlrpc_client++.a		# /usr/local/lib
+		libxmlrpc_client.a			# /usr/local/lib
+		libxmlrpc++.a				# /usr/local/lib
+		libxmlrpc_util++.a			# /usr/local/lib
+		libxmlrpc.a					# /usr/local/lib
+		libxmlrpc_xmlparse.a		# /usr/local/lib
+		libxmlrpc_xmltok.a
+		libxmlrpc_util.a
+		pthread
+		libcurl.so.4.8.0
+		libxmlrpc_packetsocket.a
+		uuid.a
+		libcgicc.a
+
+)
+
+
+
+
 
 add_executable(xmlrpc_client xmlrpc_client.cpp)
 target_link_directories(xmlrpc_client PRIVATE
-        /opt/xmlrpc-c/src/cpp
-        /opt/xmlrpc-c/src
-        /opt/xmlrpc-c/lib/libutil++
-        /opt/xmlrpc-c/lib/expat/xmlparse
-        /opt/xmlrpc-c/lib/expat/xmltok
-        /opt/xmlrpc-c/lib/libutil)
-target_link_libraries(xmlrpc_client
+		/usr/local/lib
+#        /opt/xmlrpc-c/src/cpp
+#        /opt/xmlrpc-c/src
+#        /opt/xmlrpc-c/lib/libutil++
+#        /opt/xmlrpc-c/lib/expat/xmlparse
+#        /opt/xmlrpc-c/lib/expat/xmltok
+#        /opt/xmlrpc-c/lib/libutil)
+)
+		target_link_libraries(xmlrpc_client
 		mwfw2
-        libxmlrpc_client++.a
-        libxmlrpc_client.a
-        libxmlrpc++.a
-        libxmlrpc_util++.a
-        libxmlrpc.a
-        libxmlrpc_xmlparse.a
+        libxmlrpc_client++.a		# /usr/local/lib
+        libxmlrpc_client.a			# /usr/local/lib
+        libxmlrpc++.a				# /usr/local/lib
+        libxmlrpc_util++.a			# /usr/local/lib
+        libxmlrpc.a					# /usr/local/lib
+        libxmlrpc_xmlparse.a		# /usr/local/lib
         libxmlrpc_xmltok.a
         libxmlrpc_util.a
         pthread

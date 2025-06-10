@@ -8,6 +8,7 @@
 #include "dashboard.h"
 
 #include "stylist.h"
+#include "vparpc.h"
 
 #ifdef MWFW_SUPPORT_CRTBIND
 crtbind			* gpCrt;
@@ -36,6 +37,7 @@ test			* gpTest;
 schemaCompiler	* gpSchCC;
 semigraphics	* gpSemiGr;
 password		* gpPassword;
+vparpc			* gpVpaRpc;
 xinetdctl		* gpXinetd;
 //stylist		* gpStylist;
 config			* gpConfig;
@@ -65,6 +67,8 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 	gpCrt = new crtbind();
 	m_iFeatureset |= 1 << FEATURE_CRTBIND;
 #endif // MWFW_SUPPORT_CRTBIND
+
+	gpVpaRpc = new vparpc();
 
 	gpSemiGr = new semigraphics();
 	m_iFeatureset |= 1 << FEATURE_SEMIGR;

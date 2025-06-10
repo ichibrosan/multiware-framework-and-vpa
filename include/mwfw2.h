@@ -72,7 +72,7 @@ extern cgibind * gpCgiBind;
 extern dashboard * gpDash;
 #endif
 
-#ifndef gpGPIOF
+#ifndef gpGPIO
 #include "RTkGPIO.h"
 extern RTkGPIO * gpGPIO;
 #endif
@@ -145,6 +145,12 @@ extern xinetdctl * gpXinetd;
 #include <xmlrpc-c/girerr.hpp>
 #include <xmlrpc-c/base.hpp>
 #include <xmlrpc-c/client_simple.hpp>
+
+#ifndef gpVpaRpc
+#include "vparpc.h"
+extern vparpc * gpVpaRpc;
+#endif
+
 
 #include "config.h"
 #include "diagnoseDefs.h"
