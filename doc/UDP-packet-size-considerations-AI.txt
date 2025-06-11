@@ -1,0 +1,35 @@
+## UDP Datagram Size Recommendations
+**For UDP packets:**
+- **Safe maximum: 508-512 bytes** of payload data
+- **Theoretical maximum: 65,507 bytes** (65,535 - 8 byte UDP header - 20 byte IP header)
+- **Practical maximum: ~1,472 bytes** for Ethernet networks (1500 MTU - 20 IP - 8 UDP headers)
+
+## Key Considerations
+### 1. **MTU (Maximum Transmission Unit)**
+- Standard Ethernet MTU: **1,500 bytes**
+- This includes all headers, so actual payload is smaller
+- Packets larger than MTU get fragmented, which can cause reliability issues
+
+### 2. **Fragmentation Avoidance**
+- Fragmented packets are more likely to be lost
+- Some networks/firewalls drop fragmented packets
+- Reassembly adds overhead and complexity
+
+### 3. **Network-Specific Limits**
+- **Internet**: 508-512 bytes (safe for all paths)
+- **Local Ethernet**: ~1,472 bytes
+- **Jumbo frames**: Up to 9,000 bytes (specialized networks)
+
+## Best Practices
+1. **For internet applications**: Keep UDP payloads ≤ 512 bytes
+2. **For local networks**: You can use up to ~1,400 bytes safely
+3. **Always implement**: Proper error handling and retransmission if needed
+4. **Consider**: Path MTU Discovery for optimal sizing
+
+## For Your RPC Application
+Given that your code appears to be implementing an RPC client/server system, I'd recommend:
+- **512 bytes maximum** for RPC calls over the internet
+- **1,400 bytes maximum** for local network communication
+- Implement message fragmentation at the application layer if you need larger messages
+
+This ensures maximum compatibility and reliability across different network configurations.

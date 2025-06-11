@@ -1,17 +1,25 @@
-//
-// Created by doug on 6/10/25.
-//
+// vparpc_client.cpp
 
 #include "mwfw2.h"
 
 
 int main(int argc,char **argv) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+
+
+
+    vparpc_request_t request;
+    request.req_version.eFunc = VPARPC_FUNC_VERSION;
+    uuid_t uuid;
+    uuid_generate(uuid);
+    uuid_unparse(uuid,(char *)request.req_version.szUUID);
+
     window * pWin = new window();
 
-    gpSemiGr->cosmetics( SRUL,  SRUR,  SRLL,
-                        SRLR,SVSR,SVSL,
-                        SH,  SV);
+    gpSemiGr->cosmetics(
+        SRUL,  SRUR,  SRLL,
+        SRLR,SVSR,SVSL,
+         SH,  SV);
     std::string ssCopr = "Copyright ";
     ssCopr.append("(c)");
     ssCopr.append(" 2025 Douglas Wade Goodall. All Rights Reserved.");

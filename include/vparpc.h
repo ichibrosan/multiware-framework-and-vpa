@@ -7,6 +7,33 @@
 #ifndef VPARPC_H
 #define VPARPC_H
 
+enum vparpc_func_t {
+    VPARPC_FUNC_NONE = 0,
+    VPARPC_FUNC_VERSION,
+    VPARPC_FUNC_COUNT
+};
+
+
+/*
+ * See doc/UDP-packet-size-considerations-AI.txt
+ */
+
+#define VPARPC_MAX_PAYLOAD_SIZE 512
+
+struct vparpc_request_none_t {
+    vparpc_func_t eFunc;
+    char8_t       szUUID[UUID_SIZE];    // 36+1
+};
+
+struct vparpc_request_version_t {
+    vparpc_func_t eFunc;
+    char8_t       szUUID[UUID_SIZE];    // 36+1
+};
+
+union vparpc_request_t {
+    struct vparpc_request_none_t    req_none;
+    struct vparpc_request_version_t req_version;
+};
 
 
 class vparpc {
