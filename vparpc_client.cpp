@@ -6,6 +6,7 @@
 int main(int argc,char **argv) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
+    std::cout << gpVpaRpc->svc2port("vpa") << std::endl;
 
 
     vparpc_request_t request;
@@ -13,6 +14,12 @@ int main(int argc,char **argv) {
     uuid_t uuid;
     uuid_generate(uuid);
     uuid_unparse(uuid,(char *)request.req_version.szUUID);
+
+    std::string ssIPv4Addr = gpVpaRpc->host2ipv4addr("daphne");
+    gpVpaRpc->vparpc_open(
+        ssIPv4Addr,"vparpc_client",
+        ssIPv4Addr,"vpa");
+
 
     window * pWin = new window();
 

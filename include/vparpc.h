@@ -46,6 +46,7 @@ public:
     int vparpc_open( std::string ssVpaSrcAddr, std::string ssVpaSrcSvc,
                  std::string ssVpaDstAddr, std::string ssVpaDstSvc);
     int svc2port(std::string ssSvcName);
+    std::string host2ipv4addr(const std::string& ssHost);
 };
 
 
