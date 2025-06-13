@@ -26,220 +26,6 @@ vparpc::vparpc() {
 
 
 
-
-//void vparpc::request(int iPort) {
-void vparpc::request(std::string ssHostName,std::string ssServiceName) {
-
-    std::cout << "vparpc::request(" + ssHostName + "," + ssServiceName + ")";
-    std::cout << std::endl;
-
-  #define USE_STREAM_SOCKET
-
-
-    char buf[BUFSIZ];               /* data buffer for sending & receiving */
-    struct hostent *hostnm;         /* server host name information        */
-    struct sockaddr_in server;      /* server address                      */
-    int s;                          /* client socket                       */
-    socklen_t server_address_length = sizeof(server);
-
-    hostnm = gethostbyname(ssHostName.c_str());
-    std::cout << "  hostnm.h_name     is " << hostnm->h_name << std::endl;
-    std::cout << "  hostnm.h_addrtype is " << hostnm->h_addrtype << std::endl;
-    std::cout << "  hostnm.h_length   is " << hostnm->h_length << std::endl;
-    //std::cout << "  hostnm.h_addr_list[0] is " << hostnm->h_addr_list[0] << std::endl;
-    // std::cout << "hostnm.h_addr_list[1] is " << hostnm->h_addr_list[1] << std::endl;
-    // std::cout << "hostnm.h_addr_list[2] is " << hostnm->h_addr_list[2] << std::endl;
-    // std::cout << "hostnm.h_addr_list[3] is " << hostnm->h_addr_list[3] << std::endl;
-    // std::cout << "hostnm.h_addr_list[4] is " << hostnm->h_addr_list[4] << std::endl;
-    // std::cout << "hostnm.h_addr_list[5] is " << hostnm->h_addr_list[5] << std::endl;
-    // std::cout << "hostnm.h_addr_list[6] is " << hostnm->h_addr_list[6] << std::endl;
-    // std::cout << "hostnm.h_addr_list[7] is " << hostnm->h_addr_list[7] << std::endl;
-    // std::cout << "hostnm.h_addr_list[8] is " << hostnm->h_addr_list[8] << std::endl;
-    // std::cout << "hostnm.h_addr_list[9] is " << hostnm->h_addr_list[9] << std::endl;
-    //
-    /*
-     * Put the server information into the server structure.
-     * The port must be put into network byte order.
-     */
-    server.sin_family = AF_INET;    /* Address Family: Internet           */
-    /*
-     * Convert the port number from host to network byte order
-     */
-
-    std::cout << "  svc2port(" << ssServiceName << ")     is " << svc2port(ssServiceName) << std::endl;
-    server.sin_port = htons(svc2port(ssServiceName));
-
-    /*
-     * Set the IP address of the target
-     */
-    server.sin_addr.s_addr = *((unsigned long *) hostnm->h_addr);
-
-    /*
-     * Get a socket.
-     */
-    if ((s = socket(AF_INET,SOCK_STREAM, 0)) < 0) {
-        printf("%s", "socket error");
-        exit(3);
-    }
-
-    /*
-     * Connect to the server.
-     */
-    if (connect(s, (struct sockaddr *) &server, sizeof(server)) < 0) {
-        printf("%s::%s#%d %s",
-            __FILE__,__FUNCTION__,__LINE__,"connect error");
-        exit(4);
-    }
-
-    /*
-     * Send a message to the destination to wake up xinetd
-     */
-    char szBuffer[] = {"GET / HTTP/1.1"};
-    if (send(s, // socket descriptor
-             szBuffer, // output buffer
-             sizeof(szBuffer), // size of output buffer
-             0) < 0) // flags (none required)
-    {
-        printf("%s", "Send error");
-        exit(5);
-    }
-
-    char rxBuffer[BUFSIZ];
-
-    ssize_t bytes_read = recv(s, rxBuffer,BUFSIZ, 0);
-    std::cout << "bytes_read is " << bytes_read << std::endl;
-    if ( bytes_read < 0) {
-        printf("%s", "recv error");
-        exit(6);
-    }
-    if (bytes_read > 0) {
-        std::cout << "rxBuffer is " << rxBuffer << std::endl;
-    }
-
-
-    /*
-     * Close the session and socket
-     */
-    close(s);
-}
-
-void vparpc::response(std::string ssServiceName) {
-
-    std::cout << "vparpc::request(" + ssServiceName + ")";
-    std::cout << std::endl;
-
-    struct sockaddr addr;
-    int sfd, cfd;
-    ssize_t num_read;
-    char buf[BUFSIZ];
-
-    sfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sfd == -1) {
-        perror("socket");
-        exit(1);
-    }
-    
-
-
-
-
-
-
-    
-//  #define USE_STREAM_SOCKET
-
-
-    // char buf[BUFSIZ];               /* data buffer for sending & receiving */
-    // struct hostent *hostnm;         /* server host name information        */
-    // struct sockaddr_in server;      /* server address                      */
-    // int s;                          /* client socket                       */
-    // socklen_t server_address_length = sizeof(server);
-    //
-    // hostnm = gethostbyname(ssHostName.c_str());
-    // std::cout << "  hostnm.h_name     is " << hostnm->h_name << std::endl;
-    // std::cout << "  hostnm.h_addrtype is " << hostnm->h_addrtype << std::endl;
-    // std::cout << "  hostnm.h_length   is " << hostnm->h_length << std::endl;
-    // //std::cout << "  hostnm.h_addr_list[0] is " << hostnm->h_addr_list[0] << std::endl;
-    // // std::cout << "hostnm.h_addr_list[1] is " << hostnm->h_addr_list[1] << std::endl;
-    // // std::cout << "hostnm.h_addr_list[2] is " << hostnm->h_addr_list[2] << std::endl;
-    // // std::cout << "hostnm.h_addr_list[3] is " << hostnm->h_addr_list[3] << std::endl;
-    // // std::cout << "hostnm.h_addr_list[4] is " << hostnm->h_addr_list[4] << std::endl;
-    // // std::cout << "hostnm.h_addr_list[5] is " << hostnm->h_addr_list[5] << std::endl;
-    // // std::cout << "hostnm.h_addr_list[6] is " << hostnm->h_addr_list[6] << std::endl;
-    // // std::cout << "hostnm.h_addr_list[7] is " << hostnm->h_addr_list[7] << std::endl;
-    // // std::cout << "hostnm.h_addr_list[8] is " << hostnm->h_addr_list[8] << std::endl;
-    // // std::cout << "hostnm.h_addr_list[9] is " << hostnm->h_addr_list[9] << std::endl;
-    // //
-    // // /*
-    // //  * Put the server information into the server structure.
-    // //  * The port must be put into network byte order.
-    // //  */
-    // // server.sin_family = AF_INET;    /* Address Family: Internet           */
-    // // /*
-    // //  * Convert the port number from host to network byte order
-    // //  */
-    // //
-    // // std::cout << "  svc2port(" << ssServiceName << ")     is " << svc2port(ssServiceName) << std::endl;
-    // // server.sin_port = htons(svc2port(ssServiceName));
-    // //
-    // // /*
-    // //  * Set the IP address of the target
-    // //  */
-    // // server.sin_addr.s_addr = *((unsigned long *) hostnm->h_addr);
-    // //
-    // // /*
-    // //  * Get a socket.
-    // //  */
-    // // if ((s = socket(AF_INET,SOCK_STREAM, 0)) < 0) {
-    // //     printf("%s", "socket error");
-    // //     exit(3);
-    // // }
-    // //
-    // // /*
-    // //  * Connect to the server.
-    // //  */
-    // // if (connect(s, (struct sockaddr *) &server, sizeof(server)) < 0) {
-    // //     printf("%s::%s#%d %s",
-    // //         __FILE__,__FUNCTION__,__LINE__,"connect error");
-    // //     exit(4);
-    // // }
-    // //
-    // // /*
-    // //  * Send a message to the destination to wake up xinetd
-    // //  */
-    // // char szBuffer[] = {"GET / HTTP/1.1"};
-    // // if (send(s, // socket descriptor
-    // //          szBuffer, // output buffer
-    // //          sizeof(szBuffer), // size of output buffer
-    // //          0) < 0) // flags (none required)
-    // // {
-    // //     printf("%s", "Send error");
-    // //     exit(5);
-    // // }
-    // //
-    // // char rxBuffer[BUFSIZ];
-    // //
-    // // ssize_t bytes_read = recv(s, rxBuffer,BUFSIZ, 0);
-    // // std::cout << "bytes_read is " << bytes_read << std::endl;
-    // // if ( bytes_read < 0) {
-    // //     printf("%s", "recv error");
-    // //     exit(6);
-    // // }
-    // // if (bytes_read > 0) {
-    // //     std::cout << "rxBuffer is " << rxBuffer << std::endl;
-    // // }
-    // //
-    // //
-    // // /*
-    // //  * Close the session and socket
-    // //  */
-    // // close(s);
-}
-
-
-
-
-
 int vparpc::svc2port(std::string ssSvcName) {
     v_pWin->set_title(__PRETTY_FUNCTION__);
 
@@ -352,6 +138,9 @@ std::string vparpc::host2ipv4addr(const std::string& hostname) {
     return ""; // Hostname not found
 }
 
+
+
+
 void vparpc::server(std::string ssService) {
     int iPort = svc2port(ssService);
     std::cout << "vparpc::server() - Starting TCP server on port " + std::to_string(iPort) << std::endl;
@@ -432,8 +221,9 @@ void vparpc::server(std::string ssService) {
             std::cout << "Received " << bytes_received << " bytes: " << buffer << std::endl;
             
             // Prepare response
-            std::string response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!";
-            
+            //std::string response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!";
+            std::string response = "This is the response";
+
             // Send response
             if (send(client_fd, response.c_str(), response.length(), 0) < 0) {
                 perror("send failed");
@@ -451,6 +241,72 @@ void vparpc::server(std::string ssService) {
     close(server_fd);
 }
 
+void vparpc::client(std::string ssHostName, std::string ssServiceName, const std::string& packet) {
+    std::cout << "vparpc::client(" + ssHostName + "," + ssServiceName + ")" << std::endl;
+    
+    int client_fd;
+    struct sockaddr_in server_addr;
+    struct hostent *host_entry;
+    char response_buffer[BUFSIZ];
+    
+    // Get host information
+    host_entry = gethostbyname(ssHostName.c_str());
+    if (host_entry == nullptr) {
+        std::cerr << "Error: Could not resolve hostname " << ssHostName << std::endl;
+        return;
+    }
+    
+    std::cout << "  Host resolved: " << host_entry->h_name << std::endl;
+    
+    // Create socket
+    if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+        perror("socket creation failed");
+        return;
+    }
+    std::cout << "  Client socket created" << std::endl;
+    
+    // Configure server address
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(svc2port(ssServiceName));
+    server_addr.sin_addr.s_addr = *((unsigned long *) host_entry->h_addr);
+    
+    std::cout << "  Connecting to port " << svc2port(ssServiceName) << std::endl;
+    
+    // Connect to server
+    if (connect(client_fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
+        perror("connection failed");
+        close(client_fd);
+        return;
+    }
+    std::cout << "  Connected to server" << std::endl;
+    
+    // Send packet to server
+    ssize_t bytes_sent = send(client_fd, packet.c_str(), packet.length(), 0);
+    if (bytes_sent < 0) {
+        perror("send failed");
+        close(client_fd);
+        return;
+    }
+    std::cout << "  Sent " << bytes_sent << " bytes: " << packet << std::endl;
+    
+    // Clear response buffer
+    memset(response_buffer, 0, BUFSIZ);
+    
+    // Receive response from server
+    ssize_t bytes_received = recv(client_fd, response_buffer, BUFSIZ - 1, 0);
+    if (bytes_received < 0) {
+        perror("recv failed");
+    } else if (bytes_received == 0) {
+        std::cout << "  Server closed connection" << std::endl;
+    } else {
+        response_buffer[bytes_received] = '\0';  // Null-terminate
+        std::cout << "  Received " << bytes_received << " bytes: " << response_buffer << std::endl;
+    }
+    
+    // Close connection
+    close(client_fd);
+    std::cout << "  Client connection closed" << std::endl;
+}
 /////////
 // eof //
 /////////

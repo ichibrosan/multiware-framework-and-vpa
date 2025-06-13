@@ -49,27 +49,13 @@ public:
     vparpc();
 
     void server(std::string ssService);
+    void client(std::string ssHostName, std::string ssServiceName, const std::string& packet);
 
-    void request(std::string ssHostName,std::string ssServiceName);
-    void response(std::string ssServiceName);
-
-    // int vparpc_open( std::string ssVpaSrcAddr, std::string ssVpaSrcSvc,
-    //              std::string ssVpaDstAddr, std::string ssVpaDstSvc);
-    //
-    // int vparpc_open_receiver();
-    //
-    // int vparpc_open_sender();
-    //
-    // int vparpc_send_packet(const void* data, size_t data_len);
-    //
-    // int vparpc_receive_packet(
-    //     void* buffer, size_t buffer_len,
-    //     std::string* sender_addr = nullptr,
-    //     int* sender_port = nullptr);
 
     int svc2port(std::string ssSvcName);
 
     std::string host2ipv4addr(const std::string& ssHost);
+
     void render();
 
 
