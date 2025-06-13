@@ -37,16 +37,42 @@ union vparpc_request_t {
 
 
 class vparpc {
+    window * v_pWin;
     std::string v_ssVpaSrcAddr;
     std::string v_ssVpaSrcPort;
     std::string v_ssVpaDestAddr;
     std::string v_ssVpaDestPort;
+    int v_nListenSocket;  // Socket descriptor for receiving packets
+    int v_nSendSocket;    // Socket descriptor for sending packets
 public:
+
     vparpc();
-    int vparpc_open( std::string ssVpaSrcAddr, std::string ssVpaSrcSvc,
-                 std::string ssVpaDstAddr, std::string ssVpaDstSvc);
+
+    void server(std::string ssService);
+
+    void request(std::string ssHostName,std::string ssServiceName);
+    void response(std::string ssServiceName);
+
+    // int vparpc_open( std::string ssVpaSrcAddr, std::string ssVpaSrcSvc,
+    //              std::string ssVpaDstAddr, std::string ssVpaDstSvc);
+    //
+    // int vparpc_open_receiver();
+    //
+    // int vparpc_open_sender();
+    //
+    // int vparpc_send_packet(const void* data, size_t data_len);
+    //
+    // int vparpc_receive_packet(
+    //     void* buffer, size_t buffer_len,
+    //     std::string* sender_addr = nullptr,
+    //     int* sender_port = nullptr);
+
     int svc2port(std::string ssSvcName);
+
     std::string host2ipv4addr(const std::string& ssHost);
+    void render();
+
+
 };
 
 

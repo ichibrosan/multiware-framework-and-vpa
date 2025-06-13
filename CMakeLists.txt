@@ -36,7 +36,7 @@ include_directories(
 # pointers, thereby cleaning up the cluttered application include situation.
 
 add_library( mwfw2 STATIC
-		include/mwfw2.cpp include/mwfw2.h
+        mwfw2.cpp include/mwfw2.h
 		mutations.cpp			include/mutations.h
 		crtbind.cpp				include/crtbind.h
 		semigraphics.cpp		include/semigraphics.h

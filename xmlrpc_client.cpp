@@ -34,7 +34,7 @@ std::string ssValueRetcode;
  * @return Returns 0 on successful execution.
  */
 int
-main(int argc, char **) {
+main(int argc, char **argv) {
     mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
     window * pWin = new window();

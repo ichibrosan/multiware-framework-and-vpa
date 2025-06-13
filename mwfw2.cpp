@@ -3,12 +3,12 @@
 // Created by doug on 2/2/25.
 //
 
-#include "mwfw2.h"
+#include "include/mwfw2.h"
 
-#include "dashboard.h"
+#include "include/dashboard.h"
 
-#include "stylist.h"
-#include "vparpc.h"
+#include "include/stylist.h"
+#include "include/vparpc.h"
 
 #ifdef MWFW_SUPPORT_CRTBIND
 crtbind			* gpCrt;
