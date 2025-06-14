@@ -7,63 +7,160 @@
 #ifndef VPARPC_H
 #define VPARPC_H
 
+/**
+ * @brief Enumeration of supported VPA RPC function types
+ * 
+ * Defines the various remote procedure call functions available in the VPA RPC system.
+ * Each function represents a specific operation that can be invoked remotely.
+ */
 enum vparpc_func_t {
-    VPARPC_FUNC_NONE = 0,
-    VPARPC_FUNC_GET_AUTH,
-    VPARPC_FUNC_HOST2IPV4ADDR,
-    VPARPC_FUNC_VERSION,
-    VPARPC_FUNC_COUNT
+    VPARPC_FUNC_NONE = 0,        ///< No operation/null function
+    VPARPC_FUNC_GET_AUTH,        ///< Authentication retrieval function
+    VPARPC_FUNC_HOST2IPV4ADDR,   ///< Hostname to IPv4 address resolution function
+    VPARPC_FUNC_VERSION,         ///< Version information retrieval function
+    VPARPC_FUNC_COUNT            ///< Total count of available functions (used for validation)
 };
 
-
-/*
- * See doc/UDP-packet-size-considerations-AI.txt
+/**
+ * @brief Maximum payload size for VPA RPC packets
+ * 
+ * Defines the maximum size in bytes for RPC packet payloads to ensure compatibility
+ * with UDP packet size limitations and network infrastructure constraints.
+ * 
+ * @note See doc/UDP-packet-size-considerations-AI.txt for detailed rationale
  */
-
 #define VPARPC_MAX_PAYLOAD_SIZE 512
 
+/**
+ * @brief Basic RPC request structure for functions requiring no additional parameters
+ * 
+ * Used for simple RPC calls that only need function identification and request tracking.
+ */
 struct vparpc_request_none_t {
-    vparpc_func_t eFunc;
-    char8_t       szUUID[UUID_SIZE];    // 36+1
+    vparpc_func_t eFunc;              ///< Function type identifier
+    char8_t       szUUID[UUID_SIZE];  ///< Unique request identifier (36 chars + null terminator)
 };
 
+/**
+ * @brief RPC request structure for version information requests
+ * 
+ * Specialized request structure for version queries, currently identical to the basic
+ * request but maintained separately for potential future extensions.
+ */
 struct vparpc_request_version_t {
-    vparpc_func_t eFunc;
-    char8_t       szUUID[UUID_SIZE];    // 36+1
+    vparpc_func_t eFunc;              ///< Function type identifier (should be VPARPC_FUNC_VERSION)
+    char8_t       szUUID[UUID_SIZE];  ///< Unique request identifier (36 chars + null terminator)
 };
 
+/**
+ * @brief Union of all possible RPC request structures
+ * 
+ * Provides a unified interface for handling different types of RPC requests
+ * while maintaining type safety and memory efficiency.
+ */
 union vparpc_request_t {
-    struct vparpc_request_none_t    req_none;
-    struct vparpc_request_version_t req_version;
+    struct vparpc_request_none_t    req_none;     ///< Basic request structure
+    struct vparpc_request_version_t req_version;  ///< Version request structure
 };
 
-
+/**
+ * @brief VPA Remote Procedure Call handler class
+ * 
+ * Implements both client and server functionality for VPA RPC communications.
+ * Handles UDP-based network communication, request processing, and response generation.
+ * Supports both synchronous client calls and asynchronous server operation.
+ */
 class vparpc {
-    window * v_pWin;
-    std::string v_ssVpaSrcAddr;
-    std::string v_ssVpaSrcPort;
-    std::string v_ssVpaDestAddr;
-    std::string v_ssVpaDestPort;
-    int v_nListenSocket;  // Socket descriptor for receiving packets
-    int v_nSendSocket;    // Socket descriptor for sending packets
-public:
+private:
+    window * v_pWin;                ///< Pointer to associated window for UI operations
+    std::string v_ssVpaSrcAddr;     ///< Source IP address for network operations
+    std::string v_ssVpaSrcPort;     ///< Source port for network operations
+    std::string v_ssVpaDestAddr;    ///< Destination IP address for client operations
+    std::string v_ssVpaDestPort;    ///< Destination port for client operations
+    int v_nListenSocket;            ///< Socket descriptor for receiving incoming packets
+    int v_nSendSocket;              ///< Socket descriptor for sending outgoing packets
 
+public:
+    /**
+     * @brief Default constructor
+     * 
+     * Initializes the VPA RPC instance with default values.
+     * Sets up internal state but does not establish network connections.
+     */
     vparpc();
 
+    /**
+     * @brief Start RPC server on specified service
+     * 
+     * Initializes and starts the RPC server to listen for incoming requests
+     * on the specified service name/port.
+     * 
+     * @param ssService Service name or port number to bind to
+     * 
+     * @note This method blocks and continuously processes incoming requests
+     */
     void server(std::string ssService);
+
+    /**
+     * @brief Process incoming RPC request buffer
+     * 
+     * Parses and processes an incoming RPC request, generating an appropriate response.
+     * Handles function dispatch and parameter validation.
+     * 
+     * @param pszBuffer Pointer to buffer containing the RPC request data
+     * @return std::string Response data to be sent back to the client
+     * 
+     * @note Buffer must contain a valid RPC request structure
+     */
     std::string process(char * pszBuffer);
+
+    /**
+     * @brief Send RPC request to remote server
+     * 
+     * Establishes connection to remote RPC server and sends the specified packet.
+     * Handles client-side communication including connection setup and data transmission.
+     * 
+     * @param ssHostName Target hostname or IP address
+     * @param ssServiceName Target service name or port number
+     * @param packet RPC request packet data to send
+     * 
+     * @note This method handles synchronous communication with the remote server
+     */
     void client(std::string ssHostName, std::string ssServiceName, const std::string& packet);
 
-
+    /**
+     * @brief Convert service name to port number
+     * 
+     * Resolves a service name to its corresponding port number using system
+     * service resolution mechanisms (e.g., /etc/services, DNS SRV records).
+     * 
+     * @param ssSvcName Service name to resolve
+     * @return int Port number corresponding to the service, or -1 if resolution fails
+     */
     int svc2port(std::string ssSvcName);
 
+    /**
+     * @brief Resolve hostname to IPv4 address
+     * 
+     * Performs DNS resolution to convert a hostname to its corresponding IPv4 address.
+     * Supports both hostname resolution and validation of IP address strings.
+     * 
+     * @param ssHost Hostname or IP address string to resolve
+     * @return std::string IPv4 address in dotted decimal notation, or empty string on failure
+     * 
+     * @note This function may block during DNS resolution
+     */
     std::string host2ipv4addr(const std::string& ssHost);
 
+    /**
+     * @brief Render RPC status and statistics
+     * 
+     * Updates the associated window with current RPC status information,
+     * connection statistics, and operational state for monitoring purposes.
+     * 
+     * @note Requires valid v_pWin pointer for display operations
+     */
     void render();
-
-
 };
-
-
 
 #endif //VPARPC_H
