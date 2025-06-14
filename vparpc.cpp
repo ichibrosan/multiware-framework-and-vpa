@@ -27,6 +27,94 @@
 vparpc::vparpc() {
 }
 
+
+std::string vparpc::process(char * pszBuffer) {
+    auto * pWin = new window();
+    pWin->set_title("vparpc::process()");
+    gpSemiGr->cosmetics(
+        SRUL,  SRUR,  SRLL,
+        SRLR,  SVSR,  SVSL,
+        SH,    SV);
+
+
+    std::string ssBuffer;
+
+    int off=0;
+    if (pszBuffer[off++] != '/') {
+        return "Error - leading / not present";
+    }
+
+    char szFunc[3+1];
+    strncpy(szFunc,&pszBuffer[off],3);
+    szFunc[3] = 0;
+    if (0 != strcmp("get",szFunc)) {
+        return "Error - func != get";
+    }
+    off += 3;
+
+    if (pszBuffer[off++] != '(') {
+        return "Error - leading ( not present";
+    }
+
+    char szOid[3+1];
+    strncpy(szOid,&pszBuffer[off],3);
+    szOid[3] = 0;
+    if (0 != strcmp("oid",szOid)) {
+        return "Error - oid != oid";
+    }
+    off += 3;
+
+    if (pszBuffer[off++] != '=') {
+        return "Error - leading = not present";
+    }
+
+
+    char szOidName[4+1];
+    strncpy(szOidName,&pszBuffer[off],4);
+    szOidName[4] = 0;
+    if (0 != strcmp("auth",szOidName)) {
+        return "Error - oid != auth";
+    }
+    off += 4;
+
+    if (pszBuffer[off++] != ',') {
+        return "Error - leading , not present";
+    }
+
+    char szParm[4+1];
+    strncpy(szParm,&pszBuffer[off],4);
+    szParm[4] = 0;
+    if (0 != strcmp("parm",szParm)) {
+        return "Error - oid != parm";
+    }
+    off += 4;
+    if (pszBuffer[off++] != '=') {
+        return "Error - leading = not present";
+    }
+
+    char szParmPSK[34+1];
+    strncpy(szParmPSK,&pszBuffer[off],34);
+    szParmPSK[32] = 0;
+
+    if (0 == strcmp(szParmPSK,CFG_VPA_RPC_PSK)) {
+        strcpy(pszBuffer,gpSh->m_pShMemng->szRpcUuid);
+        std::string ssRow = "response: ";
+        ssRow.append(pszBuffer);
+        pWin->add_row(ssRow);
+    }
+
+
+    pWin->render();
+    return pszBuffer;
+}
+
+
+
+
+
+
+
+
 /*******************************************************
       ####   ######  #####   #    #  ######  #####
      #       #       #    #  #    #  #       #    #
@@ -153,14 +241,10 @@ void vparpc::server(std::string ssService) {
             buffer[bytes_received] = '\0';  // Null-terminate the received data
             pWin->add_row("  Received "+std::to_string(bytes_received)+" bytes: "+buffer);
 
-            // Process client commands and generate responses
-            if (0 == strcmp("/GET version", buffer)) {
-                response = RSTRING;  // Application version string
-            }
-
-            if (0 == strcmp("/GET szRpcUuid", buffer)) {
-                response = gpSh->m_pShMemng->szRpcUuid;  // RPC UUID from shared memory
-            }
+            response = process(buffer);
+            // if (0 == strcmp("/GET szRpcUuid", buffer)) {
+            //     response = gpSh->m_pShMemng->szRpcUuid;  // RPC UUID from shared memory
+            // }
 
             // Send response back to client
             ssize_t bytes_sent = send(client_fd, response.c_str(), response.length(), 0);

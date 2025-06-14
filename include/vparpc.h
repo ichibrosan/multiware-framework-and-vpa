@@ -9,6 +9,8 @@
 
 enum vparpc_func_t {
     VPARPC_FUNC_NONE = 0,
+    VPARPC_FUNC_GET_AUTH,
+    VPARPC_FUNC_HOST2IPV4ADDR,
     VPARPC_FUNC_VERSION,
     VPARPC_FUNC_COUNT
 };
@@ -49,6 +51,7 @@ public:
     vparpc();
 
     void server(std::string ssService);
+    std::string process(char * pszBuffer);
     void client(std::string ssHostName, std::string ssServiceName, const std::string& packet);
 
 

@@ -218,14 +218,10 @@ int main(int argc, char **argv) {
      * @note The "/GET szRpcUuid" command is used here to demonstrate
      *       retrieval of the server's unique identifier for this RPC session
      */
-    std::string ssBuffer = "/GET szRpcUuid";  // Active command
-    
-    /**
-     * Alternative command for reference (commented out):
-     * This shows how to request version information instead of UUID.
-     */
-    // std::string ssAlternative = "/GET version";
-    
+    std::string ssBuffer = "/get(oid=auth,parm=";
+    ssBuffer.append(CFG_VPA_RPC_PSK);
+    ssBuffer.append(")/");
+
     /**
      * Execute RPC client request to remote server.
      * 
@@ -337,11 +333,10 @@ int main(int argc, char **argv) {
  * All RPC commands follow the format: `/GET <resource>`
  * 
  * ## Supported Commands
- * | Command | Description | Response |
- * |---------|-------------|----------|
- * | `/GET version` | Server version info | Version string |
- * | `/GET szRpcUuid` | Unique session ID | UUID string |
- * 
+ * | Command                     | Description    | Response   |
+ * | `/get(oid=auth,parm=<PSK>/` | Get Auth Token | <AUTHUUID> |
+ *
+ *
  * ## Communication Flow
  * 1. Client connects to server TCP socket
  * 2. Client sends command string
@@ -354,3 +349,4 @@ int main(int argc, char **argv) {
  * - Invalid commands: Server may return error message
  * - Connection timeout: Handled by system TCP stack
  */
+
