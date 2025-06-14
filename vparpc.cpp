@@ -134,9 +134,16 @@ std::string vparpc::host2ipv4addr(const std::string& hostname) {
 
 
 void vparpc::server(std::string ssService) {
+    auto * pWin = new window();
+    gpSemiGr->cosmetics( SRUL,  SRUR,  SRLL,
+                    SRLR,SVSR,SVSL,
+                    SH,  SV);
+
     int iPort = svc2port(ssService);
-    std::cout << "vparpc::server() - Starting TCP server on port " + std::to_string(iPort) << std::endl;
-    
+
+
+    std::string ssSine = "vparpc::server() - Starting TCP server on port " + std::to_string(iPort);
+    pWin->set_title(ssSine);
     int server_fd, client_fd;
     struct sockaddr_in server_addr, client_addr;
     socklen_t client_addr_len = sizeof(client_addr);
@@ -145,10 +152,11 @@ void vparpc::server(std::string ssService) {
     // Create socket
     if ((server_fd =
             socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        perror("socket creation failed");
+        pWin->add_row("  Error: socket creation failed");
+        pWin->render();
         return;
     }
-    std::cout << "Server socket created" << std::endl;
+    pWin->add_row("  Server socket created");
 
     // Set socket options to reuse address
     int opt = 1;
@@ -157,11 +165,13 @@ void vparpc::server(std::string ssService) {
                    SO_REUSEADDR,
                    &opt,
                    sizeof(opt)) < 0) {
-        perror("setsockopt failed");
+        pWin->add_row("  Error: setsockopt failed");
+        pWin->render();
         close(server_fd);
         return;
     }
-    std::cout << "Socket options set" << std::endl;
+
+    pWin->add_row("  Socket options set");
 
     
     // Configure server address
@@ -173,11 +183,13 @@ void vparpc::server(std::string ssService) {
     if (bind(server_fd,
              (struct sockaddr*)&server_addr,
              sizeof(server_addr)) < 0) {
-        perror("bind failed");
+        pWin->add_row("  Error: bind failed");
+        pWin->render();
         close(server_fd);
         return;
     }
-    std::cout << "Server bound to port " << iPort << std::endl;
+
+    pWin->add_row("  Server bound to port "+ std::to_string(iPort) );
 
     // Start listening for connections
     if (listen(server_fd, 5) < 0) {
@@ -186,47 +198,61 @@ void vparpc::server(std::string ssService) {
         return;
     }
     
-    std::cout << "Server listening on port " << iPort << "..." << std::endl;
+    pWin->add_row("Server listening on port " + std::to_string(iPort));
     
     // Main server loop
     while (true) {
+        auto * pWin = new window();
+
+        pWin->set_title("  Main server loop");
+
         // Accept incoming connection
         if ((client_fd = accept(server_fd, (struct sockaddr*)&client_addr, &client_addr_len)) < 0) {
-            perror("accept failed");
+            pWin->add_row("  Error: accept failed");
             continue;  // Continue to next iteration on error
         }
         
-        std::cout << "Client connected from " << inet_ntoa(client_addr.sin_addr) 
-                  << ":" << ntohs(client_addr.sin_port) << std::endl;
-        
+        std::string ssClientAddr = inet_ntoa(client_addr.sin_addr);
+        std::string ssClientPort = std::to_string(ntohs(client_addr.sin_port));
+        std::string ssClient = ssClientAddr + ":" + ssClientPort;
+        pWin->add_row("  Client connected from " + ssClient);
+
+
+
+
         // Clear buffer
         memset(buffer, 0, BUFSIZ);
         
         // Receive data from client
         ssize_t bytes_received = recv(client_fd, buffer, BUFSIZ - 1, 0);
         if (bytes_received < 0) {
-            perror("recv failed");
+            pWin->add_row("  Error: recv failed");
         } else if (bytes_received == 0) {
-            std::cout << "Client disconnected" << std::endl;
+            pWin->add_row("  Error: Client disconnected");
         } else {
             buffer[bytes_received] = '\0';  // Null-terminate the received data
-            std::cout << "Received " << bytes_received << " bytes: " << buffer << std::endl;
-            
+            pWin->add_row("  Received "+std::to_string(bytes_received)+" bytes: "+buffer);
+
             // Prepare response
             //std::string response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!";
             std::string response = "This is the response";
 
             // Send response
-            if (send(client_fd, response.c_str(), response.length(), 0) < 0) {
-                perror("send failed");
+            ssize_t bytes_sent = send(client_fd, response.c_str(), response.length(), 0);
+            pWin->add_row("  Sent     "+std::to_string(bytes_sent)+" bytes: "+response.c_str());
+
+            if (bytes_sent < 0) {
+                pWin->add_row("  Error: send failed");
             } else {
-                std::cout << "Response sent to client" << std::endl;
+                pWin->add_row("  Response sent to client");
             }
         }
         
         // Close client connection
         close(client_fd);
-        std::cout << "Client connection closed" << std::endl;
+        pWin->add_row("  Client connection closed");
+        pWin->render();
+        delete pWin;
     }
     
     // Close server socket (this won't be reached in the current implementation)
@@ -235,7 +261,8 @@ void vparpc::server(std::string ssService) {
 
 void vparpc::client(std::string ssHostName, std::string ssServiceName, const std::string& packet) {
 
-    auto * pWin = new window();    gpSemiGr->cosmetics( SRUL,  SRUR,  SRLL,
+    auto * pWin = new window();
+    gpSemiGr->cosmetics( SRUL,  SRUR,  SRLL,
                         SRLR,SVSR,SVSL,
                         SH,  SV);
     std::string ssCopr = "Copyright ";
@@ -315,8 +342,5 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, const std
     pWin->render();
 }
 /////////
-///
-///
-///
 // eof //
 /////////

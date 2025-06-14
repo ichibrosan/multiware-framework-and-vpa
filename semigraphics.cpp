@@ -50,7 +50,7 @@ void semigraphics::cosmetics(std::string ssUL,std::string ssUR,
  * @param height The overall height of the box, excluding the height of the top and bottom borders.
  */
 void semigraphics::singlebox(int line, int col, int width, int height) {
-    gpCrt->crtlc(line,col);
+////    gpCrt->crtlc(line,col);
 
 
     // Top line of box
@@ -103,7 +103,7 @@ void semigraphics::topline(int line, int col, int width, int height) {
             line,col,width,height);
     gpSysLog->loginfo(szTemp);
 
-    gpCrt->crtlc(line,col);
+////    gpCrt->crtlc(line,col);
 
     // Top line of box
     std::cout << m_ssUL;
@@ -160,7 +160,7 @@ void semigraphics::vert_splitter(int line, int col, int width, int height) {
     gpSysLog->loginfo(szTemp);
 
 
-    gpCrt->crtlc(line,col);
+////    gpCrt->crtlc(line,col);
 
     std::cout << m_ssVSR;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
