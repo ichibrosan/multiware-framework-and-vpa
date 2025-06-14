@@ -216,10 +216,10 @@ void dashboard::navbar(
     std::string ssUsername, std::string ssPassword) {
     process_toggles(ssCgiName, ssUsername, ssPassword, handle);
 
-    if (buttons & JOURNAL) {
-        std::string ssCgiJournal = form_cgi("journal.cgi", handle);
-        gpHtml->ahref(ssCgiJournal.c_str(), "btn_journal.png", 150, 38);
-    }
+    // if (buttons & JOURNAL) {
+    //     std::string ssCgiJournal = form_cgi("journal.cgi", handle);
+    //     gpHtml->ahref(ssCgiJournal.c_str(), "btn_journal.png", 150, 38);
+    // }
     if (buttons & LOGOUT) {
         std::string ssCgiLogout = form_cgi("logout.cgi", handle);
         gpHtml->ahref(ssCgiLogout.c_str(), "btn_logout.png", 150, 38);
@@ -326,6 +326,9 @@ void dashboard::navbar(
             gpHtml->ahref(ssCgiMenu.c_str(), "btn_plus_envvars.png", 150, 38);
         }
 #endif // SHOW_ENVVAR_BUTTONS
+
+        gpHtml->ahref("http://127.0.0.1/~doug/fw/html/project.html", "btn_doc.png", 150, 38);
+
     }
 }
 
