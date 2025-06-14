@@ -58,7 +58,7 @@ int main(int argc,char **argv) {
     // std::cout << "Packet contents are " << std::endl;
     // std::cout << buffer << std::endl;
 
-    gpVpaRpc->server("vpa");
+    gpVpaRpc->server("vparpc");
 
     return 0;
 

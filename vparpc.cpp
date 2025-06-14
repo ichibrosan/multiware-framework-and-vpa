@@ -20,17 +20,11 @@
 
 
 vparpc::vparpc() {
-    v_pWin = new window();
-    v_pWin->set_title(__PRETTY_FUNCTION__);
 }
 
 
 
 int vparpc::svc2port(std::string ssSvcName) {
-    v_pWin->set_title(__PRETTY_FUNCTION__);
-
-    std::string ssTemp = "vparpc::svc2port(" + ssSvcName + ")";
-    v_pWin->add_row(ssTemp);
 
 
     struct servent *serviceEntry;
@@ -56,8 +50,6 @@ int vparpc::svc2port(std::string ssSvcName) {
 
 
 std::string vparpc::host2ipv4addr(const std::string& hostname) {
-    v_pWin->add_row(__PRETTY_FUNCTION__);
-    v_pWin->add_row(" hostname is " + hostname);
 
     // First check if the input is already an IPv4 address
     std::regex ipv4_regex(R"(^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$)");
@@ -175,7 +167,7 @@ void vparpc::server(std::string ssService) {
     // Configure server address
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;  // Listen on all interfaces
-    server_addr.sin_port = htons(5164);
+    server_addr.sin_port = htons(iPort);
     
     // Bind socket to address and port
     if (bind(server_fd,
@@ -185,7 +177,7 @@ void vparpc::server(std::string ssService) {
         close(server_fd);
         return;
     }
-    std::cout << "Server bound to port 5164" << std::endl;
+    std::cout << "Server bound to port " << iPort << std::endl;
 
     // Start listening for connections
     if (listen(server_fd, 5) < 0) {
@@ -194,7 +186,7 @@ void vparpc::server(std::string ssService) {
         return;
     }
     
-    std::cout << "Server listening on port 5164..." << std::endl;
+    std::cout << "Server listening on port " << iPort << "..." << std::endl;
     
     // Main server loop
     while (true) {
@@ -242,53 +234,65 @@ void vparpc::server(std::string ssService) {
 }
 
 void vparpc::client(std::string ssHostName, std::string ssServiceName, const std::string& packet) {
-    std::cout << "vparpc::client(" + ssHostName + "," + ssServiceName + ")" << std::endl;
-    
+
+    auto * pWin = new window();    gpSemiGr->cosmetics( SRUL,  SRUR,  SRLL,
+                        SRLR,SVSR,SVSL,
+                        SH,  SV);
+    std::string ssCopr = "Copyright ";
+    ssCopr.append("(c)");
+    ssCopr.append(" 2025 Douglas Wade Goodall. All Rights Reserved.");
+    pWin->set_title("vparpc::client(" + ssHostName + "," + ssServiceName + ")");
+
     int client_fd;
     struct sockaddr_in server_addr;
     struct hostent *host_entry;
-    char response_buffer[BUFSIZ];
+    char response_buffer[BUFSIZ];       // BUFSIZ = 8192
     
     // Get host information
     host_entry = gethostbyname(ssHostName.c_str());
     if (host_entry == nullptr) {
-        std::cerr << "Error: Could not resolve hostname " << ssHostName << std::endl;
+        pWin->add_row(" Error: Could not resolve hostname "+ssHostName);
+        pWin->render();
         return;
     }
     
-    std::cout << "  Host resolved: " << host_entry->h_name << std::endl;
-    
+    //std::cout << "  Host resolved: " << host_entry->h_name << std::endl;
+    pWin->add_row("  Host resolved: "+ssHostName);
+
     // Create socket
     if ((client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        perror("socket creation failed");
+        pWin->add_row(" Error: socket creation failed");
+        pWin->render();
         return;
     }
-    std::cout << "  Client socket created" << std::endl;
-    
+    pWin->add_row("  Client socket created");
+
     // Configure server address
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(svc2port(ssServiceName));
     server_addr.sin_addr.s_addr = *((unsigned long *) host_entry->h_addr);
     
-    std::cout << "  Connecting to port " << svc2port(ssServiceName) << std::endl;
-    
+    pWin->add_row("  Connecting to port "+std::to_string(svc2port(ssServiceName)));
+
     // Connect to server
     if (connect(client_fd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
-        perror("connection failed");
+        pWin->add_row(" Error: connection failed");
         close(client_fd);
         return;
     }
-    std::cout << "  Connected to server" << std::endl;
+    pWin->add_row("  Connected to server");
     
     // Send packet to server
     ssize_t bytes_sent = send(client_fd, packet.c_str(), packet.length(), 0);
     if (bytes_sent < 0) {
-        perror("send failed");
+        pWin->add_row(" Error: send failed");
         close(client_fd);
+        pWin->render();
         return;
     }
-    std::cout << "  Sent " << bytes_sent << " bytes: " << packet << std::endl;
-    
+    //std::string ssBytesSent = " Sent  Bytes sent "+std::to_string(bytes_sent);
+    pWin->add_row("  Sent     "+std::to_string(bytes_sent)+" bytes: "+packet);
+
     // Clear response buffer
     memset(response_buffer, 0, BUFSIZ);
     
@@ -300,13 +304,19 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, const std
         std::cout << "  Server closed connection" << std::endl;
     } else {
         response_buffer[bytes_received] = '\0';  // Null-terminate
-        std::cout << "  Received " << bytes_received << " bytes: " << response_buffer << std::endl;
+        //std::cout << "  Received " << bytes_received << " bytes: " << response_buffer << std::endl;
+        pWin->add_row("  Received "+std::to_string(bytes_received)+" bytes: "+response_buffer);
+
     }
     
     // Close connection
     close(client_fd);
-    std::cout << "  Client connection closed" << std::endl;
+    pWin->add_row("  Client connection closed");
+    pWin->render();
 }
 /////////
+///
+///
+///
 // eof //
 /////////
