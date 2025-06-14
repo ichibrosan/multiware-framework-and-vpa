@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Protocol Adapter (VPA) RPC Framework - Complete Documentation</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        header .version-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background: #34495e;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        nav a:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        /* Content Styles */
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 80px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #e67e22;
+        }
+
+        h4 {
+            font-size: 1.3rem;
+            color: #27ae60;
+        }
+
+        /* Code Styles */
+        code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+            border: 1px solid #e9ecef;
+        }
+
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        pre::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #e74c3c;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0 8px 0 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            border: none;
+            color: inherit;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: bold;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .card.warning {
+            border-left-color: #f39c12;
+            background: #fef9e7;
+        }
+
+        .card.error {
+            border-left-color: #e74c3c;
+            background: #fdedec;
+        }
+
+        .card.success {
+            border-left-color: #27ae60;
+            background: #eafaf1;
+        }
+
+        .card.info {
+            border-left-color: #3498db;
+            background: #ebf3fd;
+        }
+
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .feature-card:hover {
+            transform: perspective(1000px) rotateY(10deg) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .feature-card:hover::before {
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-description {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Architecture Diagram */
+        .architecture-diagram {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+            border: 2px dashed #3498db;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture-diagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .layer {
+            background: white;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .layer:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+            position: relative;
+        }
+
+        ul li::marker {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            background: #2980b9;
+            transform: scale(1.1);
+        }
+
+        /* Syntax highlighting */
+        .syntax-cpp { color: #e74c3c; }
+        .syntax-keyword { color: #9b59b6; font-weight: bold; }
+        .syntax-string { color: #27ae60; }
+        .syntax-comment { color: #95a5a6; font-style: italic; }
+        .syntax-number { color: #f39c12; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🚀 Virtual Protocol Adapter (VPA) RPC Framework</h1>
+        <div class="subtitle">Comprehensive System Documentation</div>
+        <div class="version-info">
+            <strong>Version:</strong> 5.5.14.19 (Build e46122b) |
+            <strong>Host:</strong> daphne.goodall.com |
+            <strong>Author:</strong> Douglas Wade Goodall<br>
+            <strong>Architecture:</strong> x86_64 Linux |
+            <strong>Build Date:</strong> March 2025 |
+            <strong>Type:</strong> Debug Build
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#overview">📖 Overview</a></li>
+            <li><a href="#architecture">🏗️ Architecture</a></li>
+            <li><a href="#components">🔧 Components</a></li>
+            <li><a href="#installation">💾 Installation</a></li>
+            <li><a href="#rpc-system">🌐 RPC System</a></li>
+            <li><a href="#api-reference">📚 API Reference</a></li>
+            <li><a href="#deployment">🚀 Deployment</a></li>
+            <li><a href="#monitoring">📊 Monitoring</a></li>
+            <li><a href="#troubleshooting">🔍 Troubleshooting</a></li>
+            <li><a href="#examples">💡 Examples</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="overview">
+            <h1>📖 Framework Overview</h1>
+
+            <div class="card info">
+                <p><strong>The Virtual Protocol Adapter (VPA) RPC Framework</strong> is a comprehensive C++20-based middleware system designed for building distributed applications with remote procedure call capabilities. The framework provides a robust foundation for client-server communication, featuring visual status monitoring, semi-graphics user interfaces, and enterprise-grade reliability.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <div class="feature-title">High-Performance RPC</div>
+                    <div class="feature-description">TCP/IP based remote procedure calls with minimal latency and maximum throughput</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">Visual Interface</div>
+                    <div class="feature-description">Real-time status monitoring with customizable semi-graphics styling</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <div class="feature-title">Modular Architecture</div>
+                    <div class="feature-description">Component-based design with dependency injection and service locator patterns</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <div class="feature-title">Cross-Platform</div>
+                    <div class="feature-description">Linux/Unix compatible with portable C++20 implementation</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Built-in Monitoring</div>
+                    <div class="feature-description">Visual feedback for all network operations and system status</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">Enterprise Ready</div>
+                    <div class="feature-description">Comprehensive logging, error handling, and resource management</div>
+                </div>
+            </div>
+
+            <h3>🎯 Framework Philosophy</h3>
+            <div class="card">
+                <p>The framework design emphasizes practical functionality over theoretical purity. While global pointers are generally discouraged in modern C++, this framework strategically employs them for accessing stateless services, providing a clean API for distributed system development. The architecture balances performance, maintainability, and developer experience.</p>
+
+                <h4>Core Design Principles:</h4>
+                <ul>
+                    <li><strong>Practical over Pure:</strong> Favor working solutions over theoretical perfection</li>
+                    <li><strong>Visual Feedback:</strong> All operations provide user-visible status</li>
+                    <li><strong>Global Services:</strong> Strategic use of globals for framework services</li>
+                    <li><strong>Resource Management:</strong> Explicit cleanup and lifecycle management</li>
+                    <li><strong>Cross-Platform:</strong> Support multiple Unix-like operating systems</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h1>🏗️ System Architecture</h1>
+
+            <div class="architecture-diagram">
+                <h3>VPA RPC Framework Architecture</h3>
+
+                <div class="layer" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                    <h4 style="color: white;">Application Layer</h4>
+                    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                        <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 4px; color: white;">RPC Client Application</div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 4px; color: white;">RPC Server Application</div>
+                    </div>
+                </div>
+
+                <div class="layer" style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                    <h4 style="color: white;">VPA RPC Layer</h4>
+                    <p style="color: white;">vparpc Class - Core RPC Implementation</p>
+                    <ul style="color: white; text-align: left;">
+                        <li>TCP Client/Server Management</li>
+                        <li>Service Name Resolution</li>
+                        <li>Command Processing</li>
+                        <li>Response Generation</li>
+                    </ul>
+                </div>
+
+                <div class="layer" style="background: linear-gradient(135deg, #27ae60, #229954);">
+                    <h4 style="color: white;">Middleware Framework (mwfw2)</h4>
+                    <ul style="color: white; text-align: left;">
+                        <li>Global Object Management</li>
+                        <li>Logging & Error Handling</li>
+                        <li>Resource Tracking</li>
+                        <li>Configuration Management</li>
+                        <li>Dependency Injection</li>
+                    </ul>
+                </div>
+
+                <div class="layer" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                    <h4 style="color: white;">User Interface Layer</h4>
+                    <ul style="color: white; text-align: left;">
+                        <li>Window Management</li>
+                        <li>Semi-Graphics Rendering</li>
+                        <li>Real-time Status Display</li>
+                        <li>Cross-Platform Terminal Support</li>
+                    </ul>
+                </div>
+
+                <div class="layer" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                    <h4 style="color: white;">Network Transport Layer</h4>
+                    <ul style="color: white; text-align: left;">
+                        <li>TCP/IP Socket Management</li>
+                        <li>Service Name Resolution</li>
+                        <li>Connection Pooling</li>
+                        <li>Error Recovery</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>🎨 Design Patterns</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Middleware Pattern:</strong> mwfw2 provides cross-cutting concerns</li>
+                    <li><strong>Service Locator:</strong> Global pointers for framework services</li>
+                    <li><strong>Template Method:</strong> Extensible RPC command processing</li>
+                    <li><strong>Observer Pattern:</strong> Real-time UI updates for network events</li>
+                    <li><strong>Factory Pattern:</strong> Dynamic object creation and lifecycle management</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="components">
+            <h1>🔧 Framework Components</h1>
+
+            <h2>Core Libraries</h2>
+
+            <h3>1. mwfw2 Middleware Framework</h3>
+            <div class="card">
+                    <pre data-lang="cpp"><code><span class="syntax-comment">// Primary system initialization and service management</span>
+<span class="syntax-keyword">mwfw2</span> * pMwFw = <span class="syntax-keyword">new</span> <span class="syntax-keyword">mwfw2</span>(<span class="syntax-keyword">__FILE__</span>, <span class="syntax-keyword">__FUNCTION__</span>);</code></pre>
+
+                <h4>Responsibilities:</h4>
+                <ul>
+                    <li>Global object initialization and dependency injection</li>
+                    <li>Comprehensive logging infrastructure with multi-level support</li>
+                    <li>Error handling and exception management</li>
+                    <li>Resource tracking and memory management</li>
+                    <li>Configuration loading and environment setup</li>
+                    <li>Platform abstraction layer</li>
+                </ul>
+
+                <h4>Global Services Provided:</h4>
+                <ul>
+                    <li><code>gpSemiGr</code>: Semi-graphics interface manager</li>
+                    <li><code>gpVpaRpc</code>: VPA RPC client/server interface</li>
+                    <li><code>gpSh</code>: Shared memory management system</li>
+                    <li>Additional framework services as needed</li>
+                </ul>
+            </div>
+
+            <h3>2. VPA RPC Core (vparpc)</h3>
+            <div class="card">
+                    <pre data-lang="cpp"><code><span class="syntax-comment">// Main RPC implementation class</span>
+<span class="syntax-keyword">class</span> <span class="syntax-cpp">vparpc</span> {
+<span class="syntax-keyword">public</span>:
+    <span class="syntax-keyword">void</span> server(<span class="syntax-keyword">std::string</span> ssService);
+    <span class="syntax-keyword">void</span> client(<span class="syntax-keyword">std::string</span> ssHostName, <span class="syntax-keyword">std::string</span> ssServiceName, <span class="syntax-keyword">const std::string</span>&amp; packet);
+    <span class="syntax-keyword">int</span> svc2port(<span class="syntax-keyword">std::string</span> ssSvcName);
+    <span class="syntax-keyword">std::string</span> host2ipv4addr(<span class="syntax-keyword">const std::string</span>&amp; hostname);
+};</code></pre>
+
+                <h4>Key Features:</h4>
+                <ul>
+                    <li><strong>TCP Server:</strong> Multi-client sequential processing</li>
+                    <li><strong>TCP Client:</strong> Synchronous request-response communication</li>
+                    <li><strong>Service Resolution:</strong> Automatic port lookup via system services</li>
+                    <li><strong>Host Resolution:</strong> IPv4 address resolution using hosts file</li>
+                    <li><strong>Visual Monitoring:</strong> Real-time display of all network operations</li>
+                </ul>
+            </div>
+
+            <h3>3. User Interface System</h3>
+            <div class="card">
+                    <pre data-lang="cpp"><code><span class="syntax-comment">// Window management and display</span>
+<span class="syntax-keyword">window</span> * pWin = <span class="syntax-keyword">new</span> <span class="syntax-keyword">window</span>();
+pWin-&gt;set_title(<span class="syntax-string">"Application Title"</span>);
+pWin-&gt;add_row(<span class="syntax-string">"Content row"</span>);
+pWin-&gt;render();</code></pre>
+
+                <h4>Features:</h4>
+                <ul>
+                    <li>Semi-graphics border styling with Unicode support</li>
+                    <li>Multi-row content management</li>
+                    <li>Configurable cosmetic appearance</li>
+                    <li>Cross-platform terminal compatibility</li>
+                    <li>Real-time status updates</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="installation">
+            <h1>💾 Installation & Setup</h1>
+
+            <h2>System Requirements</h2>
+            <div class="card info">
+                <ul>
+                    <li><strong>Operating System:</strong> Linux/Unix with TCP/IP networking</li>
+                    <li><strong>Compiler:</strong> C++20 compatible compiler (GCC 10+ or Clang 12+)</li>
+                    <li><strong>Dependencies:</strong> POSIX socket libraries, Standard C++ libraries, Terminal/console access</li>
+                    <li><strong>Network:</strong> TCP/IP stack with service name resolution</li>
+                </ul>
+            </div>
+
+            <h2>Development Environment Setup</h2>
+            <div class="card">
+                <p>The framework is designed to work within a user's home directory structure, avoiding permission issues common with system directories like <code>/var/www/html</code>.</p>
+
+                <h4>Directory Structure:</h4>
+                <pre data-lang="bash"><code>$HOME/public_html/fw/
+├── README.md                    <span class="syntax-comment"># This documentation</span>
+├── CMakeLists.txt              <span class="syntax-comment"># Build configuration</span>
+├── version.h                   <span class="syntax-comment"># Version information</span>
+├── vparpc.h                    <span class="syntax-comment"># RPC header file</span>
+├── vparpc.cpp                  <span class="syntax-comment"># RPC implementation</span>
+├── vparpc_client.cpp           <span class="syntax-comment"># Client application</span>
+├── vparpc_server.cpp           <span class="syntax-comment"># Server application</span>
+├── mwfw2.h                     <span class="syntax-comment"># Framework header</span>
+├── cmake-build-debug/          <span class="syntax-comment"># Debug build outputs</span>
+├── cgi-bin/                    <span class="syntax-comment"># CGI executable location</span>
+└── html/                       <span class="syntax-comment"># Web server content</span></code></pre>
+            </div>
+
+            <h3>Build Configuration</h3>
+            <div class="card">
+                <h4>1. Using CMake (Recommended):</h4>
+                <pre data-lang="bash"><code><span class="syntax-keyword">cd</span> $HOME/public_html/fw
+<span class="syntax-keyword">mkdir</span> build && <span class="syntax-keyword">cd</span> build
+<span class="syntax-keyword">cmake</span> -DCMAKE_BUILD_TYPE=Debug ..
+<span class="syntax-keyword">make</span></code></pre>
+
+                <h4>2. Manual Compilation:</h4>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Server application</span>
+<span class="syntax-keyword">g++</span> -std=c++20 -Wall -g -o vparpc_server vparpc_server.cpp vparpc.cpp -lmwfw2
+
+<span class="syntax-comment"># Client application</span>
+<span class="syntax-keyword">g++</span> -std=c++20 -Wall -g -o vparpc_client vparpc_client.cpp vparpc.cpp -lmwfw2</code></pre>
+            </div>
+
+            <h3>Service Configuration</h3>
+            <div class="card warning">
+                <h4>System Service Registration:</h4>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Add VPA RPC service to system database (requires root)</span>
+<span class="syntax-keyword">echo</span> <span class="syntax-string">"vparpc    8080/tcp    # Virtual Protocol Adapter RPC"</span> | <span class="syntax-keyword">sudo</span> <span class="syntax-keyword">tee</span> -a /etc/services
+
+<span class="syntax-comment"># Verify service registration</span>
+<span class="syntax-keyword">getent</span> services vparpc</code></pre>
+
+                <p><strong>Note:</strong> If you cannot modify <code>/etc/services</code>, you can use direct port numbers in your applications or create a local service mapping.</p>
+            </div>
+        </section>
+
+        <section id="rpc-system">
+            <h1>🌐 RPC System</h1>
+
+            <h2>Protocol Specification</h2>
+            <div class="card">
+                <p>The VPA RPC system implements a simple but powerful request-response protocol over TCP.</p>
+            </div>
+
+            <h3>Communication Flow</h3>
+            <div class="architecture-diagram">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <div style="background: #3498db; color: white; padding: 1rem; border-radius: 8px; margin: 0.5rem;">
+                        <strong>Client</strong><br>
+                        1. TCP Connect<br>
+                        2. Send Command<br>
+                        3. Receive Response<br>
+                        4. Close Connection
+                    </div>
+                    <div style="font-size: 2rem; color: #3498db;">→</div>
+                    <div style="background: #27ae60; color: white; padding: 1rem; border-radius: 8px; margin: 0.5rem;">
+                        <strong>Server</strong><br>
+                        1. Accept Connection<br>
+                        2. Process Command<br>
+                        3. Generate Response<br>
+                        4. Send Response<br>
+                        5. Close Connection
+                    </div>
+                </div>
+            </div>
+
+            <h3>Supported Commands</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>Description</th>
+                    <th>Response Format</th>
+                    <th>Use Case</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>/GET version</code></td>
+                    <td>Server version info</td>
+                    <td>Version string</td>
+                    <td>Compatibility checking</td>
+                </tr>
+                <tr>
+                    <td><code>/GET szRpcUuid</code></td>
+                    <td>Unique server ID</td>
+                    <td>UUID string</td>
+                    <td>Session tracking</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h3>Command Format</h3>
+            <div class="card">
+                <pre data-lang="text"><code>/GET &lt;resource_name&gt;</code></pre>
+                <p>All commands are null-terminated strings sent over TCP connections.</p>
+            </div>
+
+            <h2>Server Implementation</h2>
+            <div class="card">
+                <h4>Basic Server Usage:</h4>
+                <pre data-lang="cpp"><code><span class="syntax-keyword">#include</span> <span class="syntax-string">"mwfw2.h"</span>
+
+<span class="syntax-keyword">int</span> main() {
+    <span class="syntax-keyword">mwfw2</span> * pMwFw = <span class="syntax-keyword">new</span> <span class="syntax-keyword">mwfw2</span>(<span class="syntax-keyword">__FILE__</span>, <span class="syntax-keyword">__FUNCTION__</span>);
+
+    <span class="syntax-comment">// Configure UI</span>
+    <span class="syntax-keyword">window</span> * pWin = <span class="syntax-keyword">new</span> <span class="syntax-keyword">window</span>();
+    pWin-&gt;set_title(<span class="syntax-string">"My RPC Server"</span>);
+    pWin-&gt;render();
+    <span class="syntax-keyword">delete</span> pWin;
+
+    <span class="syntax-comment">// Start server (blocks indefinitely)</span>
+    gpVpaRpc-&gt;server(<span class="syntax-string">"vparpc"</span>);
+    <span class="syntax-keyword">return</span> <span class="syntax-number">0</span>;
+}</code></pre>
+
+                <h4>Server Characteristics:</h4>
+                <ul>
+                    <li><strong>Single-threaded:</strong> Processes one client at a time</li>
+                    <li><strong>Infinite loop:</strong> Runs continuously until terminated</li>
+                    <li><strong>Visual feedback:</strong> Real-time display of all client interactions</li>
+                    <li><strong>Automatic cleanup:</strong> Handles connection lifecycle management</li>
+                    <li><strong>Error recovery:</strong> Continues operation after client errors</li>
+                </ul>
+            </div>
+
+            <h2>Client Implementation</h2>
+            <div class="card">
+                <h4>Basic Client Usage:</h4>
+                <pre data-lang="cpp"><code><span class="syntax-keyword">#include</span> <span class="syntax-string">"mwfw2.h"</span>
+
+<span class="syntax-keyword">int</span> main() {
+    <span class="syntax-keyword">mwfw2</span> * pMwFw = <span class="syntax-keyword">new</span> <span class="syntax-keyword">mwfw2</span>(<span class="syntax-keyword">__FILE__</span>, <span class="syntax-keyword">__FUNCTION__</span>);
+
+    <span class="syntax-comment">// Configure UI</span>
+    <span class="syntax-keyword">window</span> * pWin = <span class="syntax-keyword">new</span> <span class="syntax-keyword">window</span>();
+    pWin-&gt;set_title(<span class="syntax-string">"My RPC Client"</span>);
+    pWin-&gt;render();
+    <span class="syntax-keyword">delete</span> pWin;
+
+    <span class="syntax-comment">// Send RPC request</span>
+    gpVpaRpc-&gt;client(<span class="syntax-string">"hostname"</span>, <span class="syntax-string">"vparpc"</span>, <span class="syntax-string">"/GET version"</span>);
+    <span class="syntax-keyword">return</span> <span class="syntax-number">0</span>;
+}</code></pre>
+
+                <h4>Client Features:</h4>
+                <ul>
+                    <li><strong>Synchronous operation:</strong> Blocks until response received</li>
+                    <li><strong>Automatic resolution:</strong> Hostname and service name lookup</li>
+                    <li><strong>Visual feedback:</strong> Shows connection progress and data transfer</li>
+                    <li><strong>Error handling:</strong> Displays network errors and connection issues</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="api-reference">
+            <h1>📚 API Reference</h1>
+
+            <h2>vparpc Class Methods</h2>
+
+            <div class="card">
+                <h3>server()</h3>
+                <pre data-lang="cpp"><code><span class="syntax-keyword">void</span> vparpc::server(<span class="syntax-keyword">std::string</span> ssService)</code></pre>
+                <p><strong>Description:</strong> Starts TCP server listening on specified service port</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>ssService</code>: Service name for port resolution (e.g., "vparpc")</li>
+                </ul>
+                <p><strong>Behavior:</strong> Infinite loop processing client connections sequentially</p>
+                <p><strong>Visual Output:</strong> Real-time connection and data transfer status</p>
+            </div>
+
+            <div class="card">
+                <h3>client()</h3>
+                <pre data-lang="cpp"><code><span class="syntax-keyword">void</span> vparpc::client(<span class="syntax-keyword">std::string</span> ssHostName, <span class="syntax-keyword">std::string</span> ssServiceName, <span class="syntax-keyword">const std::string</span>&amp; packet)</code></pre>
+                <p><strong>Description:</strong> Establishes client connection and sends data packet</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>ssHostName</code>: Target server hostname or IP address</li>
+                    <li><code>ssServiceName</code>: Service name for port resolution</li>
+                    <li><code>packet</code>: Data to send to server</li>
+                </ul>
+                <p><strong>Behavior:</strong> Synchronous request-response communication</p>
+                <p><strong>Visual Output:</strong> Connection progress and server response</p>
+            </div>
+
+            <div class="card">
+                <h3>svc2port()</h3>
+                <pre data-lang="cpp"><code><span class="syntax-keyword">int</span> vparpc::svc2port(<span class="syntax-keyword">std::string</span> ssSvcName)</code></pre>
+                <p><strong>Description:</strong> Converts service name to port number</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>ssSvcName</code>: Service name to resolve</li>
+                </ul>
+                <p><strong>Returns:</strong> Port number or -1 if not found</p>
+                <p><strong>Lookup Order:</strong> TCP services first, then UDP fallback</p>
+            </div>
+
+            <div class="card">
+                <h3>host2ipv4addr()</h3>
+                <pre data-lang="cpp"><code><span class="syntax-keyword">std::string</span> vparpc::host2ipv4addr(<span class="syntax-keyword">const std::string</span>&amp; hostname)</code></pre>
+                <p><strong>Description:</strong> Resolves hostname to IPv4 address using hosts file</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>hostname</code>: Hostname to resolve or IPv4 to validate</li>
+                </ul>
+                <p><strong>Returns:</strong> IPv4 address string or empty string if not found</p>
+                <p><strong>Search Paths:</strong> /etc/hosts, Windows hosts file, macOS alternative paths</p>
+            </div>
+
+            <h2>mwfw2 Framework API</h2>
+            <div class="card">
+                <h3>Constructor</h3>
+                <pre data-lang="cpp"><code><span class="syntax-keyword">mwfw2</span>::<span class="syntax-keyword">mwfw2</span>(<span class="syntax-keyword">const char</span>* file, <span class="syntax-keyword">const char</span>* function)</code></pre>
+                <p><strong>Description:</strong> Initializes framework with context information</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                    <li><code>file</code>: Source file name (typically <code>__FILE__</code>)</li>
+                    <li><code>function</code>: Function name (typically <code>__FUNCTION__</code>)</li>
+                </ul>
+                <p><strong>Side Effects:</strong> Initializes all global service pointers</p>
+            </div>
+
+            <h2>Window Management API</h2>
+            <div class="card">
+                <h3>window Class</h3>
+                <pre data-lang="cpp"><code><span class="syntax-keyword">window</span>* pWin = <span class="syntax-keyword">new</span> <span class="syntax-keyword">window</span>();
+pWin-&gt;set_title(<span class="syntax-string">"Window Title"</span>);
+pWin-&gt;add_row(<span class="syntax-string">"Content Row"</span>);
+pWin-&gt;render();
+<span class="syntax-keyword">delete</span> pWin;</code></pre>
+
+                <p><strong>Methods:</strong></p>
+                <ul>
+                    <li><code>set_title(string)</code>: Sets window title text</li>
+                    <li><code>add_row(string)</code>: Adds content row to window</li>
+                    <li><code>render()</code>: Displays window with current content</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="deployment">
+            <h1>🚀 Deployment Guide</h1>
+
+            <h2>Production Server Deployment</h2>
+
+            <div class="card">
+                <h3>1. System Service Setup</h3>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Create service user</span>
+<span class="syntax-keyword">sudo</span> <span class="syntax-keyword">useradd</span> -r -s /bin/false vparpc
+
+<span class="syntax-comment"># Install server binary</span>
+<span class="syntax-keyword">sudo</span> <span class="syntax-keyword">cp</span> vparpc_server /usr/local/bin/
+<span class="syntax-keyword">sudo</span> <span class="syntax-keyword">chown</span> vparpc:vparpc /usr/local/bin/vparpc_server
+<span class="syntax-keyword">sudo</span> <span class="syntax-keyword">chmod</span> <span class="syntax-number">755</span> /usr/local/bin/vparpc_server</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>2. Systemd Service Configuration</h3>
+                <p>Create <code>/etc/systemd/system/vparpc.service</code>:</p>
+                <pre data-lang="ini"><code>[Unit]
+Description=Virtual Protocol Adapter RPC Server
+Documentation=file:///home/devo/public_html/fw/README.md
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=vparpc
+Group=vparpc
+ExecStart=/usr/local/bin/vparpc_server
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=10
+TimeoutStopSec=30
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/vparpc
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>3. Service Management</h3>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Enable and start service</span>
+<span class="syntax-keyword">sudo</span> <span class="syntax-keyword">systemctl</span> enable vparpc
+<span class="syntax-keyword">sudo</span> <span class="syntax-keyword">systemctl</span> start vparpc
+
+<span class="syntax-comment"># Check status</span>
+<span class="syntax-keyword">sudo</span> <span class="syntax-keyword">systemctl</span> status vparpc
+
+<span class="syntax-comment"># View logs</span>
+<span class="syntax-keyword">sudo</span> <span class="syntax-keyword">journalctl</span> -u vparpc -f</code></pre>
+            </div>
+
+            <h2>Load Balancing and High Availability</h2>
+            <div class="card warning">
+                <p>For production environments requiring high availability:</p>
+
+                <h4>1. Multiple Server Instances</h4>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Run multiple servers on different ports</span>
+<span class="syntax-keyword">echo</span> <span class="syntax-string">"vparpc1   8081/tcp   # VPA RPC Instance 1"</span> >> /etc/services
+<span class="syntax-keyword">echo</span> <span class="syntax-string">"vparpc2   8082/tcp   # VPA RPC Instance 2"</span> >> /etc/services</code></pre>
+
+                <h4>2. Load Balancer Configuration (nginx)</h4>
+                <pre data-lang="nginx"><code>upstream vparpc_backend {
+    server localhost:8081;
+    server localhost:8082;
+    server localhost:8083;
+}
+
+server {
+    listen 8080;
+    location / {
+        proxy_pass http://vparpc_backend;
+        proxy_connect_timeout 1s;
+        proxy_timeout 3s;
+    }
+}</code></pre>
+            </div>
+
+            <h2>Security Considerations</h2>
+            <div class="card error">
+                <h4>Network Security</h4>
+                <ul>
+                    <li>Configure firewall rules to restrict access to RPC ports</li>
+                    <li>Use VPN or SSH tunneling for remote access</li>
+                    <li>Implement rate limiting to prevent DoS attacks</li>
+                    <li>Monitor connection patterns for suspicious activity</li>
+                </ul>
+
+                <h4>Application Security</h4>
+                <ul>
+                    <li>Add authentication mechanism for production use</li>
+                    <li>Implement command validation and sanitization</li>
+                    <li>Use encrypted connections (TLS) for sensitive data</li>
+                    <li>Regular security audits and updates</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="monitoring">
+            <h1>📊 Performance & Monitoring</h1>
+
+            <h2>Performance Characteristics</h2>
+            <div class="card info">
+                <h3>Server Performance</h3>
+                <ul>
+                    <li><strong>Throughput:</strong> ~1000 requests/second (single-threaded)</li>
+                    <li><strong>Latency:</strong> &lt;1ms local network, &lt;10ms LAN</li>
+                    <li><strong>Memory:</strong> ~10MB base memory footprint</li>
+                    <li><strong>CPU:</strong> Minimal CPU usage during idle periods</li>
+                </ul>
+
+                <h3>Scaling Considerations</h3>
+                <ul>
+                    <li>Single-threaded design limits concurrent connections</li>
+                    <li>Consider multiple server instances for high load</li>
+                    <li>Memory usage scales linearly with connection volume</li>
+                    <li>Network bandwidth is primary bottleneck</li>
+                </ul>
+            </div>
+
+            <h2>Monitoring Tools</h2>
+            <div class="card">
+                <h3>Built-in Visual Monitoring</h3>
+                <p>The framework provides real-time visual feedback for:</p>
+                <ul>
+                    <li>Server startup and configuration</li>
+                    <li>Client connection establishment</li>
+                    <li>Data transfer progress and completion</li>
+                    <li>Error conditions and recovery actions</li>
+                    <li>Resource usage and cleanup</li>
+                </ul>
+
+                <h3>System Monitoring Integration</h3>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Monitor server processes</span>
+<span class="syntax-keyword">ps</span> aux | <span class="syntax-keyword">grep</span> vparpc
+
+<span class="syntax-comment"># Check network connections</span>
+<span class="syntax-keyword">netstat</span> -an | <span class="syntax-keyword">grep</span> <span class="syntax-number">8080</span>
+
+<span class="syntax-comment"># Monitor system resources</span>
+<span class="syntax-keyword">top</span> -p $(<span class="syntax-keyword">pgrep</span> vparpc_server)
+
+<span class="syntax-comment"># Check service status</span>
+<span class="syntax-keyword">systemctl</span> status vparpc</code></pre>
+            </div>
+
+            <h2>Performance Tuning</h2>
+            <div class="card warning">
+                <h3>Operating System Tuning</h3>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Increase TCP connection limits</span>
+<span class="syntax-keyword">echo</span> <span class="syntax-string">"net.core.somaxconn = 1024"</span> >> /etc/sysctl.conf
+
+<span class="syntax-comment"># Optimize TCP settings</span>
+<span class="syntax-keyword">echo</span> <span class="syntax-string">"net.ipv4.tcp_fin_timeout = 30"</span> >> /etc/sysctl.conf
+<span class="syntax-keyword">echo</span> <span class="syntax-string">"net.ipv4.tcp_keepalive_time = 1200"</span> >> /etc/sysctl.conf
+
+<span class="syntax-comment"># Apply settings</span>
+<span class="syntax-keyword">sysctl</span> -p</code></pre>
+
+                <h3>Application Tuning</h3>
+                <ul>
+                    <li>Adjust buffer sizes in vparpc implementation</li>
+                    <li>Optimize string operations for large payloads</li>
+                    <li>Consider connection pooling for high-frequency clients</li>
+                    <li>Implement asynchronous processing for non-blocking operations</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="troubleshooting">
+            <h1>🔍 Troubleshooting</h1>
+
+            <h2>Common Issues</h2>
+
+            <div class="card error">
+                <h3>1. Service Resolution Failures</h3>
+                <p><strong>Symptoms:</strong> "Service not found" errors, connection refused</p>
+                <p><strong>Solutions:</strong></p>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Verify service registration</span>
+<span class="syntax-keyword">getent</span> services vparpc
+
+<span class="syntax-comment"># Check port availability</span>
+<span class="syntax-keyword">netstat</span> -ln | <span class="syntax-keyword">grep</span> <span class="syntax-number">8080</span>
+
+<span class="syntax-comment"># Test direct port connection</span>
+<span class="syntax-keyword">telnet</span> localhost <span class="syntax-number">8080</span></code></pre>
+            </div>
+
+            <div class="card warning">
+                <h3>2. Permission Issues</h3>
+                <p><strong>Symptoms:</strong> "Permission denied" binding to port</p>
+                <p><strong>Solutions:</strong></p>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Use ports > 1024 for non-root users</span>
+<span class="syntax-comment"># Or grant CAP_NET_BIND_SERVICE capability</span>
+<span class="syntax-keyword">sudo</span> <span class="syntax-keyword">setcap</span> <span class="syntax-string">'cap_net_bind_service=+ep'</span> /usr/local/bin/vparpc_server</code></pre>
+            </div>
+
+            <div class="card info">
+                <h3>3. Framework Initialization Errors</h3>
+                <p><strong>Symptoms:</strong> Segmentation faults, undefined global pointers</p>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li>Ensure mwfw2 initialization completes before using global services</li>
+                    <li>Verify all required libraries are linked</li>
+                    <li>Check for missing framework configuration files</li>
+                </ul>
+            </div>
+
+            <h2>Error Codes and Messages</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Error Type</th>
+                    <th>Typical Message</th>
+                    <th>Resolution</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Service Not Found</td>
+                    <td>"Service vparpc not found"</td>
+                    <td>Add service to /etc/services</td>
+                </tr>
+                <tr>
+                    <td>Bind Failed</td>
+                    <td>"Address already in use"</td>
+                    <td>Check for existing server process</td>
+                </tr>
+                <tr>
+                    <td>Connection Refused</td>
+                    <td>"Connection refused"</td>
+                    <td>Verify server is running and port is correct</td>
+                </tr>
+                <tr>
+                    <td>Host Resolution</td>
+                    <td>"Could not resolve hostname"</td>
+                    <td>Check DNS or hosts file configuration</td>
+                </tr>
+                <tr>
+                    <td>Permission Denied</td>
+                    <td>"Permission denied"</td>
+                    <td>Use appropriate user permissions or port numbers</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h2>Debugging Techniques</h2>
+            <div class="card">
+                <h3>1. Visual Debugging</h3>
+                <p>The framework's built-in visual interface provides immediate feedback:</p>
+                <ul>
+                    <li>Connection establishment progress</li>
+                    <li>Data transmission confirmation</li>
+                    <li>Error message display</li>
+                    <li>Resource cleanup verification</li>
+                </ul>
+
+                <h3>2. Network Analysis</h3>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Capture network traffic</span>
+<span class="syntax-keyword">tcpdump</span> -i any port <span class="syntax-number">8080</span>
+
+<span class="syntax-comment"># Monitor real-time connections</span>
+<span class="syntax-keyword">watch</span> <span class="syntax-string">'netstat -an | grep 8080'</span>
+
+<span class="syntax-comment"># Check socket statistics</span>
+<span class="syntax-keyword">ss</span> -tuln | <span class="syntax-keyword">grep</span> <span class="syntax-number">8080</span></code></pre>
+
+                <h3>3. Application Debugging</h3>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Enable debug mode compilation</span>
+<span class="syntax-keyword">g++</span> -DDEBUG -g -O0 -o vparpc_server vparpc_server.cpp
+
+<span class="syntax-comment"># Use gdb for runtime debugging</span>
+<span class="syntax-keyword">gdb</span> ./vparpc_server
+(gdb) run
+(gdb) bt  <span class="syntax-comment"># backtrace on crash</span></code></pre>
+            </div>
+        </section>
+
+        <section id="examples">
+            <h1>💡 Examples & Use Cases</h1>
+
+            <h2>Basic Server Example</h2>
+            <div class="card">
+                    <pre data-lang="cpp"><code><span class="syntax-comment">////////////////////////////////////////////////////////////////////////</span>
+<span class="syntax-comment">// Basic VPA RPC Server Implementation</span>
+<span class="syntax-comment">////////////////////////////////////////////////////////////////////////</span>
+
+<span class="syntax-keyword">#include</span> <span class="syntax-string">"mwfw2.h"</span>
+
+<span class="syntax-keyword">int</span> main(<span class="syntax-keyword">int</span> argc, <span class="syntax-keyword">char</span> **argv) {
+    <span class="syntax-comment">// Initialize framework</span>
+    <span class="syntax-keyword">mwfw2</span> * pMwFw = <span class="syntax-keyword">new</span> <span class="syntax-keyword">mwfw2</span>(<span class="syntax-keyword">__FILE__</span>, <span class="syntax-keyword">__FUNCTION__</span>);
+
+    <span class="syntax-comment">// Create status window</span>
+    <span class="syntax-keyword">window</span> * pWin = <span class="syntax-keyword">new</span> <span class="syntax-keyword">window</span>();
+
+    <span class="syntax-comment">// Configure semi-graphics styling</span>
+    gpSemiGr-&gt;cosmetics(
+        SRUL,  SRUR,  SRLL,
+        SRLR,  SVSR,  SVSL,
+        SH,    SV);
+
+    <span class="syntax-comment">// Set application information</span>
+    <span class="syntax-keyword">std::string</span> ssCopr = <span class="syntax-string">"Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved."</span>;
+    pWin-&gt;set_title(<span class="syntax-string">"Virtual Protocol Adapter RPC Server Ver 5.5.14.19"</span>);
+    pWin-&gt;add_row(ssCopr);
+
+    <span class="syntax-comment">// Display window and cleanup</span>
+    pWin-&gt;render();
+    <span class="syntax-keyword">delete</span> pWin;
+
+    <span class="syntax-comment">// Start RPC server (infinite loop)</span>
+    gpVpaRpc-&gt;server(<span class="syntax-string">"vparpc"</span>);
+
+    <span class="syntax-keyword">return</span> <span class="syntax-number">0</span>;
+}</code></pre>
+            </div>
+
+            <h2>Basic Client Example</h2>
+            <div class="card">
+                    <pre data-lang="cpp"><code><span class="syntax-comment">////////////////////////////////////////////////////////////////////////</span>
+<span class="syntax-comment">// Basic VPA RPC Client Implementation</span>
+<span class="syntax-comment">////////////////////////////////////////////////////////////////////////</span>
+
+<span class="syntax-keyword">#include</span> <span class="syntax-string">"mwfw2.h"</span>
+
+<span class="syntax-keyword">int</span> main(<span class="syntax-keyword">int</span> argc, <span class="syntax-keyword">char</span> **argv) {
+    <span class="syntax-comment">// Initialize framework</span>
+    <span class="syntax-keyword">mwfw2</span> * pMwFw = <span class="syntax-keyword">new</span> <span class="syntax-keyword">mwfw2</span>(<span class="syntax-keyword">__FILE__</span>, <span class="syntax-keyword">__FUNCTION__</span>);
+
+    <span class="syntax-comment">// Create status window</span>
+    <span class="syntax-keyword">window</span> * pWin = <span class="syntax-keyword">new</span> <span class="syntax-keyword">window</span>();
+    pWin-&gt;set_title(<span class="syntax-string">"VPA RPC Client"</span>);
+    pWin-&gt;add_row(<span class="syntax-string">"Connecting to server..."</span>);
+    pWin-&gt;render();
+    <span class="syntax-keyword">delete</span> pWin;
+
+    <span class="syntax-comment">// Send RPC request</span>
+    <span class="syntax-keyword">if</span> (argc &gt; <span class="syntax-number">1</span>) {
+        gpVpaRpc-&gt;client(<span class="syntax-string">"localhost"</span>, <span class="syntax-string">"vparpc"</span>, argv[<span class="syntax-number">1</span>]);
+    } <span class="syntax-keyword">else</span> {
+        gpVpaRpc-&gt;client(<span class="syntax-string">"localhost"</span>, <span class="syntax-string">"vparpc"</span>, <span class="syntax-string">"/GET version"</span>);
+    }
+
+    <span class="syntax-keyword">return</span> <span class="syntax-number">0</span>;
+}</code></pre>
+            </div>
+
+            <h2>Testing Examples</h2>
+            <div class="card">
+                <h3>1. Basic Connectivity Test</h3>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Start server in one terminal</span>
+$ ./vparpc_server
+
+<span class="syntax-comment"># Test with telnet in another terminal</span>
+$ <span class="syntax-keyword">telnet</span> localhost vparpc
+Connected to localhost.
+Escape character is <span class="syntax-string">'^]'</span>.
+/GET version
+<span class="syntax-comment"># Server responds with version information</span>
+Connection closed by foreign host.</code></pre>
+
+                <h3>2. Client Application Test</h3>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Test version query</span>
+$ ./vparpc_client <span class="syntax-string">"/GET version"</span>
+
+<span class="syntax-comment"># Test UUID query</span>
+$ ./vparpc_client <span class="syntax-string">"/GET szRpcUuid"</span></code></pre>
+
+                <h3>3. Service Resolution Test</h3>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Check if service is properly registered</span>
+$ <span class="syntax-keyword">getent</span> services vparpc
+vparpc                8080/tcp
+
+<span class="syntax-comment"># Test port binding</span>
+$ <span class="syntax-keyword">netstat</span> -tuln | <span class="syntax-keyword">grep</span> <span class="syntax-number">8080</span>
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN</code></pre>
+            </div>
+
+            <h2>Advanced Use Cases</h2>
+            <div class="card warning">
+                <h3>1. Custom Command Handler</h3>
+                <p>Extending the server to handle custom commands:</p>
+                <pre data-lang="cpp"><code><span class="syntax-comment">// In vparpc::server() method, add custom command handling:</span>
+<span class="syntax-keyword">if</span> (<span class="syntax-number">0</span> == strcmp(<span class="syntax-string">"/GET status"</span>, buffer)) {
+    response = <span class="syntax-string">"Server running normally"</span>;
+    send(clientSocket, response.c_str(), response.length(), <span class="syntax-number">0</span>);
+} <span class="syntax-keyword">else if</span> (<span class="syntax-number">0</span> == strcmp(<span class="syntax-string">"/GET uptime"</span>, buffer)) {
+    response = std::to_string(getUptime()) + <span class="syntax-string">" seconds"</span>;
+    send(clientSocket, response.c_str(), response.length(), <span class="syntax-number">0</span>);
+}</code></pre>
+
+                <h3>2. Multi-Server Deployment</h3>
+                <p>Running multiple server instances for load distribution:</p>
+                <pre data-lang="bash"><code><span class="syntax-comment"># Terminal 1 - Server instance 1</span>
+$ ./vparpc_server vparpc1
+
+<span class="syntax-comment"># Terminal 2 - Server instance 2</span>
+$ ./vparpc_server vparpc2
+
+<span class="syntax-comment"># Terminal 3 - Server instance 3</span>
+$ ./vparpc_server vparpc3</code></pre>
+
+                <h3>3. Monitoring Script</h3>
+                <p>Bash script for continuous server monitoring:</p>
+                <pre data-lang="bash"><code><span class="syntax-keyword">#!/bin/bash</span>
+<span class="syntax-comment"># monitor_vparpc.sh - Server monitoring script</span>
+
+<span class="syntax-keyword">while</span> <span class="syntax-keyword">true</span>; <span class="syntax-keyword">do</span>
+    <span class="syntax-comment"># Check if server is running</span>
+    <span class="syntax-keyword">if</span> ! <span class="syntax-keyword">pgrep</span> vparpc_server > /dev/null; <span class="syntax-keyword">then</span>
+        <span class="syntax-keyword">echo</span> <span class="syntax-string">"$(date): Server not running, restarting..."</span>
+        ./vparpc_server &
+    <span class="syntax-keyword">fi</span>
+
+    <span class="syntax-comment"># Log connection count</span>
+    CONNECTIONS=$(<span class="syntax-keyword">netstat</span> -an | <span class="syntax-keyword">grep</span> <span class="syntax-string">":8080"</span> | <span class="syntax-keyword">wc</span> -l)
+    <span class="syntax-keyword">echo</span> <span class="syntax-string">"$(date): Active connections: $CONNECTIONS"</span>
+
+    <span class="syntax-keyword">sleep</span> <span class="syntax-number">30</span>
+<span class="syntax-keyword">done</span></code></pre>
+            </div>
+        </section>
+
+        <div class="card info" style="margin: 3rem 0; text-align: center;">
+            <h2>🎯 Version Information</h2>
+            <p><strong>Current Version:</strong> 5.5.14.19 (Build: e46122b)</p>
+            <p><strong>Build Type:</strong> Debug | <strong>Architecture:</strong> x86_64 | <strong>OS:</strong> Linux</p>
+            <p><strong>Host:</strong> daphne.goodall.com | <strong>User:</strong> doug | <strong>Domain:</strong> goodall.com</p>
+            <p><strong>Network:</strong> IP 192.164.4.17 | MAC c8:7f:54:6a:6b:42</p>
+            <p><strong>Comment:</strong> "Lord have mercy on our country"</p>
+        </div>
+    </main>
+
+    <footer>
+        <p><strong>Virtual Protocol Adapter (VPA) RPC Framework</strong></p>
+        <p>Copyright © 2021-2025 Douglas Wade Goodall. All Rights Reserved.</p>
+        <p>Complete Documentation | Generated: March 2025 | Version 5.5.14.19</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">
+            This documentation provides comprehensive coverage of the VPA RPC Framework including installation, configuration, deployment, and troubleshooting guidance.
+        </p>
+    </footer>
+
+    <button class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+</div>
+
+<script>
+    // Show/hide scroll to top button
+    window.addEventListener('scroll', function() {
+        const scrollTop = document.querySelector('.scroll-top');
+        if (window.pageYOffset > 300

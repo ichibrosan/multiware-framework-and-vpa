@@ -1,0 +1,107 @@
+```
+Generate comprehensive HTML documentation for [PROJECT_NAME] that includes:
+
+**STRUCTURE REQUIREMENTS:**
+- Single self-contained HTML file with embedded CSS and JavaScript
+- Professional styling with modern design elements (gradients, animations, hover effects)
+- Responsive design for desktop/tablet/mobile
+- Interactive features (copy buttons, smooth scrolling, navigation)
+- Table of contents with anchor links
+
+**CONTENT SECTIONS:**
+1. Overview & key features with visual feature cards
+2. Architecture diagram with layered components
+3. Installation & setup with code examples
+4. API reference with method signatures and descriptions
+5. Configuration and deployment guides
+6. Performance & monitoring information
+7. Troubleshooting with common issues and solutions
+8. Practical examples and use cases
+9. Version information and metadata
+
+**TECHNICAL REQUIREMENTS:**
+- Include actual version/build information from provided files
+- Use syntax-highlighted code blocks with language labels
+- Create tables for reference information
+- Add warning/info/error styled callout boxes
+- Include command-line examples with proper formatting
+- Make it production-ready for enterprise use
+
+**VISUAL DESIGN:**
+- Modern CSS with gradients and animations
+- Semi-transparent overlays and depth effects
+- Consistent color scheme throughout
+- Professional typography and spacing
+- Interactive elements with hover states
+- Loading animations and visual feedback
+
+**FUNCTIONALITY:**
+- Copy-to-clipboard for all code blocks
+- Smooth scrolling navigation
+- Sticky header navigation
+- Scroll-to-top button
+- Progressive enhancement features
+- Console logging for debugging
+
+Please make it comprehensive enough to serve as the complete reference manual.
+```
+## 🔧 Key Prompt Engineering Techniques Used:
+### 1. **Specificity Over Generality**
+```
+❌ "Create documentation"
+✅ "Generate comprehensive HTML documentation with embedded CSS/JS, responsive design, and interactive features"
+```
+### 2. **Structured Requirements**
+- Break down requirements into clear categories
+- Use bullet points and numbered lists
+- Specify both content AND presentation requirements
+
+### 3. **Context Integration**
+```
+✅ "Include actual version/build information from provided files"
+✅ "Use syntax-highlighted code blocks with language labels"
+✅ "Make it production-ready for enterprise use"
+```
+### 4. **Output Format Specification**
+```
+✅ "Single self-contained HTML file"
+✅ "Professional styling with modern design elements"
+✅ "Interactive features (copy buttons, smooth scrolling)"
+```
+### 5. **Quality Indicators**
+```
+✅ "comprehensive enough to serve as the complete reference manual"
+✅ "production-ready for enterprise use"
+✅ "professional presentation suitable for stakeholders"
+```
+## 🎨 Enhanced Prompt Variations:
+### For Technical APIs:
+```
+Generate complete API documentation as a single HTML file including:
+- Interactive API explorer with request/response examples
+- Authentication guides with code samples
+- Error codes table with solutions
+- SDK examples in multiple languages
+- Rate limiting and best practices
+- Troubleshooting flowcharts
+```
+### For Software Frameworks:
+```
+Create comprehensive framework documentation with:
+- Getting started tutorial with screenshots
+- Architecture overview with interactive diagrams
+- Component library with live examples
+- Integration guides for popular platforms
+- Performance benchmarks and optimization tips
+- Migration guides from other frameworks
+```
+### For System Administration:
+```
+Build complete system documentation including:
+- Installation procedures for multiple OS
+- Configuration templates and examples
+- Monitoring and alerting setup
+- Backup and recovery procedures
+- Security hardening checklists
+- Automation scripts and deployment guides
+```
