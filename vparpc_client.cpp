@@ -191,14 +191,14 @@ int main(int argc, char **argv) {
      * This performs the actual drawing/display of all window content
      * including borders, title, and content rows.
      */
-    pWin->render();
+ ///   pWin->render();
     
     /**
      * Clean up window resources after display.
      * Proper resource management to prevent memory leaks.
      * The window content remains visible until the next UI operation.
      */
-    delete pWin;
+ ///   delete pWin;
 
     // ========================================================================
     // RPC COMMUNICATION SETUP AND EXECUTION
@@ -218,9 +218,11 @@ int main(int argc, char **argv) {
      * @note The "/GET szRpcUuid" command is used here to demonstrate
      *       retrieval of the server's unique identifier for this RPC session
      */
-    std::string ssBuffer = "/get(oid=auth,parm=";
-    ssBuffer.append(CFG_VPA_RPC_PSK);
-    ssBuffer.append(")/");
+    // std::string ssBuffer = "/get(oid=auth,parm=";
+    // ssBuffer.append(CFG_VPA_RPC_PSK);
+    // ssBuffer.append(")/");
+
+
 
     /**
      * Execute RPC client request to remote server.
@@ -251,10 +253,32 @@ int main(int argc, char **argv) {
      * @note **Visual Feedback**: Connection progress and data transfer
      *       details are displayed in real-time via visual windows
      */
+
+    /*
+     * Note that we have made an instance of the vparpc_request_auth_t
+     * structure which not only has the request info, but also the
+     * response data items.
+     */
+    vparpc_request_auth_t request_auth;
+    request_auth.eVersion = VPARPC_VERSION_1;
+    request_auth.nSize = sizeof(request_auth);
+    request_auth.eFunc = VPARPC_FUNC_GET_AUTH;
+    strcpy((char *)request_auth.szPSK,CFG_VPA_RPC_PSK);
     gpVpaRpc->client(
-        "daphne",          // Remote server hostname/IP
-        "vparpc",          // RPC service identifier  
-        ssBuffer);         // Command payload: "/GET szRpcUuid"
+        "daphne",
+        "vparpc",
+        &request_auth,sizeof(request_auth) );
+
+    std::string ssAuth;
+    char szAuth[36];
+
+    strcpy(szAuth,(char *)request_auth.szAuth);
+    pWin->add_row(szAuth);
+    pWin->render();
+
+    // std::cout << "szPSK: "  << request_auth.szPSK  << std::endl;
+    // std::cout << "szAuth: " << request_auth.szAuth << std::endl;
+
 
     // ========================================================================
     // RESOURCE CLEANUP AND PROGRAM TERMINATION

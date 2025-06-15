@@ -27,86 +27,123 @@
 vparpc::vparpc() {
 }
 
+//////////////////////////////////////////////////////////////
+// #####   #####    ####    ####   ######   ####    ####
+// #    #  #    #  #    #  #    #  #       #       #
+// #    #  #    #  #    #  #       #####    ####    ####
+// #####   #####   #    #  #       #            #       #
+// #       #   #   #    #  #    #  #       #    #  #    #
+// #       #    #   ####    ####   ######   ####    ####
+//
+size_t vparpc::process(char * pszBuffer) {
+    std::cout << "vparpc::process()" << std::endl;
+    std::cout << "  pszBuffer: " << pszBuffer << std::endl;
 
-std::string vparpc::process(char * pszBuffer) {
+
+    // Create window for debugging/monitoring
     auto * pWin = new window();
     pWin->set_title("vparpc::process()");
-    gpSemiGr->cosmetics(
-        SRUL,  SRUR,  SRLL,
-        SRLR,  SVSR,  SVSL,
-        SH,    SV);
+    gpSemiGr->cosmetics(SRUL, SRUR, SRLL, SRLR, SVSR, SVSL, SH, SV);
 
+    // try {
+        // Cast buffer to request structure for type-safe access
+        const auto* request = reinterpret_cast<const vparpc_request_t*>(pszBuffer);
+        
 
-    std::string ssBuffer;
+        // Validate UUID format (should be null-terminated)
+        std::string uuid(reinterpret_cast<const char*>(request->req_generic.szUUID),
+                        std::min(static_cast<size_t>(UUID_SIZE - 1), 
+                                strlen(reinterpret_cast<const char*>(request->req_generic.szUUID))));
+        
+        pWin->add_row("Processing function: " + std::to_string(request->req_generic.eFunc));
+        pWin->add_row("Request UUID: " + uuid);
 
-    int off=0;
-    if (pszBuffer[off++] != '/') {
-        return "Error - leading / not present";
-    }
+        size_t response;
 
-    char szFunc[3+1];
-    strncpy(szFunc,&pszBuffer[off],3);
-    szFunc[3] = 0;
-    if (0 != strcmp("get",szFunc)) {
-        return "Error - func != get";
-    }
-    off += 3;
+        // Dispatch based on function type
+        switch (request->req_generic.eFunc) {
+            // case VPARPC_FUNC_NONE:
+            //     response = handle_none_request(request->req_generic, pWin);
+            //     break;
+                
+            case VPARPC_FUNC_GET_AUTH:
+                response = handle_auth_request(pszBuffer, pWin);
+                break;
+                
+            // case VPARPC_FUNC_HOST2IPV4ADDR:
+            //     response = handle_host_resolution_request(request->req_generic, pWin);
+            //     break;
 
-    if (pszBuffer[off++] != '(') {
-        return "Error - leading ( not present";
-    }
+            // case VPARPC_FUNC_VERSION:
+            //     response = handle_version_request(request->req_version, pWin);
+            //     break;
+            //
+            default:
+                 break;
+        }
 
-    char szOid[3+1];
-    strncpy(szOid,&pszBuffer[off],3);
-    szOid[3] = 0;
-    if (0 != strcmp("oid",szOid)) {
-        return "Error - oid != oid";
-    }
-    off += 3;
+         pWin->render();
+        delete pWin;
+        
+        return response;
 
-    if (pszBuffer[off++] != '=') {
-        return "Error - leading = not present";
-    }
-
-
-    char szOidName[4+1];
-    strncpy(szOidName,&pszBuffer[off],4);
-    szOidName[4] = 0;
-    if (0 != strcmp("auth",szOidName)) {
-        return "Error - oid != auth";
-    }
-    off += 4;
-
-    if (pszBuffer[off++] != ',') {
-        return "Error - leading , not present";
-    }
-
-    char szParm[4+1];
-    strncpy(szParm,&pszBuffer[off],4);
-    szParm[4] = 0;
-    if (0 != strcmp("parm",szParm)) {
-        return "Error - oid != parm";
-    }
-    off += 4;
-    if (pszBuffer[off++] != '=') {
-        return "Error - leading = not present";
-    }
-
-    char szParmPSK[34+1];
-    strncpy(szParmPSK,&pszBuffer[off],34);
-    szParmPSK[32] = 0;
-
-    if (0 == strcmp(szParmPSK,CFG_VPA_RPC_PSK)) {
-        strcpy(pszBuffer,gpSh->m_pShMemng->szRpcUuid);
-        std::string ssRow = "response: ";
-        ssRow.append(pszBuffer);
-        pWin->add_row(ssRow);
-    }
-
-
-    pWin->render();
-    return pszBuffer;
+    // } catch (const std::exception& e) {
+    //     pWin->add_row("Exception: " + std::string(e.what()));
+    //     pWin->render();
+    //     delete pWin;
+    //     return "Error: Processing exception";
+    // } catch (...) {
+    //     pWin->add_row("Unknown exception occurred");
+    //     pWin->render();
+    //     delete pWin;
+    //     return "Error: Unknown exception";
+    // }
 }
+
+// These are separate member functions, not nested inside process()
+std::string vparpc::handle_none_request(const vparpc_request_generic_t& request, window* pWin) {
+    pWin->add_row("Processing NONE request");
+    return "OK: None operation completed";
+}
+
+//std::string vparpc::handle_auth_request(const vparpc_request_generic_t& request, window* pWin) {
+size_t vparpc::handle_auth_request(char *buffer, window* pWin) {
+    pWin->add_row("Processing AUTH request");
+    vparpc_request_auth_t * pReq = (vparpc_request_auth_t *)buffer;
+    strcpy( pReq->szAuth,
+            gpSh->m_pShMemng->szRpcUuid);
+
+    return sizeof(vparpc_request_auth_t);
+}
+
+// std::string vparpc::handle_host_resolution_request(const vparpc_request_generic_t& request, window* pWin) {
+//     pWin->add_row("Processing HOST2IPV4ADDR request");
+//
+//     std::string hostname(reinterpret_cast<const char*>(request.szUUID));
+//
+//     if (hostname.empty()) {
+//         return "Error: No hostname provided";
+//     }
+//
+//     std::string ipv4_addr = host2ipv4addr(hostname);
+//
+//     if (ipv4_addr.empty()) {
+//         pWin->add_row("Failed to resolve: " + hostname);
+//         return "Error: Host resolution failed";
+//     }
+//
+//     pWin->add_row("Resolved " + hostname + " to " + ipv4_addr);
+//     return ipv4_addr;
+// }
+
+// std::string vparpc::handle_version_request(const vparpc_request_version_t& request, window* pWin) {
+//     pWin->add_row("Processing VERSION request");
+//
+//     std::string version_info = "VPA-RPC v1.0.0";
+//     pWin->add_row("Version info: " + version_info);
+//
+//     return version_info;
+// }
 
 
 
@@ -241,13 +278,18 @@ void vparpc::server(std::string ssService) {
             buffer[bytes_received] = '\0';  // Null-terminate the received data
             pWin->add_row("  Received "+std::to_string(bytes_received)+" bytes: "+buffer);
 
-            response = process(buffer);
-            // if (0 == strcmp("/GET szRpcUuid", buffer)) {
-            //     response = gpSh->m_pShMemng->szRpcUuid;  // RPC UUID from shared memory
-            // }
+        //  #####   #####    ####    ####   ######   ####    ####
+        //  #    #  #    #  #    #  #    #  #       #       #
+        //  #    #  #    #  #    #  #       #####    ####    ####
+        //  #####   #####   #    #  #       #            #       #
+        //  #       #   #   #    #  #    #  #       #    #  #    #
+        //  #       #    #   ####    ####   ######   ####    ####
+        //
+//            response = process(buffer);
+            size_t packetsize = process(buffer);
 
             // Send response back to client
-            ssize_t bytes_sent = send(client_fd, response.c_str(), response.length(), 0);
+            ssize_t bytes_sent = send(client_fd, buffer, packetsize, 0);
             pWin->add_row("  Sent     "+std::to_string(bytes_sent)+" bytes: "+response.c_str());
 
             if (bytes_sent < 0) {
@@ -297,7 +339,7 @@ void vparpc::server(std::string ssService) {
  * @warning No timeout mechanism implemented for network operations
  * @warning Response buffer limited to BUFSIZ (typically 8192 bytes)
  */
-void vparpc::client(std::string ssHostName, std::string ssServiceName, const std::string& packet) {
+void vparpc::client(std::string ssHostName, std::string ssServiceName, void * packet,size_t pktlen) {
 
     // Create visual window for client status display
     auto * pWin = new window();
@@ -352,20 +394,18 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, const std
     pWin->add_row("  Connected to server");
     
     // Send data packet to server
-    ssize_t bytes_sent = send(client_fd, packet.c_str(), packet.length(), 0);
+    ssize_t bytes_sent = send(client_fd, packet, pktlen, 0);
     if (bytes_sent < 0) {
         pWin->add_row(" Error: send failed");
         close(client_fd);
         pWin->render();
         return;
     }
-    pWin->add_row("  Sent     "+std::to_string(bytes_sent)+" bytes: "+packet);
+    //pWin->add_row("  Sent     "+std::to_string(bytes_sent)+" bytes: "+packet);
 
-    // Clear response buffer
-    memset(response_buffer, 0, BUFSIZ);
-    
+
     // Receive response from server
-    ssize_t bytes_received = recv(client_fd, response_buffer, BUFSIZ - 1, 0);
+    ssize_t bytes_received = recv(client_fd, packet, pktlen, 0);
     if (bytes_received < 0) {
         perror("recv failed");
     } else if (bytes_received == 0) {

@@ -7,6 +7,12 @@
 #ifndef VPARPC_H
 #define VPARPC_H
 
+enum vparpc_version_t {
+    VPARPC_VERSION_NONE = 0,
+    VPARPC_VERSION_1,
+    VPARPC_VERSION_COUNT
+};
+
 /**
  * @brief Enumeration of supported VPA RPC function types
  * 
@@ -36,10 +42,22 @@ enum vparpc_func_t {
  * 
  * Used for simple RPC calls that only need function identification and request tracking.
  */
-struct vparpc_request_none_t {
-    vparpc_func_t eFunc;              ///< Function type identifier
-    char8_t       szUUID[UUID_SIZE];  ///< Unique request identifier (36 chars + null terminator)
+struct vparpc_request_generic_t {
+    vparpc_version_t eVersion;        // Function type identifier
+    size_t        nSize;              //  Size of request data (in bytes)
+    vparpc_func_t eFunc;              //  Function type identifier
+    char8_t       szUUID[UUID_SIZE];  //  Unique request identifier (36 chars + null terminator)
 };
+
+
+struct vparpc_request_auth_t {
+    vparpc_version_t eVersion;        // Function type identifier
+    size_t        nSize;              //  Size of request data (in bytes)
+    vparpc_func_t eFunc;              ///< Function type identifier
+    char8_t       szPSK[UUID_SIZE];  ///< Unique request identifier (36 chars + null terminator)
+    char       szAuth[UUID_SIZE];  ///< Unique request identifier (36 chars + null terminator)
+};
+
 
 /**
  * @brief RPC request structure for version information requests
@@ -48,6 +66,8 @@ struct vparpc_request_none_t {
  * request but maintained separately for potential future extensions.
  */
 struct vparpc_request_version_t {
+    vparpc_version_t eVersion;        // Function type identifier
+    size_t        nSize;              //  Size of request data (in bytes)
     vparpc_func_t eFunc;              ///< Function type identifier (should be VPARPC_FUNC_VERSION)
     char8_t       szUUID[UUID_SIZE];  ///< Unique request identifier (36 chars + null terminator)
 };
@@ -59,8 +79,9 @@ struct vparpc_request_version_t {
  * while maintaining type safety and memory efficiency.
  */
 union vparpc_request_t {
-    struct vparpc_request_none_t    req_none;     ///< Basic request structure
-    struct vparpc_request_version_t req_version;  ///< Version request structure
+    struct vparpc_request_generic_t req_generic;  // Generic req structure
+    struct vparpc_request_auth_t    req_auth;     // Auth    req structure
+    struct vparpc_request_version_t req_version;  // Version req structure
 };
 
 /**
@@ -79,8 +100,14 @@ private:
     std::string v_ssVpaDestPort;    ///< Destination port for client operations
     int v_nListenSocket;            ///< Socket descriptor for receiving incoming packets
     int v_nSendSocket;              ///< Socket descriptor for sending outgoing packets
-
 public:
+    std::string handle_none_request(const vparpc_request_generic_t& request, window* pWin);
+//    std::string handle_auth_request(const vparpc_request_generic_t& request, window* pWin);
+    size_t handle_auth_request(char *buffer, window* pWin);
+//    std::string handle_host_resolution_request(const vparpc_request_generic_t& request, window* pWin);
+//    std::string handle_version_request(const vparpc_request_version_t& request, window* pWin);
+
+
     /**
      * @brief Default constructor
      * 
@@ -112,7 +139,7 @@ public:
      * 
      * @note Buffer must contain a valid RPC request structure
      */
-    std::string process(char * pszBuffer);
+    size_t process(char * pszBuffer);
 
     /**
      * @brief Send RPC request to remote server
@@ -126,7 +153,10 @@ public:
      * 
      * @note This method handles synchronous communication with the remote server
      */
-    void client(std::string ssHostName, std::string ssServiceName, const std::string& packet);
+    void client(std::string ssHostName,
+        std::string ssServiceName,
+        void * reqpkt,
+        size_t pktlen);
 
     /**
      * @brief Convert service name to port number
