@@ -18,6 +18,14 @@
 #include <cctype>
 
 
+/**
+ * @brief Array of function names used in the vparpc framework.
+ *
+ * Represents a collection of remote procedure call (RPC) function names
+ * utilized within the Virtual Protocol Adapter Remote Procedure Call (vparpc)
+ * system. These function names are typically used for registering, invoking,
+ * or managing remote procedures within the framework.
+ */
 const char * vparpc_func_names[] = {
     "VPARPC_FUNC_NONE",
     "VPARPC_FUNC_GET_AUTH",
@@ -26,16 +34,24 @@ const char * vparpc_func_names[] = {
 };
 
 /**
- * @brief Default constructor for vparpc class
- * 
- * Initializes a new instance of the vparpc (Visual Panel Application Remote Procedure Call) class.
- * This class provides TCP client-server communication functionality with a visual interface
- * for monitoring connection status and data transfer.
+ * @brief Default constructor for the vparpc class
+ *
+ * Constructs an instance of the vparpc class. This class facilitates remote
+ * procedure calls with a focus on communication and interaction within
+ * a Virtual Protocol Adapter environment.
  */
 vparpc::vparpc() {
 }
 
-//////////////////////////////////////////////////////////////
+/**
+ * @brief Processes the input data and performs the required operation
+ *
+ * This method takes the given input, analyzes or manipulates it as per implementation
+ * details, and executes the necessary processing task.
+ *
+ * @param input The data or resources provided as input for processing
+ * @return The result of the processing operation, which may vary based on implementation
+ */
 // #####   #####    ####    ####   ######   ####    ####
 // #    #  #    #  #    #  #    #  #       #       #
 // #    #  #    #  #    #  #       #####    ####    ####
@@ -48,22 +64,24 @@ size_t vparpc::process(char * pszBuffer) {
     // Create window for debugging/monitoring
     auto * pWin = new window();
     pWin->set_title("vparpc::process()");
-    gpSemiGr->cosmetics(SRUL, SRUR, SRLL, SRLR, SVSR, SVSL, SH, SV);
+    gpSemiGr->cosmetics(
+        SRUL,       SRUR,
+        SRLL,       SRLR,
+        SVSR,  SVSL,
+        SH,    SV);
 
-    // try {
         // Cast buffer to request structure for type-safe access
         const auto* request = reinterpret_cast<const vparpc_request_t*>(pszBuffer);
         
 
-        // Validate UUID format (should be null-terminated)
-        std::string uuid(reinterpret_cast<const char*>(request->req_generic.szUUID),
-                        std::min(static_cast<size_t>(UUID_SIZE - 1), 
-                                strlen(reinterpret_cast<const char*>(request->req_generic.szUUID))));
+        // // Validate UUID format (should be null-terminated)
+        // std::string uuid(reinterpret_cast<const char*>(request->req_generic.szUUID),
+        //                 std::min(static_cast<size_t>(UUID_SIZE - 1),
+        //                         strlen(reinterpret_cast<const char*>(request->req_generic.szUUID))));
         
-        //pWin->add_row("Processing function: " + std::to_string(request->req_generic.eFunc));
         pWin->add_row(vparpc_func_names[request->req_generic.eFunc]);
 
-        pWin->add_row("Request UUID: " + uuid);
+//        pWin->add_row("Request UUID: " + uuid);
 
         size_t response;
 
@@ -81,10 +99,10 @@ size_t vparpc::process(char * pszBuffer) {
             //     response = handle_host_resolution_request(request->req_generic, pWin);
             //     break;
 
-            // case VPARPC_FUNC_VERSION:
-            //     response = handle_version_request(request->req_version, pWin);
-            //     break;
-            //
+            case VPARPC_FUNC_VERSION:
+                response = handle_version_request(pszBuffer, pWin);
+                break;
+
             default:
                  break;
         }
@@ -94,26 +112,19 @@ size_t vparpc::process(char * pszBuffer) {
         
         return response;
 
-    // } catch (const std::exception& e) {
-    //     pWin->add_row("Exception: " + std::string(e.what()));
-    //     pWin->render();
-    //     delete pWin;
-    //     return "Error: Processing exception";
-    // } catch (...) {
-    //     pWin->add_row("Unknown exception occurred");
-    //     pWin->render();
-    //     delete pWin;
-    //     return "Error: Unknown exception";
-    // }
-}
-
-// These are separate member functions, not nested inside process()
-std::string vparpc::handle_none_request(const vparpc_request_generic_t& request, window* pWin) {
-    pWin->add_row("Processing NONE request");
-    return "OK: None operation completed";
 }
 
 
+/**
+ * @brief Handles an authentication request
+ *
+ * Processes the authentication request, verifies the provided credentials,
+ * and determines whether access should be granted or denied.
+ *
+ * @param request The authentication request containing user credentials and related data.
+ * @return A response indicating the result of the authentication request,
+ * such as success, failure, or additional actions required.
+ */
 size_t vparpc::handle_auth_request(char *buffer, window* pWin) {
     pWin->add_row("Processing AUTH request");
     vparpc_request_auth_t * pReq = (vparpc_request_auth_t *)buffer;
@@ -127,8 +138,37 @@ size_t vparpc::handle_auth_request(char *buffer, window* pWin) {
         pReq->eStatus =  VPARPC_STATUS_AUTH_FAILED;
     }
 
-    return sizeof(vparpc_request_auth_t);
+    return sizeof(pReq->nSize);
 }
+
+
+/**
+ * @brief Handles a version request from the client.
+ *
+ * Processes the request to retrieve and send the current version information
+ * of the application or service in response.
+ *
+ * @param request The request object containing the details of the version query.
+ * @param response The response object used to send the version information back to the client.
+ * @return True if the version request was successfully handled, otherwise false.
+ */
+size_t vparpc::handle_version_request(char * buffer, window* pWin) {
+    pWin->add_row("Processing VERSION request");
+    vparpc_request_version_t * pReq = (vparpc_request_version_t *)buffer;
+
+    if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid,(const char *)pReq->szAuth) ) {
+        strcpy( pReq->szVersion,RSTRING);
+        pReq->eStatus =  VPARPC_STATUS_OK;
+        pWin->add_row("Auth match, authentication successful");
+    } else {
+        pWin->add_row("Auth mismatch, authentication failed");
+        pReq->eStatus =  VPARPC_STATUS_AUTH_FAILED;
+    }
+
+
+    return pReq->nSize;
+}
+
 
 // std::string vparpc::handle_host_resolution_request(const vparpc_request_generic_t& request, window* pWin) {
 //     pWin->add_row("Processing HOST2IPV4ADDR request");
@@ -150,30 +190,18 @@ size_t vparpc::handle_auth_request(char *buffer, window* pWin) {
 //     return ipv4_addr;
 // }
 
-// std::string vparpc::handle_version_request(const vparpc_request_version_t& request, window* pWin) {
-//     pWin->add_row("Processing VERSION request");
-//
-//     std::string version_info = "VPA-RPC v1.0.0";
-//     pWin->add_row("Version info: " + version_info);
-//
-//     return version_info;
-// }
 
-
-
-
-
-
-
-
-/*******************************************************
-      ####   ######  #####   #    #  ######  #####
-     #       #       #    #  #    #  #       #    #
-      ####   #####   #    #  #    #  #####   #    #
-          #  #       #####   #    #  #       #####
-     #    #  #       #   #    #  #   #       #   #
-      ####   ######  #    #    ##    ######  #    #
-********************************************************/
+/**
+ * @brief Starts a TCP server and handles client connections
+ *
+ * This method initializes and starts a TCP server on the specified service port.
+ * It performs actions such as socket creation, binding, and listening, then enters
+ * an infinite loop to accept and process client connections sequentially. For each
+ * client, messages are received, handled, and appropriate responses are sent back.
+ * A graphical interface is used to display server and client activity.
+ *
+ * @param ssService The name of the service to resolve into a port number for the TCP server.
+ */
 
 /**
  * @brief Starts a TCP server that listens for incoming client connections
@@ -324,14 +352,12 @@ void vparpc::server(std::string ssService) {
     close(server_fd);
 }
 
-/*************************************************
-      ####   #       #  ######  #    #  #####
-     #    #  #       #  #       ##   #    #
-     #       #       #  #####   # #  #    #
-     #       #       #  #       #  # #    #
-     #    #  #       #  #       #   ##    #
-      ####   ######  #  ######  #    #    #
- *************************************************/
+/**
+ * @brief Represents a client for network communication.
+ *
+ * This class is responsible for establishing and managing connections
+ * to a server, enabling data exchange between the client and the server.
+ */
 
 /**
  * @brief Establishes a TCP client connection to a remote server and sends data
@@ -436,24 +462,15 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
 }
 
 /**
- * @brief Converts a service name to its corresponding port number
- * 
- * Looks up the port number associated with a given service name using the
- * system's service database (/etc/services on Unix-like systems). First
- * attempts TCP lookup, then falls back to UDP if TCP lookup fails.
- * 
- * @param ssSvcName The service name to look up (e.g., "http", "ssh", "ftp")
- * 
- * @return int The port number in host byte order, or -1 if service not found
- * 
- * @note Uses getservbyname() which consults /etc/services and other system databases
- * @note Tries TCP protocol first, then UDP as fallback
- * @note Returns port in host byte order (ready for use with htons())
- * 
- * @example
- * int port = svc2port("http");     // Returns 80
- * int port = svc2port("ssh");      // Returns 22
- * int port = svc2port("unknown");  // Returns -1
+ * @brief Resolves the service name to its corresponding port number.
+ *
+ * This function takes a service name and protocol as input and returns the port
+ * number assigned to that service for the given protocol.
+ *
+ * @param service The name of the service to resolve (e.g., "http", "ftp").
+ * @param protocol The protocol to use for the lookup (e.g., "tcp", "udp").
+ * @return The port number corresponding to the service and protocol. Returns 0
+ *         if the service or protocol cannot be resolved.
  */
 int vparpc::svc2port(std::string ssSvcName) {
 
@@ -480,35 +497,14 @@ int vparpc::svc2port(std::string ssSvcName) {
 }
 
 /**
- * @brief Resolves a hostname to its IPv4 address using the system hosts file
- * 
- * This function performs hostname-to-IP resolution by parsing the local hosts file
- * rather than using DNS. It supports multiple operating systems by checking
- * common hosts file locations. If the input is already a valid IPv4 address,
- * it returns the input unchanged.
- * 
- * @param hostname The hostname to resolve or IPv4 address to validate
- * 
- * @return std::string The corresponding IPv4 address, or empty string if:
- *         - Hostname not found in hosts file
- *         - Hosts file cannot be opened
- *         - Invalid input format
- * 
- * @note Performs case-insensitive hostname matching
- * @note Only supports IPv4 addresses (skips IPv6 entries)
- * @note Checks hosts files in this order:
- *       1. /etc/hosts (Linux/Unix)
- *       2. C:\Windows\System32\drivers\etc\hosts (Windows)
- *       3. /System/Library/etc/hosts (macOS alternative)
- * @note Uses regex validation for IPv4 address format
- * 
- * @example
- * std::string ip = host2ipv4addr("localhost");     // May return "127.0.0.1"
- * std::string ip = host2ipv4addr("192.168.1.1");  // Returns "192.168.1.1"
- * std::string ip = host2ipv4addr("unknown");       // Returns ""
- * 
- * @warning Does not perform DNS lookups - only consults local hosts file
- * @warning IPv6 addresses in hosts file are ignored
+ * @brief Converts a hostname to its IPv4 address
+ *
+ * Resolves the given hostname to its corresponding IPv4 address, returning
+ * the address in numeric dotted-decimal format.
+ *
+ * @param hostname The name of the host to be resolved.
+ * @return A string containing the IPv4 address of the hostname, or an empty string
+ *         if the resolution fails.
  */
 std::string vparpc::host2ipv4addr(const std::string& hostname) {
 

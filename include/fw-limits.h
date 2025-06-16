@@ -26,4 +26,5 @@
 #define DATE_LENGTH 14
 #define COLOR_SIZE_MAX 24
 #define ZERO_TERMINATOR_SIZE 1
+#define VERSION_SIZE_MAX (sizeof("YYYY.MM.DD.HH")+1)
 #endif //HTML_LIMITS_H

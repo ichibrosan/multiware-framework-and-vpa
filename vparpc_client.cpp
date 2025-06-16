@@ -21,83 +21,24 @@
  */
 
 /**
- * @brief Entry point for the Virtual Protocol Adapter RPC Client application
+ * @brief Main entry point of the application.
  *
- * This function serves as the main entry point for the VPA RPC Client application.
- * It demonstrates a complete client-side RPC workflow including framework initialization,
- * user interface presentation, and remote server communication.
- * 
- * ## Application Workflow:
- * 1. **Framework Initialization**: Creates mwfw2 middleware instance for logging,
- *    error handling, and system services
- * 2. **User Interface Setup**: Configures visual window with semi-graphics styling
- *    for professional appearance
- * 3. **Copyright Display**: Shows application information and legal notices
- * 4. **RPC Communication**: Sends GET request to remote server for UUID retrieval
- * 5. **Resource Management**: Handles cleanup of allocated resources
- * 
- * ## RPC Protocol Details:
- * The client sends structured command requests to the remote RPC server:
- * - **Command Format**: "/GET <resource_name>" 
- * - **Supported Commands**:
- *   - `/GET version`: Retrieves server version information
- *   - `/GET szRpcUuid`: Retrieves server's unique RPC identifier
- * 
- * ## Network Communication:
- * - **Protocol**: TCP/IP over standard network interfaces
- * - **Target Host**: "daphne" (configurable server hostname/IP)
- * - **Service**: "vparpc" (RPC service identifier for port resolution)
- * - **Connection**: Synchronous, single-request model
- * 
- * @param argc The number of command-line arguments passed to the program
- *             Standard C main() parameter including program name as argv[0]
- * @param argv Array of C-style string pointers containing command-line arguments
- *             argv[0] contains the executable path/name
- *             Additional arguments can be used for future configuration options
- * 
- * @return Integer exit status code following standard C conventions:
- *         - **0**: Successful program execution and RPC communication
- *         - **Non-zero**: Error occurred during execution, framework initialization,
- *           UI creation, or RPC communication failure
- * 
- * @note **Global Dependencies**:
- *       - `gpSemiGr`: Global semi-graphics interface manager for UI cosmetics
- *       - `gpVpaRpc`: Global Virtual Protocol Adapter RPC client interface
- *       - These globals must be properly initialized by the framework
- * 
- * @warning **Memory Management Issues**:
- *          - The mwfw2 instance (pMwFw) is allocated but not explicitly freed
- *          - This may cause memory leaks in long-running applications
- *          - Consider adding: `delete pMwFw;` before return statement
- * 
- * @warning **Error Handling**:
- *          - No explicit error checking for framework initialization
- *          - RPC client errors are handled internally by gpVpaRpc->client()
- *          - Network failures may not be propagated to caller
- * 
- * @see mwfw2 class for middleware framework functionality and services
- * @see window class for UI rendering, display operations, and styling
- * @see vparpc::client() for detailed RPC client communication protocol
- * @see gpSemiGr cosmetics configuration for visual styling options
- * 
- * @example **Typical Usage**:
- * @code
- * // Compile and run the client application
- * $ make vparpc_client
- * $ ./vparpc_client
- * 
- * // Expected output:
- * // - Copyright window display
- * // - RPC connection status messages
- * // - Server response (UUID string)
- * // - Connection cleanup messages
- * @endcode
- * 
- * @example **Command-line Extension** (future enhancement):
- * @code
- * // Potential future usage with command-line options
- * $ ./vparpc_client --host=192.168.1.100 --service=custom_rpc --command="/GET status"
- * @endcode
+ * The main function initializes the required frameworks, sets up the user interface,
+ * performs RPC communications for authentication and version retrieval, and handles
+ * resource management. It employs external libraries and configurations for middleware
+ * and user interface handling, as well as for the execution of remote procedure calls.
+ *
+ * The program follows the following workflow:
+ * 1. Framework initialization for middleware services.
+ * 2. UI configuration and display setup.
+ * 3. Preparation and execution of RPC requests to a remote server.
+ * 4. Authorization processing using a pre-shared key (PSK).
+ * 5. Retrieval and display of server information (e.g., version).
+ * 6. Resource cleanup and graceful application exit.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of pointers to command-line arguments.
+ * @return Exit code: 0 indicates success.
  */
 int main(int argc, char **argv) {
     // ========================================================================
@@ -255,9 +196,7 @@ int main(int argc, char **argv) {
      */
 
     /*
-     * Note that we have made an instance of the vparpc_request_auth_t
-     * structure which not only has the request info, but also the
-     * response data items.
+     * Perform the RPC call utilizing PRE-SHARED_KEY to retrieve Auth Token
      */
     vparpc_request_auth_t request_auth;
     request_auth.eVersion = VPARPC_VERSION_1;
@@ -269,15 +208,35 @@ int main(int argc, char **argv) {
         "vparpc",
         &request_auth,sizeof(request_auth) );
 
-    std::string ssAuth;
-    char szAuth[36];
-
-    strcpy(szAuth,(char *)request_auth.szAuth);
+    /*
+     * Display retreived Auth Token
+     */
+    char szAuth[128];
+    strcpy(szAuth,"Auth Token: ");
+    strcat(szAuth,(char *)request_auth.szAuth);
     pWin->add_row(szAuth);
-    pWin->render();
 
-    // std::cout << "szPSK: "  << request_auth.szPSK  << std::endl;
-    // std::cout << "szAuth: " << request_auth.szAuth << std::endl;
+    /*
+     * Perform the RPC call utilizing Auth Token to retrieve the version number
+     */
+    vparpc_request_version_t request_version;
+    request_version.eVersion = VPARPC_VERSION_1;
+    request_version.nSize = sizeof(request_auth);
+    request_version.eFunc = VPARPC_FUNC_VERSION;
+    strcpy((char *)request_version.szAuth,gpSh->m_pShMemng->szRpcUuid);
+    gpVpaRpc->client(
+        "daphne",
+        "vparpc",
+        &request_version,sizeof(request_version) );
+
+    /*
+     * Display Retreived Version
+     */
+    char szVersion[128];
+    strcpy(szVersion,"Version: ");
+    strcat(szVersion,(char *)request_version.szVersion);
+    pWin->add_row(szVersion);
+    pWin->render();
 
 
     // ========================================================================
