@@ -27,6 +27,13 @@ enum vparpc_func_t {
     VPARPC_FUNC_COUNT            ///< Total count of available functions (used for validation)
 };
 
+enum vparpc_status_t {
+    VPARPC_STATUS_OK    = EXIT_SUCCESS,
+    VPARPC_STATUS_ERROR = EXIT_FAILURE,
+    VPARPC_STATUS_AUTH_FAILED,
+    VPARPC_STATUS_COUNT
+};
+
 /**
  * @brief Maximum payload size for VPA RPC packets
  * 
@@ -50,12 +57,19 @@ struct vparpc_request_generic_t {
 };
 
 
+// 2025-06-16 00:12 dwg -
 struct vparpc_request_auth_t {
-    vparpc_version_t eVersion;        // Function type identifier
-    size_t        nSize;              //  Size of request data (in bytes)
-    vparpc_func_t eFunc;              ///< Function type identifier
-    char8_t       szPSK[UUID_SIZE];  ///< Unique request identifier (36 chars + null terminator)
-    char       szAuth[UUID_SIZE];  ///< Unique request identifier (36 chars + null terminator)
+
+    // Request Data
+    vparpc_version_t    eVersion;
+    size_t              nSize;
+    vparpc_func_t       eFunc;
+    char8_t             szPSK[UUID_SIZE];
+
+    // Response Data
+    vparpc_status_t     eStatus;
+    char                szAuth[UUID_SIZE];
+
 };
 
 

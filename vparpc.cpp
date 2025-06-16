@@ -4,7 +4,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-
+#include <string.h>
 #include "vparpc.h"
 
 #include <netdb.h>
@@ -16,6 +16,14 @@
 #include <regex>
 #include <algorithm>
 #include <cctype>
+
+
+const char * vparpc_func_names[] = {
+    "VPARPC_FUNC_NONE",
+    "VPARPC_FUNC_GET_AUTH",
+    "VPARPC_FUNC_HOST2IPV4ADDR",
+    "VPARPC_FUNC_VERSION"
+};
 
 /**
  * @brief Default constructor for vparpc class
@@ -36,9 +44,6 @@ vparpc::vparpc() {
 // #       #    #   ####    ####   ######   ####    ####
 //
 size_t vparpc::process(char * pszBuffer) {
-    std::cout << "vparpc::process()" << std::endl;
-    std::cout << "  pszBuffer: " << pszBuffer << std::endl;
-
 
     // Create window for debugging/monitoring
     auto * pWin = new window();
@@ -55,7 +60,9 @@ size_t vparpc::process(char * pszBuffer) {
                         std::min(static_cast<size_t>(UUID_SIZE - 1), 
                                 strlen(reinterpret_cast<const char*>(request->req_generic.szUUID))));
         
-        pWin->add_row("Processing function: " + std::to_string(request->req_generic.eFunc));
+        //pWin->add_row("Processing function: " + std::to_string(request->req_generic.eFunc));
+        pWin->add_row(vparpc_func_names[request->req_generic.eFunc]);
+
         pWin->add_row("Request UUID: " + uuid);
 
         size_t response;
@@ -106,12 +113,19 @@ std::string vparpc::handle_none_request(const vparpc_request_generic_t& request,
     return "OK: None operation completed";
 }
 
-//std::string vparpc::handle_auth_request(const vparpc_request_generic_t& request, window* pWin) {
+
 size_t vparpc::handle_auth_request(char *buffer, window* pWin) {
     pWin->add_row("Processing AUTH request");
     vparpc_request_auth_t * pReq = (vparpc_request_auth_t *)buffer;
-    strcpy( pReq->szAuth,
-            gpSh->m_pShMemng->szRpcUuid);
+
+    if (0 == strcmp((char *)CFG_VPA_RPC_PSK,(const char *)pReq->szPSK) ) {
+        strcpy( pReq->szAuth,gpSh->m_pShMemng->szRpcUuid);
+        pReq->eStatus =  VPARPC_STATUS_OK;
+        pWin->add_row("PSK match, authentication successful");
+    } else {
+        pWin->add_row("PSK mismatch, authentication failed");
+        pReq->eStatus =  VPARPC_STATUS_AUTH_FAILED;
+    }
 
     return sizeof(vparpc_request_auth_t);
 }
