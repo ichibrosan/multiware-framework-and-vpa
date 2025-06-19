@@ -19,12 +19,28 @@
 
 
 /**
- * @brief Array of function names used in the vparpc framework.
+ * @brief Array of RPC function name strings for use in debugging or display purposes
  *
- * Represents a collection of remote procedure call (RPC) function names
- * utilized within the Virtual Protocol Adapter Remote Procedure Call (vparpc)
- * system. These function names are typically used for registering, invoking,
- * or managing remote procedures within the framework.
+ * This constant array maps the internal identifiers for RPC functions to their
+ * corresponding human-readable names. The names are prefixed with "Function"
+ * for clarity during debugging, logging, or monitoring operations.
+ *
+ * The functions represented in this array include:
+ * - "Function None": Indicates no operation or a placeholder function.
+ * - "Function Get_Auth": Represents the function used to obtain authentication details.
+ * - "Function Host2ipv4addr": Converts a hostname to its corresponding IPv4 address.
+ * - "Function Version": Retrieves the version of the application or service.
+ * - "Function Lookup": Performs a lookup operation based on specific parameters.
+ * - "Function Creds": Handles credential-related operations.
+ *
+ * This data is typically used by window-based debugging utilities to present a
+ * clear and user-friendly description of the operations being processed.
+ *
+ * @note The indices in this array correspond directly to the enumerated values
+ *       for function identifiers (e.g., `VPARPC_FUNC_GET_AUTH`).
+ *
+ * @warning Ensure that any changes to the function enumeration or identifiers
+ *          are reflected in this array to avoid mismatches or incorrect mappings.
  */
 const char * vparpc_func_names[] = {
     "  Function None",
@@ -36,23 +52,15 @@ const char * vparpc_func_names[] = {
 };
 
 /**
- * @brief Default constructor for the vparpc class
- *
- * Constructs an instance of the vparpc class. This class facilitates remote
- * procedure calls with a focus on communication and interaction within
- * a Virtual Protocol Adapter environment.
+ * @return The result or status from the vparpc function execution.
  */
 vparpc::vparpc() {
 }
 
 /**
- * @brief Processes the input data and performs the required operation
+ * Processes the given input and performs operations as defined in the implementation.
  *
- * This method takes the given input, analyzes or manipulates it as per implementation
- * details, and executes the necessary processing task.
- *
- * @param input The data or resources provided as input for processing
- * @return The result of the processing operation, which may vary based on implementation
+ * @param input Represents the input data to be processed.
  */
 // #####   #####    ####    ####   ######   ####    ####
 // #    #  #    #  #    #  #    #  #       #       #
@@ -116,14 +124,20 @@ void  vparpc::process(char * pszBuffer) {
 
 
 /**
- * @brief Handles an authentication request
+ * @brief Handles an authentication request by verifying the pre-shared key (PSK)
  *
- * Processes the authentication request, verifies the provided credentials,
- * and determines whether access should be granted or denied.
+ * Processes an incoming authentication request, verifies the provided pre-shared key (PSK),
+ * and updates the request structure with the authentication status and corresponding data.
+ * Augments the provided window object with status messages for logging the operation progress.
  *
- * @param request The authentication request containing user credentials and related data.
- * @return A response indicating the result of the authentication request,
- * such as success, failure, or additional actions required.
+ * If the provided PSK matches the expected value, the function sets the authentication status
+ * to success and populates the `szAuth` field with a UUID. Otherwise, it marks the request as
+ * authentication failed. The size of the packet is also logged in the provided window object.
+ *
+ * @param buffer The incoming request buffer containing the authentication details, including the
+ *               pre-shared key and packet metadata. Must be properly cast to a
+ *               `vparpc_request_auth_t` structure.
+ * @param pWin   A pointer to a `window` object used for logging status messages during processing.
  */
 void vparpc::handle_auth_request(char *buffer, window* pWin) {
     pWin->add_row("  Processing AUTH request");
@@ -151,14 +165,20 @@ void vparpc::handle_auth_request(char *buffer, window* pWin) {
 
 
 /**
- * @brief Handles a version request from the client.
+ * @brief Handles a version request by validating authentication and responding with the application version
  *
- * Processes the request to retrieve and send the current version information
- * of the application or service in response.
+ * Processes a request to retrieve the application version. It validates the authentication token
+ * provided in the request and either returns the version information upon successful authentication
+ * or indicates an authentication failure. Additionally, logs the processing steps to a debug window.
  *
- * @param request The request object containing the details of the version query.
- * @param response The response object used to send the version information back to the client.
- * @return True if the version request was successfully handled, otherwise false.
+ * @param buffer Pointer to the raw request buffer containing the version request structure
+ * @param pWin Pointer to a window object used for debugging and displaying status messages
+ *
+ * @note The authentication is performed by comparing the provided token with the UUID in shared memory
+ * @note Sets the status field in the request structure based on the authentication result
+ *
+ * @warning Assumes the buffer contains a properly formatted `vparpc_request_version_t` structure
+ * @warning Overwrites the provided buffer with the response data
  */
 void vparpc::handle_version_request(char * buffer, window* pWin) {
     pWin->add_row("  Processing VERSION request");
@@ -175,6 +195,14 @@ void vparpc::handle_version_request(char * buffer, window* pWin) {
 }
 
 
+/**
+ * Handles a lookup request.
+ *
+ * @param requestId Unique identifier for the lookup request.
+ * @param requestPayload Data associated with the lookup request.
+ * @param responseBuffer Buffer to store the response generated by the lookup.
+ * @param errorCallback Callback function to handle any errors encountered during the lookup process.
+ */
 void vparpc::handle_lookup_request(char * buffer, window* pWin) {
     pWin->add_row("  Processing LOOKUP request");
     vparpc_request_lookup_t * pReq = (vparpc_request_lookup_t *)buffer;
@@ -192,6 +220,14 @@ void vparpc::handle_lookup_request(char * buffer, window* pWin) {
     }
 }
 
+/**
+ * Handles a credentials request, processing any necessary validation or operations
+ * based on the provided parameters.
+ *
+ * @param request_id Unique identifier for the credentials request.
+ * @param user_data Data associated with the user making the request.
+ * @param token Authentication token used to verify the request.
+ */
 void vparpc::handle_creds_request(char * buffer, window* pWin) {
     pWin->add_row("  Processing CREDS request");
     vparpc_request_creds_t * pReq = (vparpc_request_creds_t *)buffer;
@@ -237,17 +273,24 @@ void vparpc::handle_creds_request(char * buffer, window* pWin) {
 }
 
 
-
 /**
- * @brief Starts a TCP server and handles client connections
+ * @brief Starts a TCP server that listens for incoming connections on a specified service port
  *
- * This method initializes and starts a TCP server on the specified service port.
- * It performs actions such as socket creation, binding, and listening, then enters
- * an infinite loop to accept and process client connections sequentially. For each
- * client, messages are received, handled, and appropriate responses are sent back.
- * A graphical interface is used to display server and client activity.
+ * Initializes a TCP server that resolves the provided service name to a port number and begins
+ * listening for client connections. Each client connection is processed sequentially, and received
+ * data is appropriately handled. Responses are sent back to connected clients before closing the connection.
+ * Diagnostics and status information are displayed on visual windows during the operation of the server.
  *
- * @param ssService The name of the service to resolve into a port number for the TCP server.
+ * The main server loop runs indefinitely to handle incoming connections.
+ *
+ * @param ssService The service name (e.g., "http") or port number as a string to resolve into an actual port
+ *
+ * @note This function creates visual diagnostic windows for both server and client events
+ * @note Each client connection is managed synchronously, with data received and processed in sequence
+ *
+ * @warning This function operates in an infinite loop and does not terminate under normal circumstances
+ * @warning No advanced error handling or timeout policies are implemented for client connectivity
+ * @warning No authentication or security features are implemented (e.g., encryption, access control)
  */
 
 /**
@@ -401,10 +444,15 @@ void vparpc::server(std::string ssService) {
 }
 
 /**
- * @brief Represents a client for network communication.
+ * Sends a request to a specified client and processes the response.
  *
- * This class is responsible for establishing and managing connections
- * to a server, enabling data exchange between the client and the server.
+ * @param clientId The unique identifier of the client to which the request will be sent.
+ * @param request The request data to be sent to the client.
+ * @param timeout The timeout value in milliseconds for waiting for the client response.
+ * @param isSecure A boolean flag indicating whether the request should use a secure connection.
+ * @param response A reference to a string where the client's response will be stored.
+ *
+ * @return True if the request was successful and a response was received, false otherwise.
  */
 
 /**
@@ -513,16 +561,19 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
 }
 
 
-/*****************************************************************************
- * @brief Resolves the service name to its corresponding port number.
+/**
+ * @brief Resolves a service name to its corresponding port number
  *
- * This function takes a service name and protocol as input and returns the port
- * number assigned to that service for the given protocol.
+ * This method attempts to resolve the provided service name into a port number
+ * using the system's service database. It first checks for the service
+ * under the TCP protocol and, if not found, proceeds to check under the
+ * UDP protocol. If the service cannot be resolved under either protocol,
+ * the method returns -1.
  *
- * @param service The name of the service to resolve (e.g., "http", "ftp").
- * @param protocol The protocol to use for the lookup (e.g., "tcp", "udp").
- * @return The port number corresponding to the service and protocol. Returns 0
- *         if the service or protocol cannot be resolved.
+ * @param ssSvcName The name of the service to resolve (e.g., "http", "ftp").
+ *
+ * @return The port number (in host byte order) corresponding to the given
+ *         service name if found, or -1 if the service name could not be resolved.
  */
 int vparpc::svc2port(std::string ssSvcName) {
 
@@ -549,16 +600,24 @@ int vparpc::svc2port(std::string ssSvcName) {
 }
 
 
-
-/******************************************************************************
- * @brief Converts a hostname to its IPv4 address
+/**
+ * @brief Resolves a hostname to its corresponding IPv4 address using system hosts files
  *
- * Resolves the given hostname to its corresponding IPv4 address, returning
- * the address in numeric dotted-decimal format.
+ * Attempts to resolve a hostname to an IPv4 address. First, it validates
+ * whether the input string is already a valid IPv4 address. If not, it
+ * searches the system hosts files in common locations to find a match
+ * for the given hostname.
  *
- * @param hostname The name of the host to be resolved.
- * @return A string containing the IPv4 address of the hostname, or an empty string
- *         if the resolution fails.
+ * @param hostname The hostname or IP address string to be resolved
+ *
+ * @return The resolved IPv4 address as a string if found, or an empty string if the hostname
+ *         could not be resolved or if the hosts files could not be accessed.
+ *
+ * @note Case-insensitive comparison is used when matching hostnames
+ * @note Only IPv4 addresses (not IPv6) are validated and returned
+ *
+ * @warning Returns an empty string if the system's hosts files are inaccessible
+ * @warning Lines in the hosts file that are malformed or contain invalid entries are ignored
  */
 std::string vparpc::host2ipv4addr(const std::string& hostname) {
 
