@@ -27,4 +27,5 @@
 #define COLOR_SIZE_MAX 24
 #define ZERO_TERMINATOR_SIZE 1
 #define VERSION_SIZE_MAX (sizeof("YYYY.MM.DD.HH")+1)
+#define PASSWORD_SIZE_MAX 512  // Based on PAM_MAX_RESP_SIZE
 #endif //HTML_LIMITS_H

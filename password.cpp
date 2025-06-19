@@ -35,8 +35,8 @@ char gszUUID[37];
 password::password()
 {
     CLog log(__FILE__,__FUNCTION__);
-    //gbHere = true;
-    //here;
+    gbHere = true;
+    here;
     m_pSchema = new schema("passwd.csv");
     m_iLines  = m_pSchema->getLines();
     log.namedInt("m_iLines",m_iLines);
@@ -115,6 +115,7 @@ std::string password::get_uuid()
 int password::lookup_username_password( std::string ssUsername,
 										std::string ssPassword)
 {
+
     char szUUID[UUID_SIZE];
     int iLines = gpCsv->getLines();
     for(int iRow=3;iRow<iLines;iRow++) {

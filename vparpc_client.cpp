@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
      * - Year range covering development period
      * - Author name and rights reservation
      */
-    std::string ssCopr = "Copyright ";
+    std::string ssCopr = "  Copyright ";
     ssCopr.append("(c)");  // Append copyright symbol for compatibility
     ssCopr.append(" 2025 Douglas Wade Goodall. All Rights Reserved.");
     
@@ -145,56 +145,6 @@ int main(int argc, char **argv) {
     // RPC COMMUNICATION SETUP AND EXECUTION
     // ========================================================================
     
-    /**
-     * Prepare RPC request message payload.
-     * 
-     * Command Structure: "/GET <resource_identifier>"
-     * 
-     * Available Commands:
-     * - "/GET version": Retrieves server version string and build information
-     * - "/GET szRpcUuid": Retrieves server's unique RPC session identifier
-     * - "/GET status": Could retrieve server operational status (if implemented)
-     * - "/GET config": Could retrieve server configuration (if implemented)
-     * 
-     * @note The "/GET szRpcUuid" command is used here to demonstrate
-     *       retrieval of the server's unique identifier for this RPC session
-     */
-    // std::string ssBuffer = "/get(oid=auth,parm=";
-    // ssBuffer.append(CFG_VPA_RPC_PSK);
-    // ssBuffer.append(")/");
-
-
-
-    /**
-     * Execute RPC client request to remote server.
-     * 
-     * This call performs the complete RPC communication cycle:
-     * 1. **Hostname Resolution**: Resolves "daphne" to IP address
-     * 2. **Service Lookup**: Converts "vparpc" service name to port number
-     * 3. **Socket Creation**: Creates TCP client socket
-     * 4. **Connection**: Establishes connection to remote server
-     * 5. **Data Transmission**: Sends the command string to server
-     * 6. **Response Reception**: Receives and displays server response
-     * 7. **Connection Cleanup**: Properly closes socket and frees resources
-     * 
-     * @param hostname "daphne" - Target server hostname or IP address
-     *                 This should resolve to a valid network address
-     *                 Could be replaced with IP like "192.168.1.100"
-     * 
-     * @param service "vparpc" - RPC service name/identifier on remote server
-     *                This service name is looked up in /etc/services or
-     *                equivalent system service database to find port number
-     * 
-     * @param command ssBuffer - Message payload to transmit to server
-     *                Contains the "/GET szRpcUuid" command string
-     * 
-     * @note **Synchronous Operation**: This call blocks until completion
-     * @note **Error Handling**: Errors are handled and displayed by the
-     *       client method, but not propagated as return codes
-     * @note **Visual Feedback**: Connection progress and data transfer
-     *       details are displayed in real-time via visual windows
-     */
-
     /*
      * Perform the RPC call utilizing PRE-SHARED_KEY to retrieve Auth Token
      */
@@ -212,7 +162,7 @@ int main(int argc, char **argv) {
      * Display retreived Auth Token
      */
     char szAuth[128];
-    strcpy(szAuth,"Auth Token: ");
+    strcpy(szAuth,"  Auth Token: ");
     strcat(szAuth,(char *)request_auth.szAuth);
     pWin->add_row(szAuth);
 
@@ -223,7 +173,7 @@ int main(int argc, char **argv) {
     request_version.eVersion = VPARPC_VERSION_1;
     request_version.nSize = sizeof(request_auth);
     request_version.eFunc = VPARPC_FUNC_VERSION;
-    strcpy((char *)request_version.szAuth,gpSh->m_pShMemng->szRpcUuid);
+    strcpy((char *)request_version.szAuth,request_auth.szAuth);
     gpVpaRpc->client(
         "daphne",
         "vparpc",
@@ -233,10 +183,88 @@ int main(int argc, char **argv) {
      * Display Retreived Version
      */
     char szVersion[128];
-    strcpy(szVersion,"Version: ");
+    strcpy(szVersion,"  Version: ");
     strcat(szVersion,(char *)request_version.szVersion);
     pWin->add_row(szVersion);
+ //   pWin->render();
+
+
+
+    /*
+     * Perform the RPC call utilizing Auth Token to retrieve a handle
+     */
+    vparpc_request_lookup_t request_lookup;
+    request_lookup.eVersion = VPARPC_VERSION_1;
+    request_lookup.nSize = sizeof(request_lookup);
+    request_lookup.eFunc = VPARPC_FUNC_LOOKUP;
+    strcpy((char *)request_lookup.szAuth,request_auth.szAuth);
+    strcpy(request_lookup.szUsername,"doug");
+    strcpy(request_lookup.szPassword,"melange");
+    gpVpaRpc->client(
+        "daphne",
+        "vparpc",
+        &request_lookup,sizeof(request_lookup) );
+
+    /*
+     * Display Retreived Handle
+     */
+    char szHandle[128];
+    sprintf(szHandle,"  Handle: %d",request_lookup.iHandle);
+    pWin->add_row(szHandle);
+ //   pWin->render();
+
+    /*
+      * Perform the RPC call utilizing handle to retrieve creds
+      */
+    vparpc_request_creds_t request_creds;
+    request_creds.eVersion = VPARPC_VERSION_1;
+    request_creds.nSize = sizeof(request_creds);
+    request_creds.eFunc = VPARPC_FUNC_CREDS;
+    strcpy((char *)request_creds.szAuth,request_auth.szAuth);
+    request_creds.iHandle = request_lookup.iHandle;
+    gpVpaRpc->client(
+        "daphne",
+        "vparpc",
+        &request_creds,sizeof(request_creds) );
+
+    /*
+     * Display Retreived Creds
+     */
+    char szAuthUserName[128];
+    sprintf(szAuthUserName,"  UserName: %s",request_creds.szAuthUserName);
+    pWin->add_row(szAuthUserName);
+
+    char szAuthFirstName[128];
+    sprintf(szAuthFirstName,"  First Name: %s",request_creds.szAuthFirstName);
+    pWin->add_row(szAuthFirstName);
+
+    char szAuthLastName[128];
+    sprintf(szAuthLastName,"  Last Name: %s",request_creds.szAuthLastName);
+    pWin->add_row(szAuthLastName);
+
+    char szAuthUUID[128];
+    sprintf(szAuthUUID,"  Auth UUID: %s",request_creds.szAuthUUID);
+    pWin->add_row(szAuthUUID);
+
+    char szAuthLevel[128];
+    sprintf(szAuthLevel,"  Auth Level: %s",request_creds.szAuthLevel);
+    pWin->add_row(szAuthLevel);
+
+    char szRemoteHost[128];
+    sprintf(szRemoteHost,"  Remote Host: %s",request_creds.szRemoteHost);
+    pWin->add_row(szRemoteHost);
+
+    char szRemoteAddr[128];
+    sprintf(szRemoteAddr,"  Remote Addr: %s",request_creds.szRemoteAddr);
+    pWin->add_row(szRemoteAddr);
+
+    char szHttpUserAgent[128];
+    sprintf(szHttpUserAgent,"  HttpUserAgent: %s",request_creds.szHttpUserAgent);
+    pWin->add_row(szHttpUserAgent);
+
     pWin->render();
+
+
 
 
     // ========================================================================

@@ -27,10 +27,12 @@
  * or managing remote procedures within the framework.
  */
 const char * vparpc_func_names[] = {
-    "VPARPC_FUNC_NONE",
-    "VPARPC_FUNC_GET_AUTH",
-    "VPARPC_FUNC_HOST2IPV4ADDR",
-    "VPARPC_FUNC_VERSION"
+    "  Function None",
+    "  Function Get_Auth",
+    "  Function Host2ipv4addr",
+    "  Function Version",
+    "  Function Lookup",
+    "  Function Creds"
 };
 
 /**
@@ -59,7 +61,7 @@ vparpc::vparpc() {
 // #       #   #   #    #  #    #  #       #    #  #    #
 // #       #    #   ####    ####   ######   ####    ####
 //
-size_t vparpc::process(char * pszBuffer) {
+void  vparpc::process(char * pszBuffer) {
 
     // Create window for debugging/monitoring
     auto * pWin = new window();
@@ -87,20 +89,21 @@ size_t vparpc::process(char * pszBuffer) {
 
         // Dispatch based on function type
         switch (request->req_generic.eFunc) {
-            // case VPARPC_FUNC_NONE:
-            //     response = handle_none_request(request->req_generic, pWin);
-            //     break;
-                
+
             case VPARPC_FUNC_GET_AUTH:
-                response = handle_auth_request(pszBuffer, pWin);
+                handle_auth_request(pszBuffer, pWin);
                 break;
                 
-            // case VPARPC_FUNC_HOST2IPV4ADDR:
-            //     response = handle_host_resolution_request(request->req_generic, pWin);
-            //     break;
-
             case VPARPC_FUNC_VERSION:
-                response = handle_version_request(pszBuffer, pWin);
+                handle_version_request(pszBuffer, pWin);
+                break;
+
+            case VPARPC_FUNC_LOOKUP:
+                handle_lookup_request(pszBuffer, pWin);
+                break;
+
+            case VPARPC_FUNC_CREDS:
+                handle_creds_request(pszBuffer, pWin);
                 break;
 
             default:
@@ -109,9 +112,6 @@ size_t vparpc::process(char * pszBuffer) {
 
          pWin->render();
         delete pWin;
-        
-        return response;
-
 }
 
 
@@ -125,20 +125,28 @@ size_t vparpc::process(char * pszBuffer) {
  * @return A response indicating the result of the authentication request,
  * such as success, failure, or additional actions required.
  */
-size_t vparpc::handle_auth_request(char *buffer, window* pWin) {
-    pWin->add_row("Processing AUTH request");
+void vparpc::handle_auth_request(char *buffer, window* pWin) {
+    pWin->add_row("  Processing AUTH request");
     vparpc_request_auth_t * pReq = (vparpc_request_auth_t *)buffer;
 
     if (0 == strcmp((char *)CFG_VPA_RPC_PSK,(const char *)pReq->szPSK) ) {
+
+        // Caller presented correct pre-shared key
         strcpy( pReq->szAuth,gpSh->m_pShMemng->szRpcUuid);
+        std::string ssPSKmsg = "  Current Auth is: ";
+        ssPSKmsg += pReq->szAuth;
+        pWin->add_row(ssPSKmsg);
+
         pReq->eStatus =  VPARPC_STATUS_OK;
-        pWin->add_row("PSK match, authentication successful");
+        pWin->add_row("  PSK match, authentication successful");
     } else {
-        pWin->add_row("PSK mismatch, authentication failed");
+        pWin->add_row("  PSK mismatch, authentication failed");
         pReq->eStatus =  VPARPC_STATUS_AUTH_FAILED;
     }
 
-    return sizeof(pReq->nSize);
+    std::string ssPktSize = "  Packet size is: ";
+    ssPktSize += std::to_string(pReq->nSize);
+    pWin->add_row(ssPktSize);
 }
 
 
@@ -152,43 +160,82 @@ size_t vparpc::handle_auth_request(char *buffer, window* pWin) {
  * @param response The response object used to send the version information back to the client.
  * @return True if the version request was successfully handled, otherwise false.
  */
-size_t vparpc::handle_version_request(char * buffer, window* pWin) {
-    pWin->add_row("Processing VERSION request");
+void vparpc::handle_version_request(char * buffer, window* pWin) {
+    pWin->add_row("  Processing VERSION request");
     vparpc_request_version_t * pReq = (vparpc_request_version_t *)buffer;
 
     if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid,(const char *)pReq->szAuth) ) {
         strcpy( pReq->szVersion,RSTRING);
         pReq->eStatus =  VPARPC_STATUS_OK;
-        pWin->add_row("Auth match, authentication successful");
+        pWin->add_row("  Auth match, authentication successful");
     } else {
-        pWin->add_row("Auth mismatch, authentication failed");
+        pWin->add_row("  Auth mismatch, authentication failed");
         pReq->eStatus =  VPARPC_STATUS_AUTH_FAILED;
     }
-
-
-    return pReq->nSize;
 }
 
 
-// std::string vparpc::handle_host_resolution_request(const vparpc_request_generic_t& request, window* pWin) {
-//     pWin->add_row("Processing HOST2IPV4ADDR request");
-//
-//     std::string hostname(reinterpret_cast<const char*>(request.szUUID));
-//
-//     if (hostname.empty()) {
-//         return "Error: No hostname provided";
-//     }
-//
-//     std::string ipv4_addr = host2ipv4addr(hostname);
-//
-//     if (ipv4_addr.empty()) {
-//         pWin->add_row("Failed to resolve: " + hostname);
-//         return "Error: Host resolution failed";
-//     }
-//
-//     pWin->add_row("Resolved " + hostname + " to " + ipv4_addr);
-//     return ipv4_addr;
-// }
+void vparpc::handle_lookup_request(char * buffer, window* pWin) {
+    pWin->add_row("  Processing LOOKUP request");
+    vparpc_request_lookup_t * pReq = (vparpc_request_lookup_t *)buffer;
+    if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid,(const char *)pReq->szAuth) ) {
+        pWin->add_row("  Auth match, authentication successful");
+        gpCsv = new readCsv("passwd.csv");
+        gpCsv->parseData();
+        pReq->iHandle =
+                gpPassword->lookup_username_password(
+                    pReq->szUsername, pReq->szPassword);
+        pReq->eStatus =  VPARPC_STATUS_OK;
+    } else {
+        pWin->add_row("  Auth mismatch, authentication failed");
+        pReq->eStatus =  VPARPC_STATUS_AUTH_FAILED;
+    }
+}
+
+void vparpc::handle_creds_request(char * buffer, window* pWin) {
+    pWin->add_row("  Processing CREDS request");
+    vparpc_request_creds_t * pReq = (vparpc_request_creds_t *)buffer;
+    if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid,(const char *)pReq->szAuth) ) {
+
+        pWin->add_row("  Auth match, authentication successful");
+
+        strcpy( pReq->szAuthUserName,
+                gpSh->m_pShMemng->creds[pReq->iHandle].szAuthUserName);
+        pWin->add_row("  AuthUserName: " + std::string(pReq->szAuthUserName));
+
+        strcpy( pReq->szAuthFirstName,
+                gpSh->m_pShMemng->creds[pReq->iHandle].szAuthFirstName);
+        pWin->add_row("  AuthFirstName: " + std::string(pReq->szAuthFirstName));
+
+        strcpy( pReq->szAuthLastName,
+                gpSh->m_pShMemng->creds[pReq->iHandle].szAuthLastName);
+        pWin->add_row("  AuthLastName: " + std::string(pReq->szAuthLastName));
+
+        strcpy( pReq->szAuthUUID,
+                gpSh->m_pShMemng->creds[pReq->iHandle].szAuthUUID);
+        pWin->add_row("  Auth UUID: " + std::string(pReq->szAuthUUID));
+
+        strcpy( pReq->szAuthLevel,
+                gpSh->m_pShMemng->creds[pReq->iHandle].szAuthLevel);
+        pWin->add_row("  AuthLevel: " + std::string(pReq->szAuthLevel));
+
+        strcpy( pReq->szRemoteHost,
+        gpSh->m_pShMemng->creds[pReq->iHandle].szRemoteHost);
+        pWin->add_row("  RemoteHost: " + std::string(pReq->szRemoteHost));
+
+        strcpy( pReq->szRemoteAddr,
+                gpSh->m_pShMemng->creds[pReq->iHandle].szRemoteAddr);
+        pWin->add_row("  RemoteAddr: " + std::string(pReq->szRemoteAddr));
+        strcpy( pReq->szHttpUserAgent,
+                gpSh->m_pShMemng->creds[pReq->iHandle].szHttpUserAgent);
+        pWin->add_row("  HttpUserAgent: " + std::string(pReq->szHttpUserAgent));
+        pReq->eStatus =  VPARPC_STATUS_OK;
+    } else {
+        pWin->add_row("  Auth mismatch, authentication failed");
+        pReq->eStatus = VPARPC_STATUS_AUTH_FAILED;
+    }
+}
+
 
 
 /**
@@ -318,7 +365,7 @@ void vparpc::server(std::string ssService) {
             pWin->add_row("  Error: Client disconnected");
         } else {
             buffer[bytes_received] = '\0';  // Null-terminate the received data
-            pWin->add_row("  Received "+std::to_string(bytes_received)+" bytes: "+buffer);
+            pWin->add_row("  Received "+std::to_string(bytes_received));
 
         //  #####   #####    ####    ####   ######   ####    ####
         //  #    #  #    #  #    #  #    #  #       #       #
@@ -327,12 +374,13 @@ void vparpc::server(std::string ssService) {
         //  #       #   #   #    #  #    #  #       #    #  #    #
         //  #       #    #   ####    ####   ######   ####    ####
         //
-//            response = process(buffer);
-            size_t packetsize = process(buffer);
+
+            process(buffer);
 
             // Send response back to client
-            ssize_t bytes_sent = send(client_fd, buffer, packetsize, 0);
-            pWin->add_row("  Sent     "+std::to_string(bytes_sent)+" bytes: "+response.c_str());
+            ssize_t bytes_sent = send(client_fd, buffer, bytes_received, 0);
+
+            pWin->add_row("  Sent     "+std::to_string(bytes_sent));
 
             if (bytes_sent < 0) {
                 pWin->add_row("  Error: send failed");
@@ -407,7 +455,10 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
         pWin->render();
         return;
     }
-    
+
+    vparpc_request_generic_t * pReq = (vparpc_request_generic_t *)packet;
+    pWin->add_row(vparpc_func_names[pReq->eFunc]);
+
     pWin->add_row("  Host resolved: "+ssHostName);
 
     // Create TCP client socket
@@ -441,7 +492,7 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
         pWin->render();
         return;
     }
-    //pWin->add_row("  Sent     "+std::to_string(bytes_sent)+" bytes: "+packet);
+    pWin->add_row("  Sent     "+std::to_string(bytes_sent)+" bytes");
 
 
     // Receive response from server
@@ -461,7 +512,8 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
     pWin->render();
 }
 
-/**
+
+/*****************************************************************************
  * @brief Resolves the service name to its corresponding port number.
  *
  * This function takes a service name and protocol as input and returns the port
@@ -496,7 +548,9 @@ int vparpc::svc2port(std::string ssSvcName) {
     return -1;
 }
 
-/**
+
+
+/******************************************************************************
  * @brief Converts a hostname to its IPv4 address
  *
  * Resolves the given hostname to its corresponding IPv4 address, returning
