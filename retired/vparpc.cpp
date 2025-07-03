@@ -5,7 +5,7 @@
 
 #include "mwfw2.h"
 #include <string.h>
-#include "vparpc.h"
+#include "../include/vparpc_inetd_server.h"
 
 #include <netdb.h>
 #include <arpa/inet.h>
@@ -16,10 +16,6 @@
 #include <regex>
 #include <algorithm>
 #include <cctype>
-
-#define DISPLAY_MAIN_SERVER_LOOP_INFO
-#define DISPLAY_PROCESS_INFO
-#define DISPLAY_PROCESS_DETAILS
 
 
 /**
@@ -74,8 +70,6 @@ vparpc::vparpc() {
 // #       #    #   ####    ####   ######   ####    ####
 //
 void  vparpc::process(char * pszBuffer) {
-    std::cout << "vparpc::process()" << std::endl;
-    std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
     // Create window for debugging/monitoring
     auto * pWin = new window();
@@ -89,42 +83,34 @@ void  vparpc::process(char * pszBuffer) {
         // Cast buffer to request structure for type-safe access
         const auto* request = reinterpret_cast<const vparpc_request_t*>(pszBuffer);
         
-    std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
         // // Validate UUID format (should be null-terminated)
         // std::string uuid(reinterpret_cast<const char*>(request->req_generic.szUUID),
         //                 std::min(static_cast<size_t>(UUID_SIZE - 1),
         //                         strlen(reinterpret_cast<const char*>(request->req_generic.szUUID))));
         
- //       pWin->add_row(vparpc_func_names[request->req_generic.eFunc]);
+        pWin->add_row(vparpc_func_names[request->req_generic.eFunc]);
 
 //        pWin->add_row("Request UUID: " + uuid);
-    std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
         size_t response;
-        std::cout << "in vparpc::process() at switch " << std::endl;
-        // Dispatch based on function type
-    std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
+        // Dispatch based on function type
         switch (request->req_generic.eFunc) {
 
             case VPARPC_FUNC_GET_AUTH:
-                std::cout << "in vparpc::process() VPARPC_FUNC_GET_AUTH " << std::endl;
                 handle_auth_request(pszBuffer, pWin);
                 break;
                 
             case VPARPC_FUNC_VERSION:
-                std::cout << "in vparpc::process() VPARPC_FUNC_VERSION " << std::endl;
                 handle_version_request(pszBuffer, pWin);
                 break;
 
             case VPARPC_FUNC_LOOKUP:
-                std::cout << "in vparpc::process() VPARPC_FUNC_LOOKUP " << std::endl;
                 handle_lookup_request(pszBuffer, pWin);
                 break;
 
             case VPARPC_FUNC_CREDS:
-                std::cout << "in vparpc::process() VPARPC_FUNC_CREDS " << std::endl;
                 handle_creds_request(pszBuffer, pWin);
                 break;
 
@@ -132,10 +118,7 @@ void  vparpc::process(char * pszBuffer) {
                  break;
         }
 
-#ifdef DISPLAY_PROCESS_INFO
-    pWin->render();
-#endif // DISPLAY_PROCESS_INFO
-
+         pWin->render();
         delete pWin;
 }
 
@@ -157,39 +140,27 @@ void  vparpc::process(char * pszBuffer) {
  * @param pWin   A pointer to a `window` object used for logging status messages during processing.
  */
 void vparpc::handle_auth_request(char *buffer, window* pWin) {
-    std::cout << "vparpc::handle_auth_request()" << std::endl;
-#ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing AUTH request");
-#endif // DISPLAY_PROCESS_DETAILS
-
     vparpc_request_auth_t * pReq = (vparpc_request_auth_t *)buffer;
 
     if (0 == strcmp((char *)CFG_VPA_RPC_PSK,(const char *)pReq->szPSK) ) {
 
         // Caller presented correct pre-shared key
         strcpy( pReq->szAuth,gpSh->m_pShMemng->szRpcUuid);
-#ifdef DISPLAY_PROCESS_DETAILS
         std::string ssPSKmsg = "  Current Auth is: ";
         ssPSKmsg += pReq->szAuth;
         pWin->add_row(ssPSKmsg);
-#endif // DISPLAY_PROCESS_DETAILS
 
         pReq->eStatus =  VPARPC_STATUS_OK;
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  PSK match, authentication successful");
-#endif // DISPLAY_PROCESS_DETAILS
     } else {
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  PSK mismatch, authentication failed");
-#endif // DISPLAY_PROCESS_DETAILS
         pReq->eStatus =  VPARPC_STATUS_AUTH_FAILED;
     }
-#ifdef DISPLAY_PROCESS_DETAILS
+
     std::string ssPktSize = "  Packet size is: ";
     ssPktSize += std::to_string(pReq->nSize);
     pWin->add_row(ssPktSize);
-    pWin->render();
-#endif // DISPLAY_PROCESS_DETAILS
 }
 
 
@@ -210,27 +181,15 @@ void vparpc::handle_auth_request(char *buffer, window* pWin) {
  * @warning Overwrites the provided buffer with the response data
  */
 void vparpc::handle_version_request(char * buffer, window* pWin) {
-    std::cout << "vparpc::handle_version_request()" << std::endl;
-#ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing VERSION request");
-#endif // DISPLAY_PROCESS_DETAILS
-
     vparpc_request_version_t * pReq = (vparpc_request_version_t *)buffer;
 
     if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid,(const char *)pReq->szAuth) ) {
         strcpy( pReq->szVersion,RSTRING);
         pReq->eStatus =  VPARPC_STATUS_OK;
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  Auth match, authentication successful");
-#endif // DISPLAY_PROCESS_DETAILS
-
     } else {
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  Auth mismatch, authentication failed");
-#endif // DISPLAY_PROCESS_DETAILS
-
         pReq->eStatus =  VPARPC_STATUS_AUTH_FAILED;
     }
 }
@@ -245,18 +204,10 @@ void vparpc::handle_version_request(char * buffer, window* pWin) {
  * @param errorCallback Callback function to handle any errors encountered during the lookup process.
  */
 void vparpc::handle_lookup_request(char * buffer, window* pWin) {
-    std::cout << "vparpc::handle_lookup_request()" << std::endl;
-#ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing LOOKUP request");
-#endif // DISPLAY_PROCESS_DETAILS
-
     vparpc_request_lookup_t * pReq = (vparpc_request_lookup_t *)buffer;
     if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid,(const char *)pReq->szAuth) ) {
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  Auth match, authentication successful");
-#endif // DISPLAY_PROCESS_DETAILS
-
         gpCsv = new readCsv("passwd.csv");
         gpCsv->parseData();
         pReq->iHandle =
@@ -264,11 +215,7 @@ void vparpc::handle_lookup_request(char * buffer, window* pWin) {
                     pReq->szUsername, pReq->szPassword);
         pReq->eStatus =  VPARPC_STATUS_OK;
     } else {
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  Auth mismatch, authentication failed");
-#endif // DISPLAY_PROCESS_DETAILS
-
         pReq->eStatus =  VPARPC_STATUS_AUTH_FAILED;
     }
 }
@@ -282,81 +229,45 @@ void vparpc::handle_lookup_request(char * buffer, window* pWin) {
  * @param token Authentication token used to verify the request.
  */
 void vparpc::handle_creds_request(char * buffer, window* pWin) {
-    std::cout << "vparpc::handle_creds_request()" << std::endl;
-#ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing CREDS request");
-#endif // DISPLAY_PROCESS_DETAILS
-
     vparpc_request_creds_t * pReq = (vparpc_request_creds_t *)buffer;
     if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid,(const char *)pReq->szAuth) ) {
 
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  Auth match, authentication successful");
-#endif // DISPLAY_PROCESS_DETAILS
 
         strcpy( pReq->szAuthUserName,
                 gpSh->m_pShMemng->creds[pReq->iHandle].szAuthUserName);
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  AuthUserName: " + std::string(pReq->szAuthUserName));
-#endif // DISPLAY_PROCESS_DETAILS
 
         strcpy( pReq->szAuthFirstName,
                 gpSh->m_pShMemng->creds[pReq->iHandle].szAuthFirstName);
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  AuthFirstName: " + std::string(pReq->szAuthFirstName));
-#endif // DISPLAY_PROCESS_DETAILS
 
         strcpy( pReq->szAuthLastName,
                 gpSh->m_pShMemng->creds[pReq->iHandle].szAuthLastName);
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  AuthLastName: " + std::string(pReq->szAuthLastName));
-#endif // DISPLAY_PROCESS_DETAILS
 
         strcpy( pReq->szAuthUUID,
                 gpSh->m_pShMemng->creds[pReq->iHandle].szAuthUUID);
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  Auth UUID: " + std::string(pReq->szAuthUUID));
-#endif // DISPLAY_PROCESS_DETAILS
 
         strcpy( pReq->szAuthLevel,
                 gpSh->m_pShMemng->creds[pReq->iHandle].szAuthLevel);
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  AuthLevel: " + std::string(pReq->szAuthLevel));
-#endif // DISPLAY_PROCESS_DETAILS
 
         strcpy( pReq->szRemoteHost,
-                gpSh->m_pShMemng->creds[pReq->iHandle].szRemoteHost);
-
-#ifdef DISPLAY_PROCESS_DETAILS
+        gpSh->m_pShMemng->creds[pReq->iHandle].szRemoteHost);
         pWin->add_row("  RemoteHost: " + std::string(pReq->szRemoteHost));
-#endif // DISPLAY_PROCESS_DETAILS
 
         strcpy( pReq->szRemoteAddr,
                 gpSh->m_pShMemng->creds[pReq->iHandle].szRemoteAddr);
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  RemoteAddr: " + std::string(pReq->szRemoteAddr));
-#endif // DISPLAY_PROCESS_DETAILS
-
         strcpy( pReq->szHttpUserAgent,
                 gpSh->m_pShMemng->creds[pReq->iHandle].szHttpUserAgent);
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  HttpUserAgent: " + std::string(pReq->szHttpUserAgent));
-#endif // DISPLAY_PROCESS_DETAILS
-
         pReq->eStatus =  VPARPC_STATUS_OK;
     } else {
-
-#ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  Auth mismatch, authentication failed");
-#endif // DISPLAY_PROCESS_DETAILS
-
         pReq->eStatus = VPARPC_STATUS_AUTH_FAILED;
     }
 }
@@ -406,13 +317,6 @@ void vparpc::handle_creds_request(char * buffer, window* pWin) {
  * @warning Buffer overflow protection relies on BUFSIZ-1 limit
  */
 void vparpc::server(std::string ssService) {
-    std::cout << "vparpc::server() - Starting TCP server on port " << ssService << std::endl;
-
-    // BlockCipher cipher(16);
-    // cipher.setKey("DouglasWGoodall");
-    // char ciphertext[sizeof(vparpc_request_t)];
-    // char  plaintext[sizeof(vparpc_request_t)];
-
     std::string response;
 
     // Create visual window for server status display
@@ -433,8 +337,7 @@ void vparpc::server(std::string ssService) {
     struct sockaddr_in server_addr, client_addr;
     socklen_t client_addr_len = sizeof(client_addr);
     char buffer[BUFSIZ];  // Buffer for receiving client data (typically 8192 bytes)
-
-
+    
     // Create TCP socket
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         pWin->add_row("  Error: socket creation failed");
@@ -499,14 +402,12 @@ void vparpc::server(std::string ssService) {
         
         // Receive data from client
         ssize_t bytes_received = recv(client_fd, buffer, BUFSIZ - 1, 0);
-        //ssize_t bytes_received = recv(client_fd, ciphertext, BUFSIZ - 1, 0);
         if (bytes_received < 0) {
             pWin->add_row("  Error: recv failed");
         } else if (bytes_received == 0) {
             pWin->add_row("  Error: Client disconnected");
         } else {
             buffer[bytes_received] = '\0';  // Null-terminate the received data
-            //ciphertext[bytes_received] = '\0';  // Null-terminate the received data
             pWin->add_row("  Received "+std::to_string(bytes_received));
 
         //  #####   #####    ####    ####   ######   ####    ####
@@ -517,10 +418,7 @@ void vparpc::server(std::string ssService) {
         //  #       #    #   ####    ####   ######   ####    ####
         //
 
-
-            //cipher.decryptData((const uint8_t *)ciphertext,sizeof(plaintext),(uint8_t *)plaintext);
             process(buffer);
-            //cipher.encryptData((uint8_t *)plaintext,sizeof(plaintext),(uint8_t *)ciphertext);
 
             // Send response back to client
             ssize_t bytes_sent = send(client_fd, buffer, bytes_received, 0);
@@ -537,9 +435,7 @@ void vparpc::server(std::string ssService) {
         // Close client connection
         close(client_fd);
         pWin->add_row("  Client connection closed");
-#ifdef DISPLAY_MAIN_SERVER_LOOP_INFO
         pWin->render();
-#endif
         delete pWin;  // Clean up window memory
     }
     
@@ -580,12 +476,6 @@ void vparpc::server(std::string ssService) {
  * @warning Response buffer limited to BUFSIZ (typically 8192 bytes)
  */
 void vparpc::client(std::string ssHostName, std::string ssServiceName, void * packet,size_t pktlen) {
-
-    // BlockCipher cipher(16);
-    // cipher.setKey("DouglasWGoodall");
-    // char ciphertext[sizeof(vparpc_request_t)];
-    // char  plaintext[sizeof(vparpc_request_t)];
-
 
     // Create visual window for client status display
     auto * pWin = new window();
@@ -641,9 +531,7 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
         return;
     }
     pWin->add_row("  Connected to server");
-
-    //cipher.encryptData((uint8_t *)packet,pktlen,(uint8_t *)ciphertext);
-
+    
     // Send data packet to server
     ssize_t bytes_sent = send(client_fd, packet, pktlen, 0);
     if (bytes_sent < 0) {
@@ -665,9 +553,7 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
         response_buffer[bytes_received] = '\0';  // Null-terminate response
         pWin->add_row("  Received "+std::to_string(bytes_received)+" bytes: "+response_buffer);
     }
-
-    //cipher.decryptData((uint8_t *)ciphertext,pktlen,(uint8_t *)packet);
-
+    
     // Close client connection
     close(client_fd);
     pWin->add_row("  Client connection closed");

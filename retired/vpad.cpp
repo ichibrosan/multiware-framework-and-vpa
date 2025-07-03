@@ -91,6 +91,7 @@ main(int argc,char ** argv) {
 
 #include "diagnoseRegister.h"
 
+
             xmlrpc_c::serverAbyss myAbyssServer(
                 xmlrpc_c::serverAbyss::constrOpt()
                 .registryP(&myRegistry)

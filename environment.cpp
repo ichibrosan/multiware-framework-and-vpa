@@ -71,7 +71,7 @@ environment::environment() {
 	 * Determine whether the curl utility is installed on the system
 	 * and set a local boolean reflecting that question.
      ***********************************************************************/
-    m_bCurlPresent = check_curl_installed();
+//    m_bCurlPresent = check_curl_installed();
 
 	/********************************************************************
 	 * Determine the name of the primary network interface in use and
@@ -260,7 +260,7 @@ void environment::set_public_ip()
 	strcpy(szTempFQFS,
 		gpOS->genTempFQFS("myv4ip.txt",false).c_str());
 
-	sprintf(szCommand,"curl ip.me >%s",szTempFQFS);
+	sprintf(szCommand,"curl ip.me >%s 2> /dev/null",szTempFQFS);
 	system(szCommand);
 	std::ifstream ifs(szTempFQFS);
 	ifs >> ssMyIp;

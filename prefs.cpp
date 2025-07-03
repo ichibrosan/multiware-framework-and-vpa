@@ -6,7 +6,7 @@
 #define WIN32_LEAN_AND_MEAN  /* required by xmlrpc-c/server_abyss.hpp */
 
 #include "mwfw2.h"
-#include "diagnoseDefs.h"
+#include "retired/diagnoseDefs.h"
 using namespace std;
 #include "stylist.h"
 #include <xmlrpc-c/base.hpp>

@@ -8,7 +8,7 @@
 #include "include/dashboard.h"
 
 #include "include/stylist.h"
-#include "include/vparpc.h"
+
 
 #ifdef MWFW_SUPPORT_CRTBIND
 crtbind			* gpCrt;
@@ -43,7 +43,7 @@ xinetdctl		* gpXinetd;
 config			* gpConfig;
 iHex			* gpHex;
 //htmlbind        * gpHB;
-RTkGPIO			* gpGPIO;
+//RTkGPIO			* gpGPIO;
 
 
 /**
@@ -97,8 +97,8 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 		std::cout << "Content-type:\ttext/html\n\n" << std::endl;
 	}
 
-	gpXinetd = new xinetdctl();
-	m_iFeatureset |= 1 << FEATURE_XINETDCTL;
+	// gpXinetd = new xinetdctl();
+	// m_iFeatureset |= 1 << FEATURE_XINETDCTL;
 
 	//gpShmVars = new shmvars();
 	gpSh = new shared();
@@ -137,7 +137,7 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 	//gpHB = new htmlbind();
 	gpSh->m_pShMemng->iMwfwFeatures = m_iFeatureset;
 
-	gpGPIO = new RTkGPIO();
+//	gpGPIO = new RTkGPIO();
 
 	m_iFeatureset |= 1 << FEATURE_GPIO;
 }

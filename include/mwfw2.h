@@ -14,8 +14,8 @@
 #include "fw-limits.h"
 #include "version.h"
 #include "config.h"
-#include "vpadiscclient.h"
-#include "vpadiscserver.h"
+//#include "vpadiscclient.h"
+//#include "vpadiscserver.h"
 #include "testdiscclient.h"
 #include "testdiscclient.h"
 #include "mutations.h"
@@ -142,9 +142,9 @@ extern test * gpTest;
 extern xinetdctl * gpXinetd;
 #endif
 
-#include <xmlrpc-c/girerr.hpp>
-#include <xmlrpc-c/base.hpp>
-#include <xmlrpc-c/client_simple.hpp>
+//#include <xmlrpc-c/girerr.hpp>
+//#include <xmlrpc-c/base.hpp>
+//#include <xmlrpc-c/client_simple.hpp>
 
 #ifndef gpVpaRpc
 #include "vparpc.h"
@@ -153,9 +153,9 @@ extern vparpc * gpVpaRpc;
 
 
 #include "config.h"
-#include "diagnoseDefs.h"
+//#include "diagnoseDefs.h"
 #include "restDefs.h"
-#include "diagnose.h"
+//#include "diagnose.h"
 #include "stylist.h"
 
 #ifndef gpHex

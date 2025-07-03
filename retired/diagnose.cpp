@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 #include "std.h"
-#include "include/diagnose.h"
+#include "../include/diagnose.h"
 
 
 /**

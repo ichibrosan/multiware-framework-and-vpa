@@ -19,7 +19,7 @@ cgihtml::cgihtml()
 // imgsrc(image,width,height);
 
 void cgihtml::render_leds() {
-    gpGPIO->render();
+ //   gpGPIO->render();
     int iLedSize = 62;
     int border=1;
     open_table(border);

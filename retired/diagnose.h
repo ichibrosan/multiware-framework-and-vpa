@@ -5,8 +5,8 @@
 #ifndef DIAGNOSE_H
 #define DIAGNOSE_H
 
-#include "std.h"
-#include "mwfw2.h"
+#include "../include/std.h"
+#include "../include/mwfw2.h"
 
 class diagnose {
     std::string m_ssNodeIP;

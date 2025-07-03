@@ -10,7 +10,7 @@
 
 #include "mwfw2.h"
 
-#include "diagnoseDefs.h"
+#include "../retired/diagnoseDefs.h"
 
 // Used for shared segment signature
 // See Douglas Adam, Hitchhiker's Guide et al.
