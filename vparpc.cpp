@@ -17,9 +17,9 @@
 #include <algorithm>
 #include <cctype>
 
-#define DISPLAY_MAIN_SERVER_LOOP_INFO
-#define DISPLAY_PROCESS_INFO
-#define DISPLAY_PROCESS_DETAILS
+//#define DISPLAY_MAIN_SERVER_LOOP_INFO
+//#define DISPLAY_PROCESS_INFO
+//#define DISPLAY_PROCESS_DETAILS
 
 
 /**
@@ -74,8 +74,8 @@ vparpc::vparpc() {
 // #       #    #   ####    ####   ######   ####    ####
 //
 void  vparpc::process(char * pszBuffer) {
-    std::cout << "vparpc::process()" << std::endl;
-    std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
+    // std::cout << "vparpc::process()" << std::endl;
+    // std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
     // Create window for debugging/monitoring
     auto * pWin = new window();
@@ -89,7 +89,7 @@ void  vparpc::process(char * pszBuffer) {
         // Cast buffer to request structure for type-safe access
         const auto* request = reinterpret_cast<const vparpc_request_t*>(pszBuffer);
         
-    std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
+    //std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
         // // Validate UUID format (should be null-terminated)
         // std::string uuid(reinterpret_cast<const char*>(request->req_generic.szUUID),
@@ -99,32 +99,26 @@ void  vparpc::process(char * pszBuffer) {
  //       pWin->add_row(vparpc_func_names[request->req_generic.eFunc]);
 
 //        pWin->add_row("Request UUID: " + uuid);
-    std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
+    //std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
         size_t response;
-        std::cout << "in vparpc::process() at switch " << std::endl;
         // Dispatch based on function type
-    std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
         switch (request->req_generic.eFunc) {
 
             case VPARPC_FUNC_GET_AUTH:
-                std::cout << "in vparpc::process() VPARPC_FUNC_GET_AUTH " << std::endl;
                 handle_auth_request(pszBuffer, pWin);
                 break;
                 
             case VPARPC_FUNC_VERSION:
-                std::cout << "in vparpc::process() VPARPC_FUNC_VERSION " << std::endl;
                 handle_version_request(pszBuffer, pWin);
                 break;
 
             case VPARPC_FUNC_LOOKUP:
-                std::cout << "in vparpc::process() VPARPC_FUNC_LOOKUP " << std::endl;
                 handle_lookup_request(pszBuffer, pWin);
                 break;
 
             case VPARPC_FUNC_CREDS:
-                std::cout << "in vparpc::process() VPARPC_FUNC_CREDS " << std::endl;
                 handle_creds_request(pszBuffer, pWin);
                 break;
 
@@ -157,7 +151,6 @@ void  vparpc::process(char * pszBuffer) {
  * @param pWin   A pointer to a `window` object used for logging status messages during processing.
  */
 void vparpc::handle_auth_request(char *buffer, window* pWin) {
-    std::cout << "vparpc::handle_auth_request()" << std::endl;
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing AUTH request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -210,7 +203,6 @@ void vparpc::handle_auth_request(char *buffer, window* pWin) {
  * @warning Overwrites the provided buffer with the response data
  */
 void vparpc::handle_version_request(char * buffer, window* pWin) {
-    std::cout << "vparpc::handle_version_request()" << std::endl;
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing VERSION request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -245,7 +237,6 @@ void vparpc::handle_version_request(char * buffer, window* pWin) {
  * @param errorCallback Callback function to handle any errors encountered during the lookup process.
  */
 void vparpc::handle_lookup_request(char * buffer, window* pWin) {
-    std::cout << "vparpc::handle_lookup_request()" << std::endl;
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing LOOKUP request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -282,7 +273,6 @@ void vparpc::handle_lookup_request(char * buffer, window* pWin) {
  * @param token Authentication token used to verify the request.
  */
 void vparpc::handle_creds_request(char * buffer, window* pWin) {
-    std::cout << "vparpc::handle_creds_request()" << std::endl;
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing CREDS request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -406,7 +396,6 @@ void vparpc::handle_creds_request(char * buffer, window* pWin) {
  * @warning Buffer overflow protection relies on BUFSIZ-1 limit
  */
 void vparpc::server(std::string ssService) {
-    std::cout << "vparpc::server() - Starting TCP server on port " << ssService << std::endl;
 
     // BlockCipher cipher(16);
     // cipher.setKey("DouglasWGoodall");

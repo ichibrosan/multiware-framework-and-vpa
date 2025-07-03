@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FW Framework - Comprehensive Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #34495e;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            margin: 0 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: #2c3e50;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            color: #7f8c8d;
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
+        }
+
+        .feature-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        pre, code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .callout {
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 5px solid;
+        }
+
+        .callout.info {
+            background: #e8f4fd;
+            border-color: #3498db;
+            color: #2980b9;
+        }
+
+        .callout.warning {
+            background: #fef9e7;
+            border-color: #f39c12;
+            color: #d68910;
+        }
+
+        .callout.success {
+            background: #eafaf1;
+            border-color: #27ae60;
+            color: #229954;
+        }
+
+        .architecture-diagram {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .component-box {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.3s;
+        }
+
+        .scroll-top:hover {
+            background: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+            
+            section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>FW Framework</h1>
+            <p>Comprehensive C++ Application Framework</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#environment">Environment</a></li>
+                <li><a href="#api">API Reference</a></li>
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#usage">Usage</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#version">Version Info</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="overview">
+                <h2>Project Overview</h2>
+                <p>The FW Framework is a comprehensive C++ application framework designed for system-level programming, web application development, and embedded systems. Developed by Douglas Wade Goodall, this framework provides extensive functionality for environment management, network configuration, system logging, and inter-process communication.</p>
+
+                <div class="callout info">
+                    <strong>Key Purpose:</strong> This framework serves as a foundation for building robust, scalable applications with emphasis on system integration, network protocols, and shared memory management.
+                </div>
+
+                <h3>Project Statistics</h3>
+                <table>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Total Source Files</td>
+                        <td>50+ C++ files</td>
+                    </tr>
+                    <tr>
+                        <td>Core Components</td>
+                        <td>12 major modules</td>
+                    </tr>
+                    <tr>
+                        <td>Development Period</td>
+                        <td>2021-2025</td>
+                    </tr>
+                    <tr>
+                        <td>Build System</td>
+                        <td>CMake</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section id="architecture">
+                <h2>System Architecture</h2>
+                
+                <div class="architecture-diagram">
+                    <h3>Framework Components</h3>
+                    <div class="component-box">Environment Manager</div>
+                    <div class="component-box">Shared Memory</div>
+                    <div class="component-box">Network Services</div>
+                    <div class="component-box">Logging System</div>
+                    <div class="component-box">CGI Interface</div>
+                    <div class="component-box">GPIO Control</div>
+                </div>
+
+                <h3>Core Architecture Principles</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>Modular Design</h4>
+                        <p>Each component is self-contained and can be used independently or as part of the larger framework.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Shared Memory</h4>
+                        <p>Efficient inter-process communication through shared memory segments with mutex protection.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Environment Awareness</h4>
+                        <p>Automatic detection and configuration of system environment, network interfaces, and protocols.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Cross-Platform Support</h4>
+                        <p>Designed to work across different Linux distributions and embedded systems.</p>
+                    </div>
+                </div>
+
+                <h3>Component Dependencies</h3>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Dependencies</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td>mwfw2</td>
+                        <td>Core framework</td>
+                        <td>Main initialization and feature management</td>
+                    </tr>
+                    <tr>
+                        <td>environment</td>
+                        <td>shared, osIface</td>
+                        <td>System environment detection and configuration</td>
+                    </tr>
+                    <tr>
+                        <td>shared</td>
+                        <td>shMemMgr, shMemMutex</td>
+                        <td>Shared memory management</td>
+                    </tr>
+                    <tr>
+                        <td>vparpc</td>
+                        <td>network utilities</td>
+                        <td>Remote procedure call implementation</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section id="features">
+                <h2>Key Features</h2>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🌐 Environment Management</h4>
+                        <p>Automatic detection of hostname, IP addresses, network interfaces, and protocol configuration (HTTP/HTTPS).</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📊 System Logging</h4>
+                        <p>Comprehensive logging system with CLog and CSysLog classes for application and system-level logging.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔗 Shared Memory IPC</h4>
+                        <p>Efficient inter-process communication using shared memory with mutex synchronization.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🌍 CGI Web Interface</h4>
+                        <p>Built-in CGI support for web-based applications with automatic environment detection.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>⚡ GPIO Control</h4>
+                        <p>Hardware interface for GPIO pin control through RTkGPIO module for embedded applications.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔧 Schema Management</h4>
+                        <p>Dynamic schema compilation and management for database-like operations.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔒 Security Features</h4>
+                        <p>Password management, user authentication, and secure configuration handling.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📝 Configuration System</h4>
+                        <p>Flexible configuration management with dotconfig and environment-specific settings.</p>
+                    </div>
+                </div>
+
+                <h3>Network Capabilities</h3>
+                <ul>
+                    <li><strong>Protocol Detection:</strong> Automatic HTTP/HTTPS protocol determination</li>
+                    <li><strong>Public IP Discovery:</strong> External IP address detection using curl</li>
+                    <li><strong>Network Interface Analysis:</strong> Primary network interface identification</li>
+                    <li><strong>Port Management:</strong> xinetd service control and port triggering</li>
+                    <li><strong>Remote Procedure Calls:</strong> VPA RPC implementation for distributed services</li>
+                </ul>
+            </section>
+
+            <section id="environment">
+                <h2>Environment Management</h2>
+
+                <p>The environment management system is one of the framework's core components, responsible for automatically detecting and configuring system parameters.</p>
+
+                <h3>Environment Detection Process</h3>
+                <table>
+                    <tr>
+                        <th>Step</th>
+                        <th>Function</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>extract_username()</td>
+                        <td>Extracts username from source file path</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>get_interface()</td>
+                        <td>Determines primary network interface</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>set_hostname()</td>
+                        <td>Reads system hostname from /etc/hostname</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>set_protocol()</td>
+                        <td>Tests for HTTPS/HTTP availability</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>get_ip()</td>
+                        <td>Discovers local IP address</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>set_public_ip()</td>
+                        <td>Fetches public IP using external service</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>set_*_root()</td>
+                        <td>Configures various directory paths</td>
+                    </tr>
+                </table>
+
+                <h3>Directory Structure Configuration</h3>
+                <div class="callout info">
+                    The framework automatically configures paths for CGI scripts, images, styles, journals, and temporary files based on the detected username and system configuration.
+                </div>
+
+                <ul>
+                    <li><strong>CGI Root:</strong> <code>http://[IP]/~[user]/fw/cgi-bin/</code></li>
+                    <li><strong>Images Root:</strong> <code>http://[IP]/~[user]/fw/images/</code></li>
+                    <li><strong>Styles Root:</strong> <code>http://[IP]/~[user]/fw/styles/</code></li>
+                    <li><strong>Journal Root:</strong> <code>/home/[user]/Documents/Fw_Notes/</code></li>
+                    <li><strong>Config Root:</strong> <code>/home/[user]/.config/multiware</code></li>
+                    <li><strong>Temp Root:</strong> <code>/home/[user]/public_html/fw/tmp/</code></li>
+                </ul>
+            </section>
+
+            <section id="api">
+                <h2>API Reference</h2>
+
+                <h3>Environment Class Methods</h3>
+                <table>
+                    <tr>
+                        <th>Method</th>
+                        <th>Return Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>get_public_ip()</td>
+                        <td>char*</td>
+                        <td>Returns the public IP address of the host</td>
+                    </tr>
+                    <tr>
+                        <td>get_hostname(bool)</td>
+                        <td>std::string</td>
+                        <td>Retrieves the system hostname</td>
+                    </tr>
+                    <tr>
+                        <td>get_interface(bool)</td>
+                        <td>std::string</td>
+                        <td>Gets the primary network interface name</td>
+                    </tr>
+                    <tr>
+                        <td>get_ip(bool)</td>
+                        <td>std::string</td>
+                        <td>Fetches the local IP address</td>
+                    </tr>
+                    <tr>
+                        <td>is_curl_present()</td>
+                        <td>bool</td>
+                        <td>Checks if cURL is installed on the system</td>
+                    </tr>
+                    <tr>
+                        <td>is_netstat_present()</td>
+                        <td>bool</td>
+                        <td>Verifies netstat utility availability</td>
+                    </tr>
+                </table>
+
+                <h3>Configuration Methods</h3>
+                <table>
+                    <tr>
+                        <th>Method</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td>set_cgi_root(bool)</td>
+                        <td>Configures CGI script directory path</td>
+                    </tr>
+                    <tr>
+                        <td>set_img_root(bool)</td>
+                        <td>Sets image resources directory</td>
+                    </tr>
+                    <tr>
+                        <td>set_styles_root(bool)</td>
+                        <td>Configures stylesheet directory</td>
+                    </tr>
+                    <tr>
+                        <td>set_journal_root(bool)</td>
+                        <td>Sets journal files directory</td>
+                    </tr>
+                    <tr>
+                        <td>set_config_root()</td>
+                        <td>Configures user-specific settings directory</td>
+                    </tr>
+                </table>
+
+                <h3>Usage Examples</h3>
+                <pre><code>// Initialize environment
+environment env;
+
+// Get system information
+std::string hostname = env.get_hostname(false);
+std::string ip = env.get_ip(false);
+char* public_ip = env.get_public_ip();
+
+// Check system capabilities
+if (env.is_curl_present()) {
+    // Use cURL for network operations
+}
+
+// Configure paths
+env.set_cgi_root(false);
+env.set_img_root(false);</code></pre>
+            </section>
+
+            <section id="installation">
+                <h2>Installation & Build</h2>
+
+                <h3>Prerequisites</h3>
+                <div class="callout warning">
+                    <strong>Required Dependencies:</strong>
+                    <ul>
+                        <li>C++11 compatible compiler (GCC 7+ or Clang 5+)</li>
+                        <li>CMake 3.10 or higher</li>
+                        <li>POSIX-compliant operating system (Linux preferred)</li>
+                        <li>curl utility for network operations</li>
+                        <li>netstat utility for network interface detection</li>
+                    </ul>
+                </div>
+
+                <h3>Build Instructions</h3>
+                <pre><code># Clone the repository
+git clone [repository-url]
+cd fw
+
+# Create build directory
+mkdir build && cd build
+
+# Configure with CMake
+cmake ..
+
+# Build the project
+make
+
+# Optional: Install system-wide
+sudo make install</code></pre>
+
+                <h3>CMake Configuration Options</h3>
+                <table>
+                    <tr>
+                        <th>Option</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>CMAKE_BUILD_TYPE</td>
+                        <td>Release</td>
+                        <td>Build configuration (Debug/Release)</td>
+                    </tr>
+                    <tr>
+                        <td>ENABLE_GPIO</td>
+                        <td>ON</td>
+                        <td>Enable GPIO functionality</td>
+                    </tr>
+                    <tr>
+                        <td>ENABLE_CGI</td>
+                        <td>ON</td>
+                        <td>Enable CGI web interface</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section id="usage">
+                <h2>Usage Guide</h2>
+
+                <h3>Basic Framework Initialization</h3>
+                <pre><code>#include "mwfw2.h"
+
+int main() {
+    // Initialize the framework
+    mwfw2* framework = new mwfw2(__FILE__, __FUNCTION__);
+    
+    // Framework automatically configures:
+    // - Environment variables
+    // - Shared memory
+    // - Logging system
+    // - Network settings
+    
+    // Your application code here
+    
+    return 0;
+}</code></pre>
+
+                <h3>Environment Usage</h3>
+                <pre><code>// Environment is automatically initialized by mwfw2
+// Access through global pointer gpEnv
+
+// Get system information
+std::string hostname = gpEnv->get_hostname(false);
+std::string local_ip = gpEnv->get_ip(false);
+char* public_ip = gpEnv->get_public_ip();
+
+// Check capabilities
+if (gpEnv->is_curl_present()) {
+    // Perform network operations
+}</code></pre>
+
+                <h3>Logging Usage</h3>
+                <pre><code>// System logging (available globally)
+gpSysLog->loginfo("Application started");
+
+// Application logging
+gpLog->log("Debug information");
+
+// Framework logging through mwfw2
+framework->sl_loginfo("System message");</code></pre>
+
+                <div class="callout success">
+                    <strong>Best Practice:</strong> Always initialize the framework first before using any of its components. The framework handles dependency resolution and proper initialization order automatically.
+                </div>
+            </section>
+
+            <section id="troubleshooting">
+                <h2>Troubleshooting</h2>
+
+                <h3>Common Issues</h3>
+                <table>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                    <tr>
+                        <td>Build fails with "mwfw2.h not found"</td>
+                        <td>Missing include directory</td>
+                        <td>Ensure include/ directory is in include path</td>
+                    </tr>
+                    <tr>
+                        <td>Environment initialization fails</td>
+                        <td>Missing system utilities</td>
+                        <td>Install curl and netstat packages</td>
+                    </tr>
+                    <tr>
+                        <td>Shared memory access denied</td>
+                        <td>Insufficient permissions</td>
+                        <td>Run with appropriate user permissions</td>
+                    </tr>
+                    <tr>
+                        <td>Network interface not detected</td>
+                        <td>netstat output parsing failure</td>
+                        <td>Check netstat installation and output format</td>
+                    </tr>
+                </table>
+
+                <h3>Debug Mode</h3>
+                <div class="callout info">
+                    Many functions accept a debug parameter. Set to <code>true</code> to enable verbose logging for troubleshooting.
+                </div>
+
+                <pre><code>// Enable debug output
+env.get_ip(true);        // Enables debug for IP detection
+env.set_protocol(true);  // Enables debug for protocol detection</code></pre>
+
+                <h3>Log File Locations</h3>
+                <ul>
+                    <li><strong>System logs:</strong> Accessible through syslog (typically /var/log/syslog)</li>
+                    <li><strong>Application logs:</strong> Framework-specific location based on configuration</li>
+                    <li><strong>Temporary files:</strong> <code>/home/[user]/public_html/fw/tmp/</code></li>
+                </ul>
+            </section>
+
+            <section id="version">
+                <h2>Version Information</h2>
+
+                <table>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Project Name</td>
+                        <td>FW Framework</td>
+                    </tr>
+                    <tr>
+                        <td>Current Version</td>
+                        <td>4.0.0</td>
+                    </tr>
+                    <tr>
+                        <td>Development Period</td>
+                        <td>2021-2025</td>
+                    </tr>
+                    <tr>
+                        <td>Author</td>
+                        <td>Douglas Wade Goodall</td>
+                    </tr>
+                    <tr>
+                        <td>License</td>
+                        <td>All Rights Reserved</td>
+                    </tr>
+                    <tr>
+                        <td>Build System</td>
+                        <td>CMake</td>
+                    </tr>
+                    <tr>
+                        <td>Language</td>
+                        <td>C++11</td>
+                    </tr>
+                </table>
+
+                <h3>Recent Changes</h3>
+                <div class="callout info">
+                    <strong>Version 4.0.0 Highlights:</strong>
+                    <ul>
+                        <li>Enhanced environment detection system</li>
+                        <li>Improved shared memory management</li>
+                        <li>GPIO control integration</li>
+                        <li>Expanded CGI functionality</li>
+                        <li>Better error handling and logging</li>
+                    </ul>
+                </div>
+
+                <h3>Compatibility</h3>
+                <ul>
+                    <li><strong>Operating Systems:</strong> Linux (Ubuntu, CentOS, Debian)</li>
+                    <li><strong>Architectures:</strong> x86_64, ARM</li>
+                    <li><strong>Compilers:</strong> GCC 7+, Clang 5+</li>
+                    <li><strong>Standards:</strong> C++11, POSIX</li>
+                </ul>
+            </section>
+        </main>
+
+        <div class="footer">
+            <p>&copy; 2021-2025 Douglas Wade Goodall. All Rights Reserved.</p>
+            <p>FW Framework - Comprehensive C++ Application Framework</p>
+        </div>
+    </div>
+
+    <button class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Scroll to top">
+        ↑
+    </button>
+
+    <script>
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.style.display = 'block';
+            } else {
+                scrollTop.style.display = 'none';
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
