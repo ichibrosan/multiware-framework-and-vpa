@@ -652,7 +652,7 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
         std::cout << "  Server closed connection" << std::endl;
     } else {
         response_buffer[bytes_received] = '\0';  // Null-terminate response
-        pWin->add_row("  Received "+std::to_string(bytes_received)+" bytes: "+response_buffer);
+        pWin->add_row("  Received "+std::to_string(bytes_received));
     }
 
     //cipher.decryptData((uint8_t *)ciphertext,pktlen,(uint8_t *)packet);

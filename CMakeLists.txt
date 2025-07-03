@@ -375,6 +375,8 @@ target_link_libraries(testdiscserver
 
 add_executable(vparpc_client
 		vparpc_client.cpp include/vparpc_client.h
+		CVpaRpc.cpp
+		include/CVpaRpc.h
 )
 target_link_libraries(vparpc_client
 		mwfw2

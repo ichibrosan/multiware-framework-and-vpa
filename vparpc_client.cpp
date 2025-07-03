@@ -3,6 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
+#include "include/CVpaRpc.h"
 #include "mwfw2.h"
 
 /**
@@ -148,119 +149,72 @@ int main(int argc, char **argv) {
     /*
      * Perform the RPC call utilizing PRE-SHARED_KEY to retrieve Auth Token
      */
-    vparpc_request_auth_t request_auth;
-    request_auth.eVersion = VPARPC_VERSION_1;
-    request_auth.nSize = sizeof(request_auth);
-    request_auth.eFunc = VPARPC_FUNC_GET_AUTH;
-    strcpy((char *)request_auth.szPSK,CFG_VPA_RPC_PSK);
-    gpVpaRpc->client(
-        "daphne",
-        "vparpc",
-        &request_auth,sizeof(request_auth) );
+
+    CVpaRpc * pVpaRpc = new CVpaRpc();
+    pVpaRpc->get_version();
+    pVpaRpc->get_lookup();
+    pVpaRpc->get_creds();
+    std::cout << "username: " << pVpaRpc->get_creds_username()
+              << std::endl;
+    std::cout << "firstname: " << pVpaRpc->get_creds_firstname()
+              << std::endl;
+    std::cout << "lastname: " << pVpaRpc->get_creds_lastname()
+              << std::endl;
+    std::cout << "userauth: " << pVpaRpc->get_creds_auth()
+              << std::endl;
+    std::cout << "level: " << pVpaRpc->get_creds_level()
+              << std::endl;
 
     /*
      * Display retreived Auth Token
      */
-    char szAuth[128];
-    strcpy(szAuth,"  Auth Token: ");
-    strcat(szAuth,(char *)request_auth.szAuth);
-    pWin->add_row(szAuth);
-
-    /*
-     * Perform the RPC call utilizing Auth Token to retrieve the version number
-     */
-    vparpc_request_version_t request_version;
-    request_version.eVersion = VPARPC_VERSION_1;
-    request_version.nSize = sizeof(request_auth);
-    request_version.eFunc = VPARPC_FUNC_VERSION;
-    strcpy((char *)request_version.szAuth,request_auth.szAuth);
-    gpVpaRpc->client(
-        "daphne",
-        "vparpc",
-        &request_version,sizeof(request_version) );
+    pWin->add_row(pVpaRpc->get_auth());
 
     /*
      * Display Retreived Version
      */
-    char szVersion[128];
-    strcpy(szVersion,"  Version: ");
-    strcat(szVersion,(char *)request_version.szVersion);
-    pWin->add_row(szVersion);
- //   pWin->render();
-
-
-
-    /*
-     * Perform the RPC call utilizing Auth Token to retrieve a handle
-     */
-    vparpc_request_lookup_t request_lookup;
-    request_lookup.eVersion = VPARPC_VERSION_1;
-    request_lookup.nSize = sizeof(request_lookup);
-    request_lookup.eFunc = VPARPC_FUNC_LOOKUP;
-    strcpy((char *)request_lookup.szAuth,request_auth.szAuth);
-    strcpy(request_lookup.szUsername,"doug");
-    strcpy(request_lookup.szPassword,"melange");
-    gpVpaRpc->client(
-        "daphne",
-        "vparpc",
-        &request_lookup,sizeof(request_lookup) );
+    pWin->add_row(pVpaRpc->get_version());
 
     /*
      * Display Retreived Handle
      */
-    char szHandle[128];
-    sprintf(szHandle,"  Handle: %d",request_lookup.iHandle);
+    int iHandle = pVpaRpc->get_lookup();
+    char szHandle[64];
+    sprintf(szHandle,"handle: %d",iHandle);
     pWin->add_row(szHandle);
- //   pWin->render();
 
-    /*
-      * Perform the RPC call utilizing handle to retrieve creds
-      */
-    vparpc_request_creds_t request_creds;
-    request_creds.eVersion = VPARPC_VERSION_1;
-    request_creds.nSize = sizeof(request_creds);
-    request_creds.eFunc = VPARPC_FUNC_CREDS;
-    strcpy((char *)request_creds.szAuth,request_auth.szAuth);
-    request_creds.iHandle = request_lookup.iHandle;
-    gpVpaRpc->client(
-        "daphne",
-        "vparpc",
-        &request_creds,sizeof(request_creds) );
 
-    /*
-     * Display Retreived Creds
-     */
-    char szAuthUserName[128];
-    sprintf(szAuthUserName,"  UserName: %s",request_creds.szAuthUserName);
-    pWin->add_row(szAuthUserName);
-
-    char szAuthFirstName[128];
-    sprintf(szAuthFirstName,"  First Name: %s",request_creds.szAuthFirstName);
-    pWin->add_row(szAuthFirstName);
-
-    char szAuthLastName[128];
-    sprintf(szAuthLastName,"  Last Name: %s",request_creds.szAuthLastName);
-    pWin->add_row(szAuthLastName);
-
-    char szAuthUUID[128];
-    sprintf(szAuthUUID,"  Auth UUID: %s",request_creds.szAuthUUID);
-    pWin->add_row(szAuthUUID);
-
-    char szAuthLevel[128];
-    sprintf(szAuthLevel,"  Auth Level: %s",request_creds.szAuthLevel);
-    pWin->add_row(szAuthLevel);
-
-    char szRemoteHost[128];
-    sprintf(szRemoteHost,"  Remote Host: %s",request_creds.szRemoteHost);
-    pWin->add_row(szRemoteHost);
-
-    char szRemoteAddr[128];
-    sprintf(szRemoteAddr,"  Remote Addr: %s",request_creds.szRemoteAddr);
-    pWin->add_row(szRemoteAddr);
-
-    char szHttpUserAgent[128];
-    sprintf(szHttpUserAgent,"  HttpUserAgent: %s",request_creds.szHttpUserAgent);
-    pWin->add_row(szHttpUserAgent);
+    // char szAuthUserName[128];
+    // sprintf(szAuthUserName,"  UserName: %s",request_creds.szAuthUserName);
+    // pWin->add_row(szAuthUserName);
+    //
+    // char szAuthFirstName[128];
+    // sprintf(szAuthFirstName,"  First Name: %s",request_creds.szAuthFirstName);
+    // pWin->add_row(szAuthFirstName);
+    //
+    // char szAuthLastName[128];
+    // sprintf(szAuthLastName,"  Last Name: %s",request_creds.szAuthLastName);
+    // pWin->add_row(szAuthLastName);
+    //
+    // char szAuthUUID[128];
+    // sprintf(szAuthUUID,"  Auth UUID: %s",request_creds.szAuthUUID);
+    // pWin->add_row(szAuthUUID);
+    //
+    // char szAuthLevel[128];
+    // sprintf(szAuthLevel,"  Auth Level: %s",request_creds.szAuthLevel);
+    // pWin->add_row(szAuthLevel);
+    //
+    // char szRemoteHost[128];
+    // sprintf(szRemoteHost,"  Remote Host: %s",request_creds.szRemoteHost);
+    // pWin->add_row(szRemoteHost);
+    //
+    // char szRemoteAddr[128];
+    // sprintf(szRemoteAddr,"  Remote Addr: %s",request_creds.szRemoteAddr);
+    // pWin->add_row(szRemoteAddr);
+    //
+    // char szHttpUserAgent[128];
+    // sprintf(szHttpUserAgent,"  HttpUserAgent: %s",request_creds.szHttpUserAgent);
+    // pWin->add_row(szHttpUserAgent);
 
     pWin->render();
 

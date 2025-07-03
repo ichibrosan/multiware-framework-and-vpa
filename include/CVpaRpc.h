@@ -1,0 +1,29 @@
+/////////////////////////////////////////////////////////////////////////////
+// daphne.goodall.com:/home/devo/public_html/fw/CVpaRpc.h 2025/07/02 - dwg //
+// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.      //
+/////////////////////////////////////////////////////////////////////////////
+
+#pragma once
+
+#include "mwfw2.h"
+
+class CVpaRpc {
+    vparpc_request_auth_t       m_vparpc_request_auth;
+//    char                        m_szAuth[UUID_SIZE];
+    vparpc_request_version_t    m_vparpc_request_version;
+    vparpc_request_lookup_t     m_vparpc_request_lookup;
+    vparpc_request_creds_t      m_vparpc_request_creds;
+
+public:
+    CVpaRpc();
+    std::string get_auth();
+    std::string get_version();
+    int         get_lookup();
+    void        get_creds();
+    std::string get_creds_username();
+    std::string get_creds_firstname();
+    std::string get_creds_lastname();
+    std::string get_creds_auth();
+    std::string get_creds_level();
+};
+
