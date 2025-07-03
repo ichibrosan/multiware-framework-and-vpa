@@ -168,55 +168,27 @@ int main(int argc, char **argv) {
     /*
      * Display retreived Auth Token
      */
-    pWin->add_row(pVpaRpc->get_auth());
+    char szAuthToken[64];
+    sprintf(szAuthToken,"  auth: %s",pVpaRpc->get_auth().c_str());
+    pWin->add_row(szAuthToken);
 
     /*
      * Display Retreived Version
      */
-    pWin->add_row(pVpaRpc->get_version());
+    char szVersion[64];
+    sprintf(szVersion,"  version: %s",pVpaRpc->get_version().c_str());
+    pWin->add_row(szVersion);
 
     /*
      * Display Retreived Handle
      */
     int iHandle = pVpaRpc->get_lookup();
     char szHandle[64];
-    sprintf(szHandle,"handle: %d",iHandle);
+    sprintf(szHandle,"  handle: %d",iHandle);
     pWin->add_row(szHandle);
 
 
-    // char szAuthUserName[128];
-    // sprintf(szAuthUserName,"  UserName: %s",request_creds.szAuthUserName);
-    // pWin->add_row(szAuthUserName);
-    //
-    // char szAuthFirstName[128];
-    // sprintf(szAuthFirstName,"  First Name: %s",request_creds.szAuthFirstName);
-    // pWin->add_row(szAuthFirstName);
-    //
-    // char szAuthLastName[128];
-    // sprintf(szAuthLastName,"  Last Name: %s",request_creds.szAuthLastName);
-    // pWin->add_row(szAuthLastName);
-    //
-    // char szAuthUUID[128];
-    // sprintf(szAuthUUID,"  Auth UUID: %s",request_creds.szAuthUUID);
-    // pWin->add_row(szAuthUUID);
-    //
-    // char szAuthLevel[128];
-    // sprintf(szAuthLevel,"  Auth Level: %s",request_creds.szAuthLevel);
-    // pWin->add_row(szAuthLevel);
-    //
-    // char szRemoteHost[128];
-    // sprintf(szRemoteHost,"  Remote Host: %s",request_creds.szRemoteHost);
-    // pWin->add_row(szRemoteHost);
-    //
-    // char szRemoteAddr[128];
-    // sprintf(szRemoteAddr,"  Remote Addr: %s",request_creds.szRemoteAddr);
-    // pWin->add_row(szRemoteAddr);
-    //
-    // char szHttpUserAgent[128];
-    // sprintf(szHttpUserAgent,"  HttpUserAgent: %s",request_creds.szHttpUserAgent);
-    // pWin->add_row(szHttpUserAgent);
-
-    pWin->render();
+     pWin->render();
 
 
 
