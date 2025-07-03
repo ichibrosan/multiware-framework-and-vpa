@@ -150,20 +150,23 @@ int main(int argc, char **argv) {
      * Perform the RPC call utilizing PRE-SHARED_KEY to retrieve Auth Token
      */
 
-    CVpaRpc * pVpaRpc = new CVpaRpc();
+    CVpaRpc * pVpaRpc = new CVpaRpc("daphne", "vparpc");
+
     pVpaRpc->get_version();
+
     pVpaRpc->get_lookup();
+
     pVpaRpc->get_creds();
-    std::cout << "username: " << pVpaRpc->get_creds_username()
-              << std::endl;
-    std::cout << "firstname: " << pVpaRpc->get_creds_firstname()
-              << std::endl;
-    std::cout << "lastname: " << pVpaRpc->get_creds_lastname()
-              << std::endl;
-    std::cout << "userauth: " << pVpaRpc->get_creds_auth()
-              << std::endl;
-    std::cout << "level: " << pVpaRpc->get_creds_level()
-              << std::endl;
+    // std::cout << "username: " << pVpaRpc->get_creds_username()
+    //           << std::endl;
+    // std::cout << "firstname: " << pVpaRpc->get_creds_firstname()
+    //           << std::endl;
+    // std::cout << "lastname: " << pVpaRpc->get_creds_lastname()
+    //           << std::endl;
+    // std::cout << "userauth: " << pVpaRpc->get_creds_auth()
+    //           << std::endl;
+    // std::cout << "level: " << pVpaRpc->get_creds_level()
+    //           << std::endl;
 
     /*
      * Display retreived Auth Token
@@ -186,6 +189,24 @@ int main(int argc, char **argv) {
     char szHandle[64];
     sprintf(szHandle,"  handle: %d",iHandle);
     pWin->add_row(szHandle);
+
+    char szBuffer[BUFSIZ];
+    sprintf(szBuffer,"  UserName: %s",pVpaRpc->get_creds_username().c_str());
+    pWin->add_row(szBuffer);
+    sprintf(szBuffer,"  FirstName: %s",pVpaRpc->get_creds_firstname().c_str());
+    pWin->add_row(szBuffer);
+    sprintf(szBuffer,"  LastName: %s",pVpaRpc->get_creds_lastname().c_str());
+    pWin->add_row(szBuffer);
+    sprintf(szBuffer,"  Auth: %s",pVpaRpc->get_creds_auth().c_str());
+    pWin->add_row(szBuffer);
+    sprintf(szBuffer,"  Level: %s",pVpaRpc->get_creds_level().c_str());
+    pWin->add_row(szBuffer);
+
+
+
+
+
+
 
 
      pWin->render();

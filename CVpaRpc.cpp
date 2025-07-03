@@ -6,19 +6,19 @@
 
 #include "include/CVpaRpc.h"
 
-CVpaRpc::CVpaRpc()
+CVpaRpc::CVpaRpc(std::string ssHost,std::string ssService)
 {
     m_vparpc_request_auth.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_auth.nSize = sizeof(m_vparpc_request_auth);
     m_vparpc_request_auth.eFunc = VPARPC_FUNC_GET_AUTH;
     strcpy((char *)m_vparpc_request_auth.szPSK,CFG_VPA_RPC_PSK);
     gpVpaRpc->client(
-        "daphne",
-        "vparpc",
-        &m_vparpc_request_auth,sizeof(m_vparpc_request_auth) );
+        ssHost,           // daphne
+        ssService,        // vparpc
+        &m_vparpc_request_auth,sizeof(vparpc_request_t) );
     //strcpy(m_szAuth,m_vparpc_request_auth.szAuth);
 
-    std::cout << "auth: " << m_vparpc_request_auth.szAuth << std::endl;
+    //std::cout << "auth: " << m_vparpc_request_auth.szAuth << std::endl;
 
 }
 
@@ -37,9 +37,9 @@ std::string CVpaRpc::get_version()
     gpVpaRpc->client(
         "daphne",
         "vparpc",
-        &m_vparpc_request_version,sizeof(m_vparpc_request_version) );
+        &m_vparpc_request_version,sizeof(vparpc_request_t) );
 
-    std::cout << "version: " << m_vparpc_request_version.szVersion << std::endl;
+    //std::cout << "version: " << m_vparpc_request_version.szVersion << std::endl;
 
     return(m_vparpc_request_version.szVersion);
 }
@@ -55,9 +55,12 @@ int CVpaRpc::get_lookup()
     gpVpaRpc->client(
         "daphne",
         "vparpc",
-        &m_vparpc_request_lookup,sizeof(m_vparpc_request_lookup) );
+        &m_vparpc_request_lookup,
+        //sizeof(m_vparpc_request_lookup)
+        sizeof(vparpc_request_t)
+    );
 
-    std::cout << "handle: " << m_vparpc_request_lookup.iHandle << std::endl;
+    //std::cout << "handle: " << m_vparpc_request_lookup.iHandle << std::endl;
 
     return(m_vparpc_request_lookup.iHandle);
 }
@@ -72,7 +75,7 @@ void CVpaRpc::get_creds()
     gpVpaRpc->client(
         "daphne",
         "vparpc",
-        &m_vparpc_request_creds,sizeof(m_vparpc_request_creds) );
+        &m_vparpc_request_creds,sizeof(vparpc_request_t) );
 
 }
 

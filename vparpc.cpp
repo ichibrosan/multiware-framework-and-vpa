@@ -86,25 +86,13 @@ void  vparpc::process(char * pszBuffer) {
         SVSR,  SVSL,
         SH,    SV);
 
-        // Cast buffer to request structure for type-safe access
-        const auto* request = reinterpret_cast<const vparpc_request_t*>(pszBuffer);
-        
-    //std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
-
-        // // Validate UUID format (should be null-terminated)
-        // std::string uuid(reinterpret_cast<const char*>(request->req_generic.szUUID),
-        //                 std::min(static_cast<size_t>(UUID_SIZE - 1),
-        //                         strlen(reinterpret_cast<const char*>(request->req_generic.szUUID))));
-        
- //       pWin->add_row(vparpc_func_names[request->req_generic.eFunc]);
-
-//        pWin->add_row("Request UUID: " + uuid);
-    //std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
+        // We don't know what type of request it is yet, we we cast it
+        // generic long enough to decode the eFunc
+        const auto* request = (const vparpc_request_generic_t*)pszBuffer;
 
         size_t response;
-        // Dispatch based on function type
 
-        switch (request->req_generic.eFunc) {
+        switch (request->eFunc) {
 
             case VPARPC_FUNC_GET_AUTH:
                 handle_auth_request(pszBuffer, pWin);
@@ -154,11 +142,10 @@ void vparpc::handle_auth_request(char *buffer, window* pWin) {
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing AUTH request");
 #endif // DISPLAY_PROCESS_DETAILS
-
+    // Cast the buffer to a vparpc_request_auth_t structure so we can pick up the PSK
+    // out of the request packet, and know more about the response fields.
     vparpc_request_auth_t * pReq = (vparpc_request_auth_t *)buffer;
-
     if (0 == strcmp((char *)CFG_VPA_RPC_PSK,(const char *)pReq->szPSK) ) {
-
         // Caller presented correct pre-shared key
         strcpy( pReq->szAuth,gpSh->m_pShMemng->szRpcUuid);
 #ifdef DISPLAY_PROCESS_DETAILS
@@ -166,7 +153,6 @@ void vparpc::handle_auth_request(char *buffer, window* pWin) {
         ssPSKmsg += pReq->szAuth;
         pWin->add_row(ssPSKmsg);
 #endif // DISPLAY_PROCESS_DETAILS
-
         pReq->eStatus =  VPARPC_STATUS_OK;
 #ifdef DISPLAY_PROCESS_DETAILS
         pWin->add_row("  PSK match, authentication successful");
@@ -570,12 +556,6 @@ void vparpc::server(std::string ssService) {
  */
 void vparpc::client(std::string ssHostName, std::string ssServiceName, void * packet,size_t pktlen) {
 
-    // BlockCipher cipher(16);
-    // cipher.setKey("DouglasWGoodall");
-    // char ciphertext[sizeof(vparpc_request_t)];
-    // char  plaintext[sizeof(vparpc_request_t)];
-
-
     // Create visual window for client status display
     auto * pWin = new window();
     gpSemiGr->cosmetics( SRUL,  SRUR,  SRLL,
@@ -631,9 +611,7 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
     }
     pWin->add_row("  Connected to server");
 
-    //cipher.encryptData((uint8_t *)packet,pktlen,(uint8_t *)ciphertext);
-
-    // Send data packet to server
+     // Send data packet to server
     ssize_t bytes_sent = send(client_fd, packet, pktlen, 0);
     if (bytes_sent < 0) {
         pWin->add_row(" Error: send failed");

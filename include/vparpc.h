@@ -199,12 +199,10 @@ struct vparpc_request_creds_t {
 
 union vparpc_request_t {
     struct vparpc_request_generic_t req_generic;
-
     struct vparpc_request_auth_t    req_auth;
-
-    struct vparpc_request_version_t req_version;  // Version req structure
-
-    char filler[128];   // force the vparpc_request_t to the next 64 byte blocksize
+    struct vparpc_request_version_t req_version;
+    struct vparpc_request_lookup_t  req_lookup;
+    struct vparpc_request_creds_t   req_creds;
 };
 
 

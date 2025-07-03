@@ -15,7 +15,7 @@ class CVpaRpc {
     vparpc_request_creds_t      m_vparpc_request_creds;
 
 public:
-    CVpaRpc();
+    CVpaRpc(std::string ssHost,std::string ssService);
     std::string get_auth();
     std::string get_version();
     int         get_lookup();

@@ -1,0 +1,87 @@
+doug@daphne:~/public_html/fw/build$ ./vparpc_client
+╭─────────────────────────────╮
+│vparpc::client(daphne,vparpc)│
+├─────────────────────────────┤
+│  Function Get_Auth          │
+│  Host resolved: daphne      │
+│  Client socket created      │
+│  Connecting to port -1      │
+│  Connected to server        │
+│  Sent     104 bytes         │
+│  Received 104               │
+│  Client connection closed   │
+╰─────────────────────────────╯
+╭─────────────────────────────╮
+│vparpc::client(daphne,vparpc)│
+├─────────────────────────────┤
+│  Function Version           │
+│  Host resolved: daphne      │
+│  Client socket created      │
+│  Connecting to port -1      │
+│  Connected to server        │
+│  Sent     80 bytes          │
+│  Received 80                │
+│  Client connection closed   │
+╰─────────────────────────────╯
+╭─────────────────────────────╮
+│vparpc::client(daphne,vparpc)│
+├─────────────────────────────┤
+│  Function Lookup            │
+│  Host resolved: daphne      │
+│  Client socket created      │
+│  Connecting to port -1      │
+│  Connected to server        │
+│  Sent     136 bytes         │
+│  Received 136               │
+│  Client connection closed   │
+╰─────────────────────────────╯
+╭─────────────────────────────╮
+│vparpc::client(daphne,vparpc)│
+├─────────────────────────────┤
+│  Function Creds             │
+│  Host resolved: daphne      │
+│  Client socket created      │
+│  Connecting to port -1      │
+│  Connected to server        │
+│  Sent     872 bytes         │
+│  Received 872               │
+│  Client connection closed   │
+╰─────────────────────────────╯
+╭─────────────────────────────╮
+│vparpc::client(daphne,vparpc)│
+├─────────────────────────────┤
+│  Function Version           │
+│  Host resolved: daphne      │
+│  Client socket created      │
+│  Connecting to port -1      │
+│  Connected to server        │
+│  Sent     80 bytes          │
+│  Received 80                │
+│  Client connection closed   │
+╰─────────────────────────────╯
+╭─────────────────────────────╮
+│vparpc::client(daphne,vparpc)│
+├─────────────────────────────┤
+│  Function Lookup            │
+│  Host resolved: daphne      │
+│  Client socket created      │
+│  Connecting to port -1      │
+│  Connected to server        │
+│  Sent     136 bytes         │
+│  Received 136               │
+│  Client connection closed   │
+╰─────────────────────────────╯
+╭───────────────────────────────────────────────────────────────╮
+│Virtual Protocol Adapter RPC Client Ver 5.5.10.2               │
+├───────────────────────────────────────────────────────────────┤
+│  Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.│
+│  auth: 009d75d5-a766-4dcc-a831-9a714a9c4257                   │
+│  version: 5.6.19.2                                            │
+│  handle: 4                                                    │
+│  UserName: doug                                               │
+│  FirstName: Douglas                                           │
+│  LastName: Goodall                                            │
+│  Auth: 99da61b1-04d3-4dd8-9402-d17c834c921a                   │
+│  Level: devo                                                  │
+╰───────────────────────────────────────────────────────────────╯
+doug@daphne:~/public_html/fw/build$
