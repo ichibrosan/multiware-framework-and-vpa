@@ -14,7 +14,7 @@
  * This function takes an integer and its binary digit count as inputs,
  * converts the integer into its binary representation, and prints the
  * binary digits equal to the specified count. The binary digits are
- * extracted from the most significant bits (MSB) of the number. The result
+ * extracted from the least significant bits (LSB) of the number. The result
  * is formatted as a string and passed to standard output.
  *
  * Parameters:

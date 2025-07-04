@@ -1,7 +1,7 @@
-// mwfw2.cpp
-
-// Created by doug on 2/2/25.
-//
+///////////////////////////////////////////////////////////////////
+// /home/doug/public_html/fw/mwfw2.cpp 2025-07-04 03:36 dwg -    //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved. //
+///////////////////////////////////////////////////////////////////
 
 #include "include/mwfw2.h"
 
@@ -9,41 +9,30 @@
 
 #include "include/stylist.h"
 
-
-#ifdef MWFW_SUPPORT_CRTBIND
-crtbind			* gpCrt;
-#endif // MWFW_SUPPORT_CRTBIND
-
-dashboard		* gpDash;
-
-dotconfig		* gpDotCfg;
-
-environment		* gpEnv;
-//shmvars			* gpShmVars;
-shared			* gpSh;
+Cgicc				* gpCgi;
+cgibind				* gpCgiBind;
+config				* gpConfig;
+crtbind				* gpCrt;
+readCsv				* gpCsv;
+dashboard			* gpDash;
+dotconfig			* gpDotCfg;
+environment			* gpEnv;
+bool				  gbHere;
+iHex				* gpHex;
+cgihtml				* gpHtml;
+CLog				* gpLog;
+osIface				* gpOS;
+password			* gpPassword;
+schemaCompiler		* gpSchCC;
+schema				* gpSchema;
+semigraphics		* gpSemiGr;
+shared				* gpSh;
 SharedMemoryMutex	* gpShMemMutex;
 SharedMemoryManager * gpShMemMgr;
-
-osIface			* gpOS;
-CLog			* gpLog;
-CSysLog			* gpSysLog;
-bool			  gbHere;
-cgibind			* gpCgiBind;
-cgihtml			* gpHtml;
-Cgicc			* gpCgi;
-schema			* gpSchema;
-readCsv			* gpCsv;
-test			* gpTest;
-schemaCompiler	* gpSchCC;
-semigraphics	* gpSemiGr;
-password		* gpPassword;
-vparpc			* gpVpaRpc;
-xinetdctl		* gpXinetd;
-//stylist		* gpStylist;
-config			* gpConfig;
-iHex			* gpHex;
-//htmlbind        * gpHB;
-//RTkGPIO			* gpGPIO;
+CSysLog				* gpSysLog;
+test				* gpTest;
+vparpc				* gpVpaRpc;
+xinetdctl			* gpXinetd;
 
 
 /**
@@ -63,30 +52,11 @@ iHex			* gpHex;
  */
 mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 
-#ifdef MWFW_SUPPORT_CRTBIND
 	gpCrt = new crtbind();
-	m_iFeatureset |= 1 << FEATURE_CRTBIND;
-#endif // MWFW_SUPPORT_CRTBIND
-
 	gpVpaRpc = new vparpc();
-
 	gpSemiGr = new semigraphics();
-	m_iFeatureset |= 1 << FEATURE_SEMIGR;
-
 	gpSysLog = new CSysLog();
-	m_iFeatureset |= 1 << FEATURE_SYSLOG;
-
 	gbHere = false;
-
-	// gpDotCfg = new dotconfig();
-	// gpDotCfg->assureConfigDir();
-	// if (not gpDotCfg->isLicenseUUID()) {
-	// 	std::cout << "Content-type:\ttext/html\n\n" << std::endl;
-	// 	std::cout << "Synchronization Error!!" << std::endl;
-	// 	std::cout << "Please contact doug@goodall.com" << std::endl;
-	// 	std::cout << "Exiting..." << std::endl;
-	// 	exit(1);
-	// }
 
 	m_bCGI = false;
 	char * ptr = getenv("SERVER_PORT");
@@ -97,49 +67,16 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 		std::cout << "Content-type:\ttext/html\n\n" << std::endl;
 	}
 
-	// gpXinetd = new xinetdctl();
-	// m_iFeatureset |= 1 << FEATURE_XINETDCTL;
-
-	//gpShmVars = new shmvars();
-	gpSh = new shared();
-	m_iFeatureset |= 1 << FEATURE_SHARED;
-
-	gpShMemMutex = new SharedMemoryMutex(CFG_MUTEX_NAME);
-	m_iFeatureset |= 1 << FEATURE_SHAREDMEMORYMUTEX;
-
-	gpShMemMgr = new SharedMemoryManager(CFG_MUTEX_NAME);
-	m_iFeatureset |= 1 << FEATURE_SHAREDMEMORYMANAGER;
-
-	gpEnv = new environment();
-	m_iFeatureset |= 1 << FEATURE_ENVIRONMENT;
-
-	gpLog = new CLog(__FILE__,__FUNCTION__);
-	m_iFeatureset |= 1 << FEATURE_CLOG;
-
-	gpOS = new osIface();
-	m_iFeatureset |= 1 << FEATURE_OSIFACE;
-
-	gpCgi = new Cgicc();
-	m_iFeatureset |= 1 << FEATURE_CGICC;
-
-
-	gpCgiBind = new cgibind();
-	m_iFeatureset |= 1 << FEATURE_CGIBIND;
-
-	//gpStylist = new stylist();
-
-	gpConfig = new config();
-	m_iFeatureset |= 1 << FEATURE_CONFIG;
-
-	gpHex = new iHex();
-	m_iFeatureset |= 1 << FEATURE_HEX;
-
-	//gpHB = new htmlbind();
-	gpSh->m_pShMemng->iMwfwFeatures = m_iFeatureset;
-
-//	gpGPIO = new RTkGPIO();
-
-	m_iFeatureset |= 1 << FEATURE_GPIO;
+	gpSh			= new shared();
+	gpShMemMutex	= new SharedMemoryMutex(CFG_MUTEX_NAME);
+	gpShMemMgr		= new SharedMemoryManager(CFG_MUTEX_NAME);
+	gpEnv			= new environment();
+	gpLog			= new CLog(__FILE__,__FUNCTION__);
+	gpOS			= new osIface();
+	gpCgi			= new Cgicc();
+	gpCgiBind		= new cgibind();
+	gpConfig		= new config();
+	gpHex			= new iHex();
 }
 
 /**

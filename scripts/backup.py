@@ -9,7 +9,7 @@ import sys
 
 host = "daphne"
 os.system("date +%H%M >time.txt")
-fd = open("time.txt","r")
+fd = open("../doc/time.txt", "r")
 data = fd.read()
 fd.close()
 time = data[0] + data[1] + data[2] + data[3]
@@ -18,7 +18,7 @@ time = data[0] + data[1] + data[2] + data[3]
 os.system("date > date.txt")
 
 # open the file using fd as file descriptor
-fd = open("date.txt","r")
+fd = open("../doc/date.txt", "r")
 
 # read the dfate and time into string called data
 data = fd.read()
