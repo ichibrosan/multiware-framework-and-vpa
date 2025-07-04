@@ -4,6 +4,10 @@
 ////////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
 
+/* The purpose of the fw-test4 program is to test the ability of the
+ * framework  to execute a CGI script and verify the output to assure
+ * the apache server is present, configured and running.
+ */
 
 /**
  * @brief Entry point of the program.
@@ -14,12 +18,7 @@
  * @return An integer value of 0 indicating successful program execution.
  */
 int main() {
-    //mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
-
     std::cout << "Content-type:\ttext/html\n\n" << std::endl;
-    // Cgicc *pCgi = new Cgicc();
-    //std::string ssServerSoftware;
-    //ssServerSoftware = gpCgi->getEnvironment().getServerSoftware();
     std::cout << "Hello World!!" << std::endl;
     return 0;
 }
