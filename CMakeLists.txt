@@ -26,6 +26,7 @@ include_directories( "include" )
 # will both include the object headers and define the gpXXX global object
 # pointers, thereby cleaning up the cluttered application include situation.
 
+
 add_library( mwfw2 STATIC
         mwfw2.cpp               include/mwfw2.h
         include/cgicc.h			include/version.h

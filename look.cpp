@@ -1,53 +1,46 @@
 //////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/look.cpp 2025/02/19 05:21      //
+// /home/devo/public_html/fw/look.cpp 2025/07/05 05:45 dwg  //
 // Copyright (c) Douglas Wade Goodall. All Rights Reserved. //
 //////////////////////////////////////////////////////////////
 #include "mwfw2.h"
 
-/****************************************************************************
- * @brief Main function that initializes core components, logs system
- * information, and outputs processed statistical data and authenticated user
- * credentials.
- *
- * This function initializes the logging mechanism, shared memory, environment
- * services, and operating system interface modules. It retrieves and displays
- * statistics related to processed, passed, failed, and skipped tests along
- * with their respective binary representations. Additionally, it outputs the
- * details of authenticated users, including their usernames, names, UUIDs,
- * and handles.
- *
- * @return int Returns 0 upon successful execution.
- ****************************************************************************/
-int main() {
-    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+/**************************************************************
+ * Display Retro Header Information IBM 5150 Monochrome style *
+ **************************************************************/
+void sine()
+{
+    auto * pWin = new window();
+    gpSemiGr->cosmetics(
+        SRUL,  SRUR,  SRLL,    // Corner characters: ┌ ┐ └ ┘
+        SRLR,  SVSR,  SVSL,    // Right corner and separators
+        SH,    SV);             // Horizontal ─ and vertical │ lines
+    char szVersion[64];
+    sprintf(szVersion,"Virtual Protocol Adapter Look Utility "
+                            "Ver %d.%d.%d.%d",RMAJ,RMIN,RREV,RBLD);
+    pWin->set_title(szVersion);
+    std::string ssCopr = "  Copyright ";
+    ssCopr.append("(c)");  // Append copyright symbol for compatibility
+    ssCopr.append(" 2025 Douglas Wade Goodall. All Rights Reserved.");
+    pWin->add_row(ssCopr);
+    pWin->render();
+}
 
-    // shared::SharedMemoryManager manager;
-    // manager.lockSharedMemory();
-    // gpSh->m_pShMemng->iSignature++;
-    // manager.releaseSharedMemory();
+/****************************************
+ * Display Some Shared Memory Variables *
+ ****************************************/
+void shmvars()
+{
+    shared::SharedMemoryManager manager;
+    manager.lockSharedMemory();
+    gpSh->m_pShMemng->iSignature++;
+    manager.releaseSharedMemory();
 
     gpShMemMgr->lockSharedMemory();
     gpSh->m_pShMemng->iSignature++;
     gpShMemMgr->releaseSharedMemory();
 
-    printf("vpad Copyright (c) 2025 Douglas Wade Goodall. "
-           "All Rights Reserved.\n");
-
-    if (gpSh->m_pShMemng->iMwfwFeatures & (1<<FEATURE_CRTBIND)) {
-        printf("Mwfw CRTBIND is enabled.\n");
-    } else {
-        printf("Mwfw CRTBIND is disabled.\n");
-    }
-
-    if (gpSh->m_pShMemng->iMwfwFeatures & (1<<FEATURE_CGICC)) {
-        printf("Mwfw CGI/CC is enabled.\n");
-    } else {
-        printf("Mwfw CGI/CC is disabled.\n");
-    }
-
-
     printf("num_tests_processed is %d\n",
-            gpSh->m_pShMemng->num_tests_processed);
+           gpSh->m_pShMemng->num_tests_processed);
     printf("num_tests_skipped is %d\n",
             gpSh->m_pShMemng->num_tests_skipped);
     printf("num_tests_passed is %d\n",
@@ -64,8 +57,11 @@ int main() {
     gpOS->printBinary(gpSh->m_pShMemng->tests_failed_bits,iNumTests);
     printf("\ntests_skipped_bits   are ");
     gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits,iNumTests);
+}
 
-    printf("\n\nCredentials of Authenticated Users:");
+void auth_users()
+{
+    printf("Credentials of Authenticated Users:");
     for (int iRow=3;iRow<CFG_MAX_USERS+ROW_DATA;iRow++) {
         if (0 < gpSh->m_pShMemng->creds[iRow].iAuthHandle) {
             printf("\n-------------------------------------------\n");
@@ -83,5 +79,12 @@ int main() {
          gpSh->m_pShMemng->creds[iRow].szHttpUserAgent);
         }
     }
+}
+
+int main() {
+    auto * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+    sine();
+    //shmvars();
+    auth_users();
     return EXIT_SUCCESS;
 }

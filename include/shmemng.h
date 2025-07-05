@@ -31,11 +31,7 @@ struct MFW_SHMEMNG_T {
      // Items indexed by led_ofs_t (RTkGPIO.h)
     bool bLedCntl[17];          // for html generation and real I/O
 
-    int iMwfwDebug;
-    int iMwfwFeatures;
-    int iMwfwEvents;
-
-    size_t stShMemSize;
+     size_t stShMemSize;
     char szHostname[DNS_FQDN_SIZE_MAX];
     char szIP[DNS_FQDN_SIZE_MAX];
     char szPublicIP[DNS_FQDN_SIZE_MAX];

@@ -20,12 +20,10 @@
 #include "testdiscclient.h"
 #include "mutations.h"
 
-//#ifdef MWFW_SUPPORT_CRTBIND
 #ifndef gpCrt
 #include "crtbind.h"
 extern crtbind * gpCrt;
 #endif // gpCrt
-//#endif // NWFW_SUPPORT_CRTBIND
 
 #ifndef gpSemiGr
 #include "semigraphics.h"
@@ -82,11 +80,6 @@ extern RTkGPIO * gpGPIO;
 extern cgihtml * gpHtml;
 #endif
 
-// #ifndef gpHB
-// #include "htmlbind.h"
-// extern  htmlbind * gpHB;
-// #endif
-
 #ifndef gpLog
 #include "CLog.hpp"
 extern CLog * gpLog;
@@ -142,20 +135,13 @@ extern test * gpTest;
 extern xinetdctl * gpXinetd;
 #endif
 
-//#include <xmlrpc-c/girerr.hpp>
-//#include <xmlrpc-c/base.hpp>
-//#include <xmlrpc-c/client_simple.hpp>
-
 #ifndef gpVpaRpc
 #include "vparpc.h"
 extern vparpc * gpVpaRpc;
 #endif
 
-
 #include "config.h"
-//#include "diagnoseDefs.h"
 #include "restDefs.h"
-//#include "diagnose.h"
 #include "stylist.h"
 
 #ifndef gpHex
@@ -163,60 +149,6 @@ extern vparpc * gpVpaRpc;
 extern iHex * gpHex;
 #endif
 
-enum FEATURESET {
-	FEATURE_BASE,
-	FEATURE_CGICC,
-	FEATURE_CGIBIND,
-	FEATURE_CONFIG,
-	FEATURE_CRTBIND,
-	FEATURE_ENVIRONMENT,
-	FEATURE_HEX,
-	FEATURE_CLOG,
-	FEATURE_OSIFACE,
-	FEATURE_SEMIGR,
-	FEATURE_SHARED,
-	FEATURE_SHAREDMEMORYMANAGER,
-	FEATURE_SHAREDMEMORYMUTEX,
-	FEATURE_SYSLOG,
-	// FEATURE_SH,
-	// FEATURE_SH_BIND,
-	// FEATURE_SH_MEM_MUTEX,
-	// FEATURE_SH_MEM_MGR,
-	FEATURE_XINETDCTL,
-	//
-	// FEATURE_XMLRPC,
-	// FEATURE_XMLRPC_BIND,
-	// FEATURE_XMLRPC_SERVER,
-	// FEATURE_SCHEMA,
-	// FEATURE_SCH_CC,
-	// FEATURE_TEST,
-	// FEATURE_CSV,
-	// FEATURE_LOG,
-	// FEATURE_WINDOW,
-	// FEATURE_REST,
-	// FEATURE_STYLIST,
-	// FEATURE_PASSWORD,
-	// FEATURE_DOT_CFG,
-	FEATURE_ENVIRONMENTS,
-	// FEATURE_CGI,
-	// FEATURE_CGI_BIND,
-	// FEATURE_DASH,
-	// FEATURE_HTML,
-	// FEATURE_HTML_BIND,
-	FEATURE_GPIO,
-	FEATURE_COUNT
-};
-
-
-enum EVENTSET {
-	EVENT_BASE = 0x00000001,
-	EVENT_COUNT
-};
-
-enum DEBUGSET {
-	DEBUG_BASE = 0x00000001,
-	DEBUG_COUNT
-};
 
 /**
  * @class mwfw2

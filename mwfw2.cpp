@@ -67,6 +67,8 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 		std::cout << "Content-type:\ttext/html\n\n" << std::endl;
 	}
 
+	// gpMP3			= new MP3Player();
+	// gpMP3Play		= new play();
 	gpSh			= new shared();
 	gpShMemMutex	= new SharedMemoryMutex(CFG_MUTEX_NAME);
 	gpShMemMgr		= new SharedMemoryManager(CFG_MUTEX_NAME);
