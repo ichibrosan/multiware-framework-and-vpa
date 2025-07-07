@@ -30,6 +30,7 @@ include_directories( "include" )
 add_library( mwfw2 STATIC
         mwfw2.cpp               include/mwfw2.h
         include/cgicc.h			include/version.h
+        cfgini.cpp              include/cfgini.h
         cgibind.cpp		    	include/cgibind.h
         cgihtml.cpp		    	include/cgihtml.h
         CLog.cpp				include/CLog.hpp
@@ -70,7 +71,7 @@ target_link_libraries(login.cgi	mwfw2 cgicc pthread uuid)
 add_executable(logout.cgi logout.cpp)
 target_link_libraries(logout.cgi mwfw2 cgicc pthread uuid)
 
-add_executable(look look.cpp cfgini.cpp include/cfgini.h)
+add_executable(look look.cpp)
 target_link_libraries(look mwfw2 cgicc pthread uuid)
 
 add_executable(menu.cgi menu.cpp)
