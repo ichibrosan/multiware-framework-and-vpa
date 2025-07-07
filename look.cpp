@@ -3,6 +3,7 @@
 // Copyright (c) Douglas Wade Goodall. All Rights Reserved. //
 //////////////////////////////////////////////////////////////
 #include "mwfw2.h"
+#include "cfgini.h"
 
 /**************************************************************
  * Display Retro Header Information IBM 5150 Monochrome style *
@@ -81,10 +82,40 @@ void auth_users()
     }
 }
 
+void configini()
+{
+    cfgini config("/home/doug/config.ini");
+
+    // Create a new config or load existing
+    if (!config.load()) {
+        config.createNew();
+    }
+
+    // Add sections and variables
+    config.addSection("Database");
+    config.setVariable("Database", "host", "localhost");
+    config.setVariable("Database", "port", "3306");
+    config.setVariable("Database", "name", "mydb");
+
+    config.addSection("Logging");
+    config.setVariable("Logging", "level", "info");
+    config.setVariable("Logging", "file", "app.log");
+
+    // Save the configuration
+    config.save();
+
+    // Read values
+    std::string host = config.getVariable("Database", "host", "localhost");
+    std::cout << "Database host is " << host << std::endl;
+    std::string logLevel = config.getVariable("Logging", "level", "debug");
+    std::cout << "Logging level is " << logLevel << std::endl;
+}
+
 int main() {
     auto * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
     sine();
     //shmvars();
-    auth_users();
+    //auth_users();
+    configini();
     return EXIT_SUCCESS;
 }

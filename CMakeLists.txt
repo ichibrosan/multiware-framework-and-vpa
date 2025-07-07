@@ -57,7 +57,9 @@ add_library( mwfw2 STATIC
 		xinetdctl.cpp			include/xinetdctl.h
 )
 
-add_executable( fw-test4.cgi fw-test4.cpp)
+add_executable( fw-test4.cgi fw-test4.cpp
+        include/cfgini.h
+        cfgini.cpp)
 
 add_executable(index.cgi index.cpp)
 target_link_libraries(index.cgi mwfw2 cgicc pthread uuid)
@@ -68,7 +70,7 @@ target_link_libraries(login.cgi	mwfw2 cgicc pthread uuid)
 add_executable(logout.cgi logout.cpp)
 target_link_libraries(logout.cgi mwfw2 cgicc pthread uuid)
 
-add_executable(look look.cpp)
+add_executable(look look.cpp cfgini.cpp include/cfgini.h)
 target_link_libraries(look mwfw2 cgicc pthread uuid)
 
 add_executable(menu.cgi menu.cpp)
