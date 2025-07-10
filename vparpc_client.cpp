@@ -197,16 +197,38 @@ int main(int argc, char **argv) {
 
 
     pVpaRpc->get_creds();
-    // std::cout << "username: " << pVpaRpc->get_creds_username()
-    //           << std::endl;
-    // std::cout << "firstname: " << pVpaRpc->get_creds_firstname()
-    //           << std::endl;
-    // std::cout << "lastname: " << pVpaRpc->get_creds_lastname()
-    //           << std::endl;
-    // std::cout << "userauth: " << pVpaRpc->get_creds_auth()
-    //           << std::endl;
-    // std::cout << "level: " << pVpaRpc->get_creds_level()
-    //           << std::endl;
+
+    // vparpc_version_t    eVersion;
+    // size_t              nSize;
+    // vparpc_func_t       eFunc;
+    // char8_t             szAuth[UUID_SIZE];
+    // int                 iHandle;
+    //
+    // vparpc_status_t     eStatus;
+    // char                szAuthUserName[UT_NAMESIZE];
+    // char                szAuthFirstName[UT_NAMESIZE];
+    // char                szAuthLastName[UT_NAMESIZE];
+    // char                szAuthUUID[UUID_SIZE];
+    // char                szAuthLevel[UT_NAMESIZE];
+    // char                szRemoteHost[DNS_FQDN_SIZE_MAX];
+    // char                szRemoteAddr[DNS_FQDN_SIZE_MAX];
+    // char                szHttpUserAgent[128];
+
+    printf("VPARPC_FUNC_CREDS\n");
+    printf("request:  eVersion        is %d\n",pVpaRpc->m_vparpc_request_creds.eVersion);
+    printf("request:  nSize           is %ld\n",pVpaRpc->m_vparpc_request_creds.nSize);
+    printf("request:  eFunc           is %d\n",pVpaRpc->m_vparpc_request_creds.eFunc);
+    printf("request:  szAuth          is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuth);
+    printf("request:  iHandle         is %d\n",pVpaRpc->m_vparpc_request_creds.iHandle);
+    printf("response: eStatus         is %d\n",pVpaRpc->m_vparpc_request_creds.eStatus);
+    printf("response: szAuthUserName  is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthUserName);
+    printf("response: szAuthFirstName is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthFirstName);
+    printf("response: szAuthLastName  is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthLastName);
+    printf("response: szAuthUUID      is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthUUID);
+    printf("response: szAuthLevel     is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthLevel);
+    printf("response: szRemoteHost    is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szRemoteHost);
+    printf("response: szRemoteAddr    is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szRemoteAddr);
+    printf("response: szHttpUserAgent is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szHttpUserAgent);
 
     /*
      * Display retreived Auth Token

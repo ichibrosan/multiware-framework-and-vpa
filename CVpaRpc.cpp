@@ -88,7 +88,7 @@ void CVpaRpc::get_creds()
     m_vparpc_request_creds.iHandle = m_vparpc_request_lookup.iHandle;
     gpVpaRpc->client(
         "daphne",
-        "vparpc",
+        "vpa",
         &m_vparpc_request_creds,sizeof(vparpc_request_creds_t) );  // Use struct size
 }
 

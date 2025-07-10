@@ -242,6 +242,8 @@ void handle_lookup_request(char * buffer, window* pWin) {
  * @param token Authentication token used to verify the request.
  */
 void handle_creds_request(char * buffer, window* pWin) {
+    gpSysLog->loginfo("handle_creds_request()");
+
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing CREDS request");
 #endif // DISPLAY_PROCESS_DETAILS
