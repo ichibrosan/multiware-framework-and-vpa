@@ -14,6 +14,9 @@
  * @return void, but the parsed CSV data is stored internally in a member variable.
  */
 readCsv::readCsv(std::string filename) {
+    gpSysLog->loginfo(__FUNCTION__);
+    gpSysLog->loginfo(filename.c_str());
+
     CLog log(__FILE__,__FUNCTION__);
     log.writev("%s::%s(%s) called",__FILE__,__FUNCTION__,filename.c_str());
 
@@ -25,6 +28,7 @@ readCsv::readCsv(std::string filename) {
 
     std::string line;
     while (std::getline(file, line)) {
+        gpSysLog->loginfo(line.c_str());
         std::stringstream lineStream(line);
         std::string cell;
         std::vector<std::string> row;
@@ -51,6 +55,10 @@ readCsv::readCsv(std::string filename) {
  */
 void readCsv::parseData()
 {
+    char szDebug[128];
+
+    gpSysLog->loginfo(__FUNCTION__);
+
     CLog log(__FILE__,__FUNCTION__);
     log.writev("%s::%s() called",__FILE__,__FUNCTION__);
 
@@ -58,11 +66,8 @@ void readCsv::parseData()
     for (const auto& row: m_data) {
         int colnum=0;
         for(const auto& cell : row) {
-            log.writesanstime(cell.c_str());
-            log.writesanstime(",");
             m_parsed_data[m_iRow][colnum++] = cell;
         }
-        log.writesanstime("\n");
         m_iRow++;
     }
 }
@@ -75,11 +80,11 @@ void readCsv::parseData()
  * @return The string located at the specified row and column in the CSV data.
  */
 std::string readCsv::getData(int row,int col)
-{   CLog log(__FILE__,__FUNCTION__);
-    log.writev("%s::%s(row=%d,col=%d) called",__FILE__,__FUNCTION__,row,col);
-
-    log.writev("m_data[row=%d][col=%d] -> %s",
-               row,col,m_data[row][col].c_str());
+{
+    char szLogger[128];
+    sprintf(szLogger,"%s::%s(row=%d,col=%d,data=%s)",
+        __FILE__,__FUNCTION__,row,col,m_data[row][col].c_str());
+    gpSysLog->loginfo(szLogger);
 
     return m_data[row][col];
 }
@@ -91,12 +96,7 @@ std::string readCsv::getData(int row,int col)
  */
 int readCsv::getLines()
 {
-    CLog log(__FILE__,__FUNCTION__);
-    log.writev("%s::%s() called",__FILE__,__FUNCTION__);
-
-    //pLog->writev("%s: %s() started",__FILE__,__FUNCTION__);
-//    CLog log(__FILE__,__FUNCTION__);
-//    log.write("instantiated");
+    gpSysLog->loginfo(__FUNCTION__);
 
     return m_iRow;
 }

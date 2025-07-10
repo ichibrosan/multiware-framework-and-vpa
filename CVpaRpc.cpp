@@ -41,6 +41,9 @@ std::string CVpaRpc::get_version()
 
 int CVpaRpc::get_lookup()
 {
+    gpSysLog->loginfo("CVpaRpc::get_lookup");
+
+
     m_vparpc_request_lookup.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_lookup.nSize = sizeof(m_vparpc_request_lookup);
     m_vparpc_request_lookup.eFunc = VPARPC_FUNC_LOOKUP;
@@ -61,7 +64,7 @@ int CVpaRpc::get_lookup()
 
     gpVpaRpc->client(
         "daphne",
-        "vparpc",
+        "vpa",
         &m_vparpc_request_lookup,
         sizeof(vparpc_request_lookup_t)
     );

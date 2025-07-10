@@ -115,9 +115,15 @@ std::string password::get_uuid()
 int password::lookup_username_password( std::string ssUsername,
 										std::string ssPassword)
 {
+    gpSysLog->loginfo(__FUNCTION__);
 
     char szUUID[UUID_SIZE];
+
     int iLines = gpCsv->getLines();
+    char szLogger[128];
+    sprintf(szLogger,"lookup_username_password: iLines is %d",iLines);
+    gpSysLog->loginfo(szLogger);
+
     for(int iRow=3;iRow<iLines;iRow++) {
         if (0 == strcmp("true",
                         gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str())) {

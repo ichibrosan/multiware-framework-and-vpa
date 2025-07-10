@@ -133,6 +133,8 @@ void handle_version_request(char * buffer, window* pWin) {
  * @param pWin Window object for debug output
  */
 void handle_lookup_request(char * buffer, window* pWin) {
+    gpSysLog->loginfo("handle_lookup_request()");
+
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing LOOKUP request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -150,36 +152,19 @@ void handle_lookup_request(char * buffer, window* pWin) {
         pWin->add_row("  Password: " + std::string(pReq->szPassword));
 #endif // DISPLAY_PROCESS_DETAILS
 
-        // Initialize CSV reader and parse data
-        try {
-            // Try different possible locations for the CSV file
-            const char* csv_paths[] = {
-                "passwd.csv",
-                "schemas/v1/passwd.csv",
-                "../schemas/v1/passwd.csv",
-                "/home/doug/public_html/fw/schemas/v1/passwd.csv",
-                "/home/doug/public_html/fw/schemas/v1/passwd.csv",
-
-            };
-            
             gpCsv = nullptr;
-            // for (const char* path : csv_paths) {
-            //     try {
-            //         gpCsv = new readCsv(path);
-            //         gpCsv->parseData();
-            //         gpSysLog->loginfo("Successfully loaded CSV");
-            //         break;
-            //     } catch (...) {
-            //         if (gpCsv) {
-            //             delete gpCsv;
-            //             gpCsv = nullptr;
-            //         }
-            //         continue;
-            //     }
-            // }
-            gpCsv = new readCsv("/home/devo/public_html/fw/schemas/v1/passwd.csv");
-            gpCsv->parseData();
+            gpSysLog->loginfo("Trying to load CSV from /home/devo/public_html/fw/schemas/v1/passwd.csv");
+            //gpCsv = new readCsv("/home/devo/public_html/fw/schemas/v1/passwd.csv");
+            gpCsv = new readCsv("passwd.csv");
+            gpSysLog->loginfo("Successfully loaded CSV");
 
+
+            gpSysLog->loginfo("calling gpCsv->parseData()");
+            gpCsv->parseData();
+            gpSysLog->loginfo("gpCsv->parseData() returned");
+           char szDebug[128];
+            sprintf(szDebug,"m_iRow is %d",gpCsv->m_iRow);
+            gpSysLog->loginfo(szDebug);
 
             
             if (!gpCsv) {
@@ -190,9 +175,15 @@ void handle_lookup_request(char * buffer, window* pWin) {
             }
             
             // Perform the lookup
+            gpSysLog->loginfo("calling gpPassword->lookup_username_password()");
             int handle = gpPassword->lookup_username_password(
                 pReq->szUsername, pReq->szPassword);
-            
+            gpSysLog->loginfo("gpPassword->lookup_username_password() returned");
+
+            char szLogger2[128];
+            sprintf(szLogger2, "Lookup completed: handle=%d",handle);
+            gpSysLog->loginfo(szLogger2);
+
             pReq->iHandle = handle;
             
 #ifdef DISPLAY_PROCESS_DETAILS
@@ -214,16 +205,16 @@ void handle_lookup_request(char * buffer, window* pWin) {
             delete gpCsv;
             gpCsv = nullptr;
             
-        } catch (const std::exception& e) {
-            gpSysLog->loginfo("Error during lookup");
-            pReq->iHandle = -1;
-            pReq->eStatus = VPARPC_STATUS_ERROR;
-            
-            if (gpCsv) {
-                delete gpCsv;
-                gpCsv = nullptr;
-            }
-        }
+        // } catch (const std::exception& e) {
+        //     gpSysLog->loginfo("Error during lookup");
+        //     pReq->iHandle = -1;
+        //     pReq->eStatus = VPARPC_STATUS_ERROR;
+        //
+        //     if (gpCsv) {
+        //         delete gpCsv;
+        //         gpCsv = nullptr;
+        //     }
+        // }
         
     } else {
 
