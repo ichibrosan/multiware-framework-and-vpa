@@ -111,11 +111,29 @@ void configini()
     std::cout << "Logging level is " << logLevel << std::endl;
 }
 
+void struct_diag()
+{
+    std::cout << "sizeof(vparpc_request_generic_t) is " << sizeof(vparpc_request_generic_t) << std::endl;
+    std::cout << "sizeof(vparpc_request_auth_t) is " << sizeof(vparpc_request_auth_t) << std::endl;
+    std::cout << "sizeof(vparpc_request_version_t) is " << sizeof(vparpc_request_version_t) << std::endl;
+    std::cout << "sizeof(vparpc_request_lookup_t) is " << sizeof(vparpc_request_lookup_t) << std::endl;
+    std::cout << "sizeof(vparpc_request_creds_t) is " << sizeof(vparpc_request_creds_t) << std::endl;
+
+    std::cout << "vparpc_request_generic_t padding is " << 872 - sizeof(vparpc_request_generic_t) << std::endl;
+    std::cout << "vparpc_request_auth_t    padding is " << 872 - sizeof(vparpc_request_auth_t) << std::endl;
+    std::cout << "vparpc_request_version_t padding is " << 872 - sizeof(vparpc_request_version_t) << std::endl;
+    std::cout << "vparpc_request_lookup_t  padding is " << 872 - sizeof(vparpc_request_lookup_t) << std::endl;
+    std::cout << "vparpc_request_creds_t   padding is " << 872 - sizeof(vparpc_request_creds_t) << std::endl;
+
+
+}
+
 int main() {
     auto * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
     sine();
     //shmvars();
     //auth_users();
     configini();
+    struct_diag();
     return EXIT_SUCCESS;
 }

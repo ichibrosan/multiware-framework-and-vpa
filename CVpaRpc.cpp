@@ -15,11 +15,8 @@ CVpaRpc::CVpaRpc(std::string ssHost,std::string ssService)
     gpVpaRpc->client(
         ssHost,           // daphne
         ssService,        // vparpc
-        &m_vparpc_request_auth,sizeof(vparpc_request_t) );
-    //strcpy(m_szAuth,m_vparpc_request_auth.szAuth);
-
-    //std::cout << "auth: " << m_vparpc_request_auth.szAuth << std::endl;
-
+        &m_vparpc_request_auth,sizeof(vparpc_request_auth_t) );  // Use struct size
+    int x = 1;
 }
 
 std::string CVpaRpc::get_auth()
@@ -37,9 +34,7 @@ std::string CVpaRpc::get_version()
     gpVpaRpc->client(
         "daphne",
         "vparpc",
-        &m_vparpc_request_version,sizeof(vparpc_request_t) );
-
-    //std::cout << "version: " << m_vparpc_request_version.szVersion << std::endl;
+        &m_vparpc_request_version,sizeof(vparpc_request_version_t) );  // Use struct size
 
     return(m_vparpc_request_version.szVersion);
 }
@@ -52,15 +47,31 @@ int CVpaRpc::get_lookup()
     strcpy((char *)m_vparpc_request_lookup.szAuth,m_vparpc_request_auth.szAuth);
     strcpy(m_vparpc_request_lookup.szUsername,"doug");
     strcpy(m_vparpc_request_lookup.szPassword,"melange");
+    
+    // Initialize iHandle to a known value for debugging
+    m_vparpc_request_lookup.iHandle = -999;
+    
+    // Log the request details
+    char szLogger[128];
+    sprintf(szLogger,"Sending lookup request - Username: %s, Password: %s, Initial Handle: %d",
+                     m_vparpc_request_lookup.szUsername, 
+                     m_vparpc_request_lookup.szPassword,
+                     m_vparpc_request_lookup.iHandle);
+    gpSysLog->loginfo(szLogger);
+
     gpVpaRpc->client(
         "daphne",
         "vparpc",
         &m_vparpc_request_lookup,
-        //sizeof(m_vparpc_request_lookup)
-        sizeof(vparpc_request_t)
+        sizeof(vparpc_request_lookup_t)
     );
 
-    //std::cout << "handle: " << m_vparpc_request_lookup.iHandle << std::endl;
+    // Log the response
+    sprintf(szLogger,"Received lookup response - Handle: %d, Status: %d",
+                     m_vparpc_request_lookup.iHandle,
+                     m_vparpc_request_lookup.eStatus);
+
+    std::cout << "handle: " << m_vparpc_request_lookup.iHandle << std::endl;
 
     return(m_vparpc_request_lookup.iHandle);
 }
@@ -75,8 +86,7 @@ void CVpaRpc::get_creds()
     gpVpaRpc->client(
         "daphne",
         "vparpc",
-        &m_vparpc_request_creds,sizeof(vparpc_request_t) );
-
+        &m_vparpc_request_creds,sizeof(vparpc_request_creds_t) );  // Use struct size
 }
 
 std::string CVpaRpc::get_creds_username()

@@ -150,11 +150,51 @@ int main(int argc, char **argv) {
      * Perform the RPC call utilizing PRE-SHARED_KEY to retrieve Auth Token
      */
 
-    CVpaRpc * pVpaRpc = new CVpaRpc("daphne", "vparpc");
+    /*
+    vparpc_version_t    eVersion;
+    size_t              nSize;
+    vparpc_func_t       eFunc;
+    char8_t             szPSK[UUID_SIZE];
+
+    vparpc_status_t     eStatus;
+    char                szAuth[UUID_SIZE];
+     */
+
+    CVpaRpc * pVpaRpc = new CVpaRpc("daphne", "vpa");
+    printf("VPARPC_FUNC_GET_AUTH\n");
+    printf("request:  eVersion is %d\n",pVpaRpc->m_vparpc_request_auth.eVersion);
+    printf("request:  nSize    is %ld\n",pVpaRpc->m_vparpc_request_auth.nSize);
+    printf("request:  eFunc    is %d\n",pVpaRpc->m_vparpc_request_auth.eFunc);
+    printf("request:  szPSK    is %s\n",(char *)pVpaRpc->m_vparpc_request_auth.szPSK);
+    printf("response: eStatus is %d\n",pVpaRpc->m_vparpc_request_auth.eStatus);
+    printf("response: szAuth  is %s\n",pVpaRpc->m_vparpc_request_auth.szAuth);
 
     pVpaRpc->get_version();
+    printf("VPARPC_FUNC_VERSION\n");
+    printf("request:  eVersion  is %d\n",pVpaRpc->m_vparpc_request_version.eVersion);
+    printf("request:  nSize     is %ld\n",pVpaRpc->m_vparpc_request_version.nSize);
+    printf("request:  eFunc     is %d\n",pVpaRpc->m_vparpc_request_version.eFunc);
+    printf("response: szVersion is %s\n",pVpaRpc->m_vparpc_request_version.szVersion);
 
     pVpaRpc->get_lookup();
+    // vparpc_version_t    eVersion;
+    // size_t              nSize;
+    // vparpc_func_t       eFunc;
+    // char8_t             szAuth[UUID_SIZE];
+    // char                szUsername[UT_NAMESIZE];
+    // char                szPassword[UT_NAMESIZE];
+    // vparpc_status_t     eStatus;
+    // int                 iHandle;
+    printf("VPARPC_FUNC_LOOKUP\n");
+    printf("request:  eVersion is %d\n",pVpaRpc->m_vparpc_request_lookup.eVersion);
+    printf("request:  nSize    is %ld\n",pVpaRpc->m_vparpc_request_lookup.nSize);
+    printf("request:  eFunc    is %d\n",pVpaRpc->m_vparpc_request_lookup.eFunc);
+    printf("request:  szAuth   is %s\n",(char *)pVpaRpc->m_vparpc_request_lookup.szAuth);
+    printf("request:  szUsername is %s\n",pVpaRpc->m_vparpc_request_lookup.szUsername);
+    printf("request:  szPassword is %s\n",(char *)pVpaRpc->m_vparpc_request_lookup.szPassword);
+    printf("response: eStatus is %d\n",pVpaRpc->m_vparpc_request_lookup.eStatus);
+    printf("response: iHandle is %d\n",pVpaRpc->m_vparpc_request_lookup.iHandle);
+
 
     pVpaRpc->get_creds();
     // std::cout << "username: " << pVpaRpc->get_creds_username()

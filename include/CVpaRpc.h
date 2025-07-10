@@ -8,11 +8,6 @@
 #include "mwfw2.h"
 
 class CVpaRpc {
-    vparpc_request_auth_t       m_vparpc_request_auth;
-//    char                        m_szAuth[UUID_SIZE];
-    vparpc_request_version_t    m_vparpc_request_version;
-    vparpc_request_lookup_t     m_vparpc_request_lookup;
-    vparpc_request_creds_t      m_vparpc_request_creds;
 
 public:
     CVpaRpc(std::string ssHost,std::string ssService);
@@ -25,5 +20,12 @@ public:
     std::string get_creds_lastname();
     std::string get_creds_auth();
     std::string get_creds_level();
+
+    vparpc_request_auth_t       m_vparpc_request_auth;
+    //    char                        m_szAuth[UUID_SIZE];
+    vparpc_request_version_t    m_vparpc_request_version;
+    vparpc_request_lookup_t     m_vparpc_request_lookup;
+    vparpc_request_creds_t      m_vparpc_request_creds;
+
 };
 

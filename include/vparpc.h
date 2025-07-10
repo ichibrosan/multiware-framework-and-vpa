@@ -108,6 +108,9 @@ struct vparpc_request_generic_t {
     size_t              nSize;
     vparpc_func_t       eFunc;
     char8_t             szUUID[UUID_SIZE];
+
+    char                szPadding[808];
+
 };
 
 
@@ -148,6 +151,8 @@ struct vparpc_request_auth_t {
 
     vparpc_status_t     eStatus;
     char                szAuth[UUID_SIZE];
+
+    char                szPadding[768];
 };
 
 
@@ -161,6 +166,8 @@ struct vparpc_request_version_t {
 
     vparpc_status_t     eStatus;
     char                szVersion[VERSION_SIZE_MAX];
+
+    char                szPadding[792];
 };
 
 
@@ -175,6 +182,8 @@ struct vparpc_request_lookup_t {
 
     vparpc_status_t     eStatus;
     int                 iHandle;
+
+    char                szPadding[736];
 };
 
 struct vparpc_request_creds_t {
@@ -225,6 +234,14 @@ public:
     int svc2port(std::string ssSvcName);
     std::string host2ipv4addr(const std::string& ssHost);
     void render();
+
+    struct vparpc_request_generic_t m_req_generic;
+    struct vparpc_request_auth_t    m_req_auth;
+    struct vparpc_request_version_t m_req_version;
+    struct vparpc_request_lookup_t  m_req_lookup;
+    struct vparpc_request_creds_t   m_req_creds;
+
+
 };
 
 #endif //VPARPC_H
