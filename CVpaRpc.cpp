@@ -115,7 +115,7 @@ int CVpaRpc::get_lookup()
                      m_vparpc_request_lookup.iHandle,
                      m_vparpc_request_lookup.eStatus);
 
-    std::cout << "handle: " << m_vparpc_request_lookup.iHandle << std::endl;
+    //std::cout << "handle: " << m_vparpc_request_lookup.iHandle << std::endl;
 
     return(m_vparpc_request_lookup.iHandle);
 }

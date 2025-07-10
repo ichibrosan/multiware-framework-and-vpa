@@ -155,13 +155,13 @@ int main(int argc, char **argv) {
      * process, including both the request parameters sent to the server
      * and the response data received back.
      */
-    printf("VPARPC_FUNC_GET_AUTH\n");
-    printf("request:  eVersion is %d\n",pVpaRpc->m_vparpc_request_auth.eVersion);
-    printf("request:  nSize    is %ld\n",pVpaRpc->m_vparpc_request_auth.nSize);
-    printf("request:  eFunc    is %d\n",pVpaRpc->m_vparpc_request_auth.eFunc);
-    printf("request:  szPSK    is %s\n",(char *)pVpaRpc->m_vparpc_request_auth.szPSK);
-    printf("response: eStatus is %d\n",pVpaRpc->m_vparpc_request_auth.eStatus);
-    printf("response: szAuth  is %s\n",pVpaRpc->m_vparpc_request_auth.szAuth);
+    // printf("VPARPC_FUNC_GET_AUTH\n");
+    // printf("request:  eVersion is %d\n",pVpaRpc->m_vparpc_request_auth.eVersion);
+    // printf("request:  nSize    is %ld\n",pVpaRpc->m_vparpc_request_auth.nSize);
+    // printf("request:  eFunc    is %d\n",pVpaRpc->m_vparpc_request_auth.eFunc);
+    // printf("request:  szPSK    is %s\n",(char *)pVpaRpc->m_vparpc_request_auth.szPSK);
+    // printf("response: eStatus is %d\n",pVpaRpc->m_vparpc_request_auth.eStatus);
+    // printf("response: szAuth  is %s\n",pVpaRpc->m_vparpc_request_auth.szAuth);
 
     // ========================================================================
     // SERVER VERSION INFORMATION RETRIEVAL SECTION
@@ -181,11 +181,11 @@ int main(int argc, char **argv) {
      * Outputs debugging information about the version request operation,
      * showing both the request parameters and the server's version response.
      */
-    printf("VPARPC_FUNC_VERSION\n");
-    printf("request:  eVersion  is %d\n",pVpaRpc->m_vparpc_request_version.eVersion);
-    printf("request:  nSize     is %ld\n",pVpaRpc->m_vparpc_request_version.nSize);
-    printf("request:  eFunc     is %d\n",pVpaRpc->m_vparpc_request_version.eFunc);
-    printf("response: szVersion is %s\n",pVpaRpc->m_vparpc_request_version.szVersion);
+    // printf("VPARPC_FUNC_VERSION\n");
+    // printf("request:  eVersion  is %d\n",pVpaRpc->m_vparpc_request_version.eVersion);
+    // printf("request:  nSize     is %ld\n",pVpaRpc->m_vparpc_request_version.nSize);
+    // printf("request:  eFunc     is %d\n",pVpaRpc->m_vparpc_request_version.eFunc);
+    // printf("response: szVersion is %s\n",pVpaRpc->m_vparpc_request_version.szVersion);
 
     // ========================================================================
     // USER LOOKUP OPERATION SECTION
@@ -218,15 +218,15 @@ int main(int argc, char **argv) {
      * - eStatus: Operation status
      * - iHandle: Session handle for future requests
      */
-    printf("VPARPC_FUNC_LOOKUP\n");
-    printf("request:  eVersion is %d\n",pVpaRpc->m_vparpc_request_lookup.eVersion);
-    printf("request:  nSize    is %ld\n",pVpaRpc->m_vparpc_request_lookup.nSize);
-    printf("request:  eFunc    is %d\n",pVpaRpc->m_vparpc_request_lookup.eFunc);
-    printf("request:  szAuth   is %s\n",(char *)pVpaRpc->m_vparpc_request_lookup.szAuth);
-    printf("request:  szUsername is %s\n",pVpaRpc->m_vparpc_request_lookup.szUsername);
-    printf("request:  szPassword is %s\n",(char *)pVpaRpc->m_vparpc_request_lookup.szPassword);
-    printf("response: eStatus is %d\n",pVpaRpc->m_vparpc_request_lookup.eStatus);
-    printf("response: iHandle is %d\n",pVpaRpc->m_vparpc_request_lookup.iHandle);
+    // printf("VPARPC_FUNC_LOOKUP\n");
+    // printf("request:  eVersion is %d\n",pVpaRpc->m_vparpc_request_lookup.eVersion);
+    // printf("request:  nSize    is %ld\n",pVpaRpc->m_vparpc_request_lookup.nSize);
+    // printf("request:  eFunc    is %d\n",pVpaRpc->m_vparpc_request_lookup.eFunc);
+    // printf("request:  szAuth   is %s\n",(char *)pVpaRpc->m_vparpc_request_lookup.szAuth);
+    // printf("request:  szUsername is %s\n",pVpaRpc->m_vparpc_request_lookup.szUsername);
+    // printf("request:  szPassword is %s\n",(char *)pVpaRpc->m_vparpc_request_lookup.szPassword);
+    // printf("response: eStatus is %d\n",pVpaRpc->m_vparpc_request_lookup.eStatus);
+    // printf("response: iHandle is %d\n",pVpaRpc->m_vparpc_request_lookup.iHandle);
 
     // ========================================================================
     // USER CREDENTIALS RETRIEVAL SECTION
@@ -266,21 +266,21 @@ int main(int argc, char **argv) {
      * - szRemoteAddr: Remote IP address information
      * - szHttpUserAgent: HTTP user agent string
      */
-    printf("VPARPC_FUNC_CREDS\n");
-    printf("request:  eVersion        is %d\n",pVpaRpc->m_vparpc_request_creds.eVersion);
-    printf("request:  nSize           is %ld\n",pVpaRpc->m_vparpc_request_creds.nSize);
-    printf("request:  eFunc           is %d\n",pVpaRpc->m_vparpc_request_creds.eFunc);
-    printf("request:  szAuth          is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuth);
-    printf("request:  iHandle         is %d\n",pVpaRpc->m_vparpc_request_creds.iHandle);
-    printf("response: eStatus         is %d\n",pVpaRpc->m_vparpc_request_creds.eStatus);
-    printf("response: szAuthUserName  is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthUserName);
-    printf("response: szAuthFirstName is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthFirstName);
-    printf("response: szAuthLastName  is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthLastName);
-    printf("response: szAuthUUID      is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthUUID);
-    printf("response: szAuthLevel     is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthLevel);
-    printf("response: szRemoteHost    is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szRemoteHost);
-    printf("response: szRemoteAddr    is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szRemoteAddr);
-    printf("response: szHttpUserAgent is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szHttpUserAgent);
+    // printf("VPARPC_FUNC_CREDS\n");
+    // printf("request:  eVersion        is %d\n",pVpaRpc->m_vparpc_request_creds.eVersion);
+    // printf("request:  nSize           is %ld\n",pVpaRpc->m_vparpc_request_creds.nSize);
+    // printf("request:  eFunc           is %d\n",pVpaRpc->m_vparpc_request_creds.eFunc);
+    // printf("request:  szAuth          is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuth);
+    // printf("request:  iHandle         is %d\n",pVpaRpc->m_vparpc_request_creds.iHandle);
+    // printf("response: eStatus         is %d\n",pVpaRpc->m_vparpc_request_creds.eStatus);
+    // printf("response: szAuthUserName  is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthUserName);
+    // printf("response: szAuthFirstName is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthFirstName);
+    // printf("response: szAuthLastName  is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthLastName);
+    // printf("response: szAuthUUID      is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthUUID);
+    // printf("response: szAuthLevel     is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szAuthLevel);
+    // printf("response: szRemoteHost    is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szRemoteHost);
+    // printf("response: szRemoteAddr    is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szRemoteAddr);
+    // printf("response: szHttpUserAgent is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szHttpUserAgent);
 
     // ========================================================================
     // WINDOW DISPLAY FORMATTING SECTION
