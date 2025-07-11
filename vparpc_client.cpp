@@ -83,7 +83,10 @@ int main(int argc, char **argv) {
      * lifecycle and provides core functionality for window management and display.
      */
     mwfw2 * pMwFw = new mwfw2(__FILE__, __FUNCTION__);
-    
+
+    gpSysLog->loginfo(__FILE__);
+    gpSysLog->loginfo(__FUNCTION__);
+
     /**
      * @brief Create the main display window
      * 
@@ -283,15 +286,15 @@ int main(int argc, char **argv) {
     // printf("response: szHttpUserAgent is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szHttpUserAgent);
 
     pVpaRpc->get_urls();
-    printf("VPARPC_FUNC_URLS\n");
-    printf("request:  eVersion        is %d\n",pVpaRpc->m_vparpc_request_urls.eVersion);
-    printf("request:  nSize           is %ld\n",pVpaRpc->m_vparpc_request_urls.nSize);
-    printf("request:  eFunc           is %d\n",pVpaRpc->m_vparpc_request_urls.eFunc);
-    printf("request:  szAuth          is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szAuth);
-    printf("response: eStatus         is %d\n",pVpaRpc->m_vparpc_request_urls.eStatus);
-    printf("response: szIP            is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szIP);
-    printf("response: szCgiRoot       is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szCgiRoot);
-    printf("response: szStylesRoot    is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szStylesRoot);
+    // printf("VPARPC_FUNC_URLS\n");
+    // printf("request:  eVersion        is %d\n",        pVpaRpc->m_vparpc_request_urls.eVersion);
+    // printf("request:  nSize           is %ld\n",       pVpaRpc->m_vparpc_request_urls.nSize);
+    // printf("request:  eFunc           is %d\n",        pVpaRpc->m_vparpc_request_urls.eFunc);
+    // printf("request:  szAuth          is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szAuth);
+    // printf("response: eStatus         is %d\n",          pVpaRpc->m_vparpc_request_urls.eStatus);
+    // printf("response: szIP            is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szIP);
+    // printf("response: szCgiRoot       is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szCgiRoot);
+    // printf("response: szStylesRoot    is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szStylesRoot);
 
 
     // ========================================================================
@@ -305,7 +308,7 @@ int main(int argc, char **argv) {
      * formats it for display in the main window.
      */
     char szAuthToken[64];
-    sprintf(szAuthToken,"  auth: %s",pVpaRpc->get_auth().c_str());
+    sprintf(szAuthToken,"  auth:         %s",pVpaRpc->get_auth().c_str());
     pWin->add_row(szAuthToken);
 
     /**
@@ -315,7 +318,7 @@ int main(int argc, char **argv) {
      * for display in the main window.
      */
     char szVersion[64];
-    sprintf(szVersion,"  version: %s",pVpaRpc->get_version().c_str());
+    sprintf(szVersion,"  version:      %s",pVpaRpc->get_version_version().c_str());
     pWin->add_row(szVersion);
 
     /**
@@ -326,7 +329,7 @@ int main(int argc, char **argv) {
      */
     int iHandle = pVpaRpc->m_vparpc_request_lookup.iHandle;
     char szHandle[64];
-    sprintf(szHandle,"  handle: %d",iHandle);
+    sprintf(szHandle,"  handle:       %d",iHandle);
     pWin->add_row(szHandle);
 
     /**
@@ -339,23 +342,35 @@ int main(int argc, char **argv) {
     char szBuffer[BUFSIZ];
     
     // Display username
-    sprintf(szBuffer,"  UserName: %s",pVpaRpc->get_creds_username().c_str());
+    sprintf(szBuffer,"  UserName:     %s",pVpaRpc->get_creds_username().c_str());
     pWin->add_row(szBuffer);
     
     // Display first name
-    sprintf(szBuffer,"  FirstName: %s",pVpaRpc->get_creds_firstname().c_str());
+    sprintf(szBuffer,"  FirstName:    %s",pVpaRpc->get_creds_firstname().c_str());
     pWin->add_row(szBuffer);
     
     // Display last name
-    sprintf(szBuffer,"  LastName: %s",pVpaRpc->get_creds_lastname().c_str());
+    sprintf(szBuffer,"  LastName:     %s",pVpaRpc->get_creds_lastname().c_str());
     pWin->add_row(szBuffer);
     
     // Display authentication UUID
-    sprintf(szBuffer,"  Auth: %s",pVpaRpc->get_creds_auth().c_str());
+    sprintf(szBuffer,"  Auth:         %s",pVpaRpc->get_creds_auth().c_str());
     pWin->add_row(szBuffer);
     
     // Display authorization level
-    sprintf(szBuffer,"  Level: %s",pVpaRpc->get_creds_level().c_str());
+    sprintf(szBuffer,"  Level:        %s",pVpaRpc->get_creds_level().c_str());
+    pWin->add_row(szBuffer);
+
+    // Display IP
+    sprintf(szBuffer,"  IP:           %s",pVpaRpc->get_urls_ip().c_str());
+    pWin->add_row(szBuffer);
+
+    // Display szCgiRoot
+    sprintf(szBuffer,"  szCgiRoot:    %s",pVpaRpc->get_urls_cgiroot().c_str());
+    pWin->add_row(szBuffer);
+
+    // Display szStylesRoot
+    sprintf(szBuffer,"  szStylesRoot: %s",pVpaRpc->get_urls_stylesroot().c_str());
     pWin->add_row(szBuffer);
 
     // ========================================================================

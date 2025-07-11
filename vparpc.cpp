@@ -75,6 +75,8 @@ vparpc::vparpc() {
 // #       #    #   ####    ####   ######   ####    ####
 //
 void  vparpc::process(char * pszBuffer) {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     // std::cout << "vparpc::process()" << std::endl;
     // std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
@@ -113,6 +115,8 @@ void  vparpc::process(char * pszBuffer) {
 
             case VPARPC_FUNC_URLS:
                 handle_urls_request(pszBuffer,pWin);
+                break;
+
             default:
                  break;
         }

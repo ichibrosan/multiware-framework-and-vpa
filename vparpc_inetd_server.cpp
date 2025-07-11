@@ -323,6 +323,51 @@ void handle_creds_request(char * buffer, window* pWin) {
 }
 
 
+void handle_urls_request(char * buffer, window* pWin) {
+    gpSysLog->loginfo("handle_urls_request()");
+
+#ifdef DISPLAY_PROCESS_DETAILS
+    pWin->add_row("  Processing URLS request");
+#endif // DISPLAY_PROCESS_DETAILS
+
+    vparpc_request_urls_t * pReq = (vparpc_request_urls_t *)buffer;
+
+    if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid,(const char *)pReq->szAuth) ) {
+
+#ifdef DISPLAY_PROCESS_DETAILS
+        pWin->add_row("  Auth match, authentication successful");
+#endif // DISPLAY_PROCESS_DETAILS
+
+        strcpy( pReq->szIP,
+                gpSh->m_pShMemng->szIP);
+#ifdef DISPLAY_PROCESS_DETAILS
+        pWin->add_row("  szIP: " + std::string(pReq->szIP
+#endif // DISPLAY_PROCESS_DETAILS
+
+        strcpy( pReq->szCgiRoot,
+                gpSh->m_pShMemng->szCgiRoot);
+#ifdef DISPLAY_PROCESS_DETAILS
+        pWin->add_row("  szCgiRoot: " + std::string(pReq->szCgiRoot));
+#endif // DISPLAY_PROCESS_DETAILS
+
+        strcpy( pReq->szStylesRoot,
+                gpSh->m_pShMemng->szStylesRoot);
+#ifdef DISPLAY_PROCESS_DETAILS
+        pWin->add_row("  szStylesRoot: " + std::string(pReq->szStylesRoot));
+#endif // DISPLAY_PROCESS_DETAILS
+
+        pReq->eStatus =  VPARPC_STATUS_OK;
+    } else {
+
+#ifdef DISPLAY_PROCESS_DETAILS
+        pWin->add_row("  Auth mismatch, authentication failed");
+#endif // DISPLAY_PROCESS_DETAILS
+
+        pReq->eStatus = VPARPC_STATUS_AUTH_FAILED;
+    }
+}
+
+
 void  process(char * pszBuffer) {
         // std::cout << "vparpc::process()" << std::endl;
         // std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
@@ -362,6 +407,11 @@ void  process(char * pszBuffer) {
         case VPARPC_FUNC_CREDS:
                 gpSysLog->loginfo("VPA RPC: CREDS");
                 handle_creds_request(pszBuffer, pWin);
+                break;
+
+        case VPARPC_FUNC_URLS:
+                gpSysLog->loginfo("VPA RPC: URLS");
+                handle_urls_request(pszBuffer,pWin);
                 break;
 
         default:

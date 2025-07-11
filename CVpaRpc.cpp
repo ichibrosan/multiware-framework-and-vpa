@@ -58,11 +58,18 @@ std::string CVpaRpc::get_version()
     strcpy((char *)m_vparpc_request_version.szAuth,m_vparpc_request_auth.szAuth);
     gpVpaRpc->client(
         "daphne",
-        "vparpc",
+        "vpa",
         &m_vparpc_request_version,sizeof(vparpc_request_version_t) );  // Use struct size
 
     return(m_vparpc_request_version.szVersion);
 }
+
+std::string CVpaRpc::get_version_version()
+{
+    std::string ssReturn = m_vparpc_request_version.szVersion;
+    return (ssReturn);
+}
+
 
 /**
  * Executes a lookup request using the CVpaRpc interface.
@@ -215,8 +222,10 @@ std::string CVpaRpc::get_creds_level()
 
 void CVpaRpc::get_urls()
 {
+    gpSysLog->loginfo("CVpaRpc::get_urls");
+
     m_vparpc_request_urls.eVersion = VPARPC_VERSION_1;
-    m_vparpc_request_urls.nSize = sizeof(m_vparpc_request_creds);
+    m_vparpc_request_urls.nSize = sizeof(m_vparpc_request_urls);
     m_vparpc_request_urls.eFunc = VPARPC_FUNC_URLS;
     strcpy((char *)m_vparpc_request_urls.szAuth,m_vparpc_request_auth.szAuth);
     gpVpaRpc->client(
@@ -224,3 +233,22 @@ void CVpaRpc::get_urls()
         "vpa",
         &m_vparpc_request_urls,sizeof(vparpc_request_urls_t) );  // Use struct size
 }
+
+std::string CVpaRpc::get_urls_ip()
+{
+    std::string ssReturn = m_vparpc_request_urls.szIP;
+    return (ssReturn);
+}
+
+std::string CVpaRpc::get_urls_cgiroot()
+{
+    std::string ssReturn = m_vparpc_request_urls.szCgiRoot;
+    return (ssReturn);
+}
+
+std::string CVpaRpc::get_urls_stylesroot()
+{
+    std::string ssReturn = m_vparpc_request_urls.szStylesRoot;
+    return (ssReturn);
+}
+

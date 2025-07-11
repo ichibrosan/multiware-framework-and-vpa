@@ -12,15 +12,23 @@ class CVpaRpc {
 public:
     CVpaRpc(std::string ssHost,std::string ssService);
     std::string get_auth();
+
     std::string get_version();
+    std::string get_version_version();
+
     int         get_lookup();
+
     void        get_creds();
     std::string get_creds_username();
     std::string get_creds_firstname();
     std::string get_creds_lastname();
     std::string get_creds_auth();
     std::string get_creds_level();
+
     void        get_urls();
+    std::string get_urls_ip();
+    std::string get_urls_cgiroot();
+    std::string get_urls_stylesroot();
 
     vparpc_request_auth_t       m_vparpc_request_auth;
     //    char                        m_szAuth[UUID_SIZE];
