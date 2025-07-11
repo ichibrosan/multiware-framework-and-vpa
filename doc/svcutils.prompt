@@ -1,0 +1,3 @@
+please create a new class called CServices that has
+member functions to check for the existence of named
+services in /etc/services and add new named services.

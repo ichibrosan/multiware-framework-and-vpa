@@ -60,6 +60,8 @@ const char * vparpc_func_names[] = {
  * @return The result or status from the vparpc function execution.
  */
 vparpc::vparpc() {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
 }
 
 /**
@@ -146,6 +148,8 @@ void  vparpc::process(char * pszBuffer) {
  * @param pWin   A pointer to a `window` object used for logging status messages during processing.
  */
 void vparpc::handle_auth_request(char *buffer, window* pWin) {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing AUTH request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -196,6 +200,8 @@ void vparpc::handle_auth_request(char *buffer, window* pWin) {
  * @warning Overwrites the provided buffer with the response data
  */
 void vparpc::handle_version_request(char * buffer, window* pWin) {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing VERSION request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -230,6 +236,8 @@ void vparpc::handle_version_request(char * buffer, window* pWin) {
  * @param errorCallback Callback function to handle any errors encountered during the lookup process.
  */
 void vparpc::handle_lookup_request(char * buffer, window* pWin) {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing LOOKUP request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -347,6 +355,7 @@ void vparpc::handle_creds_request(char * buffer, window* pWin) {
 
 void vparpc::handle_urls_request(char * buffer, window* pWin) {
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing URLS request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -530,9 +539,7 @@ void vparpc::server(std::string ssService) {
         //
 
 
-            //cipher.decryptData((const uint8_t *)ciphertext,sizeof(plaintext),(uint8_t *)plaintext);
             process(buffer);
-            //cipher.encryptData((uint8_t *)plaintext,sizeof(plaintext),(uint8_t *)ciphertext);
 
             // Send response back to client
             ssize_t bytes_sent = send(client_fd, buffer, bytes_received, 0);
@@ -592,6 +599,7 @@ void vparpc::server(std::string ssService) {
  * @warning Response buffer limited to BUFSIZ (typically 8192 bytes)
  */
 void vparpc::client(std::string ssHostName, std::string ssServiceName, void * packet,size_t pktlen) {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     // Create visual window for client status display
     auto * pWin = new window();
@@ -694,6 +702,7 @@ void vparpc::client(std::string ssHostName, std::string ssServiceName, void * pa
  *         service name if found, or -1 if the service name could not be resolved.
  */
 int vparpc::svc2port(std::string ssSvcName) {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     struct servent *serviceEntry;
     
@@ -738,6 +747,7 @@ int vparpc::svc2port(std::string ssSvcName) {
  * @warning Lines in the hosts file that are malformed or contain invalid entries are ignored
  */
 std::string vparpc::host2ipv4addr(const std::string& hostname) {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     // IPv4 address validation regex pattern
     // Matches: 0.0.0.0 to 255.255.255.255

@@ -33,11 +33,14 @@ extern semigraphics * gpSemiGr;
 
 #include "window.h"
 
+
 #ifndef gpSysLog
 #include "CSysLog.hpp"
 extern CSysLog * gpSysLog;
 extern bool gbHere;
 #endif
+
+#include "CServices.h"
 
 #ifndef gpDotCfg
 #include "dotconfig.h"

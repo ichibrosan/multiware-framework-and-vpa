@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
     mwfw2 * pMwFw = new mwfw2(__FILE__, __FUNCTION__);
 
     gpSysLog->loginfo(__FILE__);
-    gpSysLog->loginfo(__FUNCTION__);
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     /**
      * @brief Create the main display window

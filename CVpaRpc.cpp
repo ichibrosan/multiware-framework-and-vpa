@@ -18,6 +18,8 @@
  */
 CVpaRpc::CVpaRpc(std::string ssHost,std::string ssService)
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     m_vparpc_request_auth.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_auth.nSize = sizeof(m_vparpc_request_auth);
     m_vparpc_request_auth.eFunc = VPARPC_FUNC_GET_AUTH;
@@ -36,6 +38,8 @@ CVpaRpc::CVpaRpc(std::string ssHost,std::string ssService)
  */
 std::string CVpaRpc::get_auth()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_auth.szAuth;
     return (ssReturn);
 }
@@ -52,6 +56,8 @@ std::string CVpaRpc::get_auth()
  */
 std::string CVpaRpc::get_version()
 {
+    gpSysLog->loginfo("CVpaRpc::get_version (CVpaRpc.cpp#58)");
+
     m_vparpc_request_version.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_version.nSize = sizeof(m_vparpc_request_version);
     m_vparpc_request_version.eFunc = VPARPC_FUNC_VERSION;
@@ -66,6 +72,8 @@ std::string CVpaRpc::get_version()
 
 std::string CVpaRpc::get_version_version()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_version.szVersion;
     return (ssReturn);
 }
@@ -89,8 +97,7 @@ std::string CVpaRpc::get_version_version()
  */
 int CVpaRpc::get_lookup()
 {
-    gpSysLog->loginfo("CVpaRpc::get_lookup");
-
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     m_vparpc_request_lookup.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_lookup.nSize = sizeof(m_vparpc_request_lookup);
@@ -143,6 +150,8 @@ int CVpaRpc::get_lookup()
  */
 void CVpaRpc::get_creds()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     m_vparpc_request_creds.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_creds.nSize = sizeof(m_vparpc_request_creds);
     m_vparpc_request_creds.eFunc = VPARPC_FUNC_CREDS;
@@ -164,6 +173,8 @@ void CVpaRpc::get_creds()
  */
 std::string CVpaRpc::get_creds_username()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_creds.szAuthUserName;
     return (ssReturn);
 }
@@ -180,6 +191,8 @@ std::string CVpaRpc::get_creds_username()
  */
 std::string CVpaRpc::get_creds_firstname()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_creds.szAuthFirstName;
     return (ssReturn);
 }
@@ -191,6 +204,8 @@ std::string CVpaRpc::get_creds_firstname()
  */
 std::string CVpaRpc::get_creds_lastname()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_creds.szAuthLastName;
     return (ssReturn);
 }
@@ -202,6 +217,8 @@ std::string CVpaRpc::get_creds_lastname()
  */
 std::string CVpaRpc::get_creds_auth()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_creds.szAuthUUID;
     return (ssReturn);
 }
@@ -216,13 +233,15 @@ std::string CVpaRpc::get_creds_auth()
  */
 std::string CVpaRpc::get_creds_level()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_creds.szAuthLevel;
     return (ssReturn);
 }
 
 void CVpaRpc::get_urls()
 {
-    gpSysLog->loginfo("CVpaRpc::get_urls");
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     m_vparpc_request_urls.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_urls.nSize = sizeof(m_vparpc_request_urls);
@@ -236,18 +255,24 @@ void CVpaRpc::get_urls()
 
 std::string CVpaRpc::get_urls_ip()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_urls.szIP;
     return (ssReturn);
 }
 
 std::string CVpaRpc::get_urls_cgiroot()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_urls.szCgiRoot;
     return (ssReturn);
 }
 
 std::string CVpaRpc::get_urls_stylesroot()
 {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     std::string ssReturn = m_vparpc_request_urls.szStylesRoot;
     return (ssReturn);
 }

@@ -130,12 +130,133 @@ void struct_diag()
 
 }
 
+/*
+## Features of the CServices Class:
+1. **Service Existence Check**:
+    - `hasService()` - Check if a service exists by name
+    - `hasService(name, protocol)` - Check if a service exists for a specific protocol
+
+2. **Service Addition**:
+    - `addService()` - Add new services to `/etc/services` with validation
+    - Prevents duplicate entries and validates input
+
+3. **Service Retrieval**:
+    - `getService()` - Get service information by name
+    - `getServiceByPort()` - Get service by port and protocol
+    - `getServicePort()` - Get port number for a service
+    - `getServiceName()` - Get service name for a port
+
+4. **Service Management**:
+    - `removeService()` - Remove services from `/etc/services`
+    - `findServices()` - Search for services by pattern
+    - `reloadCache()` - Refresh the internal cache
+
+5. **Safety Features**:
+    - `createBackup()` - Create backup before modifications
+    - `restoreFromBackup()` - Restore from backup if needed
+    - `isServicesFileWritable()` - Check permissions before writing
+
+ */
+
+void services_diag()
+{
+    CServices services;
+
+    // // Get service information
+    // ServiceInfo httpService = services.getService("http", "tcp");
+    // if (!httpService.name.empty()) {
+    //     std::cout << "HTTP runs on port " << httpService.port << std::endl;
+    // }
+
+    // Check if a service exists
+    if (services.hasService("vpa")) {
+        std::cout << "vpa service exists" << std::endl;
+    } else {
+        if (services.addService("vpa", 5164, "tcp", {"vpa-alias"})) {
+            std::cout << "Service added successfully - vpa" << std::endl;
+        }
+    }
+
+    if (services.hasService("vpa-disc")) {
+        std::cout << "vpa-disc service exists" << std::endl;
+    } else {
+        if (services.addService("vpa-disc", 5164, "udp", {"vpa-disc-alias"})) {
+            std::cout << "Service added successfully - vpa-disc" << std::endl;
+        }
+    }
+
+
+    if (services.hasService("vpad-start")) {
+        std::cout << "vpa-start service exists" << std::endl;
+    } else {
+        if (services.addService("vpad-start", 65353, "tcp", {"vpa-start-alias"})) {
+            std::cout << "Service added successfully - vpad-start" << std::endl;
+        }
+    }
+
+    if (services.hasService("vpa-netstat")) {
+        std::cout << "vpa-netstat service exists" << std::endl;
+    } else {
+        if (services.addService("vpa-netstat", 65354, "tcp", {"vpa-netstat-alias"})) {
+            std::cout << "Service added successfully - vpa-netstat" << std::endl;
+        }
+    }
+
+    if (services.hasService("vpa-ip")) {
+        std::cout << "vpa-ip service exists" << std::endl;
+    } else {
+        if (services.addService("vpa-ip", 65355, "tcp", {"vpa-ip-alias"})) {
+            std::cout << "Service added successfully - vpa-ip" << std::endl;
+        }
+    }
+
+    if (services.hasService("vpa-curl")) {
+        std::cout << "vpa-curl service exists" << std::endl;
+    } else {
+        if (services.addService("vpa-curl", 5164, "tcp", {"vpa-curl-alias"})) {
+            std::cout << "Service added successfully - vpa-curl" << std::endl;
+        }
+    }
+
+    if (services.hasService("vpa-http")) {
+        std::cout << "vpa-http service exists" << std::endl;
+    } else {
+        if (services.addService("vpa-http", 65357, "tcp", {"vpa-http-alias"})) {
+            std::cout << "Service added successfully - vpa-http" << std::endl;
+        }
+    }
+
+    if (services.hasService("vpa-https")) {
+        std::cout << "vpa-https service exists" << std::endl;
+    } else {
+        if (services.addService("vpa-https", 65358, "tcp", {"vpa-https-alias"})) {
+            std::cout << "Service added successfully - vpa-https" << std::endl;
+        }
+    }
+
+    if (services.hasService("vpa-ipcs")) {
+        std::cout << "vpa-ipcs service exists" << std::endl;
+    } else {
+        if (services.addService("vpa-ipcs", 65359, "tcp", {"vpa-ipcs-alias"})) {
+            std::cout << "Service added successfully - vpa" << std::endl;
+        }
+    }
+
+
+    // Find services by pattern
+    auto webServices = services.findServices("http");
+    for (const auto& service : webServices) {
+        std::cout << service.name << " on port " << service.port << std::endl;
+    }
+}
+
 int main() {
     auto * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
     sine();
     //shmvars();
     //auth_users();
-    configini();
-    struct_diag();
+    //configini();
+    //struct_diag();
+    services_diag();
     return EXIT_SUCCESS;
 }

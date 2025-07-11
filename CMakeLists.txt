@@ -71,7 +71,9 @@ target_link_libraries(login.cgi	mwfw2 cgicc pthread uuid)
 add_executable(logout.cgi logout.cpp)
 target_link_libraries(logout.cgi mwfw2 cgicc pthread uuid)
 
-add_executable(look look.cpp)
+add_executable(look look.cpp
+	CServices.cpp	include/CServices.h
+)
 target_link_libraries(look mwfw2 cgicc pthread uuid)
 
 add_executable(menu.cgi menu.cpp)

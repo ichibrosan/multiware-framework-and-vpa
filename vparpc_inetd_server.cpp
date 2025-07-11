@@ -51,6 +51,8 @@ const int BUFFER_SIZE = BUFSIZ;
  * @param pWin   A pointer to a `window` object used for logging status messages during processing.
  */
 void handle_auth_request(char *buffer, window* pWin) {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing AUTH request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -99,6 +101,8 @@ void handle_auth_request(char *buffer, window* pWin) {
  * @warning Overwrites the provided buffer with the response data
  */
 void handle_version_request(char * buffer, window* pWin) {
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing VERSION request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -133,7 +137,7 @@ void handle_version_request(char * buffer, window* pWin) {
  * @param pWin Window object for debug output
  */
 void handle_lookup_request(char * buffer, window* pWin) {
-    gpSysLog->loginfo("handle_lookup_request()");
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing LOOKUP request");
@@ -242,7 +246,7 @@ void handle_lookup_request(char * buffer, window* pWin) {
  * @param token Authentication token used to verify the request.
  */
 void handle_creds_request(char * buffer, window* pWin) {
-    gpSysLog->loginfo("handle_creds_request()");
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing CREDS request");
@@ -324,7 +328,7 @@ void handle_creds_request(char * buffer, window* pWin) {
 
 
 void handle_urls_request(char * buffer, window* pWin) {
-    gpSysLog->loginfo("handle_urls_request()");
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing URLS request");
@@ -369,7 +373,9 @@ void handle_urls_request(char * buffer, window* pWin) {
 
 
 void  process(char * pszBuffer) {
-        // std::cout << "vparpc::process()" << std::endl;
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
+    // std::cout << "vparpc::process()" << std::endl;
         // std::cout << "vparpc::process() at line # " << __LINE__ << std::endl;
 
         // Create window for debugging/monitoring
@@ -431,7 +437,8 @@ void  process(char * pszBuffer) {
 int main() {
     // Initialize the middleware framework
     auto * pMwFw = new mwfw2(__FILE__, __FUNCTION__);
-    
+    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
     char buffer[BUFFER_SIZE];
     ssize_t bytesRead;
     
