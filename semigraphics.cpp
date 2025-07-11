@@ -98,12 +98,10 @@ void semigraphics::singlebox(int line, int col, int width, int height) {
  */
 void semigraphics::topline(int line, int col, int width, int height) {
 
-    char szTemp[256];
-    sprintf(szTemp,"topline(l=%d,c=%d,w=%d,h=%d);",
-            line,col,width,height);
-    gpSysLog->loginfo(szTemp);
-
-////    gpCrt->crtlc(line,col);
+    // char szTemp[256];
+    // sprintf(szTemp,"topline(l=%d,c=%d,w=%d,h=%d);",
+    //         line,col,width,height);
+    // gpSysLog->loginfo(szTemp);
 
     // Top line of box
     std::cout << m_ssUL;
@@ -134,10 +132,10 @@ void semigraphics::middleline(int line, int col,
                               int width, int height,
                               std::string ssText) {
 
-    char szTemp[256];
-    sprintf(szTemp,"middle(l=%d,c=%d,w=%d,h=%d,s=%s);",
-            line,col,width,height,ssText.c_str());
-    gpSysLog->loginfo(szTemp);
+    // char szTemp[256];
+    // sprintf(szTemp,"middle(l=%d,c=%d,w=%d,h=%d,s=%s);",
+    //         line,col,width,height,ssText.c_str());
+    // gpSysLog->loginfo(szTemp);
 
     std::cout << m_ssVL;
     std::cout << ssText;
@@ -154,13 +152,10 @@ void semigraphics::middleline(int line, int col,
 
 void semigraphics::vert_splitter(int line, int col, int width, int height) {
 
-    char szTemp[256];
-    sprintf(szTemp,"vsplit(l=%d,c=%d,w=%d,h=%d);",
-            line,col,width,height);
-    gpSysLog->loginfo(szTemp);
-
-
-////    gpCrt->crtlc(line,col);
+    // char szTemp[256];
+    // sprintf(szTemp,"vsplit(l=%d,c=%d,w=%d,h=%d);",
+    //         line,col,width,height);
+    // gpSysLog->loginfo(szTemp);
 
     std::cout << m_ssVSR;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
@@ -188,10 +183,10 @@ void semigraphics::vert_splitter(int line, int col, int width, int height) {
  */
 void semigraphics::endline(int line, int col, int width, int height) {
 
-    char szTemp[256];
-    sprintf(szTemp,"endline(l=%d,c=%d,w=%d,h=%d);",
-            line,col,width,height);
-    gpSysLog->loginfo(szTemp);
+    // char szTemp[256];
+    // sprintf(szTemp,"endline(l=%d,c=%d,w=%d,h=%d);",
+    //         line,col,width,height);
+    // gpSysLog->loginfo(szTemp);
 
     std::cout << m_ssLL;
     for (int iColdex = col; iColdex<width-2; iColdex++) {

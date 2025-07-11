@@ -20,12 +20,14 @@ public:
     std::string get_creds_lastname();
     std::string get_creds_auth();
     std::string get_creds_level();
+    void        get_urls();
 
     vparpc_request_auth_t       m_vparpc_request_auth;
     //    char                        m_szAuth[UUID_SIZE];
     vparpc_request_version_t    m_vparpc_request_version;
     vparpc_request_lookup_t     m_vparpc_request_lookup;
     vparpc_request_creds_t      m_vparpc_request_creds;
+    vparpc_request_urls_t       m_vparpc_request_urls;
 
 };
 

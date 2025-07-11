@@ -212,3 +212,15 @@ std::string CVpaRpc::get_creds_level()
     std::string ssReturn = m_vparpc_request_creds.szAuthLevel;
     return (ssReturn);
 }
+
+void CVpaRpc::get_urls()
+{
+    m_vparpc_request_urls.eVersion = VPARPC_VERSION_1;
+    m_vparpc_request_urls.nSize = sizeof(m_vparpc_request_creds);
+    m_vparpc_request_urls.eFunc = VPARPC_FUNC_URLS;
+    strcpy((char *)m_vparpc_request_urls.szAuth,m_vparpc_request_auth.szAuth);
+    gpVpaRpc->client(
+        "daphne",
+        "vpa",
+        &m_vparpc_request_urls,sizeof(vparpc_request_urls_t) );  // Use struct size
+}

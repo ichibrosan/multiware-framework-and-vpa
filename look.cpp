@@ -118,12 +118,14 @@ void struct_diag()
     std::cout << "sizeof(vparpc_request_version_t) is " << sizeof(vparpc_request_version_t) << std::endl;
     std::cout << "sizeof(vparpc_request_lookup_t) is " << sizeof(vparpc_request_lookup_t) << std::endl;
     std::cout << "sizeof(vparpc_request_creds_t) is " << sizeof(vparpc_request_creds_t) << std::endl;
+    std::cout << "sizeof(vparpc_request_urls_t) is " << sizeof(vparpc_request_urls_t) << std::endl;
 
-    std::cout << "vparpc_request_generic_t padding is " << 872 - sizeof(vparpc_request_generic_t) << std::endl;
-    std::cout << "vparpc_request_auth_t    padding is " << 872 - sizeof(vparpc_request_auth_t) << std::endl;
-    std::cout << "vparpc_request_version_t padding is " << 872 - sizeof(vparpc_request_version_t) << std::endl;
-    std::cout << "vparpc_request_lookup_t  padding is " << 872 - sizeof(vparpc_request_lookup_t) << std::endl;
-    std::cout << "vparpc_request_creds_t   padding is " << 872 - sizeof(vparpc_request_creds_t) << std::endl;
+    std::cout << "vparpc_request_generic_t padding is " << 1080 - sizeof(vparpc_request_generic_t) << std::endl;
+    std::cout << "vparpc_request_auth_t    padding is " << 1080 - sizeof(vparpc_request_auth_t) << std::endl;
+    std::cout << "vparpc_request_version_t padding is " << 1080 - sizeof(vparpc_request_version_t) << std::endl;
+    std::cout << "vparpc_request_lookup_t  padding is " << 1080 - sizeof(vparpc_request_lookup_t) << std::endl;
+    std::cout << "vparpc_request_creds_t   padding is " << 1080 - sizeof(vparpc_request_creds_t) << std::endl;
+    std::cout << "vparpc_request_urls_t    padding is " << 1080 - sizeof(vparpc_request_urls_t) << std::endl;
 
 
 }

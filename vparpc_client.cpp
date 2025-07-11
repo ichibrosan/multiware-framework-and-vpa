@@ -282,6 +282,18 @@ int main(int argc, char **argv) {
     // printf("response: szRemoteAddr    is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szRemoteAddr);
     // printf("response: szHttpUserAgent is %s\n",(char *)pVpaRpc->m_vparpc_request_creds.szHttpUserAgent);
 
+    pVpaRpc->get_urls();
+    printf("VPARPC_FUNC_URLS\n");
+    printf("request:  eVersion        is %d\n",pVpaRpc->m_vparpc_request_urls.eVersion);
+    printf("request:  nSize           is %ld\n",pVpaRpc->m_vparpc_request_urls.nSize);
+    printf("request:  eFunc           is %d\n",pVpaRpc->m_vparpc_request_urls.eFunc);
+    printf("request:  szAuth          is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szAuth);
+    printf("response: eStatus         is %d\n",pVpaRpc->m_vparpc_request_urls.eStatus);
+    printf("response: szIP            is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szIP);
+    printf("response: szCgiRoot       is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szCgiRoot);
+    printf("response: szStylesRoot    is %s\n",(char *)pVpaRpc->m_vparpc_request_urls.szStylesRoot);
+
+
     // ========================================================================
     // WINDOW DISPLAY FORMATTING SECTION
     // ========================================================================
@@ -312,7 +324,7 @@ int main(int argc, char **argv) {
      * Retrieves the session handle from the lookup operation
      * and formats it for display in the main window.
      */
-    int iHandle = pVpaRpc->get_lookup();
+    int iHandle = pVpaRpc->m_vparpc_request_lookup.iHandle;
     char szHandle[64];
     sprintf(szHandle,"  handle: %d",iHandle);
     pWin->add_row(szHandle);
