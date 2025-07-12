@@ -40,6 +40,7 @@ extern CSysLog * gpSysLog;
 extern bool gbHere;
 #endif
 
+#include "xinetdcfg.h"
 #include "CServices.h"
 
 #ifndef gpDotCfg

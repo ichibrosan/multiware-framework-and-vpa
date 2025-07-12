@@ -50,8 +50,6 @@ void semigraphics::cosmetics(std::string ssUL,std::string ssUR,
  * @param height The overall height of the box, excluding the height of the top and bottom borders.
  */
 void semigraphics::singlebox(int line, int col, int width, int height) {
-////    gpCrt->crtlc(line,col);
-
 
     // Top line of box
     std::cout << m_ssUL;
@@ -63,7 +61,6 @@ void semigraphics::singlebox(int line, int col, int width, int height) {
 
     // Middle lines of box
     for (int iLinedex = 0; iLinedex<height; iLinedex++) {
-        //gpCrt->crtlc(iLinedex+1,1);
         std::cout << m_ssVL;
         for (int iColdex = 0; iColdex<width-3; iColdex++) {
             std::cout << "\u0020";
@@ -73,7 +70,6 @@ void semigraphics::singlebox(int line, int col, int width, int height) {
     }
 
     // Bottom line of box
-    //gpCrt->crtlc(1+height,1);
     std::cout << m_ssLL;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
         std::cout << m_ssHL;
@@ -97,12 +93,6 @@ void semigraphics::singlebox(int line, int col, int width, int height) {
  * @param height The total height of the box. This parameter is currently not used in the function.
  */
 void semigraphics::topline(int line, int col, int width, int height) {
-
-    // char szTemp[256];
-    // sprintf(szTemp,"topline(l=%d,c=%d,w=%d,h=%d);",
-    //         line,col,width,height);
-    // gpSysLog->loginfo(szTemp);
-
     // Top line of box
     std::cout << m_ssUL;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
@@ -131,12 +121,6 @@ void semigraphics::topline(int line, int col, int width, int height) {
 void semigraphics::middleline(int line, int col,
                               int width, int height,
                               std::string ssText) {
-
-    // char szTemp[256];
-    // sprintf(szTemp,"middle(l=%d,c=%d,w=%d,h=%d,s=%s);",
-    //         line,col,width,height,ssText.c_str());
-    // gpSysLog->loginfo(szTemp);
-
     std::cout << m_ssVL;
     std::cout << ssText;
     int textlen = ssText.size();
@@ -151,11 +135,6 @@ void semigraphics::middleline(int line, int col,
 }
 
 void semigraphics::vert_splitter(int line, int col, int width, int height) {
-
-    // char szTemp[256];
-    // sprintf(szTemp,"vsplit(l=%d,c=%d,w=%d,h=%d);",
-    //         line,col,width,height);
-    // gpSysLog->loginfo(szTemp);
 
     std::cout << m_ssVSR;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
@@ -183,11 +162,6 @@ void semigraphics::vert_splitter(int line, int col, int width, int height) {
  */
 void semigraphics::endline(int line, int col, int width, int height) {
 
-    // char szTemp[256];
-    // sprintf(szTemp,"endline(l=%d,c=%d,w=%d,h=%d);",
-    //         line,col,width,height);
-    // gpSysLog->loginfo(szTemp);
-
     std::cout << m_ssLL;
     for (int iColdex = col; iColdex<width-2; iColdex++) {
         std::cout << m_ssHL;
@@ -195,3 +169,7 @@ void semigraphics::endline(int line, int col, int width, int height) {
     std::cout << m_ssLR;
     std::cout << std::endl;
 }
+
+////////////////////////////
+// eof - semigraphics.cpp //
+////////////////////////////

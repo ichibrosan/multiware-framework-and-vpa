@@ -73,6 +73,8 @@ target_link_libraries(logout.cgi mwfw2 cgicc pthread uuid)
 
 add_executable(look look.cpp
 	CServices.cpp	include/CServices.h
+		include/xinetdcfg.h
+		xinetdcfg.cpp
 )
 target_link_libraries(look mwfw2 cgicc pthread uuid)
 

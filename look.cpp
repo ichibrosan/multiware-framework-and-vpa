@@ -4,6 +4,7 @@
 //////////////////////////////////////////////////////////////
 #include "mwfw2.h"
 #include "cfgini.h"
+#include "xinetdcfg.h"
 
 /**************************************************************
  * Display Retro Header Information IBM 5150 Monochrome style *
@@ -126,8 +127,6 @@ void struct_diag()
     std::cout << "vparpc_request_lookup_t  padding is " << 1080 - sizeof(vparpc_request_lookup_t) << std::endl;
     std::cout << "vparpc_request_creds_t   padding is " << 1080 - sizeof(vparpc_request_creds_t) << std::endl;
     std::cout << "vparpc_request_urls_t    padding is " << 1080 - sizeof(vparpc_request_urls_t) << std::endl;
-
-
 }
 
 /*
@@ -250,6 +249,59 @@ void services_diag()
     }
 }
 
+int xinetdcfg_diag()
+{
+    xinetcfg config;
+    
+    // Test VPA configuration generation
+    std::cout << "=== VPA Xinetd Configuration Test ===" << std::endl;
+    std::cout << "Number of services configured: " << config.getServiceCount() << std::endl;
+    
+    // Display service status
+    config.displayVpaServiceStatus();
+    
+    // Generate and display configuration
+    std::cout << "\n=== Generated VPA Configuration ===" << std::endl;
+    std::string vpaConfig = config.generateVpaXinetdConfig();
+    std::cout << vpaConfig << std::endl;
+    
+    // Check permissions before attempting to save
+    if (!config.canModifyXinetd()) {
+        std::cout << "\n=== PERMISSION NOTICE ===" << std::endl;
+        std::cout << "Cannot modify /etc/xinetd.d/vpa - insufficient privileges." << std::endl;
+        config.displaySudoInstructions();
+        std::cout << "\nConfiguration displayed above (dry-run mode)." << std::endl;
+        return 0;
+    }
+    
+    // Automatically save the configuration without prompting
+    std::cout << "\nSaving configuration to /etc/xinetd.d/vpa..." << std::endl;
+    
+    // Create backup first
+    std::cout << "Creating backup of existing configuration..." << std::endl;
+    if (!config.createBackup()) {
+        std::cout << "WARNING: Could not create backup file." << std::endl;
+    }
+    
+    // Save the configuration
+    if (config.saveConfig()) {
+        std::cout << "SUCCESS: Configuration saved to /etc/xinetd.d/vpa" << std::endl;
+        
+        // Automatically reload xinetd
+        std::cout << "Reloading xinetd service..." << std::endl;
+        if (config.reloadXinetd()) {
+            std::cout << "SUCCESS: xinetd reloaded successfully." << std::endl;
+        } else {
+            std::cout << "ERROR: Failed to reload xinetd. You may need to restart it manually." << std::endl;
+        }
+    } else {
+        std::cout << "ERROR: Failed to save configuration to /etc/xinetd.d/vpa" << std::endl;
+        return 1;
+    }
+    
+    return 0;
+}
+
 int main() {
     auto * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
     sine();
@@ -257,6 +309,7 @@ int main() {
     //auth_users();
     //configini();
     //struct_diag();
-    services_diag();
+    //services_diag();
+    xinetdcfg_diag();
     return EXIT_SUCCESS;
 }
