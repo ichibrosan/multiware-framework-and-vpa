@@ -7,10 +7,10 @@
 #define VERSION_H
 #define RMAJ    5
 #define RMIN    7
-#define RREV    9
-#define RBLD    21
-#define RSTRING "5.7.9.21"
-#define RSHORT  "5.7.9"
+#define RREV    12
+#define RBLD    7
+#define RSTRING "5.7.12.7"
+#define RSHORT  "5.7.12"
 #define RLONG   RSTRING
 #define RDATE   __DATE__
 #define RTIME   __TIME__
