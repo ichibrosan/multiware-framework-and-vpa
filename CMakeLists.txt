@@ -65,6 +65,14 @@ add_executable(fw-test4.cgi fw-test4.cpp
 add_executable(index.cgi index.cpp)
 target_link_libraries(index.cgi mwfw2 cgicc pthread uuid)
 
+add_executable(init_xinetd_vpa init_xinetd_vpa.cpp
+        CServices.cpp include/CServices.h
+        include/xinetdcfg.h
+        xinetdcfg.cpp
+)
+target_link_libraries(init_xinetd_vpa mwfw2 cgicc pthread uuid)
+
+
 add_executable(login.cgi login.cpp)
 target_link_libraries(login.cgi mwfw2 cgicc pthread uuid)
 
