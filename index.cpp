@@ -1,60 +1,109 @@
 ////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/index.cpp 2025/02/19                     //
+// /home/devo/public_html/fw/index.cpp 2025/07/13  06:11 dwg -        //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
-#include "mwfw2.h"
-
-// /**
-//  * @brief Pointer to an instance of the mwfw class.
-//  *
-//  * This variable represents a global pointer to the `mwfw` class, which provides
-//  * functionalities such as system logging and determining if the current runtime
-//  * environment is CGI-based. The `mwfw` instance is used for managing logging
-//  * information and interacting with the system's environment.
-//  *
-//  * Key functionalities of the referenced `mwfw` instance:
-//  * - Logging system information through `sl_loginfo`.
-//  * - Checking if the runtime environment is CGI via `isCGI`.
-//  */
-// mwfw * fw;
 
 /**
- * Entry point of the program. Initializes the framework, shared memory,
- * environment, and other essential parts, conducts self-tests,
- * generates schema files, and verifies the configuration.
- *
- * @return Returns 0 on successful execution.
+ * @file index.cpp
+ * @brief Main entry point for the framework application
+ * @author Douglas Wade Goodall
+ * @date 2025/07/13
+ * @copyright Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
+ * 
+ * @details
+ * This file contains the main entry point for the framework application.
+ * It initializes the mwfw2 framework and processes a schema file to generate
+ * application components or configurations based on the schema definition.
+ * 
+ * The application follows a schema-driven approach where configuration and
+ * behavior are defined through CSV schema files that are processed at runtime.
+ * 
+ * @dependencies
+ * - mwfw2.h: Framework initialization and management
+ * - schema class: Schema processing and generation capabilities
+ * - Standard C++ memory management utilities
+ * 
+ * @usage
+ * This executable should be run with the schema file (index.csv) present
+ * in the working directory. The framework will automatically process the
+ * schema and generate the necessary components.
+ */
+
+#include "mwfw2.h"
+
+/**
+ * @brief Main entry point for the application
+ * 
+ * This function serves as the primary entry point for the framework application.
+ * It performs the following operations:
+ * 1. Initializes the mwfw2 framework with debugging information
+ * 2. Creates a schema processor for handling CSV-based configuration
+ * 3. Processes the schema file to generate application components
+ * 
+ * @return int Returns 0 upon successful execution, non-zero on failure
+ * 
+ * @note
+ * The framework object is created with the current file name (__FILE__) and 
+ * function name (__FUNCTION__) for debugging and logging purposes.
+ * 
+ * @details
+ * The schema processor is initialized with a predefined schema file name
+ * (index.csv) and uses the gen_from_schema() method with handle parameter 0
+ * to process the schema data. This typically generates HTML, configuration
+ * files, or other application components based on the schema definition.
+ * 
+ * @see mwfw2 class for framework initialization details
+ * @see schema class for schema processing capabilities
+ * @see gen_from_schema() method for schema generation process
+ * 
+ * @exception
+ * This function does not explicitly handle exceptions. Any exceptions thrown
+ * by the framework or schema processor will propagate up and terminate the
+ * application unless caught by a higher-level exception handler.
+ * 
+ * @memory
+ * Uses smart pointers (std::unique_ptr) for automatic memory management.
+ * All allocated resources are automatically cleaned up when the function
+ * exits, preventing memory leaks.
+ * 
+ * @thread_safety
+ * This function is not thread-safe and should only be called from the main
+ * thread as the application entry point.
  */
 int main()
 {
-    mwfw2* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
+    /** @brief Schema filename constant for configuration processing */
+    const std::string SCHEMA_FILENAME = "index.csv";
 
-    /*
-     * Note: 2025/01/25 12:04 dwg - The schema constructor calls genSchemaFQFS
-     * so the shared variables such as szProtocol must already be valid.
-     * Therefore, we should run self tests before instantiating the schema.
+    /** 
+     * @brief Framework instance for application initialization
+     * 
+     * Creates the main framework object with file and function information
+     * for debugging and logging purposes. The framework handles core
+     * application functionality including configuration management,
+     * logging, and resource initialization.
      */
+    auto framework = std::make_unique<mwfw2>(__FILE__, __FUNCTION__);
 
-    // gpTest = new test(false, pMwFw->isCGI());
-    // gpTest->logHistograms();
-
-    // if (0 < gpSh->m_pShMemng->num_tests_failed) {
-    //   gpHtml->print("ERROR!! Self-test failed");
-    //   exit(RETURN_SUCCESS_SORT_OF);
-    // }
-
-    gpLog = new CLog(__FILE__, __FUNCTION__);
-    gpSchema = new schema("index.csv");
-    gpSchema->gen_from_schema(0);
-
-    /*
-     * Let's also compile the index.csv schema into the header index.h
+    /** 
+     * @brief Schema processor instance for CSV-based configuration
+     * 
+     * Creates a schema processor that reads and processes the specified
+     * CSV schema file. The schema defines the structure and behavior
+     * of various application components.
      */
-    // gpSchCC = new schemaCompiler("create.csv",false); delete gpSchCC;
-    // gpSchCC = new schemaCompiler("index.csv",false);  delete gpSchCC;
-    // gpSchCC = new schemaCompiler("login.csv",false); delete gpSchCC;
-    // gpSchCC = new schemaCompiler("user-menu.csv",false);  delete gpSchCC;
-    // gpSchCC = new schemaCompiler("root.csv",false);  delete gpSchCC;
+    auto schemaProcessor = std::make_unique<schema>(SCHEMA_FILENAME);
 
+    /**
+     * @brief Process the schema file and generate components
+     * 
+     * Invokes the schema generation process with handle parameter 0.
+     * This typically generates HTML pages, configuration files, or
+     * other application components based on the schema definition.
+     * The handle parameter (0) indicates the default processing mode.
+     */
+    schemaProcessor->gen_from_schema(0);
+
+    // Successful completion
     return 0;
 }

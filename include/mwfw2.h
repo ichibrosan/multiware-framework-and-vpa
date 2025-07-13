@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef MWFW_H
-#define MWFW_H
+#pragma once
 
 #define MWFW_SUPPORT_CRTBIND
 
@@ -216,6 +215,6 @@ public:
 	void sl_loginfo(const char *);
 };
 
-
-
-#endif //MWFW_H
+////////////////////
+// eof - mwfrw2.h //
+////////////////////

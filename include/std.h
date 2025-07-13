@@ -11,8 +11,7 @@
 // 2024/12/29 05:00 dwg - updated modern includes from C++17 SLQR
 // 2024/12/22 07:00 dwg - added stdlib.h for system()
 
-#ifndef MULTIWARE_STD_H
-#define MULTIWARE_STD_H
+#pragma once
 
 // OLD STYLE SYSTEM INCLUDES (Ad Hoc List)
 #include <arpa/inet.h>
@@ -133,8 +132,6 @@
 #include <valarray>
 #include <variant>
 #include <vector>
-
-#endif //MULTIWARE_STD_H
 
 #define RETURN_SUCCESS EXIT_SUCCESS
 #define RETURN_FAILURE EXIT_FAILURE
