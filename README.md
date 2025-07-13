@@ -361,6 +361,12 @@ dynamically create the /etc/xinetd.d/vpa configuration file that configures
 all seven of the xinetd dynamic services. They are: vpa, vpa-disc, vpa-start,
 vpa-netstat, vpa-ip, vpa-http, vpa-https. It also restarts the xinetd service.
 
+### structures diagnostic program
+
+The program called "structures" is a command line utility that determines the
+length of the largest VPARPC request packet, and calculates any required
+filler bytes needed to pad out any of the functional request packets.
+
 ### Development Environment Setup
 
 Development environment setup includes cloning the repository and preparing the
@@ -373,15 +379,6 @@ with output on failure.
 Production deployment involves production build with optimizations, system-wide
 installation, configuring system service with systemctl enable and start, and
 verifying deployment with systemctl status and connection testing.
-
-### Container Deployment
-
-Container deployment uses a Dockerfile for production deployment based on Ubuntu
-22.04, installs runtime dependencies including libssl3 and libpq5, copies
-application files including binaries, configuration, and scripts, sets up user
-and permissions with dedicated vpa user, exposes ports 8080 and 9090, implements
-health check with interval and timeout settings, and runs as non-root user with
-configuration file specification.
 
 ## API Reference & Integration
 
