@@ -20,40 +20,41 @@
 
 /**
  * Entry point of the program. Initializes the framework, shared memory,
- * environment, and other essential components, conducts self-tests,
+ * environment, and other essential parts, conducts self-tests,
  * generates schema files, and verifies the configuration.
  *
  * @return Returns 0 on successful execution.
  */
-int main() {
-    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+int main()
+{
+    mwfw2* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
 
-  /*
-   * Note: 2025/01/25 12:04 dwg - The schema constructor calls genSchemaFQFS
-   * so the shared variables such as szProtocol must already be valid.
-   * Therefore, we should run self tests before instantiating the schema.
-   */
+    /*
+     * Note: 2025/01/25 12:04 dwg - The schema constructor calls genSchemaFQFS
+     * so the shared variables such as szProtocol must already be valid.
+     * Therefore, we should run self tests before instantiating the schema.
+     */
 
-  // gpTest = new test(false, pMwFw->isCGI());
-  // gpTest->logHistograms();
+    // gpTest = new test(false, pMwFw->isCGI());
+    // gpTest->logHistograms();
 
-  // if (0 < gpSh->m_pShMemng->num_tests_failed) {
-  //   gpHtml->print("ERROR!! Self-test failed");
-  //   exit(RETURN_SUCCESS_SORT_OF);
-  // }
+    // if (0 < gpSh->m_pShMemng->num_tests_failed) {
+    //   gpHtml->print("ERROR!! Self-test failed");
+    //   exit(RETURN_SUCCESS_SORT_OF);
+    // }
 
-  gpLog = new CLog(__FILE__, __FUNCTION__);
-  gpSchema = new schema("index.csv");
-  gpSchema->gen_from_schema(0);
+    gpLog = new CLog(__FILE__, __FUNCTION__);
+    gpSchema = new schema("index.csv");
+    gpSchema->gen_from_schema(0);
 
-  /*
-   * Let's also compile the index.csv schema into the header index.h
-   */
-  // gpSchCC = new schemaCompiler("create.csv",false); delete gpSchCC;
-  // gpSchCC = new schemaCompiler("index.csv",false);  delete gpSchCC;
-  // gpSchCC = new schemaCompiler("login.csv",false); delete gpSchCC;
-  // gpSchCC = new schemaCompiler("user-menu.csv",false);  delete gpSchCC;
-  // gpSchCC = new schemaCompiler("root.csv",false);  delete gpSchCC;
+    /*
+     * Let's also compile the index.csv schema into the header index.h
+     */
+    // gpSchCC = new schemaCompiler("create.csv",false); delete gpSchCC;
+    // gpSchCC = new schemaCompiler("index.csv",false);  delete gpSchCC;
+    // gpSchCC = new schemaCompiler("login.csv",false); delete gpSchCC;
+    // gpSchCC = new schemaCompiler("user-menu.csv",false);  delete gpSchCC;
+    // gpSchCC = new schemaCompiler("root.csv",false);  delete gpSchCC;
 
-  return 0;
+    return 0;
 }

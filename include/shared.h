@@ -10,7 +10,6 @@
 
 #include "mwfw2.h"
 
-#include "../retired/diagnoseDefs.h"
 
 // Used for shared segment signature
 // See Douglas Adam, Hitchhiker's Guide et al.
@@ -33,12 +32,13 @@
  * is essential, such as in server-client systems, background job execution,
  * or multi-processing tasks.
  */
-enum class forkproc_control_t {
-//    ControlQuiescent,   // uninitialized state
-    ControlIdle,
-    ControlStep,
-    ControlRun,
-    ControlTerm
+enum class forkproc_control_t
+{
+	//    ControlQuiescent,   // uninitialized state
+	ControlIdle,
+	ControlStep,
+	ControlRun,
+	ControlTerm
 };
 
 /**
@@ -54,8 +54,9 @@ enum class forkproc_control_t {
  *
  * It is crucial to handle this variable securely and prevent unauthorized access or tampering.
  */
-class shared {
-    int m_smsi; /**
+class shared
+{
+	int m_smsi; /**
      * Pointer to an instance of the CSysLog class used for system logging.
      *
      * This member variable is responsible for handling the logging of messages
@@ -70,7 +71,8 @@ class shared {
      * This pointer is dynamically allocated during initialization and is
      * expected to be properly cleaned up to release associated resources.
      */
-	CSysLog * m_pSysLog;
+	CSysLog* m_pSysLog;
+
 public:
 	/**
 	 * Combines or shares resources between entities or processes.
@@ -92,7 +94,7 @@ public:
 	 * @param args The arguments required to construct the object of type T.
 	 * @return std::shared_ptr<T> A shared pointer to the newly created object.
 	 */
-	void * mkshared(key_t keyparm,size_t sizeparm);
+	void* mkshared(key_t keyparm, size_t sizeparm);
 
 	/**
 	 * Retrieves the SMS information (SMSI).
@@ -139,7 +141,7 @@ public:
 	~shared();
 
 #include "shmemng.h"
-//MFW_SHMEMNG_T * pShMemNG;
+	//MFW_SHMEMNG_T * pShMemNG;
 };
 
 #endif //MULTIWARE_CGISHARED_H

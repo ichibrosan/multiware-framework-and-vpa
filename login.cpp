@@ -5,7 +5,7 @@
 
 #include "mwfw2.h"
 
-/**
+/************************************************************************
  * @brief A temporary character buffer used for storing formatted strings.
  *
  * This buffer is typically utilized for logging and debugging purposes,
@@ -32,8 +32,9 @@ char szTemp[128];
  *
  * @return EXIT_SUCCESS on successful execution.
  */
-int main() {
-    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+int main()
+{
+  mwfw2* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
 
   std::string ssActive;
   std::string ssUsername;
@@ -53,57 +54,71 @@ int main() {
   std::string ssUsernameX = gpCgiBind->get_form_variable("username");
   std::string ssPasswordX = gpCgiBind->get_form_variable("pwname");
 
-  std::string ssbDisplaySchema  = gpCgiBind->get_form_variable("bDisplaySchema");
-  if (ssbDisplaySchema == "true") {
+  std::string ssbDisplaySchema =
+    gpCgiBind->get_form_variable("bDisplaySchema");
+  if (ssbDisplaySchema == "true")
+  {
     gpSh->m_pShMemng->bDisplaySchema = true;
   }
-  if (ssbDisplaySchema == "false") {
+  if (ssbDisplaySchema == "false")
+  {
     gpSh->m_pShMemng->bDisplaySchema = false;
   }
 
-  std::string ssbDisplayEnvVars = gpCgiBind->get_form_variable("bDisplayEnvVars");
-  if (ssbDisplayEnvVars == "true") {
+  std::string ssbDisplayEnvVars =
+    gpCgiBind->get_form_variable("bDisplayEnvVars");
+  if (ssbDisplayEnvVars == "true")
+  {
     gpSh->m_pShMemng->bDisplayEnvVars = true;
   }
-  if (ssbDisplayEnvVars == "false") {
+  if (ssbDisplayEnvVars == "false")
+  {
     gpSh->m_pShMemng->bDisplayEnvVars = false;
   }
 
-  std::string ssbDisplayShmVars = gpCgiBind->get_form_variable("bDisplayShmVars");
-  if (ssbDisplayShmVars == "true") {
+  std::string ssbDisplayShmVars =
+    gpCgiBind->get_form_variable("bDisplayShmVars");
+  if (ssbDisplayShmVars == "true")
+  {
     gpSh->m_pShMemng->bDisplayShmVars = true;
   }
-  if (ssbDisplayShmVars == "false") {
+  if (ssbDisplayShmVars == "false")
+  {
     gpSh->m_pShMemng->bDisplayShmVars = false;
   }
 
   int handle = gpPassword->lookup_username_password(
-                                ssUsernameX, ssPasswordX);
+    ssUsernameX, ssPasswordX);
 
-  if(RETURN_FAILURE == handle) {
-    sprintf(szTemp,"%s::%s::line#%d",__FILE__,__FUNCTION__,__LINE__);
+  if (RETURN_FAILURE == handle)
+  {
+    sprintf(szTemp, "%s::%s::line#%d",__FILE__, __FUNCTION__,__LINE__);
     gpSysLog->loginfo(szTemp);
     // If the password lookup failed, select the login screen
     gpSchema = new schema("index.csv");
-
-  } else {
+  }
+  else
+  {
     // The user is authenticated, fetch his password variables
-    ssActive    = gpCsv->m_parsed_data[handle][COL_PASSWD_ACTIVE];
-    ssUsername  = gpCsv->m_parsed_data[handle][COL_PASSWD_USERNAME];
-    ssPassword  = gpCsv->m_parsed_data[handle][COL_PASSWD_PASSWORD];
+    ssActive = gpCsv->m_parsed_data[handle][COL_PASSWD_ACTIVE];
+    ssUsername = gpCsv->m_parsed_data[handle][COL_PASSWD_USERNAME];
+    ssPassword = gpCsv->m_parsed_data[handle][COL_PASSWD_PASSWORD];
     ssAuthLevel = gpCsv->m_parsed_data[handle][COL_PASSWD_AUTHLEVEL];
     ssFirstName = gpCsv->m_parsed_data[handle][COL_PASSWD_FIRSTNAME];
-    ssLastName  = gpCsv->m_parsed_data[handle][COL_PASSWD_LASTNAME];
-    ssDescript  = gpCsv->m_parsed_data[handle][COL_PASSWD_DESCR];
+    ssLastName = gpCsv->m_parsed_data[handle][COL_PASSWD_LASTNAME];
+    ssDescript = gpCsv->m_parsed_data[handle][COL_PASSWD_DESCR];
 
-    if (0 == strcmp("admin",ssAuthLevel.c_str()) ) {
+    if (0 == strcmp("admin", ssAuthLevel.c_str()))
+    {
       gpSchema = new schema("admin-menu.csv");
     }
-    if (0 == strcmp("devo",ssAuthLevel.c_str()) ) {
+    if (0 == strcmp("devo", ssAuthLevel.c_str()))
+    {
       gpSchema = new schema("devo-"
-                            "menu.csv");
+        "menu.csv");
     }
-    if (0 == strcmp("user",ssAuthLevel.c_str()) ) {
+    if (0 == strcmp("user", ssAuthLevel.c_str()))
+    {
       gpSchema = new schema("user-menu.csv");
     }
   }
@@ -112,20 +127,25 @@ int main() {
   // gpDash = new dashboard(
   //   handle,JOURNAL | LOGOUT,__FILE__,ssUsername,ssPassword);
 
-  gpSchema->gen_from_schema(handle, PREFS |JOURNAL | LOGOUT,__FILE__,ssUsername,ssPassword);
+  gpSchema->gen_from_schema(handle, PREFS | JOURNAL | LOGOUT,
+                            __FILE__, ssUsername, ssPassword);
 
-  if(pMwFw->isCGI()) {
+  if (pMwFw->isCGI())
+  {
     std::string ssHttpReferrer = gpCgiBind->get_referrer();
     std::string ssReferrerPath = gpCgiBind->get_referrer_path();
     std::string ssReferrerFile = gpCgiBind->get_referrer_file();
     //gpHtml->dump_referrer(ssHttpReferrer,ssReferrerPath,ssReferrerFile);
-    if (gpSh->m_pShMemng->bDisplaySchema) {
+    if (gpSh->m_pShMemng->bDisplaySchema)
+    {
       gpHtml->dump_schema();
     }
-    if (gpSh->m_pShMemng->bDisplayEnvVars) {
+    if (gpSh->m_pShMemng->bDisplayEnvVars)
+    {
       gpHtml->dump_env_vars();
     }
-    if (gpSh->m_pShMemng->bDisplayShmVars) {
+    if (gpSh->m_pShMemng->bDisplayShmVars)
+    {
       gpHtml->dump_shm_vars();
     }
   }

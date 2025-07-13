@@ -93,18 +93,6 @@ struct MFW_SHMEMNG_T {
         char szDbBGcolor[COLOR_SIZE_MAX];
     } prefs[ROW_DATA+CFG_MAX_USERS];
 
-    bool   vpad_running;              // control vpad while loop
-    pid_t  vpad_parent_pid;           // process id of VPA Daemon Parent
-    pid_t  vpad_child_pid;            // process id of VPA Daemon Child
-    int    vpad_exit_status;
-    int    vpad_uptime_seconds;
-    char   sz_vpad_start_time[24];                                                                                                                                                                                                                                                                               //
-    int    vpad_req_bits;               // functional request bits
-    int    vpad_resp_bits;              // functional response bits
-    int    vpad_errno[DIAGNOSE_REQ_COUNT];
-    char   szVpad_date[80];            // date stamp of vpad.cpp
-    char   szVpad_time[80];            // time stamp of vpad.cpp
-
     bool   tests_started;
     time_t time_started;
     char   szTimeStarted[UT_TIMESIZE];

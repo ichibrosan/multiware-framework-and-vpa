@@ -4,8 +4,7 @@
 ////////////////////////////////////////////////////////////////////////////
 #include "mwfw2.h"
 
-#ifndef VPARPC_H
-#define VPARPC_H
+#pragma once
 
 /**
  * @enum vparpc_version_t
@@ -22,7 +21,8 @@
  * @constant VPARPC_VERSION_COUNT
  * The total count of available versions. Used for validation.
  */
-enum vparpc_version_t {
+enum vparpc_version_t
+{
     VPARPC_VERSION_NONE = 0,
     VPARPC_VERSION_1,
     VPARPC_VERSION_COUNT
@@ -43,15 +43,16 @@ enum vparpc_version_t {
  * - VPARPC_FUNC_COUNT: Represents the total count of available functions and is used
  *   for validation purposes.
  */
-enum vparpc_func_t {
-    VPARPC_FUNC_NONE = 0,        // No operation/null function
-    VPARPC_FUNC_GET_AUTH,        // Authentication retrieval function
-    VPARPC_FUNC_HOST2IPV4ADDR,   // Hostname to IPv4 address resolution function
-    VPARPC_FUNC_VERSION,         // Version information retrieval function
-    VPARPC_FUNC_LOOKUP,          // using username/password , get handle
-    VPARPC_FUNC_CREDS,           // using handle, get credentials
-    VPARPC_FUNC_URLS,            // Get VPA URLS function
-    VPARPC_FUNC_COUNT            // Total count of available functions
+enum vparpc_func_t
+{
+    VPARPC_FUNC_NONE = 0, // No operation/null function
+    VPARPC_FUNC_GET_AUTH, // Authentication retrieval function
+    VPARPC_FUNC_HOST2IPV4ADDR, // Hostname to IPv4 address resolution function
+    VPARPC_FUNC_VERSION, // Version information retrieval function
+    VPARPC_FUNC_LOOKUP, // using username/password , get handle
+    VPARPC_FUNC_CREDS, // using handle, get credentials
+    VPARPC_FUNC_URLS, // Get VPA URLS function
+    VPARPC_FUNC_COUNT // Total count of available functions
 };
 
 /**
@@ -78,8 +79,9 @@ enum vparpc_func_t {
  *      Count of all status codes defined in the vparpc_status_t enumerator.
  *      Used for validation or iteration purposes.
  */
-enum vparpc_status_t {
-    VPARPC_STATUS_OK    = EXIT_SUCCESS,
+enum vparpc_status_t
+{
+    VPARPC_STATUS_OK = EXIT_SUCCESS,
     VPARPC_STATUS_ERROR = EXIT_FAILURE,
     VPARPC_STATUS_AUTH_FAILED,
     VPARPC_STATUS_COUNT
@@ -87,10 +89,10 @@ enum vparpc_status_t {
 
 /**
  * @brief Maximum payload size for VPA RPC packets
- * 
+ *
  * Defines the maximum size in bytes for RPC packet payloads to ensure compatibility
  * with UDP packet size limitations and network infrastructure constraints.
- * 
+ *
  * @note See doc/UDP-packet-size-considerations-AI.txt for detailed rationale
  */
 #define VPARPC_MAX_PAYLOAD_SIZE 512
@@ -104,16 +106,17 @@ enum vparpc_status_t {
  * protocol, the size of the request data, the function being invoked, and
  * a universally unique identifier (UUID) associated with the request.
  */
-struct vparpc_request_generic_t {
-    vparpc_version_t    eVersion;
-    size_t              nSize;
-    vparpc_func_t       eFunc;
-    char8_t             szUUID[UUID_SIZE];
-    char                szPadding[1016];
+struct vparpc_request_generic_t
+{
+    vparpc_version_t eVersion;
+    size_t nSize;
+    vparpc_func_t eFunc;
+    char8_t szUUID[UUID_SIZE];
+    char szPadding[1016];
 };
 
 
-/*****************************************************************************
+/***********************************************************************
  * @struct vparpc_request_auth_t
  * @brief Represents an authentication request in the vparpc protocol.
  *
@@ -141,110 +144,116 @@ struct vparpc_request_generic_t {
  * The resulting authentication token or identifier. This array is sized
  * based on UUID_SIZE.
  */
-struct vparpc_request_auth_t {
-    vparpc_version_t    eVersion;
-    size_t              nSize;
-    vparpc_func_t       eFunc;
-    char8_t             szPSK[UUID_SIZE];
-    vparpc_status_t     eStatus;
-    char                szAuth[UUID_SIZE];
-    char                szPadding[976];
+struct vparpc_request_auth_t
+{
+    vparpc_version_t eVersion;
+    size_t nSize;
+    vparpc_func_t eFunc;
+    char8_t szPSK[UUID_SIZE];
+    vparpc_status_t eStatus;
+    char szAuth[UUID_SIZE];
+    char szPadding[976];
 };
 
 
-
-struct vparpc_request_version_t {
-    vparpc_version_t    eVersion;
-    size_t              nSize;
-    vparpc_func_t       eFunc;
-    char8_t             szAuth[UUID_SIZE];
-    vparpc_status_t     eStatus;
-    char                szVersion[VERSION_SIZE_MAX];
-    char                szPadding[1000];
+struct vparpc_request_version_t
+{
+    vparpc_version_t eVersion;
+    size_t nSize;
+    vparpc_func_t eFunc;
+    char8_t szAuth[UUID_SIZE];
+    vparpc_status_t eStatus;
+    char szVersion[VERSION_SIZE_MAX];
+    char szPadding[1000];
 };
 
 
-struct vparpc_request_lookup_t {
-    vparpc_version_t    eVersion;
-    size_t              nSize;
-    vparpc_func_t       eFunc;
-    char8_t             szAuth[UUID_SIZE];
-    char                szUsername[UT_NAMESIZE];
-    char                szPassword[UT_NAMESIZE];
-    vparpc_status_t     eStatus;
-    int                 iHandle;
-    char                szPadding[944];
+struct vparpc_request_lookup_t
+{
+    vparpc_version_t eVersion;
+    size_t nSize;
+    vparpc_func_t eFunc;
+    char8_t szAuth[UUID_SIZE];
+    char szUsername[UT_NAMESIZE];
+    char szPassword[UT_NAMESIZE];
+    vparpc_status_t eStatus;
+    int iHandle;
+    char szPadding[944];
 };
 
-struct vparpc_request_creds_t {
-    vparpc_version_t    eVersion;
-    size_t              nSize;
-    vparpc_func_t       eFunc;
-    char8_t             szAuth[UUID_SIZE];
-    int                 iHandle;
-    vparpc_status_t     eStatus;
-    char                szAuthUserName[UT_NAMESIZE];
-    char                szAuthFirstName[UT_NAMESIZE];
-    char                szAuthLastName[UT_NAMESIZE];
-    char                szAuthUUID[UUID_SIZE];
-    char                szAuthLevel[UT_NAMESIZE];
-    char                szRemoteHost[DNS_FQDN_SIZE_MAX];
-    char                szRemoteAddr[DNS_FQDN_SIZE_MAX];
-    char                szHttpUserAgent[128];
-    char              szPadding[208];
+struct vparpc_request_creds_t
+{
+    vparpc_version_t eVersion;
+    size_t nSize;
+    vparpc_func_t eFunc;
+    char8_t szAuth[UUID_SIZE];
+    int iHandle;
+    vparpc_status_t eStatus;
+    char szAuthUserName[UT_NAMESIZE];
+    char szAuthFirstName[UT_NAMESIZE];
+    char szAuthLastName[UT_NAMESIZE];
+    char szAuthUUID[UUID_SIZE];
+    char szAuthLevel[UT_NAMESIZE];
+    char szRemoteHost[DNS_FQDN_SIZE_MAX];
+    char szRemoteAddr[DNS_FQDN_SIZE_MAX];
+    char szHttpUserAgent[128];
+    char szPadding[208];
 };
 
-struct vparpc_request_urls_t {
-    vparpc_version_t    eVersion;
-    size_t              nSize;
-    vparpc_func_t       eFunc;
-    char8_t             szAuth[UUID_SIZE];
-    vparpc_status_t     eStatus;
-    char                szIP[DNS_FQDN_SIZE_MAX];
-    char                szCgiRoot[DNS_FQDN_SIZE_MAX];
-    char                szStylesRoot[DNS_FQDN_SIZE_MAX];
-    char                szpadding[DNS_FQDN_SIZE_MAX];
+struct vparpc_request_urls_t
+{
+    vparpc_version_t eVersion;
+    size_t nSize;
+    vparpc_func_t eFunc;
+    char8_t szAuth[UUID_SIZE];
+    vparpc_status_t eStatus;
+    char szIP[DNS_FQDN_SIZE_MAX];
+    char szCgiRoot[DNS_FQDN_SIZE_MAX];
+    char szStylesRoot[DNS_FQDN_SIZE_MAX];
+    char szpadding[DNS_FQDN_SIZE_MAX];
 };
 
-union vparpc_request_t {
+union vparpc_request_t
+{
     struct vparpc_request_generic_t req_generic;
-    struct vparpc_request_auth_t    req_auth;
+    struct vparpc_request_auth_t req_auth;
     struct vparpc_request_version_t req_version;
-    struct vparpc_request_lookup_t  req_lookup;
-    struct vparpc_request_creds_t   req_creds;
-    struct vparpc_request_urls_t    req_urls;
+    struct vparpc_request_lookup_t req_lookup;
+    struct vparpc_request_creds_t req_creds;
+    struct vparpc_request_urls_t req_urls;
 };
 
 
-class vparpc {
+class vparpc
+{
 private:
-    window * v_pWin;
-    std::string v_ssVpaDestAddr;
-    std::string v_ssVpaDestPort;
+    window* v_pWin;
     int v_nListenSocket;
     int v_nSendSocket;
+
 public:
     vparpc();
-    void handle_auth_request(char *buffer, window* pWin);
-    void handle_version_request(char * buffer, window* pWin);
-    void handle_lookup_request(char * buffer, window* pWin);
-    void handle_creds_request(char * buffer, window* pWin);
-    void handle_urls_request(char * buffer, window* pWin);
+    void handle_auth_request(char* buffer, window* pWin);
+    void handle_version_request(char* buffer, window* pWin);
+    void handle_lookup_request(char* buffer, window* pWin);
+    void handle_creds_request(char* buffer, window* pWin);
+    void handle_urls_request(char* buffer, window* pWin);
 
     void server(std::string ssService);
-    void  process(char * pszBuffer);
-    void client(std::string host,std::string service,void * pkt,size_t len);
+    void process(char* pszBuffer);
+    void client(std::string host, std::string service, void* pkt, size_t len);
     int svc2port(std::string ssSvcName);
     std::string host2ipv4addr(const std::string& ssHost);
     void render();
 
     struct vparpc_request_generic_t m_req_generic;
-    struct vparpc_request_auth_t    m_req_auth;
+    struct vparpc_request_auth_t m_req_auth;
     struct vparpc_request_version_t m_req_version;
-    struct vparpc_request_lookup_t  m_req_lookup;
-    struct vparpc_request_creds_t   m_req_creds;
-    struct vparpc_request_urls_t    m_req_urls;
-
+    struct vparpc_request_lookup_t m_req_lookup;
+    struct vparpc_request_creds_t m_req_creds;
+    struct vparpc_request_urls_t m_req_urls;
 };
 
-#endif //VPARPC_H
+////////////////////
+// eof - vparpc.h //
+////////////////////

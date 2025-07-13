@@ -4,13 +4,19 @@
 [![Version](https://img.shields.io/badge/Version-5.5.10.2-blue.svg)](CHANGELOG)
 [![C++](https://img.shields.io/badge/Language-C%2B%2B20-blue.svg)](https://isocpp.org/)
 
-A comprehensive C++ framework providing Virtual Protocol Adapter (VPA) RPC services and multiware system capabilities for distributed computing environments.
+A comprehensive C++ framework providing Virtual Protocol Adapter (VPA) RPC 
+services and multiware system capabilities for distributed computing 
+environments.
 
 [![CMake on a single platform](https://github.com/ichibrosan/fw/actions/workflows/cmake-single-platform.yml/badge.svg)](https://github.com/ichibrosan/fw/actions/workflows/cmake-single-platform.yml)
 
 ## Overview
 
-The Virtual Protocol Adapter & Multiware Framework (mwfw2) is a sophisticated, enterprise-grade C++ framework designed for distributed computing environments. It provides a robust foundation for building secure, scalable applications with advanced RPC capabilities, comprehensive user management, and professional console-based interfaces.
+The Virtual Protocol Adapter & Multiware Framework (mwfw2) is a 
+sophisticated, C++ framework designed for distributed computing 
+environments. It provides a robust foundation for building scalable 
+applications with advanced RPC capabilities, comprehensive user 
+management, and professional console-based interfaces.
 
 ## System Architecture
 

@@ -21,7 +21,6 @@ CSysLog::CSysLog()
 {
     setlogmask(LOG_UPTO(LOG_INFO));
     openlog("multiware",LOG_CONS | LOG_PID | LOG_NDELAY, LOG_LOCAL1);
-
 }
 
 /**
@@ -35,10 +34,12 @@ CSysLog::CSysLog()
  * @param pszFunction A pointer to a null-terminated string representing the name of the function.
  * @param iLine An integer representing the line number in the source file.
  */
-void CSysLog::herefunc(const char *pszFile,const char *pszFunction,int iLine) {
+void CSysLog::herefunc(const char* pszFile, const char* pszFunction, int iLine)
+{
     char szTemp[1024];
-    if (gbHere) {
-        sprintf(szTemp,"%s::%s()#%d",pszFile,pszFunction,iLine);
+    if (gbHere)
+    {
+        sprintf(szTemp, "%s::%s() here #%d", pszFile, pszFunction, iLine);
         loginfo(szTemp);
     }
 }
@@ -54,9 +55,9 @@ void CSysLog::herefunc(const char *pszFile,const char *pszFunction,int iLine) {
  * @param pszMsg A constant pointer to a null-terminated string representing
  *               the message to be logged.
  */
-void CSysLog::loginfo(const char * pszMsg)
+void CSysLog::loginfo(const char* pszMsg)
 {
-    syslog(LOG_CONS|LOG_NOWAIT|LOG_NDELAY|LOG_PID,"%s",pszMsg);
+    syslog(LOG_CONS | LOG_NOWAIT | LOG_NDELAY | LOG_PID, "%s", pszMsg);
 }
 
 /**

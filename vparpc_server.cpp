@@ -98,7 +98,8 @@
  * 
  * @return Integer exit status following standard C conventions:
  *         - **0**: Successful initialization and service startup
- *         - **Non-zero**: Error during initialization, UI creation, or service startup
+ *         - **Non-zero**: Error during initialization, UI creation, or
+ *              service startup
  * 
  * @note **Execution Behavior**:
  *       Under normal operation, this function does not return because the
@@ -162,12 +163,12 @@
  * [Server responds with version information]
  * @endcode
  */
-int main(int argc, char **argv) {
-    
+int main(int argc, char** argv)
+{
     // ========================================================================
     // FRAMEWORK INITIALIZATION AND SYSTEM SETUP
     // ========================================================================
-    
+
     /**
      * Initialize the middleware framework with execution context information.
      * 
@@ -187,12 +188,15 @@ int main(int argc, char **argv) {
      * @note Global objects (gpSemiGr, gpVpaRpc) are initialized by this call
      * @note Framework initialization must complete before using any global services
      */
-    mwfw2 * pMwFw = new mwfw2(__FILE__, __FUNCTION__);
+    mwfw2* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
+
+    gbHere = true;
+    here;
 
     // ========================================================================
     // USER INTERFACE CREATION AND CONFIGURATION
     // ========================================================================
-    
+
     /**
      * Create application status window for server information display.
      * 
@@ -203,8 +207,8 @@ int main(int argc, char **argv) {
      * - **Cross-Platform Display**: Terminal-independent rendering
      * - **Memory Management**: Automatic cleanup and resource handling
      */
-    window * pWin = new window();
-    
+    window* pWin = new window();
+
     /**
      * Configure window visual styling using semi-graphics cosmetic system.
      * 
@@ -230,14 +234,14 @@ int main(int argc, char **argv) {
      * @note Styling persists for all windows created after this call
      */
     gpSemiGr->cosmetics(
-        SRUL,  SRUR,  SRLL,    // Corner characters for window borders
-        SRLR,  SVSR,  SVSL,    // Additional corners and separators
-        SH,    SV);             // Horizontal and vertical line characters
-    
+        SRUL, SRUR, SRLL, // Corner characters for window borders
+        SRLR, SVSR, SVSL, // Additional corners and separators
+        SH, SV); // Horizontal and vertical line characters
+
     // ========================================================================
     // APPLICATION IDENTIFICATION AND COPYRIGHT DISPLAY
     // ========================================================================
-    
+
     /**
      * Construct comprehensive copyright notice string.
      * 
@@ -252,9 +256,9 @@ int main(int argc, char **argv) {
      * @note Displayed prominently in application interface
      */
     std::string ssCopr = "Copyright ";
-    ssCopr.append("(c)");      // Cross-platform copyright symbol
+    ssCopr.append("(c)"); // Cross-platform copyright symbol
     ssCopr.append(" 2025 Douglas Wade Goodall. All Rights Reserved.");
-    
+
     /**
      * Configure window title with complete application identification.
      * 
@@ -271,15 +275,15 @@ int main(int argc, char **argv) {
      * @note Helps with deployment tracking and support
      */
     pWin->set_title("Virtual Protocol Adapter RPC Server "
-                    "Ver 5.5.10.2");
-    
+        "Ver 5.5.10.2");
+
     /**
      * Add copyright information as content row in the display window.
      * This creates a permanent visual record of the copyright notice
      * that users will see when the server starts.
      */
     pWin->add_row(ssCopr);
-    
+
     /**
      * Render the configured window to the display interface.
      * 
@@ -295,7 +299,7 @@ int main(int argc, char **argv) {
      * @note Supports both text and pseudo-graphics terminals
      */
     pWin->render();
-    
+
     /**
      * Clean up window object resources after display completion.
      * 
@@ -312,7 +316,7 @@ int main(int argc, char **argv) {
     // ========================================================================
     // RPC SERVER SERVICE INITIALIZATION AND STARTUP
     // ========================================================================
-    
+
     /**
      * Launch the RPC server with specified service identifier.
      * 
@@ -368,7 +372,7 @@ int main(int argc, char **argv) {
     // ========================================================================
     // UNREACHABLE CODE SECTION (NORMAL OPERATION)
     // ========================================================================
-    
+
     /**
      * @note **Unreachable Code**: The following code is only executed if the
      *       RPC server encounters a fatal error during startup or operation.

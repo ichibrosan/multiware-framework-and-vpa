@@ -16,19 +16,20 @@
  * @param ssHost A string representing the host name or IP address for the VPA RPC client.
  * @param ssService A string representing the service name or identifier for the VPA RPC client.
  */
-CVpaRpc::CVpaRpc(std::string ssHost,std::string ssService)
+CVpaRpc::CVpaRpc(std::string ssServer, std::string ssService)
 {
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
+
+    m_ssSvr = ssServer;
+    m_ssSvc = ssService;
 
     m_vparpc_request_auth.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_auth.nSize = sizeof(m_vparpc_request_auth);
     m_vparpc_request_auth.eFunc = VPARPC_FUNC_GET_AUTH;
-    strcpy((char *)m_vparpc_request_auth.szPSK,CFG_VPA_RPC_PSK);
-    gpVpaRpc->client(
-        ssHost,           // daphne
-        ssService,        // vparpc
-        &m_vparpc_request_auth,sizeof(vparpc_request_auth_t) );  // Use struct size
-
+    strcpy((char*)m_vparpc_request_auth.szPSK,CFG_VPA_RPC_PSK);
+    gpVpaRpc->client(m_ssSvr, m_ssSvc,
+                     &m_vparpc_request_auth,
+                     sizeof(vparpc_request_auth_t)); // Use struct size
 }
 
 /**
@@ -61,13 +62,12 @@ std::string CVpaRpc::get_version()
     m_vparpc_request_version.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_version.nSize = sizeof(m_vparpc_request_version);
     m_vparpc_request_version.eFunc = VPARPC_FUNC_VERSION;
-    strcpy((char *)m_vparpc_request_version.szAuth,m_vparpc_request_auth.szAuth);
-    gpVpaRpc->client(
-        "daphne",
-        "vpa",
-        &m_vparpc_request_version,sizeof(vparpc_request_version_t) );  // Use struct size
-
-    return(m_vparpc_request_version.szVersion);
+    strcpy((char*)m_vparpc_request_version.szAuth,
+           m_vparpc_request_auth.szAuth);
+    gpVpaRpc->client(m_ssSvr, m_ssSvc,
+                     &m_vparpc_request_version,
+                     sizeof(vparpc_request_version_t)); // Use struct size
+    return (m_vparpc_request_version.szVersion);
 }
 
 std::string CVpaRpc::get_version_version()
@@ -97,41 +97,41 @@ std::string CVpaRpc::get_version_version()
  */
 int CVpaRpc::get_lookup()
 {
+    here;
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     m_vparpc_request_lookup.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_lookup.nSize = sizeof(m_vparpc_request_lookup);
     m_vparpc_request_lookup.eFunc = VPARPC_FUNC_LOOKUP;
-    strcpy((char *)m_vparpc_request_lookup.szAuth,m_vparpc_request_auth.szAuth);
-    strcpy(m_vparpc_request_lookup.szUsername,"doug");
-    strcpy(m_vparpc_request_lookup.szPassword,"melange");
-    
+    strcpy((char*)m_vparpc_request_lookup.szAuth, m_vparpc_request_auth.szAuth);
+    strcpy(m_vparpc_request_lookup.szUsername, "doug");
+    strcpy(m_vparpc_request_lookup.szPassword, "melange");
+
     // Initialize iHandle to a known value for debugging
     m_vparpc_request_lookup.iHandle = -999;
-    
+
     // Log the request details
     char szLogger[128];
-    sprintf(szLogger,"Sending lookup request - Username: %s, Password: %s, Initial Handle: %d",
-                     m_vparpc_request_lookup.szUsername, 
-                     m_vparpc_request_lookup.szPassword,
-                     m_vparpc_request_lookup.iHandle);
+    sprintf(szLogger,
+            "Sending lookup request - Username: %s, Password: %s, Initial Handle: %d",
+            m_vparpc_request_lookup.szUsername,
+            m_vparpc_request_lookup.szPassword,
+            m_vparpc_request_lookup.iHandle);
     gpSysLog->loginfo(szLogger);
 
-    gpVpaRpc->client(
-        "daphne",
-        "vpa",
-        &m_vparpc_request_lookup,
-        sizeof(vparpc_request_lookup_t)
+    gpVpaRpc->client(m_ssSvr, m_ssSvc,
+                     &m_vparpc_request_lookup,
+                     sizeof(vparpc_request_lookup_t)
     );
 
     // Log the response
-    sprintf(szLogger,"Received lookup response - Handle: %d, Status: %d",
-                     m_vparpc_request_lookup.iHandle,
-                     m_vparpc_request_lookup.eStatus);
+    sprintf(szLogger, "Received lookup response - Handle: %d, Status: %d",
+            m_vparpc_request_lookup.iHandle,
+            m_vparpc_request_lookup.eStatus);
 
     //std::cout << "handle: " << m_vparpc_request_lookup.iHandle << std::endl;
 
-    return(m_vparpc_request_lookup.iHandle);
+    return (m_vparpc_request_lookup.iHandle);
 }
 
 /**
@@ -155,12 +155,11 @@ void CVpaRpc::get_creds()
     m_vparpc_request_creds.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_creds.nSize = sizeof(m_vparpc_request_creds);
     m_vparpc_request_creds.eFunc = VPARPC_FUNC_CREDS;
-    strcpy((char *)m_vparpc_request_creds.szAuth,m_vparpc_request_auth.szAuth);
+    strcpy((char*)m_vparpc_request_creds.szAuth, m_vparpc_request_auth.szAuth);
     m_vparpc_request_creds.iHandle = m_vparpc_request_lookup.iHandle;
-    gpVpaRpc->client(
-        "daphne",
-        "vpa",
-        &m_vparpc_request_creds,sizeof(vparpc_request_creds_t) );  // Use struct size
+    gpVpaRpc->client(m_ssSvr, m_ssSvc,
+                     &m_vparpc_request_creds,
+                     sizeof(vparpc_request_creds_t)); // Use struct size
 }
 
 /**
@@ -246,11 +245,10 @@ void CVpaRpc::get_urls()
     m_vparpc_request_urls.eVersion = VPARPC_VERSION_1;
     m_vparpc_request_urls.nSize = sizeof(m_vparpc_request_urls);
     m_vparpc_request_urls.eFunc = VPARPC_FUNC_URLS;
-    strcpy((char *)m_vparpc_request_urls.szAuth,m_vparpc_request_auth.szAuth);
-    gpVpaRpc->client(
-        "daphne",
-        "vpa",
-        &m_vparpc_request_urls,sizeof(vparpc_request_urls_t) );  // Use struct size
+    strcpy((char*)m_vparpc_request_urls.szAuth, m_vparpc_request_auth.szAuth);
+    gpVpaRpc->client(m_ssSvr, m_ssSvc,
+                     &m_vparpc_request_urls,
+                     sizeof(vparpc_request_urls_t)); // Use struct size
 }
 
 std::string CVpaRpc::get_urls_ip()
@@ -277,3 +275,6 @@ std::string CVpaRpc::get_urls_stylesroot()
     return (ssReturn);
 }
 
+///////////////////////
+// eof - CVpaRpc.cpp //
+///////////////////////
