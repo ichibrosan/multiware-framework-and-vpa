@@ -40,3 +40,6 @@ public:
     vparpc_request_urls_t m_vparpc_request_urls;
 };
 
+/////////////////////
+// eof - CVpaRpc.h //
+/////////////////////

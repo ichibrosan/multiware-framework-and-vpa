@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef MULTIWARE_ENVIRONMENT_H
-#define MULTIWARE_ENVIRONMENT_H
+#pragma once
 
 #include "mwfw2.h"
 
@@ -513,4 +512,6 @@ public:
 	char *get_scriptname();
 };
 
-#endif //MULTIWARE_ENVIRONMENT_H
+/////////////////////////
+// eof - environment.h //
+/////////////////////////

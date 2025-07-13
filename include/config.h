@@ -3,14 +3,9 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 // NOLINT (misra-check)
-
-
-
-
 
 #define CFG_HANDLE_NA                0
 #define CFG_FORK_CHILD               0
@@ -37,6 +32,6 @@ public:
     config();
 };
 
-
-
-#endif //CONFIG_H
+////////////////////
+// eof - config.h //
+////////////////////

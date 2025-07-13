@@ -3,8 +3,8 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef VERSION_H
-#define VERSION_H
+#pragma once
+
 #define RMAJ    5
 #define RMIN    7
 #define RREV    12
@@ -26,4 +26,7 @@
 #define RCPU    "x86_64"
 #define RVERSION_SIZE_MAX      (sizeof("255.255.255.255")+1)
 #define RCOMMENT "Lord have mercy on our country"
-#endif //VERSION_H
+
+/////////////////////
+// eof - version.h //
+/////////////////////

@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef HTML_LIMITS_H
-#define HTML_LIMITS_H
+#pragma once
 
 /**
  * I was unable to locate system determined limits for these items
@@ -28,4 +27,7 @@
 #define ZERO_TERMINATOR_SIZE 1
 #define VERSION_SIZE_MAX (sizeof("YYYY.MM.DD.HH")+1)
 #define PASSWORD_SIZE_MAX 512  // Based on PAM_MAX_RESP_SIZE
-#endif //HTML_LIMITS_H
+
+///////////////////////
+// eof - fw-limits.h //
+///////////////////////

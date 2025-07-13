@@ -4,8 +4,7 @@
 // This file is part of the Goodall MultiWare Framework Project.      //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef MULTIWARE_CGICC_H
-#define MULTIWARE_CGICC_H
+#pragma once
 
 #include <cgicc/Cgicc.h>
 #include <cgicc/CgiDefs.h>
@@ -14,8 +13,6 @@
 #include <cgicc/HTTPHTMLHeader.h>
 #include <cgicc/HTMLClasses.h>
 using namespace cgicc;
-
-#endif // MULTIWARE_CGICC_H
 
 ///////////////////
 // eof - cgicc.h //

@@ -2,8 +2,7 @@
 // Created by doug on 1/16/25.
 //
 
-#ifndef FW_PASSWORD_H
-#define FW_PASSWORD_H
+#pragma once
 
 #include "mwfw2.h"
 
@@ -93,5 +92,6 @@ public:
 	int lookup_username_password(std::string ssUsername,std::string ssPassword);
 };
 
-
-#endif //FW_PASSWORD_H
+////////////////////
+// eof password.h //
+////////////////////

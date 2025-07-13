@@ -3,8 +3,8 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef MULTIWARE_SHMEMNG_H
-#define MULTIWARE_SHMEMNG_H
+#pragma once
+
 #include "mwfw2.h"
 
 #include "config.h"
@@ -179,5 +179,6 @@ private:
 };
 
 
-
-#endif //MULTIWARE_SHMEMNG_H
+/////////////////////
+// eof - shmemng.h //
+/////////////////////

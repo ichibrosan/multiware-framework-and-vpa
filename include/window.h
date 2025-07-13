@@ -3,10 +3,10 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef WINDOW_H
-#define WINDOW_H
+#pragma once
 
-struct WinDesc {
+struct WinDesc
+{
     int x;
     int y;
     int width;
@@ -14,17 +14,19 @@ struct WinDesc {
     std::vector<std::string> ssData;
 };
 
-class window {
-    int m_x;        // zero relative column number of left corner edge
-    int m_y;        // zero relative line number of top edge
-    int m_width;    // width of window  (dynamic)
-    int m_height;   // height of window (dynamic)
+class window
+{
+    int m_x; // zero relative column number of left corner edge
+    int m_y; // zero relative line number of top edge
+    int m_width; // width of window  (dynamic)
+    int m_height; // height of window (dynamic)
     std::string m_ssTitle;
     std::vector<std::string> m_ssData;
+
 public:
     window(
         // WinDesc&
-        );
+    );
     int get_height();
     int get_width();
     int get_x();
@@ -38,4 +40,6 @@ public:
     ~window();
 };
 
-#endif //WINDOW_H
+////////////////////
+// eof - window.h //
+////////////////////

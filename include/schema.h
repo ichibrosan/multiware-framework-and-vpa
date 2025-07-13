@@ -3,18 +3,18 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef HTML_SCHEMA_H
-#define HTML_SCHEMA_H
+#pragma once
 
 //#include "main.h"
 #include "CSysLog.hpp"
 #include "readCsv.h"
 
-enum {
-    ROW_META_HDR,       // 0
-    ROW_META_DATA,      // 1
-    ROW_DATA_HDR,       // 2
-    ROW_DATA            // 3
+enum
+{
+    ROW_META_HDR, // 0
+    ROW_META_DATA, // 1
+    ROW_DATA_HDR, // 2
+    ROW_DATA // 3
 };
 
 /**
@@ -38,7 +38,8 @@ enum {
  * - COL_META_STYLE: Describes the style related to the schema.
  * - COL_META_DESCRIPTION: Provides a description of the schema or column.
  */
-enum SCHEMA_METADATA_T {
+enum SCHEMA_METADATA_T
+{
     COL_META_ACTIVE,
     COL_META_VERSION,
     COL_META_META_COLUMNS,
@@ -67,7 +68,8 @@ enum SCHEMA_METADATA_T {
  * - COL_PARM2: Represents the second parameter.
  * - COL_PARM3: Represents the third parameter.
  */
-enum SCHEMA_GENERIC_T {
+enum SCHEMA_GENERIC_T
+{
     COL_ACTIVE,
     COL_PREPARA,
     COL_POSTPARA,
@@ -94,7 +96,8 @@ enum SCHEMA_GENERIC_T {
  * - COL_IFRAME_WIDTH: Represents the width definition of the iframe.
  * - COL_IFRAME_HEIGHT: Represents the height definition of the iframe.
  */
-enum SCHEMA_IFRAME_T {
+enum SCHEMA_IFRAME_T
+{
     COL_IFRAME_DEF_PAGE = COL_PARM1,
     COL_IFRAME_TITLE,
     COL_IFRAME_NAME,
@@ -119,7 +122,8 @@ enum SCHEMA_IFRAME_T {
  * @var SCHEMA_XAHREF_T::COL_XAHREF_DISPLAY
  * Represents the display field for the XAHREF schema.
  */
-enum SCHEMA_XAHREF_T {
+enum SCHEMA_XAHREF_T
+{
     COL_XAHREF_LINK = COL_PARM1,
     COL_XAHREF_CLASS,
     COL_XAHREF_DISPLAY
@@ -136,7 +140,8 @@ enum SCHEMA_XAHREF_T {
  * - COL_FORM_BUTTON_CLASS: Indicates the column for the button's class.
  * - COL_FORM_BUTTON_DISPLAY: Represents the column controlling the display properties of the button.
  */
-enum SCHEMA_FORM_BUTTON_T {
+enum SCHEMA_FORM_BUTTON_T
+{
     COL_FORM_BUTTON_TYPE = COL_PARM1,
     COL_FORM_BUTTON_FORM,
     COL_FORM_BUTTON_CLASS,
@@ -158,7 +163,8 @@ enum SCHEMA_FORM_BUTTON_T {
  * - COL_FORM_ID: Represents the column for form ID.
  * - COL_FORM_TARGET: Represents the column for form target.
  */
-enum SCHEMA_OPEN_FORM_T {
+enum SCHEMA_OPEN_FORM_T
+{
     COL_FORM_ACTION = COL_PARM1,
     COL_FORM_PROTOCOL,
     COL_FORM_HANDLE,
@@ -176,7 +182,8 @@ enum SCHEMA_OPEN_FORM_T {
  * @constant COL_DIV_CLASS Represents a column identifier for division class,
  * mapped to COL_PARM1 from SCHEMA_GENERIC_T.
  */
-enum SCHEMA_DIV_T {
+enum SCHEMA_DIV_T
+{
     COL_DIV_CLASS = COL_PARM1
 };
 
@@ -195,7 +202,8 @@ enum SCHEMA_DIV_T {
  * - COL_CHECKBOX_VISIBLE: Represents the visibility status of the checkbox.
  * - COL_CHECKBOX_DESCRIPTION: Represents the description of the checkbox.
  */
-enum SCHEMA_CHECKBOX_T {
+enum SCHEMA_CHECKBOX_T
+{
     COL_CHECKBOX_NAME = COL_PARM1,
     COL_CHECKBOX_ID,
     COL_CHECKBOX_VALUE,
@@ -219,7 +227,8 @@ enum SCHEMA_CHECKBOX_T {
  *   COL_DATE_VALUE  Represents the value or data column for the DATE schema.
  *   COL_DATE_DESCR  Represents the description column for the DATE schema.
  */
-enum SCHEMA_DATE_T {
+enum SCHEMA_DATE_T
+{
     COL_DATE_NAME = COL_PARM1,
     COL_DATE_ID,
     COL_DATE_VALUE,
@@ -238,7 +247,8 @@ enum SCHEMA_DATE_T {
  * - COL_DATETIME_VALUE: Represents the column for the value of the datetime entity.
  * - COL_DATETIME_DESCR: Represents the column for the description of the datetime entity.
  */
-enum SCHEMA_DATETIME_T {
+enum SCHEMA_DATETIME_T
+{
     COL_DATETIME_NAME = COL_PARM1,
     COL_DATETIME_ID,
     COL_DATETIME_VALUE,
@@ -262,7 +272,8 @@ enum SCHEMA_DATETIME_T {
  * The values in this enum depend on the starting value of COL_PARM1
  * in SCHEMA_GENERIC_T.
  */
-enum SCHEMA_IMAGE_T {
+enum SCHEMA_IMAGE_T
+{
     COL_IMAGE_FILENAME = COL_PARM1,
     COL_IMAGE_WIDTH,
     COL_IMAGE_HEIGHT,
@@ -285,7 +296,8 @@ enum SCHEMA_IMAGE_T {
  * - COL_MONTH_VALUE: Represents the value associated with the month.
  * - COL_MONTH_DESCR: Represents the description of the month.
  */
-enum SCHEMA_MONTH_T {
+enum SCHEMA_MONTH_T
+{
     COL_MONTH_NAME = COL_PARM1,
     COL_MONTH_ID,
     COL_MONTH_VALUE,
@@ -308,7 +320,8 @@ enum SCHEMA_MONTH_T {
  * - COL_PASSWORD_VISIBLE: Specifies whether the password is visible or hidden.
  * - COL_PASSWORD_DESCR: Holds a description associated with the password.
  */
-enum SCHEMA_PASSWORD_T {
+enum SCHEMA_PASSWORD_T
+{
     COL_PASSWORD_NAME = COL_PARM1,
     COL_PASSWORD_ID,
     COL_PASSWORD_VALUE,
@@ -340,7 +353,8 @@ enum SCHEMA_PASSWORD_T {
  * @var SCHEMA_RADIOBUTT_T::COL_RADIO_DESCRIPTION
  * Represents the column identifier for the description of the radio button.
  */
-enum SCHEMA_RADIOBUTT_T {
+enum SCHEMA_RADIOBUTT_T
+{
     COL_RADIO_ID = COL_PARM1,
     COL_RADIO_NAME,
     COL_RADIO_VALUE,
@@ -362,7 +376,8 @@ enum SCHEMA_RADIOBUTT_T {
  * @var SCHEMA_RESET_T::COL_RESET_VALUE
  * Represents the reset value, coming after COL_RESET_NAME in sequence.
  */
-enum SCHEMA_RESET_T {
+enum SCHEMA_RESET_T
+{
     COL_RESET_NAME = COL_PARM1,
     COL_RESET_VALUE
 };
@@ -376,7 +391,8 @@ enum SCHEMA_RESET_T {
  *
  * @note COL_TEXT_NAME starts from the COL_PARM1 value defined in SCHEMA_GENERIC_T.
  */
-enum SCHEMA_TEXT_T {
+enum SCHEMA_TEXT_T
+{
     COL_TEXT_NAME = COL_PARM1,
     COL_TEXT_ID,
     COL_TEXT_VALUE,
@@ -407,7 +423,8 @@ enum SCHEMA_TEXT_T {
  * Represents the column index for selecting the class, incrementally
  * following COL_SELECT_PATH.
  */
-enum SCHEMA_FILES_SELECT_T {
+enum SCHEMA_FILES_SELECT_T
+{
     COL_FILES_SELECT_NAME = COL_PARM1,
     COL_FILES_SELECT_PATH,
     COL_FILES_SELECT_CLASS
@@ -429,7 +446,8 @@ enum SCHEMA_FILES_SELECT_T {
  * - `COL_TEXTAREA_CLASS` : Specifies the CSS class for styling the textarea.
  * - `COL_TEXTAREA_VALUE` : Represents the default value within the textarea.
  */
-enum SCHEMA_TEXTAREA_T {
+enum SCHEMA_TEXTAREA_T
+{
     COL_TEXTAREA_NAME = COL_PARM1,
     COL_TEXTAREA_ID,
     COL_TEXTAREA_COLS,
@@ -452,7 +470,8 @@ enum SCHEMA_TEXTAREA_T {
  * - COL_TIME_VALUE: Represents the value associated with a time column.
  * - COL_TIME_DESCR: Represents the description of a time column.
  */
-enum SCHEMA_TIME_T {
+enum SCHEMA_TIME_T
+{
     COL_TIME_NAME = COL_PARM1,
     COL_TIME_ID,
     COL_TIME_VALUE,
@@ -473,7 +492,8 @@ enum SCHEMA_TIME_T {
  * - COL_WEEK_VALUE: Represents the column for the data value associated with the week.
  * - COL_WEEK_DESCR: Represents the column for a description of the week.
  */
-enum SCHEMA_WEEK_T {
+enum SCHEMA_WEEK_T
+{
     COL_WEEK_NAME = COL_PARM1,
     COL_WEEK_ID,
     COL_WEEK_VALUE,
@@ -493,7 +513,8 @@ enum SCHEMA_WEEK_T {
  * - COL_AHREF_WIDTH: Represents the width column.
  * - COL_AHREF_HEIGHT: Represents the height column.
  */
-enum SCHEMA_AHREF_T {
+enum SCHEMA_AHREF_T
+{
     COL_AHREF_CGINAME = COL_PARM1,
     COL_AHREF_IMGNAME,
     COL_AHREF_WIDTH,
@@ -517,7 +538,8 @@ enum SCHEMA_AHREF_T {
  * - COL_PASSWD_LASTNAME: Represents the last name of the user.
  * - COL_PASSWD_DESCR: Represents a description or additional info about the user.
  */
-enum SCHEMA_PASSWD_T {
+enum SCHEMA_PASSWD_T
+{
     COL_PASSWD_ACTIVE,
     COL_PASSWD_USERNAME,
     COL_PASSWD_PASSWORD,
@@ -534,7 +556,8 @@ enum SCHEMA_PASSWD_T {
  * This enum is used for assigning schema label values, where:
  * - `COL_LABEL_VISIBLE` is mapped to `COL_PARM1` from the `SCHEMA_GENERIC_T` enum.
  */
-enum SCHEMA_LABEL_T {
+enum SCHEMA_LABEL_T
+{
     COL_LABEL_VISIBLE = COL_PARM1
 };
 
@@ -549,7 +572,8 @@ enum SCHEMA_LABEL_T {
  * - VARIABLE_NAME: Represents the preprocessing operation for variable names.
  * - VARIABLE_VALUE: Represents the preprocessing operation for variable values.
  */
-enum SCHEMA_PREPROCESS_T {
+enum SCHEMA_PREPROCESS_T
+{
     VARIABLE_NAME,
     VARIABLE_VALUE
 };
@@ -575,7 +599,8 @@ enum SCHEMA_PREPROCESS_T {
  * Validation errors or schema inconsistencies should be handled gracefully,
  * providing informative error messages for debugging.
  */
-class schema {
+class schema
+{
     /**
      * Represents the number of rows in a given dataset or schema.
      *
@@ -588,7 +613,7 @@ class schema {
      * - To store the row count after parsing CSV data.
      * - To retrieve the row count for further computations or validations.
      */
-    int       m_iRows;
+    int m_iRows;
     /**
      * @brief Stores the name of the schema being processed.
      *
@@ -609,7 +634,7 @@ class schema {
      * of the schema object. All logging-related tasks triggered by the schema
      * class, such as debugging or data processing logs, are routed through this pointer.
      */
-    CSysLog * m_pSysLog;
+    CSysLog* m_pSysLog;
     /**
      * Constructs a schema object and initializes its components using the provided schema name.
      *
@@ -640,7 +665,7 @@ public:
      *                         representing the schema data to process.
      */
     void process_schema_data(std::vector<std::vector<std::string>>
-                             svvsPassedValues);
+        svvsPassedValues);
     /**
      * Generates HTML content based on the schema details and passed values.
      * Processes schema metadata to set up the HTML structure and forms.
@@ -662,7 +687,7 @@ public:
      */
     void gen_from_schema(int handle,
                          int flags,
-                         const char *szFile,
+                         const char* szFile,
                          std::string ssUsername,
                          std::string ssPassword,
                          std::vector<std::vector<std::string>>
@@ -715,8 +740,9 @@ public:
      *   through this pointer but does not necessarily manage its memory lifecycle, which must
      *   be handled externally.
      */
-    readCsv * m_pReadCsv;
+    readCsv* m_pReadCsv;
 };
 
-
-#endif //HTML_SCHEMA_H
+////////////////////
+// eof - schema.h //
+////////////////////

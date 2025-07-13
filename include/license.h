@@ -2,11 +2,11 @@
 // /home/devo/public_html/fw/license.h 2025-03-15 18:46            //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
 /////////////////////////////////////////////////////////////////////
-#ifndef LICENSE_H
-#define LICENSE_H
+#pragma once
+
 #define LICENSE_FILE "/etc/license.txt"
 #define LICENSE_KEY  "fd121e5e-0207-11f0-9e14-ffab21aa75c8"
-#endif //LICENSE_H
+
 /////////////////////
 // eof - license.h //
 /////////////////////

@@ -2,26 +2,28 @@
 // Created by doug on 3/23/25.
 //
 
-#ifndef SHMVARS_H
-#define SHMVARS_H
+#pragma once
 
 #define CHARDATA_SIZE_MAX 2083
 #define SHMVAR_NAME_SIZE_MAX 32
 #define SHMVAR_VALUE_SIZE_MAX 2083
 
-enum svar_type_t {
+enum svar_type_t
+{
     SVAR_TYPE_INT,
     SVAR_TYPE_DOUBLE,
     SVAR_TYPE_LONG,
     SVAR_TYPE_CHAR
 };
 
-enum svar_status_t {
+enum svar_status_t
+{
     SVAR_STATUS_OK,
     SVAR_STATUS_ERROR
 };
 
-enum shmvar_index_t {
+enum shmvar_index_t
+{
     SV_RMAJ,
     SV_RMIN,
     SV_RREV,
@@ -45,38 +47,50 @@ enum shmvar_index_t {
     SHMVAR_COUNT
 };
 
-typedef struct shmvar_t {
-    char               svar_name[SHMVAR_NAME_SIZE_MAX];
-    int  svar_type;
-    int  svar_status;
-    union {
-        struct {
+typedef struct shmvar_t
+{
+    char svar_name[SHMVAR_NAME_SIZE_MAX];
+    int svar_type;
+    int svar_status;
+
+    union
+    {
+        struct
+        {
             int data;
         } uInt;
-        struct {
+
+        struct
+        {
             double data;
         } uDouble;
-        struct {
+
+        struct
+        {
             long data;
         } uLong;
-        struct {
+
+        struct
+        {
             char data[CHARDATA_SIZE_MAX];
         } uChar;
-    }                 svar_value;
+    } svar_value;
 };
 
 
-class shmvars {
+class shmvars
+{
 public:
     shmvars();
     void set(
-        shmvar_index_t index,std::string ssName,std::string ssValue);
+        shmvar_index_t index, std::string ssName, std::string ssValue);
     void set(
-        shmvar_index_t index,std::string ssName,int iValue);
+        shmvar_index_t index, std::string ssName, int iValue);
 
     std::string get_string(int index);
 };
 
 
-
-#endif //SHMVARS_H
+/////////////////////
+// eof - shmvars.h //
+/////////////////////

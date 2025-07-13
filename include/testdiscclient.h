@@ -2,11 +2,11 @@
 // Created by doug on 5/5/25.
 //
 
-#ifndef TESTDISCCLIENT_H
-#define TESTDISCCLIENT_H
+#pragma once
 
 #include "mwfw2.h"
 
 
-
-#endif //TESTDISCCLIENT_H
+/////////////////////////////
+// eof - testdiscclilent.h //
+/////////////////////////////

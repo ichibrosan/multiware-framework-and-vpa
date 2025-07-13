@@ -4,8 +4,7 @@
 // This file is part of the Goodall MultiWare Framework Project.           //
 /////////////////////////////////////////////////////////////////////////////
 
-#ifndef MULTIWARE_CGIBIND_H
-#define MULTIWARE_CGIBIND_H
+#pragma once
 
 #include "mwfw2.h"
 
@@ -68,8 +67,6 @@ public:
 	std::string get_referrer_file();
 
 };
-
-#endif // MULTIWARE_CGIBIND_H
 
 /////////////////////
 // eof - cgibind.h //

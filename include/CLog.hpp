@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef CLOG_HPP
-#define CLOG_HPP
+#pragma once
 
 #include "mwfw2.h"
 
@@ -180,8 +179,6 @@ public:
 	void getTimeDateStamp(char *);
 
 };
-
-#endif //CLOG_HPP
 
 ////////////////////
 // eof - CLog.hpp //

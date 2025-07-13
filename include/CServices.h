@@ -1,5 +1,9 @@
-#ifndef CSERVICES_H
-#define CSERVICES_H
+/////////////////////////////////////////////////////////////////////////
+// /home/doug/public_html/fw/include/CServices.h 2025/7/13 07:05 dwg - //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rioghts Reserved.      //
+/////////////////////////////////////////////////////////////////////////
+
+#pragma once
 
 #include <string>
 #include <vector>
@@ -248,4 +252,6 @@ public:
     void displaySudoInstructions() const;
 };
 
-#endif // CSERVICES_H
+///////////////////////
+// eof - CServices.h //
+///////////////////////

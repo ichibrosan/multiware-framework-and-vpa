@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef SHMEMMUTEX_H
-#define SHMEMMUTEX_H
+#pragma once
 
 /**
  * @class SharedMemoryMutex
@@ -16,7 +15,8 @@
  * and proper resource handling. The mutex is created or opened using a
  * specified name.
  */
-class SharedMemoryMutex {
+class SharedMemoryMutex
+{
     /**
      * Constructs a SharedMemoryMutex object and initializes a named
      * semaphore. The constructor creates or opens a POSIX named semaphore
@@ -85,6 +85,6 @@ private:
     sem_t* mutex_;
 };
 
-
-
-#endif //SHMEMMUTEX_H
+////////////////////////
+// eof - shMemMutex.h //
+////////////////////////

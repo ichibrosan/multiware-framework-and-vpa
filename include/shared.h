@@ -5,8 +5,7 @@
 // 2025-01-18 04:19 added mkshared function for aux shared segments    //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef MULTIWARE_CGISHARED_H
-#define MULTIWARE_CGISHARED_H
+#pragma once
 
 #include "mwfw2.h"
 
@@ -143,8 +142,6 @@ public:
 #include "shmemng.h"
 	//MFW_SHMEMNG_T * pShMemNG;
 };
-
-#endif //MULTIWARE_CGISHARED_H
 
 ///////////////////////
 // eof - shared.h //

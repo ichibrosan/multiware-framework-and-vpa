@@ -2,13 +2,14 @@
 // Created by doug on 6/3/25.
 //
 
-#ifndef RTKGPIO_H
-#define RTKGPIO_H
+#pragma once
+
 #include <cstdio>
 #include <unistd.h>
 
 
-enum gpio_pin_types_t {
+enum gpio_pin_types_t
+{
     TYPE_IO,
     TYPE_3V,
     TYPE_5V,
@@ -23,20 +24,21 @@ enum gpio_pin_types_t {
     TYPE_SCL
 };
 
-enum pinch_t {
+enum pinch_t
+{
     IO17P = 'r',
     IO18P = 's',
     IO24P = 'y',
     IO25P = 'z',
-    IO5P  = 'f',
-    IO6P  = 'g',
+    IO5P = 'f',
+    IO6P = 'g',
     IO16P = 'q',
     IO23P = 'x',
     IO22P = 'w',
     IO12P = 'm',
     IO20P = 'u',
     IO19P = 't',
-    IO4P  = 'e',
+    IO4P = 'e',
     IO27P = '|',
     IO21P = 'v',
     IO13P = 'n',
@@ -47,7 +49,8 @@ enum pinch_t {
  * Led specific offsets into various vectors
  * such as szLedOn & bLedCntl
 */
-enum led_ofs_t {
+enum led_ofs_t
+{
     IO17,
     IO18,
     IO24,
@@ -67,12 +70,14 @@ enum led_ofs_t {
     IO26
 };
 
-enum {
-    PIN_MODE_INPUT =  'I',
+enum
+{
+    PIN_MODE_INPUT = 'I',
     PIN_MODE_OUTPUT = 'O'
 };
 
-enum gpio_color_indeces_t {
+enum gpio_color_indeces_t
+{
     LED_IGNORE,
     LED_OFF,
     LED_BLUE_OFF,
@@ -83,22 +88,22 @@ enum gpio_color_indeces_t {
     NUM_LED_COLORS
 };
 
-class RTkGPIO {
+class RTkGPIO
+{
     std::string m_ssDevice;
-    FILE * m_pDevice;
+    FILE* m_pDevice;
 
 public:
     RTkGPIO();
     std::string get_version();
-    void gpio(char8_t pin, char8_t mode,char8_t state);
-    void set(pinch_t,led_ofs_t);
-    void reset(pinch_t,led_ofs_t);
+    void gpio(char8_t pin, char8_t mode, char8_t state);
+    void set(pinch_t, led_ofs_t);
+    void reset(pinch_t, led_ofs_t);
 
 
     void render();
-
 };
 
-
-
-#endif //RTKGPIO_H
+/////////////////////
+// eof - RTkGPIO.h //
+/////////////////////

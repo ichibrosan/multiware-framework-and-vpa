@@ -7,8 +7,6 @@
 
 #define MWFW_SUPPORT_CRTBIND
 
-
-
 #include "std.h"
 #include "fw-limits.h"
 #include "version.h"
@@ -144,7 +142,6 @@ extern vparpc * gpVpaRpc;
 #endif
 
 #include "config.h"
-#include "restDefs.h"
 #include "stylist.h"
 
 #ifndef gpHex

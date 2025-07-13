@@ -3,9 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-
-#ifndef SHMEMMGR_H
-#define SHMEMMGR_H
+#pragma once
 
 /**
  * @class SharedMemoryManager
@@ -19,7 +17,8 @@
  * from accessing the shared memory region simultaneously. The locking and
  * unlocking are managed internally.
  */
-class SharedMemoryManager {
+class SharedMemoryManager
+{
     /**
      * Constructor for the SharedMemoryManager class.
      * Initializes a shared memory manager instance, creating and associating
@@ -33,7 +32,7 @@ class SharedMemoryManager {
      * @return An instance of the SharedMemoryManager class.
      */
 public:
-    SharedMemoryManager(const char * name);
+    SharedMemoryManager(const char* name);
 
     /**
      * Locks the shared memory to ensure safe and synchronized access across
@@ -97,5 +96,6 @@ private:
     SharedMemoryMutex mutex_;
 };
 
-
-#endif //SHMEMMGR_H
+//////////////////////
+// eof - shMemMgr.h //
+//////////////////////

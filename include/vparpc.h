@@ -2,10 +2,10 @@
 // daphne.goodall.com:/home/devo/public_html/fw/vparpc.h 2025/06/10 - dwg //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.     //
 ////////////////////////////////////////////////////////////////////////////
-#include "mwfw2.h"
 
 #pragma once
 
+#include "mwfw2.h"
 /**
  * @enum vparpc_version_t
  * @brief Represents the version identifiers used in vparpc.

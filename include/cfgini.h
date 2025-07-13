@@ -4,8 +4,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef CFGINI_H
-#define CFGINI_H
+#pragma once
 
 #include <string>
 #include <map>
@@ -20,7 +19,8 @@
  * INI-style configuration files. It supports sections, variables within
  * sections, and basic file operations.
  */
-class cfgini {
+class cfgini
+{
 private:
     /**
      * Structure to hold section data
@@ -136,7 +136,8 @@ public:
      * @param value The value to set
      * @return True if successful
      */
-    bool setVariable(const std::string& sectionName, const std::string& variableName, const std::string& value);
+    bool setVariable(const std::string& sectionName,
+                     const std::string& variableName, const std::string& value);
 
     /**
      * Gets a variable value from a section
@@ -145,7 +146,9 @@ public:
      * @param defaultValue The default value to return if variable doesn't exist
      * @return The variable value or default value
      */
-    std::string getVariable(const std::string& sectionName, const std::string& variableName, const std::string& defaultValue = "") const;
+    std::string getVariable(const std::string& sectionName,
+                            const std::string& variableName,
+                            const std::string& defaultValue = "") const;
 
     /**
      * Removes a variable from a section
@@ -153,7 +156,8 @@ public:
      * @param variableName The name of the variable
      * @return True if successful
      */
-    bool removeVariable(const std::string& sectionName, const std::string& variableName);
+    bool removeVariable(const std::string& sectionName,
+                        const std::string& variableName);
 
     /**
      * Checks if a variable exists in a section
@@ -161,7 +165,8 @@ public:
      * @param variableName The name of the variable
      * @return True if the variable exists
      */
-    bool hasVariable(const std::string& sectionName, const std::string& variableName) const;
+    bool hasVariable(const std::string& sectionName,
+                     const std::string& variableName) const;
 
     /**
      * Gets all variable names in a section
@@ -187,4 +192,6 @@ public:
     void markSaved();
 };
 
-#endif // CFGINI_H//
+////////////////////
+// eof - cfgini.h //
+////////////////////

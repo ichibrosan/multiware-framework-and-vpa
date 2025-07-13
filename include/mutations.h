@@ -3,8 +3,7 @@
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
 /////////////////////////////////////////////////////////////////////
 
-#ifndef MUTATIONS_H
-#define MUTATIONS_H
+#pragma
 
 #define CFG_MUTEX_NAME           "/fw_shmem_mutex"
 
@@ -24,5 +23,6 @@ public:
     void put(int);
 };
 
-
-#endif //MUTATIONS_H
+///////////////////////
+// eof - mutations.h //
+///////////////////////

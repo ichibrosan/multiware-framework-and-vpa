@@ -3,8 +3,7 @@
 //# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved. #
 //#################################################################
 
-#ifndef DASHBOARD_H
-#define DASHBOARD_H
+#pragma once
 
 enum {
     JOURNAL = 1<<0,
@@ -241,4 +240,6 @@ public:
         int handle);
 };
 
-#endif //DASHBOARD_H
+///////////////////////
+// eof - dashboard.h //
+///////////////////////

@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.       //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef INDEX_CGI_SCHEMACOMPILER_H
-#define INDEX_CGI_SCHEMACOMPILER_H
+#pragma once
 
 #include "mwfw2.h"
 
@@ -14,7 +13,8 @@
  * generating schema headers in a structured format. It includes methods for
  * schema manipulation and properties linked to schema characteristics.
  */
-class schemaCompiler {
+class schemaCompiler
+{
 	/**
 	 * @brief Represents the total number of lines processed or available
 	 *        in the associated schema file.
@@ -102,7 +102,8 @@ class schemaCompiler {
 	 * - The ownership and lifecycle of the `readCsv` instance may be managed outside or inside
 	 *   the `schemaCompiler` class, depending on the implementation.
 	 */
-	readCsv * m_pCsv;
+	readCsv* m_pCsv;
+
 public:
 	/**
 	 * Constructor for the schemaCompiler class. Initializes the schema compiler
@@ -115,7 +116,7 @@ public:
 	 * @param bDebug A boolean flag that indicates if debug mode is enabled or disabled.
 	 * @return void
 	 */
-	schemaCompiler(std::string ssSchemaName,bool bDebug);
+	schemaCompiler(std::string ssSchemaName, bool bDebug);
 
 	/**
 	 * Creates the file name for a header file associated with the schema.
@@ -278,7 +279,8 @@ public:
 	 * conditions during runtime or initialization.
 	 */
 	bool m_bHandleTextArea;
-} ;
+};
 
-
-#endif //INDEX_CGI_SCHEMACOMPILER_H
+////////////////////////////
+// eof - schemaCompiler.h //
+////////////////////////////

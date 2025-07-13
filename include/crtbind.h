@@ -2,8 +2,7 @@
 // Created by doug on 4/30/25.
 //
 
-#ifndef CRTBIND_H
-#define CRTBIND_H
+#pragma once
 
 enum MODE_T {
     MODE_RESET = 30,
@@ -51,6 +50,6 @@ public:
     void crtstyle(MODE_T mode,FG_COLORS_T fg,BG_COLORS_T bg);
 };
 
-
-
-#endif //CRTBIND_H
+/////////////////////
+// eof - crtbind.h //
+/////////////////////

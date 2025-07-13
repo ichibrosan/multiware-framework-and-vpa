@@ -3,8 +3,8 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef MULTIWARE_CSYSLOG_HPP
-#define MULTIWARE_CSYSLOG_HPP
+#pragma once
+
 #include "std.h"
 /**
  * @class CSysLog
@@ -47,5 +47,6 @@ public:
 	~CSysLog();
 };
 
-
-#endif // MULTIWARE_CSYSLOG_HPP
+///////////////////////
+// eof - CSysLog.hpp //
+///////////////////////

@@ -3,8 +3,8 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef STYLIST_H
-#define STYLIST_H
+#pragma once
+
 #include "webcolors.h"
 /**
  * @class stylist
@@ -14,16 +14,17 @@
  * components.
  * The generated CSS is written to a file during instantiation.
  */
-class stylist {
-   /**
-    * Constructs a `stylist` object. This constructor generates a set of
-    * default CSS styles by invoking various member functions that return
-    * style definitions. The generated CSS is written to a file specified
-    * by the implementation.
-    *
-    * @return An instance of the `stylist` class, initializing any
-    * necessary internal state and producing CSS for further use.
-    */
+class stylist
+{
+    /**
+     * Constructs a `stylist` object. This constructor generates a set of
+     * default CSS styles by invoking various member functions that return
+     * style definitions. The generated CSS is written to a file specified
+     * by the implementation.
+     *
+     * @return An instance of the `stylist` class, initializing any
+     * necessary internal state and producing CSS for further use.
+     */
 public:
     stylist(int handle);
 
@@ -38,15 +39,15 @@ public:
      * @return A pointer to a constant character string containing the
      * CSS definition for the default button style.
      */
-    const char * default_button();
+    const char* default_button();
 
- /**
-  * Generates the CSS style for the "journal_container" class.
-  *
-  * @return A pointer to a C-style string containing the CSS style for
-  * the "journal_container" class.
-  */
- const char * journal_container();
+    /**
+     * Generates the CSS style for the "journal_container" class.
+     *
+     * @return A pointer to a C-style string containing the CSS style for
+     * the "journal_container" class.
+     */
+    const char* journal_container();
 
     /**
      * Generates and provides the CSS styling details for the
@@ -55,7 +56,7 @@ public:
      * @return A pointer to a character array containing the CSS style
      * for the `journal_iframe` class.
      */
-    const char * journal_iframe();
+    const char* journal_iframe();
 
     /**
      * Generates the CSS for the "journal_edit" styling class and returns
@@ -64,15 +65,15 @@ public:
      * @return A pointer to a string containing the CSS for the
      * "journal_edit" class.
      */
-    const char * journal_edit();
+    const char* journal_edit();
 
-   /**
-    * Retrieves the CSS style definition for the "journal_save" element.
-    *
-    * @return A C-string containing the CSS declaration for the
-    * "journal_save" style.
-    */
-   const char * journal_save();
+    /**
+     * Retrieves the CSS style definition for the "journal_save" element.
+     *
+     * @return A C-string containing the CSS declaration for the
+     * "journal_save" style.
+     */
+    const char* journal_save();
 
     /**
      * Generates and returns styling information for the journal reset
@@ -85,7 +86,7 @@ public:
      * @return A pointer to a constant character string that contains
      * the CSS representation of the journal reset style.
      */
-    const char * journal_reset();
+    const char* journal_reset();
 
     /**
      * Generates and returns the CSS styling for the
@@ -98,7 +99,7 @@ public:
      * @return A C-string containing the CSS styling for the
      * "journal_textarea" class.
      */
-    const char * journal_textarea();
+    const char* journal_textarea();
 
     /**
      * Generates and returns the CSS style for the "table" element.
@@ -106,31 +107,31 @@ public:
      * @return A pointer to a constant character array containing the
      * CSS styles for the "table" element.
      */
-    const char * table(char * color, char * background);
+    const char* table(char* color, char* background);
 
- /**
-  * Retrieves the CSS styling for the body element.
-  *
-  * @return A constant character pointer to the CSS styling string
-  * for the body element.
-  */
- const char * body(char * color,char * background);
+    /**
+     * Retrieves the CSS styling for the body element.
+     *
+     * @return A constant character pointer to the CSS styling string
+     * for the body element.
+     */
+    const char* body(char* color, char* background);
 
- /**
-  * Returns the style rules defined for the `tr` HTML element.
-  *
-  * @return A const char pointer to a string containing CSS rules
-  *         for the `tr` HTML element.
-  */
- const char * tr(char * color, char * background);
+    /**
+     * Returns the style rules defined for the `tr` HTML element.
+     *
+     * @return A const char pointer to a string containing CSS rules
+     *         for the `tr` HTML element.
+     */
+    const char* tr(char* color, char* background);
 
- /**
-  * Provides the CSS styling for HTML table headers (`<th>` elements).
-  *
-  * @return A constant character pointer containing the CSS properties
-  * and values for the styles applied to table header elements.
-  */
- const char * th(char * color,char * background);
+    /**
+     * Provides the CSS styling for HTML table headers (`<th>` elements).
+     *
+     * @return A constant character pointer containing the CSS properties
+     * and values for the styles applied to table header elements.
+     */
+    const char* th(char* color, char* background);
 
     /**
      * Retrieves the CSS style definition for the dashboard class.
@@ -138,15 +139,17 @@ public:
      * @return A C-string containing the CSS style definition for the
      * dashboard class.
      */
-    const char * dot_dashboard(char * color, char * background);
+    const char* dot_dashboard(char* color, char* background);
 
- /**
-  * Retrieves the CSS style definitions for the `<td>` element.
-  *
-  * @return A constant pointer to a character array containing the
-  * CSS style rules for the `<td>` element.
-  */
- const char * td(char * color,char * background);
+    /**
+     * Retrieves the CSS style definitions for the `<td>` element.
+     *
+     * @return A constant pointer to a character array containing the
+     * CSS style rules for the `<td>` element.
+     */
+    const char* td(char* color, char* background);
 };
 
-#endif //STYLIST_H
+/////////////////////
+// eof - stylist.h //
+/////////////////////

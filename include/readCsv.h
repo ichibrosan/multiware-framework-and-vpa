@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef READCSV_H
-#define READCSV_H
+#pragma once
 
 #include "mwfw2.h"
 
@@ -110,4 +109,6 @@ public:
 };
 
 
-#endif // READCSV_H
+/////////////////////
+// eof - readCsv.h //
+/////////////////////

@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef SEMIGRAPHICS_H
-#define SEMIGRAPHICS_H
+#pragma once
 
 #define COPR "©"
 #define CHECK "✓"
@@ -81,7 +80,8 @@
 #define SLNTEX  "╳"
 
 
-class semigraphics {
+class semigraphics
+{
     std::string m_ssUL;
     std::string m_ssUR;
     std::string m_ssLL;
@@ -95,15 +95,16 @@ public:
     semigraphics();
     void singlebox(int line, int col, int width, int height);
     void topline(int line, int col, int width, int height);
-    void middleline(int line, int col, int width, int height,std::string ssText);
+    void middleline(int line, int col, int width, int height,
+                    std::string ssText);
     void vert_splitter(int line, int col, int width, int height);
     void endline(int line, int col, int width, int height);
-    void cosmetics(std::string UpperLeft,std::string UpperRight,
-                   std::string LowerLeft,std::string LowerRight,
-                   std::string VertSplitRight,std::string VertSplitLeft,
-                   std::string HorizontalLine,std::string VerticalLine);
+    void cosmetics(std::string UpperLeft, std::string UpperRight,
+                   std::string LowerLeft, std::string LowerRight,
+                   std::string VertSplitRight, std::string VertSplitLeft,
+                   std::string HorizontalLine, std::string VerticalLine);
 };
 
-
-
-#endif //SEMIGRAPHICS_H
+//////////////////////////
+// eof - semigraphics.h //
+//////////////////////////

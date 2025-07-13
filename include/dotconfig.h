@@ -3,10 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
 ////////////////////////////////////////////////////////////////////////
 
-#ifndef DOTCONFIG_H
-#define DOTCONFIG_H
-
-
+#pragma once
 
 class dotconfig {
     bool m_bCTOR;
@@ -17,6 +14,6 @@ public:
     bool isLicenseUUID();
 };
 
-
-
-#endif //DOTCONFIG_H
+///////////////////////
+// eof - dotconfig.h //
+///////////////////////

@@ -3,8 +3,7 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef INDEX_CGI_OSIFACE_H
-#define INDEX_CGI_OSIFACE_H
+#pragma once
 
 #include "mwfw2.h"
 
@@ -337,7 +336,6 @@ public:
  */
 extern osIface *pOsIface;
 
-#endif //INDEX_CGI_OSIFACE_H
-
-//system("curl http://daphne.goodall.com/~doug/fw/html/fw-test1.html "
-//"> /tmp/fw-test1.stdout 2> /tmp/fw-test1.stderr");
+/////////////////////
+// eof - osIface.h //
+/////////////////////

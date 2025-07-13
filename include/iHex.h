@@ -2,8 +2,7 @@
 // Created by doug on 3/15/25.
 //
 
-#ifndef IHEX_H
-#define IHEX_H
+#pragma once
 
 class iHex {
 public:
@@ -14,4 +13,6 @@ public:
         size_t struct_size,uint16_t start_address);
 };
 
-#endif //IHEX_H
+//////////////////
+// eof - iHex.h //
+//////////////////

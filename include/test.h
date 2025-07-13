@@ -3,19 +3,19 @@
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
 /////////////////////////////////////////////////////////////////////////
 
-#ifndef FW_TEST_H
-#define FW_TEST_H
+#pragma once
 
 #include "mwfw2.h"
 
-enum {
-    TEST0 = 1<<0,
-    TEST1 = 1 << 1,
-    TEST2 = 1 << 2,
-    TEST2_1 = 1 << 3,
-    TEST3 = 1 << 4,
-    TEST5 = 1 << 5,
-    NUM_TESTS = 6
+enum
+{
+	TEST0 = 1 << 0,
+	TEST1 = 1 << 1,
+	TEST2 = 1 << 2,
+	TEST2_1 = 1 << 3,
+	TEST3 = 1 << 4,
+	TEST5 = 1 << 5,
+	NUM_TESTS = 6
 };
 
 /**
@@ -23,7 +23,8 @@ enum {
  * @brief The test class is designed to manage and perform various test operations, log their performances,
  *        and execute self-contained unit tests for different system functionalities.
  */
-class test {
+class test
+{
 	/**
 	 * Holds the fully qualified file system path of a log file.
 	 *
@@ -49,7 +50,7 @@ class test {
 	 * using the `loginfo` method. Proper cleanup of this resource is
 	 * expected when the `test` class is destroyed.
 	 */
-	CSysLog * m_pSysLog;
+	CSysLog* m_pSysLog;
 	/**
 	 * A boolean flag used to enable or disable debug mode within the `test` class.
 	 *
@@ -58,9 +59,8 @@ class test {
 	 * When set to `false`, the class operates in a non-debug mode with standard behavior.
 	 */
 	bool m_bDebug;
-    
-public:
 
+public:
 	/**
 	 * Constructor for the test class. Initializes logging, shared memory
 	 * attributes related to test metrics, starts the test processes,
@@ -115,7 +115,7 @@ public:
 	 */
 	void logHistograms();
 
-    bool test0(); /**
+	bool test0(); /**
      * This method verifies the HTTP read functionality by generating an HTML file
      * through the system command, reading its content from a specific file, and
      * validating the beginning of the document structure. The function determines
@@ -128,7 +128,7 @@ public:
 	/**
 	 *
 	 */
-    bool test1();
+	bool test1();
 
 	/**
 	 * Executes test2 which verifies HTTPS read functionality.
@@ -183,7 +183,7 @@ public:
 	 * @param bDebug A boolean flag indicating whether the method should run in debug mode.
 	 * @return true if the unique identifier is successfully logged and verified; false otherwise.
 	 */
-	bool test5(const char *, const char *, bool bDebug);
+	bool test5(const char*, const char*, bool bDebug);
 
 	/**
 	 * Destructor for the `test` class.
@@ -200,4 +200,6 @@ public:
 };
 
 
-#endif //FW_TEST_H
+//////////////////
+// eof - test.h //
+//////////////////

@@ -2,8 +2,7 @@
 // Created by doug on 2/17/25.
 //
 
-#ifndef XINETDCTL_H
-#define XINETDCTL_H
+#pragma once
 
 /*
  * See /etc/services for assigned and dynamic port definitions
@@ -17,12 +16,13 @@
 #define VPA_HTTPS_PORT   65358    // services: vpa-https
 #define VPA_IPCS_PORT    65359    // services: vpa-ipcs
 
-class xinetdctl {
+class xinetdctl
+{
 public:
     xinetdctl();
     void trigger(int iPort);
 };
 
-
-
-#endif //XINETDCTL_H
+///////////////////////
+// eof - xinetdctl.h //
+///////////////////////

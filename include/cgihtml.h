@@ -3,8 +3,8 @@
 //# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved. #
 //#################################################################
 
-#ifndef MULTIWARE_CGIHTML_H
-#define MULTIWARE_CGIHTML_H
+#pragma once
+
 #include "mwfw2.h"
 
 
@@ -850,5 +850,6 @@ public:
 	            const char *pszButtonDisplay);
 };
 
-
-#endif //MULTIWARE_CGIHTML_H
+/////////////////////
+// eof - cgihtml.h //
+/////////////////////
