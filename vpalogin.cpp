@@ -64,6 +64,40 @@ void sine()
     //    gpWin->render();
 }
 
+void set_configini_creds(std::string ssUsername,
+                         std::string ssPassword,
+                         int handle)
+{
+    char szConfigFQFS[FQFS_SIZE_MAX];
+    time_t t = time(NULL);
+
+    strcpy(szConfigFQFS, gpSh->m_pShMemng->szConfigRoot);
+    strcat(szConfigFQFS, "/config.ini");
+    cfgini config(szConfigFQFS);
+    if (!config.load())
+    {
+        config.createNew();
+    }
+    config.addSection("Credentials");
+    config.setVariable(
+        "Credentials",
+        "username",
+        "doug");
+    config.setVariable(
+        "Credentials",
+        "password",
+        "melange");
+    config.setVariable(
+        "Credentials",
+        "handle",
+        std::to_string(handle));
+    config.setVariable(
+        "Credentials",
+        "last_login",
+        std::to_string(t));
+    config.save();
+}
+
 
 int main(int argc, char** argv)
 {
@@ -137,7 +171,7 @@ int main(int argc, char** argv)
     else
     {
         //std::cout << "User is a valid member of the VPA." << std::endl;
-
+        set_configini_creds(username, password, handle);
 
         /**
          * @brief Initialize VPA RPC client
@@ -260,10 +294,10 @@ int main(int argc, char** argv)
         //  * Retrieves the authentication token from the RPC client and
         //  * formats it for display in the main window.
         //  */
-        char szAuthToken[64];
-        sprintf(szAuthToken, "  auth:         %s",
-                pVpaRpc->get_auth().c_str());
-        gpWin->add_row(szAuthToken);
+        // char szAuthToken[64];
+        // sprintf(szAuthToken, "  auth:         %s",
+        //         pVpaRpc->get_auth().c_str());
+        // gpWin->add_row(szAuthToken);
 
         // /**
         //  * @brief Format and display server version
@@ -311,11 +345,11 @@ int main(int argc, char** argv)
                 pVpaRpc->get_creds_lastname().c_str());
         gpWin->add_row(szBuffer);
 
-        // Display authentication UUID
-        sprintf(szBuffer,
-                "  Auth:         %s",
-                pVpaRpc->get_creds_auth().c_str());
-        gpWin->add_row(szBuffer);
+        // // Display authentication UUID
+        // sprintf(szBuffer,
+        //         "  Auth:         %s",
+        //         pVpaRpc->get_creds_auth().c_str());
+        // gpWin->add_row(szBuffer);
 
         // Display authorization level
         sprintf(szBuffer,

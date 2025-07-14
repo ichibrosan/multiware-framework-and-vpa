@@ -28,6 +28,9 @@
 #define VERSION_SIZE_MAX (sizeof("YYYY.MM.DD.HH")+1)
 #define PASSWORD_SIZE_MAX 512  // Based on PAM_MAX_RESP_SIZE
 
+#define FQFS_SIZE_MAX 128
+
+
 ///////////////////////
 // eof - fw-limits.h //
 ///////////////////////

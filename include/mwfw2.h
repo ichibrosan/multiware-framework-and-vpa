@@ -19,12 +19,12 @@
 
 #ifndef gpCrt
 #include "crtbind.h"
-extern crtbind * gpCrt;
+extern crtbind* gpCrt;
 #endif // gpCrt
 
 #ifndef gpSemiGr
 #include "semigraphics.h"
-extern semigraphics * gpSemiGr;
+extern semigraphics* gpSemiGr;
 #endif
 
 
@@ -33,21 +33,23 @@ extern semigraphics * gpSemiGr;
 
 #ifndef gpSysLog
 #include "CSysLog.hpp"
-extern CSysLog * gpSysLog;
+extern CSysLog* gpSysLog;
 extern bool gbHere;
 #endif
 
-#include "xinetdcfg.h"
-#include "CServices.h"
+#include "cfgini.h"				// config file support class
+
+#include "xinetdcfg.h"			// /etc/xinetd.d/vpa  maintenance class
+#include "CServices.h"			// /etc/services file maintenance class
 
 #ifndef gpDotCfg
 #include "dotconfig.h"
-extern dotconfig * gpDotCfg;
+extern dotconfig* gpDotCfg;
 #endif
 
 #ifndef gpEnv
 #include "environment.h"
-extern environment * gpEnv;
+extern environment* gpEnv;
 #endif
 
 #include "cgicc.h"
@@ -59,86 +61,86 @@ extern environment * gpEnv;
 #include <cgicc/HTMLClasses.h>
 
 using namespace cgicc;
-extern Cgicc * gpCgi;
+extern Cgicc* gpCgi;
 
 #ifndef gpCgiBind
 #include "cgibind.h"
-extern cgibind * gpCgiBind;
+extern cgibind* gpCgiBind;
 #endif
 
 #ifndef gpDash
 #include "dashboard.h"
-extern dashboard * gpDash;
+extern dashboard* gpDash;
 #endif
 
 #ifndef gpGPIO
 #include "RTkGPIO.h"
-extern RTkGPIO * gpGPIO;
+extern RTkGPIO* gpGPIO;
 #endif
 
 #ifndef gpHtml
 #include "cgihtml.h"
-extern cgihtml * gpHtml;
+extern cgihtml* gpHtml;
 #endif
 
 #ifndef gpLog
 #include "CLog.hpp"
-extern CLog * gpLog;
+extern CLog* gpLog;
 #endif
 
 #ifndef gpOS
 #include "osIface.h"
-extern osIface * gpOS;
+extern osIface* gpOS;
 #endif
 
 #ifndef gpSchema
 #include "schema.h"
-extern schema * gpSchema;
+extern schema* gpSchema;
 #endif
 
 #ifndef gpSh
 #include "shared.h"
-extern shared * gpSh;
+extern shared* gpSh;
 #endif
 
 #ifndef gpShMemMutex
 #include "shMemMutex.h"
-extern SharedMemoryMutex * gpShMemMutex;
+extern SharedMemoryMutex* gpShMemMutex;
 #endif
 
 #ifndef gpShMemMgr
 #include "shMemMgr.h"
-extern SharedMemoryManager * gpShMemMgr;
+extern SharedMemoryManager* gpShMemMgr;
 #endif
 
 #ifndef gpPassword
 #include "password.h"
-extern password * gpPassword;
+extern password* gpPassword;
 #endif
 
 #ifndef gpCsv
 #include "readCsv.h"
-extern readCsv * gpCsv;
+extern readCsv* gpCsv;
 #endif
 
 #ifndef gpSchCC
 #include "schemaCompiler.h"
-extern schemaCompiler * gpSchCC;
+extern schemaCompiler* gpSchCC;
 #endif
 
 #ifndef gpTest
 #include "test.h"
-extern test * gpTest;
+extern test* gpTest;
 #endif
 
 #ifndef gpXinetd
 #include "xinetdctl.h"
-extern xinetdctl * gpXinetd;
+extern xinetdctl* gpXinetd;
 #endif
 
 #ifndef gpVpaRpc
 #include "vparpc.h"
-extern vparpc * gpVpaRpc;
+extern vparpc* gpVpaRpc;
 #endif
 
 #include "config.h"
@@ -146,7 +148,7 @@ extern vparpc * gpVpaRpc;
 
 #ifndef gpHex
 #include "iHex.h"
-extern iHex * gpHex;
+extern iHex* gpHex;
 #endif
 
 
@@ -159,7 +161,8 @@ extern iHex * gpHex;
  * provides mechanisms for determining whether the framework is running in
  * CGI mode.
  */
-class mwfw2 {
+class mwfw2
+{
 	/**
 	 * A boolean flag indicating whether the application is running in a CGI
 	 * (Common Gateway Interface) environment. This member variable is set
@@ -171,7 +174,7 @@ class mwfw2 {
 	 * `isCGI()` method to provide access to its value for other parts of
 	 * the application.
 	 */
-	bool      m_bCGI;
+	bool m_bCGI;
 	/**
 	 * Constructor for the mwfw class.
 	 * Initializes the mwfw instance, determines if the current execution
@@ -190,7 +193,7 @@ class mwfw2 {
 	int m_iDebugset;
 
 public:
-  mwfw2(const char *pszFile,const char *pszFunction);
+	mwfw2(const char* pszFile, const char* pszFunction);
 	/**
 	 * Determines whether the application is running in a CGI (Common Gateway
 	 * Interface) context. This method evaluates the internal state of the
@@ -209,7 +212,7 @@ public:
 	 * @param pszMsg A pointer to a null-terminated string containing the
 	 * message to log.
 	 */
-	void sl_loginfo(const char *);
+	void sl_loginfo(const char*);
 };
 
 ////////////////////
