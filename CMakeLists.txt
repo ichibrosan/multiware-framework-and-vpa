@@ -112,6 +112,11 @@ target_link_libraries(testdiscclient mwfw2)
 add_executable(testdiscserver testdiscserver.cpp)
 target_link_libraries(testdiscserver mwfw2)
 
+
+add_executable(vpalogin vpalogin.cpp)
+target_link_libraries(vpalogin mwfw2 cgicc pthread uuid)
+
+
 add_executable(vparpc_client
         vparpc_client.cpp include/vparpc_client.h
         CVpaRpc.cpp include/CVpaRpc.h)

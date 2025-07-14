@@ -14,11 +14,34 @@ environments.
 
 The Virtual Protocol Adapter & Multiware Framework (mwfw2) is a
 sophisticated, C++ framework designed for distributed computing
-environments. It provides a robust foundation for building scalable
-applications with advanced RPC capabilities, comprehensive user
-management, and professional console-based interfaces.
+environments. It provides a robust foundation for building applications
+with RPC capabilities, user management, and both command-line and
+browser-based interfaces.
 
 ## System Architecture
+
+The Virtual Protocol Adapter is a light-weight data multiplexing system.
+It has both command-line and web-based interfaces.
+
+When an adapter component is invoked, a shared memory region is established
+and initialized. The shared memory can then be accessed either by command-line
+utilities, or by browsing its web component CGI scripts.
+
+Each component, command-line or web-based CGI script, instantiates the
+MultiWare FrameWork. It is the framework's constructor that creates or accesses
+the shared memory region.
+
+### Web-based access to the Virtual Protocol Adapter
+
+Accessing the VPA using a browser is easily accomplished by opening the
+following URL:
+
+    http://vpahost/~doug/fw/cgi-bin/index.cgi
+
+This brings up a dialogue box requesting a user name and password.
+Entry of these fields results in transfer to the login.cgi which
+authenticates the user and subsequently displays the user's dashboard,
+consisting of some status information and a few navigation buttons.
 
 The framework consists of two primary, interconnected components:
 
