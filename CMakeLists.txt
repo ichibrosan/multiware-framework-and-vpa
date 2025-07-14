@@ -113,7 +113,7 @@ add_executable(testdiscserver testdiscserver.cpp)
 target_link_libraries(testdiscserver mwfw2)
 
 
-add_executable(vpalogin vpalogin.cpp)
+add_executable(vpalogin vpalogin.cpp CVpaRpc.cpp include/CVpaRpc.h)
 target_link_libraries(vpalogin mwfw2 cgicc pthread uuid)
 
 
