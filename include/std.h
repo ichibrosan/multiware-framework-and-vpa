@@ -34,6 +34,7 @@
 //#include <string.h>         // deprecated by <cstring>
 #include <strings.h>
 #include <syslog.h>
+#include <termio.h>             // added 2025-07-13 for vpalogin
 #include <time.h>
 #include <unistd.h>
 #include <uuid/uuid.h>
