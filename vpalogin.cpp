@@ -61,7 +61,7 @@ void sine()
     ssCopr.append("(c)"); // Append copyright symbol for compatibility
     ssCopr.append(" 2025 Douglas Wade Goodall. All Rights Reserved.");
     gpWin->add_row(ssCopr);
-    gpWin->render();
+    //    gpWin->render();
 }
 
 
@@ -102,7 +102,7 @@ int main(int argc, char** argv)
     }
 
     // Display confirmation (don't show the actual password)
-    std::cout << "Login attempt for user: " << username << std::endl;
+    //std::cout << "Login attempt for user: " << username << std::endl;
 
     /**
       * @brief Initialize and parse the password database
@@ -125,18 +125,18 @@ int main(int argc, char** argv)
 
     // Here you would typically authenticate the user
     // For demonstration, just show success message
-    std::cout << "Authentication data received successfully." << std::endl;
+    //std::cout << "Authentication data received successfully." << std::endl;
 
-    std::cout << "User handle: " << handle << std::endl;
+    //std::cout << "User handle: " << handle << std::endl;
 
     if (handle < 4)
     {
-        std::cout << "User is not a valid member of the VPA." << std::endl;
+        std::cout << "Synchronization Error!!" << std::endl;
         exit(1);
     }
     else
     {
-        std::cout << "User is a valid member of the VPA." << std::endl;
+        //std::cout << "User is a valid member of the VPA." << std::endl;
 
 
         /**

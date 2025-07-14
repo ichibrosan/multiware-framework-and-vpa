@@ -780,7 +780,7 @@ void vparpc::client(std::string ssHostName,
     // Close client connection
     close(client_fd);
     pWin->add_row("  Client connection closed");
-    pWin->render();
+    //pWin->render();
 }
 
 
