@@ -57,6 +57,7 @@ add_library(mwfw2 STATIC
         vparpc.cpp include/vparpc.h
         window.cpp include/window.h
         xinetdctl.cpp include/xinetdctl.h
+        #        cliLogin.cpp include/cliLogin.h
 )
 
 add_executable(fw-test4.cgi fw-test4.cpp
@@ -85,6 +86,7 @@ add_executable(look look.cpp
         CServices.cpp include/CServices.h
         include/xinetdcfg.h
         xinetdcfg.cpp
+        cliLogin.cpp include/cliLogin.h
 )
 target_link_libraries(look mwfw2 cgicc pthread uuid)
 
