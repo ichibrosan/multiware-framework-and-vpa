@@ -33,6 +33,7 @@ add_library(mwfw2 STATIC
         cfgini.cpp include/cfgini.h
         cgibind.cpp include/cgibind.h
         cgihtml.cpp include/cgihtml.h
+        checkAuth.cpp include/checkAuth.h
         CLog.cpp include/CLog.hpp
         config.cpp include/config.h
         crtbind.cpp include/crtbind.h
@@ -60,7 +61,8 @@ add_library(mwfw2 STATIC
 
 add_executable(fw-test4.cgi fw-test4.cpp
         include/cfgini.h
-        cfgini.cpp)
+        cfgini.cpp
+        include/checkAuth.h)
 
 add_executable(index.cgi index.cpp)
 target_link_libraries(index.cgi mwfw2 cgicc pthread uuid)
@@ -113,7 +115,9 @@ add_executable(testdiscserver testdiscserver.cpp)
 target_link_libraries(testdiscserver mwfw2)
 
 
-add_executable(vpalogin vpalogin.cpp CVpaRpc.cpp include/CVpaRpc.h)
+add_executable(vpalogin vpalogin.cpp CVpaRpc.cpp include/CVpaRpc.h
+        include/checkAuth.h
+        checkAuth.cpp)
 target_link_libraries(vpalogin mwfw2 cgicc pthread uuid)
 
 
