@@ -1,27 +1,58 @@
-// File: look.cpp - Updated 2025-07-14 15:30:00
-// This is the complete corrected implementation for look.cpp
-// Includes proper authentication using existing password::lookup_username_password()
+/////////////////////////////////////////////////////////////////////////
+// /home/doug/public_html/fw/look.cpp 2025/07/14                       //
+// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
+/////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include "cfgini.h"
-#include "xinetdcfg.h"
-#include "password.h"  // Add this include for password class
-#include "CVpaRpc.h"   // Add this include for VPA RPC functionality
-#include <ctime>
-#include <termios.h>
-#include <unistd.h>
-#include <iostream>
-#include <string>
-#include <cstdlib>
 
-// Function declarations
+/**
+ * Checks if a login session has expired based on the given last login timestamp.
+ *
+ * @param lastLoginStr A string representing the last login timestamp in seconds
+ *                     since the Unix epoch. If the string is empty or invalid,
+ *                     the method treats the login as expired.
+ * @return True if the login session has expired or if the timestamp is invalid;
+ *         otherwise, returns false.
+ */
 bool isLoginExpired(const std::string& lastLoginStr);
+/**
+ * Prompts the user to log in by entering a username and password, authenticates the credentials,
+ * and updates the provided configuration object with the authentication details.
+ *
+ * @param config A reference to a cfgini object where the login credentials,
+ *               authentication handle, and last login timestamp will be stored.
+ */
 void queryUserForLogin(cfgini& config);
+/**
+ * @brief Prompts the user for a password input without echoing characters.
+ *
+ * This function captures the user's password input securely by disabling
+ * terminal character echoing during the input process. The password is
+ * then returned as a string.
+ *
+ * @return The password input by the user.
+ */
 std::string getPassword();
 
-// Login timeout in seconds (24 hours = 86400 seconds)
-const time_t LOGIN_TIMEOUT = 60; // 86400;
+/**
+ * @brief Specifies the timeout duration for login sessions.
+ *
+ * LOGIN_TIMEOUT defines the maximum amount of time, in seconds,
+ * that a login session remains valid without activity. If the time
+ * since the last login exceeds this value, the session is considered
+ * expired.
+ */
+const time_t LOGIN_TIMEOUT = 86400;
 
+/**
+ * Checks whether the login session has expired based on the last login timestamp.
+ *
+ * @param lastLoginStr The last login timestamp as a string.
+ *                     It should be convertible to a time_t value.
+ *                     If empty or invalid, the session is considered expired.
+ * @return True if the login session has expired, false otherwise.
+ *         If the timestamp cannot be parsed, it is treated as expired.
+ */
 bool isLoginExpired(const std::string& lastLoginStr)
 {
     if (lastLoginStr.empty())
@@ -55,6 +86,17 @@ bool isLoginExpired(const std::string& lastLoginStr)
     }
 }
 
+/**
+ * Prompts the user for their username and password for VPA login, verifies the credentials,
+ * and updates the configuration object with authentication details.
+ *
+ * The method fetches the username and password from the user, verifies the credentials via
+ * the password lookup functionality, and updates the configuration object with the authenticated
+ * user's information, including the username, authentication handle, and the last login time.
+ *
+ * @param config A reference to a cfgini object where the login credentials and authentication details
+ *               will be stored or updated.
+ */
 void queryUserForLogin(cfgini& config)
 {
     printf("\n=== VPA Login Required ===\n");
@@ -117,6 +159,16 @@ void queryUserForLogin(cfgini& config)
     }
 }
 
+/**
+ * @brief Prompts the user to input a password with input echo disabled.
+ *
+ * This function disables terminal echo mode to securely capture the user's
+ * password without displaying it on the screen. Echo mode is restored after
+ * the password input is retrieved. In case of an error with terminal settings,
+ * the password will still be captured, but without echo being disabled.
+ *
+ * @return The password entered by the user as a string.
+ */
 std::string getPassword()
 {
     std::string password;
@@ -151,9 +203,32 @@ std::string getPassword()
     return password;
 }
 
-/**************************************************************
- * Display Retro Header Information IBM 5150 Monochrome style *
- **************************************************************/
+/**
+ * @brief Creates and renders a graphical window with specific appearance and content.
+ *
+ * This function initializes a new window object and applies semigraphics cosmetics
+ * using predefined characters for corners, separators, and lines. It displays the
+ * version information of the "Virtual Protocol Adapter Look Utility" formatted using
+ * predefined version constants. Additionally, it appends copyright information and
+ * renders the window.
+ *
+ * The function relies on:
+ * - Semigraphics cosmetic details defined in semigraphics.h
+ * - Version constants defined in version.h
+ * - The window class and associated methods for rendering.
+ *
+ * No arguments are required, and the function does not return any value.
+ *
+ * Key operations:
+ * - Configure the semigraphics cosmetics for the window.
+ * - Set the title with version information using formatted strings.
+ * - Add a copyright footer with compatible symbols.
+ * - Render the constructed window.
+ *
+ * Note:
+ * Make sure that appropriate memory management is handled for the window object since
+ * it is dynamically allocated.
+ */
 void sine()
 {
     auto* pWin = new window();
@@ -172,9 +247,30 @@ void sine()
     pWin->render();
 }
 
-/****************************************
- * Display Some Shared Memory Variables *
- ****************************************/
+/**
+ * @brief Manages the shared memory operations and prints the status of test statistics.
+ *
+ * This method uses a shared memory manager to update the signature of the shared memory.
+ * It increments the `iSignature` field of the shared memory object twice, each time using
+ * a different shared memory management instance. After locking, updating, and releasing
+ * shared memory, it prints the counts of tests processed, skipped, passed, and failed.
+ * Additionally, it resets the `num_tests_processed` field to zero and prints binary projections
+ * of test metrics using the available printBinary utility.
+ *
+ * @details
+ * - Updates the signature of the shared memory using two different shared memory managers.
+ * - Outputs the count of tests:
+ *   - processed
+ *   - skipped
+ *   - passed
+ *   - failed
+ * - Resets the number of processed tests to zero.
+ * - Uses a binary representation (printBinary) to display the processed, passed, failed,
+ *   and skipped test metrics.
+ *
+ * The structure and purpose of `gpSh` and `gpShMemMgr` are assumed to provide global access
+ * to shared memory and its manager, respectively.
+ */
 void shmvars()
 {
     shared::SharedMemoryManager manager;
@@ -206,6 +302,19 @@ void shmvars()
     gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits, iNumTests);
 }
 
+/**
+ * @brief Displays the credentials of authenticated users from shared memory.
+ *
+ * This function iterates through the authenticated users stored in shared memory
+ * and prints their credentials to the console. It excludes metadata rows and
+ * only processes user entries starting at a predetermined offset (`ROW_DATA`).
+ * If a user has a valid authentication handle (`iAuthHandle > 0`), their details
+ * are printed in a formatted manner, including username, first name, last name,
+ * UUID, authentication handle, and HTTP user agent string.
+ *
+ * The function depends on predefined constants such as `ROW_DATA`, `CFG_MAX_USERS`,
+ * and assumes a shared memory structure pointed to by `gpSh`.
+ */
 void auth_users()
 {
     printf("Credentials of Authenticated Users:");
@@ -230,6 +339,28 @@ void auth_users()
     }
 }
 
+/**
+ * @brief Configures and manages an INI file.
+ *
+ * This function handles the creation, loading, updating, and saving of an
+ * INI configuration file. It uses a custom `cfgini` class to manage the
+ * configuration details, including the addition of new sections, setting
+ * variables, and saving them back to the file.
+ *
+ * The function performs the following actions:
+ * 1. Attempts to load an existing configuration file. If unable to load, it creates a new one.
+ * 2. Adds configuration details under pre-defined sections such as "Database" and "Logging".
+ * 3. Writes configuration variables for database connection and logging settings.
+ * 4. Saves the updated configuration back to the file.
+ * 5. Reads and prints certain variables from the configuration for verification.
+ *
+ * The configuration includes:
+ * - A "Database" section containing host, port, and database name settings.
+ * - A "Logging" section specifying the logging level and log file.
+ *
+ * This function demonstrates interaction with configuration management in
+ * an application context.
+ */
 void configini()
 {
     cfgini config("/home/doug/config.ini");
@@ -260,6 +391,23 @@ void configini()
     std::cout << "Logging level is " << logLevel << std::endl;
 }
 
+/**
+ * Outputs the sizes and padding information for various request structure types.
+ *
+ * This function calculates the size of several predefined data structures
+ * related to `vparpc` requests and outputs their size and padding.
+ * Padding is calculated as the difference between the fixed size of
+ * 1080 bytes and the actual size of the structure. The results are
+ * printed to the standard output.
+ *
+ * Structures displayed include:
+ * - `vparpc_request_generic_t`
+ * - `vparpc_request_auth_t`
+ * - `vparpc_request_version_t`
+ * - `vparpc_request_lookup_t`
+ * - `vparpc_request_creds_t`
+ * - `vparpc_request_urls_t`
+ */
 void struct_diag()
 {
     std::cout << "sizeof(vparpc_request_generic_t) is " << sizeof(
@@ -317,6 +465,15 @@ void struct_diag()
 
  */
 
+/**
+ * @brief Performs diagnostic operations related to service management.
+ *
+ * This function interacts with an instance of the CServices class to:
+ * - Check the existence of specific services.
+ * - Add services if they do not already exist, specifying their name, port, protocol, and aliases.
+ * - Retrieve a list of services matching a specific pattern ("http").
+ * - Log outputs to indicate the status of service operations such as existence checks or successful additions.
+ */
 void services_diag()
 {
     CServices services;
@@ -449,6 +606,24 @@ void services_diag()
     }
 }
 
+/**
+ * Generates, displays, and optionally saves an updated Xinetd configuration
+ * for the VPA service. If the necessary permissions to modify the
+ * configuration file are not available, the method operates in "dry-run" mode.
+ *
+ * The method performs the following steps:
+ * - Displays the number of configured services.
+ * - Displays the status of VPA services.
+ * - Generates and displays the Xinetd configuration for VPA.
+ * - If permissions allow, creates a backup of the current configuration,
+ *   saves the new configuration, and reloads the Xinetd service.
+ *
+ * If unable to proceed due to insufficient privileges or errors during
+ * saving/reloading, the relevant errors and instructions are displayed.
+ *
+ * @return 0 on successful save or dry-run completion, or 1 if saving
+ *         the configuration fails.
+ */
 int xinetdcfg_diag()
 {
     xinetcfg config;
@@ -518,6 +693,28 @@ int xinetdcfg_diag()
     return 0;
 }
 
+/**
+ * @brief Checks for previous login credentials stored in the configuration file.
+ *
+ * This function attempts to load the user's configuration file to retrieve
+ * authentication credentials, such as username, last login timestamp, and
+ * authentication handle. If no configuration is found or if the credentials
+ * are invalid, the user will be prompted to provide new login credentials.
+ *
+ * Behavior:
+ * - Attempts to load the configuration file located at `/home/doug/.config/multiware/config.ini`.
+ * - If the configuration file cannot be loaded, the user is prompted to provide fresh credentials.
+ * - Checks for the presence of the VPA login section and reads the following:
+ *   - `authusername`: The username used for authentication.
+ *   - `last_login`: Timestamp of the last successful login.
+ *   - `handle`: The authentication handle.
+ * - Validates the retrieved credentials:
+ *   - If the last login timestamp is present, checks whether the login has expired.
+ *   - If expired, prompts the user to re-authenticate.
+ *   - If no last login timestamp exists, prompts the user to re-authenticate.
+ * - If valid credentials are found, prints the previous login details and confirms the login is still valid.
+ * - If no credentials are found, prompts the user to provide new credentials.
+ */
 void check_previous_vpalogin()
 {
     cfgini config("/home/doug/.config/multiware/config.ini");
@@ -576,6 +773,14 @@ void check_previous_vpalogin()
     }
 }
 
+/**
+ * The main entry point of the application. This function initializes
+ * necessary components, executes core functionality by invoking specific
+ * diagnostic and utility methods, and manages the overall application logic.
+ *
+ * @return An integer indicating the application's exit status. EXIT_SUCCESS
+ * is returned upon successful completion.
+ */
 int main()
 {
     auto* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
