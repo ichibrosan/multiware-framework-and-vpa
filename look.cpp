@@ -40,9 +40,9 @@ std::string getPassword();
  * LOGIN_TIMEOUT defines the maximum amount of time, in seconds,
  * that a login session remains valid without activity. If the time
  * since the last login exceeds this value, the session is considered
- * expired.
+ * expired. LOGIN_TIMEOUT_SECONDS is defined in include/fw-limits.h
  */
-const time_t LOGIN_TIMEOUT = 86400;
+const time_t LOGIN_TIMEOUT = LOGIN_TIMEOUT_SECONDS;
 
 /**
  * Checks whether the login session has expired based on the last login timestamp.

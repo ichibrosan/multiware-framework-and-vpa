@@ -29,6 +29,7 @@
 #define PASSWORD_SIZE_MAX 512  // Based on PAM_MAX_RESP_SIZE
 
 #define FQFS_SIZE_MAX 128
+#define LOGIN_TIMEOUT_SECONDS 300
 
 
 ///////////////////////
