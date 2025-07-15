@@ -64,9 +64,7 @@ void sine()
     //    gpWin->render();
 }
 
-void set_configini_creds(std::string ssUsername,
-                         std::string ssPassword,
-                         int handle)
+void set_configini_creds(int handle)
 {
     char szConfigFQFS[FQFS_SIZE_MAX];
     time_t t = time(NULL);
@@ -81,12 +79,24 @@ void set_configini_creds(std::string ssUsername,
     config.addSection("Credentials");
     config.setVariable(
         "Credentials",
-        "username",
-        "doug");
+        "authusername",
+        gpSh->m_pShMemng->creds[handle].szAuthUserName);
     config.setVariable(
         "Credentials",
-        "password",
-        "melange");
+        "authfirstname",
+        gpSh->m_pShMemng->creds[handle].szAuthFirstName);
+
+    config.setVariable(
+        "Credentials",
+        "authlastname",
+        gpSh->m_pShMemng->creds[handle].szAuthLastName);
+
+    config.setVariable(
+        "Credentials",
+        "authlevel",
+        gpSh->m_pShMemng->creds[handle].szAuthLevel);
+
+
     config.setVariable(
         "Credentials",
         "handle",
@@ -171,7 +181,6 @@ int main(int argc, char** argv)
     else
     {
         //std::cout << "User is a valid member of the VPA." << std::endl;
-        set_configini_creds(username, password, handle);
 
         /**
          * @brief Initialize VPA RPC client
@@ -255,6 +264,10 @@ int main(int argc, char** argv)
          * information and session metadata.
          */
         pVpaRpc->get_creds();
+
+
+        set_configini_creds(handle);
+
 
         /**
          * @brief Display credentials request/response details
