@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/htmlbind.cpp 2025-07-15 18:16 dwg -             //
+// ~/public_html/fw/htmlbind.cpp 2025-07-15 18:16 dwg -           //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
@@ -35,8 +35,8 @@ htmlbind::htmlbind() = default;
  * image embedded inside.
  */
 std::string htmlbind::hb_ahref(
-    const char *szUrl,
-    const char *szImgUrl,
+    const char* szUrl,
+    const char* szImgUrl,
     int width,
     int height)
 {
@@ -45,7 +45,7 @@ std::string htmlbind::hb_ahref(
     ssBuffer.append(gpSh->m_pShMemng->szCgiRoot);
     ssBuffer.append(szUrl);
     ssBuffer.append("\">");
-    ssBuffer.append(hb_imgsrc(szImgUrl,width,height));
+    ssBuffer.append(hb_imgsrc(szImgUrl, width, height));
     ssBuffer.append("</a>");
     return ssBuffer;
 }
@@ -62,7 +62,7 @@ std::string htmlbind::hb_ahref(
  * @return A string containing the constructed HTML image tag.
  *************************************************************************/
 std::string htmlbind::hb_imgsrc(
-    const char *szImgUrl,
+    const char* szImgUrl,
     int width,
     int height)
 {
@@ -78,7 +78,8 @@ std::string htmlbind::hb_imgsrc(
     return ssBuffer;
 }
 
-std::string htmlbind::hb_close_body() {
+std::string htmlbind::hb_close_body()
+{
     std::string ssBuffer;
     ssBuffer = "</body>\n";
     return ssBuffer;
@@ -91,7 +92,8 @@ std::string htmlbind::hb_close_form()
     return ssBuffer;
 }
 
-std::string htmlbind::hb_close_h3() {
+std::string htmlbind::hb_close_h3()
+{
     std::string ssBuffer;
     ssBuffer.append("</h3>\n");
     return ssBuffer;
@@ -112,10 +114,10 @@ std::string htmlbind::hb_close_html()
 }
 
 std::string htmlbind::hb_form_date(
-        const char *pszName,
-        const char *pszID,
-        const char *pszValue,
-        const char *pszDescr)
+    const char* pszName,
+    const char* pszID,
+    const char* pszValue,
+    const char* pszDescr)
 {
     std::string ssBuffer;
     ssBuffer = "<label";
@@ -139,10 +141,10 @@ std::string htmlbind::hb_form_date(
 }
 
 std::string htmlbind::hb_form_datetime(
-        const char *pszName,
-        const char *pszID,
-        const char *pszValue,
-        const char *pszDescr)
+    const char* pszName,
+    const char* pszID,
+    const char* pszValue,
+    const char* pszDescr)
 {
     std::string ssBuffer;
     ssBuffer = "<label";
@@ -163,16 +165,16 @@ std::string htmlbind::hb_form_datetime(
     return ssBuffer;
 }
 
-std::string htmlbind::hb_form_label(const char *pszVisible)
+std::string htmlbind::hb_form_label(const char* pszVisible)
 {
     return pszVisible;
 }
 
 std::string htmlbind::hb_form_month(
-        const char *pszName,
-        const char *pszId,
-        const char *pszValue,
-        const char *pszDescr)
+    const char* pszName,
+    const char* pszId,
+    const char* pszValue,
+    const char* pszDescr)
 {
     std::string ssBuffer;
     ssBuffer = "<label";
@@ -196,10 +198,11 @@ std::string htmlbind::hb_form_month(
 }
 
 std::string htmlbind::hb_form_select(
-        const char * pszLabelFor,
-        const char * pszLabelVisible,
-        const char * pszSelectID,
-        const char * pszSelectName) {
+    const char* pszLabelFor,
+    const char* pszLabelVisible,
+    const char* pszSelectID,
+    const char* pszSelectName)
+{
     std::string ssBuffer;
     ssBuffer = "<label";
     ssBuffer.append(" for=\"");
@@ -218,11 +221,13 @@ std::string htmlbind::hb_form_select(
 }
 
 std::string htmlbind::hb_form_select_opt(
-        const char * pszDefaultBoolean,
-        const char * pszOptionValue,
-        const char * pszOptionVisible) {
+    const char* pszDefaultBoolean,
+    const char* pszOptionValue,
+    const char* pszOptionVisible)
+{
     std::string ssBuffer;
-    if (0 == strcmp("true",pszDefaultBoolean)) {
+    if (0 == strcmp("true", pszDefaultBoolean))
+    {
         ssBuffer = "<option";
         ssBuffer.append(" value=\"");
         ssBuffer.append(pszOptionValue);
@@ -231,7 +236,9 @@ std::string htmlbind::hb_form_select_opt(
         ssBuffer.append(">");
         ssBuffer.append(pszOptionVisible);
         ssBuffer.append("</option>\n");
-    } else {
+    }
+    else
+    {
         ssBuffer = "<option";
         ssBuffer.append(" value=\"");
         ssBuffer.append(pszOptionValue);
@@ -242,18 +249,20 @@ std::string htmlbind::hb_form_select_opt(
     return ssBuffer;
 }
 
-std::string htmlbind::hb_form_select_end() {
+std::string htmlbind::hb_form_select_end()
+{
     std::string ssBuffer;
     ssBuffer = "</select>\n";
     return ssBuffer;
 }
 
 std::string htmlbind::hb_form_text(
-        const char * szName,
-        const char * szValue,
-        const char * szSize,
-        const char * szVisible,
-        const char * szDescr) {
+    const char* szName,
+    const char* szValue,
+    const char* szSize,
+    const char* szVisible,
+    const char* szDescr)
+{
     std::string ssBuffer;
     ssBuffer.append("<input");
     ssBuffer.append(" type=\"text\"");
@@ -271,12 +280,13 @@ std::string htmlbind::hb_form_text(
 
 
 std::string htmlbind::hb_form_password(
-        const char *pszName,
-        const char *pszId,
-        const char *pszValue,
-        const char *pszSize,
-        const char *pszVisible,
-        const char *pszDescr) {
+    const char* pszName,
+    const char* pszId,
+    const char* pszValue,
+    const char* pszSize,
+    const char* pszVisible,
+    const char* pszDescr)
+{
     std::string ssBuffer;
     ssBuffer.append("<label for=\"");
     ssBuffer.append(pszId);
@@ -299,17 +309,20 @@ std::string htmlbind::hb_form_password(
 
 std::string ssBuffer;
 
-std::string htmlbind::hb_dashboard(int iHandle,int iButtons)
+std::string htmlbind::hb_dashboard(int iHandle, int iButtons)
 {
     bool bAuthenticated = true;
     bool bAvatarExists = false;
     int iBorder = 2;
 
     int iEffectiveButtons = iButtons;
-    if (ROW_DATA_HDR < iHandle) {
+    if (ROW_DATA_HDR < iHandle)
+    {
         bAuthenticated = false;
         iEffectiveButtons = 0;
-    } else {
+    }
+    else
+    {
         gpSh->m_pShMemng->bDisplaySchema = false;
         gpSh->m_pShMemng->bDisplayShmVars = false;
         gpSh->m_pShMemng->bDisplayEnvVars = false;
@@ -317,10 +330,11 @@ std::string htmlbind::hb_dashboard(int iHandle,int iButtons)
 
     std::string ssAvatar = gpSh->m_pShMemng->creds[iHandle].szAuthUserName;
     ssAvatar.append("_avatar.jpg");
-//    std::string ssBuffer;
+    //    std::string ssBuffer;
 
-     if (std::filesystem::is_regular_file(
-        gpOS->genImgPath(ssAvatar.c_str(),F_OK))) {
+    if (std::filesystem::is_regular_file(
+        gpOS->genImgPath(ssAvatar.c_str(),F_OK)))
+    {
         bAvatarExists = true;
         hb_open_table(4);
         ssBuffer.append("<tr><td class=\"dashboard\">");
@@ -330,72 +344,74 @@ std::string htmlbind::hb_dashboard(int iHandle,int iButtons)
     //
     ssBuffer.append(hb_open_table(iBorder));
 
-      ssBuffer.append(hb_open_tr());
-     // ssBuffer.append(hb_open_h3());
-     // ssBuffer.append(hb_open_th());
-     // ssBuffer.append("Goodall MultiWare Framework Dashboard");
-     // ssBuffer.append(hb_close_th());
-     // ssBuffer.append(hb_close_h3());
-     // ssBuffer.append(hb_close_tr());
-     // ssBuffer.append(hb_close_table());
-     //
-     // ssBuffer.append(hb_open_table(1));
-     // ssBuffer.append(hb_open_tr());
-     // ssBuffer.append(hb_open_th());
-     // ssBuffer.append("Authenticated Username");
-     // ssBuffer.append(hb_close_th());
-     // ssBuffer.append(hb_open_td());
-     // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthUserName);
-     // ssBuffer.append(hb_close_td());
-     // ssBuffer.append(hb_open_th());
-     // ssBuffer.append("Semantic Version");
-     // ssBuffer.append(hb_close_th());
-     // ssBuffer.append(hb_open_td());
-     // ssBuffer.append(RLONG);
-     // ssBuffer.append(" (");
-     // ssBuffer.append(RTYPE);
-     // ssBuffer.append(")");
-     // ssBuffer.append(hb_close_td());
-     // ssBuffer.append(hb_close_tr());
-     //
-     // ssBuffer.append(hb_open_tr());
-     // ssBuffer.append(hb_open_th());
-     // ssBuffer.append("Authenticated User");
-     // ssBuffer.append(hb_close_th());
-     // ssBuffer.append(hb_open_td());
-     // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthFirstName);
-     // ssBuffer.append(" ");
-     // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthLastName);
-     // ssBuffer.append(hb_close_td());
-     // ssBuffer.append(hb_open_th());
-     // ssBuffer.append("Current Build");
-     // ssBuffer.append(hb_close_th());
-     // ssBuffer.append(hb_open_td());
-     // ssBuffer.append(RDATE);
-     // ssBuffer.append(" ");
-     // ssBuffer.append(RTIME);
-     // ssBuffer.append(hb_close_td());
-     // ssBuffer.append(hb_close_tr());
-     //
-     // ssBuffer.append(hb_open_tr());
-     // ssBuffer.append(hb_open_th());
-     // ssBuffer.append("Privilege Level");
-     // ssBuffer.append(hb_close_th());
-     // ssBuffer.append(hb_open_td());
-     // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthLevel);
-     // ssBuffer.append(hb_close_td());
-     // ssBuffer.append(hb_close_tr());
-     //
-     // ssBuffer.append(hb_close_table());
+    ssBuffer.append(hb_open_tr());
+    // ssBuffer.append(hb_open_h3());
+    // ssBuffer.append(hb_open_th());
+    // ssBuffer.append("Goodall MultiWare Framework Dashboard");
+    // ssBuffer.append(hb_close_th());
+    // ssBuffer.append(hb_close_h3());
+    // ssBuffer.append(hb_close_tr());
+    // ssBuffer.append(hb_close_table());
+    //
+    // ssBuffer.append(hb_open_table(1));
+    // ssBuffer.append(hb_open_tr());
+    // ssBuffer.append(hb_open_th());
+    // ssBuffer.append("Authenticated Username");
+    // ssBuffer.append(hb_close_th());
+    // ssBuffer.append(hb_open_td());
+    // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthUserName);
+    // ssBuffer.append(hb_close_td());
+    // ssBuffer.append(hb_open_th());
+    // ssBuffer.append("Semantic Version");
+    // ssBuffer.append(hb_close_th());
+    // ssBuffer.append(hb_open_td());
+    // ssBuffer.append(RLONG);
+    // ssBuffer.append(" (");
+    // ssBuffer.append(RTYPE);
+    // ssBuffer.append(")");
+    // ssBuffer.append(hb_close_td());
+    // ssBuffer.append(hb_close_tr());
+    //
+    // ssBuffer.append(hb_open_tr());
+    // ssBuffer.append(hb_open_th());
+    // ssBuffer.append("Authenticated User");
+    // ssBuffer.append(hb_close_th());
+    // ssBuffer.append(hb_open_td());
+    // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthFirstName);
+    // ssBuffer.append(" ");
+    // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthLastName);
+    // ssBuffer.append(hb_close_td());
+    // ssBuffer.append(hb_open_th());
+    // ssBuffer.append("Current Build");
+    // ssBuffer.append(hb_close_th());
+    // ssBuffer.append(hb_open_td());
+    // ssBuffer.append(RDATE);
+    // ssBuffer.append(" ");
+    // ssBuffer.append(RTIME);
+    // ssBuffer.append(hb_close_td());
+    // ssBuffer.append(hb_close_tr());
+    //
+    // ssBuffer.append(hb_open_tr());
+    // ssBuffer.append(hb_open_th());
+    // ssBuffer.append("Privilege Level");
+    // ssBuffer.append(hb_close_th());
+    // ssBuffer.append(hb_open_td());
+    // ssBuffer.append(gpSh->m_pShMemng->creds[iHandle].szAuthLevel);
+    // ssBuffer.append(hb_close_td());
+    // ssBuffer.append(hb_close_tr());
+    //
+    // ssBuffer.append(hb_close_table());
 }
 
-std::string htmlbind::hb_open_h3() {
+std::string htmlbind::hb_open_h3()
+{
     std::string ssBuffer;
     ssBuffer.append("<h3>\n");
     return ssBuffer;
 }
 
-std::string htmlbind::hb_open_table(int iBorder) {
+std::string htmlbind::hb_open_table(int iBorder)
+{
     std::string ssBuffer;
     ssBuffer.append("<table");
     ssBuffer.append(" border=\"");

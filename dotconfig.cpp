@@ -1,69 +1,82 @@
 ////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/dotconfig.cpp 2025-07-15 18:16 dwg -             //
+// ~/public_html/fw/dotconfig.cpp 2025-07-15 18:16 dwg -          //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 
 #include "include/mwfw2.h"
 
-dotconfig::dotconfig() {
+dotconfig::dotconfig()
+{
     m_bCTOR = true;
 }
 
-bool dotconfig::isConfigDir() {
+bool dotconfig::isConfigDir()
+{
     namespace fs = std::filesystem;
-    
+
     const char* homeDir = std::getenv("HOME");
-    if (!homeDir) {
+    if (!homeDir)
+    {
         return false;
     }
-    
+
     fs::path configPath = fs::path(homeDir) / ".config" / "multiware";
     return fs::exists(configPath) && fs::is_directory(configPath);
 }
 
-bool dotconfig::assureConfigDir() {
+bool dotconfig::assureConfigDir()
+{
     namespace fs = std::filesystem;
 
     const char* homeDir = std::getenv("HOME");
-    if (!homeDir) {
+    if (!homeDir)
+    {
         return false;
     }
 
-    try {
+    try
+    {
         fs::path configPath = fs::path(homeDir) / ".config" / "multiware";
 
         // If directory already exists, return true
-        if (isConfigDir()) {
+        if (isConfigDir())
+        {
             return true;
         }
 
         // Create all parent directories if they don’t exist
         return fs::create_directories(configPath);
     }
-    catch (const fs::filesystem_error& e) {
+    catch (const fs::filesystem_error& e)
+    {
         // Handle filesystem errors (permissions, etc.)
         return false;
     }
 }
 
-bool dotconfig::isLicenseUUID() {
+bool dotconfig::isLicenseUUID()
+{
     std::ifstream etcFile("/etc/license");
     std::ifstream docFile("/home/doug/public_html/fw/doc/license");
 
-    if (!etcFile.is_open() || !docFile.is_open()) {
+    if (!etcFile.is_open() || !docFile.is_open())
+    {
         std::cout << "Content-type: text/html\n\n" << std::endl;
     }
-    if (!etcFile.is_open()) {
+    if (!etcFile.is_open())
+    {
         std::cout << "etcFile not open" << std::endl;
         return false;
     }
-    if (!docFile.is_open()) {
+    if (!docFile.is_open())
+    {
         std::cout << "docFile not open" << std::endl;
         return false;
     }
 
-    try {
+    try
+    {
         std::string etcUUID, docUUID;
 
         // Read UUIDs from both files
@@ -78,14 +91,18 @@ bool dotconfig::isLicenseUUID() {
         docUUID.erase(docUUID.find_last_not_of(" \t\n\r") + 1);
 
         // Validate UUID format (basic check)
-        const std::regex uuidRegex("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
-        if (!std::regex_match(etcUUID, uuidRegex) || !std::regex_match(docUUID, uuidRegex)) {
+        const std::regex uuidRegex(
+            "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
+        if (!std::regex_match(etcUUID, uuidRegex) || !std::regex_match(
+            docUUID, uuidRegex))
+        {
             return false;
         }
 
         return etcUUID == docUUID;
     }
-    catch (const std::exception& e) {
+    catch (const std::exception& e)
+    {
         return false;
     }
 }

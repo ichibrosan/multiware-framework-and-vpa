@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/fw-test4.cpp 2025-07-15 18:16 dwg -             //
+// ~/public_html/fw/fw-test4.cpp 2025-07-15 18:16 dwg -           //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
@@ -19,7 +19,8 @@
  *
  * @return An integer value of 0 indicating successful program execution.
  */
-int main() {
+int main()
+{
     std::cout << "Content-type:\ttext/html\n\n" << std::endl;
     std::cout << "Hello World!!" << std::endl;
     return 0;

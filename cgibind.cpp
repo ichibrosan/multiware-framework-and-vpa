@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/cgibind.cpp 2025-07-15 18:16 dwg -             //
+// ~/public_html/fw/cgibind.cpp 2025-07-15 18:16 dwg -            //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
@@ -12,7 +12,8 @@
  *
  * @return A new instance of the `cgibind` class.
  */
-cgibind::cgibind() {
+cgibind::cgibind()
+{
 }
 
 /************************************************************************
@@ -25,10 +26,12 @@ cgibind::cgibind() {
  * @return The value of the specified form variable as a string. If the
  *         variable is not present in the form data, returns an empty string.
  */
-std::string cgibind::get_form_variable(std::string ssVariableName) {
+std::string cgibind::get_form_variable(std::string ssVariableName)
+{
     std::string ssVariableValue;
     form_iterator name = gpCgi->getElement(ssVariableName);
-    if (name != gpCgi->getElements().end()) {
+    if (name != gpCgi->getElements().end())
+    {
         ssVariableValue = **name;
     }
     return ssVariableValue;
@@ -45,9 +48,10 @@ std::string cgibind::get_form_variable(std::string ssVariableName) {
  * @return A string containing the HTTP referrer of the current request.
  *         If no referrer is available, an empty string is returned.
  */
-std::string cgibind::get_referrer() {
+std::string cgibind::get_referrer()
+{
     std::string ssHttpReferrer =
-            gpCgi->getEnvironment().getReferrer();
+        gpCgi->getEnvironment().getReferrer();
     return ssHttpReferrer;
 }
 
@@ -61,11 +65,12 @@ std::string cgibind::get_referrer() {
  * @return A string containing the directory path of the HTTP referrer. If the
  *         referrer is invalid or unavailable, an empty string may be returned.
  */
-std::string cgibind::get_referrer_path() {
+std::string cgibind::get_referrer_path()
+{
     std::string ssHttpReferrer =
-            gpCgi->getEnvironment().getReferrer();
+        gpCgi->getEnvironment().getReferrer();
     std::string ssReferrerPath =
-            std::filesystem::path(ssHttpReferrer).remove_filename();
+        std::filesystem::path(ssHttpReferrer).remove_filename();
     return ssReferrerPath;
 }
 
@@ -81,14 +86,15 @@ std::string cgibind::get_referrer_path() {
  *         If the HTTP referrer is invalid or unavailable, an empty string
  *         is returned.
  */
-std::string cgibind::get_referrer_file() {
+std::string cgibind::get_referrer_file()
+{
     std::string ssHttpReferrer = gpCgi->getEnvironment().getReferrer();
     std::string ssReferrerPath =
-            std::filesystem::path(ssHttpReferrer).remove_filename();
+        std::filesystem::path(ssHttpReferrer).remove_filename();
     std::string ssReferrerFile =
-            ssHttpReferrer.substr(
-                ssReferrerPath.length(),
-                ssHttpReferrer.length());
+        ssHttpReferrer.substr(
+            ssReferrerPath.length(),
+            ssHttpReferrer.length());
     return ssReferrerFile;
 }
 

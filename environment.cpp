@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/environment.cpp 2025-07-15 18:16 dwg -             //
+// ~/public_html/fw/environment.cpp 2025-07-15 18:16 dwg -        //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
@@ -50,20 +50,22 @@ std::string gssUser;
  *
  * This class can be extended or used as a base to create specific environmental scenarios.
  */
-environment::environment() {
-  char szTemp[128];
+environment::environment()
+{
+	char szTemp[128];
 
 	/********************************************************************
 	 * Enable syslog logging within thew scope of the environment class
 	 * by instantiating the CSysLog class via a pointer in member data.
      ***********************************************************************/
-    m_pSysLog = new CSysLog();
+	m_pSysLog = new CSysLog();
 
 	/********************************************************************
 	 * Determine the username under which this application is running
 	 * and save the result in the shared segment.
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szUser)) {
+	if (0 == strlen(gpSh->m_pShMemng->szUser))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szUser");
 		extract_username();
 	}
@@ -72,13 +74,14 @@ environment::environment() {
 	 * Determine whether the curl utility is installed on the system
 	 * and set a local boolean reflecting that question.
      ***********************************************************************/
-//    m_bCurlPresent = check_curl_installed();
+	//    m_bCurlPresent = check_curl_installed();
 
 	/********************************************************************
 	 * Determine the name of the primary network interface in use and
 	 * save it in the shared segment.
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szIface)) {
+	if (0 == strlen(gpSh->m_pShMemng->szIface))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szIface");
 		get_interface(false);
 	}
@@ -86,7 +89,8 @@ environment::environment() {
 	/********************************************************************
 	 * Determine the hostname of the system on which this software is running.
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szHostname)) {
+	if (0 == strlen(gpSh->m_pShMemng->szHostname))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szHostname");
 		set_hostname(false);
 	}
@@ -95,26 +99,30 @@ environment::environment() {
 	 * Determine the protocol supported by Apache2 on the current system and
 	 * save to the shared system. It would be https:// or http://
      ***********************************************************************/
-	if ( 0 == strcmp("http://",gpSh->m_pShMemng->szProtocol)  ||
-		 0 == strcmp("https://",gpSh->m_pShMemng->szProtocol) ) {
+	if (0 == strcmp("http://", gpSh->m_pShMemng->szProtocol) ||
+		0 == strcmp("https://", gpSh->m_pShMemng->szProtocol))
+	{
 		//m_pSysLog->loginfo("environment::environment: valid szProtocol already set");
-	} else {
+	}
+	else
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szProtocol");
 		set_protocol(false);
 	}
 
 
-    /********************************************************************
-     * Determine the script name
-     */
-    get_scriptname();
+	/********************************************************************
+	 * Determine the script name
+	 */
+	get_scriptname();
 
 	/********************************************************************
 	 * Determine the local IPv4 number of the host system and save in the
 	 * shared memory segment. The parameter is a boolean indicating whether
 	 * debug information should be generated.
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szIP)) {
+	if (0 == strlen(gpSh->m_pShMemng->szIP))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szIP");
 		get_ip(false);
 	}
@@ -123,7 +131,8 @@ environment::environment() {
 	 * Determine the publically visible IPv4 number of the host system
 	 * and save in the shared segment.
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szPublicIP)) {
+	if (0 == strlen(gpSh->m_pShMemng->szPublicIP))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szPublicIP");
 		set_public_ip();
 	}
@@ -132,7 +141,8 @@ environment::environment() {
 	 * Create the base URL for calling our CGIs
 	 * for instance: "http://172.20.10.4/cgi-bin/"
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szCgiRoot)) {
+	if (0 == strlen(gpSh->m_pShMemng->szCgiRoot))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szCgiRoot");
 		set_cgi_root(false);
 	}
@@ -141,7 +151,8 @@ environment::environment() {
 	 * Create the base URL for accessing images
 	 * for instance: "http://172.20.10.4/~doug/fw/images/"
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szImgRoot)) {
+	if (0 == strlen(gpSh->m_pShMemng->szImgRoot))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szImgRoot");
 		set_img_root(false);
 	}
@@ -150,7 +161,8 @@ environment::environment() {
 	 * Create the base URL for accessing styles
 	 * for instance: "http://172.20.10.4/~doug/fw/styles/"
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szStylesRoot)) {
+	if (0 == strlen(gpSh->m_pShMemng->szStylesRoot))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szStylesRoot");
 		set_styles_root(false);
 	}
@@ -159,7 +171,8 @@ environment::environment() {
 	 * Create the base filesystem root for filesystem access to styles
 	 * for instance: "/home/monk/public_html/fw/styles/"
 	 ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szStylesFileRoot)) {
+	if (0 == strlen(gpSh->m_pShMemng->szStylesFileRoot))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szStylesFileRoot");
 		set_styles_file_root(false);
 	}
@@ -168,21 +181,22 @@ environment::environment() {
 	 * Create the base path for accessing Journal files
 	 * for instance: "/home/devo/Documents/Fw_Notes/"
      ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szJournalRoot)) {
+	if (0 == strlen(gpSh->m_pShMemng->szJournalRoot))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szJournalRoot");
 		set_journal_root(false);
 	}
 
-    /********************************************************************
-     * Create the base path for temp files
-     ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szTmpRoot)) {
+	/********************************************************************
+	 * Create the base path for temp files
+	 ***********************************************************************/
+	if (0 == strlen(gpSh->m_pShMemng->szTmpRoot))
+	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szTmpRoot");
 		set_tmp_root(false);
 	}
 
 	set_config_root();
-
 }
 
 
@@ -196,11 +210,12 @@ environment::environment() {
  * @note The function relies on shared memory to fetch user information
  *       and to store the constructed configuration path.
  ***************************************************************************/
-void environment::set_config_root() {
+void environment::set_config_root()
+{
 	std::string ssConfigRoot = "/home/";
 	ssConfigRoot.append(gpSh->m_pShMemng->szUser);
 	ssConfigRoot.append("/.config/multiware");
-	strcpy(gpSh->m_pShMemng->szConfigRoot,ssConfigRoot.c_str());
+	strcpy(gpSh->m_pShMemng->szConfigRoot, ssConfigRoot.c_str());
 }
 
 
@@ -217,19 +232,20 @@ void environment::set_config_root() {
  * @return A boolean value indicating the success or failure of setting the startup script.
  *         Returns true if the script was set successfully, or false if an error occurred.
  */
-void environment::set_vpad_startup_script() {
-    char szTempFQFS[] = { "/home/%s/public_html/fw/scripts/start-vpad.sh"};
-    char szFileFQFS[FILENAME_MAX];
-    char szCommand[80];
+void environment::set_vpad_startup_script()
+{
+	char szTempFQFS[] = {"/home/%s/public_html/fw/scripts/start-vpad.sh"};
+	char szFileFQFS[FILENAME_MAX];
+	char szCommand[80];
 
-    sprintf(szFileFQFS,szTempFQFS,gpSh->m_pShMemng->szUser);
-    FILE * fp = fopen(szFileFQFS,"w");
-    fprintf(fp,"#!/bin/sh\n");
-    fprintf(fp,"/home/%s/public_html/fw/scripts/start-vpad.sh &\n",
-               gpSh->m_pShMemng->szUser);
-    fclose(fp);
-    sprintf(szCommand,"chmod +x %s",szFileFQFS);
-    system(szCommand);
+	sprintf(szFileFQFS, szTempFQFS, gpSh->m_pShMemng->szUser);
+	FILE* fp = fopen(szFileFQFS, "w");
+	fprintf(fp, "#!/bin/sh\n");
+	fprintf(fp, "/home/%s/public_html/fw/scripts/start-vpad.sh &\n",
+	        gpSh->m_pShMemng->szUser);
+	fclose(fp);
+	sprintf(szCommand, "chmod +x %s", szFileFQFS);
+	system(szCommand);
 }
 
 /**
@@ -259,14 +275,14 @@ void environment::set_public_ip()
 
 	// s/b: /home/devo/public_html/fw/tmp/myv4ip.txt
 	strcpy(szTempFQFS,
-		gpOS->genTempFQFS("myv4ip.txt",false).c_str());
+	       gpOS->genTempFQFS("myv4ip.txt", false).c_str());
 
-	sprintf(szCommand,"curl ip.me >%s 2> /dev/null",szTempFQFS);
+	sprintf(szCommand, "curl ip.me >%s 2> /dev/null", szTempFQFS);
 	system(szCommand);
 	std::ifstream ifs(szTempFQFS);
 	ifs >> ssMyIp;
-	strcpy(szPublicIP,ssMyIp.c_str());
-	strcpy(gpSh->m_pShMemng->szPublicIP,szPublicIP);
+	strcpy(szPublicIP, ssMyIp.c_str());
+	strcpy(gpSh->m_pShMemng->szPublicIP, szPublicIP);
 }
 
 /**
@@ -283,7 +299,7 @@ void environment::set_public_ip()
  * @throws std::runtime_error If the network request to retrieve the public
  *         IP address encounters an error or the service is unavailable.
  */
-char * environment::get_public_ip()
+char* environment::get_public_ip()
 {
 	return gpSh->m_pShMemng->szPublicIP;
 }
@@ -296,24 +312,24 @@ char * environment::get_public_ip()
  *
  * @return A string containing the extracted username.
  */
-std::string environment::extract_username() {
-
+std::string environment::extract_username()
+{
 	std::string ssTemp = __FILE__;
 	// /home/doug/public_html/fw/extract.cpp
 	// 012345^
 
-	ssTemp = ssTemp.substr(6,ssTemp.length());
+	ssTemp = ssTemp.substr(6, ssTemp.length());
 	// doug/public_html/fw/extract.cpp
 
 	int offset = ssTemp.find('/');
 	// doug/public_html/fw/extract.cpp
 	// 0123^	<-- offset of /
 
-	ssTemp = ssTemp.substr(0,offset);
+	ssTemp = ssTemp.substr(0, offset);
 	// doug     <-- username substring
 
-	strcpy(gpSh->m_pShMemng->szUser,ssTemp.c_str());
-    return ssTemp;
+	strcpy(gpSh->m_pShMemng->szUser, ssTemp.c_str());
+	return ssTemp;
 }
 
 /**
@@ -326,28 +342,32 @@ std::string environment::extract_username() {
  *
  * @return True if cURL is installed, false otherwise.
  */
-bool environment::check_curl_installed() {
-    char szTemp[128];
-    bool bRetVar;
+bool environment::check_curl_installed()
+{
+	char szTemp[128];
+	bool bRetVar;
 
-    m_bCurlPresent = false;
+	m_bCurlPresent = false;
 
-	std::string ssCurlStdout = gpOS->genTempFQFS("curl.stdout",false);
-	std::string ssCurlStderr = gpOS->genTempFQFS("curl.stderr",false);
+	std::string ssCurlStdout = gpOS->genTempFQFS("curl.stdout", false);
+	std::string ssCurlStderr = gpOS->genTempFQFS("curl.stderr", false);
 	sprintf(szTemp, "curl --version >%s 2>%s",
-		ssCurlStdout.c_str(), ssCurlStderr.c_str());
+	        ssCurlStdout.c_str(), ssCurlStderr.c_str());
 
-    int retval = system(szTemp);
-    if (0 == retval) {
-        FILE *fd = fopen(ssCurlStdout.c_str(), "r");
-        char szCurlVersion[BUFSIZ];
-        fgets(szCurlVersion, sizeof(szCurlVersion), fd);
-        strcpy(m_szCurlVersion, szCurlVersion);
-        bRetVar = true;
-    } else {
-        bRetVar = false;
-    }
-    return bRetVar;
+	int retval = system(szTemp);
+	if (0 == retval)
+	{
+		FILE* fd = fopen(ssCurlStdout.c_str(), "r");
+		char szCurlVersion[BUFSIZ];
+		fgets(szCurlVersion, sizeof(szCurlVersion), fd);
+		strcpy(m_szCurlVersion, szCurlVersion);
+		bRetVar = true;
+	}
+	else
+	{
+		bRetVar = false;
+	}
+	return bRetVar;
 }
 
 
@@ -364,8 +384,8 @@ bool environment::check_curl_installed() {
  */
 std::string environment::get_cgi_root(bool bDebug)
 {
-  std::string ssCgiRoot = gpSh->m_pShMemng->szCgiRoot;
-  return ssCgiRoot;
+	std::string ssCgiRoot = gpSh->m_pShMemng->szCgiRoot;
+	return ssCgiRoot;
 }
 
 /**
@@ -379,9 +399,9 @@ std::string environment::get_cgi_root(bool bDebug)
  *         The caller should ensure that this pointer is used in a read-only
  *         manner and does not attempt to modify or free the memory it points to.
  */
-char * environment::get_cgi_root_as_sz(bool bDebug)
+char* environment::get_cgi_root_as_sz(bool bDebug)
 {
-  return gpSh->m_pShMemng->szCgiRoot;
+	return gpSh->m_pShMemng->szCgiRoot;
 }
 
 /**
@@ -402,7 +422,7 @@ void environment::set_cgi_root(bool bDebug)
 	ssCgiRoot.append("/~");
 	ssCgiRoot.append(gpSh->m_pShMemng->szUser);
 	ssCgiRoot.append("/fw/cgi-bin/");
-	strcpy(gpSh->m_pShMemng->szCgiRoot,ssCgiRoot.c_str());
+	strcpy(gpSh->m_pShMemng->szCgiRoot, ssCgiRoot.c_str());
 }
 
 /**
@@ -415,8 +435,9 @@ void environment::set_cgi_root(bool bDebug)
  *
  * @return const char* A string representing the cURL version information.
  */
-char *environment::get_curl_version() {
-    return m_szCurlVersion;
+char* environment::get_curl_version()
+{
+	return m_szCurlVersion;
 }
 
 
@@ -437,11 +458,11 @@ char *environment::get_curl_version() {
  */
 std::string environment::get_hostname(bool bDebug)
 {
-  std::string ssEtcHostnameFQFS = "/etc/hostname";
-  std::ifstream ifs(ssEtcHostnameFQFS);
-  std::string ssInbuf;
-  ifs >> ssInbuf;
-  return ssInbuf;
+	std::string ssEtcHostnameFQFS = "/etc/hostname";
+	std::ifstream ifs(ssEtcHostnameFQFS);
+	std::string ssInbuf;
+	ifs >> ssInbuf;
+	return ssInbuf;
 }
 
 /**
@@ -451,11 +472,11 @@ std::string environment::get_hostname(bool bDebug)
  */
 void environment::set_hostname(bool bDebug)
 {
-  std::string ssEtcHostnameFQFS = "/etc/hostname";
-  std::ifstream ifs(ssEtcHostnameFQFS);
-  std::string ssInbuf;
-  ifs >> ssInbuf;
-  strcpy(gpSh->m_pShMemng->szHostname,ssInbuf.c_str());
+	std::string ssEtcHostnameFQFS = "/etc/hostname";
+	std::ifstream ifs(ssEtcHostnameFQFS);
+	std::string ssInbuf;
+	ifs >> ssInbuf;
+	strcpy(gpSh->m_pShMemng->szHostname, ssInbuf.c_str());
 }
 
 
@@ -471,8 +492,8 @@ void environment::set_hostname(bool bDebug)
  */
 std::string environment::get_img_root(bool bDebug)
 {
-  std::string ssImgRoot = gpSh->m_pShMemng->szProtocol;
-  return ssImgRoot;
+	std::string ssImgRoot = gpSh->m_pShMemng->szProtocol;
+	return ssImgRoot;
 }
 
 /**
@@ -483,12 +504,12 @@ std::string environment::get_img_root(bool bDebug)
  */
 void environment::set_img_root(bool bDebug)
 {
-  std::string ssImgRoot = gpSh->m_pShMemng->szProtocol;
-  ssImgRoot.append(gpSh->m_pShMemng->szIP);
-  ssImgRoot.append("/~");
-  ssImgRoot.append(gpSh->m_pShMemng->szUser);
-  ssImgRoot.append("/fw/images/");
-  strcpy(gpSh->m_pShMemng->szImgRoot,ssImgRoot.c_str());
+	std::string ssImgRoot = gpSh->m_pShMemng->szProtocol;
+	ssImgRoot.append(gpSh->m_pShMemng->szIP);
+	ssImgRoot.append("/~");
+	ssImgRoot.append(gpSh->m_pShMemng->szUser);
+	ssImgRoot.append("/fw/images/");
+	strcpy(gpSh->m_pShMemng->szImgRoot, ssImgRoot.c_str());
 }
 
 /**
@@ -502,8 +523,8 @@ void environment::set_img_root(bool bDebug)
  */
 std::string environment::get_styles_root(bool bDebug)
 {
-  std::string ssStylesRoot = gpSh->m_pShMemng->szStylesRoot;
-  return ssStylesRoot;
+	std::string ssStylesRoot = gpSh->m_pShMemng->szStylesRoot;
+	return ssStylesRoot;
 }
 
 /**
@@ -521,12 +542,12 @@ std::string environment::get_styles_root(bool bDebug)
  */
 void environment::set_styles_root(bool bDebug)
 {
-  std::string ssStylesRoot = gpSh->m_pShMemng->szProtocol;
-  ssStylesRoot.append(gpSh->m_pShMemng->szIP);
-  ssStylesRoot.append("/~");
-  ssStylesRoot.append(gpSh->m_pShMemng->szUser);
-  ssStylesRoot.append("/fw/styles/");
-  strcpy(gpSh->m_pShMemng->szStylesRoot,ssStylesRoot.c_str());
+	std::string ssStylesRoot = gpSh->m_pShMemng->szProtocol;
+	ssStylesRoot.append(gpSh->m_pShMemng->szIP);
+	ssStylesRoot.append("/~");
+	ssStylesRoot.append(gpSh->m_pShMemng->szUser);
+	ssStylesRoot.append("/fw/styles/");
+	strcpy(gpSh->m_pShMemng->szStylesRoot, ssStylesRoot.c_str());
 }
 
 /**
@@ -560,7 +581,7 @@ void environment::set_styles_file_root(bool bDebug)
 	std::string ssStylesFileRoot = "/home/";
 	ssStylesFileRoot.append(gpSh->m_pShMemng->szUser);
 	ssStylesFileRoot.append("/public_html/fw/styles/");
-	strcpy(gpSh->m_pShMemng->szStylesFileRoot,ssStylesFileRoot.c_str());
+	strcpy(gpSh->m_pShMemng->szStylesFileRoot, ssStylesFileRoot.c_str());
 }
 
 
@@ -575,8 +596,8 @@ void environment::set_styles_file_root(bool bDebug)
  */
 std::string environment::get_journal_root(bool bDebug)
 {
-  std::string ssJournalRoot = gpSh->m_pShMemng->szJournalRoot;
-  return ssJournalRoot;
+	std::string ssJournalRoot = gpSh->m_pShMemng->szJournalRoot;
+	return ssJournalRoot;
 }
 
 /**
@@ -594,11 +615,11 @@ std::string environment::get_journal_root(bool bDebug)
  */
 void environment::set_journal_root(bool bDebug)
 {
-    std::string ssJournalRoot = "/home/";
-    ssJournalRoot.append(gpSh->m_pShMemng->szUser);
-    ssJournalRoot.append("/Documents/Fw_Notes/");
-    strcpy(gpSh->m_pShMemng->szJournalRoot,ssJournalRoot.c_str());
-}   /* TODO: access into system call to check whether this dir exists, and to make
+	std::string ssJournalRoot = "/home/";
+	ssJournalRoot.append(gpSh->m_pShMemng->szUser);
+	ssJournalRoot.append("/Documents/Fw_Notes/");
+	strcpy(gpSh->m_pShMemng->szJournalRoot, ssJournalRoot.c_str());
+} /* TODO: access into system call to check whether this dir exists, and to make
 	 it if not */
 
 
@@ -616,10 +637,10 @@ void environment::set_journal_root(bool bDebug)
  */
 void environment::set_tmp_root(bool bDebug)
 {
-    std::string ssTmpRoot = "/home/";
-    ssTmpRoot.append(gpSh->m_pShMemng->szUser);
-    ssTmpRoot.append("/public_html/fw/tmp/");
-    strcpy(gpSh->m_pShMemng->szTmpRoot,ssTmpRoot.c_str());
+	std::string ssTmpRoot = "/home/";
+	ssTmpRoot.append(gpSh->m_pShMemng->szUser);
+	ssTmpRoot.append("/public_html/fw/tmp/");
+	strcpy(gpSh->m_pShMemng->szTmpRoot, ssTmpRoot.c_str());
 }
 
 /**
@@ -634,15 +655,16 @@ void environment::set_tmp_root(bool bDebug)
  * @throws NullPointerException if the input is null and the method does not handle that case.
  * @throws IllegalArgumentException if the input type is invalid or unsupported.
  */
-std::string environment::get_interface(bool bDebug) {
+std::string environment::get_interface(bool bDebug)
+{
 	std::string ssUser = gpSh->m_pShMemng->szUser;
 	gpXinetd->trigger(VPA_NETSTAT_PORT);
 
 	char szNetstatStdoutFQFS[128];
 	strcpy(szNetstatStdoutFQFS,
-		("/home/"
-			+ ssUser
-			+ "/public_html/fw/tmp/netstat.stdout").c_str());
+	       ("/home/"
+		       + ssUser
+		       + "/public_html/fw/tmp/netstat.stdout").c_str());
 
 	gpSysLog->loginfo(szNetstatStdoutFQFS);
 	sleep(2);
@@ -650,23 +672,36 @@ std::string environment::get_interface(bool bDebug) {
 
 	char szBuffer[BUFSIZ];
 	std::ifstream ifs(szNetstatStdoutFQFS);
-	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
-	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
-	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
-	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
-	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
-	ifs >> szBuffer;	ifs >> szBuffer;	ifs >> szBuffer;
-	ifs >> szBuffer;	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
+	ifs >> szBuffer;
 
 	strncpy(m_szIface, szBuffer, IFNAMSIZ);
-    strncpy(gpSh->m_pShMemng->szIface, m_szIface, IFNAMSIZ);
-    std::string ssRetVal = m_szIface;
+	strncpy(gpSh->m_pShMemng->szIface, m_szIface, IFNAMSIZ);
+	std::string ssRetVal = m_szIface;
 
-	sprintf(szBuffer,"%s::%s#%d: szIface is %s",
-		__FILE__,__FUNCTION__,__LINE__,gpSh->m_pShMemng->szIface);
+	sprintf(szBuffer, "%s::%s#%d: szIface is %s",
+	        __FILE__, __FUNCTION__,__LINE__, gpSh->m_pShMemng->szIface);
 
 
-    return ssRetVal;
+	return ssRetVal;
 }
 
 
@@ -690,34 +725,34 @@ std::string environment::get_ip(bool bDebug)
 	gpSysLog->loginfo(ssUser.c_str());
 
 	std::ofstream ofs("/home/"
-					  + ssUser
-					  + "/public_html/fw/scripts/inetd-ip-redirect.sh",
-		std::ios::out);
+	                  + ssUser
+	                  + "/public_html/fw/scripts/inetd-ip-redirect.sh",
+	                  std::ios::out);
 
 	ofs << "#!/bin/bash" << std::endl;
 	ofs << "###############################################################"
-		   "##############################" << std::endl;
+		"##############################" << std::endl;
 	ofs << "# daphne.goodall.com:/home/devo/public_html/fw/scripts/inetd-ne"
-		   "tstat-redirect.sh 2025-02-17 #" << std::endl;
+		"tstat-redirect.sh 2025-02-17 #" << std::endl;
 	ofs << "# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved."
-		   "                             #"	<< std::endl;
-	ofs	<< "###############################################################"
-		   "##############################"	<< std::endl;
+		"                             #" << std::endl;
+	ofs << "###############################################################"
+		"##############################" << std::endl;
 	ofs << "ip addr show "
 		<< m_szIface
 		<< " > /home/devo/public_html/fw/tmp/ip.stdout" << std::endl;
 
 	ofs.close();
 	system(("chmod +x /home/"
-					+ ssUser
-					+ "/public_html/fw/scripts/inetd-ip-redirect.sh").c_str());
+		+ ssUser
+		+ "/public_html/fw/scripts/inetd-ip-redirect.sh").c_str());
 	gpXinetd->trigger(VPA_IP_PORT);
 	sleep(1);
 	// Open the read for input
-	FILE *ipfd = fopen(("/home/"
-								+ ssUser
-								+ "/public_html/fw/tmp/ip.stdout").c_str(),
-								"r");
+	FILE* ipfd = fopen(("/home/"
+		                   + ssUser
+		                   + "/public_html/fw/tmp/ip.stdout").c_str(),
+	                   "r");
 	// define a buffer to hold our interface
 	// name with a postpended colon.
 	char szIfaceColon[BUFSIZ];
@@ -738,41 +773,42 @@ std::string environment::get_ip(bool bDebug)
 	std::string ssBuffer = szBuffer;
 
 	// while waiting to see the string with our interface in it...
-	while (std::string::npos == ssBuffer.find(ssIfaceColon)) {
-
+	while (std::string::npos == ssBuffer.find(ssIfaceColon))
+	{
 		// get another line
 		fgets(szBuffer, sizeof(szBuffer), ipfd);
 		gpSysLog->loginfo(szBuffer);
 
 		// convert to a std::string
 		ssBuffer = szBuffer;
-
 	} // rinse and repeat...
 
 	// scan for the line with the inet address in it
-    fgets(szBuffer, sizeof(szBuffer), ipfd);
-    while (0 != strncmp("inet", &szBuffer[4], 4)) {
-        fgets(szBuffer, sizeof(szBuffer), ipfd);
-    }
+	fgets(szBuffer, sizeof(szBuffer), ipfd);
+	while (0 != strncmp("inet", &szBuffer[4], 4))
+	{
+		fgets(szBuffer, sizeof(szBuffer), ipfd);
+	}
 
 	// clear the result string to all zeroes
-    memset(m_szIP, 0, sizeof(m_szIP));
+	memset(m_szIP, 0, sizeof(m_szIP));
 
-	int index = 9;			// offset of IP address in line (fixed)
-    int destindex = 0;		// starting offset in the destn string
+	int index = 9; // offset of IP address in line (fixed)
+	int destindex = 0; // starting offset in the destn string
 
 	// copy until we find a slash
-	while (szBuffer[index] != '/') {
-        m_szIP[destindex++] = szBuffer[index++];
-    }
+	while (szBuffer[index] != '/')
+	{
+		m_szIP[destindex++] = szBuffer[index++];
+	}
 
-    strncpy(gpSh->m_pShMemng->szIP, m_szIP, DNS_FQDN_SIZE_MAX);
+	strncpy(gpSh->m_pShMemng->szIP, m_szIP, DNS_FQDN_SIZE_MAX);
 
 	// convert the zero terminated IP to std::string
-    std::string ssRetVal = gpSh->m_pShMemng->szIP;
+	std::string ssRetVal = gpSh->m_pShMemng->szIP;
 	gpSysLog->loginfo(m_szIP);
 	// return the std::string  version of the IP number
-    return ssRetVal;
+	return ssRetVal;
 }
 
 
@@ -786,11 +822,11 @@ std::string environment::get_ip(bool bDebug)
  * @param pszErrMsg The error message to be formatted and displayed.
  * @param iLineNumber The line number where the error occurred.
  */
-void local_process_error(const char *pszErrMsg,int iLineNumber )
+void local_process_error(const char* pszErrMsg, int iLineNumber)
 {
 	char szTemp[128];
-	sprintf(szTemp,"%s in %s::%s line #%d",
-		pszErrMsg,__FILE__,"main()",iLineNumber);
+	sprintf(szTemp, "%s in %s::%s line #%d",
+	        pszErrMsg,__FILE__, "main()", iLineNumber);
 	std::cout << szTemp << std::endl;
 }
 
@@ -809,67 +845,80 @@ void local_process_error(const char *pszErrMsg,int iLineNumber )
  * @param bDebug Indicates whether debug mode is enabled, which could
  * influence internal operations.
  */
-void environment::set_protocol(bool bDebug) {
+void environment::set_protocol(bool bDebug)
+{
 	gpXinetd->trigger(VPA_HTTPS_PORT);
 	sleep(1);
 
-	std::string ssHttpsFQFS = gpOS->genTempFQFS("https.stdout",false);
-	FILE * fpHttps = fopen(ssHttpsFQFS.c_str(), "r");
-	if(nullptr == fpHttps) {
+	std::string ssHttpsFQFS = gpOS->genTempFQFS("https.stdout", false);
+	FILE* fpHttps = fopen(ssHttpsFQFS.c_str(), "r");
+	if (nullptr == fpHttps)
+	{
 		local_process_error("fopen failed",__LINE__);
-		exit( EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 
-	int iFseekRetcode =	fseek(fpHttps,0,SEEK_END);
-	if (-1 == iFseekRetcode) {
+	int iFseekRetcode = fseek(fpHttps, 0,SEEK_END);
+	if (-1 == iFseekRetcode)
+	{
 		char szFseek[80];
-		sprintf(szFseek,"fseek failed (errno=%d)",errno);
-		local_process_error(szFseek,__LINE__-5);
-		exit( EXIT_FAILURE);
+		sprintf(szFseek, "fseek failed (errno=%d)",errno);
+		local_process_error(szFseek,__LINE__ - 5);
+		exit(EXIT_FAILURE);
 	}
 
 	long l_fSize = ftell(fpHttps);
-	if (-1 == l_fSize) {
+	if (-1 == l_fSize)
+	{
 		char szFtell[80];
-		sprintf(szFtell,"ftell failed (errno=%d)",errno);
-		local_process_error(szFtell,__LINE__-3);
-		exit( EXIT_FAILURE);
+		sprintf(szFtell, "ftell failed (errno=%d)",errno);
+		local_process_error(szFtell,__LINE__ - 3);
+		exit(EXIT_FAILURE);
 	}
 
-	if (0l != l_fSize) {
-		strcpy(gpSh->m_pShMemng->szProtocol,"https://");
-	} else {
+	if (0l != l_fSize)
+	{
+		strcpy(gpSh->m_pShMemng->szProtocol, "https://");
+	}
+	else
+	{
 		gpXinetd->trigger(VPA_HTTP_PORT);
 		sleep(1);
 
-		std::string ssHttpsFQFS = gpOS->genTempFQFS("http.stdout",false);
-		FILE * fpHttp = fopen(ssHttpsFQFS.c_str(), "r");
-		if(nullptr == fpHttp) {
+		std::string ssHttpsFQFS = gpOS->genTempFQFS("http.stdout", false);
+		FILE* fpHttp = fopen(ssHttpsFQFS.c_str(), "r");
+		if (nullptr == fpHttp)
+		{
 			local_process_error("fopen failed",__LINE__);
-			exit( EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 
-		int iFseekRetcode =	fseek(fpHttp,0,SEEK_END);
-		if (-1 == iFseekRetcode) {
+		int iFseekRetcode = fseek(fpHttp, 0,SEEK_END);
+		if (-1 == iFseekRetcode)
+		{
 			char szFseek[80];
-			sprintf(szFseek,"fseek failed (errno=%d)",errno);
-			local_process_error(szFseek,__LINE__-5);
-			exit( EXIT_FAILURE);
+			sprintf(szFseek, "fseek failed (errno=%d)",errno);
+			local_process_error(szFseek,__LINE__ - 5);
+			exit(EXIT_FAILURE);
 		}
 
 		long l_fSize = ftell(fpHttp);
-		if (-1 == l_fSize) {
+		if (-1 == l_fSize)
+		{
 			char szFtell[80];
-			sprintf(szFtell,"ftell failed (errno=%d)",errno);
-			local_process_error(szFtell,__LINE__-3);
-			exit( EXIT_FAILURE);
+			sprintf(szFtell, "ftell failed (errno=%d)",errno);
+			local_process_error(szFtell,__LINE__ - 3);
+			exit(EXIT_FAILURE);
 		}
 
-		if (0l != l_fSize) {
-			strcpy(gpSh->m_pShMemng->szProtocol,"http://");
-		} else {
+		if (0l != l_fSize)
+		{
+			strcpy(gpSh->m_pShMemng->szProtocol, "http://");
+		}
+		else
+		{
 			local_process_error("Unable to determine protocol",__LINE__);
-			exit( EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 	}
 }
@@ -880,8 +929,9 @@ void environment::set_protocol(bool bDebug) {
  *
  * @return A constant character pointer representing the log name.
  */
-char *environment::get_szLogname() {
-    return m_szLogname;
+char* environment::get_szLogname()
+{
+	return m_szLogname;
 }
 
 /**
@@ -894,8 +944,9 @@ char *environment::get_szLogname() {
  *
  * @return A string representing the system-specific log name.
  */
-std::string environment::get_ssLogname() {
-    return m_ssLogname;
+std::string environment::get_ssLogname()
+{
+	return m_ssLogname;
 }
 
 /**
@@ -907,8 +958,9 @@ std::string environment::get_ssLogname() {
  *
  * @return A string representing the name of the current script.
  */
-char *environment::get_scriptname() {
-    return m_pszScriptName;
+char* environment::get_scriptname()
+{
+	return m_pszScriptName;
 }
 
 
@@ -921,8 +973,9 @@ char *environment::get_scriptname() {
  *
  * @return True if the cURL library is available; otherwise, false.
  */
-bool environment::is_curl_present() {
-    return m_bCurlPresent;
+bool environment::is_curl_present()
+{
+	return m_bCurlPresent;
 }
 
 
@@ -934,13 +987,17 @@ bool environment::is_curl_present() {
  *
  * @return True if the netstat utility is found, otherwise false.
  */
-bool environment::is_netstat_present() {
-    std::string ssFQFS = "/usr/bin/netstat";
-    if(0 == access(ssFQFS.c_str(),F_OK)) {
-        return true;
-    } else {
-        return false;
-    };
+bool environment::is_netstat_present()
+{
+	std::string ssFQFS = "/usr/bin/netstat";
+	if (0 == access(ssFQFS.c_str(),F_OK))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	};
 }
 
 

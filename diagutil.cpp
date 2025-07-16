@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/diagutil.cpp 2025-07-15 18:16 dwg -             //
+// ~/public_html/fw/diagutil.cpp 2025-07-15 18:16 dwg -           //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
@@ -20,10 +20,11 @@
  *
  * @return `EXIT_SUCCESS` when the program terminates successfully.
  */
-int main() {
+int main()
+{
     gpSysLog = new CSysLog();
     here;
-    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+    mwfw2* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
     here;
 
     std::cout << "Content-type:\ttext/html\n\n" << std::endl;
@@ -31,7 +32,7 @@ int main() {
     // int iHandle    =
     //    atoi(gpCgiBind->get_form_variable("handle").c_str());
 
-    gpTest = new test(true,pMwFw->isCGI());
+    gpTest = new test(true, pMwFw->isCGI());
     //gpSchema = new schema("login.csv");
     //gpSchema->gen_from_schema(iHandle);
 

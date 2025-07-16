@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/prefs.cpp 2025-07-15 18:16 dwg -              //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #define WIN32_LEAN_AND_MEAN  /* required by xmlrpc-c/server_abyss.hpp */
 

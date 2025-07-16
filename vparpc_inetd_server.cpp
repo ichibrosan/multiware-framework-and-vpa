@@ -1,8 +1,8 @@
-////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/vparpc_inetd_server.cpp 2025-07-15 18:16 dwg -             //
-// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
-// This file is part of MultiWare Engineering's VPA and FrameWork //
-////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/vparpc_inetd_server.cpp 2025-07-15 18:16 dwg - //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.   //
+// This file is part of MultiWare Engineering's VPA and FrameWork  //
+/////////////////////////////////////////////////////////////////////
 
 /**
  * @file vparpc_inetd_server.cpp

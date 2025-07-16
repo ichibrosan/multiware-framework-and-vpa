@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/CLog.cpp 2025-07-15 18:16 dwg -             //
+// ~/public_html/fw/CLog.cpp 2025-07-15 18:16 dwg -               //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
@@ -14,22 +14,25 @@
  * 2025/01/07 04:13 dwg - elegant solution
  ************************************************************************/
 CLog::CLog(
-        const char *pszFile,
-        const char *pszFunction) {
-
+    const char* pszFile,
+    const char* pszFunction)
+{
     assert(nullptr != pszFile);
     assert(nullptr != pszFunction);
 
     strcpy(m_szFQFS,
-           gpOS->genLogFQFS(pszFile, pszFunction,false));
+           gpOS->genLogFQFS(pszFile, pszFunction, false));
     write("CLog::CLog() called");
 
     /*
      * Make sure the log file got created if necessary
      */
-    if(0 == access(m_szFQFS,F_OK)) {
+    if (0 == access(m_szFQFS,F_OK))
+    {
         //std::cout << "log entry was written" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "log entry was not written" << std::endl;
     }
 }
@@ -41,8 +44,8 @@ CLog::CLog(
  * @param szDest A pointer to a string into which is placed
  * a time/date stamp
  ************************************************************/
-void CLog::getTimeDateStamp(char *pszDest) {
-
+void CLog::getTimeDateStamp(char* pszDest)
+{
     // Make sure we weren't pass a bugus buffer pointer
     assert(nullptr != pszDest);
 
@@ -51,9 +54,9 @@ void CLog::getTimeDateStamp(char *pszDest) {
     char szTime[FILENAME_MAX];
 
     auto now =
-            std::chrono::system_clock::now();
+        std::chrono::system_clock::now();
     std::time_t timeNow =
-            std::chrono::system_clock::to_time_t(now);
+        std::chrono::system_clock::to_time_t(now);
     strcpy(szTime, std::ctime(&timeNow));
 
     // remove the training newline
@@ -68,7 +71,7 @@ void CLog::getTimeDateStamp(char *pszDest) {
     szComposite[4] = '-';
 
     char szMon[FILENAME_MAX];
-    memset(szMon,0,sizeof(szMon));
+    memset(szMon, 0, sizeof(szMon));
 
     // Extract month from the time string as "mmm"
     szMon[0] = szTime[4];
@@ -91,14 +94,14 @@ void CLog::getTimeDateStamp(char *pszDest) {
     if (strcmp("Dec", szMon) == 0) { strcat(szComposite, "12-"); }
 
     // Turn leading space into zero
-    if (' ' == szComposite[5])     { szComposite[5] = '0';       }
+    if (' ' == szComposite[5]) { szComposite[5] = '0'; }
 
     szComposite[8] = szTime[8];
     szComposite[9] = szTime[9];
     szComposite[10] = '_';
 
     // Turn leading spaces into zeroes
-    if (' ' == szComposite[8])     { szComposite[8] = '0';       }
+    if (' ' == szComposite[8]) { szComposite[8] = '0'; }
 
     // Copy the time into the timestamp
     strncpy(&szComposite[11], &szTime[11], 8);
@@ -112,21 +115,25 @@ void CLog::getTimeDateStamp(char *pszDest) {
  * Truncate logfile or create if necessary
  * @return [ RETURN_SUCCESS | RETURN_FAILURE ]
  *********************************************/
-int CLog::truncate() {
-
+int CLog::truncate()
+{
     // Assure wee have a valid log filename saved.
     assert(0 != strlen(m_szFQFS));
 
-    FILE *fd = fopen(m_szFQFS, "w");
-    if (nullptr == fd) {
+    FILE* fd = fopen(m_szFQFS, "w");
+    if (nullptr == fd)
+    {
         printf("CLog::write(open %s failed at line %d)",
                m_szFQFS,__LINE__);
         return RETURN_FAILURE;
-    } else {
+    }
+    else
+    {
         int int_truncate_retcode =
-                fprintf(fd, "\n--------------------------------"
-                              "--------------------------------\n");
-        if(0 == int_truncate_retcode) {
+            fprintf(fd, "\n--------------------------------"
+                    "--------------------------------\n");
+        if (0 == int_truncate_retcode)
+        {
             printf("fprintf failed at line %d\n",__LINE__);
         }
 
@@ -136,14 +143,13 @@ int CLog::truncate() {
 }
 
 
-
 /***************************************************
  * Write a message to the log with a time/date stamp
  * @param szMessage
  * @return
  ***************************************************/
-int CLog::write(const char *szMessage) {
-
+int CLog::write(const char* szMessage)
+{
     // Assure we weren't passed a bugus msg pointer
     assert(nullptr != szMessage);
 
@@ -153,21 +159,24 @@ int CLog::write(const char *szMessage) {
     char szTime[FILENAME_MAX];
     getTimeDateStamp(szTime);
 
-    FILE *fd = fopen(m_szFQFS, "a");
-    if (nullptr == fd) {
+    FILE* fd = fopen(m_szFQFS, "a");
+    if (nullptr == fd)
+    {
         printf("CLog::write(open %s failed at line %d)",
                m_szFQFS,__LINE__);
         return RETURN_FAILURE;
     }
 
     int count = fprintf(fd, "%s %s\n", szTime, szMessage);
-    if(count == 0) {
+    if (count == 0)
+    {
         printf("fprintf failed at line %d\n",__LINE__);
         return RETURN_FAILURE;
     }
 
     int iCloseRetcode = fclose(fd);
-    if(0 != iCloseRetcode) {
+    if (0 != iCloseRetcode)
+    {
         printf("%d = fclose failed at line %d\n",
                iCloseRetcode,__LINE__);
         printf("errno was %d\n",errno);
@@ -181,28 +190,31 @@ int CLog::write(const char *szMessage) {
  * @param szMessage
  * @return
  *********************************************************************/
-int CLog::writesanstime(const char *szMessage) {
-
+int CLog::writesanstime(const char* szMessage)
+{
     // Assure we weren't pass a bugus msg pointer
     assert(nullptr != szMessage);
 
     /// Assure we don't have an empty log filename string
     assert(0 != strlen(m_szFQFS));
 
-    FILE *fd = fopen(m_szFQFS, "a");
-    if (nullptr == fd) {
+    FILE* fd = fopen(m_szFQFS, "a");
+    if (nullptr == fd)
+    {
         printf("CLog::write(open %s failed at line %d)",
                m_szFQFS,__LINE__);
         return RETURN_FAILURE;
     }
 
     int count = fprintf(fd, "%s", szMessage);
-    if (count == 0) {
+    if (count == 0)
+    {
         return RETURN_FAILURE;
     }
 
     int closeRetcode = fclose(fd);
-    if (0 != closeRetcode) {
+    if (0 != closeRetcode)
+    {
         printf("fclose failed at line %d\n",__LINE__);
         return RETURN_FAILURE;
     }
@@ -217,8 +229,8 @@ int CLog::writesanstime(const char *szMessage) {
  * @param ...
  * @return
  *********************************************/
-int CLog::writev(const char *pszFormat, ...) {
-
+int CLog::writev(const char* pszFormat, ...)
+{
     // Assure we weren't pass a bogus format string
     assert(nullptr != pszFormat);
 
@@ -237,12 +249,13 @@ int CLog::writev(const char *pszFormat, ...) {
 
     char szFinal[FILENAME_MAX];
     va_list args;
-    va_start (args, pszFormat);
+    va_start(args, pszFormat);
     vsprintf(szFinal, szFormat, args);
-    va_end (args);
+    va_end(args);
 
-    FILE *fd = fopen(m_szFQFS, "a");
-    if (nullptr == fd) {
+    FILE* fd = fopen(m_szFQFS, "a");
+    if (nullptr == fd)
+    {
         printf("fopen failed during call to "
                "writev opening %s for append\n",
                m_szFQFS);
@@ -250,12 +263,14 @@ int CLog::writev(const char *pszFormat, ...) {
         return RETURN_FAILURE;
     }
     int count = fprintf(fd, "%s\n", szFinal);
-    if (count == 0) {
+    if (count == 0)
+    {
         printf("fprintf failed at line %d\n",__LINE__);
         return RETURN_FAILURE;
     }
     int closeRetcode = fclose(fd);
-    if (0 != closeRetcode) {
+    if (0 != closeRetcode)
+    {
         printf("fclose failed\n");
         return RETURN_FAILURE;
     }
@@ -269,26 +284,30 @@ int CLog::writev(const char *pszFormat, ...) {
  * @param value
  * @return
  */
-int CLog::namedString(const char *szName, const char *value) {
+int CLog::namedString(const char* szName, const char* value)
+{
     char szMessage[BUFSIZ];
 
     sprintf(szMessage, "%s %s", szName, value);
     char szTime[FILENAME_MAX];
     getTimeDateStamp(szTime);
 
-    FILE *fd = fopen(m_szFQFS, "a");
-    if (nullptr == fd) {
+    FILE* fd = fopen(m_szFQFS, "a");
+    if (nullptr == fd)
+    {
         printf("CLog::write(open %s failed at line %d)",
                m_szFQFS,__LINE__);
         return RETURN_FAILURE;
     }
 
     int count = fprintf(fd, "%s %s\n", szTime, szMessage);
-    if (count == 0) {
+    if (count == 0)
+    {
         return RETURN_FAILURE;
     }
     int closeRetcode = fclose(fd);
-    if (0 != closeRetcode) {
+    if (0 != closeRetcode)
+    {
         printf("fclose failed\n");
         return RETURN_FAILURE;
     }
@@ -302,34 +321,40 @@ int CLog::namedString(const char *szName, const char *value) {
  * @param szName
  * @return
  *****************************************************/
-int CLog::namedBool(const char *pszName, bool bBool) {
-
+int CLog::namedBool(const char* pszName, bool bBool)
+{
     assert(nullptr != pszName);
 
     char szMessage[FILENAME_MAX];
 
-    if (bBool) {
+    if (bBool)
+    {
         sprintf(szMessage, "%s true", pszName);
-    } else {
+    }
+    else
+    {
         sprintf(szMessage, "%s false", pszName);
     }
 
     char szTime[FILENAME_MAX];
     getTimeDateStamp(szTime);
 
-    FILE *fd = fopen(m_szFQFS, "a");
-    if (nullptr == fd) {
+    FILE* fd = fopen(m_szFQFS, "a");
+    if (nullptr == fd)
+    {
         printf("CLog::write(open %s failed at line %d)",
                m_szFQFS,__LINE__);
         return RETURN_FAILURE;
     }
 
     int count = fprintf(fd, "%s %s\n", szTime, szMessage);
-    if (count < 0) {
+    if (count < 0)
+    {
         return RETURN_FAILURE;
     }
     int closeRetcode = fclose(fd);
-    if (0 != closeRetcode) {
+    if (0 != closeRetcode)
+    {
         printf("fclose failed at line %d\n",__LINE__);
         return RETURN_FAILURE;
     }
@@ -344,8 +369,8 @@ int CLog::namedBool(const char *pszName, bool bBool) {
  * @param value
  * @return Returns RETURN_SUCCESS or RETURN_FAILURE
  *****************************************************/
-int CLog::namedDouble(const char *pszName, double value) {
-
+int CLog::namedDouble(const char* pszName, double value)
+{
     // Assure we didn't get passed a null variable name string
     assert(nullptr != pszName);
 
@@ -355,8 +380,9 @@ int CLog::namedDouble(const char *pszName, double value) {
     char szTime[FILENAME_MAX];
     getTimeDateStamp(szTime);
 
-    FILE *fd = fopen(m_szFQFS, "a");
-    if (nullptr == fd) {
+    FILE* fd = fopen(m_szFQFS, "a");
+    if (nullptr == fd)
+    {
         printf("CLog::write(open %s failed at line %d)",
                m_szFQFS,__LINE__);
         return RETURN_FAILURE;
@@ -364,11 +390,13 @@ int CLog::namedDouble(const char *pszName, double value) {
 
     int count = fprintf(fd, "%s %s\n", szTime, szMessage);
     assert(0 != count);
-    if (0 == count) {
+    if (0 == count)
+    {
         return RETURN_FAILURE;
     }
     int closeRetcode = fclose(fd);
-    if (0 != closeRetcode) {
+    if (0 != closeRetcode)
+    {
         printf("fclose failed\n");
         return RETURN_FAILURE;
     }
@@ -383,7 +411,8 @@ int CLog::namedDouble(const char *pszName, double value) {
  * @param value
  * @return
  ***************************************************/
-int CLog::namedInt(const char *szName, int value) {
+int CLog::namedInt(const char* szName, int value)
+{
     assert(nullptr != szName);
     assert(0 != strlen(m_szFQFS));
 
@@ -393,19 +422,22 @@ int CLog::namedInt(const char *szName, int value) {
     char szTime[FILENAME_MAX];
     getTimeDateStamp(szTime);
 
-    FILE *fd = fopen(m_szFQFS, "a");
-    if (nullptr == fd) {
+    FILE* fd = fopen(m_szFQFS, "a");
+    if (nullptr == fd)
+    {
         printf("CLog::write(open %s failed at line %d)",
                m_szFQFS,__LINE__);
         return RETURN_FAILURE;
     }
 
     int count = fprintf(fd, "%s %s\n", szTime, szMessage);
-    if (count < 0) {
+    if (count < 0)
+    {
         return RETURN_FAILURE;
     }
     int closeRetcode = fclose(fd);
-    if (0 != closeRetcode) {
+    if (0 != closeRetcode)
+    {
         printf("fclose failed at line %d\n",__LINE__);
         return RETURN_FAILURE;
     }
