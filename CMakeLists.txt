@@ -134,6 +134,15 @@ target_link_libraries(vparpc_server mwfw2 pthread cgicc uuid)
 add_executable(vparpc_inetd_server vparpc_inetd_server.cpp)
 target_link_libraries(vparpc_inetd_server mwfw2 uuid cgicc)
 
+add_executable(vpautil vpautil.cpp
+        CServices.cpp include/CServices.h
+        include/xinetdcfg.h
+        xinetdcfg.cpp
+        cliLogin.cpp include/cliLogin.h
+)
+target_link_libraries(vpautil mwfw2 cgicc pthread uuid)
+
+
 ###############
 # end-of-file #
 ###############
