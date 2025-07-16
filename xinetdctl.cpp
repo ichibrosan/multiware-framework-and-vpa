@@ -1,7 +1,3 @@
-/////////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/devo/public_html/fw/xinetctl.cpp 2025/01/10    //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.      //
-/////////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 #include "xinetdctl.h"
@@ -11,7 +7,8 @@
  *
  * This constructor initializes an object of the xinetdctl class.
  */
-xinetdctl::xinetdctl() {
+xinetdctl::xinetdctl()
+{
 }
 
 /**
@@ -35,24 +32,25 @@ xinetdctl::xinetdctl() {
  * @note The function terminates the program on error by calling exit with an
  *       appropriate error code.
  */
-void xinetdctl::trigger(int iPort) {
+void xinetdctl::trigger(int iPort)
+{
     char szInfo[1024];
-    sprintf(szInfo,"xinetdctl::trigger(%d)",iPort);
+    sprintf(szInfo, "xinetdctl::trigger(%d)", iPort);
     gpSysLog->loginfo(szInfo);
 
 
     gbHere = false;
     here;
-  #define USE_STREAM_SOCKET
-//#define USE_DGRAM_SOCKET
+#define USE_STREAM_SOCKET
+    //#define USE_DGRAM_SOCKET
 
     // The attempt to use the DGRAM  to start the vpad didn't work
 
-    unsigned short port;            /* port client will connect to         */
-    char buf[BUFSIZ];               /* data buffer for sending & receiving */
-    struct hostent *hostnm;         /* server host name information        */
-    struct sockaddr_in server;      /* server address                      */
-    int s;                          /* client socket                       */
+    unsigned short port; /* port client will connect to         */
+    char buf[BUFSIZ]; /* data buffer for sending & receiving */
+    struct hostent* hostnm; /* server host name information        */
+    struct sockaddr_in server; /* server address                      */
+    int s; /* client socket                       */
     socklen_t server_address_length = sizeof(server);
     here;
     hostnm = gethostbyname("localhost");
@@ -61,7 +59,7 @@ void xinetdctl::trigger(int iPort) {
      * Put the server information into the server structure.
      * The port must be put into network byte order.
      */
-    server.sin_family = AF_INET;    /* Address Family: Internet           */
+    server.sin_family = AF_INET; /* Address Family: Internet           */
     here;
     /*
      * Convert the port number from host to network byte order
@@ -71,14 +69,15 @@ void xinetdctl::trigger(int iPort) {
     /*
      * Set the IP address of the target
      */
-    server.sin_addr.s_addr = *((unsigned long *) hostnm->h_addr);
+    server.sin_addr.s_addr = *((unsigned long*)hostnm->h_addr);
     here;
     /*
      * Get a socket.
      */
     if ((s = socket(AF_INET,
                     SOCK_STREAM
-                    , 0)) < 0) {
+                    , 0)) < 0)
+    {
         here;
         printf("%s", "socket error");
         here;
@@ -89,9 +88,10 @@ void xinetdctl::trigger(int iPort) {
     /*
      * Connect to the server.
      */
-    if (connect(s, (struct sockaddr *) &server, sizeof(server)) < 0) {
+    if (connect(s, (struct sockaddr*)&server, sizeof(server)) < 0)
+    {
         printf("%s::%s#%d %s",
-            __FILE__,__FUNCTION__,__LINE__,"connect error");
+               __FILE__, __FUNCTION__,__LINE__, "connect error");
         here;
         gbHere = false;
         exit(4);

@@ -1,7 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/devo/public_html/fw/shared.cpp 2025/01/10   //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.   //
-//////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 
@@ -26,7 +22,7 @@
  * Note: Ensure that `gpLog` is properly initialized before use and deleted
  * to release allocated resources.
  */
-extern CLog *gpLog;
+extern CLog* gpLog;
 
 /**
  * @brief Checks if a resource is shared among multiple entities or threads.
@@ -37,7 +33,8 @@ extern CLog *gpLog;
  *
  * @return True if the resource is shared; false otherwise.
  */
-shared::shared() {
+shared::shared()
+{
     m_pSysLog = new CSysLog();
 
     bool bJustCreated = false;
@@ -53,18 +50,21 @@ shared::shared() {
     int shmflg = OBJ_PERMS;
 
     m_smsi = shmget(key, size, shmflg);
-    if (-1 == m_smsi) {
+    if (-1 == m_smsi)
+    {
         //decode_shmget_errno(errno);
-        if (ENOENT == errno) {
+        if (ENOENT == errno)
+        {
             // ENOENT means no segment exists and create not specified
             shmflg = IPC_CREAT | OBJ_PERMS;
 
             // Create the memory segment and save the identifier
             m_smsi = shmget(key, size, shmflg);
-            if (-1 == m_smsi) {
+            if (-1 == m_smsi)
+            {
                 decode_shmget_errno(errno);
                 std::cout << "ERROR: unable to open shared segment"
-                          << std::endl;
+                    << std::endl;
             }
             bJustCreated = true;
         }
@@ -73,14 +73,16 @@ shared::shared() {
     // Prepare to attach shared segment using shmat
     shmflg = 0;
     // Establish addressability to shared segment
-    m_pShMemng = (MFW_SHMEMNG_T *) shmat(m_smsi, nullptr, shmflg);
+    m_pShMemng = (MFW_SHMEMNG_T*)shmat(m_smsi, nullptr, shmflg);
 
-    if ((void *) -1 == m_pShMemng) {
+    if ((void*)-1 == m_pShMemng)
+    {
         printf("Error calling shmat\n");
         decode_shmat_errno(errno);
     }
 
-    if (bJustCreated) {
+    if (bJustCreated)
+    {
         m_pShMemng->iSignature = UNIVERSAL_ANSWER;
         //strcpy(m_pShMemng->szStatus, "Initial Status OK");
         m_pShMemng->stShMemSize = size;
@@ -126,10 +128,10 @@ shared::shared() {
          * RpcUuid is set to authenticate RPC calls
          */
         uuid_t uuid;
-        char szUUID[37 ];
+        char szUUID[37];
         uuid_generate(uuid);
-        uuid_unparse(uuid,szUUID);
-        strcpy(m_pShMemng->szRpcUuid,szUUID);
+        uuid_unparse(uuid, szUUID);
+        strcpy(m_pShMemng->szRpcUuid, szUUID);
 
         //********************************************************************
         // Initialize shared credential data after creation 2025/01/24 dwg - *
@@ -143,7 +145,6 @@ shared::shared() {
         m_pShMemng->bDisplayEnvVars = false;
         m_pShMemng->bDisplayShmVars = false;
     }
-
 }
 
 /**
@@ -158,7 +159,8 @@ shared::shared() {
  * @param sizeparm The size of the shared memory segment in bytes.
  * @return A void pointer to the attached shared memory segment.
  */
-void * shared::mkshared(key_t keyparm,size_t sizeparm) {
+void* shared::mkshared(key_t keyparm, size_t sizeparm)
+{
     bool bJustCreated = false;
 
     // Set key to hex version of my VPA port number (recognizable)
@@ -170,15 +172,18 @@ void * shared::mkshared(key_t keyparm,size_t sizeparm) {
     int shmflg = OBJ_PERMS;
     m_smsi = shmget(key, size, shmflg);
     // Test to see if we open the segment successfully
-    if (-1 == m_smsi) {
+    if (-1 == m_smsi)
+    {
         //decode_shmget_errno(errno);
-        if (ENOENT == errno) {
+        if (ENOENT == errno)
+        {
             // ENOENT means no segment exists and create not specified
             shmflg = IPC_CREAT | OBJ_PERMS;
 
             // Create the memory segment and save the identifier
             m_smsi = shmget(key, size, shmflg);
-            if (-1 == m_smsi) {
+            if (-1 == m_smsi)
+            {
                 decode_shmget_errno(errno);
                 m_pSysLog->loginfo("ERROR: unable to open shared segment");
             }
@@ -191,7 +196,6 @@ void * shared::mkshared(key_t keyparm,size_t sizeparm) {
 
     // Establish addressability to shared segment
     return shmat(m_smsi, nullptr, shmflg);
-
 }
 
 
@@ -218,18 +222,28 @@ void * shared::mkshared(key_t keyparm,size_t sizeparm) {
 void shared::decode_shmget_errno(int shm_errno)
 {
     char szTemp[128];
-    switch (shm_errno) {
-        case EACCES: m_pSysLog->loginfo("errno was EACCESS");     break;
-        case EEXIST: m_pSysLog->loginfo("errno was EEXIST");      break;
-        case EINVAL: m_pSysLog->loginfo("errno was EINVALO");     break;
-        case ENFILE: m_pSysLog->loginfo("errno was ENFILE");      break;
-        case ENOENT: m_pSysLog->loginfo("errno was ENOENT");      break;
-        case ENOMEM: m_pSysLog->loginfo("errno was ENOMEM");      break;
-        case ENOSPC: m_pSysLog->loginfo("errno was ENOSPC");      break;
-        case EPERM:  m_pSysLog->loginfo("errno was EPERM");       break;
-        default:
-            sprintf(szTemp, "errno was %d", shm_errno);
-            m_pSysLog->loginfo(szTemp);                           break;
+    switch (shm_errno)
+    {
+    case EACCES: m_pSysLog->loginfo("errno was EACCESS");
+        break;
+    case EEXIST: m_pSysLog->loginfo("errno was EEXIST");
+        break;
+    case EINVAL: m_pSysLog->loginfo("errno was EINVALO");
+        break;
+    case ENFILE: m_pSysLog->loginfo("errno was ENFILE");
+        break;
+    case ENOENT: m_pSysLog->loginfo("errno was ENOENT");
+        break;
+    case ENOMEM: m_pSysLog->loginfo("errno was ENOMEM");
+        break;
+    case ENOSPC: m_pSysLog->loginfo("errno was ENOSPC");
+        break;
+    case EPERM: m_pSysLog->loginfo("errno was EPERM");
+        break;
+    default:
+        sprintf(szTemp, "errno was %d", shm_errno);
+        m_pSysLog->loginfo(szTemp);
+        break;
     }
 }
 
@@ -243,14 +257,20 @@ void shared::decode_shmget_errno(int shm_errno)
 void shared::decode_shmat_errno(int shm_errno)
 {
     char szTemp[128];
-    switch (shm_errno) {
-        case EACCES: m_pSysLog->loginfo("errno was EACCESS");   break;
-        case EIDRM:  m_pSysLog->loginfo("errno was EIDRM");     break;
-        case EEXIST: m_pSysLog->loginfo("errno was EEXIST");    break;
-        case EINVAL: m_pSysLog->loginfo("errno was EINVAL");    break;
-        default:
-            sprintf(szTemp,"errno was %d", errno);
-            m_pSysLog->loginfo(szTemp);                         break;
+    switch (shm_errno)
+    {
+    case EACCES: m_pSysLog->loginfo("errno was EACCESS");
+        break;
+    case EIDRM: m_pSysLog->loginfo("errno was EIDRM");
+        break;
+    case EEXIST: m_pSysLog->loginfo("errno was EEXIST");
+        break;
+    case EINVAL: m_pSysLog->loginfo("errno was EINVAL");
+        break;
+    default:
+        sprintf(szTemp, "errno was %d", errno);
+        m_pSysLog->loginfo(szTemp);
+        break;
     }
 }
 
@@ -259,7 +279,8 @@ void shared::decode_shmat_errno(int shm_errno)
  *
  * @return The shared memory segment identifier as an integer.
  */
-int shared::get_smsi() const {
+int shared::get_smsi() const
+{
     return m_smsi;
 }
 
@@ -272,7 +293,8 @@ int shared::get_smsi() const {
  * memory. This is done by calling `shmdt` with the shared memory pointer
  * `m_pShMemng`.
  */
-shared::~shared() {
+shared::~shared()
+{
     shmdt(m_pShMemng);
 }
 

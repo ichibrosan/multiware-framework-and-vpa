@@ -1,8 +1,8 @@
-////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/cgihtml.cpph 2025/02/19                  //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
-// This file is part of the Goodall MultiWare Framework Project.      //
-////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/cgihtml.cpp 2025-07-15 18:16 dwg -             //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 

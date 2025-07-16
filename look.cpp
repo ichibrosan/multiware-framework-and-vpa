@@ -1,7 +1,8 @@
-/////////////////////////////////////////////////////////////////////////
-// /home/doug/public_html/fw/look.cpp 2025/07/14                       //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
-/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/look.cpp 2025-07-15 18:16 dwg -             //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 #include "cliLogin.h"
@@ -282,13 +283,7 @@ void services_diag()
 {
     CServices services;
 
-    // // Get service information
-    // ServiceInfo httpService = services.getService("http", "tcp");
-    // if (!httpService.name.empty()) {
-    //     std::cout << "HTTP runs on port " << httpService.port << std::endl;
-    // }
-
-    // Check if a service exists
+     // Check if a service exists
     if (services.hasService("vpa"))
     {
         std::cout << "vpa service exists" << std::endl;

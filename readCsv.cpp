@@ -1,7 +1,3 @@
-///////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/devo/public_html/fw/readCsv.cpp 2025/01/10   //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.    //
-///////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 
@@ -13,26 +9,29 @@
  *                 Each line of the file is split into cells based on commas.
  * @return void, but the parsed CSV data is stored internally in a member variable.
  */
-readCsv::readCsv(std::string filename) {
+readCsv::readCsv(std::string filename)
+{
     gpSysLog->loginfo(__FUNCTION__);
     gpSysLog->loginfo(filename.c_str());
 
-    CLog log(__FILE__,__FUNCTION__);
-    log.writev("%s::%s(%s) called",__FILE__,__FUNCTION__,filename.c_str());
+    CLog log(__FILE__, __FUNCTION__);
+    log.writev("%s::%s(%s) called",__FILE__, __FUNCTION__, filename.c_str());
 
     gpLog->writev("%s: %s(\"%s\") called",
-                __FILE__,__FUNCTION__,filename.c_str());
+                  __FILE__, __FUNCTION__, filename.c_str());
 
-    std::string ssFQFS = gpOS->genSchemaFQFS(filename.c_str(),false);
+    std::string ssFQFS = gpOS->genSchemaFQFS(filename.c_str(), false);
     std::ifstream file(ssFQFS);
 
     std::string line;
-    while (std::getline(file, line)) {
+    while (std::getline(file, line))
+    {
         gpSysLog->loginfo(line.c_str());
         std::stringstream lineStream(line);
         std::string cell;
         std::vector<std::string> row;
-        while (std::getline(lineStream, cell, ',')) {
+        while (std::getline(lineStream, cell, ','))
+        {
             row.push_back(cell);
         }
         m_data.push_back(row);
@@ -59,13 +58,15 @@ void readCsv::parseData()
 
     gpSysLog->loginfo(__FUNCTION__);
 
-    CLog log(__FILE__,__FUNCTION__);
-    log.writev("%s::%s() called",__FILE__,__FUNCTION__);
+    CLog log(__FILE__, __FUNCTION__);
+    log.writev("%s::%s() called",__FILE__, __FUNCTION__);
 
-    m_iRow=0;
-    for (const auto& row: m_data) {
-        int colnum=0;
-        for(const auto& cell : row) {
+    m_iRow = 0;
+    for (const auto& row : m_data)
+    {
+        int colnum = 0;
+        for (const auto& cell : row)
+        {
             m_parsed_data[m_iRow][colnum++] = cell;
         }
         m_iRow++;
@@ -79,11 +80,11 @@ void readCsv::parseData()
  * @param col The column index of the data to retrieve.
  * @return The string located at the specified row and column in the CSV data.
  */
-std::string readCsv::getData(int row,int col)
+std::string readCsv::getData(int row, int col)
 {
     char szLogger[128];
-    sprintf(szLogger,"%s::%s(row=%d,col=%d,data=%s)",
-        __FILE__,__FUNCTION__,row,col,m_data[row][col].c_str());
+    sprintf(szLogger, "%s::%s(row=%d,col=%d,data=%s)",
+            __FILE__, __FUNCTION__, row, col, m_data[row][col].c_str());
     gpSysLog->loginfo(szLogger);
 
     return m_data[row][col];

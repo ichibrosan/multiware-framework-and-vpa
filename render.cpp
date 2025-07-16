@@ -1,7 +1,4 @@
-///////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/devo/public_html/fw/render.cpp 2025/01/17  //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.    //
-///////////////////////////////////////////////////////////////////////////
+
 #include "mwfw2.h"
 
 /**
@@ -16,8 +13,9 @@
  * @return An integer status code, where EXIT_SUCCESS indicates successful
  *         execution.
  */
-int main() {
-    mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+int main()
+{
+    mwfw2* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
 
     std::string ssSchema =
         gpCgiBind->get_form_variable("schema");
@@ -25,28 +23,30 @@ int main() {
     std::string ssUsername = gpCgiBind->get_form_variable("username");
     std::string ssPassword = gpCgiBind->get_form_variable("pwname");
 
-    gpSchema    = new schema(ssSchema);
+    gpSchema = new schema(ssSchema);
 
     std::string ssStyle =
         gpCgiBind->get_form_variable("style");
 
     std::vector<std::vector<std::string>> render_params =
     {
-        {"form_style",ssStyle},
+        {"form_style", ssStyle},
         {"loaded_text", ""}
     };
 
-    if (0 == strcmp("no", gpCgiBind->get_form_variable("dash").c_str())) {
-        gpSchema->gen_from_schema( handle,
-                                render_params);
-    } else {
+    if (0 == strcmp("no", gpCgiBind->get_form_variable("dash").c_str()))
+    {
         gpSchema->gen_from_schema(handle,
-                                 JOURNAL | LOGOUT,
-                                 __FILE__,
-                                ssUsername,
-                                ssPassword,
-                                render_params);
-
+                                  render_params);
+    }
+    else
+    {
+        gpSchema->gen_from_schema(handle,
+                                  JOURNAL | LOGOUT,
+                                  __FILE__,
+                                  ssUsername,
+                                  ssPassword,
+                                  render_params);
     }
 
     return EXIT_SUCCESS;

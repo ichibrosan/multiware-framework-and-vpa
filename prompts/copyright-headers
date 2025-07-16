@@ -1,0 +1,7 @@
+each .cpp file in the project needs to begin with a similarly formatted
+block comment containing the filename and the time and dat last updated.
+It should also contain my Copyright like in the following example:
+////////////////////////////////////////////////////////////////////
+// /home/doug/public_html/fw/filename.cpp 2025-07-15 17:30 dwg -  //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+////////////////////////////////////////////////////////////////////

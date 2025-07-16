@@ -1,7 +1,3 @@
-/////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/shMemMutex.cpp 2025/04/21                 //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
-/////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 
@@ -19,12 +15,14 @@
  * @return A new instance of SharedMemoryMutex with the semaphore initialized.
  *         Throws a `std::system_error` if semaphore initialization fails.
  */
-SharedMemoryMutex::SharedMemoryMutex(const char* name) {
+SharedMemoryMutex::SharedMemoryMutex(const char* name)
+{
     // Create or open a named semaphore
     mutex_ = sem_open(name, O_CREAT, 0644, 1);
-    if (mutex_ == SEM_FAILED) {
+    if (mutex_ == SEM_FAILED)
+    {
         throw std::system_error(errno, std::system_category(),
-            "sem_open failed");
+                                "sem_open failed");
     }
 }
 
@@ -37,8 +35,10 @@ SharedMemoryMutex::SharedMemoryMutex(const char* name) {
  * to release system resources. This ensures proper resource management and
  * avoids potential resource leaks.
  */
-SharedMemoryMutex::~SharedMemoryMutex() {
-    if (mutex_ != SEM_FAILED) {
+SharedMemoryMutex::~SharedMemoryMutex()
+{
+    if (mutex_ != SEM_FAILED)
+    {
         sem_close(mutex_);
     }
 }
@@ -58,10 +58,12 @@ SharedMemoryMutex::~SharedMemoryMutex() {
  * @throws std::system_error Thrown if the semaphore operation (`sem_wait`)
  * fails.
  */
-void SharedMemoryMutex::SharedMemoryMutex::lock() {
-    if (sem_wait(mutex_) != 0) {
+void SharedMemoryMutex::SharedMemoryMutex::lock()
+{
+    if (sem_wait(mutex_) != 0)
+    {
         throw std::system_error(errno, std::system_category(),
-            "sem_wait failed");
+                                "sem_wait failed");
     }
 }
 
@@ -77,9 +79,11 @@ void SharedMemoryMutex::SharedMemoryMutex::lock() {
  * @throws std::system_error if the semaphore operation (`sem_post`) fails,
  *         including the error code and a corresponding message.
  */
-void SharedMemoryMutex::unlock() {
-    if (sem_post(mutex_) != 0) {
+void SharedMemoryMutex::unlock()
+{
+    if (sem_post(mutex_) != 0)
+    {
         throw std::system_error(errno, std::system_category(),
-            "sem_post failed");
+                                "sem_post failed");
     }
 }

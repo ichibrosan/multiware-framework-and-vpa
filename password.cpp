@@ -1,6 +1,4 @@
-//
-// Created by doug on 1/16/25.
-//
+
 #include "mwfw2.h"
 
 /**
@@ -34,12 +32,12 @@ char gszUUID[37];
  */
 password::password()
 {
-    CLog log(__FILE__,__FUNCTION__);
+    CLog log(__FILE__, __FUNCTION__);
     gbHere = true;
     here;
     m_pSchema = new schema("passwd.csv");
-    m_iLines  = m_pSchema->getLines();
-    log.namedInt("m_iLines",m_iLines);
+    m_iLines = m_pSchema->getLines();
+    log.namedInt("m_iLines", m_iLines);
 }
 
 
@@ -51,7 +49,7 @@ password::password()
  * @return An integer indicating the authentication status.
  *         Returns -1 if authentication fails.
  */
-int lookup(std::string ssUserName,std::string ssPasssword)
+int lookup(std::string ssUserName, std::string ssPasssword)
 {
     return -1;
 }
@@ -74,10 +72,11 @@ int lookup(std::string ssUserName,std::string ssPasssword)
 void password::dump()
 {
     std::cout << "<table border=2><tr>";
-    for(int iCol=0;iCol<6;iCol++) {
+    for (int iCol = 0; iCol < 6; iCol++)
+    {
         std::cout << "<th>"
-                  << m_pSchema->m_pReadCsv->getData(ROW_META_HDR,iCol)
-                  << "</th>";
+            << m_pSchema->m_pReadCsv->getData(ROW_META_HDR, iCol)
+            << "</th>";
     }
     std::cout << "</tr>";
     std::cout << "</table>";
@@ -94,11 +93,11 @@ void password::dump()
 std::string password::get_uuid()
 {
     uuid_t uuid;
-    char szUUID[37 ];
+    char szUUID[37];
     uuid_generate(uuid);
-    uuid_unparse(uuid,szUUID);
+    uuid_unparse(uuid, szUUID);
     std::string gssUUID = szUUID;
-    strcpy(gszUUID,gssUUID.c_str());
+    strcpy(gszUUID, gssUUID.c_str());
     return gssUUID;
 }
 
@@ -112,8 +111,8 @@ std::string password::get_uuid()
  * @return The row index (iRow) of the authenticated user in the stored data
  * if authentication is successful, otherwise returns EXIT_FAILURE.
  */
-int password::lookup_username_password( std::string ssUsername,
-										std::string ssPassword)
+int password::lookup_username_password(std::string ssUsername,
+                                       std::string ssPassword)
 {
     gpSysLog->loginfo(__FUNCTION__);
 
@@ -121,32 +120,36 @@ int password::lookup_username_password( std::string ssUsername,
 
     int iLines = gpCsv->getLines();
     char szLogger[128];
-    sprintf(szLogger,"lookup_username_password: iLines is %d",iLines);
+    sprintf(szLogger, "lookup_username_password: iLines is %d", iLines);
     gpSysLog->loginfo(szLogger);
 
-    for(int iRow=3;iRow<iLines;iRow++) {
+    for (int iRow = 3; iRow < iLines; iRow++)
+    {
         if (0 == strcmp("true",
-                        gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str())) {
-            if( 0 == strcmp(
-                        ssUsername.c_str(),
-                        gpCsv->getData(iRow,COL_PASSWD_USERNAME).c_str())) {
-                if(0 == strcmp(
-                          ssPassword.c_str(),
-                          gpCsv->getData(iRow,COL_PASSWD_PASSWORD).c_str())) {
+                        gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str()))
+        {
+            if (0 == strcmp(
+                ssUsername.c_str(),
+                gpCsv->getData(iRow, COL_PASSWD_USERNAME).c_str()))
+            {
+                if (0 == strcmp(
+                    ssPassword.c_str(),
+                    gpCsv->getData(iRow, COL_PASSWD_PASSWORD).c_str()))
+                {
                     // username and password were found...
                     // fetch all passwd file values for this user
                     std::string ssActiveAcct =
-                      gpCsv->m_parsed_data[iRow][COL_PASSWD_ACTIVE];
+                        gpCsv->m_parsed_data[iRow][COL_PASSWD_ACTIVE];
                     std::string ssUserName =
-                      gpCsv->m_parsed_data[iRow][COL_PASSWD_USERNAME];
+                        gpCsv->m_parsed_data[iRow][COL_PASSWD_USERNAME];
                     std::string ssFirstName =
-                      gpCsv->m_parsed_data[iRow][COL_PASSWD_FIRSTNAME];
+                        gpCsv->m_parsed_data[iRow][COL_PASSWD_FIRSTNAME];
                     std::string ssLastName =
-                      gpCsv->m_parsed_data[iRow][COL_PASSWD_LASTNAME];
+                        gpCsv->m_parsed_data[iRow][COL_PASSWD_LASTNAME];
                     std::string ssAuthLevel =
-                      gpCsv->m_parsed_data[iRow][COL_PASSWD_AUTHLEVEL];
+                        gpCsv->m_parsed_data[iRow][COL_PASSWD_AUTHLEVEL];
                     std::string ssDescr =
-                      gpCsv->m_parsed_data[iRow][COL_PASSWD_DESCR];
+                        gpCsv->m_parsed_data[iRow][COL_PASSWD_DESCR];
 
                     strcpy(gpSh->m_pShMemng->creds[iRow].szHttpUserAgent,
                            gpCgi->getEnvironment().getUserAgent().c_str());
@@ -158,14 +161,14 @@ int password::lookup_username_password( std::string ssUsername,
                     strcpy(gpSh->m_pShMemng->creds[iRow].szAuthLastName,
                            ssLastName.c_str());
                     strcpy(gpSh->m_pShMemng->creds[iRow].szAuthLevel,
-                        ssAuthLevel.c_str());
+                           ssAuthLevel.c_str());
                     std::string ssUUID = get_uuid();
-                    strcpy(gpSh->m_pShMemng->creds[iRow].szAuthUUID,gszUUID);
+                    strcpy(gpSh->m_pShMemng->creds[iRow].szAuthUUID, gszUUID);
                     gpSh->m_pShMemng->creds[iRow].iAuthHandle = iRow;
                     return iRow;
-                               } // if password
-                            } // if(username
-                        } // if(active
+                } // if password
+            } // if(username
+        } // if(active
     } // for(iRow...
     return EXIT_FAILURE;
 }

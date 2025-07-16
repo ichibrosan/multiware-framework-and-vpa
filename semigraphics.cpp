@@ -1,7 +1,3 @@
-////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/semigraphics.cpp 2025/05/01 16:54 dwg -  //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
-////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 
@@ -14,14 +10,15 @@
  * can be used to set up any necessary data or state specific to
  * semigraphics operations.
  */
-semigraphics::semigraphics() {
-
+semigraphics::semigraphics()
+{
 }
 
-void semigraphics::cosmetics(std::string ssUL,std::string ssUR,
-                             std::string ssLL,std::string ssLR,
-                             std::string ssVSR,std::string ssVSL,
-                             std::string ssHL,std::string ssVL) {
+void semigraphics::cosmetics(std::string ssUL, std::string ssUR,
+                             std::string ssLL, std::string ssLR,
+                             std::string ssVSR, std::string ssVSL,
+                             std::string ssHL, std::string ssVL)
+{
     m_ssUL = ssUL;
     m_ssUR = ssUR;
     m_ssLL = ssLL;
@@ -49,20 +46,23 @@ void semigraphics::cosmetics(std::string ssUL,std::string ssUR,
  * @param width The overall width of the box, including the borders.
  * @param height The overall height of the box, excluding the height of the top and bottom borders.
  */
-void semigraphics::singlebox(int line, int col, int width, int height) {
-
+void semigraphics::singlebox(int line, int col, int width, int height)
+{
     // Top line of box
     std::cout << m_ssUL;
-    for (int iColdex = col; iColdex<width-2; iColdex++) {
+    for (int iColdex = col; iColdex < width - 2; iColdex++)
+    {
         std::cout << m_ssHL;
     }
     std::cout << m_ssUR;
     std::cout << std::endl;
 
     // Middle lines of box
-    for (int iLinedex = 0; iLinedex<height; iLinedex++) {
+    for (int iLinedex = 0; iLinedex < height; iLinedex++)
+    {
         std::cout << m_ssVL;
-        for (int iColdex = 0; iColdex<width-3; iColdex++) {
+        for (int iColdex = 0; iColdex < width - 3; iColdex++)
+        {
             std::cout << "\u0020";
         }
         std::cout << m_ssVL;
@@ -71,7 +71,8 @@ void semigraphics::singlebox(int line, int col, int width, int height) {
 
     // Bottom line of box
     std::cout << m_ssLL;
-    for (int iColdex = col; iColdex<width-2; iColdex++) {
+    for (int iColdex = col; iColdex < width - 2; iColdex++)
+    {
         std::cout << m_ssHL;
     }
     std::cout << m_ssLR;
@@ -92,10 +93,12 @@ void semigraphics::singlebox(int line, int col, int width, int height) {
  * @param width The total width of the box, including borders.
  * @param height The total height of the box. This parameter is currently not used in the function.
  */
-void semigraphics::topline(int line, int col, int width, int height) {
+void semigraphics::topline(int line, int col, int width, int height)
+{
     // Top line of box
     std::cout << m_ssUL;
-    for (int iColdex = col; iColdex<width-2; iColdex++) {
+    for (int iColdex = col; iColdex < width - 2; iColdex++)
+    {
         std::cout << m_ssHL;
     }
     std::cout << m_ssUR;
@@ -120,13 +123,16 @@ void semigraphics::topline(int line, int col, int width, int height) {
  */
 void semigraphics::middleline(int line, int col,
                               int width, int height,
-                              std::string ssText) {
+                              std::string ssText)
+{
     std::cout << m_ssVL;
     std::cout << ssText;
     int textlen = ssText.size();
-    if (textlen < width-3) {
-        int fillsize = width-3-textlen;
-        for (int i = 0; i<fillsize; i++) {
+    if (textlen < width - 3)
+    {
+        int fillsize = width - 3 - textlen;
+        for (int i = 0; i < fillsize; i++)
+        {
             std::cout << " ";
         }
     }
@@ -134,10 +140,11 @@ void semigraphics::middleline(int line, int col,
     std::cout << std::endl;
 }
 
-void semigraphics::vert_splitter(int line, int col, int width, int height) {
-
+void semigraphics::vert_splitter(int line, int col, int width, int height)
+{
     std::cout << m_ssVSR;
-    for (int iColdex = col; iColdex<width-2; iColdex++) {
+    for (int iColdex = col; iColdex < width - 2; iColdex++)
+    {
         std::cout << m_ssHL;
     }
     std::cout << m_ssVSL;
@@ -160,10 +167,11 @@ void semigraphics::vert_splitter(int line, int col, int width, int height) {
  * @note This function assumes that the output stream is directed to a console or terminal
  * that supports and properly renders Unicode characters such as "╰", "─", and "┘".
  */
-void semigraphics::endline(int line, int col, int width, int height) {
-
+void semigraphics::endline(int line, int col, int width, int height)
+{
     std::cout << m_ssLL;
-    for (int iColdex = col; iColdex<width-2; iColdex++) {
+    for (int iColdex = col; iColdex < width - 2; iColdex++)
+    {
         std::cout << m_ssHL;
     }
     std::cout << m_ssLR;

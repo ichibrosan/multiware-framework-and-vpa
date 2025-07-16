@@ -1,7 +1,3 @@
-/////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/shMemMgr.cpp 2025/04/21                   //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
-/////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 
@@ -18,8 +14,9 @@
  *             the shared memory.
  * @return A created instance of SharedMemoryManager.
  */
-SharedMemoryManager::SharedMemoryManager(const char * name)
-    : mutex_(name) {
+SharedMemoryManager::SharedMemoryManager(const char* name)
+    : mutex_(name)
+{
     // Create mutex with a unique name
 }
 
@@ -42,7 +39,8 @@ SharedMemoryManager::SharedMemoryManager(const char * name)
  *   thread holding the lock, may lead to deadlocks or inability to access
  *   the resource across threads or processes.
  */
-void SharedMemoryManager::lockSharedMemory() {
+void SharedMemoryManager::lockSharedMemory()
+{
     std::lock_guard<SharedMemoryMutex> lock(mutex_);
 }
 
@@ -66,7 +64,8 @@ void SharedMemoryManager::lockSharedMemory() {
  * Thread Safety:
  * - Thread-safe by design through the use of `SharedMemoryMutex`.
  */
-void SharedMemoryManager::accessSharedMemory() {
+void SharedMemoryManager::accessSharedMemory()
+{
     // RAII-style locking
     std::lock_guard<SharedMemoryMutex> lock(mutex_);
 
@@ -94,7 +93,8 @@ void SharedMemoryManager::accessSharedMemory() {
  * - This method uses a `std::lock_guard` to automatically manage the
  *   locking and unlocking of the `SharedMemoryMutex` object.
  */
-void SharedMemoryManager::releaseSharedMemory() {
+void SharedMemoryManager::releaseSharedMemory()
+{
     // RAII-style unlocking
     std::lock_guard<SharedMemoryMutex> unlock(mutex_);
 }

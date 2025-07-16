@@ -29,6 +29,10 @@ cp -v *.cgi             ~/public_html/fw/cgi-bin/
 #########################################
 cp -v look              ~/public_html/fw/bin/
 
+cp -v look              ~/bin
+cp -v vpa*              ~/bin
+
+
 ######################################################################
 # Install Phase - Install /usr/local/include/multiware/mwfw2 headers #
 ######################################################################

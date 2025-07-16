@@ -1,7 +1,6 @@
-//
-// Created by doug on 6/3/25.
-//
+
 #include "mwfw2.h"
+
 #include <cstdio>
 #include <string>
 #include "RTkGPIO.h"
@@ -14,12 +13,14 @@
 #include <bits/ostream.tcc>
 
 
-RTkGPIO::RTkGPIO() {
+RTkGPIO::RTkGPIO()
+{
     m_ssDevice = "/dev/ttyUSB0";
 
     // Open the device for read/write
     int fd = open(m_ssDevice.c_str(), O_RDWR | O_NOCTTY | O_NDELAY);
-    if (fd == -1) {
+    if (fd == -1)
+    {
         std::cerr << "Failed to open device: " << m_ssDevice << std::endl;
         exit(1);
     }
@@ -33,11 +34,12 @@ RTkGPIO::RTkGPIO() {
     cfsetospeed(&options, B230400);
 
     // Configure 8N1 (8 data bits, no parity, 1 stop bit)
-    options.c_cflag &= ~PARENB;   // No parity
-    options.c_cflag &= ~CSTOPB;   // 1 stop bit
-    options.c_cflag &= ~CSIZE;    // Clear data size bits
-    options.c_cflag |= CS8;       // 8 data bits
-    options.c_cflag |= CREAD | CLOCAL; // Enable receiver, ignore modem control lines
+    options.c_cflag &= ~PARENB; // No parity
+    options.c_cflag &= ~CSTOPB; // 1 stop bit
+    options.c_cflag &= ~CSIZE; // Clear data size bits
+    options.c_cflag |= CS8; // 8 data bits
+    options.c_cflag |= CREAD | CLOCAL;
+    // Enable receiver, ignore modem control lines
 
     // Disable hardware flow control
     options.c_cflag &= ~CRTSCTS;
@@ -48,11 +50,12 @@ RTkGPIO::RTkGPIO() {
     options.c_oflag &= ~OPOST; // Raw output
 
     // Set timeout values
-    options.c_cc[VMIN] = 0;   // Minimum characters to read
+    options.c_cc[VMIN] = 0; // Minimum characters to read
     options.c_cc[VTIME] = 10; // Timeout in deciseconds (1 second)
 
     // Apply the configuration
-    if (tcsetattr(fd, TCSANOW, &options) != 0) {
+    if (tcsetattr(fd, TCSANOW, &options) != 0)
+    {
         std::cerr << "Failed to configure serial port" << std::endl;
         close(fd);
         exit(1);
@@ -60,8 +63,10 @@ RTkGPIO::RTkGPIO() {
 
     // Convert file descriptor to FILE pointer
     m_pDevice = fdopen(fd, "r+");
-    if (m_pDevice == nullptr) {
-        std::cerr << "Failed to create FILE pointer from file descriptor" << std::endl;
+    if (m_pDevice == nullptr)
+    {
+        std::cerr << "Failed to create FILE pointer from file descriptor" <<
+            std::endl;
         close(fd);
         exit(1);
     }
@@ -69,52 +74,53 @@ RTkGPIO::RTkGPIO() {
     // Make sure output is unbuffered for immediate transmission
     setbuf(m_pDevice, nullptr);
 
-    gpio(IO17P,PIN_MODE_OUTPUT,'0');
-    gpio(IO18P,PIN_MODE_OUTPUT,'0');
-    gpio(IO24P,PIN_MODE_OUTPUT,'0');
-    gpio(IO25P,PIN_MODE_OUTPUT,'0');
-    gpio(IO5P,PIN_MODE_OUTPUT,'0');
-    gpio(IO6P,PIN_MODE_OUTPUT,'0');
-    gpio(IO16P,PIN_MODE_OUTPUT,'0');
-    gpio(IO23P,PIN_MODE_OUTPUT,'0');
-    gpio(IO22P,PIN_MODE_OUTPUT,'0');
-    gpio(IO12P,PIN_MODE_OUTPUT,'0');
-    gpio(IO20P,PIN_MODE_OUTPUT,'0');
-    gpio(IO19P,PIN_MODE_OUTPUT,'0');
-    gpio(IO4P,PIN_MODE_OUTPUT,'0');
-    gpio(IO4P,PIN_MODE_OUTPUT,'0');
-    gpio(IO27P,PIN_MODE_OUTPUT,'0');
-    gpio(IO13P,PIN_MODE_OUTPUT,'0');
-    gpio(IO26P,PIN_MODE_OUTPUT,'0');
+    gpio(IO17P, PIN_MODE_OUTPUT, '0');
+    gpio(IO18P, PIN_MODE_OUTPUT, '0');
+    gpio(IO24P, PIN_MODE_OUTPUT, '0');
+    gpio(IO25P, PIN_MODE_OUTPUT, '0');
+    gpio(IO5P, PIN_MODE_OUTPUT, '0');
+    gpio(IO6P, PIN_MODE_OUTPUT, '0');
+    gpio(IO16P, PIN_MODE_OUTPUT, '0');
+    gpio(IO23P, PIN_MODE_OUTPUT, '0');
+    gpio(IO22P, PIN_MODE_OUTPUT, '0');
+    gpio(IO12P, PIN_MODE_OUTPUT, '0');
+    gpio(IO20P, PIN_MODE_OUTPUT, '0');
+    gpio(IO19P, PIN_MODE_OUTPUT, '0');
+    gpio(IO4P, PIN_MODE_OUTPUT, '0');
+    gpio(IO4P, PIN_MODE_OUTPUT, '0');
+    gpio(IO27P, PIN_MODE_OUTPUT, '0');
+    gpio(IO13P, PIN_MODE_OUTPUT, '0');
+    gpio(IO26P, PIN_MODE_OUTPUT, '0');
 
-    set(IO17P,IO17);
-    set(IO18P,IO18);
-    set(IO24P,IO24);
-    set(IO25P,IO25);
-    set(IO5P,IO5);
-    set(IO6P,IO6);
-    set(IO16P,IO16);
-    set(IO23P,IO23);
-    set(IO22P,IO22);
-    set(IO12P,IO12);
-    set(IO20P,IO20);
-    set(IO19P,IO19);
-    set(IO4P,IO4);
-    set(IO27P,IO27);
-    set(IO21P,IO21);
-    set(IO13P,IO13);
-    set(IO26P,IO26);
-
+    set(IO17P, IO17);
+    set(IO18P, IO18);
+    set(IO24P, IO24);
+    set(IO25P, IO25);
+    set(IO5P, IO5);
+    set(IO6P, IO6);
+    set(IO16P, IO16);
+    set(IO23P, IO23);
+    set(IO22P, IO22);
+    set(IO12P, IO12);
+    set(IO20P, IO20);
+    set(IO19P, IO19);
+    set(IO4P, IO4);
+    set(IO27P, IO27);
+    set(IO21P, IO21);
+    set(IO13P, IO13);
+    set(IO26P, IO26);
 }
 
-std::string RTkGPIO::get_version() {
+std::string RTkGPIO::get_version()
+{
     char szTemp[128];
-    usleep(100000);  // 100 milliseconds instead of 1 second
+    usleep(100000); // 100 milliseconds instead of 1 second
     fputs("V\r", m_pDevice);
     fflush(m_pDevice); // Ensure data is sent immediately
-    usleep(100000);  // 100 milliseconds instead of 1 second
+    usleep(100000); // 100 milliseconds instead of 1 second
 
-    if (fgets(szTemp, sizeof(szTemp), m_pDevice)) {
+    if (fgets(szTemp, sizeof(szTemp), m_pDevice))
+    {
         return std::string(szTemp);
     }
     return "";
@@ -136,20 +142,21 @@ std::string RTkGPIO::get_version() {
  *      State is returned as pinch + state(0|1) eg: a0
  */
 
-void RTkGPIO::gpio(char8_t pin, char8_t mode,char8_t state) {
+void RTkGPIO::gpio(char8_t pin, char8_t mode, char8_t state)
+{
     int delay = 1;
 
     // Send pin number
     fputc(pin, m_pDevice);
-    usleep(delay);  // 1 millisecond
+    usleep(delay); // 1 millisecond
     // Send Mode
     fputc(mode, m_pDevice);
-    usleep(delay);  // 1 millisecond
+    usleep(delay); // 1 millisecond
 
     fputc(pin, m_pDevice);
-    usleep(delay);  // 1 millisecond
+    usleep(delay); // 1 millisecond
     fputc(state, m_pDevice);
-    usleep(delay);  // 1 millisecond
+    usleep(delay); // 1 millisecond
 
     // switch (pin) {
     //     case IO17P:
@@ -161,27 +168,27 @@ void RTkGPIO::gpio(char8_t pin, char8_t mode,char8_t state) {
     //     default:
     //         break;
     // }
-
-
 }
 
-void RTkGPIO::set(pinch_t pin,led_ofs_t index) {
+void RTkGPIO::set(pinch_t pin, led_ofs_t index)
+{
     int delay = 1;
 
     fputc(pin, m_pDevice);
-    usleep(delay);  // 1 millisecond
+    usleep(delay); // 1 millisecond
     fputc('1', m_pDevice);
-    usleep(delay);  // 1 millisecond
+    usleep(delay); // 1 millisecond
     gpSh->m_pShMemng->bLedCntl[index] = true;
 }
 
-void RTkGPIO::reset(pinch_t pin,led_ofs_t index) {
+void RTkGPIO::reset(pinch_t pin, led_ofs_t index)
+{
     int delay = 1;
 
     fputc(pin, m_pDevice);
-    usleep(delay);  // 1 millisecond
+    usleep(delay); // 1 millisecond
     fputc('0', m_pDevice);
-    usleep(delay);  // 1 millisecond
+    usleep(delay); // 1 millisecond
     gpSh->m_pShMemng->bLedCntl[index] = false;
 }
 
@@ -199,147 +206,201 @@ void RTkGPIO::reset(pinch_t pin,led_ofs_t index) {
 // }
 
 
-void RTkGPIO::render() {
-    for (int index=0;index<17;index++) {
-        switch (index) {
-             case IO17:
-                if (gpSh->m_pShMemng->bLedCntl[IO17]) {
-                    set(IO17P,IO17);
-                } else {
-                    reset(IO17P,IO17);
-                }
-                break;
+void RTkGPIO::render()
+{
+    for (int index = 0; index < 17; index++)
+    {
+        switch (index)
+        {
+        case IO17:
+            if (gpSh->m_pShMemng->bLedCntl[IO17])
+            {
+                set(IO17P, IO17);
+            }
+            else
+            {
+                reset(IO17P, IO17);
+            }
+            break;
 
-            case IO18:
-                if (gpSh->m_pShMemng->bLedCntl[IO18]) {
-                    set(IO18P,IO18);
-                } else {
-                    reset(IO18P,IO18);
-                }
-                break;
+        case IO18:
+            if (gpSh->m_pShMemng->bLedCntl[IO18])
+            {
+                set(IO18P, IO18);
+            }
+            else
+            {
+                reset(IO18P, IO18);
+            }
+            break;
 
-            case IO24:
-                if (gpSh->m_pShMemng->bLedCntl[IO24]) {
-                    set(IO24P,IO24);
-                } else {
-                    reset(IO24P,IO24);
-                }
-                break;
+        case IO24:
+            if (gpSh->m_pShMemng->bLedCntl[IO24])
+            {
+                set(IO24P, IO24);
+            }
+            else
+            {
+                reset(IO24P, IO24);
+            }
+            break;
 
-            case IO25:
-                if (gpSh->m_pShMemng->bLedCntl[IO25]) {
-                    set(IO25P,IO25);
-                } else {
-                    reset(IO25P,IO25);
-                }
-                break;
+        case IO25:
+            if (gpSh->m_pShMemng->bLedCntl[IO25])
+            {
+                set(IO25P, IO25);
+            }
+            else
+            {
+                reset(IO25P, IO25);
+            }
+            break;
 
-            case IO5:
-                if (gpSh->m_pShMemng->bLedCntl[IO5]) {
-                    set(IO5P,IO5);
-                } else {
-                    reset(IO5P,IO5);
-                }
-                break;
+        case IO5:
+            if (gpSh->m_pShMemng->bLedCntl[IO5])
+            {
+                set(IO5P, IO5);
+            }
+            else
+            {
+                reset(IO5P, IO5);
+            }
+            break;
 
-            case IO6:
-                if (gpSh->m_pShMemng->bLedCntl[IO5]) {
-                    set(IO5P,IO5);
-                } else {
-                    reset(IO6P,IO6);
-                }
-                break;
+        case IO6:
+            if (gpSh->m_pShMemng->bLedCntl[IO5])
+            {
+                set(IO5P, IO5);
+            }
+            else
+            {
+                reset(IO6P, IO6);
+            }
+            break;
 
-            case IO16:
-                if (gpSh->m_pShMemng->bLedCntl[IO16]) {
-                    set(IO16P,IO16);
-                } else {
-                    reset(IO16P,IO16);
-                }
-                break;
+        case IO16:
+            if (gpSh->m_pShMemng->bLedCntl[IO16])
+            {
+                set(IO16P, IO16);
+            }
+            else
+            {
+                reset(IO16P, IO16);
+            }
+            break;
 
-            case IO23:
-                if (gpSh->m_pShMemng->bLedCntl[IO23]) {
-                    set(IO23P,IO23);
-                } else {
-                    reset(IO23P,IO23);
-                }
-                break;
+        case IO23:
+            if (gpSh->m_pShMemng->bLedCntl[IO23])
+            {
+                set(IO23P, IO23);
+            }
+            else
+            {
+                reset(IO23P, IO23);
+            }
+            break;
 
-            case IO22:
-                if (gpSh->m_pShMemng->bLedCntl[IO22]) {
-                    set(IO22P,IO22);
-                } else {
-                    reset(IO22P,IO22);
-                }
-                break;
+        case IO22:
+            if (gpSh->m_pShMemng->bLedCntl[IO22])
+            {
+                set(IO22P, IO22);
+            }
+            else
+            {
+                reset(IO22P, IO22);
+            }
+            break;
 
-            case IO12:
-                if (gpSh->m_pShMemng->bLedCntl[IO12]) {
-                    set(IO12P,IO12);
-                } else {
-                    reset(IO12P,IO12);
-                }
-                break;
+        case IO12:
+            if (gpSh->m_pShMemng->bLedCntl[IO12])
+            {
+                set(IO12P, IO12);
+            }
+            else
+            {
+                reset(IO12P, IO12);
+            }
+            break;
 
-            case IO20:
-                if (gpSh->m_pShMemng->bLedCntl[IO20]) {
-                    set(IO20P,IO20);
-                } else {
-                    reset(IO20P,IO20);
-                }
-                break;
+        case IO20:
+            if (gpSh->m_pShMemng->bLedCntl[IO20])
+            {
+                set(IO20P, IO20);
+            }
+            else
+            {
+                reset(IO20P, IO20);
+            }
+            break;
 
-            case IO19:
-                if (gpSh->m_pShMemng->bLedCntl[IO19]) {
-                    set(IO19P,IO19);
-                } else {
-                    reset(IO19P,IO19);
-                }
-                break;
+        case IO19:
+            if (gpSh->m_pShMemng->bLedCntl[IO19])
+            {
+                set(IO19P, IO19);
+            }
+            else
+            {
+                reset(IO19P, IO19);
+            }
+            break;
 
-            case IO4:
-                if (gpSh->m_pShMemng->bLedCntl[IO4]) {
-                    set(IO4P,IO4);
-                } else {
-                    reset(IO4P,IO4);
-                }
-                break;
+        case IO4:
+            if (gpSh->m_pShMemng->bLedCntl[IO4])
+            {
+                set(IO4P, IO4);
+            }
+            else
+            {
+                reset(IO4P, IO4);
+            }
+            break;
 
-            case IO27:
-                if (gpSh->m_pShMemng->bLedCntl[IO27]) {
-                    set(IO27P,IO27);
-                } else {
-                    reset(IO27P,IO27);
-                }
-                break;
+        case IO27:
+            if (gpSh->m_pShMemng->bLedCntl[IO27])
+            {
+                set(IO27P, IO27);
+            }
+            else
+            {
+                reset(IO27P, IO27);
+            }
+            break;
 
-            case IO21:
-                if (gpSh->m_pShMemng->bLedCntl[IO21]) {
-                    set(IO21P,IO21);
-                } else {
-                    reset(IO21P,IO21);
-                }
-                break;
+        case IO21:
+            if (gpSh->m_pShMemng->bLedCntl[IO21])
+            {
+                set(IO21P, IO21);
+            }
+            else
+            {
+                reset(IO21P, IO21);
+            }
+            break;
 
-            case IO13:
-                if (gpSh->m_pShMemng->bLedCntl[IO13]) {
-                    set(IO13P,IO13);
-                } else {
-                    reset(IO13P,IO13);
-                }
-                break;
+        case IO13:
+            if (gpSh->m_pShMemng->bLedCntl[IO13])
+            {
+                set(IO13P, IO13);
+            }
+            else
+            {
+                reset(IO13P, IO13);
+            }
+            break;
 
-            case IO26:
-                if (gpSh->m_pShMemng->bLedCntl[IO26]) {
-                    set(IO26P,IO26);
-                } else {
-                    reset(IO26P,IO26);
-                }
-                break;
+        case IO26:
+            if (gpSh->m_pShMemng->bLedCntl[IO26])
+            {
+                set(IO26P, IO26);
+            }
+            else
+            {
+                reset(IO26P, IO26);
+            }
+            break;
 
-            default:
-                break;
+        default:
+            break;
         }
     }
 }

@@ -1,7 +1,9 @@
 ////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/structures.cpp 2025/07/13 02:32 dwg  //
-// Copyright (c) Douglas Wade Goodall. All Rights Reserved.       //
+// ~/public_html/fw/structures.cpp 2025-07-15 18:16 dwg -             //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
+
 #include "mwfw2.h"
 #include "cfgini.h"
 #include "xinetdcfg.h"

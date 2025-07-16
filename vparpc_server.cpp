@@ -1,43 +1,8 @@
-////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/vparpc_server.cpp 2025/02/19 18:38 dwg - //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
-////////////////////////////////////////////////////////////////////////
-
-/**
- * @file vparpc_server.cpp
- * @brief Virtual Protocol Adapter RPC Server Application
- * 
- * This file implements a standalone RPC server application that provides remote
- * procedure call services using the Virtual Protocol Adapter (VPA) framework.
- * The server listens for incoming TCP connections and processes RPC requests
- * from remote clients.
- * 
- * ## Application Architecture:
- * - **Framework**: Built on mwfw2 middleware for system services
- * - **Protocol**: TCP/IP based RPC communication
- * - **Interface**: Visual status display with semi-graphics styling
- * - **Service Model**: Single-threaded, sequential client processing
- * 
- * ## Supported RPC Operations:
- * - Version information queries
- * - Unique identifier retrieval (UUID)
- * - Custom command processing (extensible)
- * 
- * ## Network Configuration:
- * - **Service Name**: "vparpc" (resolved via system service database)
- * - **Port Resolution**: Automatic via /etc/services lookup
- * - **Interface Binding**: All available network interfaces (INADDR_ANY)
- * - **Connection Queue**: Up to 5 pending connections
- * 
- * @author Douglas Wade Goodall
- * @date 2025/02/19 18:38
- * @version 5.5.10.2
- * @copyright Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.
- * 
- * @see vparpc::server() for detailed RPC server implementation
- * @see mwfw2 for middleware framework services
- * @see window for user interface rendering capabilities
- */
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/vparpc_server.cpp 2025-07-15 18:16 dwg -             //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 

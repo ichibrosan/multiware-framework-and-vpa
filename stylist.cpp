@@ -1,7 +1,3 @@
-/////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/stylist.cpp 2025/02/23                    //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
-/////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 //#include "stylist.h"
@@ -15,24 +11,24 @@
  * for UI components requiring a visually distinct and colorful button design.
  */
 char sz_default_button[] = {
-"    .default_button\n"
-"    {\n"
-"        text-decoration:  none;\n"
-"        color: #ffffff;\n"
-"        font-size: 24px;\n"
-"        font-family: Arial;\n"
-"        background:linear-gradient(#ffff00, #ff0000);\n"
-"        box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;\n"
-"        border-top: #ffff00 3px groove;\n"
-"        border-left: #ffff00 3px groove;\n"
-"        border-right: #ff0000 3px groove;\n"
-"        border-bottom: #ff0000 3px groove;\n"
-"        border-radius: 10px;\n"
-"        -webkit-text-stroke-width: 1px;\n"
-"        -webkit-text-stroke-color: #000000;\n"
-"        padding-left: 10px;\n"
-"        padding-right: 10px;\n"
-"    }\n"
+    "    .default_button\n"
+    "    {\n"
+    "        text-decoration:  none;\n"
+    "        color: #ffffff;\n"
+    "        font-size: 24px;\n"
+    "        font-family: Arial;\n"
+    "        background:linear-gradient(#ffff00, #ff0000);\n"
+    "        box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;\n"
+    "        border-top: #ffff00 3px groove;\n"
+    "        border-left: #ffff00 3px groove;\n"
+    "        border-right: #ff0000 3px groove;\n"
+    "        border-bottom: #ff0000 3px groove;\n"
+    "        border-radius: 10px;\n"
+    "        -webkit-text-stroke-width: 1px;\n"
+    "        -webkit-text-stroke-color: #000000;\n"
+    "        padding-left: 10px;\n"
+    "        padding-right: 10px;\n"
+    "    }\n"
 };
 
 /**
@@ -43,17 +39,17 @@ char sz_default_button[] = {
  * The rules include grid-based layout, fixed positioning, and size specifications.
  */
 char sz_journal_container[] = {
-"    .journal_container\n"
-"    {\n"
-"        position: fixed;\n"
-"        top: 0;\n"
-"        left: 0;\n"
-"        grid-template-columns: repeat(2, 29ch) repeat(2, 27ch);\n"
-"        grid-template-rows: repeat(4, 7cap);\n"
-"        width: 112ch;\n"
-"        height: 27.2cap;\n"
-"        display: grid;\n"
-"    }\n"
+    "    .journal_container\n"
+    "    {\n"
+    "        position: fixed;\n"
+    "        top: 0;\n"
+    "        left: 0;\n"
+    "        grid-template-columns: repeat(2, 29ch) repeat(2, 27ch);\n"
+    "        grid-template-rows: repeat(4, 7cap);\n"
+    "        width: 112ch;\n"
+    "        height: 27.2cap;\n"
+    "        display: grid;\n"
+    "    }\n"
 };
 
 /**
@@ -63,12 +59,12 @@ char sz_journal_container[] = {
  * The rules include dimensions for width and height, and the border style is set to none.
  */
 char sz_journal_iframe[] = {
-"    .journal_iframe\n"
-"    {\n"
-"        width: 150ch;\n"
-"        height: 27.2cap;\n"
-"        border-style: none;\n"
-"    }\n"
+    "    .journal_iframe\n"
+    "    {\n"
+    "        width: 150ch;\n"
+    "        height: 27.2cap;\n"
+    "        border-style: none;\n"
+    "    }\n"
 };
 
 /**
@@ -79,10 +75,10 @@ char sz_journal_iframe[] = {
  * such as alignment and layout.
  */
 char sz_journal_edit[] = {
-"    .journal_edit\n"
-"    {\n"
-"        margin: auto\n"
-"    }\n"
+    "    .journal_edit\n"
+    "    {\n"
+    "        margin: auto\n"
+    "    }\n"
 };
 
 /**
@@ -93,27 +89,27 @@ char sz_journal_edit[] = {
  * such as its colors, spacing, borders, and any additional decorative effects.
  */
 char sz_journal_save[] = {
-"    .journal_save\n"
-"    {\n"
-"        grid-column-start: 3;\n"
-"        grid-row-start: 2;\n"
-"        margin: auto;\n"
-"        text-decoration:  none;\n"
-"        color: #%06X;\n"
-"        font-size: 24px;\n"
-"        font-family: Arial;\n"
-"        background:linear-gradient(#ffff00, #ff0000);\n"
-"        box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;\n"
-"        border-top: #ffff00 3px groove;\n"
-"        border-left: #ffff00 3px groove;\n"
-"        border-right: #ff0000 3px groove;\n"
-"        border-bottom: #ff0000 3px groove;\n"
-"        border-radius: 10px;\n"
-"        -webkit-text-stroke-width: 1px;\n"
-"        -webkit-text-stroke-color: #000000;\n"
-"        padding-left: 10px;\n"
-"        padding-right: 10px;\n"
-"    }\n"
+    "    .journal_save\n"
+    "    {\n"
+    "        grid-column-start: 3;\n"
+    "        grid-row-start: 2;\n"
+    "        margin: auto;\n"
+    "        text-decoration:  none;\n"
+    "        color: #%06X;\n"
+    "        font-size: 24px;\n"
+    "        font-family: Arial;\n"
+    "        background:linear-gradient(#ffff00, #ff0000);\n"
+    "        box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;\n"
+    "        border-top: #ffff00 3px groove;\n"
+    "        border-left: #ffff00 3px groove;\n"
+    "        border-right: #ff0000 3px groove;\n"
+    "        border-bottom: #ff0000 3px groove;\n"
+    "        border-radius: 10px;\n"
+    "        -webkit-text-stroke-width: 1px;\n"
+    "        -webkit-text-stroke-color: #000000;\n"
+    "        padding-left: 10px;\n"
+    "        padding-right: 10px;\n"
+    "    }\n"
 };
 
 /**
@@ -131,27 +127,27 @@ char sz_journal_save[] = {
  * or manipulate HTML or CSS content.
  */
 char sz_journal_reset[] = {
-"    .journal_reset\n"
-"    {\n"
-"        grid-column-start: 3;\n"
-"        grid-row-start: 3;\n"
-"        margin: auto;\n"
-"        text-decoration:  none;\n"
-"        color: #ffffff;\n"
-"        font-size: 24px;\n"
-"        font-family: Arial;\n"
-"        background:linear-gradient(#ffff00, #ff0000);\n"
-"        box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;\n"
-"        border-top: #ffff00 3px groove;\n"
-"        border-left: #ffff00 3px groove;\n"
-"        border-right: #ff0000 3px groove;\n"
-"        border-bottom: #ff0000 3px groove;\n"
-"        border-radius: 10px;\n"
-"        -webkit-text-stroke-width: 1px;\n"
-"        -webkit-text-stroke-color: #000000;\n"
-"       padding-left: 10px;\n"
-"       padding-right: 10px;\n"
-"   }\n"
+    "    .journal_reset\n"
+    "    {\n"
+    "        grid-column-start: 3;\n"
+    "        grid-row-start: 3;\n"
+    "        margin: auto;\n"
+    "        text-decoration:  none;\n"
+    "        color: #ffffff;\n"
+    "        font-size: 24px;\n"
+    "        font-family: Arial;\n"
+    "        background:linear-gradient(#ffff00, #ff0000);\n"
+    "        box-shadow: 5px 5px 10px #000000, 0px 0px 0px 2px #000000;\n"
+    "        border-top: #ffff00 3px groove;\n"
+    "        border-left: #ffff00 3px groove;\n"
+    "        border-right: #ff0000 3px groove;\n"
+    "        border-bottom: #ff0000 3px groove;\n"
+    "        border-radius: 10px;\n"
+    "        -webkit-text-stroke-width: 1px;\n"
+    "        -webkit-text-stroke-color: #000000;\n"
+    "       padding-left: 10px;\n"
+    "       padding-right: 10px;\n"
+    "   }\n"
 };
 
 /**
@@ -163,24 +159,24 @@ char sz_journal_reset[] = {
  * border, padding, margin, resizing behavior, and size constraints.
  */
 char sz_journal_textarea[] = {
-"    .journal_textarea\n"
-"    {\n"
-"        grid-column-start: 1;\n"
-"        grid-column-end: 3;\n"
-"        grid-row-start: 1;\n"
-"        grid-row-end: 5;\n"
-"        background: #d0e7ab;\n"
-"        color: black;\n"
-"        margin: 0;\n"
-"        padding: 0;\n"
-"        resize: none;\n"
-"        box-sizing: border-box;\n"
-"        border: black;\n"
-"        width: 79ch;\n"
-"        height: 48cap;\n"
-"        max-height:100%;\n"
-"        max-width: 100%;\n"
-"    }\n"
+    "    .journal_textarea\n"
+    "    {\n"
+    "        grid-column-start: 1;\n"
+    "        grid-column-end: 3;\n"
+    "        grid-row-start: 1;\n"
+    "        grid-row-end: 5;\n"
+    "        background: #d0e7ab;\n"
+    "        color: black;\n"
+    "        margin: 0;\n"
+    "        padding: 0;\n"
+    "        resize: none;\n"
+    "        box-sizing: border-box;\n"
+    "        border: black;\n"
+    "        width: 79ch;\n"
+    "        height: 48cap;\n"
+    "        max-height:100%;\n"
+    "        max-width: 100%;\n"
+    "    }\n"
 };
 
 /**
@@ -191,11 +187,11 @@ char sz_journal_textarea[] = {
  * color for the "table" element.
  */
 char sz_table[] = {
-"   table\n"
-"   {\n"
-"       color: #%06X;\n"
-"       background: #%06X;\n"
-"   }\n"
+    "   table\n"
+    "   {\n"
+    "       color: #%06X;\n"
+    "       background: #%06X;\n"
+    "   }\n"
 };
 
 /**
@@ -206,11 +202,11 @@ char sz_table[] = {
  * - Background color (#d7e0ab).
  */
 char sz_body[] = {
-"    body\n"
-"    {\n"
-"        color: #%06X;\n"
-"        background: #%06X;\n"
-"    }\n"
+    "    body\n"
+    "    {\n"
+    "        color: #%06X;\n"
+    "        background: #%06X;\n"
+    "    }\n"
 };
 
 /**
@@ -221,11 +217,11 @@ char sz_body[] = {
  * color as `#000000` and the background color as `#7060d0`.
  */
 char sz_tr[] = {
-"    tr\n"
-"    {\n"
-"        color: #%06X;\n"
-"        background: #%06X;\n"
-"    }\n"
+    "    tr\n"
+    "    {\n"
+    "        color: #%06X;\n"
+    "        background: #%06X;\n"
+    "    }\n"
 };
 
 /**
@@ -237,11 +233,11 @@ char sz_tr[] = {
  * - `background`: Sets the background color of the table header to a shade of grey-blue (`#405060`).
  */
 char sz_th[] = {
-"    th\n"
-"    {\n"
-"        color: #%06X;\n"
-"        background: #%06X;\n"
-"    }\n"
+    "    th\n"
+    "    {\n"
+    "        color: #%06X;\n"
+    "        background: #%06X;\n"
+    "    }\n"
 };
 
 /**
@@ -257,11 +253,11 @@ char sz_th[] = {
  * and return a formatted CSS string.
  */
 char sz_dot_dashboard[] = {
-"   .dashboard\n"
-"    {\n"
-"        color: #%06X;\n"
-"        background: #%06X;\n"
-"    }\n"
+    "   .dashboard\n"
+    "    {\n"
+    "        color: #%06X;\n"
+    "        background: #%06X;\n"
+    "    }\n"
 };
 
 /**
@@ -272,11 +268,11 @@ char sz_dot_dashboard[] = {
  * - `background`: Defines the background color using the hexadecimal value `#4050d0`.
  */
 char sz_td[] = {
-"   td\n"
-"    {\n"
-"        color: #%06X;\n"
-"        background: #%06X;\n"
-"    }\n"
+    "   td\n"
+    "    {\n"
+    "        color: #%06X;\n"
+    "        background: #%06X;\n"
+    "    }\n"
 };
 
 /**
@@ -308,52 +304,53 @@ char szReturn[BUFSIZ];
  *
  * @return void
  */
-stylist::stylist(int handle) {
+stylist::stylist(int handle)
+{
     // std::string ssCssFQFS =
     //     "/home/devo/public_html/fw/styles/doug.css";
 
-    std::string ssUser    = gpSh->m_pShMemng->szUser;
+    std::string ssUser = gpSh->m_pShMemng->szUser;
     std::string ssCssFQFS = gpOS->genStyleFQFS(
-        (const char *)ssUser.append(".css").c_str(),false);
+        (const char*)ssUser.append(".css").c_str(), false);
     gpSysLog->loginfo(ssCssFQFS.c_str());
 
-    FILE * fp = fopen(ssCssFQFS.c_str(),"w");
-    fprintf(fp,"%s\n",default_button());
-    fprintf(fp,"%s\n",journal_container());
-    fprintf(fp,"%s\n",journal_iframe());
-    fprintf(fp,"%s\n",journal_edit());
-    fprintf(fp,"%s\n",journal_save());
-    fprintf(fp,"%s\n",journal_reset());
-    fprintf(fp,"%s\n",journal_textarea());
+    FILE* fp = fopen(ssCssFQFS.c_str(), "w");
+    fprintf(fp, "%s\n", default_button());
+    fprintf(fp, "%s\n", journal_container());
+    fprintf(fp, "%s\n", journal_iframe());
+    fprintf(fp, "%s\n", journal_edit());
+    fprintf(fp, "%s\n", journal_save());
+    fprintf(fp, "%s\n", journal_reset());
+    fprintf(fp, "%s\n", journal_textarea());
 
-    fprintf(fp,"%s\n",table(
-        gpSh->m_pShMemng->prefs[handle].szTableFGcolor,
-        gpSh->m_pShMemng->prefs[handle].szTableFGcolor)
+    fprintf(fp, "%s\n", table(
+                gpSh->m_pShMemng->prefs[handle].szTableFGcolor,
+                gpSh->m_pShMemng->prefs[handle].szTableFGcolor)
     );
 
-    fprintf(fp,"%s\n",body(
-        gpSh->m_pShMemng->prefs[handle].szBodyFGcolor,
-        gpSh->m_pShMemng->prefs[handle].szBodyBGcolor)
+    fprintf(fp, "%s\n", body(
+                gpSh->m_pShMemng->prefs[handle].szBodyFGcolor,
+                gpSh->m_pShMemng->prefs[handle].szBodyBGcolor)
     );
 
-    fprintf(fp,"%s\n",tr(
-        gpSh->m_pShMemng->prefs[handle].szTrFGcolor,
-        gpSh->m_pShMemng->prefs[handle].szTrBGcolor)
+    fprintf(fp, "%s\n", tr(
+                gpSh->m_pShMemng->prefs[handle].szTrFGcolor,
+                gpSh->m_pShMemng->prefs[handle].szTrBGcolor)
     );
 
-    fprintf(fp,"%s\n",th(
-        gpSh->m_pShMemng->prefs[handle].szThFGcolor,
-        gpSh->m_pShMemng->prefs[handle].szThBGcolor)
+    fprintf(fp, "%s\n", th(
+                gpSh->m_pShMemng->prefs[handle].szThFGcolor,
+                gpSh->m_pShMemng->prefs[handle].szThBGcolor)
     );
 
-    fprintf(fp,"%s\n",dot_dashboard(
-        gpSh->m_pShMemng->prefs[handle].szDbFGcolor,
-        gpSh->m_pShMemng->prefs[handle].szDbBGcolor)
+    fprintf(fp, "%s\n", dot_dashboard(
+                gpSh->m_pShMemng->prefs[handle].szDbFGcolor,
+                gpSh->m_pShMemng->prefs[handle].szDbBGcolor)
     );
 
-    fprintf(fp,"%s\n",td(
-        gpSh->m_pShMemng->prefs[handle].szTdFGcolor,
-        gpSh->m_pShMemng->prefs[handle].szTdBGcolor)
+    fprintf(fp, "%s\n", td(
+                gpSh->m_pShMemng->prefs[handle].szTdFGcolor,
+                gpSh->m_pShMemng->prefs[handle].szTdBGcolor)
     );
 
     fclose(fp);
@@ -369,8 +366,9 @@ stylist::stylist(int handle) {
  * @return A pointer to a constant character array containing
  * the CSS string defining the default button style.
  */
-const char * stylist::default_button() {
-    sprintf(szReturn,"%s",sz_default_button);
+const char* stylist::default_button()
+{
+    sprintf(szReturn, "%s", sz_default_button);
     return szReturn;
 }
 
@@ -384,8 +382,9 @@ const char * stylist::default_button() {
  * @return A pointer to a constant character string containing the CSS
  *         rules for the "journal_container" class.
  */
-const char * stylist::journal_container() {
-    sprintf(szReturn,"%s",sz_journal_container);
+const char* stylist::journal_container()
+{
+    sprintf(szReturn, "%s", sz_journal_container);
     return szReturn;
 }
 
@@ -395,8 +394,9 @@ const char * stylist::journal_container() {
  * @return A constant character pointer containing the CSS style rules
  * for the "journal_iframe" element.
  */
-const char * stylist::journal_iframe() {
-    sprintf(szReturn,"%s",sz_journal_iframe);
+const char* stylist::journal_iframe()
+{
+    sprintf(szReturn, "%s", sz_journal_iframe);
     return szReturn;
 }
 
@@ -409,8 +409,9 @@ const char * stylist::journal_iframe() {
  * @return A pointer to a constant character array containing the
  * CSS definition for the "journal_edit" class.
  */
-const char * stylist::journal_edit() {
-    sprintf(szReturn,"%s",sz_journal_edit);
+const char* stylist::journal_edit()
+{
+    sprintf(szReturn, "%s", sz_journal_edit);
     return szReturn;
 }
 
@@ -425,8 +426,9 @@ const char * stylist::journal_edit() {
  * @return A constant character pointer to the CSS style string for
  * the "journal_save" element.
  */
-const char * stylist::journal_save() {
-    sprintf(szReturn,"%s",sz_journal_save);
+const char* stylist::journal_save()
+{
+    sprintf(szReturn, "%s", sz_journal_save);
     return szReturn;
 }
 
@@ -440,8 +442,9 @@ const char * stylist::journal_save() {
  * @return A pointer to a constant character string containing the
  * CSS styling for the "journal_reset" element.
  */
-const char * stylist::journal_reset() {
-    sprintf(szReturn,"%s",sz_journal_reset);
+const char* stylist::journal_reset()
+{
+    sprintf(szReturn, "%s", sz_journal_reset);
     return szReturn;
 }
 
@@ -455,8 +458,9 @@ const char * stylist::journal_reset() {
  * @return A constant character pointer to a string containing the
  * CSS style rules for the "journal_textarea" element.
  */
-const char * stylist::journal_textarea() {
-    sprintf(szReturn,"%s",sz_journal_textarea);
+const char* stylist::journal_textarea()
+{
+    sprintf(szReturn, "%s", sz_journal_textarea);
     return szReturn;
 }
 
@@ -469,8 +473,9 @@ const char * stylist::journal_textarea() {
  * @return A pointer to a constant character array containing the CSS
  * style rules for the "table" element.
  */
-const char * stylist::table(char * color,char * background) {
-    sprintf(szReturn,sz_table,color,background);
+const char* stylist::table(char* color, char* background)
+{
+    sprintf(szReturn, sz_table, color, background);
     return szReturn;
 }
 
@@ -483,8 +488,9 @@ const char * stylist::table(char * color,char * background) {
  * @return A constant character pointer to the string containing the
  * CSS representation of the body element's style.
  */
-const char * stylist::body(char * color,char * background) {
-    sprintf(szReturn,sz_body,color,background);
+const char* stylist::body(char* color, char* background)
+{
+    sprintf(szReturn, sz_body, color, background);
     return szReturn;
 }
 
@@ -497,8 +503,9 @@ const char * stylist::body(char * color,char * background) {
  * @return A constant pointer to a character string containing the CSS
  *         definition for the "tr" element.
  */
-const char * stylist::tr(char * color,char * background) {
-    sprintf(szReturn,sz_tr,color,background);
+const char* stylist::tr(char* color, char* background)
+{
+    sprintf(szReturn, sz_tr, color, background);
     return szReturn;
 }
 
@@ -511,8 +518,9 @@ const char * stylist::tr(char * color,char * background) {
  * @return A pointer to a constant character string containing the
  * CSS properties and values for the styles applied to table header elements.
  */
-const char * stylist::th(char * color,char * background) {
-    sprintf(szReturn,sz_th,color,background);
+const char* stylist::th(char* color, char* background)
+{
+    sprintf(szReturn, sz_th, color, background);
     return szReturn;
 }
 
@@ -526,8 +534,9 @@ const char * stylist::th(char * color,char * background) {
  * @return A constant character pointer containing the CSS style
  * definition for the "dot_dashboard" element.
  */
-const char * stylist::dot_dashboard(char *color,char * background) {
-    sprintf(szReturn,sz_dot_dashboard,color,background);
+const char* stylist::dot_dashboard(char* color, char* background)
+{
+    sprintf(szReturn, sz_dot_dashboard, color, background);
     return szReturn;
 }
 
@@ -537,7 +546,8 @@ const char * stylist::dot_dashboard(char *color,char * background) {
  * @return A constant pointer to a character array containing the
  * CSS style rules for the `<td>` element.
  */
-const char * stylist::td(char * color,char *  background) {
-    sprintf(szReturn,sz_td,color,background);
+const char* stylist::td(char* color, char* background)
+{
+    sprintf(szReturn, sz_td, color, background);
     return szReturn;
 }

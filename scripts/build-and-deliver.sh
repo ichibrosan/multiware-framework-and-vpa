@@ -19,3 +19,6 @@ cp -v xmlrpc*           ~/public_html/fw/bin/
 cp -v vparpc*           ~/public_html/fw/bin/
 cp -v prefs*            ~/public_html/fw/bin/
 ipcrm --shmem-key 0x00005164 2> /tmp/ipcrm#5164.stderr # MultiWare Main ShMem
+
+cp -v look              ~/bin
+cp -v vpa*              ~/bin

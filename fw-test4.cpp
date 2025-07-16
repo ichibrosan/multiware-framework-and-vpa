@@ -1,7 +1,9 @@
-////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/fw-test4.cpp 2025/02/19                  //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
-////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/fw-test4.cpp 2025-07-15 18:16 dwg -             //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
+
 #include "mwfw2.h"
 
 /* The purpose of the fw-test4 program is to test the ability of the

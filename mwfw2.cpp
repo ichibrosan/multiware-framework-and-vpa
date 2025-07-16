@@ -1,7 +1,3 @@
-///////////////////////////////////////////////////////////////////
-// /home/doug/public_html/fw/mwfw2.cpp 2025-07-04 03:36 dwg -    //
-// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved. //
-///////////////////////////////////////////////////////////////////
 
 #include "include/mwfw2.h"
 
@@ -9,30 +5,30 @@
 
 #include "include/stylist.h"
 
-Cgicc				* gpCgi;
-cgibind				* gpCgiBind;
-config				* gpConfig;
-crtbind				* gpCrt;
-readCsv				* gpCsv;
-dashboard			* gpDash;
-dotconfig			* gpDotCfg;
-environment			* gpEnv;
-bool				  gbHere;
-iHex				* gpHex;
-cgihtml				* gpHtml;
-CLog				* gpLog;
-osIface				* gpOS;
-password			* gpPassword;
-schemaCompiler		* gpSchCC;
-schema				* gpSchema;
-semigraphics		* gpSemiGr;
-shared				* gpSh;
-SharedMemoryMutex	* gpShMemMutex;
-SharedMemoryManager * gpShMemMgr;
-CSysLog				* gpSysLog;
-test				* gpTest;
-vparpc				* gpVpaRpc;
-xinetdctl			* gpXinetd;
+Cgicc* gpCgi;
+cgibind* gpCgiBind;
+config* gpConfig;
+crtbind* gpCrt;
+readCsv* gpCsv;
+dashboard* gpDash;
+dotconfig* gpDotCfg;
+environment* gpEnv;
+bool gbHere;
+iHex* gpHex;
+cgihtml* gpHtml;
+CLog* gpLog;
+osIface* gpOS;
+password* gpPassword;
+schemaCompiler* gpSchCC;
+schema* gpSchema;
+semigraphics* gpSemiGr;
+shared* gpSh;
+SharedMemoryMutex* gpShMemMutex;
+SharedMemoryManager* gpShMemMgr;
+CSysLog* gpSysLog;
+test* gpTest;
+vparpc* gpVpaRpc;
+xinetdctl* gpXinetd;
 
 
 /**
@@ -50,8 +46,8 @@ xinetdctl			* gpXinetd;
  * @return A newly constructed mwfw instance with initialized
  *         CGI and logging mechanisms.
  */
-mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
-
+mwfw2::mwfw2(const char* pszFile, const char* pszFunction)
+{
 	gpCrt = new crtbind();
 	gpVpaRpc = new vparpc();
 	gpSemiGr = new semigraphics();
@@ -59,26 +55,28 @@ mwfw2::mwfw2(const char * pszFile,const char * pszFunction) {
 	gbHere = false;
 
 	m_bCGI = false;
-	char * ptr = getenv("SERVER_PORT");
-	if(nullptr != ptr) {
+	char* ptr = getenv("SERVER_PORT");
+	if (nullptr != ptr)
+	{
 		m_bCGI = true;
 	}
-	if(isCGI()) {
+	if (isCGI())
+	{
 		std::cout << "Content-type:\ttext/html\n\n" << std::endl;
 	}
 
 	// gpMP3			= new MP3Player();
 	// gpMP3Play		= new play();
-	gpSh			= new shared();
-	gpShMemMutex	= new SharedMemoryMutex(CFG_MUTEX_NAME);
-	gpShMemMgr		= new SharedMemoryManager(CFG_MUTEX_NAME);
-	gpEnv			= new environment();
-	gpLog			= new CLog(__FILE__,__FUNCTION__);
-	gpOS			= new osIface();
-	gpCgi			= new Cgicc();
-	gpCgiBind		= new cgibind();
-	gpConfig		= new config();
-	gpHex			= new iHex();
+	gpSh = new shared();
+	gpShMemMutex = new SharedMemoryMutex(CFG_MUTEX_NAME);
+	gpShMemMgr = new SharedMemoryManager(CFG_MUTEX_NAME);
+	gpEnv = new environment();
+	gpLog = new CLog(__FILE__, __FUNCTION__);
+	gpOS = new osIface();
+	gpCgi = new Cgicc();
+	gpCgiBind = new cgibind();
+	gpConfig = new config();
+	gpHex = new iHex();
 }
 
 /**
@@ -104,7 +102,7 @@ bool mwfw2::isCGI()
  *				 message to log. The caller must ensure that the message
  *				 is valid and not nullptr.
  */
-void mwfw2::sl_loginfo(const char *pszMsg)
+void mwfw2::sl_loginfo(const char* pszMsg)
 {
-  gpSysLog->loginfo(pszMsg);
+	gpSysLog->loginfo(pszMsg);
 }

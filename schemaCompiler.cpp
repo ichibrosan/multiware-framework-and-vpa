@@ -1,7 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/devo/public_html/fw/schemaCompiler.cpp 2025/01/10//
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.        //
-///////////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 
@@ -50,10 +46,14 @@ void schemaCompiler::createHeaderFileName(bool bDebug)
  */
 bool schemaCompiler::isActiveSchema()
 {
-    if(0 == strcmp("true",
-        gpCsv->m_parsed_data[ROW_META_DATA][COL_META_ACTIVE].c_str())) {
+    if (0 == strcmp("true",
+                    gpCsv->m_parsed_data[ROW_META_DATA][COL_META_ACTIVE].
+                    c_str()))
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -69,10 +69,14 @@ bool schemaCompiler::isActiveSchema()
  */
 bool schemaCompiler::isValidSchemaVersion()
 {
-    if(0 == strcmp("1",
-        gpCsv->m_parsed_data[ROW_META_DATA][COL_META_VERSION].c_str())) {
+    if (0 == strcmp("1",
+                    gpCsv->m_parsed_data[ROW_META_DATA][COL_META_VERSION].
+                    c_str()))
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -89,10 +93,13 @@ bool schemaCompiler::isValidSchemaVersion()
  */
 bool schemaCompiler::isRowActive(int iRow)
 {
-    if(0 == strcmp("true",
-        gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str())) {
+    if (0 == strcmp("true",
+                    gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str()))
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -107,12 +114,15 @@ bool schemaCompiler::isRowActive(int iRow)
 bool schemaCompiler::isTypePreCheckbox(int iRow)
 {
     bool bRetVal;
-    if(0 == strcmp("precheckbox",
-                gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
-            bRetVal = true;
-        } else {
-            bRetVal = false;
-        }
+    if (0 == strcmp("precheckbox",
+                    gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
+    {
+        bRetVal = true;
+    }
+    else
+    {
+        bRetVal = false;
+    }
     return bRetVal;
 }
 
@@ -126,10 +136,13 @@ bool schemaCompiler::isTypePreCheckbox(int iRow)
 bool schemaCompiler::isTypePostCheckbox(int iRow)
 {
     bool bRetVal;
-    if(0 == strcmp("precheckbox",
-                   gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
+    if (0 == strcmp("precheckbox",
+                    gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
+    {
         bRetVal = true;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
     }
     return bRetVal;
@@ -145,10 +158,13 @@ bool schemaCompiler::isTypePostCheckbox(int iRow)
 bool schemaCompiler::isTypeImage(int iRow)
 {
     bool bRetVal;
-    if(0 == strcmp("image",
-                   gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
+    if (0 == strcmp("image",
+                    gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
+    {
         bRetVal = true;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
     }
     return bRetVal;
@@ -164,10 +180,13 @@ bool schemaCompiler::isTypeImage(int iRow)
 bool schemaCompiler::isTypePassword(int iRow)
 {
     bool bRetVal;
-    if(0 == strcmp("password",
-                   gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
+    if (0 == strcmp("password",
+                    gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
+    {
         bRetVal = true;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
     }
     return bRetVal;
@@ -182,10 +201,13 @@ bool schemaCompiler::isTypePassword(int iRow)
  */
 bool schemaCompiler::isTypeRadioButton(int iRow)
 {
-    if(0 == strcmp("radiobutt",
-                   gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
+    if (0 == strcmp("radiobutt",
+                    gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -200,10 +222,13 @@ bool schemaCompiler::isTypeRadioButton(int iRow)
 bool schemaCompiler::isTypeText(int iRow)
 {
     bool bRetVal;
-    if(0 == strcmp("text",
-        gpCsv->m_parsed_data[iRow][COL_TYPE].c_str())) {
+    if (0 == strcmp("text",
+                    gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
+    {
         bRetVal = true;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
     }
     return bRetVal;
@@ -220,23 +245,25 @@ bool schemaCompiler::isTypeText(int iRow)
  * @return A schemaCompiler object properly initialized with the provided schema
  *         details.
  */
-schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
+schemaCompiler::schemaCompiler(std::string ssSchemaName, bool bDebug)
 {
     char szTimeStamp[128];
     std::string ssFile = __FILE__;
     std::string ssPath = std::filesystem::path(ssFile).remove_filename();
-                ssPath = ssPath.append("schemas/");
-                ssPath.append(ssSchemaName);
-                ssPath = std::filesystem::path(ssPath).replace_extension(".csv");
+    ssPath = ssPath.append("schemas/");
+    ssPath.append(ssSchemaName);
+    ssPath = std::filesystem::path(ssPath).replace_extension(".csv");
     getSchema(ssSchemaName);
     createHeaderFileName(bDebug);
-    if(isActiveSchema()) {
-        if(isValidSchemaVersion()) {
+    if (isActiveSchema())
+    {
+        if (isValidSchemaVersion())
+        {
             std::ofstream ofs(m_ssHFN);
             ofs << "/////////////////////////////////////////////"
                 << "///////////////////////" << std::endl;
             ofs << "// " << gpSh->m_pShMemng->szHostname << ":" << ssPath
-                << ""   << std::endl;
+                << "" << std::endl;
             ofs << "// Copyright (c) 2025 Douglas Wade Goodall. "
                 << "All rights reserved." << std::endl;
             ofs << "// " << m_ssHeaderFQFS << " Automatically Generated "
@@ -247,11 +274,13 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
             std::size_t SNperiod = ssSchemaName.find_last_of(".");
             std::string SNsansType = ssSchemaName.substr(0, SNperiod);
             ofs << "struct schema_" << SNsansType << "_t {" << std::endl;
-            for (int iRow = 3; iRow < m_iLines; iRow++) {
-                if(isRowActive(iRow)) {
-
+            for (int iRow = 3; iRow < m_iLines; iRow++)
+            {
+                if (isRowActive(iRow))
+                {
                     m_bHandlePreCheckbox = true;
-                    if(isTypePreCheckbox(iRow)) {
+                    if (isTypePreCheckbox(iRow))
+                    {
                         ofs << "    struct row";
                         ofs << iRow;
                         ofs << "_precheckbox_t {\t// precheckbox element";
@@ -281,39 +310,39 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << " = { ";
                         ofs << "\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_ACTIVE ].c_str();
+                            [iRow][COL_ACTIVE].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_PREPARA].c_str();
+                            [iRow][COL_PREPARA].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_POSTPARA].c_str();
+                            [iRow][COL_POSTPARA].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_TYPE].c_str();
+                            [iRow][COL_TYPE].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_NAME].c_str();
+                            [iRow][COL_CHECKBOX_NAME].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_ID].c_str();
+                            [iRow][COL_CHECKBOX_ID].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_VALUE].c_str();
+                            [iRow][COL_CHECKBOX_VALUE].c_str();
                         ofs << "\"," << std::endl;
                         ofs << "                  \"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_VISIBLE].c_str();
+                            [iRow][COL_CHECKBOX_VISIBLE].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_DESCRIPTION].c_str();
+                            [iRow][COL_CHECKBOX_DESCRIPTION].c_str();
                         ofs << "\"";
                         ofs << "};";
                         ofs << std::endl;
@@ -322,7 +351,8 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                     }
 
                     m_bHandlePostCheckbox = true;
-                    if(isTypePostCheckbox(iRow)) {
+                    if (isTypePostCheckbox(iRow))
+                    {
                         ofs << "    struct row";
                         ofs << iRow;
                         ofs << "_postcheckbox_t {\t// postcheckbox element";
@@ -352,38 +382,39 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << " = { ";
                         ofs << "\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_ACTIVE ].c_str();
+                            [iRow][COL_ACTIVE].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_PREPARA].c_str();
+                            [iRow][COL_PREPARA].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_POSTPARA].c_str();
+                            [iRow][COL_POSTPARA].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_TYPE].c_str();
+                            [iRow][COL_TYPE].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_NAME].c_str();
+                            [iRow][COL_CHECKBOX_NAME].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_ID].c_str();                        ofs << "\"";
+                            [iRow][COL_CHECKBOX_ID].c_str();
+                        ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_VALUE].c_str();
+                            [iRow][COL_CHECKBOX_VALUE].c_str();
                         ofs << "\"," << std::endl;
                         ofs << "                  \"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_VISIBLE].c_str();
+                            [iRow][COL_CHECKBOX_VISIBLE].c_str();
                         ofs << "\"";
                         ofs << ",\"";
                         ofs << gpCsv->m_parsed_data
-                                [iRow][COL_CHECKBOX_DESCRIPTION].c_str();
+                            [iRow][COL_CHECKBOX_DESCRIPTION].c_str();
                         ofs << "\"";
                         ofs << "};";
                         ofs << std::endl;
@@ -392,7 +423,8 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                     }
 
                     m_bHandleImage = true;
-                    if(isTypeImage(iRow)) {
+                    if (isTypeImage(iRow))
+                    {
                         ofs << "    struct row";
                         ofs << iRow;
                         ofs << "_image_t {\t// image element";
@@ -422,7 +454,7 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << " = { ";
 
                         ofs << "\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_ACTIVE ].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
@@ -438,20 +470,24 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_IMAGE_FILENAME].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_IMAGE_FILENAME].
+                            c_str();
                         ofs << "\",";
                         ofs << std::endl;
 
                         ofs << "                   \"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_IMAGE_WIDTH].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_IMAGE_WIDTH].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_IMAGE_HEIGHT].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_IMAGE_HEIGHT].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_IMAGE_ALTDESCRIPTION].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][
+                            COL_IMAGE_ALTDESCRIPTION].c_str();
                         ofs << "\"";
 
                         ofs << "};";
@@ -461,7 +497,8 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                     }
 
                     m_bHandlePassword = true;
-                    if(isTypePassword(iRow)) {
+                    if (isTypePassword(iRow))
+                    {
                         ofs << "    struct row";
                         ofs << iRow;
                         ofs << "_password_t {\t// password element";
@@ -490,7 +527,7 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << iRow;
                         ofs << " = { ";
                         ofs << "\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_ACTIVE ].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
@@ -506,24 +543,29 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_NAME].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_NAME].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_VALUE].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_VALUE].
+                            c_str();
                         ofs << "\",";
                         ofs << std::endl;
 
                         ofs << "                   \"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_SIZE].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_SIZE].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_VISIBLE].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_VISIBLE].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_DESCR].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_PASSWORD_DESCR].
+                            c_str();
                         ofs << "\"";
 
                         ofs << "};";
@@ -533,7 +575,8 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                     }
 
                     m_bHandleRadioButton = true;
-                    if(isTypeRadioButton(iRow)) {
+                    if (isTypeRadioButton(iRow))
+                    {
                         ofs << "    struct row";
                         ofs << iRow;
                         ofs << "_radiobutton_t {\t// radiobutton element";
@@ -562,7 +605,7 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << iRow;
                         ofs << " = { ";
                         ofs << "\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_ACTIVE ].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
@@ -582,20 +625,24 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_RADIO_NAME].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_RADIO_NAME].
+                            c_str();
                         ofs << "\",";
                         ofs << std::endl;
 
                         ofs << "                   \"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_RADIO_VALUE].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_RADIO_VALUE].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_RADIO_LABEL].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_RADIO_LABEL].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_RADIO_DESCRIPTION].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_RADIO_DESCRIPTION]
+                            .c_str();
                         ofs << "\"";
 
                         ofs << "};";
@@ -605,7 +652,8 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                     }
 
                     m_bHandleText = true;
-                    if(isTypeText(iRow)) {
+                    if (isTypeText(iRow))
+                    {
                         ofs << "    struct row";
                         ofs << iRow;
                         ofs << "_text_t {\t// text element";
@@ -635,7 +683,7 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << " = { ";
 
                         ofs << "\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_ACTIVE ].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_ACTIVE].c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
@@ -651,54 +699,66 @@ schemaCompiler::schemaCompiler(std::string ssSchemaName,bool bDebug)
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_NAME].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_NAME].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_VALUE].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_VALUE].
+                            c_str();
                         ofs << "\",";
                         ofs << std::endl;
 
                         ofs << "                   \"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_SIZE].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_SIZE].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_VISIBLE].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_VISIBLE].
+                            c_str();
                         ofs << "\"";
 
                         ofs << ",\"";
-                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_DESCR].c_str();
+                        ofs << gpCsv->m_parsed_data[iRow][COL_TEXT_DESCR].
+                            c_str();
                         ofs << "\"";
                         ofs << "    };";
                         ofs << std::endl;
                     }
-                } else {
+                }
+                else
+                {
                     // data row not active
-                    if(bDebug) {
+                    if (bDebug)
+                    {
                         std::cerr << " Schema " << ssSchemaName
-                                  << " row " << iRow
-                                  << " not active" << std::endl;
+                            << " row " << iRow
+                            << " not active" << std::endl;
                     }
                 }
             }
             ofs << "};" << std::endl;
             ofs.close();
-        } else {
+        }
+        else
+        {
             //meta version is wrong
-            if (bDebug) {
+            if (bDebug)
+            {
                 std::cerr << "Schema "
-                          << ssSchemaName
-                          << " wrong version" << std::endl;
-
+                    << ssSchemaName
+                    << " wrong version" << std::endl;
             }
         }
-    } else {
+    }
+    else
+    {
         // meta active = false
-        std::cerr   << "Schema "
-                    <<  ssSchemaName
-                    << " not active"
-                    << std::endl;
+        std::cerr << "Schema "
+            << ssSchemaName
+            << " not active"
+            << std::endl;
     }
 }
 

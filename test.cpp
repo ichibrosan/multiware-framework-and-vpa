@@ -1,7 +1,3 @@
-/////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/devo/public_html/fw/test.cpp 2025/01/10    //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
-/////////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 
@@ -25,8 +21,10 @@
  * This mapping is crucial for maintaining clarity and consistency
  * across test result logs and processing functions.
  */
-std::string test_names[NUM_TESTS] = { "Test-1", "Test-2", "Test-2.1",
-                                      "Test-3", "Test-4", "Test-5"};
+std::string test_names[NUM_TESTS] = {
+    "Test-1", "Test-2", "Test-2.1",
+    "Test-3", "Test-4", "Test-5"
+};
 /**
  * Constructor for the test class. Initializes logging, resets shared memory values,
  * sets test environment state, and runs mandatory tests. Keeps track of test start
@@ -37,7 +35,8 @@ std::string test_names[NUM_TESTS] = { "Test-1", "Test-2", "Test-2.1",
  *             executed under CGI-related conditions.
  * @return None
  */
-test::test(bool bDebug, bool bCGI) {
+test::test(bool bDebug, bool bCGI)
+{
     m_pSysLog = new CSysLog();
     // if(bDebug) {
     //     m_pSysLog->loginfo("test::test(true) called");
@@ -48,16 +47,16 @@ test::test(bool bDebug, bool bCGI) {
 
     gpSh->m_pShMemng->tests_processed_bits = 0;
 
-    gpSh->m_pShMemng->tests_passed_bits    = 0;
-    gpSh->m_pShMemng->tests_failed_bits    = 0;
-    gpSh->m_pShMemng->tests_skipped_bits   = 0;
+    gpSh->m_pShMemng->tests_passed_bits = 0;
+    gpSh->m_pShMemng->tests_failed_bits = 0;
+    gpSh->m_pShMemng->tests_skipped_bits = 0;
 
-    gpSh->m_pShMemng->num_tests_processed  = 0;
-    gpSh->m_pShMemng->num_tests_skipped    = 0;
-    gpSh->m_pShMemng->num_tests_passed     = 0;
-    gpSh->m_pShMemng->num_tests_failed     = 0;
+    gpSh->m_pShMemng->num_tests_processed = 0;
+    gpSh->m_pShMemng->num_tests_skipped = 0;
+    gpSh->m_pShMemng->num_tests_passed = 0;
+    gpSh->m_pShMemng->num_tests_failed = 0;
 
-    gpSh->m_pShMemng->tests_started        = true;
+    gpSh->m_pShMemng->tests_started = true;
 
     time(&gpSh->m_pShMemng->time_started);
 
@@ -66,7 +65,6 @@ test::test(bool bDebug, bool bCGI) {
 
     gpSh->m_pShMemng->tests_completed = true;
     time(&gpSh->m_pShMemng->time_completed);
-
 }
 
 
@@ -91,55 +89,63 @@ test::test(bool bDebug, bool bCGI) {
  * - `test_names` should contain valid names corresponding to the tests being tracked.
  * - Constants like `NUM_TESTS` should accurately reflect the total number of tests.
  */
-void test::logHistograms() {
+void test::logHistograms()
+{
     char szTemp[128];
 
-    sprintf(szTemp,"num_tests_processed are %d",
-        gpSh->m_pShMemng->num_tests_processed);
+    sprintf(szTemp, "num_tests_processed are %d",
+            gpSh->m_pShMemng->num_tests_processed);
     m_pSysLog->loginfo(szTemp);
 
-    sprintf(szTemp,"num_tests_skipped are %d",
-        gpSh->m_pShMemng->num_tests_skipped);
+    sprintf(szTemp, "num_tests_skipped are %d",
+            gpSh->m_pShMemng->num_tests_skipped);
     m_pSysLog->loginfo(szTemp);
 
-    sprintf(szTemp,"num_tests_passed are %d",
-        gpSh->m_pShMemng->num_tests_passed);
+    sprintf(szTemp, "num_tests_passed are %d",
+            gpSh->m_pShMemng->num_tests_passed);
     m_pSysLog->loginfo(szTemp);
 
-    sprintf(szTemp,"num_tests_failed are %d",
-        gpSh->m_pShMemng->num_tests_failed);
+    sprintf(szTemp, "num_tests_failed are %d",
+            gpSh->m_pShMemng->num_tests_failed);
     m_pSysLog->loginfo(szTemp);
 
     int index;
 
     m_pSysLog->loginfo("Tests Processed:");
-    for (index = 0; index < NUM_TESTS; index++) {
-        if (gpSh->m_pShMemng->tests_processed_bits & (1 << index)) {
+    for (index = 0; index < NUM_TESTS; index++)
+    {
+        if (gpSh->m_pShMemng->tests_processed_bits & (1 << index))
+        {
             m_pSysLog->loginfo(test_names[index].c_str());
         }
     }
 
     m_pSysLog->loginfo("Tests Passed:");
-    for (index = 0; index < NUM_TESTS; index++) {
-        if (gpSh->m_pShMemng->tests_passed_bits & (1 << index)) {
+    for (index = 0; index < NUM_TESTS; index++)
+    {
+        if (gpSh->m_pShMemng->tests_passed_bits & (1 << index))
+        {
             m_pSysLog->loginfo(test_names[index].c_str());
         }
     }
 
     m_pSysLog->loginfo("Tests Failed:");
-    for (index = 0; index < NUM_TESTS; index++) {
-        if (gpSh->m_pShMemng->tests_failed_bits & (1 << index)) {
+    for (index = 0; index < NUM_TESTS; index++)
+    {
+        if (gpSh->m_pShMemng->tests_failed_bits & (1 << index))
+        {
             m_pSysLog->loginfo(test_names[index].c_str());
         }
     }
 
     m_pSysLog->loginfo("Tests Skipped:");
-    for (index = 0; index < NUM_TESTS; index++) {
-        if (gpSh->m_pShMemng->tests_skipped_bits & (1 << index)) {
+    for (index = 0; index < NUM_TESTS; index++)
+    {
+        if (gpSh->m_pShMemng->tests_skipped_bits & (1 << index))
+        {
             m_pSysLog->loginfo(test_names[index].c_str());
         }
     }
-
 }
 
 
@@ -156,31 +162,35 @@ void test::logHistograms() {
  * @return Returns true if all mandatory tests pass successfully. Returns
  *         false if one or more tests fail.
  */
-bool test::runMandatoryTests(bool bCGI) {
-
-    gpSh->m_pShMemng->tests_skipped_bits   = 0;
-    gpSh->m_pShMemng->tests_passed_bits    = 0;
-    gpSh->m_pShMemng->tests_failed_bits    = 0;
+bool test::runMandatoryTests(bool bCGI)
+{
+    gpSh->m_pShMemng->tests_skipped_bits = 0;
+    gpSh->m_pShMemng->tests_passed_bits = 0;
+    gpSh->m_pShMemng->tests_failed_bits = 0;
     gpSh->m_pShMemng->tests_processed_bits = 0;
 
-    gpSh->m_pShMemng->num_tests_processed  = 0;
-    gpSh->m_pShMemng->num_tests_skipped    = 0;
-    gpSh->m_pShMemng->num_tests_failed     = 0;
-    gpSh->m_pShMemng->num_tests_passed     = 0;
+    gpSh->m_pShMemng->num_tests_processed = 0;
+    gpSh->m_pShMemng->num_tests_skipped = 0;
+    gpSh->m_pShMemng->num_tests_failed = 0;
+    gpSh->m_pShMemng->num_tests_passed = 0;
 
 
     m_pSysLog->loginfo("test::runMandatoryTests() called");
-    if (bCGI == false) {
-      std::cout << "Running Mandatory Tests" << std::endl;
+    if (bCGI == false)
+    {
+        std::cout << "Running Mandatory Tests" << std::endl;
     }
 
     bool bRetVal = true;
 
     // Verify http:// functionality
-    if (test0()) {
+    if (test0())
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST0;
         gpSh->m_pShMemng->num_tests_passed++;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
         gpSh->m_pShMemng->tests_failed_bits |= TEST0;
         gpSh->m_pShMemng->num_tests_failed++;
@@ -190,10 +200,13 @@ bool test::runMandatoryTests(bool bCGI) {
 
 
     // Verify http:// functionality
-    if (test1()) {
+    if (test1())
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST1;
         gpSh->m_pShMemng->num_tests_passed++;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
         gpSh->m_pShMemng->tests_failed_bits |= TEST1;
         gpSh->m_pShMemng->num_tests_failed++;
@@ -205,10 +218,13 @@ bool test::runMandatoryTests(bool bCGI) {
     gpSh->m_pShMemng->num_tests_skipped++;
 
     // Verify https:// functionality
-    if (test2_1(false)) {
+    if (test2_1(false))
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST2_1;
         gpSh->m_pShMemng->num_tests_passed++;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
         gpSh->m_pShMemng->tests_failed_bits |= TEST2_1;
         gpSh->m_pShMemng->num_tests_failed++;
@@ -217,10 +233,13 @@ bool test::runMandatoryTests(bool bCGI) {
     gpSh->m_pShMemng->tests_processed_bits |= TEST2_1;
 
     // Verify CGI functionality
-    if (test3(false, bCGI)) {
+    if (test3(false, bCGI))
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST3;
         gpSh->m_pShMemng->num_tests_passed++;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
         gpSh->m_pShMemng->tests_failed_bits |= TEST3;
         gpSh->m_pShMemng->num_tests_failed++;
@@ -229,14 +248,14 @@ bool test::runMandatoryTests(bool bCGI) {
     gpSh->m_pShMemng->tests_processed_bits |= TEST3;
 
     // Verify cgicc functionality
-    if (test5(__FILE__, __FUNCTION__, false)) {
-
+    if (test5(__FILE__, __FUNCTION__, false))
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST5;
 
         gpSh->m_pShMemng->num_tests_passed++;
-
-    } else {
-
+    }
+    else
+    {
         bRetVal = false;
         gpSh->m_pShMemng->tests_failed_bits |= TEST5;
         gpSh->m_pShMemng->num_tests_failed++;
@@ -257,16 +276,20 @@ bool test::runMandatoryTests(bool bCGI) {
  * @param bCGI A boolean flag indicating whether CGI-related tests should be executed.
  * @return True if all tests pass, false if any test fails.
  */
-bool test::runAllTests(bool bCGI) {
+bool test::runAllTests(bool bCGI)
+{
     m_pSysLog->loginfo("test::runAllTests() called");
 
     bool bRetVal = true;
 
     // Verify http:// functionality
-    if (test1()) {
+    if (test1())
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST1;
         gpSh->m_pShMemng->num_tests_passed++;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
         gpSh->m_pShMemng->tests_failed_bits |= TEST1;
         gpSh->m_pShMemng->num_tests_failed++;
@@ -275,22 +298,28 @@ bool test::runAllTests(bool bCGI) {
     gpSh->m_pShMemng->tests_processed_bits |= TEST1;
 
     // Verify https:// functionality
-    if (test2()) {
+    if (test2())
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST2;
         gpSh->m_pShMemng->num_tests_passed++;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
-        gpSh->m_pShMemng->tests_failed_bits|= TEST2;
+        gpSh->m_pShMemng->tests_failed_bits |= TEST2;
         gpSh->m_pShMemng->num_tests_failed++;
     }
     gpSh->m_pShMemng->num_tests_processed++;
     gpSh->m_pShMemng->tests_processed_bits |= TEST2;
 
     // verify shared region
-    if (test2_1(false)) {
+    if (test2_1(false))
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST2_1;
         gpSh->m_pShMemng->num_tests_passed++;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
         gpSh->m_pShMemng->tests_failed_bits |= TEST2_1;
         gpSh->m_pShMemng->num_tests_failed++;
@@ -300,10 +329,13 @@ bool test::runAllTests(bool bCGI) {
 
 
     // Verify CGI functionality
-    if (test3(false, bCGI)) {
+    if (test3(false, bCGI))
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST3;
         gpSh->m_pShMemng->num_tests_passed++;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
         gpSh->m_pShMemng->tests_failed_bits |= TEST3;
         gpSh->m_pShMemng->num_tests_failed++;
@@ -313,10 +345,13 @@ bool test::runAllTests(bool bCGI) {
 
 
     // Verify cgicc functionality
-    if (test5(__FILE__, __FUNCTION__, false)) {
+    if (test5(__FILE__, __FUNCTION__, false))
+    {
         gpSh->m_pShMemng->tests_passed_bits |= TEST5;
         gpSh->m_pShMemng->num_tests_passed++;
-    } else {
+    }
+    else
+    {
         bRetVal = false;
         gpSh->m_pShMemng->tests_failed_bits |= TEST5;
         gpSh->m_pShMemng->num_tests_failed++;
@@ -343,22 +378,24 @@ bool test::runAllTests(bool bCGI) {
 bool test::test0()
 {
     m_pSysLog->loginfo("test::test0() called, verify env values");
-    bool bRetVal = true;    // set default return value
+    bool bRetVal = true; // set default return value
 
-    if (UNIVERSAL_ANSWER != gpSh->m_pShMemng->iSignature) {
+    if (UNIVERSAL_ANSWER != gpSh->m_pShMemng->iSignature)
+    {
         bRetVal = false;
     }
 
     /**
      * Test Environment based values not empty null strings
      */
-    if ( 0 == strlen(gpSh->m_pShMemng->szHostname) ||
-         0 == strlen(gpSh->m_pShMemng->szIP)       ||
-         0 == strlen(gpSh->m_pShMemng->szIface)    ||
-         0 == strlen(gpSh->m_pShMemng->szProtocol) ||
-         0 == strlen(gpSh->m_pShMemng->szImgRoot)  ||
-         0 == strlen(gpSh->m_pShMemng->szCgiRoot)  ||
-         0 == strlen(gpSh->m_pShMemng->szUser) ) {
+    if (0 == strlen(gpSh->m_pShMemng->szHostname) ||
+        0 == strlen(gpSh->m_pShMemng->szIP) ||
+        0 == strlen(gpSh->m_pShMemng->szIface) ||
+        0 == strlen(gpSh->m_pShMemng->szProtocol) ||
+        0 == strlen(gpSh->m_pShMemng->szImgRoot) ||
+        0 == strlen(gpSh->m_pShMemng->szCgiRoot) ||
+        0 == strlen(gpSh->m_pShMemng->szUser))
+    {
         bRetVal = false;
     }
     return bRetVal;
@@ -375,18 +412,22 @@ bool test::test0()
  * @return true if the content of the output file starts with "<!DOCTYPE", indicating success;
  *         false otherwise.
  */
-bool test::test1() {
+bool test::test1()
+{
     m_pSysLog->loginfo("test::test1() called, verify http:// read");
 
-    system(gpOS->genHtmlUrl("fw-test1.html",false).c_str());
+    system(gpOS->genHtmlUrl("fw-test1.html", false).c_str());
 
     const std::string filename = "/tmp/fw-test1.stdout";
     std::ifstream ifs(filename);
     std::string inbuf;
     ifs >> inbuf;
-    if (0 == inbuf.compare("<!DOCTYPE")) {
+    if (0 == inbuf.compare("<!DOCTYPE"))
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -403,18 +444,22 @@ bool test::test1() {
  * @return true if the output starts with "<!DOCTYPE", indicating validation success.
  * @return false otherwise, indicating validation failure.
  */
-bool test::test2() {
+bool test::test2()
+{
     m_pSysLog->loginfo("test::test2() called, verify https:// read");
 
-    system(gpOS->genHtmlUrl("fw-test2.html",false).c_str());
+    system(gpOS->genHtmlUrl("fw-test2.html", false).c_str());
 
     const std::string filename = "/tmp/fw-test2.stdout";
     std::ifstream ifs(filename);
     std::string inbuf;
     ifs >> inbuf;
-    if (0 == inbuf.compare("<!DOCTYPE")) {
+    if (0 == inbuf.compare("<!DOCTYPE"))
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
@@ -433,7 +478,7 @@ bool test::test2() {
 bool test::test2_1(bool bDebug)
 {
     m_pSysLog->loginfo("test::test2_1() called, "
-                       "verify shared region version");
+        "verify shared region version");
 
     /**
      * @struct SMS_T
@@ -442,7 +487,8 @@ bool test::test2_1(bool bDebug)
      * The SMS_T structure is used to store attributes of a shared memory segment
      * obtained through system calls or inter-process communication details.
      */
-    struct SMS_T {
+    struct SMS_T
+    {
         /**
          * @brief Represents the key of a shared memory segment.
          *
@@ -501,43 +547,46 @@ bool test::test2_1(bool bDebug)
     gpXinetd->trigger(VPA_IPCS_PORT);
     sleep(1);
     std::string ssIpcsFQFS = gpOS->genTempFQFS("ipcs.stdout",
-                                                false);
+                                               false);
 
     std::ifstream ifs(ssIpcsFQFS);
     std::string inbuf;
 
     ifs >> inbuf;
-    while(0 != inbuf.compare("Message")) {
+    while (0 != inbuf.compare("Message"))
+    {
         ifs >> inbuf;
     }
 
     ifs >> inbuf;
 
-    while(0 != inbuf.compare("Shared")) {
+    while (0 != inbuf.compare("Shared"))
+    {
         ifs >> inbuf;
     }
 
     ifs >> inbuf;
-    while(0 != inbuf.compare("Semaphore")) {
-
+    while (0 != inbuf.compare("Semaphore"))
+    {
         ifs >> inbuf;
 
         /**
          * Is it my shared region key="0x00005164" ?
          */
-        if(0 == inbuf.compare("0x00005164")) {
+        if (0 == inbuf.compare("0x00005164"))
+        {
             /**
              * That is our key :-)
              */
             /**
              * Pick up the fields...
              */
-                     sms.key = inbuf;
-            ifs   >> sms.shmid;
-            ifs   >> sms.owner;
-            ifs   >> sms.perms;
-            ifs   >> sms.bytes;
-            ifs   >> sms.nattach;
+            sms.key = inbuf;
+            ifs >> sms.shmid;
+            ifs >> sms.owner;
+            ifs >> sms.perms;
+            ifs >> sms.bytes;
+            ifs >> sms.nattach;
 
             /**
              * What is the size of our shared structure?
@@ -554,28 +603,31 @@ bool test::test2_1(bool bDebug)
             /**
              * Check the size to make sure its what we are expecting"
              */
-            if(shmemsize != bytesize) {
+            if (shmemsize != bytesize)
+            {
                 m_pSysLog->loginfo("Wrong size of shared segment, "
-                                    "not current ver");
+                    "not current ver");
                 return false;
             }
             /**
              * segment size was correct
              */
-            if(0 != strcmp(gpSh->m_pShMemng->szUser,sms.owner.c_str())) {
+            if (0 != strcmp(gpSh->m_pShMemng->szUser, sms.owner.c_str()))
+            {
                 // We are not the existing segment's owner
                 return false;
             }
             /**
              * segment owner was correct
              */
-            if(0 != strcmp("660",sms.perms.c_str())) {
+            if (0 != strcmp("660", sms.perms.c_str()))
+            {
                 // Not the permissions we were expecting
                 return false;
             }
             return true;
         } // not our key, go back to while and try another
-    }    // ran out of Shared Memory Segments without finding our key
+    } // ran out of Shared Memory Segments without finding our key
     return false;
 }
 
@@ -592,27 +644,31 @@ bool test::test2_1(bool bDebug)
  * @return Returns true if CGI functionality is verified successfully, false otherwise.
  * TODO: fix the path, s/b fw/tmp, not /tmp
  */
-bool test::test3(bool bDebug, bool bCGI) {
-    if (bCGI) {
-	    return true;
+bool test::test3(bool bDebug, bool bCGI)
+{
+    if (bCGI)
+    {
+        return true;
     }
 
-    else {
+    else
+    {
+        system(gpOS->genCurlCgiBinUrl("fw-test3.py", false).c_str());
 
-            system(gpOS->genCurlCgiBinUrl("fw-test3.py",false).c_str());
-
-            const std::string filename = "/tmp/fw-test3.stdout";
-            std::ifstream ifs(filename);
-            std::string inbuf;
-            ifs >> inbuf;
-            if (0 == inbuf.compare("2d57309e-ce1f-11ef-b73d-0f5dbc92dd58")) {
-                return true;
-            } else {
-                return false;
-	    }
+        const std::string filename = "/tmp/fw-test3.stdout";
+        std::ifstream ifs(filename);
+        std::string inbuf;
+        ifs >> inbuf;
+        if (0 == inbuf.compare("2d57309e-ce1f-11ef-b73d-0f5dbc92dd58"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
-
 
 
 /**
@@ -627,12 +683,14 @@ bool test::test3(bool bDebug, bool bCGI) {
  *         the log file; false if the log file could not be generated or the unique
  *         identifier is not found.
  */
-bool test::test5(const char *pszFile, const char *pszFunction, bool bDebug) {
+bool test::test5(const char* pszFile, const char* pszFunction, bool bDebug)
+{
     strncpy(m_szLogFQFS,
             gpOS->genLogFQFS(__FILE__, __FUNCTION__, false),
             sizeof(m_szLogFQFS));
     m_pSysLog->loginfo(gpOS->genLogFQFS(__FILE__, __FUNCTION__, false));
-    if (0 < strlen(m_szLogFQFS)) {
+    if (0 < strlen(m_szLogFQFS))
+    {
         CLog log(__FILE__, __FUNCTION__);
         log.truncate();
         // write a unique uuid into the log for the test
@@ -651,16 +709,20 @@ bool test::test5(const char *pszFile, const char *pszFunction, bool bDebug) {
 
         // check for the unique uuid in the log entry
         if (0 == strcmp("51cbd444-ceaf-11ef-9da5-97e0560975f4",
-                        inbuf.c_str())) {
+                        inbuf.c_str()))
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
-    } else {
+    }
+    else
+    {
         return false;
     }
-    exit( 0);
-
+    exit(0);
 }
 
 
@@ -676,7 +738,8 @@ bool test::test5(const char *pszFile, const char *pszFunction, bool bDebug) {
  * cleanup to prevent memory leaks or undefined behavior when the
  * object is destroyed.
  */
-test::~test() {
+test::~test()
+{
 }
 
 ////////////////////
