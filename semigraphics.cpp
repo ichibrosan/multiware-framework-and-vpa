@@ -6,7 +6,6 @@
 
 #include "mwfw2.h"
 
-#include <iostream>
 
 /**
  * Constructor for the semigraphics class.

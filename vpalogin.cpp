@@ -5,13 +5,8 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include "include/CVpaRpc.h"
-#include "include/readCsv.h"
-#include "include/password.h"
-#include "include/semigraphics.h"
 
 window* gpWin;
-
 
 // Function to read password without echoing to terminal
 std::string getPassword()

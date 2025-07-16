@@ -5,7 +5,6 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include "cliLogin.h"
 
 
 /**
@@ -283,7 +282,7 @@ void services_diag()
 {
     CServices services;
 
-     // Check if a service exists
+    // Check if a service exists
     if (services.hasService("vpa"))
     {
         std::cout << "vpa service exists" << std::endl;

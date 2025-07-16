@@ -4,7 +4,7 @@
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 
-#include "include/CVpaRpc.h"
+
 #include "mwfw2.h"
 
 /**

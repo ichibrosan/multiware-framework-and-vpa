@@ -5,7 +5,6 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include "xinetdctl.h"
 
 /**
  * @brief Default constructor for the xinetdctl class.

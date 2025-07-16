@@ -5,7 +5,9 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "CSysLog.h"
+
 extern bool gbHere;
+
 /**
  * Constructor for the CSysLog class.
  *

@@ -23,6 +23,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <pthread.h>
+#include <pwd.h>
 //#include <stdio.h>        // deprecated by <cstdio>
 //#include <stdlib.h>       // deprecated by <cstdlib>
 #include <sys/ipc.h>

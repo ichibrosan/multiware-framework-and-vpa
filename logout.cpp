@@ -6,7 +6,9 @@
 
 #include "mwfw2.h"
 
-char* gpszServerPort; /**
+char* gpszServerPort;
+
+/**
  * @brief A global pointer to a character string representing the server port.
  *
  * gpszServerPort is used to store a dynamically allocated or assigned

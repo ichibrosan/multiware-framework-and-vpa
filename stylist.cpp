@@ -5,8 +5,7 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-//#include "stylist.h"
-#include "webcolors.h"
+
 /**
  * @brief Provides a CSS style definition for a default button.
  *

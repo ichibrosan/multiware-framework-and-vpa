@@ -5,7 +5,6 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include "stylist.h"
 
 /**
  * The main function initializes necessary components, processes form

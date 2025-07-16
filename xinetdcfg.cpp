@@ -4,12 +4,7 @@
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 
-#include "xinetdcfg.h"
-#include <iostream>
-#include <sstream>
-#include <iomanip>
-#include <chrono>
-#include <algorithm>
+#include "mwfw2.h"
 
 // Static member definitions
 const std::string xinetcfg::XINETD_DIR = "/etc/xinetd.d";

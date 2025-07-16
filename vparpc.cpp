@@ -5,18 +5,6 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include <string.h>
-#include "vparpc.h"
-
-#include <netdb.h>
-#include <arpa/inet.h>
-
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <regex>
-#include <algorithm>
-#include <cctype>
 
 //#define DISPLAY_MAIN_SERVER_LOOP_INFO
 //#define DISPLAY_PROCESS_INFO

@@ -4,14 +4,7 @@
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 
-#include <bits/stdc++.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
+#include "mwfw2.h"
 
 #define PORT    5164
 #define MAXLINE 1024

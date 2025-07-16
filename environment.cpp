@@ -5,7 +5,6 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include "shared.h"
 
 #define GET_HOSTNAME_AND_PROTOCOL
 #define GET_INTERFACE

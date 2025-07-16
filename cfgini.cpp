@@ -4,11 +4,7 @@
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 
-#include "include/cfgini.h"
-#include <iostream>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
+#include "mwfw2.h"
 
 /**
  * Default constructor for the cfgini class.

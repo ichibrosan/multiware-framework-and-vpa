@@ -5,8 +5,6 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-#include "cfgini.h"
-#include "xinetdcfg.h"
 
 /**************************************************************
  * Display Retro Header Information IBM 5150 Monochrome style *

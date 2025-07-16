@@ -34,7 +34,8 @@ extern semigraphics* gpSemiGr;
 
 
 #include "window.h"
-
+#include "vparpc.h"
+#include "CVpaRpc.h"
 
 #ifndef gpSysLog
 #include "CSysLog.h"
@@ -46,6 +47,8 @@ extern bool gbHere;
 
 #include "xinetdcfg.h"			// /etc/xinetd.d/vpa  maintenance class
 #include "CServices.h"			// /etc/services file maintenance class
+#include "checkAuth.h"			// check user authentication class
+#include "cliLogin.h"			// command-line login class
 
 #ifndef gpDotCfg
 #include "dotconfig.h"

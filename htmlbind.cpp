@@ -5,7 +5,6 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
-//#include "htmlbind.h"
 
 /**************************************************
  * Default constructor for the htmlbind class.

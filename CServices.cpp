@@ -4,15 +4,7 @@
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 
-#include "include/CServices.h"
-#include <iostream>
-#include <sstream>
-#include <algorithm>
-#include <regex>
-#include <cstring>
-#include <fstream>
-#include <pwd.h>
-#include <sys/wait.h>
+#include "mwfw2.h"
 
 const std::string CServices::SERVICES_FILE = "/etc/services";
 const std::string CServices::SERVICES_BACKUP = "/etc/services.backup";

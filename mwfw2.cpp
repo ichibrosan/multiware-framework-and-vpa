@@ -6,10 +6,6 @@
 
 #include "include/mwfw2.h"
 
-#include "include/dashboard.h"
-
-#include "include/stylist.h"
-
 Cgicc* gpCgi;
 cgibind* gpCgiBind;
 config* gpConfig;

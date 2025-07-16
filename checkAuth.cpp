@@ -4,9 +4,7 @@
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 
-#include "checkAuth.h"
-#include <iostream>
-#include <sstream>
+#include "mwfw2.h"
 
 /**
  * Constructor for the checkAuth class.

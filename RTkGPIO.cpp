@@ -6,18 +6,6 @@
 
 #include "mwfw2.h"
 
-#include <cstdio>
-#include <string>
-#include "RTkGPIO.h"
-
-#include <iostream>
-#include <string>
-#include <unistd.h>
-#include <fcntl.h>
-#include <termios.h>
-#include <bits/ostream.tcc>
-
-
 RTkGPIO::RTkGPIO()
 {
     m_ssDevice = "/dev/ttyUSB0";

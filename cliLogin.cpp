@@ -4,12 +4,7 @@
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 
-#include "fw-limits.h"
-#include "cliLogin.h"
-#include "password.h"  // Add this line
-#include <iostream>
-#include <stdexcept>
-#include <cstdio>
+#include "mwfw2.h"
 
 bool cliLogin::isLoginExpired(const std::string& lastLoginStr)
 {
