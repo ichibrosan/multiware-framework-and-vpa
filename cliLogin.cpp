@@ -25,16 +25,19 @@ bool cliLogin::isLoginExpired(const std::string& lastLoginStr)
         time_t lastLogin = static_cast<time_t>(std::stoll(lastLoginStr));
         time_t currentTime = time(nullptr);
 
+#ifdef DEBUG_CLI_LOGIN
         printf("DEBUG: Last login timestamp: %ld\n", lastLogin);
         printf("DEBUG: Current timestamp: %ld\n", currentTime);
         printf("DEBUG: Time difference: %ld seconds\n",
                currentTime - lastLogin);
         printf("DEBUG: Timeout threshold: %ld seconds\n", LOGIN_TIMEOUT);
+#endif
 
         // Check if current time minus last login exceeds timeout
         bool expired = (currentTime - lastLogin) > LOGIN_TIMEOUT;
+#ifdef DEBUG_CLI_LOGIN
         printf("DEBUG: Login expired: %s\n", expired ? "YES" : "NO");
-
+#endif
         return expired;
     }
     catch (const std::exception& e)

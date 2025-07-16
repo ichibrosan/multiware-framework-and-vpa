@@ -1,7 +1,8 @@
-////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/CSysLog.hpp  2025/02/19                  //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
-////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/CSysLog.hpp 2025-07-16 08:16 dwg -            //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #pragma once
 
@@ -15,7 +16,8 @@
  * server-side or backend applications where critical logging is essential
  * for debugging and tracking system operations.
  */
-class CSysLog {
+class CSysLog
+{
 	/**
 	 * Constructor for the CSysLog class.
 	 * Initializes the system logging mechanism by setting the log mask and
@@ -24,7 +26,7 @@ class CSysLog {
 	 * @return An instance of the CSysLog class.
 	 */
 public:
-    CSysLog();
+	CSysLog();
 	/**
 	 * Logs an informational message to the system log.
 	 *
@@ -33,9 +35,9 @@ public:
 	 *
 	 * @param pszMsg A pointer to a null-terminated string, which is the message to be logged.
 	 */
-	static void loginfo(const char *pszMsg);
+	static void loginfo(const char* pszMsg);
 
-	void herefunc(const char *,const char *,int);
+	void herefunc(const char*, const char*, int);
 
 	/**
 	 * Destructor for the CSysLog class.

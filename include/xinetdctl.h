@@ -1,6 +1,8 @@
-//
-// Created by doug on 2/17/25.
-//
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/xinetdctl.h 2025-07-16 08:08 dwg -            //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #pragma once
 

@@ -1,3 +1,8 @@
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/mwfw2.h 2025-07-16 08:08 dwg -                //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 // daphne.goodall.com:/home/devo/public_html/fw/mwfw2.h 2025/02/14     //
 // Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
@@ -32,7 +37,7 @@ extern semigraphics* gpSemiGr;
 
 
 #ifndef gpSysLog
-#include "CSysLog.hpp"
+#include "CSysLog.h"
 extern CSysLog* gpSysLog;
 extern bool gbHere;
 #endif
@@ -84,7 +89,7 @@ extern cgihtml* gpHtml;
 #endif
 
 #ifndef gpLog
-#include "CLog.hpp"
+#include "CLog.h"
 extern CLog* gpLog;
 #endif
 

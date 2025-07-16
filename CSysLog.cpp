@@ -4,7 +4,7 @@
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 
-#include "CSysLog.hpp"
+#include "CSysLog.h"
 extern bool gbHere;
 /**
  * Constructor for the CSysLog class.

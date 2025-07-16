@@ -1,7 +1,8 @@
-/////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/devo/public_html/fw/readCsv.h 2025/01/10   //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
-/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/readCsv.h 2025-07-16 08:08 dwg -              //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #pragma once
 
@@ -20,7 +21,8 @@
  * row and column indices, as well as obtaining the number of lines in the
  * parsed CSV file.
  */
-class readCsv {
+class readCsv
+{
 	/**
 	 * A two-dimensional vector containing parsed CSV data.
 	 *
@@ -55,9 +57,9 @@ class readCsv {
 	 *       object construction.
 	 */
 public:
-    std::string m_parsed_data[MAX_ROWS][MAX_COLS];
+	std::string m_parsed_data[MAX_ROWS][MAX_COLS];
 
-    readCsv(std::string); /**
+	readCsv(std::string); /**
      * @brief Parses the CSV data and populates the internal structure with the parsed data.
      *
      * This function processes the raw CSV data stored in the `m_data` member and writes
@@ -86,7 +88,7 @@ public:
 	 * @param col The column index of the desired data.
 	 * @return A string containing the data at the specified row and column.
 	 */
-	std::string getData(int row,int col);
+	std::string getData(int row, int col);
 	/**
 	 * Retrieves the total number of lines (rows) in the CSV file.
 	 *

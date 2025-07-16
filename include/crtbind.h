@@ -1,6 +1,8 @@
-//
-// Created by doug on 4/30/25.
-//
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/crtbind.h 2025-07-16 08:08 dwg -              //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #pragma once
 

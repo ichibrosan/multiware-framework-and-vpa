@@ -1,6 +1,8 @@
-//
-// Created by doug on 1/16/25.
-//
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/password.h 2025-07-16 08:08 dwg -             //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #pragma once
 
@@ -14,7 +16,8 @@
  * functionalities for initialization, dumping schema data, retrieving UUIDs, and performing
  * user lookup operations using provided usernames and passwords.
  */
-class password {
+class password
+{
 	/**
 	 * @brief Pointer to the schema object representing the structure or layout of data.
 	 *
@@ -26,7 +29,7 @@ class password {
 	 * @note Ensure proper memory management to avoid potential leaks
 	 * or dereferencing null pointers.
 	 */
-	schema * m_pSchema;
+	schema* m_pSchema;
 	/**
 	 * @brief Stores the number of lines, which could represent rows, lines of text,
 	 * or any linear count relevant to the application's context.
@@ -45,7 +48,7 @@ class password {
 	 * @return A string containing the generated secure password.
 	 */
 public:
-    password();
+	password();
 	/**
 	 * Dumps the metadata header from the schema's associated CSV data structure in a tabular HTML format.
 	 *
@@ -78,7 +81,7 @@ public:
 	 * @param key The key used to find the associated value in the underlying data structure.
 	 * @return The value associated with the provided key, or null/appropriate default if the key is not found.
 	 */
-	int lookup(std::string ssUserName,std::string ssPasssword);
+	int lookup(std::string ssUserName, std::string ssPasssword);
 	/**
 	 * Looks up a username and password in a CSV data file to verify if they match
 	 * an active user entry. The method checks if the provided username and password
@@ -89,7 +92,8 @@ public:
 	 * @return EXIT_SUCCESS if the username and password match an active entry.
 	 *         EXIT_FAILURE otherwise.
 	 */
-	int lookup_username_password(std::string ssUsername,std::string ssPassword);
+	int lookup_username_password(std::string ssUsername,
+	                             std::string ssPassword);
 };
 
 ////////////////////

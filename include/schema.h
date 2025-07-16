@@ -1,12 +1,13 @@
-/////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/devo/public_html/fw/schema.h 2025/01/10   //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
-/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/schema.h 2025-07-16 08:08 dwg -               //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #pragma once
 
 //#include "main.h"
-#include "CSysLog.hpp"
+#include "CSysLog.h"
 #include "readCsv.h"
 
 enum

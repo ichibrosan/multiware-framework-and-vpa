@@ -1,7 +1,8 @@
-////////////////////////////////////////////////////////////////////////
-// /home/devo/public_html/fw/CLog.hpp 2025/02/19 03:19                //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved. //
-////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/CLog.hpp 2025-07-16 08:16 dwg -               //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #pragma once
 
@@ -24,7 +25,8 @@
  *
  * Thread safety and performance considerations are dependent on specific implementation details.
  ******************************************************************************************/
-class CLog {
+class CLog
+{
 	/**
 	 * @brief A variable that typically stores a fully qualified file system path as a null-terminated string.
 	 *
@@ -41,10 +43,9 @@ class CLog {
 	 * when assigning values to this variable.
 	 */
 	// This is the fully qualified filespec of
-    // the logfile, which is used on each access
-    // to open the file for appending.
-    char m_szFQFS[FILENAME_MAX];
-
+	// the logfile, which is used on each access
+	// to open the file for appending.
+	char m_szFQFS[FILENAME_MAX];
 
 public:
 	/**
@@ -55,10 +56,10 @@ public:
 	 * @return A boolean indicating whether the log operation succeeded (true) or failed (false).
 	 */
 	// This is the prototype of the CLog class
-    // constructor. It opens a log file and saves
-    // the file descriptor in member data for
-    // subsequent calls to the write function.
-    CLog(const char *pszFileName, const char *pszFunctionName);
+	// constructor. It opens a log file and saves
+	// the file descriptor in member data for
+	// subsequent calls to the write function.
+	CLog(const char* pszFileName, const char* pszFunctionName);
 
 	/**
 	 * Truncates the current log file by clearing its contents and writing
@@ -73,9 +74,9 @@ public:
 	 *           (e.g., unable to open the log file).
 	 */
 	// This is the prototype of the truncate function
-    // whose purpose is to delete the current contents
-    // in preparation for new data.
-    int truncate();
+	// whose purpose is to delete the current contents
+	// in preparation for new data.
+	int truncate();
 
 	/**
 	 * Retrieves the maximum value in an integer array.
@@ -85,9 +86,9 @@ public:
 	 * @return The maximum value in the array. If the array is empty, returns a default minimum value or error indicator.
 	 */
 	// This is the prototype of the logging function
-    // a string is passed to the write function and
-    // it is subsequently written into the log file
-    int write(const char *);
+	// a string is passed to the write function and
+	// it is subsequently written into the log file
+	int write(const char*);
 
 	/**
 	 * Writes a given message to the log file without including a timestamp.
@@ -105,7 +106,7 @@ public:
 	 *         otherwise, RETURN_FAILURE is returned if an error occurs during the
 	 *         operation.
 	 */
-	int writesanstime(const char *);
+	int writesanstime(const char*);
 
 	/**
 	 * @brief Converts a boolean value to a named string representation.
@@ -116,7 +117,7 @@ public:
 	 * @param value The boolean input to be converted to a named string.
 	 * @return A string representation of the boolean value, either "true" or "false".
 	 */
-	int namedBool(const char *, bool);
+	int namedBool(const char*, bool);
 
 	/**
 	 * Logs a message that includes a name and a double value into the log file. The
@@ -129,7 +130,7 @@ public:
 	 * @return Returns RETURN_SUCCESS (typically 0) on successful logging, or
 	 *         RETURN_FAILURE (typically non-zero) if the logging operation fails.
 	 */
-	int namedDouble(const char *, double);
+	int namedDouble(const char*, double);
 
 	/**
 	 * Returns the integer associated with the given name.
@@ -141,7 +142,7 @@ public:
 	 * @param name The name as a string used to retrieve the associated integer.
 	 * @return The integer value associated with the given name.
 	 */
-	int namedInt(const char *, int);
+	int namedInt(const char*, int);
 
 	/**
 	 * Constructs a formatted string by combining a provided name with a specific value.
@@ -150,7 +151,7 @@ public:
 	 * @param value The integer value to be combined with the name.
 	 * @return A concatenated string that blends the given name and value.
 	 */
-	int namedString(const char *, const char *);
+	int namedString(const char*, const char*);
 
 	/**
 	 * Logs a formatted message with a timestamp to a file. The method formats
@@ -165,10 +166,10 @@ public:
 	 *         (e.g., if the file could not be written).
 	 */
 	// This is the prototype of the varargs version
-    // of the logging function. A format string and
-    // some parameters are passed in and formatted
-    // before being written to the log file..
-    int writev(const char *, ...);
+	// of the logging function. A format string and
+	// some parameters are passed in and formatted
+	// before being written to the log file..
+	int writev(const char*, ...);
 
 	/**
 	 * Generates a timestamp in the format "YYYY-MM-DD_HH:MM:SS" and stores the result in the provided buffer.
@@ -176,8 +177,7 @@ public:
 	 * @param pszDest A pointer to a character buffer where the generated timestamp will be stored.
 	 *                This buffer should be pre-allocated and large enough to hold the resulting string.
 	 */
-	void getTimeDateStamp(char *);
-
+	void getTimeDateStamp(char*);
 };
 
 ////////////////////

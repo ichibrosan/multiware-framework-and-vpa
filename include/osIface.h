@@ -1,7 +1,8 @@
-/////////////////////////////////////////////////////////////////////////
-// daphne.goodall.com:/home/devo/public_html/fw/osIface.h 2025/01/10   //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. All Rights Reserved.  //
-/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/osIface.h 2025-07-16 08:08 dwg -              //
+// Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 
 #pragma once
 
@@ -20,7 +21,8 @@
  * @note Users of this class should ensure to implement all the pure virtual functions
  *       in derived classes to provide the necessary functionality.
  */
-class osIface {
+class osIface
+{
 	/**
 	 * @brief Fully Qualified File System (FQFS) name or path.
 	 *
@@ -64,7 +66,7 @@ class osIface {
 	 * @return A pointer or reference to the operating system interface object.
 	 */
 public:
-    osIface();
+	osIface();
 
 	/**
 	 * Retrieves a list of all files in the specified directory.
@@ -87,14 +89,14 @@ public:
 	 * @param pszFile A pointer to a null-terminated character string representing the file path.
 	 * @return A string containing the directory path of the given file.
 	 */
-	std::string file2path(const char *pszFile);
+	std::string file2path(const char* pszFile);
 	/**
 	 * Converts a file path to its corresponding file name.
 	 *
 	 * @param file_path The full path of the file including directories.
 	 * @return The file name extracted from the specified file path.
 	 */
-	std::string file2filename(const char *pszFile);
+	std::string file2filename(const char* pszFile);
 	/**
 	 * Extracts the filename without its extension from a given file path.
 	 * This function takes in a file path, strips the directory path and the file
@@ -103,7 +105,7 @@ public:
 	 * @param filePath The path of the file from which the name without extension is to be extracted.
 	 * @return The file name without its extension as a string.
 	 */
-	std::string file2filenamesansext(const char *pszFile);
+	std::string file2filenamesansext(const char* pszFile);
 
 	/**
 	 * @fn std::string genStyleFQFS(const char *pszCssName, bool bDebug)
@@ -121,7 +123,7 @@ public:
 	 *
 	 * @note The caller must handle the validity and memory of the pszCssName parameter.
 	 */
-	std::string genStyleFQFS(const char *pszCssName,bool bDebug);
+	std::string genStyleFQFS(const char* pszCssName, bool bDebug);
 
 	/**
 	 * Generates a Fully Qualified File System (FQFS) path for a given journal.
@@ -137,7 +139,7 @@ public:
 	 * @param fileExtension The file extension to be appended to the path (e.g., ".txt", ".json").
 	 * @return The constructed FQFS path as a string.
 	 */
-	const char * genJournalFQFS(const char *, bool);
+	const char* genJournalFQFS(const char*, bool);
 	/**
 	 * Generates a fully qualified file system (FQFS) path for a log file based on the provided file name, function name, and a debug flag.
 	 *
@@ -155,7 +157,7 @@ public:
 	 *         string is stored in a global buffer and is valid for the lifetime of the program or
 	 *         until the buffer is overwritten.
 	 */
-	const char * genLogFQFS(const char *, const char *, bool);
+	const char* genLogFQFS(const char*, const char*, bool);
 
 	/**
 	 * Generates a CGI (Common Gateway Interface) path for CBD (Component-Based Development).
@@ -169,7 +171,7 @@ public:
 	 * @param basePath The base directory or URL from which the CGI script will be executed.
 	 * @return A string representing the complete CGI path constructed for the given module, function, and base path.
 	 */
-	std::string genCgiCBDPath(const char *pszCgiName,bool bDebug);
+	std::string genCgiCBDPath(const char* pszCgiName, bool bDebug);
 	/**
 	 * Generates the complete URL for a CGI script hosted in the "cmake-build-debug" directory.
 	 *
@@ -180,7 +182,7 @@ public:
 	 * @param bDebug If true, debug information will be printed to the standard output.
 	 * @return A std::string containing the fully formed URL for the specified CGI script.
 	 */
-	std::string genCgiCBDUrl(const char *pszCgiName,bool bDebug);
+	std::string genCgiCBDUrl(const char* pszCgiName, bool bDebug);
 	/**
 	 * Generates a CGI bin URL string based on the provided CGI script name.
 	 *
@@ -188,7 +190,7 @@ public:
 	 * @param bDebug A boolean flag indicating whether to output debug information.
 	 * @return A string representing the full URL to the CGI script.
 	 */
-	std::string genCurlCgiBinUrl(const char *pszCgiName,bool bDebug);
+	std::string genCurlCgiBinUrl(const char* pszCgiName, bool bDebug);
 
 	/**
 	 * @brief Generates a URL pointing to a CGI script in the server's cgi-bin directory.
@@ -203,7 +205,7 @@ public:
 	 *
 	 * @return A string representing the fully constructed URL for the specified CGI script.
 	 */
-	std::string genCgiBinUrl(const char *pszCgiName,bool bDebug);
+	std::string genCgiBinUrl(const char* pszCgiName, bool bDebug);
 
 	/**
 	 * Generates a URL for an HTML page based on the provided page name
@@ -214,7 +216,7 @@ public:
 	 * @param bDebug A boolean flag indicating whether debug information should be output.
 	 * @return A fully constructed URL as a string.
 	 */
-	std::string genHtmlUrl(const char *pszPageName,bool bDebug);
+	std::string genHtmlUrl(const char* pszPageName, bool bDebug);
 	/**
 	 * Generates a URL for an image based on the input parameters.
 	 *
@@ -223,9 +225,9 @@ public:
 	 * @param params Additional query parameters to customize the image URL, such as size or format.
 	 * @return A fully constructed URL string pointing to the specified image.
 	 */
-	std::string genImgUrl(const char *pszImgName,bool bDebug);
+	std::string genImgUrl(const char* pszImgName, bool bDebug);
 
-	std::string genImgPath(const char *pszImgName,bool bDebug);
+	std::string genImgPath(const char* pszImgName, bool bDebug);
 
 	/**
 	 * Generates a fully qualified schema based on the provided parameters.
@@ -235,7 +237,7 @@ public:
 	 * @param options Additional options or configurations for generating the schema.
 	 * @return A fully qualified schema string created based on the provided inputs.
 	 */
-	std::string genSchemaFQFS(const char * pszSchema,bool bDebug);
+	std::string genSchemaFQFS(const char* pszSchema, bool bDebug);
 
 	/**
 	 * @brief Generates a fully qualified file system path to the script folder.
@@ -252,7 +254,7 @@ public:
 	 * @return A std::string containing the generated output, which may vary based
 	 *         on the parameters provided and the overall implementation.
 	 */
-	const char * genScriptFQFS(const char * pszScript,bool bDebug);
+	const char* genScriptFQFS(const char* pszScript, bool bDebug);
 
 	/**
 	 * @fn std::string genTempFQFS(const char * pszFilename, bool bDebug)
@@ -267,7 +269,7 @@ public:
 	 *
 	 * @warning The caller must ensure that pszFilename is not a null or invalid pointer before passing it to this function.
 	 */
-	std::string genTempFQFS(std::string ssFilename,bool bDebug);
+	std::string genTempFQFS(std::string ssFilename, bool bDebug);
 
 	/**
 	 * Modifies the date in the filename of the style if it's not the same
@@ -286,7 +288,7 @@ public:
 	 * @param bDebug If true, enables debug mode to output debugging information.
 	 * @return The full path to the schema as a string.
 	 */
-	std::string parseSchemaName(std::string ssSchemaName,bool bDebug);
+	std::string parseSchemaName(std::string ssSchemaName, bool bDebug);
 
 	/**
 	 * Retrieves the last modified date of the style in the filename.
@@ -302,7 +304,7 @@ public:
 	 * @param number The integer value to be converted to binary.
 	 * @param digits The number of binary digits to be displayed in the output. The output is truncated to match this count.
 	 */
-	void printBinary(int,int);
+	void printBinary(int, int);
 
 
 	/**
@@ -334,7 +336,7 @@ public:
  * It is important to ensure that this pointer is properly initialized before
  * its use to avoid undefined behavior or runtime errors.
  */
-extern osIface *pOsIface;
+extern osIface* pOsIface;
 
 /////////////////////
 // eof - osIface.h //

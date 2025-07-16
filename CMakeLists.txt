@@ -34,10 +34,10 @@ add_library(mwfw2 STATIC
         cgibind.cpp include/cgibind.h
         cgihtml.cpp include/cgihtml.h
         checkAuth.cpp include/checkAuth.h
-        CLog.cpp include/CLog.hpp
+        CLog.cpp include/CLog.h
         config.cpp include/config.h
         crtbind.cpp include/crtbind.h
-        CSysLog.cpp include/CSysLog.hpp
+        CSysLog.cpp include/CSysLog.h
         dashboard.cpp include/dashboard.h
         dotconfig.cpp include/dotconfig.h
         environment.cpp include/environment.h
