@@ -740,6 +740,27 @@ void cgihtml::dump_shm_vars()
     std::cout << gpSh->m_pShMemng->iSignature;
     std::cout << "</td></tr>";
 
+    std::cout << "<tr><th>szUser</th><td>";
+    std::cout << gpSh->m_pShMemng->szUser;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>szHome</th><td>";
+    std::cout << gpSh->m_pShMemng->szHome;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>szUserdir</th><td>";
+    std::cout << gpSh->m_pShMemng->szUserdir;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>szSourcedir</th><td>";
+    std::cout << gpSh->m_pShMemng->szSourcedir;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>szConfigRoot</th><td>";
+    std::cout << gpSh->m_pShMemng->szConfigRoot;
+    std::cout << "</td></tr>";
+
+
     std::cout << "<tr><th>szStatus</th><td>";
     std::cout << gpSh->m_pShMemng->szStatus;
     std::cout << "</td></tr>";
@@ -778,10 +799,6 @@ void cgihtml::dump_shm_vars()
 
     std::cout << "<tr><th>szProtocol</th><td>";
     std::cout << gpSh->m_pShMemng->szProtocol;
-    std::cout << "</td></tr>";
-
-    std::cout << "<tr><th>szConfigRoot</th><td>";
-    std::cout << gpSh->m_pShMemng->szConfigRoot;
     std::cout << "</td></tr>";
 
     std::cout << "<tr><th>szImgRoot</th><td>";

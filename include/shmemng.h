@@ -27,6 +27,13 @@
 struct MFW_SHMEMNG_T {
     int iSignature;
 
+    char szUser[UT_NAMESIZE];
+    char szHome[UT_NAMESIZE];
+    char szUserdir[UT_NAMESIZE];
+    char szSourcedir[FILENAME_MAX];
+    char szConfigRoot[FILENAME_MAX];
+
+
     char szStatus[128];
 
      // Items indexed by led_ofs_t (RTkGPIO.h)
@@ -45,8 +52,7 @@ struct MFW_SHMEMNG_T {
     char szStylesRoot[INET_URL_SIZE_MAX];
     char szStylesFileRoot[INET_URL_SIZE_MAX];
     char szTmpRoot[FILENAME_MAX];
-    char szConfigRoot[FILENAME_MAX];
-    char szUser[UT_NAMESIZE];
+
     char szRpcUuid[UUID_SIZE];             // 37
 
     char szRemoteHost[DNS_FQDN_SIZE_MAX];

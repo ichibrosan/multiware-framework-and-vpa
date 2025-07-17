@@ -49,27 +49,67 @@ environment::environment()
 {
 	/**
 	 * The first responsibility of the environment constructor is to
-	 * assure that the logging root has been set in the shared memory.
+	 * establish addressability to the shared region.
 	 */
 	gpSh = new shared();
 
 	char szTemp[128];
 
 	/********************************************************************
-	 * Enable syslog logging within the scope of the environment class
-	 * by instantiating the CSysLog class via a pointer in member data.
-     ***********************************************************************/
-	m_pSysLog = new CSysLog();
-
-	/********************************************************************
 	 * Determine the username under which this application is running
 	 * and save the result in the shared segment.
-     ***********************************************************************/
+	 ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szUser))
 	{
-		//m_pSysLog->loginfo("environment::environment: Extracting szUser");
 		extract_username();
 	}
+
+	/********************************************************************
+	 * Determine the home directory of the user under which this application
+	 * is running and save the result in the shared segment.
+	 ***********************************************************************/
+	if (0 == strlen(gpSh->m_pShMemng->szHome))
+	{
+		construct_szHome();
+	}
+
+	/********************************************************************
+	 * Determine the Userdir of the user under which this application
+	 * is running and save the result in the shared segment.
+	 ***********************************************************************/
+	if (0 == strlen(gpSh->m_pShMemng->szUserdir))
+	{
+		construct_szUserdir();
+	}
+
+	/********************************************************************
+	 * Determine the Sourcedir of the user under which this application
+	 * is running and save the result in the shared segment.
+	 ***********************************************************************/
+	if (0 == strlen(gpSh->m_pShMemng->szSourcedir))
+	{
+		construct_szSourcedir();
+	}
+
+
+	/********************************************************************
+	 * Determine the config root of the user under which this application
+	 * is running and save the result in the shared segment.
+	 ***********************************************************************/
+	if (0 == strlen(gpSh->m_pShMemng->szConfigRoot))
+	{
+		construct_szConfigRoot();
+	}
+
+	// /********************************************************************
+	//  * Determine the framework root of the user under which this application
+	//  * is running and save the result in the shared segment.
+	//  ***********************************************************************/
+	// if (0 == strlen(gpSh->m_pShMemng->szFrameworkRoot))
+	// {
+	// 	construct_szFrameworkRoot();
+	// }
+
 
 	/********************************************************************
 	 * Determine whether the curl utility is installed on the system
@@ -196,8 +236,63 @@ environment::environment()
 		//m_pSysLog->loginfo("environment::environment: Extracting szTmpRoot");
 		set_tmp_root(false);
 	}
+}
 
-	set_config_root();
+
+/*****************************************************************************
+ * @brief Extracts the username from the current file path.
+ *
+ * This method retrieves the username by parsing the file path stored in the
+ * macro `__FILE__`. It trims the first 6 characters from the file path,
+ * extracts the substring up to the first '/' character, and updates the shared
+ * memory `szUser` with the result. The extracted username is then returned
+ * as a string.
+ *
+ * @return The extracted username as a std::string.
+ ****************************************************************************/
+std::string environment::extract_username()
+{
+	std::string ssTemp = __FILE__;
+	ssTemp = ssTemp.substr(6, ssTemp.length());
+	int offset = ssTemp.find('/');
+	ssTemp = ssTemp.substr(0, offset);
+	strcpy(gpSh->m_pShMemng->szUser, ssTemp.c_str());
+	return ssTemp;
+}
+
+
+/**
+ * @brief Constructs the home directory path for the current user.
+ *
+ * This function creates a home directory path string by appending the user's name,
+ * held in shared memory, to a predefined base directory path. The constructed path
+ * is stored in shared memory and also returned as a `std::string`.
+ *
+ * @return A `std::string` containing the constructed home directory path.
+ */
+std::string environment::construct_szHome()
+{
+	std::string ssTemp = "/home/";
+	ssTemp.append(gpSh->m_pShMemng->szUser);
+	ssTemp.append("/");
+	strcpy(gpSh->m_pShMemng->szHome, ssTemp.c_str());
+	return ssTemp;
+}
+
+std::string environment::construct_szUserdir()
+{
+	std::string ssUserdir = gpSh->m_pShMemng->szHome;
+	ssUserdir.append("public_html/");
+	strcpy(gpSh->m_pShMemng->szUserdir, ssUserdir.c_str());
+	return ssUserdir;
+}
+
+std::string environment::construct_szSourcedir()
+{
+	std::string ssSourcedir = gpSh->m_pShMemng->szUserdir;
+	ssSourcedir.append("fw/");
+	strcpy(gpSh->m_pShMemng->szSourcedir, ssSourcedir.c_str());
+	return ssSourcedir;
 }
 
 
@@ -211,11 +306,11 @@ environment::environment()
  * @note The function relies on shared memory to fetch user information
  *       and to store the constructed configuration path.
  ***************************************************************************/
-void environment::set_config_root()
+void environment::construct_szConfigRoot()
 {
 	std::string ssConfigRoot = "/home/";
 	ssConfigRoot.append(gpSh->m_pShMemng->szUser);
-	ssConfigRoot.append("/.config/multiware");
+	ssConfigRoot.append("/.config/multiware/");
 	strcpy(gpSh->m_pShMemng->szConfigRoot, ssConfigRoot.c_str());
 }
 
@@ -305,33 +400,6 @@ char* environment::get_public_ip()
 	return gpSh->m_pShMemng->szPublicIP;
 }
 
-/**
- * @brief Extracts the username from source code filename.
- *
- * This function returns the username portion of this file's
- * filename.
- *
- * @return A string containing the extracted username.
- */
-std::string environment::extract_username()
-{
-	std::string ssTemp = __FILE__;
-	// /home/doug/public_html/fw/extract.cpp
-	// 012345^
-
-	ssTemp = ssTemp.substr(6, ssTemp.length());
-	// doug/public_html/fw/extract.cpp
-
-	int offset = ssTemp.find('/');
-	// doug/public_html/fw/extract.cpp
-	// 0123^	<-- offset of /
-
-	ssTemp = ssTemp.substr(0, offset);
-	// doug     <-- username substring
-
-	strcpy(gpSh->m_pShMemng->szUser, ssTemp.c_str());
-	return ssTemp;
-}
 
 /**
  * @brief Checks if cURL is installed and available on the system.
