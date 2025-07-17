@@ -748,16 +748,20 @@ void cgihtml::dump_shm_vars()
     std::cout << gpSh->m_pShMemng->szHome;
     std::cout << "</td></tr>";
 
-    std::cout << "<tr><th>szUserdir</th><td>";
-    std::cout << gpSh->m_pShMemng->szUserdir;
+    std::cout << "<tr><th>szUserdirFQDS</th><td>";
+    std::cout << gpSh->m_pShMemng->szUserFQDS;
     std::cout << "</td></tr>";
 
-    std::cout << "<tr><th>szSourcedir</th><td>";
-    std::cout << gpSh->m_pShMemng->szSourcedir;
+    std::cout << "<tr><th>szSourcedirFQDS</th><td>";
+    std::cout << gpSh->m_pShMemng->szSourceFQDS;
     std::cout << "</td></tr>";
 
-    std::cout << "<tr><th>szConfigRoot</th><td>";
-    std::cout << gpSh->m_pShMemng->szConfigRoot;
+    std::cout << "<tr><th>szConfigFQDS</th><td>";
+    std::cout << gpSh->m_pShMemng->szConfigFQDS;
+    std::cout << "</td></tr>";
+
+    std::cout << "<tr><th>szConfigFQFS</th><td>";
+    std::cout << gpSh->m_pShMemng->szConfigFQFS;
     std::cout << "</td></tr>";
 
 

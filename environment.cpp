@@ -77,18 +77,18 @@ environment::environment()
 	 * Determine the Userdir of the user under which this application
 	 * is running and save the result in the shared segment.
 	 ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szUserdir))
+	if (0 == strlen(gpSh->m_pShMemng->szUserFQDS))
 	{
-		construct_szUserdir();
+		construct_szUserFQDS();
 	}
 
 	/********************************************************************
 	 * Determine the Sourcedir of the user under which this application
 	 * is running and save the result in the shared segment.
 	 ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szSourcedir))
+	if (0 == strlen(gpSh->m_pShMemng->szSourceFQDS))
 	{
-		construct_szSourcedir();
+		construct_szSourceFQDS();
 	}
 
 
@@ -96,9 +96,18 @@ environment::environment()
 	 * Determine the config root of the user under which this application
 	 * is running and save the result in the shared segment.
 	 ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szConfigRoot))
+	if (0 == strlen(gpSh->m_pShMemng->szConfigFQDS))
 	{
-		construct_szConfigRoot();
+		construct_szConfigFQDS();
+	}
+
+	/********************************************************************
+	 * Determine the config filename for the user under which this application
+	 * is running and save the result in the shared segment.
+	 ***********************************************************************/
+	if (0 == strlen(gpSh->m_pShMemng->szConfigFQFS))
+	{
+		construct_szConfigFQFS();
 	}
 
 	// /********************************************************************
@@ -279,20 +288,20 @@ std::string environment::construct_szHome()
 	return ssTemp;
 }
 
-std::string environment::construct_szUserdir()
+std::string environment::construct_szUserFQDS()
 {
-	std::string ssUserdir = gpSh->m_pShMemng->szHome;
-	ssUserdir.append("public_html/");
-	strcpy(gpSh->m_pShMemng->szUserdir, ssUserdir.c_str());
-	return ssUserdir;
+	std::string ssUserFQDS = gpSh->m_pShMemng->szHome;
+	ssUserFQDS.append("public_html/");
+	strcpy(gpSh->m_pShMemng->szUserFQDS, ssUserFQDS.c_str());
+	return ssUserFQDS;
 }
 
-std::string environment::construct_szSourcedir()
+std::string environment::construct_szSourceFQDS()
 {
-	std::string ssSourcedir = gpSh->m_pShMemng->szUserdir;
-	ssSourcedir.append("fw/");
-	strcpy(gpSh->m_pShMemng->szSourcedir, ssSourcedir.c_str());
-	return ssSourcedir;
+	std::string ssSourceFQDS = gpSh->m_pShMemng->szUserFQDS;
+	ssSourceFQDS.append("fw/");
+	strcpy(gpSh->m_pShMemng->szSourceFQDS, ssSourceFQDS.c_str());
+	return ssSourceFQDS;
 }
 
 
@@ -306,12 +315,18 @@ std::string environment::construct_szSourcedir()
  * @note The function relies on shared memory to fetch user information
  *       and to store the constructed configuration path.
  ***************************************************************************/
-void environment::construct_szConfigRoot()
+void environment::construct_szConfigFQDS()
 {
-	std::string ssConfigRoot = "/home/";
-	ssConfigRoot.append(gpSh->m_pShMemng->szUser);
-	ssConfigRoot.append("/.config/multiware/");
-	strcpy(gpSh->m_pShMemng->szConfigRoot, ssConfigRoot.c_str());
+	std::string ssConfigFQDS = gpSh->m_pShMemng->szHome;
+	ssConfigFQDS.append(".config/multiware/");
+	strcpy(gpSh->m_pShMemng->szConfigFQDS, ssConfigFQDS.c_str());
+}
+
+void environment::construct_szConfigFQFS()
+{
+	std::string ssConfigFQFS = gpSh->m_pShMemng->szConfigFQDS;
+	ssConfigFQFS.append("config.ini");
+	strcpy(gpSh->m_pShMemng->szConfigFQFS, ssConfigFQFS.c_str());
 }
 
 

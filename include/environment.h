@@ -219,11 +219,13 @@ public:
 	std::string construct_szHome();
 
 
-	std::string construct_szUserdir();
+	std::string construct_szUserFQDS();
 
-	std::string construct_szSourcedir();
+	std::string construct_szSourceFQDS();
 
-	void construct_szConfigRoot();
+	void construct_szConfigFQDS();
+	void construct_szConfigFQFS();
+
 
 	void set_tmp_root(bool bDebug);
 

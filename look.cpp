@@ -167,7 +167,7 @@ void auth_users()
  */
 void configini()
 {
-    cfgini config("/home/doug/config.ini");
+    cfgini config(gpSh->m_pShMemng->szConfigFQFS);
 
     // Create a new config or load existing
     if (!config.load())

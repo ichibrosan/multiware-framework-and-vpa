@@ -29,9 +29,10 @@ struct MFW_SHMEMNG_T {
 
     char szUser[UT_NAMESIZE];
     char szHome[UT_NAMESIZE];
-    char szUserdir[UT_NAMESIZE];
-    char szSourcedir[FILENAME_MAX];
-    char szConfigRoot[FILENAME_MAX];
+    char szUserFQDS[UT_NAMESIZE];
+    char szSourceFQDS[FILENAME_MAX];
+    char szConfigFQDS[FILENAME_MAX];
+    char szConfigFQFS[FILENAME_MAX];
 
 
     char szStatus[128];

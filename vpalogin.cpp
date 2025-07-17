@@ -65,7 +65,7 @@ void set_configini_creds(int handle)
     char szConfigFQFS[FQFS_SIZE_MAX];
     time_t t = time(NULL);
 
-    strcpy(szConfigFQFS, gpSh->m_pShMemng->szConfigRoot);
+    strcpy(szConfigFQFS, gpSh->m_pShMemng->szConfigFQDS);
     strcat(szConfigFQFS, "/config.ini");
     cfgini config(szConfigFQFS);
     if (!config.load())

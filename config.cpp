@@ -6,12 +6,16 @@
 
 #include "mwfw2.h"
 
-config::config() {
+config::config()
+{
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
-    if (access(gpSh->m_pShMemng->szConfigRoot,F_OK)) {
+    if (access(gpSh->m_pShMemng->szConfigFQDS,F_OK))
+    {
         //gpSysLog->loginfo("config directory does not exist");
-        std::filesystem::create_directories(gpSh->m_pShMemng->szConfigRoot);
-    } else {
+        std::filesystem::create_directories(gpSh->m_pShMemng->szConfigFQDS);
+    }
+    else
+    {
         //gpSysLog->loginfo("config directory exists");
     }
 }
