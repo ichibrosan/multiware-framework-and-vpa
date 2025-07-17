@@ -41,20 +41,22 @@ std::string gssUser;
 
 /**
  * @class Environment
- * @brief Represents a simulated environment with customizable properties.
- *
- * The Environment class provides a structure to model and simulate environmental conditions.
- * It allows configuration of different parameters for the environment and supports functionality
- * for resetting and updating the states.
- *
- * This class can be extended or used as a base to create specific environmental scenarios.
+ * @brief Determines the environment in which the MultiWare FrameWork is
+ * running and sets many of the variables in the shared region that are
+ * referenced by transient programs, command-line, CGI, and xinetd invoked.
  */
 environment::environment()
 {
+	/**
+	 * The first responsibility of the environment constructor is to
+	 * assure that the logging root has been set in the shared memory.
+	 */
+	gpSh = new shared();
+
 	char szTemp[128];
 
 	/********************************************************************
-	 * Enable syslog logging within thew scope of the environment class
+	 * Enable syslog logging within the scope of the environment class
 	 * by instantiating the CSysLog class via a pointer in member data.
      ***********************************************************************/
 	m_pSysLog = new CSysLog();

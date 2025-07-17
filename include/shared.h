@@ -54,92 +54,12 @@ enum class forkproc_control_t
  */
 class shared
 {
-	int m_smsi; /**
-     * Pointer to an instance of the CSysLog class used for system logging.
-     *
-     * This member variable is responsible for handling the logging of messages
-     * to the system log. It is initialized in the constructor of the `shared` class
-     * and is used throughout the class to log informational messages or error details.
-     *
-     * The CSysLog instance helps in providing better insight and tracking
-     * of the runtime behavior of the application. This is particularly useful
-     * for debugging and monitoring purposes, especially in scenarios related
-     * to shared memory operations and error handling.
-     *
-     * This pointer is dynamically allocated during initialization and is
-     * expected to be properly cleaned up to release associated resources.
-     */
-	CSysLog* m_pSysLog;
+	int m_smsi;
 
 public:
-	/**
-	 * Combines or shares resources between entities or processes.
-	 * This method manages the sharing of data or resources to ensure
-	 * efficient utilization and access control.
-	 *
-	 * @return A boolean value indicating the success of the sharing operation.
-	 *         Returns true if the sharing operation is successful, otherwise false.
-	 */
 	shared();
 
-	/**
-	 * @brief Creates a shared pointer instance of the given object.
-	 *
-	 * This utility function is used to create a shared pointer, ensuring proper memory management
-	 * and shared ownership semantics for the specified object or type.
-	 *
-	 * @tparam T The type of the object the shared pointer will manage.
-	 * @param args The arguments required to construct the object of type T.
-	 * @return std::shared_ptr<T> A shared pointer to the newly created object.
-	 */
-	void* mkshared(key_t keyparm, size_t sizeparm);
-
-	/**
-	 * Retrieves the SMS information (SMSI).
-	 *
-	 * This method fetches and returns the current SMSI, which contains
-	 * details about short message service data.
-	 *
-	 * @return The current SMSI data.
-	 */
-	int get_smsi() const;
-
-	/**
-	 * Decodes an error number returned by the shmget system call into a descriptive message.
-	 *
-	 * @param errno_code The error number returned by the shmget call that needs to be decoded.
-	 * @return A string representing the description of the error corresponding to the provided error number.
-	 */
-	void decode_shmget_errno(int);
-
-	/**
-	 * Decodes the error number returned by a failed `shmat` system call and provides
-	 * a human-readable description of the error.
-	 *
-	 * @param errnum The error number produced by the failed `shmat` system call.
-	 *               This should typically correspond to the `errno` value.
-	 * @return A constant string containing the human-readable description of the
-	 *         error associated with the provided error number.
-	 */
-	void decode_shmat_errno(int);
-
-	/**
-	 * @brief Retrieves the nth Fibonacci number.
-	 *
-	 * This method calculates the Fibonacci number at a specific position
-	 * in the Fibonacci sequence. The Fibonacci sequence is a series where
-	 * each number is the sum of the two preceding ones, typically starting
-	 * with 0 and 1.
-	 *
-	 * @param n The position in the Fibonacci sequence for which the number
-	 *          is to be calculated. Must be a non-negative integer.
-	 * @return The Fibonacci number at the nth position.
-	 * @throws std::invalid_argument If the input value is negative.
-	 */
-	~shared();
-
 #include "shmemng.h"
-	//MFW_SHMEMNG_T * pShMemNG;
 };
 
 ///////////////////////
