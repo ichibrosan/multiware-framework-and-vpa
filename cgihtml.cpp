@@ -706,6 +706,51 @@ void cgihtml::dump_schema()
     std::cout << "</table>";
 }
 
+/******************************************************************************
+ * Overloaded function emit_shm emits strings, integers, and time_t variables *
+ ******************************************************************************
+ * Outputs formatted content by combining two HTML strings and a variable.
+ * @param html1 The first segment of HTML content to be emitted.
+ * @param variable The string variable to insert between the two HTML strings.
+ * @param html2 The second segment of HTML content to be emitted.
+ */
+void emit_shm(std::string html1,std::string variable)
+{
+    std::string ssHtml = "<tr><th>";
+    ssHtml.append(html1);
+    ssHtml.append("</th><td>");
+    std::cout << ssHtml << variable << "</td></tr>";
+}
+
+/**
+ * Outputs formatted content by combining two HTML strings and a variable.
+ * @param html1 The first part of the HTML content to be emitted.
+ * @param variable The integer value to insert between the two HTML strings.
+ * @param html2 The second part of the HTML content to be emitted.
+ */
+void emit_shm(std::string html1,int variable)
+{
+    std::string ssHtml = "<tr><th>";
+    ssHtml.append(html1);
+    ssHtml.append("</th><td>");
+    std::cout << ssHtml << variable << "</td></tr>";
+
+}
+
+/**
+ * Outputs formatted content by combining two HTML strings and a variable.
+ * @param html1 The first part of the HTML content to emit.
+ * @param variable The time variable to insert between the two HTML strings.
+ * @param html2 The second part of the HTML content to emit.
+ */
+void emit_shm(std::string html1,time_t variable)
+{
+    std::string ssHtml = "<tr><th>";
+    ssHtml.append(html1);
+    ssHtml.append("</th><td>");
+    std::cout << ssHtml << variable << "</td></tr>";
+}
+
 
 /**
  * Outputs shared memory variables and associated metadata as an HTML table.
@@ -736,87 +781,46 @@ void cgihtml::dump_shm_vars()
     open_table(border);
     gpShMemMgr->lockSharedMemory();
 
-    std::cout << "<tr><th>iSignature</th><td>";         std::cout << gpSh->m_pShMemng->iSignature;      std::cout << "</td></tr>";
-    std::cout << "<tr><th>szCgiRoot</th><td>";          std::cout << gpSh->m_pShMemng->szCgiRoot;       std::cout << "</td></tr>";
-    std::cout << "<tr><th>szConfigFQDS</th><td>";       std::cout << gpSh->m_pShMemng->szConfigFQDS;    std::cout << "</td></tr>";
-    std::cout << "<tr><th>szConfigFQFS</th><td>";       std::cout << gpSh->m_pShMemng->szConfigFQFS;    std::cout << "</td></tr>";
-    std::cout << "<tr><th>szHome</th><td>";             std::cout << gpSh->m_pShMemng->szHome;          std::cout << "</td></tr>";
-    std::cout << "<tr><th>szHostName</th><td>";         std::cout << gpSh->m_pShMemng->szHostname;      std::cout << "</td></tr>";
-    std::cout << "<tr><th>szIface</th><td>";            std::cout << gpSh->m_pShMemng->szIface;         std::cout << "</td></tr>";
-    std::cout << "<tr><th>szImgRoot</th><td>";          std::cout << gpSh->m_pShMemng->szImgRoot;       std::cout << "</td></tr>";
-    std::cout << "<tr><th>szIP</th><td>";               std::cout << gpSh->m_pShMemng->szIP;            std::cout << "</td></tr>";
-    std::cout << "<tr><th>szLogFQDS</th><td>";          std::cout << gpSh->m_pShMemng->szLogFQDS;       std::cout << "</td></tr>";
-    std::cout << "<tr><th>szRemoteAddr</th><td>";       std::cout << gpSh->m_pShMemng->szRemoteAddr;    std::cout << "</td></tr>";
-    std::cout << "<tr><th>szRemoteAuth</th><td>";       std::cout << gpSh->m_pShMemng->szRemoteAuth;    std::cout << "</td></tr>";
-    std::cout << "<tr><th>szRemoteHost</th><td>";       std::cout << gpSh->m_pShMemng->szRemoteHost;    std::cout << "</td></tr>";
-    std::cout << "<tr><th>szRemoteVersion</th><td>";    std::cout << gpSh->m_pShMemng->szRemoteVersion; std::cout << "</td></tr>";
-    std::cout << "<tr><th>szPublicIP</th><td>";         std::cout << gpSh->m_pShMemng->szPublicIP;      std::cout << "</td></tr>";
-    std::cout << "<tr><th>szProtocol</th><td>";         std::cout << gpSh->m_pShMemng->szProtocol;      std::cout << "</td></tr>";
-    std::cout << "<tr><th>szRpcUuid</th><td>";          std::cout << gpSh->m_pShMemng->szRpcUuid;       std::cout << "</td></tr>";
-    std::cout << "<tr><th>szSourceFQDS</th><td>";       std::cout << gpSh->m_pShMemng->szSourceFQDS;    std::cout << "</td></tr>";
-    std::cout << "<tr><th>szStatus</th><td>";           std::cout << gpSh->m_pShMemng->szStatus;        std::cout << "</td></tr>";
-    std::cout << "<tr><th>szStylesRoot</th><td>";       std::cout << gpSh->m_pShMemng->szStylesRoot;    std::cout << "</td></tr>";
-    std::cout << "<tr><th>szTmpRoot</th><td>";          std::cout << gpSh->m_pShMemng->szTmpRoot;       std::cout << "</td></tr>";
-    std::cout << "<tr><th>szUser</th><td>";             std::cout << gpSh->m_pShMemng->szUser;          std::cout << "</td></tr>";
-    std::cout << "<tr><th>szUserdirFQDS</th><td>";      std::cout << gpSh->m_pShMemng->szUserFQDS;      std::cout << "</td></tr>";
+    emit_shm("iSignature",         gpSh->m_pShMemng->iSignature);
+    emit_shm("szCgiRoot",gpSh->m_pShMemng->szCgiRoot);
+    emit_shm("szConfigFQDS",gpSh->m_pShMemng->szConfigFQDS);
+    emit_shm("szConfigFQFS",gpSh->m_pShMemng->szConfigFQFS);
+    emit_shm("szHome",gpSh->m_pShMemng->szHome);
+    emit_shm("szHostName",gpSh->m_pShMemng->szHostname);
+    emit_shm("szIface",gpSh->m_pShMemng->szIface);
+    emit_shm(">szImgRoot",gpSh->m_pShMemng->szImgRoot);
+    emit_shm("szIP",gpSh->m_pShMemng->szIP);
+    emit_shm("szLogFQDS",gpSh->m_pShMemng->szLogFQDS);
+    emit_shm("szRemoteAddr",gpSh->m_pShMemng->szRemoteAddr);
+    emit_shm("szRemoteAuth",gpSh->m_pShMemng->szRemoteAuth);
 
-    for (int iRow = ROW_DATA; iRow < ROW_DATA + CFG_MAX_USERS; iRow++)
-    {
+    emit_shm("szRemoteHost",gpSh->m_pShMemng->szRemoteHost);
+    emit_shm("szRemoteVer",gpSh->m_pShMemng->szRemoteVer);
+    emit_shm("szPublicIP",gpSh->m_pShMemng->szPublicIP);
+    emit_shm("szProtocol",gpSh->m_pShMemng->szProtocol);
+    emit_shm("szRpcUuid",gpSh->m_pShMemng->szRpcUuid);
+    emit_shm("szSourceFQDS",gpSh->m_pShMemng->szSourceFQDS);
+    emit_shm("szStatus",gpSh->m_pShMemng->szStatus);
+    emit_shm("szStylesRoot",gpSh->m_pShMemng->szStylesRoot);
+    emit_shm("szTmpRoot",gpSh->m_pShMemng->szTmpRoot);
+    emit_shm("szUser",gpSh->m_pShMemng->szUser);
+    emit_shm("szUserdirFQDS",gpSh->m_pShMemng->szUserFQDS);
+    for (int iRow = ROW_DATA; iRow < ROW_DATA + CFG_MAX_USERS; iRow++) {
         if (gpSh->m_pShMemng->creds[iRow].iAuthHandle > 2)
         {
-            std::cout << "<tr><th>szAuthUserName</th><td>";
-            std::cout << gpSh->m_pShMemng->creds[iRow].szAuthUserName;
-            std::cout << "</td></tr>";
-
-            std::cout << "<tr><th>szAuthFirstName</th><td>";
-            std::cout << gpSh->m_pShMemng->creds[iRow].szAuthFirstName;
-            std::cout << "</td></tr>";
-
-            std::cout << "<tr><th>szAuthLastName</th><td>";
-            std::cout << gpSh->m_pShMemng->creds[iRow].szAuthLastName;
-            std::cout << "</td></tr>";
-
-            std::cout << "<tr><th>szAuthUUID</th><td>";
-            std::cout << gpSh->m_pShMemng->creds[iRow].szAuthUUID;
-            std::cout << "</td></tr>";
-
-            std::cout << "<tr><th>iAuthHandle</th><td>";
-            std::cout << gpSh->m_pShMemng->creds[iRow].iAuthHandle;
-            std::cout << "</td></tr>";
+            emit_shm("szAuthUserName",
+                gpSh->m_pShMemng->creds[iRow].szAuthUserName);
+            emit_shm("szAuthFirstName",
+                gpSh->m_pShMemng->creds[iRow].szAuthFirstName);
+            emit_shm("szAuthLastName",
+                gpSh->m_pShMemng->creds[iRow].szAuthLastName);
+            emit_shm("szAuthUUID",
+                gpSh->m_pShMemng->creds[iRow].szAuthUUID);
+            emit_shm("iAuthHandle",
+                gpSh->m_pShMemng->creds[iRow].iAuthHandle);
         }
     }
-
-
-    std::cout << "<tr><th>szTimeStarted</th><td>";    std::cout << gpSh->m_pShMemng->szTimeStarted;    std::cout << "</td></tr>";
-
-    std::cout << "<tr><th>test_processed_bits</th><td>";
-    gpOS->printBinary(gpSh->m_pShMemng->tests_processed_bits, 7);
-    printf(" 0x%02x", gpSh->m_pShMemng->tests_processed_bits);
-    std::cout << "</td></tr>";
-
-    std::cout << "<tr><th>test_passed_bits</th><td>";
-    gpOS->printBinary(gpSh->m_pShMemng->tests_passed_bits, 7);
-    printf(" 0x%02x", gpSh->m_pShMemng->tests_passed_bits);
-    std::cout << "</td></tr>";
-
-    std::cout << "<tr><th>test_failed_bits</th><td>";
-    gpOS->printBinary(gpSh->m_pShMemng->tests_failed_bits, 7);
-    printf(" 0x%02x", gpSh->m_pShMemng->tests_failed_bits);
-    std::cout << "</td></tr>";
-
-    std::cout << "<tr><th>test_skipped_bits</th><td>";
-    gpOS->printBinary(gpSh->m_pShMemng->tests_skipped_bits, 7);
-    printf(" 0x%02x", gpSh->m_pShMemng->tests_skipped_bits);
-    std::cout << "</td></tr>";
-
-    std::cout << "<tr><th>num_tests_processed</th><td>";    std::cout << gpSh->m_pShMemng->num_tests_processed;    std::cout << "</td></tr>";
-
-    std::cout << "<tr><th>num_tests_skipped</th><td>";    std::cout << gpSh->m_pShMemng->num_tests_skipped;    std::cout << "</td></tr>";
-
-    std::cout << "<tr><th>num_tests_passed</th><td>";    std::cout << gpSh->m_pShMemng->num_tests_passed;    std::cout << "</td></tr>";;
-
-    std::cout << "<tr><th>num_tests_failed</th><td>";    std::cout << gpSh->m_pShMemng->num_tests_failed;    std::cout << "</td></tr>";
-    gpShMemMgr->releaseSharedMemory();
+    emit_shm("szTimeStarted",gpSh->m_pShMemng->time_started);
 
     render_leds();
 

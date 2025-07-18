@@ -395,26 +395,6 @@ CSysLog* gpSysLog;
 
 
 /**************************************************************************
- * Pointer to a test object used for specific operations or testing scenarios.
- * This variable is designed to reference an instance of the `test` object,
- * which encapsulates data or behavior relevant to the testing needs of
- * the application.
- *
- * Key characteristics:
- * - Serves as a global access point to the `test` instance during runtime.
- * - The pointer must be properly initialized and managed to avoid null
- *   reference errors or memory leaks.
- * - Usage typically includes facilitating testing workflows, storing state,
- *   or executing test-related functionality within the application context.
- *
- * Ensure that the lifecycle of the `test` object is appropriately handled,
- * including allocation, initialization, and deallocation, to maintain
- * application stability.
- **************************************************************************/
-test* gpTest;
-
-
-/**************************************************************************
  * Global instance pointer for the vparpc class.
  *
  * This pointer serves as a singleton-like access point for global operations

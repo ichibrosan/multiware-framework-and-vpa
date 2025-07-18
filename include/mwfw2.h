@@ -136,11 +136,6 @@ extern readCsv* gpCsv;
 extern schemaCompiler* gpSchCC;
 #endif
 
-#ifndef gpTest
-#include "test.h"
-extern test* gpTest;
-#endif
-
 #ifndef gpXinetd
 #include "xinetdctl.h"
 extern xinetdctl* gpXinetd;
