@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/version.h 2025-07-16 08:08 dwg -              //
+// ~/public_html/fw/version.h 2025-07-18 10:49 dwg -              //
 // Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
@@ -8,10 +8,10 @@
 
 #define RMAJ    5
 #define RMIN    7
-#define RREV    12
-#define RBLD    7
-#define RSTRING "5.7.12.7"
-#define RSHORT  "5.7.12"
+#define RREV    18
+#define RBLD    10
+#define RSTRING "5.7.18.10"
+#define RSHORT  "5.7.18"
 #define RLONG   RSTRING
 #define RDATE   __DATE__
 #define RTIME   __TIME__
