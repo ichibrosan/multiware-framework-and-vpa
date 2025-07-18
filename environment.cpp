@@ -91,6 +91,15 @@ environment::environment()
 		construct_szSourceFQDS();
 	}
 
+	/********************************************************************
+	 * Determine the LogFQDS of the user under which this application
+	 * is running and save the result in the shared segment.
+	 ***********************************************************************/
+	if (0 == strlen(gpSh->m_pShMemng->szLogFQDS))
+	{
+		construct_szLogFQDS();
+	}
+
 
 	/********************************************************************
 	 * Determine the config root of the user under which this application
@@ -110,14 +119,14 @@ environment::environment()
 		construct_szConfigFQFS();
 	}
 
-	// /********************************************************************
-	//  * Determine the framework root of the user under which this application
-	//  * is running and save the result in the shared segment.
-	//  ***********************************************************************/
-	// if (0 == strlen(gpSh->m_pShMemng->szFrameworkRoot))
-	// {
-	// 	construct_szFrameworkRoot();
-	// }
+	/********************************************************************
+	 * Determine the log root of the user under which this application
+	 * is running and save the result in the shared segment.
+	 ***********************************************************************/
+	if (0 == strlen(gpSh->m_pShMemng->szLogFQDS))
+	{
+		construct_szLogFQDS();
+	}
 
 
 	/********************************************************************
@@ -304,6 +313,13 @@ std::string environment::construct_szSourceFQDS()
 	return ssSourceFQDS;
 }
 
+std::string environment::construct_szLogFQDS()
+{
+	std::string ssLogFQDS = gpSh->m_pShMemng->szSourceFQDS;
+	ssLogFQDS.append("log/");
+	strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
+	return ssLogFQDS;
+}
 
 /***************************************************************************
  * @brief Configures and sets the root directory for user-specific settings.

@@ -1,0 +1,1 @@
+as you can see in the CMakeLists.txt file, there is a framework composed of the mwfw2 library and the associated include files. The frameowrk is used in command-line executables such as look, and vpautility, It is also used in CGI scripts such as index.cgi and login.cgi. Can you suggest any way this framework can be improved?

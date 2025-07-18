@@ -491,6 +491,11 @@ int xinetdcfg_diag()
     return 0;
 }
 
+void log_diag()
+{
+    CLog log(__FILE__, __FUNCTION__);
+    log.write("test message");
+}
 
 /**
  * The main entry point of the application. This function initializes
@@ -513,6 +518,8 @@ int main()
 
     cliLogin::checkPreviousLogin(
         "/home/doug/.config/multiware/config.ini");
+
+    log_diag();
 
     return EXIT_SUCCESS;
 }

@@ -5,6 +5,7 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
+#include <string.h>
 
 /************************************************************************
  * Create the fully qualified file specification based on __FILE__
@@ -17,24 +18,11 @@ CLog::CLog(
     const char* pszFile,
     const char* pszFunction)
 {
-    assert(nullptr != pszFile);
-    assert(nullptr != pszFunction);
-
-    strcpy(m_szFQFS,
-           gpOS->genLogFQFS(pszFile, pszFunction, false));
-    write("CLog::CLog() called");
-
-    /*
-     * Make sure the log file got created if necessary
-     */
-    if (0 == access(m_szFQFS,F_OK))
-    {
-        //std::cout << "log entry was written" << std::endl;
-    }
-    else
-    {
-        std::cout << "log entry was not written" << std::endl;
-    }
+    strcpy(m_szFQFS, gpSh->m_pShMemng->szLogFQDS);
+    strcat(m_szFQFS, gpOS->file2filenamesansext(pszFile).c_str());
+    strcat(m_szFQFS, "::");
+    strcat(m_szFQFS, pszFunction);
+    strcat(m_szFQFS, ".log");
 }
 
 

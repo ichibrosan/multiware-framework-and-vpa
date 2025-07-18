@@ -64,6 +64,7 @@ add_executable(fw-test4.cgi fw-test4.cpp
         include/cfgini.h
         cfgini.cpp
         include/checkAuth.h)
+target_link_libraries(fw-test4.cgi mwfw2 cgicc pthread uuid)
 
 add_executable(index.cgi index.cpp)
 target_link_libraries(index.cgi mwfw2 cgicc pthread uuid)

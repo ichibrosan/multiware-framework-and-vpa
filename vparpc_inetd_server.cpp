@@ -59,6 +59,9 @@ const int BUFFER_SIZE = BUFSIZ;
  */
 void handle_auth_request(char* buffer, window* pWin)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     here;
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
@@ -111,6 +114,8 @@ void handle_auth_request(char* buffer, window* pWin)
  */
 void handle_version_request(char* buffer, window* pWin)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
@@ -148,6 +153,9 @@ void handle_version_request(char* buffer, window* pWin)
  */
 void handle_lookup_request(char* buffer, window* pWin)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
@@ -267,6 +275,9 @@ void handle_lookup_request(char* buffer, window* pWin)
  */
 void handle_creds_request(char* buffer, window* pWin)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
@@ -360,6 +371,9 @@ void handle_creds_request(char* buffer, window* pWin)
  */
 void handle_urls_request(char* buffer, window* pWin)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
@@ -412,6 +426,9 @@ void handle_urls_request(char* buffer, window* pWin)
  */
 void process(char* pszBuffer)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     // std::cout << "vparpc::process()" << std::endl;
@@ -482,6 +499,9 @@ int main()
 {
     // Initialize the middleware framework
     auto* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 

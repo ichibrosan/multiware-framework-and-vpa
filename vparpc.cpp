@@ -55,7 +55,8 @@ const char* vparpc_func_names[] = {
  */
 vparpc::vparpc()
 {
-    gpSysLog->loginfo(__PRETTY_FUNCTION__);
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
 }
 
 /**
@@ -73,6 +74,9 @@ vparpc::vparpc()
 //
 void vparpc::process(char* pszBuffer)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     // std::cout << "vparpc::process()" << std::endl;
@@ -159,6 +163,9 @@ void vparpc::process(char* pszBuffer)
  */
 void vparpc::handle_auth_request(char* buffer, window* pWin)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
@@ -262,6 +269,9 @@ void vparpc::handle_version_request(char* buffer, window* pWin)
  */
 void vparpc::handle_lookup_request(char* buffer, window* pWin)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
@@ -302,6 +312,9 @@ void vparpc::handle_lookup_request(char* buffer, window* pWin)
  */
 void vparpc::handle_creds_request(char* buffer, window* pWin)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
 #ifdef DISPLAY_PROCESS_DETAILS
     pWin->add_row("  Processing CREDS request");
 #endif // DISPLAY_PROCESS_DETAILS
@@ -384,6 +397,9 @@ void vparpc::handle_creds_request(char* buffer, window* pWin)
 
 void vparpc::handle_urls_request(char* buffer, window* pWin)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
 #ifdef DISPLAY_PROCESS_DETAILS
@@ -473,6 +489,9 @@ void vparpc::handle_urls_request(char* buffer, window* pWin)
  */
 void vparpc::server(std::string ssService)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     // BlockCipher cipher(16);
     // cipher.setKey("DouglasWGoodall");
     // char ciphertext[sizeof(vparpc_request_t)];
@@ -673,6 +692,9 @@ void vparpc::client(std::string ssHostName,
                     std::string ssServiceName,
                     void* packet, size_t pktlen)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     // Create visual window for client status display
@@ -790,6 +812,9 @@ void vparpc::client(std::string ssHostName,
  */
 int vparpc::svc2port(std::string ssSvcName)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     struct servent* serviceEntry;
@@ -841,6 +866,9 @@ int vparpc::svc2port(std::string ssSvcName)
  */
 std::string vparpc::host2ipv4addr(const std::string& hostname)
 {
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     gpSysLog->loginfo(__PRETTY_FUNCTION__);
 
     // IPv4 address validation regex pattern

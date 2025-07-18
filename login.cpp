@@ -125,6 +125,8 @@ int main()
 {
     /** @brief Framework instance for application initialization and management */
     mwfw2* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
 
     // User credential and profile variables
     /** @brief User account status flag */

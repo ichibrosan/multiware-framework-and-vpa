@@ -140,24 +140,7 @@ public:
 	 * @return The constructed FQFS path as a string.
 	 */
 	const char* genJournalFQFS(const char*, bool);
-	/**
-	 * Generates a fully qualified file system (FQFS) path for a log file based on the provided file name, function name, and a debug flag.
-	 *
-	 * This method constructs a log file path by appending relevant information such as the file name,
-	 * function name, and custom extensions to the directory path. It optionally produces debug output
-	 * to the standard error stream if the debug flag is set to true.
-	 *
-	 * @param pszFile The name of the source file from which the log file path is being generated.
-	 *                This should be a C-style string.
-	 * @param pszFunction The name of the function where the log is to be associated.
-	 *                    This should also be a C-style string.
-	 * @param bDebug A boolean flag indicating whether debug information should be output
-	 *               to the standard error stream (true for enabling debug output).
-	 * @return A C-style string containing the fully qualified log file system path. The returned
-	 *         string is stored in a global buffer and is valid for the lifetime of the program or
-	 *         until the buffer is overwritten.
-	 */
-	const char* genLogFQFS(const char*, const char*, bool);
+
 
 	/**
 	 * Generates a CGI (Common Gateway Interface) path for CBD (Component-Based Development).
@@ -225,7 +208,7 @@ public:
 	 * @param params Additional query parameters to customize the image URL, such as size or format.
 	 * @return A fully constructed URL string pointing to the specified image.
 	 */
-	std::string genImgUrl(const char* pszImgName, bool bDebug);
+	std::string genImgUrl(const char* pszImgName);
 
 	std::string genImgPath(const char* pszImgName, bool bDebug);
 

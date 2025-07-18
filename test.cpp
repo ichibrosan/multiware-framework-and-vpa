@@ -690,44 +690,39 @@ bool test::test3(bool bDebug, bool bCGI)
  */
 bool test::test5(const char* pszFile, const char* pszFunction, bool bDebug)
 {
-    strncpy(m_szLogFQFS,
-            gpOS->genLogFQFS(__FILE__, __FUNCTION__, false),
-            sizeof(m_szLogFQFS));
-    m_pSysLog->loginfo(gpOS->genLogFQFS(__FILE__, __FUNCTION__, false));
-    if (0 < strlen(m_szLogFQFS))
+    // strncpy(m_szLogFQFS,
+    //         gpOS->genLogFQFS(__FILE__, __FUNCTION__, false),
+    //         sizeof(m_szLogFQFS));
+    //m_pSysLog->loginfo(gpOS->genLogFQFS(__FILE__, __FUNCTION__, false));
+    //if (0 < strlen(m_szLogFQFS))
+    //{
+    CLog log(__FILE__, __FUNCTION__);
+    log.truncate();
+    // write a unique uuid into the log for the test
+    log.write("51cbd444-ceaf-11ef-9da5-97e0560975f4");
+
+    std::ifstream ifs(m_szLogFQFS);
+    std::string inbuf;
+    ifs >> inbuf;
+    m_pSysLog->loginfo(inbuf.c_str());
+
+    ifs >> inbuf;
+    m_pSysLog->loginfo(inbuf.c_str());
+
+    ifs >> inbuf;
+    m_pSysLog->loginfo(inbuf.c_str());
+
+    // check for the unique uuid in the log entry
+    if (0 == strcmp("51cbd444-ceaf-11ef-9da5-97e0560975f4",
+                    inbuf.c_str()))
     {
-        CLog log(__FILE__, __FUNCTION__);
-        log.truncate();
-        // write a unique uuid into the log for the test
-        log.write("51cbd444-ceaf-11ef-9da5-97e0560975f4");
-
-        std::ifstream ifs(m_szLogFQFS);
-        std::string inbuf;
-        ifs >> inbuf;
-        m_pSysLog->loginfo(inbuf.c_str());
-
-        ifs >> inbuf;
-        m_pSysLog->loginfo(inbuf.c_str());
-
-        ifs >> inbuf;
-        m_pSysLog->loginfo(inbuf.c_str());
-
-        // check for the unique uuid in the log entry
-        if (0 == strcmp("51cbd444-ceaf-11ef-9da5-97e0560975f4",
-                        inbuf.c_str()))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return true;
     }
     else
     {
         return false;
     }
-    exit(0);
+    //    exit(0);
 }
 
 

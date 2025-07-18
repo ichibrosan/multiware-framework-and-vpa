@@ -220,147 +220,13 @@ std::string osIface::genImgPath(const char* pszImgName, bool bDebug)
 *  TODO where applicable
 */
 
-std::string osIface::genImgUrl(const char* pszImgName, bool bDebug)
+std::string osIface::genImgUrl(const char* pszImgName)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.namedString("pszImageName", pszImgName);
-    if (bDebug)
-    {
-        std::cout << __FUNCTION__ << " called" << std::endl;
-    }
-
-    // system("http://daphne.goodall.com/~doug/fw/images/fsilver-me-logo.png"
-
-    std::string ssUrl;
-
-
-    // fetch the appropriate protocol based on host (kludge)
-    if (nullptr == gpSh)
-    {
-        log.write("gpSh was null");
-    }
-    if (nullptr == gpSh->m_pShMemng)
-    {
-        log.write("gpSh-<m_pShMemng was null");
-    }
-    ssUrl.append(gpSh->m_pShMemng->szProtocol); // http://
-    log.namedString("ssUrl", ssUrl.c_str());
-
-    ssUrl.append(gpSh->m_pShMemng->szIP); // daphne.goodall.com
-    log.namedString("ssUrl", ssUrl.c_str());
-    if (bDebug)
-    {
-        log.namedString("ssUrl", ssUrl.c_str());
-        std::cout << ssUrl << std::endl;
-    }
-
-    ssUrl.append("/~"); // /~
-    log.namedString("ssUrl", ssUrl.c_str());
-    if (bDebug)
-    {
-        log.namedString("ssUrl", ssUrl.c_str());
-        std::cout << ssUrl << std::endl;
-    }
-
-    //ssUrl.append(getenv("LOGNAME"));           // doug
-    ssUrl.append(gpSh->m_pShMemng->szUser);
-    log.namedString("ssUrl", ssUrl.c_str());
-    if (bDebug)
-    {
-        log.namedString("ssUrl", ssUrl.c_str());
-        std::cout << ssUrl << std::endl;
-    }
-
-    ssUrl.append("/fw/images/"); // /fw/cgi-bin/
-    log.namedString("ssUrl", ssUrl.c_str());
-    if (bDebug)
-    {
-        log.namedString("ssUrl", ssUrl.c_str());
-        std::cout << ssUrl << std::endl;
-    }
-
-    ssUrl.append(pszImgName); // fw-test3.py
-    log.namedString("ssUrl", ssUrl.c_str());
-    if (bDebug)
-    {
-        log.namedString("ssUrl", ssUrl.c_str());
-        std::cout << ssUrl << std::endl;
-    }
-
-    strcpy(gszUrl, ssUrl.c_str());
-    log.namedString("ssUrl", ssUrl.c_str());
-    return gszUrl;
+    std::string ssUrl = gpSh->m_pShMemng->szImgRoot;
+    ssUrl.append(pszImgName);
+    return ssUrl;
 }
 
-
-/************************************************************************
- * Function: genJournalFQFS
- *
- * Purpose:
- * Generates the fully qualified file specification (FQFS) for a journal
- * file. The FQFS is formed by concatenating a base directory path, the
- * user's specific directory path, and the provided file name. The
- * function ensures the required directories exist on the filesystem
- * before constructing the final path.
- *
- * Parameters:
- * - pszFile: A pointer to a character string representing the name
- *   of the file for which the fully qualified path is generated.
- * - bDebug: A boolean flag indicating whether debug information should
- *   be printed to the standard error stream.
- *
- * Return:
- * A const char pointer to the global variable `gszPath`, which contains
- * the generated fully qualified file specification.
- *
- * Notes:
- * - The function logs debugging information and intermediate values
- *   during its execution if `bDebug` is true.
- * - The function uses the `CLog` class to log information to a file.
- * - A `system` call is used to create the necessary directory structure
- *   if it does not already exist.
- * - The global variable `gszPath` temporarily holds the final FQFS and
- *   is returned. Be cautious of concurrent access when this global
- *   variable is shared across multiple invocations.
- ************************************************************************/
-const char* osIface::genJournalFQFS(const char* pszFile, bool bDebug)
-{
-    CLog log(__FILE__, __FUNCTION__);
-    log.truncate();
-    std::string ssFile = pszFile;
-    log.namedString("ssFile", ssFile.c_str());
-    if (bDebug) { std::cerr << "ssFile      is " << ssFile << std::endl; }
-    std::string ssPath = "/home/";
-    log.namedString("ssPath", ssPath.c_str());
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append(gpSh->m_pShMemng->szUser);
-    log.namedString("ssPath", ssPath.c_str());
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append("/Documents/Fw_Notes/");
-    log.namedString("ssPath", ssPath.c_str());
-    /**
-     * Make sure the Documents/Fw_Notes folders are present.
-     */
-    char szCommand[FILENAME_MAX];
-    sprintf(szCommand, "mkdir -p %s", ssPath.c_str());
-    log.namedString("ssCommand", szCommand);
-    system(szCommand);
-
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append(pszFile);
-    log.namedString("ssPath", ssPath.c_str());
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    strcpy(gszPath, ssPath.c_str());
-    return gszPath;
-
-    // if(bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    // ssPath.append("doc/");
-    // if(bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    // ssPath.append(ssFile);
-    // if(bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    // strcpy(gszPath,ssPath.c_str());
-    // return gszPath;
-}
 
 /************************************************************************
  * Function: osIface::genScriptFQFS
@@ -406,52 +272,6 @@ const char* osIface::genScriptFQFS(const char* pszFile, bool bDebug)
     return gszPath;
 }
 
-/************************************************************************
- * Generates a fully qualified file system path for a log file based on
- * the input source file and function name. The resulting path includes
- * a "log/" directory and appends the source file's base name (excluding
- * its extension) concatenated with the function name, followed by the
- * extension ".log".
- *
- * The generated path is stored in the global variable `gszPath` for
- * returning a persistent reference. This avoids returning a local
- * variable reference which may go out of scope.
- *
- * Debugging information can be printed to the standard error output
- * when the `bDebug` flag is set to true.
- *
- * @param pszFile The name of the source file.
- * @param pszFunction The name of the function.
- * @param bDebug Flag to enable debug output to standard error.
- * @return A pointer to the global character array containing the path.
- ************************************************************************/
-const char* osIface::genLogFQFS(const char* pszFile,
-                                const char* pszFunction,
-                                bool bDebug)
-{
-    if (bDebug) { std::cerr << std::endl << "genLogFQFS:" << std::endl; }
-    if (bDebug) { std::cerr << "pszFile     is " << pszFile << std::endl; }
-    if (bDebug) { std::cerr << "pszFunction is " << pszFunction << std::endl; }
-
-    std::string ssFile = pszFile;
-    std::string ssFunction = pszFunction;
-    std::string ssPath = file2path(pszFile);
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append("log/");
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append(file2filenamesansext(pszFile));
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append("::");
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append(ssFunction);
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append(".log");
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-
-    //char szPath[FILENAME_MAX];
-    strcpy(gszPath, ssPath.c_str());
-    return gszPath;
-}
 
 /************************************************************************
  * This function generates a CGI-bin URL for executing a CGI script.

@@ -33,12 +33,33 @@ void sine()
  * @return An integer indicating the application's exit status. EXIT_SUCCESS
  * is returned upon successful completion.
  */
-int main()
+int main(int argc, char** argv)
 {
     auto* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
+    CLog log(__FILE__, __FUNCTION__);
+    log.write(__PRETTY_FUNCTION__);
+
     sine();
     cliLogin::checkPreviousLogin(
         "/home/doug/.config/multiware/config.ini");
+
+    if (argc > 1)
+    {
+        if (strcmp(argv[1], "-v") == 0)
+        {
+            std::cout << "Version: " << RMAJ << "." << RMIN << "." << RREV <<
+                "." << RBLD << std::endl;
+        }
+        else if (strcmp(argv[1], "-h") == 0)
+        {
+            std::cout << "Usage: vpautil [-v] [-h] [-l]" << std::endl;
+        }
+        else if (strcmp(argv[1], "-l") == 0)
+        {
+            system("rm -f /home/devo/public_html/fw/log/*.log");
+        }
+    }
+
 
     return EXIT_SUCCESS;
 }
