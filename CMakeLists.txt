@@ -45,6 +45,7 @@ add_library(mwfw2 STATIC
         mutations.cpp include/mutations.h
         osIface.cpp include/osIface.h
         password.cpp include/password.h
+        password-hash.cpp include/password-hash.h
         readCsv.cpp include/readCsv.h
         semigraphics.cpp include/semigraphics.h
         shared.cpp include/shared.h
@@ -93,6 +94,9 @@ target_link_libraries(look mwfw2 cgicc pthread uuid)
 
 add_executable(menu.cgi menu.cpp)
 target_link_libraries(menu.cgi mwfw2 cgicc pthread uuid)
+
+add_executable(password-util password-util.cpp)
+target_link_libraries(password-util mwfw2)
 
 add_executable(prefs.cgi prefs.cpp)
 target_link_libraries(prefs.cgi mwfw2 cgicc uuid)
