@@ -71,6 +71,8 @@ add_executable(init_xinetd_vpa init_xinetd_vpa.cpp
 )
 target_link_libraries(init_xinetd_vpa mwfw2 cgicc pthread uuid)
 
+add_executable(iphone.cgi iPhone.cpp)
+target_link_libraries(iphone.cgi mwfw2 cgicc pthread uuid)
 
 add_executable(login.cgi login.cpp)
 target_link_libraries(login.cgi mwfw2 cgicc pthread uuid)

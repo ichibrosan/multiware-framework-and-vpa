@@ -395,6 +395,18 @@ void services_diag()
         }
     }
 
+    if (services.hasService("vpa-iphone"))
+    {
+        std::cout << "vpa-iphone service exists" << std::endl;
+    }
+    else
+    {
+        if (services.addService("vpa-iphone", 65360, "tcp", {"vpa-iphone-alias"}))
+        {
+            std::cout << "Service added successfully - vpa-iphone" << std::endl;
+        }
+    }
+
 
     // Find services by pattern
     auto webServices = services.findServices("http");
@@ -513,13 +525,13 @@ int main()
     //auth_users();
     //configini();
     //struct_diag();
-    //services_diag();
-    //xinetdcfg_diag();
+    services_diag();
+    xinetdcfg_diag();
 
-    cliLogin::checkPreviousLogin(
-        "/home/doug/.config/multiware/config.ini");
-
-    log_diag();
+    // cliLogin::checkPreviousLogin(
+    //     "/home/doug/.config/multiware/config.ini");
+    //
+    // log_diag();
 
     return EXIT_SUCCESS;
 }

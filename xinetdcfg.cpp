@@ -116,6 +116,22 @@ void xinetcfg::initializeDefaultServices()
     vpaIpcsService.server =
         "/home/devo/public_html/fw/scripts/inetd-ipcs-redirect.sh";
     vpaServices.push_back(vpaIpcsService);
+
+    // VPA iPhone Service
+    XinetdServiceConfig vpaIphoneService;
+    vpaIphoneService.serviceName = "vpa-iphone";
+    vpaIphoneService.port = "65360";
+    vpaIphoneService.disable = "no";
+    vpaIphoneService.id = "vpa-iphone";
+    vpaIphoneService.socketType = "stream";
+    vpaIphoneService.protocol = "tcp";
+    vpaIphoneService.user = "1000";
+    vpaIphoneService.wait = "no";
+    vpaIphoneService.server =
+        "/home/devo/public_html/fw/cgi-bin/iphone.cgi";
+    vpaServices.push_back(vpaIphoneService);
+
+
 }
 
 std::string xinetcfg::formatServiceBlock(
@@ -262,6 +278,22 @@ std::string xinetcfg::generateConfigContent() const
         "########################################################################"
         << std::endl;
     config << formatServiceBlock(getService("vpa-ipcs"));
+    config << std::endl;
+
+    // VPA iPhone service
+    config <<
+        "##################################################################" <<
+        std::endl;
+    config <<
+        "# This service runs the iPhone CGI application for mobile web   #" <<
+        std::endl;
+    config <<
+        "# interface access                                               #" <<
+        std::endl;
+    config <<
+        "##################################################################" <<
+        std::endl;
+    config << formatServiceBlock(getService("vpa-iphone"));
     config << std::endl;
 
     config << "#############" << std::endl;

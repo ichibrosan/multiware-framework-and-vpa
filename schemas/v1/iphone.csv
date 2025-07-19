@@ -1,0 +1,9 @@
+Active,Version,Meta Columns,Data Columns,Schema,CgiName,Method,Target,PageForm,Style,Description
+true,1,11,9,iphone.csv,iphone.cgi,get,_self,true,default_style,Copyright
+&copy; 2024-2025 Douglas Wade Goodall
+Active,PrePara,PostPara,ElementType,Parm1,Parm2,Parm3,Parm4,Parm5,Parm6
+true,no,yes,image,silver-me-logo.png,400,100,Alt Description
+true,no,no,text,username,userid,doug,32,Username: ,username field
+true,yes,no,password,pwname,pwid,,32, Password: ,password field
+false,yes,no,text,licname,licid,,36, License: ,license field
+true,yes,no,reset
