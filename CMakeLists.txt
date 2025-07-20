@@ -1,6 +1,7 @@
-#################################################################
-# /home/devo/public_html/fw/CmakeLists.txt 2025/07/04 01:57 dwg #
-# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved. #
+####################################################################
+## ~/public_html/fw/login.cpp 2025-07-15 18:16 dwg -              ##
+## Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  ##
+## This file is part of MultiWare Engineering's VPA and FrameWork ##
 ###########################################################################
 # 2025-07-04 01:57 dwg - xmlrpc has been deprecated in favor of vparpc    #
 # 2025-03-14 12:07 dwg - suspend diagnose.cgi compilation                 #
