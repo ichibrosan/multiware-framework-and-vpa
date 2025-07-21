@@ -27,6 +27,9 @@ include_directories("include")
 # will both include the object headers and define the gpXXX global object
 # pointers, thereby cleaning up the cluttered application include situation.
 
+# Find and include OpenCV
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 add_library(mwfw2 STATIC
         mwfw2.cpp include/mwfw2.h
@@ -61,6 +64,8 @@ add_library(mwfw2 STATIC
         #        cliLogin.cpp include/cliLogin.h
 )
 
+add_executable(cartoonizer cartoonizer.cpp)
+target_link_libraries(cartoonizer ${OpenCV_LIBS})
 
 add_executable(index.cgi index.cpp)
 target_link_libraries(index.cgi mwfw2 cgicc pthread uuid)
