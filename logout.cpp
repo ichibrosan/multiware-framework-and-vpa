@@ -46,12 +46,10 @@ int main()
               sizeof(gpSh->m_pShMemng->creds[iHandle].szAuthUUID));
        gpSh->m_pShMemng->creds[iHandle].iAuthHandle = 0;
 
-       std::string ssHttpReferrer = gpCgi->getEnvironment().getReferrer();
-       std::string ssReferrerPath =
-              std::filesystem::path(ssHttpReferrer).remove_filename();
-       std::string ssReferrerFile =
-              ssHttpReferrer.substr(ssReferrerPath.length(),
-                                    ssHttpReferrer.length());
+       std::string ssIniCommand = "sudo rm ";
+       ssIniCommand.append(gpSh->m_pShMemng->szConfigFQDS);
+       ssIniCommand.append("/config.ini");
+       system(ssIniCommand.c_str());
 
        gpSchema = new schema("index.csv");
        gpSchema->gen_from_schema(1);

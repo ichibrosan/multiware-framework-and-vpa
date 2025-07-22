@@ -76,6 +76,7 @@ std::string cliLogin::getPassword()
     return password;
 }
 
+
 void cliLogin::queryUserForLogin(cfgini& config)
 {
     printf("\n=== VPA Login Required ===\n");
@@ -113,29 +114,29 @@ void cliLogin::queryUserForLogin(cfgini& config)
 
     printf("Authentication successful. Handle: %d\n", handle);
 
-    // Create or update the config
-    config.addSection("Credentials");
-    config.setVariable("Credentials", "authusername", username);
-
-    // Set current time as last_login
-    time_t currentTime = time(nullptr);
-    std::string timeStr = std::to_string(currentTime);
-    config.setVariable("Credentials", "last_login", timeStr);
-
-    printf("DEBUG: Setting last_login to: %s\n", timeStr.c_str());
-
-    // Set the actual handle from password lookup
-    config.setVariable("Credentials", "handle", std::to_string(handle));
-
-    // Save the configuration
-    if (config.save())
-    {
-        printf("Login credentials saved successfully.\n");
-    }
-    else
-    {
-        printf("ERROR: Failed to save login credentials.\n");
-    }
+    // // Create or update the config
+    // config.addSection("Credentials");
+    // config.setVariable("Credentials", "authusername", username);
+    //
+    // // Set current time as last_login
+    // time_t currentTime = time(nullptr);
+    // std::string timeStr = std::to_string(currentTime);
+    // config.setVariable("Credentials", "last_login", timeStr);
+    //
+    // printf("DEBUG: Setting last_login to: %s\n", timeStr.c_str());
+    //
+    // // Set the actual handle from password lookup
+    // config.setVariable("Credentials", "handle", std::to_string(handle));
+    //
+    //     // Save the configuration
+    // if (config.save())
+    // {
+    //     printf("Login credentials saved successfully.\n");
+    // }
+    // else
+    // {
+    //     printf("ERROR: Failed to save login credentials.\n");
+    // }
 }
 
 void cliLogin::checkPreviousLogin(const std::string& configPath)

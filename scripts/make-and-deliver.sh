@@ -14,9 +14,6 @@ cp -v vpa*              ~/public_html/fw/bin/
 cp -v test*             ~/public_html/fw/bin/
 ipcrm --shmem-key 0x00005164 2> /tmp/ipcrm#5164.stderr # MultiWare Main ShMem
 
-cp -v cartoonizer         ~/bin
-cp -v face_detection_app  ~/bin
-
 cp -v look                ~/bin
 cp -v password-util       ~/bin
 cp -v vpa*                ~/bin

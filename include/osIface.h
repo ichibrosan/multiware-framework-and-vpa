@@ -107,6 +107,8 @@ public:
 	 */
 	std::string file2filenamesansext(const char* pszFile);
 
+	std::string genIniFQFS();
+
 	/**
 	 * @fn std::string genStyleFQFS(const char *pszCssName, bool bDebug)
 	 * @brief Generates a fully qualified file system path for a given CSS style.

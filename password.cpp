@@ -106,6 +106,52 @@ std::string password::get_uuid()
     return gssUUID;
 }
 
+void set_configini_creds(int handle)
+{
+    std::cout << "set_configini_creds" << std::endl;
+
+    char szConfigFQFS[FQFS_SIZE_MAX];
+    time_t t = time(NULL);
+
+    strcpy(szConfigFQFS, gpSh->m_pShMemng->szConfigFQDS);
+    strcat(szConfigFQFS, "/config.ini");
+    cfgini config(szConfigFQFS);
+    if (!config.load())
+    {
+        config.createNew();
+    }
+    config.addSection("Credentials");
+    config.setVariable(
+        "Credentials",
+        "authusername",
+        gpSh->m_pShMemng->creds[handle].szAuthUserName);
+    config.setVariable(
+        "Credentials",
+        "authfirstname",
+        gpSh->m_pShMemng->creds[handle].szAuthFirstName);
+
+    config.setVariable(
+        "Credentials",
+        "authlastname",
+        gpSh->m_pShMemng->creds[handle].szAuthLastName);
+
+    config.setVariable(
+        "Credentials",
+        "authlevel",
+        gpSh->m_pShMemng->creds[handle].szAuthLevel);
+
+
+    config.setVariable(
+        "Credentials",
+        "handle",
+        std::to_string(handle));
+    config.setVariable(
+        "Credentials",
+        "last_login",
+        std::to_string(t));
+    config.save();
+}
+
 /**
  * Authenticates a user by verifying the provided username and password
  * against stored data. The function also sets additional session-related
@@ -170,6 +216,7 @@ int password::lookup_username_password(std::string ssUsername,
                     std::string ssUUID = get_uuid();
                     strcpy(gpSh->m_pShMemng->creds[iRow].szAuthUUID, gszUUID);
                     gpSh->m_pShMemng->creds[iRow].iAuthHandle = iRow;
+                    set_configini_creds(iRow);
                     return iRow;
                 } // if password
             } // if(username

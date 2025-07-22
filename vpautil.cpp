@@ -40,8 +40,7 @@ int main(int argc, char** argv)
     log.write(__PRETTY_FUNCTION__);
 
     sine();
-    cliLogin::checkPreviousLogin(
-        "/home/doug/.config/multiware/config.ini");
+    cliLogin::checkPreviousLogin(gpOS->genIniFQFS());
 
     if (argc > 1)
     {

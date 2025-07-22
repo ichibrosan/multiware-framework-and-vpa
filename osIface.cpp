@@ -8,6 +8,18 @@
 
 #define DEBUG_GLFQFS
 
+//"/home/doug/.config/multiware/config.ini");
+
+std::string osIface::genIniFQFS()
+{
+    std::string ssFQFS = "/home/";
+    ssFQFS.append(getenv("LOGNAME"));
+    ssFQFS.append("/.config/multiware/config.ini");
+    return ssFQFS;
+}
+
+
+
 /************************************************************************
  * Function: osIface::printBinary
  *

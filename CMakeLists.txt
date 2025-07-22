@@ -124,12 +124,6 @@ add_executable(testdiscserver testdiscserver.cpp)
 target_link_libraries(testdiscserver PRIVATE mwfw2)
 
 
-add_executable(vpalogin vpalogin.cpp CVpaRpc.cpp include/CVpaRpc.h
-        include/checkAuth.h
-        checkAuth.cpp)
-target_link_libraries(vpalogin PRIVATE mwfw2 cgicc pthread uuid)
-
-
 add_executable(vparpc_client
         vparpc_client.cpp include/vparpc_client.h
         CVpaRpc.cpp include/CVpaRpc.h)
