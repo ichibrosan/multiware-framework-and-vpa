@@ -64,27 +64,27 @@ add_library(mwfw2 STATIC
         #        cliLogin.cpp include/cliLogin.h
 )
 
-add_executable(cartoonizer cartoonizer.cpp)
-target_link_libraries(cartoonizer ${OpenCV_LIBS})
+add_executable(admin.cgi admin.cpp)
+target_link_libraries(admin.cgi PRIVATE mwfw2 cgicc uuid)
 
 add_executable(index.cgi index.cpp)
-target_link_libraries(index.cgi mwfw2 cgicc pthread uuid)
+target_link_libraries(index.cgi PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(init_xinetd_vpa init_xinetd_vpa.cpp
         CServices.cpp include/CServices.h
         include/xinetdcfg.h
         xinetdcfg.cpp
 )
-target_link_libraries(init_xinetd_vpa mwfw2 cgicc pthread uuid)
+target_link_libraries(init_xinetd_vpa PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(iphone.cgi iPhone.cpp)
-target_link_libraries(iphone.cgi mwfw2 cgicc pthread uuid)
+target_link_libraries(iphone.cgi PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(login.cgi login.cpp)
-target_link_libraries(login.cgi mwfw2 cgicc pthread uuid)
+target_link_libraries(login.cgi PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(logout.cgi logout.cpp)
-target_link_libraries(logout.cgi mwfw2 cgicc pthread uuid)
+target_link_libraries(logout.cgi PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(look look.cpp
         CServices.cpp include/CServices.h
@@ -92,54 +92,54 @@ add_executable(look look.cpp
         xinetdcfg.cpp
         cliLogin.cpp include/cliLogin.h
 )
-target_link_libraries(look mwfw2 cgicc pthread uuid)
+target_link_libraries(look PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(menu.cgi menu.cpp)
-target_link_libraries(menu.cgi mwfw2 cgicc pthread uuid)
+target_link_libraries(menu.cgi PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(password-util password-util.cpp)
-target_link_libraries(password-util mwfw2)
+target_link_libraries(password-util PRIVATE mwfw2)
 
 add_executable(prefs.cgi prefs.cpp)
-target_link_libraries(prefs.cgi mwfw2 cgicc uuid)
+target_link_libraries(prefs.cgi PRIVATE mwfw2 cgicc uuid)
 
 add_executable(prefs-action.cgi prefs-action.cpp)
-target_link_libraries(prefs-action.cgi mwfw2 cgicc pthread uuid)
+target_link_libraries(prefs-action.cgi PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(render.cgi render.cpp)
-target_link_libraries(render.cgi mwfw2 cgicc pthread uuid)
+target_link_libraries(render.cgi PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(structures structures.cpp
         CServices.cpp include/CServices.h
         include/xinetdcfg.h
         xinetdcfg.cpp
 )
-target_link_libraries(structures mwfw2 cgicc pthread uuid)
+target_link_libraries(structures PRIVATE mwfw2 cgicc pthread uuid)
 
 
 add_executable(testdiscclient testdiscclient.cpp)
-target_link_libraries(testdiscclient mwfw2)
+target_link_libraries(testdiscclient PRIVATE mwfw2)
 
 add_executable(testdiscserver testdiscserver.cpp)
-target_link_libraries(testdiscserver mwfw2)
+target_link_libraries(testdiscserver PRIVATE mwfw2)
 
 
 add_executable(vpalogin vpalogin.cpp CVpaRpc.cpp include/CVpaRpc.h
         include/checkAuth.h
         checkAuth.cpp)
-target_link_libraries(vpalogin mwfw2 cgicc pthread uuid)
+target_link_libraries(vpalogin PRIVATE mwfw2 cgicc pthread uuid)
 
 
 add_executable(vparpc_client
         vparpc_client.cpp include/vparpc_client.h
         CVpaRpc.cpp include/CVpaRpc.h)
-target_link_libraries(vparpc_client mwfw2 pthread uuid cgicc)
+target_link_libraries(vparpc_client PRIVATE mwfw2 pthread uuid cgicc)
 
 add_executable(vparpc_server vparpc_server.cpp include/vparpc_server.h)
-target_link_libraries(vparpc_server mwfw2 pthread cgicc uuid)
+target_link_libraries(vparpc_server PRIVATE mwfw2 pthread cgicc uuid)
 
 add_executable(vparpc_inetd_server vparpc_inetd_server.cpp)
-target_link_libraries(vparpc_inetd_server mwfw2 uuid cgicc)
+target_link_libraries(vparpc_inetd_server PRIVATE mwfw2 uuid cgicc)
 
 add_executable(vpautil vpautil.cpp
         CServices.cpp include/CServices.h
@@ -147,7 +147,7 @@ add_executable(vpautil vpautil.cpp
         xinetdcfg.cpp
         cliLogin.cpp include/cliLogin.h
 )
-target_link_libraries(vpautil mwfw2 cgicc pthread uuid)
+target_link_libraries(vpautil PRIVATE mwfw2 cgicc pthread uuid)
 
 
 ###############

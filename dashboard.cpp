@@ -249,6 +249,20 @@ void dashboard::navbar(
     if (0 == strcmp("admin", m_szAuthLevel) ||
         0 == strcmp("devo", m_szAuthLevel))
     {
+
+        if (buttons & ADMIN)
+        {
+            std::string ssCgiAdmin = form_cgi("admin.cgi", handle);
+            gpHtml->ahref(ssCgiAdmin.c_str(), "btn_admin.png", 150, 38);
+        }
+
+        if (buttons & SHUTDOWN)
+        {
+            std::string ssCgiShutdown = form_cgi("shutdown.cgi", handle);
+            gpHtml->ahref(ssCgiShutdown.c_str(), "btn_shutdown.png", 150, 38);
+        }
+
+
 #ifdef SHOW_SCHEMA_BUTTONS
         if (gpSh->m_pShMemng->bDisplaySchema)
         {

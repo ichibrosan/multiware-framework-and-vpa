@@ -4,6 +4,3 @@ Active,PrePara,PostPara,ElementType,Parm1,Parm2,Parm3,Parm4,Parm5,Parm6
 true,admin,melange,admin,Douglas,Goodall,Superuser
 true,doug,melange,devo,Douglas,Goodall,Developer
 true,douglas,melange,user,Douglas,Goodall,User
-true,marcus,monk,admin,Marcus,Franklin,Developer
-true,mark,monk,user,Marcus,Franklin,User
-true,monk,monk,devo,Marcus,Franklin,Developer

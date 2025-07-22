@@ -11,6 +11,8 @@ enum {
     LOGOUT  = 1<<1,
     MENU    = 1<<2,
 	PREFS   = 1<<3,
+	ADMIN   = 1<<4,
+	SHUTDOWN= 1<<5,
     NUM_DASHBOARD_BUTTONS = 4
 };
 
