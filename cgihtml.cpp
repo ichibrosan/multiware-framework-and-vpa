@@ -437,6 +437,12 @@ void cgihtml::close_script()
     std::cout << "</script>" << std::endl;
 }
 
+void cgihtml::dumps()
+{
+    if (gpSh->m_pShMemng->bDisplaySchema)  { gpHtml->dump_schema();   }
+    if (gpSh->m_pShMemng->bDisplayEnvVars) { gpHtml->dump_env_vars(); }
+    if (gpSh->m_pShMemng->bDisplayShmVars) { gpHtml->dump_shm_vars(); }
+}
 
 /**
  * Outputs the password file metadata and data in HTML table format.

@@ -36,7 +36,7 @@ class cgihtml {
 	std::string m_ssColors[NUM_LED_COLORS];
 public:
 	cgihtml();
-
+	void dumps();
 	void render_leds();
 
 	/**
