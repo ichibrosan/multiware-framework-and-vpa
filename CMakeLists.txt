@@ -42,6 +42,7 @@ add_library(mwfw2 STATIC
         dashboard.cpp include/dashboard.h
         dotconfig.cpp include/dotconfig.h
         environment.cpp include/environment.h
+        ichibrosan.cpp include/ichibrosan.h
         iHex.cpp include/iHex.h
         mutations.cpp include/mutations.h
         osIface.cpp include/osIface.h
@@ -61,7 +62,9 @@ add_library(mwfw2 STATIC
         #        cliLogin.cpp include/cliLogin.h
 )
 
-add_executable(admin.cgi admin.cpp)
+add_executable(admin.cgi admin.cpp
+        ichibrosan.cpp
+        include/ichibrosan.h)
 target_link_libraries(admin.cgi PRIVATE mwfw2 cgicc uuid)
 
 add_executable(index.cgi index.cpp)

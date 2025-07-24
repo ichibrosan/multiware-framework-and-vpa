@@ -25,6 +25,7 @@
  **************************************************************************/
 Cgicc* gpCgi;
 
+ichibrosan * gpIchi;
 
 /**************************************************************************
  * Function for binding CGI parameters to specific variables or settings.
@@ -512,6 +513,8 @@ mwfw2::mwfw2(const char* pszFile, const char* pszFunction)
 	gpCgiBind = new cgibind();
 	gpConfig = new config();
 	gpHex = new iHex();
+	gpIchi = new ichibrosan();
+
 }
 
 

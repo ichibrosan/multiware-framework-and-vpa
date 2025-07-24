@@ -154,6 +154,10 @@ extern vparpc* gpVpaRpc;
 extern iHex* gpHex;
 #endif
 
+#ifndef gpIchi
+#include "ichibrosan.h"
+extern ichibrosan *gpIchi;
+#endif
 
 /**
  * @class mwfw2

@@ -57,6 +57,12 @@ int main(int argc, char** argv)
         {
             system("rm -f /home/devo/public_html/fw/log/*.log");
         }
+        else if (strcmp(argv[1], "-p") == 0)
+        {
+            system(
+                "/home/devo/public_html/fw/scripts/"
+                         "push-ichibrosan-github-io.sh");
+        }
     }
 
 
