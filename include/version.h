@@ -5,8 +5,13 @@
 ////////////////////////////////////////////////////////////////////
 
 #pragma once
-
-#define RMAJ    5
+#define RCOPR "Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved."
+#define RCOMPANY "MultiWare Engineering"
+#define RPRODUCT "VPA"
+#define RIDEVER "CLion 2025.2 Beta"
+#define RIDE    "CLion 2025.2 Beta"
+#define RIDEBLD "Build #CL-252.23892.173"
+#define RIDEDTG "Built July 14, 2025"
 #define RMIN    7
 #define RREV    20
 #define RBLD    3

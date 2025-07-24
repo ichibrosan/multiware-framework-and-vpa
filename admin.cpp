@@ -40,6 +40,14 @@ main(int argc, char** argv)
     config.setVariable(ssID,
         "ProgramName",argv[0]);
     config.setVariable(ssPD,"FileName",__FILE__);
+    config.setVariable(ssED,"SemanticVersion",RSTRING);
+    config.setVariable(ssED,"Architecture",RARCH);
+    config.setVariable(ssED,"OperatingSystem",ROS);
+    config.setVariable(ssED,"DevoIDE",RIDE);
+    config.setVariable(ssED,"DevoBuild",RIDEBLD);
+    config.setVariable(ssED,"DevoBuilt",RIDEDTG);
+    config.setVariable(ssID,"Copyright",RCOPR);
+
     config.save();
 
     // Establish addressability to schema filespec
