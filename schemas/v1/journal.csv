@@ -1,5 +1,5 @@
 Active,Version,Meta Columns,Data Columns,Schema,CgiName,Method,Target,PageForm,Style,Description
-true,1,11,10,journal.csv,noteload.cgi,post,textIframe,false,journal_style,Copyright &copy; 2024-2025 Douglas W Goodall,
+true,1,11,10,journal.csv,noteload.cgi,post,textIframe,false,journal_style,
 Active,PrePara,PostPara,ElementType,Parm1,Parm2,Parm3,Parm4,Parm5,Parm6
 true,no,no,closeform
 false,comment,This next line places our logo on the screen,

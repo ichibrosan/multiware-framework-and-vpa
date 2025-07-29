@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/password-hash.cpp 2025-07-15 18:16 dwg -      //
+// This file is part of MultiWare Engineering's VPA and FrameWork //
+////////////////////////////////////////////////////////////////////
 #include "password-hash.h"
 #include <algorithm>
 #include <chrono>
