@@ -12,6 +12,7 @@
 #define RIDE    "CLion 2025.2 Beta"
 #define RIDEBLD "Build #CL-252.23892.173"
 #define RIDEDTG "Built July 14, 2025"
+#define RMAJ   5
 #define RMIN    7
 #define RREV    20
 #define RBLD    3

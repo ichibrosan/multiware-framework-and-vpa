@@ -108,8 +108,6 @@ std::string password::get_uuid()
 
 void set_configini_creds(int handle)
 {
-    std::cout << "set_configini_creds" << std::endl;
-
     char szConfigFQFS[FQFS_SIZE_MAX];
     time_t t = time(NULL);
 
