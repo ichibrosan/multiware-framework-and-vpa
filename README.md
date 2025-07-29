@@ -8,7 +8,11 @@ A comprehensive C++ framework providing Virtual Protocol Adapter (VPA) RPC
 services and multiware system capabilities for distributed computing
 environments.
 
-[![CMake on a single platform](https://github.com/ichibrosan/fw/actions/workflows/cmake-single-platform.yml/badge.svg)](https://github.com/ichibrosan/fw/actions/workflows/cmake-single-platform.yml)
+[![CMake on a single platform](https://github.
+com/ichibrosan/multiware-framework-and-vpa/actions/workflows/cmake-single
+-platform.yml/badge.
+svg)](https://github.com/ichibrosan/multiware-framework-and-vpa/actions
+/workflows/cmake-single-platform.yml)
 
 ## Overview
 

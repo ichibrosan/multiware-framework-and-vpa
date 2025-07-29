@@ -14,10 +14,10 @@
 #define RIDEDTG "Built July 14, 2025"
 #define RMAJ   5
 #define RMIN    7
-#define RREV    20
+#define RREV    29
 #define RBLD    3
-#define RSTRING "5.7.20.03"
-#define RSHORT  "5.7.20"
+#define RSTRING "5.7.29.03"
+#define RSHORT  "5.7.29"
 #define RLONG   RSTRING
 #define RDATE   __DATE__
 #define RTIME   __TIME__
