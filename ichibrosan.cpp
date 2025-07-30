@@ -2,6 +2,9 @@
 // ~/public_html/fw/ichibrosan.cpp 2025-07-24 02:15 dwg -         //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
+// This file is made available under the                          //
+// Creative Commons CC0 1.0 Universal Public Domain Dedication.   //
+////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 

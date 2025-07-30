@@ -1,17 +1,10 @@
 ####################################################################
-## ~/public_html/fw/login.cpp 2025-07-15 18:16 dwg -              ##
-## Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved.  ##
+## ~/public_html/fw/CMakeLists.txt 2025-07-29 19:34 dwg -         ##
 ## This file is part of MultiWare Engineering's VPA and FrameWork ##
-###########################################################################
-# 2025-07-04 01:57 dwg - xmlrpc has been deprecated in favor of vparpc    #
-# 2025-03-14 12:07 dwg - suspend diagnose.cgi compilation                 #
-# 2025-02-17 04:24 dwg - added xinetdctl to mwfw2 library                 #
-# 2025/02/14 08:17 dwg - optimize, suspended possibly unnecessary headers #
-# 2025/02/09 03:19 dwg - added xmlrpc_inetd_server target to build        #
-# 2025/02/02 02:31 use new library mwfw for most but highest level code.  #
-# 2025/01/21 03:21 use statically linked libraries instead of shared ones #
-# 2025/01/17 08:31 added link_directories for index.cgi for uuid_generate #
-###########################################################################
+####################################################################
+## This file is made available under the                          ##
+## Creative Commons CC0 1.0 Universal Public Domain Dedication.   ##
+####################################################################
 
 cmake_minimum_required(VERSION 3.25.1)
 project(fw)

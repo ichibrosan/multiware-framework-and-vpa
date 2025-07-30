@@ -2,6 +2,9 @@
 // ~/public_html/fw/iPhone.cpp 2025-07-20 03:12 dwg -             //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
+// This file is made available under the                          //
+// Creative Commons CC0 1.0 Universal Public Domain Dedication.   //
+////////////////////////////////////////////////////////////////////
 
 #include "mwfw2.h"
 #include "include/iPhone.h"

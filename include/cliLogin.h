@@ -2,15 +2,13 @@
 // ~/public_html/fw/cliLogin.h 2025-07-16 08:08 dwg -             //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
+// This file is made available under the                          //
+// Creative Commons CC0 1.0 Universal Public Domain Dedication.   //
+////////////////////////////////////////////////////////////////////
 
 #ifndef cliLogin_H
 #define cliLogin_H
 
-#include <string>
-#include <ctime>
-#include <termios.h>
-#include <unistd.h>
-#include <iostream>
 #include "cfgini.h"
 // Forward declaration instead of including password.h
 class password;

@@ -2,6 +2,9 @@
 // ~/public_html/fw/password-hash.cpp 2025-07-15 18:16 dwg -      //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
+// This file is made available under the                          //
+// Creative Commons CC0 1.0 Universal Public Domain Dedication.   //
+////////////////////////////////////////////////////////////////////
 
 #ifndef PASSWORD_HASH_H
 #define PASSWORD_HASH_H
