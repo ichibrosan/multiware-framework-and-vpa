@@ -110,21 +110,21 @@ public:
      * @param sectionName The name of the section to add
      * @return True if successful (false if section already exists)
      */
-    bool addSection(const std::string& sectionName);
+    bool addSection(const std::string& secName);
 
     /**
      * Removes a section from the configuration
      * @param sectionName The name of the section to remove
      * @return True if successful
      */
-    bool removeSection(const std::string& sectionName);
+    bool removeSection(const std::string& secName);
 
     /**
      * Checks if a section exists
      * @param sectionName The name of the section to check
      * @return True if the section exists
      */
-    bool hasSection(const std::string& sectionName) const;
+    bool hasSection(const std::string& secName) const;
 
     /**
      * Gets a list of all section names
@@ -139,8 +139,8 @@ public:
      * @param value The value to set
      * @return True if successful
      */
-    bool setVariable(const std::string& sectionName,
-                     const std::string& variableName, const std::string& value);
+    bool setVariable(const std::string& secName,
+                     const std::string& varName, const std::string& value);
 
     /**
      * Gets a variable value from a section

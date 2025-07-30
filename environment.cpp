@@ -834,10 +834,11 @@ std::string environment::get_ip(bool bDebug)
 	ofs << "#!/bin/bash" << std::endl;
 	ofs << "###############################################################"
 		"##############################" << std::endl;
-	ofs << "# daphne.goodall.com:/home/devo/public_html/fw/scripts/inetd-ne"
-		"tstat-redirect.sh 2025-02-17 #" << std::endl;
-	ofs << "# Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved."
-		"                             #" << std::endl;
+	ofs << "# daphne.goodall.com:/home/devo/public_html/fw/scripts/inetd-ip"
+		"-redirect.sh 2025-02-17      #" << std::endl;
+	ofs << "# ";
+	ofs << RCOPR;
+	ofs << 	"                                  #" << std::endl;
 	ofs << "###############################################################"
 		"##############################" << std::endl;
 	ofs << "ip addr show "

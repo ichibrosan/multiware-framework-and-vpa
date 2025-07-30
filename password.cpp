@@ -149,6 +149,13 @@ void set_configini_creds(int handle)
         "Credentials",
         "last_login",
         std::to_string(t));
+
+    config.setVariable(
+        "Credentials",
+        "license",
+        RCOPR);
+
+
     config.save();
 }
 

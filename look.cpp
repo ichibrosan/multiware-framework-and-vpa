@@ -46,9 +46,8 @@ void sine()
     sprintf(szVersion, "Virtual Protocol Adapter Look Utility "
             "Ver %d.%d.%d.%d",RMAJ,RMIN,RREV,RBLD);
     pWin->set_title(szVersion);
-    std::string ssCopr = "  Copyright ";
-    ssCopr.append("(c)"); // Append copyright symbol for compatibility
-    ssCopr.append(" 2025 Douglas Wade Goodall. All Rights Reserved.");
+    std::string ssCopr = "  License ";
+    ssCopr.append(RCOPR); // Append copyright symbol for compatibility
     pWin->add_row(ssCopr);
     pWin->render();
 }

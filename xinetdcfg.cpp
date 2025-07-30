@@ -161,11 +161,13 @@ std::string xinetcfg::generateConfigContent() const
     std::ostringstream config;
 
     // Header with generation warning
-    config << "###################################################\n";
+    config << "##############################################################\n";
     config << "## /etc/xinetd.d/vpa " << getCurrentDateTimeString() <<
-        " dwg -      ##\n";
-    config << "## Copyright (c) 2021-2025 Douglas Wade Goodall. ##\n";
-    config << "###################################################\n";
+        " dwg -                 ##\n";
+    config << "## ";
+    config << RCOPR;
+    config << " ##\n";
+    config << "##############################################################\n";
     config <<
         "\n";
     config << "############################################################\n";

@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////
 
 #pragma once
-#define RCOPR "Copyright (c) 2025 Douglas Wade Goodall. All Rights Reserved."
+#define RCOPR "Creative Commons CC0 1.0 Universal Public Domain License"
 #define RCOMPANY "MultiWare Engineering"
 #define RPRODUCT "VPA"
 #define RIDEVER "CLion 2025.2 Beta"
