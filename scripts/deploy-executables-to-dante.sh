@@ -1,4 +1,8 @@
 #!/bin/bash
+###############################################################################
+# /home/devo/public_html/fw/scripts/deploy-executables-to-dante.sh 2025-02-19 #
+###############################################################################
+
 # deploy-executables-to-dante.sh
 
 SOURCE=/home/devo/public_html/fw/cgi-bin
