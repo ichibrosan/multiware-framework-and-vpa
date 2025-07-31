@@ -29,10 +29,13 @@ public:
     cgibind();
 
 	/**
-	 * Retrieves the value of a form variable from CGI input based on the given variable name.
+	 * Retrieves the value of a form variable from CGI input based on the
+	 * given variable name.
 	 *
-	 * @param ssVariableName The name of the variable to retrieve from the form data.
-	 * @return The value of the specified form variable as a string. If the variable is not found,
+	 * @param ssVariableName The name of the variable to retrieve from the
+	 * form data.
+	 * @return The value of the specified form variable as a string. If the
+	 * variable is not found,
 	 *         an empty string is returned.
 	 */
 	std::string get_form_variable(std::string ssVariableName);
@@ -40,7 +43,8 @@ public:
 	/**
 	 * Retrieves the referrer of the current HTTP request.
 	 *
-	 * The method extracts the HTTP referrer information from the CGI environment
+	 * The method extracts the HTTP referrer information from the CGI
+	 * environment
 	 * and returns it as a string.
 	 *
 	 * @return A string containing the HTTP referrer of the current request.
@@ -50,12 +54,13 @@ public:
 	/**
 	 * Retrieves the directory path portion of the HTTP referrer URL.
 	 *
-	 * This method extracts the HTTP referrer using the CGI environment and removes
-	 * the filename portion of the path, returning only the directory path.
+	 * This method extracts the HTTP referrer using the CGI environment and
+	 * remove the filename portion of the path, returning only the directory
+	 * path.
 	 *
 	 * @return A string representing the path portion of the HTTP referrer URL.
-	 *         If the HTTP referrer is invalid or unavailable, the returned path
-	 *         could be empty.
+	 *         If the HTTP referrer is invalid or unavailable, the returned
+	 *         path could be empty.
 	 */
 	std::string get_referrer_path();
 
@@ -64,7 +69,8 @@ public:
 	 * This method processes the HTTP referrer obtained via the CGI environment
 	 * to isolate the file name part by removing the path portion of the URL.
 	 *
-	 * @return The file name component of the HTTP referrer URL as a std::string.
+	 * @return The file name component of the HTTP referrer URL as a
+	 * std::string.
 	 */
 	std::string get_referrer_file();
 

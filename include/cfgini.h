@@ -81,14 +81,16 @@ public:
 
     /**
      * Loads configuration from file
-     * @param filename The filename to load from (optional, uses stored filename if not provided)
+     * @param filename The filename to load from (optional, uses stored
+     * filename if not provided)
      * @return True if successful
      */
     bool load(const std::string& filename = "");
 
     /**
      * Saves configuration to file
-     * @param filename The filename to save to (optional, uses stored filename if not provided)
+     * @param filename The filename to save to (optional, uses stored filename
+     * if not provided)
      * @return True if successful
      */
     bool save(const std::string& filename = "");
@@ -146,7 +148,8 @@ public:
      * Gets a variable value from a section
      * @param sectionName The name of the section
      * @param variableName The name of the variable
-     * @param defaultValue The default value to return if variable doesn't exist
+     * @param defaultValue The default value to return if variable doesn't
+     * exist
      * @return The variable value or default value
      */
     std::string getVariable(const std::string& sectionName,

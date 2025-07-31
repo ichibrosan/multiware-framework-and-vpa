@@ -10,8 +10,7 @@
 
 #include "mwfw2.h"
 
-
-/**
+/***************************************************************************
  * @class cgihtml
  * @brief A class designed for handling HTML generation and CGI scripts.
  *
@@ -24,7 +23,7 @@
  * The primary purpose of this class is to simplify the process of handling
  * web-based content generation and server communication for CGI-based web
  * services.
- */
+ ***************************************************************************/
 class cgihtml {
 	/**
 	 * Generates a string containing HTML code for a CGI script.
@@ -36,24 +35,25 @@ class cgihtml {
 	 */
 
 	std::string m_ssColors[NUM_LED_COLORS];
+
 public:
+
 	cgihtml();
+
 	void dumps();
+
 	void render_leds();
 
 	/**
 	 * Creates a hyperlink in text with the given display text and URL.
-	 *
 	 * @param displayText The text that will be displayed as the hyperlink.
 	 * @param url The URL that the hyperlink will point to.
 	 * @return A string containing the formatted hyperlink.
 	 */
 	void ahref(const char *, const char *, int, int);
 
-
 	/**
 	 * @brief Closes the body section of an HTML document.
-	 *
 	 * This method outputs the closing </body> tag for an HTML document to
 	 * the standard output. It is intended to be used in conjunction with
 	 * other methods that structure and output HTML content.
@@ -65,12 +65,10 @@ public:
 	 * with it. This method finalizes any pending operations and cleans up
 	 * any resources used by the form to prevent resource leaks. It is
 	 * intended to be called when the form is no longer necessary or its
-	 * lifecycle is completed.
-	 *
-	 * If the form is already closed, this method has no effect.
-	 *
-	 * Exceptions may occur if resources cannot be released properly or
-	 * if the operation encounters unexpected errors during execution.
+	 * lifecycle is completed. If the form is already closed, this method
+	 * has no effect. Exceptions may occur if resources cannot be released
+	 * properly or if the operation encounters unexpected errors during
+	 * execution.
 	 */
 	void close_form();
 
