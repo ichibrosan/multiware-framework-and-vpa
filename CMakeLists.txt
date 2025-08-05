@@ -28,6 +28,7 @@ add_library(mwfw2 STATIC
         cgibind.cpp include/cgibind.h
         cgihtml.cpp include/cgihtml.h
         checkAuth.cpp include/checkAuth.h
+        cliLogin.cpp include/cliLogin.h
         CLog.cpp include/CLog.h
         config.cpp include/config.h
         crtbind.cpp include/crtbind.h

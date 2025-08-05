@@ -490,6 +490,7 @@ mwfw2::mwfw2(const char* pszFile, const char* pszFunction)
 	{
 		m_bCGI = true;
 	}
+
 	if (isCGI())
 	{
 		std::cout << "Content-type:\ttext/html\n\n" << std::endl;
