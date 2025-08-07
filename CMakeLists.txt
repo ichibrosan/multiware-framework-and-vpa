@@ -67,6 +67,16 @@ add_executable(admin.cgi admin.cpp
         include/ichibrosan.h)
 target_link_libraries(admin.cgi PRIVATE mwfw2 cgicc uuid)
 
+add_executable(example-semigraphics example-semigraphics.cpp
+#        CServices.cpp include/CServices.h
+#        include/xinetdcfg.h
+#        xinetdcfg.cpp
+#        cliLogin.cpp include/cliLogin.h
+)
+target_link_libraries(example-semigraphics PRIVATE mwfw2 cgicc pthread uuid)
+
+
+
 add_executable(index.cgi index.cpp)
 target_link_libraries(index.cgi PRIVATE mwfw2 cgicc pthread uuid)
 

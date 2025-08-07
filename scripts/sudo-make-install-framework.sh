@@ -27,6 +27,8 @@ cp -v *.cgi             ~/public_html/fw/cgi-bin/
 #########################################
 # Install Phase - Command line programs #
 #########################################
+cp -v example-*         ~/bin
+cp -v example-*         ~/public_html/fw/bin/
 cp -v look              ~/public_html/fw/bin/
 
 cp -v look              ~/bin
