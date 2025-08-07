@@ -1,12 +1,18 @@
 ####################################################################
-## ~/public_html/fw/CMakeLists.txt 2025-07-29 19:34 dwg -         ##
+## ~/public_html/fw/CMakeLists.txt 2025-08-07 02:56 dwg -         ##
 ## This file is part of MultiWare Engineering's VPA and FrameWork ##
 ####################################################################
 ## This file is made available under the                          ##
 ## Creative Commons CC0 1.0 Universal Public Domain Dedication.   ##
 ####################################################################
 
+## 2025-08-07 02:56 dwg - regarding cmake version to by used
+## The CLion 2025.2 update alleges to have installed cmake 4.0.2 and in fact
+## it is at /home/doug/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake --build /home/doug/public_html/fw/cmake-build-debug --target all -j 30
+## but is is not detected/used by the IDE.
+#cmake_minimum_required(VERSION 4.0.2)
 cmake_minimum_required(VERSION 3.25.1)
+
 project(fw)
 set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 set(CMAKE_CXX_STANDARD 20)
