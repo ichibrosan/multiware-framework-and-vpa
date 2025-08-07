@@ -38,8 +38,6 @@ void cfgHandler(char * pArgv0)
     config.setVariable(ssED,"Architecture",RARCH);
     config.setVariable(ssED,"OperatingSystem",ROS);
     config.setVariable(ssED,"DevoIDE",RIDE);
-    config.setVariable(ssED,"DevoBuild",RIDEBLD);
-    config.setVariable(ssED,"DevoBuilt",RIDEDTG);
     config.setVariable(ssED,"DevoCompiler","clang++");
     config.setVariable(ssID,"Copyright",RCOPR);
     config.save();

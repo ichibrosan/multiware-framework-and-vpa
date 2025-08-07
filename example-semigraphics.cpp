@@ -65,6 +65,7 @@
  * │ Example Semigraphics Utility Ver 5.8.7.3                   │
  * ├────────────────────────────────────────────────────────────┤
  * │ Creative Commons CC0 1.0 Universal Public Domain Dedication│
+ * │ Written by Douglas Wade Goodall, Multiware Engineer        │
  * ╰────────────────────────────────────────────────────────────╯
  */
 int main(int argc, char** argv)
@@ -141,6 +142,8 @@ int main(int argc, char** argv)
      */
     std::string ssCopr = "Creative Commons CC0 1.0 Universal Public Domain Dedication";
     pWin->add_row(ssCopr);
+
+    pWin->add_row("Written by Douglas Wade Goodall, Multiware Engineer");
 
     /**
      * @brief Render the complete window to the console
