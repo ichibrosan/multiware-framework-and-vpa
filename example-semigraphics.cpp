@@ -16,12 +16,10 @@ void sine()
         SRLR, SVSR, SVSL, // Right corner and separators
         SH, SV); // Horizontal ─ and vertical │ lines
     char szVersion[64];
-    sprintf(szVersion, "Virtual Protocol Adapter Look Utility "
+    sprintf(szVersion, "Example Semigraphics Utility "
             "Ver %d.%d.%d.%d",RMAJ,RMIN,RREV,RBLD);
     pWin->set_title(szVersion);
-    std::string ssCopr = "  Copyright ";
-    ssCopr.append("(c)"); // Append copyright symbol for compatibility
-    ssCopr.append(" 2025 Douglas Wade Goodall. All Rights Reserved.");
+    std::string ssCopr = "Creative Commons CC0 1.0 Universal Public Domain Dedication";
     pWin->add_row(ssCopr);
     pWin->render();
 }

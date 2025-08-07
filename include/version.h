@@ -15,11 +15,11 @@
 #define RIDEBLD "Build #CL-252.23892.173"
 #define RIDEDTG "Built July 14, 2025"
 #define RMAJ   5
-#define RMIN    7
-#define RREV    29
+#define RMIN    8
+#define RREV    7
 #define RBLD    3
-#define RSTRING "5.7.29.03"
-#define RSHORT  "5.7.29"
+#define RSTRING "5.8.7.3"
+#define RSHORT  "5.8.7"
 #define RLONG   RSTRING
 #define RDATE   __DATE__
 #define RTIME   __TIME__
