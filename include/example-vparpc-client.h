@@ -1,0 +1,22 @@
+/////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/example-vparpc-client.h 2025-07-16 08:08 dwg - //
+// This file is part of MultiWare Engineering's VPA and FrameWork  //
+/////////////////////////////////////////////////////////////////////
+// This file is made available under the                          //
+// Creative Commons CC0 1.0 Universal Public Domain Dedication.   //
+////////////////////////////////////////////////////////////////////
+
+#pragma once
+
+#include "mwfw2.h"
+
+class vparpc_client
+{
+public:
+    vparpc_client();
+};
+
+
+///////////////////////////
+// eof - vparpc_client.h //
+///////////////////////////

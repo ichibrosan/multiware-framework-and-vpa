@@ -76,6 +76,8 @@ target_link_libraries(example-semigraphics PRIVATE mwfw2 cgicc pthread uuid)
 add_executable(example-shared-memory example-shared-memory.cpp)
 target_link_libraries(example-shared-memory PRIVATE mwfw2 cgicc pthread uuid)
 
+add_executable(example-vparpc-client example-vparpc-client.cpp CVpaRpc.cpp)
+target_link_libraries(example-vparpc-client PRIVATE mwfw2 pthread uuid cgicc)
 
 add_executable(index.cgi index.cpp)
 target_link_libraries(index.cgi PRIVATE mwfw2 cgicc pthread uuid)
