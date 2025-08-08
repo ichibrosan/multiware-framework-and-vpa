@@ -18,6 +18,10 @@ environments. It provides a robust foundation for building applications
 with RPC capabilities, user management, and both command-line and
 browser-based interfaces.
 
+Note: This project is still under development. The in-line documentation is AI
+generated in many cases and still having some trouble with hallucination.
+Verification of the documentation is still underway.
+
 ## System Architecture
 
 The Virtual Protocol Adapter is a light-weight data multiplexing system.
