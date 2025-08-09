@@ -26,6 +26,8 @@
  */
 int main()
 {
+    auto pMwFw = new mwfw2(__FILE__,__FUNCTION__);
+
     int sockfd;
     char buffer[MAXLINE];
     const char* hello = "Hello from server";
@@ -63,8 +65,11 @@ int main()
                  MSG_WAITALL, (struct sockaddr*)&cliaddr,
                  &len);
     buffer[n] = '\0';
-    printf("Client : %s\n", buffer);
-    sendto(sockfd, (const char*)hello, strlen(hello),
+
+    char szTemp[1024];
+    sprintf(szTemp,"Client : %s\n", gpSh->m_pShMemng->szIP);
+
+    sendto(sockfd, (char *)szTemp, strlen(szTemp)+1,
            MSG_CONFIRM, (const struct sockaddr*)&cliaddr,
            len);
     std::cout << "Hello message sent." << std::endl;

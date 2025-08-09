@@ -70,22 +70,27 @@ target_link_libraries(admin.cgi PRIVATE mwfw2 cgicc uuid)
 add_executable(example-cfgini example-cfgini.cpp)
 target_link_libraries(example-cfgini PRIVATE mwfw2 cgicc pthread uuid)
 
-add_executable(example-semigraphics example-semigraphics.cpp)
+add_executable(       example-discovery-client example-discovery-client.cpp)
+target_link_libraries(example-discovery-client PRIVATE mwfw2)
+
+add_executable(       example-discovery-server example-discovery-server.cpp)
+target_link_libraries(example-discovery-server PRIVATE mwfw2 cgicc uuid)
+
+add_executable(       example-semigraphics example-semigraphics.cpp)
 target_link_libraries(example-semigraphics PRIVATE mwfw2 cgicc pthread uuid)
 
-add_executable(example-shared-memory example-shared-memory.cpp)
+add_executable(       example-shared-memory example-shared-memory.cpp)
 target_link_libraries(example-shared-memory PRIVATE mwfw2 cgicc pthread uuid)
 
-add_executable(example-vparpc-client example-vparpc-client.cpp CVpaRpc.cpp)
+add_executable(       example-vparpc-client example-vparpc-client.cpp CVpaRpc.cpp)
 target_link_libraries(example-vparpc-client PRIVATE mwfw2 pthread uuid cgicc)
 
-add_executable(index.cgi index.cpp)
+add_executable(       index.cgi index.cpp)
 target_link_libraries(index.cgi PRIVATE mwfw2 cgicc pthread uuid)
 
 add_executable(init_xinetd_vpa init_xinetd_vpa.cpp
-        CServices.cpp include/CServices.h
-        include/xinetdcfg.h
-        xinetdcfg.cpp
+        CServices.cpp        include/CServices.h
+        include/xinetdcfg.h  xinetdcfg.cpp
 )
 target_link_libraries(init_xinetd_vpa PRIVATE mwfw2 cgicc pthread uuid)
 
@@ -127,13 +132,6 @@ add_executable(structures structures.cpp
         xinetdcfg.cpp
 )
 target_link_libraries(structures PRIVATE mwfw2 cgicc pthread uuid)
-
-
-add_executable(testdiscclient testdiscclient.cpp)
-target_link_libraries(testdiscclient PRIVATE mwfw2)
-
-add_executable(testdiscserver testdiscserver.cpp)
-target_link_libraries(testdiscserver PRIVATE mwfw2)
 
 
 add_executable(vparpc_client
