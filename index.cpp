@@ -442,7 +442,7 @@ int main()
          * - Returns appropriate exit code for process monitoring
          */
         if (gpSysLog) {
-            gpSysLog->logerror("Memory allocation failure in index.cpp: " + std::string(e.what()));
+            gpSysLog->loginfo("Memory allocation failure in index.cpp: ");
         }
         
         // Generate minimal error response
@@ -465,7 +465,7 @@ int main()
          * - Framework initialization problems
          */
         if (gpSysLog) {
-            gpSysLog->logerror("Runtime error in index.cpp: " + std::string(e.what()));
+            gpSysLog->loginfo("Runtime error in index.cpp: ");
         }
         
         // Generate user-friendly error response
@@ -486,7 +486,7 @@ int main()
          * exceptions to ensure graceful application termination.
          */
         if (gpSysLog) {
-            gpSysLog->logerror("Unexpected error in index.cpp: " + std::string(e.what()));
+            gpSysLog->loginfo("Unexpected error in index.cpp: ");
         }
         
         // Generate generic error response
@@ -507,7 +507,7 @@ int main()
          * some form of error response is always provided to the client.
          */
         if (gpSysLog) {
-            gpSysLog->logerror("Unknown exception in index.cpp");
+            gpSysLog->loginfo("Unknown exception in index.cpp");
         }
         
         // Generate minimal error response
