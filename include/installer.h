@@ -17,6 +17,7 @@ private:
 public:
         installer();
         bool is_devo_root();
+        bool is_etc_installer();
         ~installer();
 };
 

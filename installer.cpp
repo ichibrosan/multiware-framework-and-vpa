@@ -481,17 +481,34 @@ void log_diag()
 
 bool installer::is_devo_root()
 {
-    m_pWin->add_row(__PRETTY_FUNCTION__);
     std::string ssDevoRoot = gpOS->file2path(__FILE__);
     std::string ssDevoRoot2 = "/home/";
     ssDevoRoot2.append(gpSh->m_pShMemng->szUser);
     ssDevoRoot2.append("/public_html/fw/");
     if (ssDevoRoot == ssDevoRoot2) {
-        m_pWin->add_row("returning true");
+        m_pWin->add_row("is_devo_root() returning true");
         return true;
     }
-    m_pWin->add_row("returning false");
+    m_pWin->add_row("is_devo_root() returning false");
     return false;
+}
+
+bool installer::is_etc_installer()
+{
+    int iRetcode = system("sudo mkdir -p /etc/installer");
+    char szTemp[128];
+    sprintf(szTemp, "iRetcode is %d",iRetcode);
+
+    if (256==iRetcode)
+    {
+        m_pWin->add_row("is_etc_installer() returning false");
+        return false;
+    }
+    if (0==iRetcode)
+    {
+        m_pWin -> add_row("is_etc_installer() returning true");
+        return true;
+    }
 }
 
 installer::installer()
@@ -527,6 +544,8 @@ int main()
     auto * pMwFw = new mwfw2(__FILE__, __FUNCTION__);
     auto * pInst = new installer();
     pInst->is_devo_root();
+    pInst->is_etc_installer();
+
     //pInst->m_pWin->
 
     //shmvars();
