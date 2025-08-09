@@ -15,8 +15,6 @@
  */
 cfgini::cfgini() : m_filename(""), m_modified(false)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
 }
 
 /**
@@ -28,8 +26,6 @@ cfgini::cfgini() : m_filename(""), m_modified(false)
 cfgini::cfgini(const std::string& filename) : m_filename(filename),
                                               m_modified(false)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
 }
 
 /**
@@ -41,8 +37,6 @@ cfgini::cfgini(const std::string& filename) : m_filename(filename),
  */
 cfgini::~cfgini()
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
 }
 
 /**
@@ -53,9 +47,6 @@ cfgini::~cfgini()
  */
 std::string cfgini::trim(const std::string& str)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     auto start = str.begin();
     while (start != str.end() && std::isspace(*start))
     {
@@ -96,9 +87,6 @@ std::string cfgini::trim(const std::string& str)
  */
 bool cfgini::parseLine(const std::string& line, std::string& currentSection)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     std::string trimmedLine = trim(line);
 
     // Skip empty lines and comments
@@ -141,9 +129,6 @@ bool cfgini::parseLine(const std::string& line, std::string& currentSection)
  */
 bool cfgini::createNew()
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     clear();
     m_modified = true;
     return true;
@@ -164,10 +149,6 @@ bool cfgini::createNew()
  */
 bool cfgini::load(const std::string& filename)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
-
     std::string fileToLoad = filename.empty() ? m_filename : filename;
 
     if (fileToLoad.empty())
@@ -211,9 +192,6 @@ bool cfgini::load(const std::string& filename)
  */
 bool cfgini::save(const std::string& filename)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     std::string fileToSave = filename.empty() ? m_filename : filename;
 
     if (fileToSave.empty())
@@ -261,9 +239,6 @@ bool cfgini::save(const std::string& filename)
  */
 void cfgini::setFilename(const std::string& filename)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     m_filename = filename;
 }
 
@@ -273,9 +248,6 @@ void cfgini::setFilename(const std::string& filename)
  */
 std::string cfgini::getFilename() const
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     return m_filename;
 }
 
@@ -292,9 +264,6 @@ std::string cfgini::getFilename() const
  */
 bool cfgini::addSection(const std::string& sectionName)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     if (m_sections.find(sectionName) != m_sections.end())
     {
         return false; // Section already exists
@@ -319,9 +288,6 @@ bool cfgini::addSection(const std::string& sectionName)
  */
 bool cfgini::removeSection(const std::string& sectionName)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     auto it = m_sections.find(sectionName);
     if (it == m_sections.end())
     {
@@ -344,9 +310,6 @@ bool cfgini::removeSection(const std::string& sectionName)
  */
 bool cfgini::hasSection(const std::string& sectionName) const
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     return m_sections.find(sectionName) != m_sections.end();
 }
 
@@ -357,9 +320,6 @@ bool cfgini::hasSection(const std::string& sectionName) const
  */
 std::vector<std::string> cfgini::getSections() const
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     std::vector<std::string> sections;
     for (const auto& section : m_sections)
     {
@@ -383,9 +343,6 @@ bool cfgini::setVariable(const std::string& sectionName,
                          const std::string& variableName,
                          const std::string& value)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     // Auto-create section if it doesn't exist
     if (m_sections.find(sectionName) == m_sections.end())
     {
@@ -415,9 +372,6 @@ std::string cfgini::getVariable(const std::string& sectionName,
                                 const std::string& variableName,
                                 const std::string& defaultValue) const
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     auto sectionIt = m_sections.find(sectionName);
     if (sectionIt == m_sections.end())
     {
@@ -450,9 +404,6 @@ std::string cfgini::getVariable(const std::string& sectionName,
 bool cfgini::removeVariable(const std::string& sectionName,
                             const std::string& variableName)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     auto sectionIt = m_sections.find(sectionName);
     if (sectionIt == m_sections.end())
     {
@@ -485,9 +436,6 @@ bool cfgini::removeVariable(const std::string& sectionName,
 bool cfgini::hasVariable(const std::string& sectionName,
                          const std::string& variableName) const
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     auto sectionIt = m_sections.find(sectionName);
     if (sectionIt == m_sections.end())
     {
@@ -511,9 +459,6 @@ bool cfgini::hasVariable(const std::string& sectionName,
 std::vector<std::string> cfgini::getVariables(
     const std::string& sectionName) const
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     std::vector<std::string> variables;
 
     auto sectionIt = m_sections.find(sectionName);
@@ -538,9 +483,6 @@ std::vector<std::string> cfgini::getVariables(
  */
 void cfgini::clear()
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     m_sections.clear();
     m_modified = true;
 }
@@ -552,9 +494,6 @@ void cfgini::clear()
  */
 bool cfgini::isModified() const
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     return m_modified;
 }
 
@@ -564,8 +503,9 @@ bool cfgini::isModified() const
  */
 void cfgini::markSaved()
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
     m_modified = false;
 }
+
+//////////////////////
+// eof - cfgini.cpp //
+//////////////////////
