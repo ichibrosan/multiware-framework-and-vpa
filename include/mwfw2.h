@@ -20,6 +20,7 @@
 #include "testdiscclient.h"
 #include "mutations.h"
 
+
 #ifndef gpCrt
 #include "crtbind.h"
 extern crtbind* gpCrt;
@@ -32,6 +33,8 @@ extern semigraphics* gpSemiGr;
 
 
 #include "window.h"
+
+#include "installer.h"
 #include "vparpc.h"
 #include "CVpaRpc.h"
 

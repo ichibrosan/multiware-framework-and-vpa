@@ -29,6 +29,16 @@ void window::add_row(std::string ssRow)
     }
 };
 
+void window::set_license(std::string ssLicense)
+{
+    m_ssLicense = ssLicense;
+    int iLicenseSize = ssLicense.size() + 3;
+    if (m_width < iLicenseSize)
+    {
+        m_width = iLicenseSize;
+    }
+}
+
 void window::set_title(std::string ssTitle)
 {
     m_ssTitle = ssTitle;
@@ -65,6 +75,7 @@ void window::render()
     gpCrt->crtstyle(MODE_BOLD, FG_GREEN, BG_BLACK);
     gpSemiGr->topline(1, 1, m_width, m_height);
     gpSemiGr->middleline(1, 1, m_width, m_height, m_ssTitle);
+    gpSemiGr->middleline(1, 1, m_width, m_height, m_ssLicense);
     gpSemiGr->vert_splitter(1, 1, m_width, m_height);
     for (const std::string& str : m_ssData)
     {
@@ -86,10 +97,6 @@ void window::render_frames()
     gpCrt->crtstyle(MODE_BOLD, FG_CYAN, BG_BLACK);
 }
 
-void window::render_text()
-{
-}
-
 void window::show()
 {
     std::cout << "windows descriptor:" << std::endl;
@@ -104,6 +111,6 @@ void window::show()
     std::cout << std::endl;
 }
 
-window::~window()
-{
-}
+//////////////////////
+// eof - window.cpp //
+//////////////////////

@@ -23,6 +23,7 @@ class window
     int m_y; // zero relative line number of top edge
     int m_width; // width of window  (dynamic)
     int m_height; // height of window (dynamic)
+    std::string m_ssLicense;
     std::string m_ssTitle;
     std::vector<std::string> m_ssData;
 
@@ -30,18 +31,18 @@ public:
     window(
         // WinDesc&
     );
+    void sine();
     int get_height();
     int get_width();
     int get_x();
     int get_y();
     void add_row(std::string);
     void render_frames();
-    void render_text();
     void render();
+    void set_license(std::string ssLicense);
     void set_title(std::string ssTitle);
     void show();
-    ~window();
-};
+ };
 
 ////////////////////
 // eof - window.h //

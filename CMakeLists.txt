@@ -44,6 +44,7 @@ add_library(mwfw2 STATIC
         environment.cpp include/environment.h
         ichibrosan.cpp include/ichibrosan.h
         iHex.cpp include/iHex.h
+        installer.cpp include/installer.h
         mutations.cpp include/mutations.h
         osIface.cpp include/osIface.h
         password.cpp include/password.h
@@ -64,7 +65,8 @@ add_library(mwfw2 STATIC
 
 add_executable(admin.cgi admin.cpp
         ichibrosan.cpp
-        include/ichibrosan.h)
+        include/ichibrosan.h
+        include/installer.h)
 target_link_libraries(admin.cgi PRIVATE mwfw2 cgicc uuid)
 
 add_executable(example-cfgini example-cfgini.cpp)
@@ -93,6 +95,16 @@ add_executable(init_xinetd_vpa init_xinetd_vpa.cpp
         include/xinetdcfg.h  xinetdcfg.cpp
 )
 target_link_libraries(init_xinetd_vpa PRIVATE mwfw2 cgicc pthread uuid)
+
+add_executable(installer installer.cpp
+        CServices.cpp include/CServices.h
+        include/xinetdcfg.h
+        xinetdcfg.cpp
+        cliLogin.cpp include/cliLogin.h
+        include/installer.h
+)
+target_link_libraries(installer PRIVATE mwfw2 cgicc pthread uuid)
+
 
 add_executable(iphone.cgi iPhone.cpp)
 target_link_libraries(iphone.cgi PRIVATE mwfw2 cgicc pthread uuid)
