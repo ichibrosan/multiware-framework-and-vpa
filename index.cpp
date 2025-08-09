@@ -378,24 +378,16 @@ int main()
          * 9. Performance metrics collection and logging
          * 
          * Handle Parameter Usage:
-         * - Handle 0 (DEFAULT_HANDLE): Standard index page generation
-         * - Handle 1: Mobile-optimized version generation
-         * - Handle 2: Print-friendly format generation  
-         * - Handle 3: API/JSON format generation
-         * - Handle 4: Debug mode with additional diagnostic information
-         * 
+         * - Handle 0: password.csv ROW_META_HDR
+         * - Handle 1: password.csv ROW_META_DATA
+         * - Handle 2: password.csv ROW_DATA_HDR
+         * - Handle 3: password.csv ROW_DATA (1st entry)
+         *
          * Output Features:
          * - Responsive HTML5 with semantic markup
          * - Cross-browser compatibility optimization
-         * - SEO-friendly structure and metadata
          * - Accessibility compliance (WCAG guidelines)
-         * - Performance optimization (minification, compression)
          * - Security headers and XSS protection
-         * 
-         * @param DEFAULT_HANDLE Processing mode identifier (0 = standard index)
-         * 
-         * @throws std::ios_base::failure If output stream operations fail
-         * @throws std::runtime_error If content generation encounters critical errors
          * 
          * @note This function handles all CGI output requirements including
          *       proper HTTP headers, content encoding, and error responses.
