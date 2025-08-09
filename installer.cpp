@@ -7,19 +7,31 @@
 ////////////////////////////////////////////////////////////////////
 
 /**
+ * @file installer.cpp
+ * @brief Installation program for the Virtual Protocol Adapter and Multiware FrameWork
+ * 
  * This is the install program for the Virtual Protocol Adapter and
  * Multiware FrameWork. Running this program should do everything
  * necessary to prepare a debian based operating system to build and
  * run the Multiware System. The only mandatory prerequisite is that
  * the user account owning the Multiware source tree must have sudo
- * privileges
- *
+ * privileges.
+ * 
+ * The installer performs various diagnostic and setup operations including:
+ * - System environment validation
+ * - Service configuration and registration
+ * - Shared memory initialization
+ * - Configuration file management
+ * - User authentication setup
+ * - Network service diagnostics
+ * 
+ * @author MultiWare Engineering
+ * @version Uses version constants from version.h
+ * @date 2025-08-09
  */
-
 
 #include "mwfw2.h"
 #include "installer.h"
-
 
 /**
  * @brief Manages the shared memory operations and prints the status of test statistics.
@@ -36,7 +48,6 @@
  * - Outputs the count of tests:
  *   - processed
  *   - skipped
- *   - passed
  *   - failed
  * - Resets the number of processed tests to zero.
  * - Uses a binary representation (printBinary) to display the processed, passed, failed,
@@ -166,7 +177,7 @@ void configini()
 }
 
 /**
- * Outputs the sizes and padding information for various request structure types.
+ * @brief Outputs the sizes and padding information for various request structure types.
  *
  * This function calculates the size of several predefined data structures
  * related to `vparpc` requests and outputs their size and padding.
@@ -211,32 +222,34 @@ void struct_diag()
         vparpc_request_urls_t) << std::endl;
 }
 
-/*
-## Features of the CServices Class:
-1. **Service Existence Check**:
-    - `hasService()` - Check if a service exists by name
-    - `hasService(name, protocol)` - Check if a service exists for a specific protocol
-
-2. **Service Addition**:
-    - `addService()` - Add new services to `/etc/services` with validation
-    - Prevents duplicate entries and validates input
-
-3. **Service Retrieval**:
-    - `getService()` - Get service information by name
-    - `getServiceByPort()` - Get service by port and protocol
-    - `getServicePort()` - Get port number for a service
-    - `getServiceName()` - Get service name for a port
-
-4. **Service Management**:
-    - `removeService()` - Remove services from `/etc/services`
-    - `findServices()` - Search for services by pattern
-    - `reloadCache()` - Refresh the internal cache
-
-5. **Safety Features**:
-    - `createBackup()` - Create backup before modifications
-    - `restoreFromBackup()` - Restore from backup if needed
-    - `isServicesFileWritable()` - Check permissions before writing
-
+/**
+ * @brief Service Management Features Documentation
+ * 
+ * The CServices Class provides comprehensive service management capabilities:
+ * 
+ * **Service Existence Check**:
+ * - `hasService()` - Check if a service exists by name
+ * - `hasService(name, protocol)` - Check if a service exists for a specific protocol
+ * 
+ * **Service Addition**:
+ * - `addService()` - Add new services to `/etc/services` with validation
+ * - Prevents duplicate entries and validates input
+ * 
+ * **Service Retrieval**:
+ * - `getService()` - Get service information by name
+ * - `getServiceByPort()` - Get service by port and protocol
+ * - `getServicePort()` - Get port number for a service
+ * - `getServiceName()` - Get service name for a port
+ * 
+ * **Service Management**:
+ * - `removeService()` - Remove services from `/etc/services`
+ * - `findServices()` - Search for services by pattern
+ * - `reloadCache()` - Refresh the internal cache
+ * 
+ * **Safety Features**:
+ * - `createBackup()` - Create backup before modifications
+ * - `restoreFromBackup()` - Restore from backup if needed
+ * - `isServicesFileWritable()` - Check permissions before writing
  */
 
 /**
@@ -247,6 +260,18 @@ void struct_diag()
  * - Add services if they do not already exist, specifying their name, port, protocol, and aliases.
  * - Retrieve a list of services matching a specific pattern ("http").
  * - Log outputs to indicate the status of service operations such as existence checks or successful additions.
+ * 
+ * The function manages VPA-related services including:
+ * - vpa: Main VPA service on port 5164/tcp
+ * - vpa-disc: Discovery service on port 5164/udp
+ * - vpad-start: Start service on port 65353/tcp
+ * - vpa-netstat: Network statistics service on port 65354/tcp
+ * - vpa-ip: IP service on port 65355/tcp
+ * - vpa-curl: CURL service on port 5164/tcp
+ * - vpa-http: HTTP service on port 65357/tcp
+ * - vpa-https: HTTPS service on port 65358/tcp
+ * - vpa-ipcs: IPC service on port 65359/tcp
+ * - vpa-iphone: iPhone service on port 65360/tcp
  */
 void services_diag()
 {
@@ -276,7 +301,6 @@ void services_diag()
             std::cout << "Service added successfully - vpa-disc" << std::endl;
         }
     }
-
 
     if (services.hasService("vpad-start"))
     {
@@ -377,7 +401,6 @@ void services_diag()
         }
     }
 
-
     // Find services by pattern
     auto webServices = services.findServices("http");
     for (const auto& service : webServices)
@@ -387,6 +410,8 @@ void services_diag()
 }
 
 /**
+ * @brief Generates, displays, and optionally saves an updated Xinetd configuration for VPA services.
+ * 
  * Generates, displays, and optionally saves an updated Xinetd configuration
  * for the VPA service. If the necessary permissions to modify the
  * configuration file are not available, the method operates in "dry-run" mode.
@@ -473,12 +498,29 @@ int xinetdcfg_diag()
     return 0;
 }
 
+/**
+ * @brief Performs logging diagnostic operations.
+ * 
+ * Creates a CLog instance and writes a test message to demonstrate
+ * the logging functionality. Uses the current file and function
+ * name for log context.
+ */
 void log_diag()
 {
     CLog log(__FILE__, __FUNCTION__);
     log.write("test message");
 }
 
+/**
+ * @brief Validates that the source is installed in the correct development location.
+ *
+ * Checks if the installer source code is located in the expected development
+ * directory structure. The expected location is `/home/{username}/public_html/fw/`.
+ * This validation ensures that the installer is running from the proper
+ * development environment before proceeding with installation operations.
+ * 
+ * @return true if source is installed in acceptable location, false otherwise
+ */
 bool installer::is_devo_root()
 {
     std::string ssDevoRoot = gpOS->file2path(__FILE__);
@@ -493,6 +535,16 @@ bool installer::is_devo_root()
     return false;
 }
 
+/**
+ * @brief Validates that the development user has appropriate sudo privileges.
+ * 
+ * Tests sudo access by attempting to create the `/etc/installer` directory.
+ * This is a critical requirement for the installer to function properly,
+ * as many installation operations require elevated privileges to modify
+ * system files and directories.
+ * 
+ * @return true if user has default sudo privileges, false otherwise
+ */
 bool installer::is_etc_installer()
 {
     int iRetcode = system("sudo mkdir -p /etc/installer");
@@ -511,6 +563,18 @@ bool installer::is_etc_installer()
     }
 }
 
+/**
+ * @brief Constructor for the installer class.
+ * 
+ * Initializes the installer with a graphical window interface and sets up
+ * the display cosmetics using semi-graphics characters. Creates the main
+ * installer window with appropriate title and license information.
+ * 
+ * The window is configured with:
+ * - Semi-graphics border characters for a professional appearance
+ * - Version information from the build constants
+ * - Creative Commons CC0 license information
+ */
 installer::installer()
 {
     m_pWin = new window();
@@ -523,21 +587,43 @@ installer::installer()
                 "Ver %d.%d.%d.%d",RMAJ,RMIN,RREV,RBLD);
     m_pWin->set_title(szVersion);
     m_pWin->set_license("Creative Commons CC0 1.0 Universal Public Domain License");
-
 }
 
+/**
+ * @brief Destructor for the installer class.
+ * 
+ * Renders the final window display before cleanup. This ensures that
+ * all installation progress and results are properly displayed to
+ * the user before the installer terminates.
+ */
 installer::~installer()
 {
     m_pWin->render();
 }
 
 /**
+ * @brief Main entry point of the VPA installer application.
+ * 
  * The main entry point of the application. This function initializes
  * necessary components, executes core functionality by invoking specific
  * diagnostic and utility methods, and manages the overall application logic.
+ * 
+ * The main function performs the following operations:
+ * 1. Initializes the Multiware Framework (mwfw2)
+ * 2. Creates and configures the installer instance
+ * 3. Validates the development environment and sudo privileges
+ * 4. Provides access to various diagnostic functions (currently commented out)
+ * 
+ * Available diagnostic functions include:
+ * - shmvars(): Shared memory diagnostics
+ * - auth_users(): User authentication diagnostics  
+ * - configini(): Configuration file management
+ * - struct_diag(): Structure size diagnostics
+ * - services_diag(): Network service management
+ * - xinetdcfg_diag(): Xinetd configuration management
+ * - log_diag(): Logging system diagnostics
  *
- * @return An integer indicating the application's exit status. EXIT_SUCCESS
- * is returned upon successful completion.
+ * @return EXIT_SUCCESS upon successful completion
  */
 int main()
 {
@@ -546,19 +632,16 @@ int main()
     pInst->is_devo_root();
     pInst->is_etc_installer();
 
-    //pInst->m_pWin->
-
+    // Diagnostic functions available for testing and validation
+    // Uncomment as needed for specific installation tasks
     //shmvars();
     //auth_users();
     //configini();
     //struct_diag();
     //services_diag();
     //xinetdcfg_diag();
-
-    // cliLogin::checkPreviousLogin(
-    //     "/home/doug/.config/multiware/config.ini");
-    //
-    // log_diag();
+    //cliLogin::checkPreviousLogin("/home/doug/.config/multiware/config.ini");
+    //log_diag();
 
     delete pInst;
     delete pMwFw;
