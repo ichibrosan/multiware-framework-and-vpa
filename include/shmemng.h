@@ -10,17 +10,6 @@
 
 #include "mwfw2.h"
 
-#include "config.h"
-#include "fw-limits.h"
-#include <net/if.h>
-
-#include <fcntl.h>           /* For O_* constants */
-#include <sys/stat.h>        /* For mode constants */
-#include <semaphore.h>
-#include <system_error>
-#include <memory>
-#include "mutations.h"
-
 /**
  * If you change the MFW_SHMEM_T schema, you need to reboot to assure
  * that you don't use a stale shared memory segment that is mis-aligned.
