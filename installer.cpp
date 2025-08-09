@@ -479,8 +479,18 @@ void log_diag()
     log.write("test message");
 }
 
-bool is_devo_root()
+bool installer::is_devo_root()
 {
+    m_pWin->add_row(__PRETTY_FUNCTION__);
+    std::string ssDevoRoot = gpOS->file2path(__FILE__);
+    std::string ssDevoRoot2 = "/home/";
+    ssDevoRoot2.append(gpSh->m_pShMemng->szUser);
+    ssDevoRoot2.append("/public_html/fw/");
+    if (ssDevoRoot == ssDevoRoot2) {
+        m_pWin->add_row("returning true");
+        return true;
+    }
+    m_pWin->add_row("returning false");
     return false;
 }
 
@@ -516,7 +526,7 @@ int main()
 {
     auto * pMwFw = new mwfw2(__FILE__, __FUNCTION__);
     auto * pInst = new installer();
-
+    pInst->is_devo_root();
     //pInst->m_pWin->
 
     //shmvars();

@@ -16,6 +16,7 @@ private:
         window * m_pWin;
 public:
         installer();
+        bool is_devo_root();
         ~installer();
 };
 
