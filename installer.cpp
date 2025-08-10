@@ -10,14 +10,14 @@
 /**
  * @file installer.cpp
  * @brief Installation program for the Virtual Protocol Adapter and Multiware FrameWork
- * 
+ *
  * This is the install program for the Virtual Protocol Adapter and
  * Multiware FrameWork. Running this program should do everything
  * necessary to prepare a debian based operating system to build and
  * run the Multiware System. The only mandatory prerequisite is that
  * the user account owning the Multiware source tree must have sudo
  * privileges.
- * 
+ *
  * The installer performs various diagnostic and setup operations including:
  * - System environment validation
  * - Service configuration and registration
@@ -25,7 +25,7 @@
  * - Configuration file management
  * - User authentication setup
  * - Network service diagnostics
- * 
+ *
  * @author MultiWare Engineering
  * @version Uses version constants from version.h
  * @date 2025-08-09
@@ -225,28 +225,28 @@ void struct_diag()
 
 /**
  * @brief Service Management Features Documentation
- * 
+ *
  * The CServices Class provides comprehensive service management capabilities:
- * 
+ *
  * **Service Existence Check**:
  * - `hasService()` - Check if a service exists by name
  * - `hasService(name, protocol)` - Check if a service exists for a specific protocol
- * 
+ *
  * **Service Addition**:
  * - `addService()` - Add new services to `/etc/services` with validation
  * - Prevents duplicate entries and validates input
- * 
+ *
  * **Service Retrieval**:
  * - `getService()` - Get service information by name
  * - `getServiceByPort()` - Get service by port and protocol
  * - `getServicePort()` - Get port number for a service
  * - `getServiceName()` - Get service name for a port
- * 
+ *
  * **Service Management**:
  * - `removeService()` - Remove services from `/etc/services`
  * - `findServices()` - Search for services by pattern
  * - `reloadCache()` - Refresh the internal cache
- * 
+ *
  * **Safety Features**:
  * - `createBackup()` - Create backup before modifications
  * - `restoreFromBackup()` - Restore from backup if needed
@@ -261,7 +261,7 @@ void struct_diag()
  * - Add services if they do not already exist, specifying their name, port, protocol, and aliases.
  * - Retrieve a list of services matching a specific pattern ("http").
  * - Log outputs to indicate the status of service operations such as existence checks or successful additions.
- * 
+ *
  * The function manages VPA-related services including:
  * - vpa: Main VPA service on port 5164/tcp
  * - vpa-disc: Discovery service on port 5164/udp
@@ -413,7 +413,7 @@ void services_diag()
 
 /**
  * @brief Performs logging diagnostic operations.
- * 
+ *
  * Creates a CLog instance and writes a test message to demonstrate
  * the logging functionality. Uses the current file and function
  * name for log context.
@@ -427,6 +427,10 @@ void log_diag()
 
 bool installer::add_index_cgi_to_dir()
 {
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
     // First check if the file exists
     int iRetcode = system("test -f /etc/apache2/mods-enabled/dir.conf 2>/dev/null");
 
@@ -481,6 +485,54 @@ bool installer::add_index_cgi_to_dir()
     }
 }
 
+bool installer::check_apache2_servername()
+{
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
+    const char* config_file = "/etc/apache2/apache2.conf";
+    std::ifstream file(config_file);
+
+    if (!file.is_open()) {
+        if (gpSysLog) {
+            gpSysLog->loginfo("check_apache2_servername: Cannot open /etc/apache2/apache2.conf");
+        }
+        return false;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        // Remove leading whitespace
+        size_t first = line.find_first_not_of(" \t");
+        if (first == std::string::npos) {
+            continue; // Empty line or all whitespace
+        }
+
+        // Check if line starts with "ServerName" (case-insensitive)
+        std::string trimmed = line.substr(first);
+        if (trimmed.length() >= 10) {
+            std::string directive = trimmed.substr(0, 10);
+            std::transform(directive.begin(), directive.end(), directive.begin(), ::tolower);
+
+            if (directive == "servername") {
+                // Found ServerName directive
+                if (gpSysLog) {
+                    gpSysLog->loginfo("check_apache2_servername: ServerName directive found");
+                }
+                file.close();
+                return true;
+            }
+        }
+    }
+
+    file.close();
+    if (gpSysLog) {
+        gpSysLog->loginfo("check_apache2_servername: ServerName directive not found");
+    }
+    return false;
+}
+
 
 /**
  * @brief Check if dir.conf contains index.cgi in DirectoryIndex
@@ -489,6 +541,9 @@ bool installer::add_index_cgi_to_dir()
  */
 bool installer::check_dir_index_cgi()
 {
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
 
     // Search for index.cgi in the file
     int iRetcode = system("grep -i 'index\\.cgi' /etc/apache2/mods-enabled/dir.conf > /dev/null 2>&1");
@@ -514,6 +569,10 @@ bool installer::check_dir_index_cgi()
  */
 bool installer::check_userdir_enabled()
 {
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
     int iRetcode = system("test -f /etc/apache2/mods-enabled/userdir.conf 2>/dev/null");
 
     if (0 == iRetcode)
@@ -536,6 +595,10 @@ bool installer::check_userdir_enabled()
  */
 bool installer::check_userdir_execcgi()
 {
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
     // First check if the file exists
     int iRetcode = system("test -f /etc/apache2/mods-enabled/userdir.conf 2>/dev/null");
 
@@ -593,8 +656,8 @@ bool installer::is_apache2_installed()
         if (0 != iRetcode)
         {
             m_pWin->add_row("  Apache2 binary not found");
-            m_pWin->add_row("  is_apache2_installed() returning false");
-            return false;
+            system("sudo apt-get install apache2 -y");
+            m_pWin->add_row("  Apache2 installed");
         }
     }
 
@@ -697,11 +760,16 @@ bool installer::is_apache2_installed()
  * directory structure. The expected location is `/home/{username}/public_html/fw/`.
  * This validation ensures that the installer is running from the proper
  * development environment before proceeding with installation operations.
- * 
+ *
  * @return true if source is installed in acceptable location, false otherwise
  */
 bool installer::is_devo_root()
 {
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
+
     std::string ssDevoRoot = gpOS->file2path(__FILE__);
     std::string ssDevoRoot2 = "/home/";
     ssDevoRoot2.append(gpSh->m_pShMemng->szUser);
@@ -742,16 +810,21 @@ bool installer::can_user_sudo()
 
 /**
  * @brief Validates that the development user has appropriate sudo privileges.
- * 
+ *
  * Tests sudo access by attempting to create the `/etc/installer` directory.
  * This is a critical requirement for the installer to function properly,
  * as many installation operations require elevated privileges to modify
  * system files and directories.
- * 
+ *
  * @return true if user has default sudo privileges, false otherwise
  */
 bool installer::is_etc_installer()
-{   bool bFinalRetcode;
+{
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
+    bool bFinalRetcode;
 
     int iRetcode = system("sudo mkdir -p /etc/installer");
     char szTemp[128];
@@ -784,6 +857,11 @@ bool installer::is_etc_installer()
  */
 bool installer::is_xinetd_installed()
 {
+
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
     // First check if xinetd is already installed
     int iRetcode = system("which xinetd > /dev/null 2>&1");
     if (0 == iRetcode)
@@ -932,11 +1010,11 @@ bool installer::is_xinet_configured()
 
 /**
  * @brief Constructor for the installer class.
- * 
+ *
  * Initializes the installer with a graphical window interface and sets up
  * the display cosmetics using semi-graphics characters. Creates the main
  * installer window with appropriate title and license information.
- * 
+ *
  * The window is configured with:
  * - Semi-graphics border characters for a professional appearance
  * - Version information from the build constants
@@ -958,7 +1036,7 @@ installer::installer()
 
 /**
  * @brief Destructor for the installer class.
- * 
+ *
  * Renders the final window display before cleanup. This ensures that
  * all installation progress and results are properly displayed to
  * the user before the installer terminates.
@@ -970,20 +1048,20 @@ installer::~installer()
 
 /**
  * @brief Main entry point of the VPA installer application.
- * 
+ *
  * The main entry point of the application. This function initializes
  * necessary components, executes core functionality by invoking specific
  * diagnostic and utility methods, and manages the overall application logic.
- * 
+ *
  * The main function performs the following operations:
  * 1. Initializes the Multiware Framework (mwfw2)
  * 2. Creates and configures the installer instance
  * 3. Validates the development environment and sudo privileges
  * 4. Provides access to various diagnostic functions (currently commented out)
- * 
+ *
  * Available diagnostic functions include:
  * - shmvars(): Shared memory diagnostics
- * - auth_users(): User authentication diagnostics  
+ * - auth_users(): User authentication diagnostics
  * - configini(): Configuration file management
  * - struct_diag(): Structure size diagnostics
  * - services_diag(): Network service management
@@ -1002,6 +1080,9 @@ int main()
     pInst->is_xinetd_installed();
     pInst->is_xinet_configured();
     pInst->is_apache2_installed();
+    pInst->check_userdir_enabled();
+
+    pInst->check_userdir_execcgi();
     pInst->check_dir_index_cgi();
 
 
@@ -1020,6 +1101,7 @@ int main()
     delete pMwFw;
     return EXIT_SUCCESS;
 }
+
 
 /////////////////////////
 // eof - installer.cpp //
