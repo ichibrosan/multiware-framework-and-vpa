@@ -424,6 +424,272 @@ void log_diag()
     log.write("test message");
 }
 
+
+bool installer::add_index_cgi_to_dir()
+{
+    // First check if the file exists
+    int iRetcode = system("test -f /etc/apache2/mods-enabled/dir.conf 2>/dev/null");
+
+    if (0 != iRetcode)
+    {
+        std::cout << "dir.conf not found" << std::endl;
+        return false;
+    }
+
+    // Check if index.cgi is already present
+    iRetcode = system("grep -i 'index\\.cgi' /etc/apache2/mods-enabled/dir.conf > /dev/null 2>&1");
+
+    if (0 == iRetcode)
+    {
+        std::cout << "index.cgi already exists in dir.conf" << std::endl;
+        return true;
+    }
+
+    // Create backup first
+    iRetcode = system("sudo cp /etc/apache2/mods-enabled/dir.conf /etc/apache2/mods-enabled/dir.conf.backup");
+
+    if (0 != iRetcode)
+    {
+        std::cout << "Failed to create backup of dir.conf" << std::endl;
+        return false;
+    }
+
+    // Add index.cgi to DirectoryIndex line using sed
+    // This adds index.cgi as the first entry in DirectoryIndex
+    iRetcode = system("sudo sed -i '/^[[:space:]]*DirectoryIndex/ s/DirectoryIndex/DirectoryIndex index.cgi/' /etc/apache2/mods-enabled/dir.conf");
+
+    if (0 == iRetcode)
+    {
+        // Verify the change was made
+        iRetcode = system("grep -i 'index\\.cgi' /etc/apache2/mods-enabled/dir.conf > /dev/null 2>&1");
+
+        if (0 == iRetcode)
+        {
+            std::cout << "index.cgi successfully added to dir.conf" << std::endl;
+            return true;
+        }
+        else
+        {
+            std::cout << "Failed to verify index.cgi addition" << std::endl;
+            return false;
+        }
+    }
+    else
+    {
+        std::cout << "Failed to modify dir.conf" << std::endl;
+        return false;
+    }
+}
+
+
+/**
+ * @brief Check if dir.conf contains index.cgi in DirectoryIndex
+ *
+ * @return true if index.cgi is found in dir.conf, false otherwise
+ */
+bool installer::check_dir_index_cgi()
+{
+
+    // Search for index.cgi in the file
+    int iRetcode = system("grep -i 'index\\.cgi' /etc/apache2/mods-enabled/dir.conf > /dev/null 2>&1");
+
+    if (0 == iRetcode)
+    {
+        m_pWin->add_row("  index.cgi found in dir.conf");
+        return true;
+    }
+    else
+    {
+        m_pWin->add_row("  index.cgi not found in dir.conf");
+        add_index_cgi_to_dir();
+        m_pWin->add_row("  DirectoryIndex index.cgi added to dir.conf");
+        return true;
+    }
+}
+
+/**
+ * @brief Check if Apache2 userdir module is enabled
+ *
+ * @return true if userdir.conf exists in mods-enabled, false otherwise
+ */
+bool installer::check_userdir_enabled()
+{
+    int iRetcode = system("test -f /etc/apache2/mods-enabled/userdir.conf 2>/dev/null");
+
+    if (0 == iRetcode)
+    {
+        std::cout << "userdir module is enabled" << std::endl;
+        return true;
+    }
+    else
+    {
+        std::cout << "userdir module is not enabled" << std::endl;
+        return false;
+    }
+}
+
+
+/**
+ * @brief Check if userdir.conf contains ExecCGI option
+ *
+ * @return true if ExecCGI is found in userdir.conf, false otherwise
+ */
+bool installer::check_userdir_execcgi()
+{
+    // First check if the file exists
+    int iRetcode = system("test -f /etc/apache2/mods-enabled/userdir.conf 2>/dev/null");
+
+    if (0 != iRetcode)
+    {
+        std::cout << "userdir.conf not found" << std::endl;
+        return false;
+    }
+
+    // Search for ExecCGI in the file (case-insensitive)
+    iRetcode = system("grep -i 'ExecCGI' /etc/apache2/mods-enabled/userdir.conf > /dev/null 2>&1");
+
+    if (0 == iRetcode)
+    {
+        std::cout << "ExecCGI found in userdir.conf" << std::endl;
+        return true;
+    }
+    else
+    {
+        std::cout << "ExecCGI not found in userdir.conf" << std::endl;
+        return false;
+    }
+}
+
+
+
+/**
+ * @brief Checks if Apache2 web server is installed and detects its status.
+ *
+ * Verifies that the Apache2 web server is installed on the system by checking
+ * for the presence of the apache2 binary and service. This function performs
+ * multiple checks to ensure Apache2 is properly installed and configured:
+ * - Checks for apache2 binary existence
+ * - Verifies apache2 service status
+ * - Tests configuration validity
+ *
+ * This is important for the VPA framework as it may need to integrate with
+ * or configure Apache2 for web-based components.
+ *
+ * @return true if Apache2 is installed and properly configured, false otherwise
+ */
+bool installer::is_apache2_installed()
+{
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
+    // Check if apache2 binary exists
+    int iRetcode = system("which apache2 > /dev/null 2>&1");
+
+    if (0 != iRetcode)
+    {
+        // Try alternative apache2ctl command
+        iRetcode = system("which apache2ctl > /dev/null 2>&1");
+        if (0 != iRetcode)
+        {
+            m_pWin->add_row("  Apache2 binary not found");
+            m_pWin->add_row("  is_apache2_installed() returning false");
+            return false;
+        }
+    }
+
+    m_pWin->add_row("  Apache2 binary found");
+
+    // Check if apache2 service is available
+    iRetcode = system("systemctl list-unit-files | grep -q apache2.service 2>/dev/null");
+
+    if (0 == iRetcode)
+    {
+        m_pWin->add_row("  Apache2 service is available");
+
+        // Check service status
+        iRetcode = system("systemctl is-active apache2 > /dev/null 2>&1");
+        if (0 == iRetcode)
+        {
+            m_pWin->add_row("  Apache2 service is active");
+        }
+        else
+        {
+            m_pWin->add_row("  Apache2 service is not active");
+        }
+
+        // Check if service is enabled
+        iRetcode = system("systemctl is-enabled apache2 > /dev/null 2>&1");
+        if (0 == iRetcode)
+        {
+            m_pWin->add_row("  Apache2 service is enabled");
+        }
+        else
+        {
+            m_pWin->add_row("  Apache2 service is not enabled");
+        }
+    }
+    else
+    {
+        m_pWin->add_row("  Apache2 service not found in systemctl");
+    }
+
+    // Test Apache2 configuration
+    iRetcode = system("apache2ctl configtest > /dev/null 2>&1");
+    if(0 == iRetcode)
+    {
+        m_pWin->add_row("  Apache2 configuration is valid");
+    }
+    else
+    {
+        m_pWin->add_row("  Apache2 configuration has issues");
+    }
+
+    // Check for common Apache2 directories
+    iRetcode = system("test -d /etc/apache2 2>/dev/null");
+    if (0 == iRetcode)
+    {
+        m_pWin->add_row("  Apache2 configuration directory exists");
+    }
+    else
+    {
+        m_pWin->add_row("  Apache2 configuration directory not found");
+    }
+
+    // Check for Apache2 modules directory
+    iRetcode = system("test -d /etc/apache2/mods-available 2>/dev/null");
+    if (0 == iRetcode)
+    {
+        m_pWin->add_row("  Apache2 modules directory exists");
+    }
+
+    bool bUserdirEnabled = check_userdir_enabled();
+    if (bUserdirEnabled)
+    {
+        m_pWin->add_row("  userdir module was enabled");
+    } else
+    {
+        system("sudo a2enmod userdir");
+        m_pWin->add_row("  userdir module now enabled");
+    }
+
+    bool bUserdirExecCGI = check_userdir_execcgi();
+    if (bUserdirExecCGI)
+    {
+        m_pWin->add_row("  ExecCGI option was found in userdir.conf");
+    } else {
+        //system("sudo sed -i 's/ExecCGI/ExecCGI\n\tSetHandler cgi-script/' /etc/apache2/mods-enabled/userdir.conf");
+        m_pWin->add_row("  ExecCGI option was not found in userdir.conf");
+        iRetcode = system("sudo sed -i '/^[[:space:]]*Options/ { /ExecCGI/!s/Options\\([[:space:]]\\)/Options ExecCGI\\1/ }' /etc/apache2/mods-enabled/userdir.conf");
+        m_pWin->add_row("  ExecCGI option has been added in userdir.conf");
+     }
+
+    // Final determination - Apache2 is considered installed if binary exists
+    m_pWin->add_row("  is_apache2_installed() returning true");
+    return true;
+}
+
+
 /**
  * @brief Validates that the source is installed in the correct development location.
  *
@@ -755,277 +1021,6 @@ int main()
     return EXIT_SUCCESS;
 }
 
-/**
- * @brief Check if Apache2 userdir module is enabled
- *
- * @return true if userdir.conf exists in mods-enabled, false otherwise
- */
-bool installer::check_userdir_enabled()
-{
-    int iRetcode = system("test -f /etc/apache2/mods-enabled/userdir.conf 2>/dev/null");
-
-    if (0 == iRetcode)
-    {
-        std::cout << "userdir module is enabled" << std::endl;
-        return true;
-    }
-    else
-    {
-        std::cout << "userdir module is not enabled" << std::endl;
-        return false;
-    }
-}
-
-/**
- * @brief Check if userdir.conf contains ExecCGI option
- *
- * @return true if ExecCGI is found in userdir.conf, false otherwise
- */
-bool installer::check_userdir_execcgi()
-{
-    // First check if the file exists
-    int iRetcode = system("test -f /etc/apache2/mods-enabled/userdir.conf 2>/dev/null");
-
-    if (0 != iRetcode)
-    {
-        std::cout << "userdir.conf not found" << std::endl;
-        return false;
-    }
-
-    // Search for ExecCGI in the file (case-insensitive)
-    iRetcode = system("grep -i 'ExecCGI' /etc/apache2/mods-enabled/userdir.conf > /dev/null 2>&1");
-
-    if (0 == iRetcode)
-    {
-        std::cout << "ExecCGI found in userdir.conf" << std::endl;
-        return true;
-    }
-    else
-    {
-        std::cout << "ExecCGI not found in userdir.conf" << std::endl;
-        return false;
-    }
-}
-
-bool installer::add_index_cgi_to_dir()
-{
-    // First check if the file exists
-    int iRetcode = system("test -f /etc/apache2/mods-enabled/dir.conf 2>/dev/null");
-
-    if (0 != iRetcode)
-    {
-        std::cout << "dir.conf not found" << std::endl;
-        return false;
-    }
-
-    // Check if index.cgi is already present
-    iRetcode = system("grep -i 'index\\.cgi' /etc/apache2/mods-enabled/dir.conf > /dev/null 2>&1");
-
-    if (0 == iRetcode)
-    {
-        std::cout << "index.cgi already exists in dir.conf" << std::endl;
-        return true;
-    }
-
-    // Create backup first
-    iRetcode = system("sudo cp /etc/apache2/mods-enabled/dir.conf /etc/apache2/mods-enabled/dir.conf.backup");
-
-    if (0 != iRetcode)
-    {
-        std::cout << "Failed to create backup of dir.conf" << std::endl;
-        return false;
-    }
-
-    // Add index.cgi to DirectoryIndex line using sed
-    // This adds index.cgi as the first entry in DirectoryIndex
-    iRetcode = system("sudo sed -i '/^[[:space:]]*DirectoryIndex/ s/DirectoryIndex/DirectoryIndex index.cgi/' /etc/apache2/mods-enabled/dir.conf");
-
-    if (0 == iRetcode)
-    {
-        // Verify the change was made
-        iRetcode = system("grep -i 'index\\.cgi' /etc/apache2/mods-enabled/dir.conf > /dev/null 2>&1");
-
-        if (0 == iRetcode)
-        {
-            std::cout << "index.cgi successfully added to dir.conf" << std::endl;
-            return true;
-        }
-        else
-        {
-            std::cout << "Failed to verify index.cgi addition" << std::endl;
-            return false;
-        }
-    }
-    else
-    {
-        std::cout << "Failed to modify dir.conf" << std::endl;
-        return false;
-    }
-}
-
-
-/**
- * @brief Check if dir.conf contains index.cgi in DirectoryIndex
- *
- * @return true if index.cgi is found in dir.conf, false otherwise
- */
-bool installer::check_dir_index_cgi()
-{
-
-    // Search for index.cgi in the file
-    int iRetcode = system("grep -i 'index\\.cgi' /etc/apache2/mods-enabled/dir.conf > /dev/null 2>&1");
-
-    if (0 == iRetcode)
-    {
-        m_pWin->add_row("  index.cgi found in dir.conf");
-        return true;
-    }
-    else
-    {
-        m_pWin->add_row("  index.cgi not found in dir.conf");
-        add_index_cgi_to_dir();
-        m_pWin->add_row("  DirectoryIndex index.cgi added to dir.conf");
-        return true;
-    }
-}
-
-
-
-/**
- * @brief Checks if Apache2 web server is installed and detects its status.
- *
- * Verifies that the Apache2 web server is installed on the system by checking
- * for the presence of the apache2 binary and service. This function performs
- * multiple checks to ensure Apache2 is properly installed and configured:
- * - Checks for apache2 binary existence
- * - Verifies apache2 service status
- * - Tests configuration validity
- * 
- * This is important for the VPA framework as it may need to integrate with
- * or configure Apache2 for web-based components.
- * 
- * @return true if Apache2 is installed and properly configured, false otherwise
- */
-bool installer::is_apache2_installed()
-{
-    std::string ssTemp = __FUNCTION__;
-    ssTemp.append("()");
-    m_pWin->add_row(ssTemp);
-    
-    // Check if apache2 binary exists
-    int iRetcode = system("which apache2 > /dev/null 2>&1");
-    
-    if (0 != iRetcode)
-    {
-        // Try alternative apache2ctl command
-        iRetcode = system("which apache2ctl > /dev/null 2>&1");
-        if (0 != iRetcode)
-        {
-            m_pWin->add_row("  Apache2 binary not found");
-            m_pWin->add_row("  is_apache2_installed() returning false");
-            return false;
-        }
-    }
-    
-    m_pWin->add_row("  Apache2 binary found");
-    
-    // Check if apache2 service is available
-    iRetcode = system("systemctl list-unit-files | grep -q apache2.service 2>/dev/null");
-    
-    if (0 == iRetcode)
-    {
-        m_pWin->add_row("  Apache2 service is available");
-        
-        // Check service status
-        iRetcode = system("systemctl is-active apache2 > /dev/null 2>&1");
-        if (0 == iRetcode)
-        {
-            m_pWin->add_row("  Apache2 service is active");
-        }
-        else
-        {
-            m_pWin->add_row("  Apache2 service is not active");
-        }
-        
-        // Check if service is enabled
-        iRetcode = system("systemctl is-enabled apache2 > /dev/null 2>&1");
-        if (0 == iRetcode)
-        {
-            m_pWin->add_row("  Apache2 service is enabled");
-        }
-        else
-        {
-            m_pWin->add_row("  Apache2 service is not enabled");
-        }
-    }
-    else
-    {
-        m_pWin->add_row("  Apache2 service not found in systemctl");
-    }
-    
-    // Test Apache2 configuration
-    iRetcode = system("apache2ctl configtest > /dev/null 2>&1");
-    if(0 == iRetcode)
-    {
-        m_pWin->add_row("  Apache2 configuration is valid");
-    }
-    else
-    {
-        m_pWin->add_row("  Apache2 configuration has issues");
-    }
-
-    // Check for common Apache2 directories
-    iRetcode = system("test -d /etc/apache2 2>/dev/null");
-    if (0 == iRetcode)
-    {
-        m_pWin->add_row("  Apache2 configuration directory exists");
-    }
-    else
-    {
-        m_pWin->add_row("  Apache2 configuration directory not found");
-    }
-
-    // Check for Apache2 modules directory
-    iRetcode = system("test -d /etc/apache2/mods-available 2>/dev/null");
-    if (0 == iRetcode)
-    {
-        m_pWin->add_row("  Apache2 modules directory exists");
-    }
-
-    bool bUserdirEnabled = check_userdir_enabled();
-    if (bUserdirEnabled)
-    {
-        m_pWin->add_row("  userdir module was enabled");
-    } else
-    {
-        system("sudo a2enmod userdir");
-        m_pWin->add_row("  userdir module now enabled");
-    }
-
-    bool bUserdirExecCGI = check_userdir_execcgi();
-    if (bUserdirExecCGI)
-    {
-        m_pWin->add_row("  ExecCGI option was found in userdir.conf");
-    } else {
-        //system("sudo sed -i 's/ExecCGI/ExecCGI\n\tSetHandler cgi-script/' /etc/apache2/mods-enabled/userdir.conf");
-        m_pWin->add_row("  ExecCGI option was not found in userdir.conf");
-        iRetcode = system("sudo sed -i '/^[[:space:]]*Options/ { /ExecCGI/!s/Options\\([[:space:]]\\)/Options ExecCGI\\1/ }' /etc/apache2/mods-enabled/userdir.conf");
-        m_pWin->add_row("  ExecCGI option has been added in userdir.conf");
-     }
-
-
-
-
-
-
-
-
-
-
-
-
-    // Final determination - Apache2 is considered installed if binary exists
-    m_pWin->add_row("  is_apache2_installed() returning true");
-    return true;
-}
-
+/////////////////////////
+// eof - installer.cpp //
+/////////////////////////
