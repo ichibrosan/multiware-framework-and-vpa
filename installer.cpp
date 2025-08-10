@@ -546,13 +546,19 @@ bool installer::is_xinet_configured()
 {
     xinetcfg config;
 
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
     // Test VPA configuration generation
     // std::cout << "=== VPA Xinetd Configuration Test ===" << std::endl;
     // std::cout << "Number of services configured: " << config.getServiceCount()
     //           << std::endl;
 
     char szTemp[128];
-    sprintf(szTemp, "  Number of services configured: %ld",config.getServiceCount());
+    sprintf(szTemp,
+            "  Number of services configured: %ld",
+            config.getServiceCount());
     m_pWin->add_row(szTemp);
 
 
