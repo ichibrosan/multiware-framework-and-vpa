@@ -17,9 +17,15 @@ private:
 public:
         installer();
         bool is_devo_root();
+        bool can_user_sudo();
         bool is_etc_installer();
         bool is_xinetd_installed();
         bool is_xinet_configured();
+        bool is_apache2_installed();
+        bool check_userdir_enabled();
+        bool check_userdir_execcgi();
+        bool check_dir_index_cgi();
+        bool add_index_cgi_to_dir();
         ~installer();
 };
 
