@@ -27,6 +27,8 @@ public:
         bool check_dir_index_cgi();
         bool add_index_cgi_to_dir();
         bool check_apache2_servername();
+        bool check_apache2_addtype();
+        bool add_apache2_addtype();
         ~installer();
 };
 

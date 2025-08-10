@@ -807,6 +807,97 @@ bool installer::can_user_sudo()
     return bFinalRetcode;
 }
 
+bool installer::check_apache2_addtype()
+{
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
+    const char* config_file = "/etc/apache2/apache2.conf";
+    std::ifstream file(config_file);
+
+    if (!file.is_open()) {
+        if (gpSysLog) {
+            gpSysLog->loginfo("check_apache2_addtype: Cannot open /etc/apache2/apache2.conf");
+        }
+        return false;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        // Remove leading whitespace
+        size_t first = line.find_first_not_of(" \t");
+        if (first == std::string::npos) {
+            continue; // Empty line or all whitespace
+        }
+
+        // Check if line starts with "AddType" (case-insensitive)
+        std::string trimmed = line.substr(first);
+        if (trimmed.length() >= 7) {
+            std::string directive = trimmed.substr(0, 7);
+            std::transform(directive.begin(), directive.end(), directive.begin(), ::tolower);
+
+            if (directive == "addtype") {
+                // Found AddType directive
+                m_pWin->add_row("  AddType directive found");
+                file.close();
+                return true;
+            }
+        }
+    }
+
+    file.close();
+    m_pWin->add_row("  AddType directive not found");
+    add_apache2_addtype();
+    return true;
+}
+
+bool installer::add_apache2_addtype()
+{
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
+    const char* config_file = "/etc/apache2/apache2.conf";
+    const char* addtype_line = "AddType\t\tapplication/x-httpd-cgi\t.cgi .py .dwg .sh\n";
+
+    // First check if AddType already exists
+    if (check_apache2_addtype()) {
+        if (gpSysLog) {
+            gpSysLog->loginfo("add_apache2_addtype: AddType directive already exists");
+        }
+        return true;
+    }
+
+    // Open file in append mode
+    std::ofstream file(config_file, std::ios::app);
+
+    if (!file.is_open()) {
+        if (gpSysLog) {
+            gpSysLog->loginfo("add_apache2_addtype: Cannot open /etc/apache2/apache2.conf for writing");
+        }
+        return false;
+    }
+
+    // Add the AddType directive
+    file << addtype_line;
+
+    if (file.fail()) {
+        if (gpSysLog) {
+            gpSysLog->loginfo("add_apache2_addtype: Failed to write AddType directive");
+        }
+        file.close();
+        return false;
+    }
+
+    file.close();
+
+    if (gpSysLog) {
+        gpSysLog->loginfo("add_apache2_addtype: Successfully added AddType directive");
+    }
+
+    return true;
+}
 
 /**
  * @brief Validates that the development user has appropriate sudo privileges.
@@ -1081,10 +1172,11 @@ int main()
     pInst->is_xinet_configured();
     pInst->is_apache2_installed();
     pInst->check_userdir_enabled();
-
+    // pInst->check_cgi_enabled();
     pInst->check_userdir_execcgi();
     pInst->check_dir_index_cgi();
-
+    pInst->check_apache2_servername();
+    pInst->check_apache2_addtype();
 
     // Diagnostic functions available for testing and validation
     // Uncomment as needed for specific installation tasks
