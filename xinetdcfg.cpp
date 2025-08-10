@@ -314,59 +314,59 @@ std::string xinetcfg::generateVpaXinetdConfig()
 
 void xinetcfg::displayVpaServiceStatus()
 {
-    std::cout << std::endl;
-    std::cout << "VPA Service Configuration Status" << std::endl;
-    std::cout << "================================" << std::endl;
-    std::cout << "Configuration File: /etc/xinetd.d/vpa" << std::endl;
-    std::cout << "Services Configured: " << getServiceCount() << std::endl;
-    std::cout << std::endl;
-
-    std::cout <<
-        "┌─────────────────┬───────┬──────────┬─────────────────────────────────────────────────────┐"
-        << std::endl;
-    std::cout <<
-        "│ Service Name    │ Port  │ Status   │ Server                                              │"
-        << std::endl;
-    std::cout <<
-        "├─────────────────┼───────┼──────────┼─────────────────────────────────────────────────────┤"
-        << std::endl;
-
-    for (const auto& service : vpaServices)
-    {
-        std::cout << "│ " << std::left << std::setw(15) << service.serviceName.
-            substr(0, 15) << " │ ";
-        std::cout << std::setw(5) << service.port << " │ ";
-
-        std::string status = (service.disable == "yes")
-                                 ? "DISABLED"
-                                 : "ENABLED ";
-        std::cout << std::setw(8) << status << " │ ";
-
-        std::string server = service.server;
-        if (server.length() > 51)
-        {
-            server = "..." + server.substr(server.length() - 48);
-        }
-        std::cout << std::left << std::setw(51) << server << " │" << std::endl;
-    }
-
-    std::cout <<
-        "└─────────────────┴───────┴──────────┴─────────────────────────────────────────────────────┘"
-        << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "Service Details:" << std::endl;
-    std::cout << "  vpa         (5164)  - Main XML-RPC server" << std::endl;
-    std::cout << "  vpad-start  (65353) - VPA daemon startup script" <<
-        std::endl;
-    std::cout << "  vpa-netstat (65354) - Network status utility" << std::endl;
-    std::cout << "  vpa-ip      (65355) - IP configuration utility" <<
-        std::endl;
-    std::cout << "  vpa-http    (65357) - HTTP web page loader" << std::endl;
-    std::cout << "  vpa-https   (65358) - HTTPS web page loader" << std::endl;
-    std::cout << "  vpa-ipcs    (65359) - Shared memory status utility" <<
-        std::endl;
-    std::cout << std::endl;
+    // std::cout << std::endl;
+    // std::cout << "VPA Service Configuration Status" << std::endl;
+    // std::cout << "================================" << std::endl;
+    // std::cout << "Configuration File: /etc/xinetd.d/vpa" << std::endl;
+    // std::cout << "Services Configured: " << getServiceCount() << std::endl;
+    // std::cout << std::endl;
+    //
+    // std::cout <<
+    //     "┌─────────────────┬───────┬──────────┬─────────────────────────────────────────────────────┐"
+    //     << std::endl;
+    // std::cout <<
+    //     "│ Service Name    │ Port  │ Status   │ Server                                              │"
+    //     << std::endl;
+    // std::cout <<
+    //     "├─────────────────┼───────┼──────────┼─────────────────────────────────────────────────────┤"
+    //     << std::endl;
+    //
+    // for (const auto& service : vpaServices)
+    // {
+    //     std::cout << "│ " << std::left << std::setw(15) << service.serviceName.
+    //         substr(0, 15) << " │ ";
+    //     std::cout << std::setw(5) << service.port << " │ ";
+    //
+    //     std::string status = (service.disable == "yes")
+    //                              ? "DISABLED"
+    //                              : "ENABLED ";
+    //     std::cout << std::setw(8) << status << " │ ";
+    //
+    //     std::string server = service.server;
+    //     if (server.length() > 51)
+    //     {
+    //         server = "..." + server.substr(server.length() - 48);
+    //     }
+    //     std::cout << std::left << std::setw(51) << server << " │" << std::endl;
+    // }
+    //
+    // std::cout <<
+    //     "└─────────────────┴───────┴──────────┴─────────────────────────────────────────────────────┘"
+    //     << std::endl;
+    // std::cout << std::endl;
+    //
+    // std::cout << "Service Details:" << std::endl;
+    // std::cout << "  vpa         (5164)  - Main XML-RPC server" << std::endl;
+    // std::cout << "  vpad-start  (65353) - VPA daemon startup script" <<
+    //     std::endl;
+    // std::cout << "  vpa-netstat (65354) - Network status utility" << std::endl;
+    // std::cout << "  vpa-ip      (65355) - IP configuration utility" <<
+    //     std::endl;
+    // std::cout << "  vpa-http    (65357) - HTTP web page loader" << std::endl;
+    // std::cout << "  vpa-https   (65358) - HTTPS web page loader" << std::endl;
+    // std::cout << "  vpa-ipcs    (65359) - Shared memory status utility" <<
+    //     std::endl;
+    // std::cout << std::endl;
 }
 
 std::string xinetcfg::getCurrentDateTimeString() const

@@ -18,6 +18,8 @@ public:
         installer();
         bool is_devo_root();
         bool is_etc_installer();
+        bool is_xinetd_installed();
+        bool is_xinet_configured();
         ~installer();
 };
 

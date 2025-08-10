@@ -409,94 +409,6 @@ void services_diag()
     }
 }
 
-/**
- * @brief Generates, displays, and optionally saves an updated Xinetd configuration for VPA services.
- * 
- * Generates, displays, and optionally saves an updated Xinetd configuration
- * for the VPA service. If the necessary permissions to modify the
- * configuration file are not available, the method operates in "dry-run" mode.
- *
- * The method performs the following steps:
- * - Displays the number of configured services.
- * - Displays the status of VPA services.
- * - Generates and displays the Xinetd configuration for VPA.
- * - If permissions allow, creates a backup of the current configuration,
- *   saves the new configuration, and reloads the Xinetd service.
- *
- * If unable to proceed due to insufficient privileges or errors during
- * saving/reloading, the relevant errors and instructions are displayed.
- *
- * @return 0 on successful save or dry-run completion, or 1 if saving
- *         the configuration fails.
- */
-int xinetdcfg_diag()
-{
-    xinetcfg config;
-
-    // Test VPA configuration generation
-    std::cout << "=== VPA Xinetd Configuration Test ===" << std::endl;
-    std::cout << "Number of services configured: " << config.getServiceCount()
-        << std::endl;
-
-    // Display service status
-    config.displayVpaServiceStatus();
-
-    // Generate and display configuration
-    std::cout << "\n=== Generated VPA Configuration ===" << std::endl;
-    std::string vpaConfig = config.generateVpaXinetdConfig();
-    std::cout << vpaConfig << std::endl;
-
-    // Check permissions before attempting to save
-    if (!config.canModifyXinetd())
-    {
-        std::cout << "\n=== PERMISSION NOTICE ===" << std::endl;
-        std::cout <<
-            "Cannot modify /etc/xinetd.d/vpa - insufficient privileges." <<
-            std::endl;
-        config.displaySudoInstructions();
-        std::cout << "\nConfiguration displayed above (dry-run mode)." <<
-            std::endl;
-        return 0;
-    }
-
-    // Automatically save the configuration without prompting
-    std::cout << "\nSaving configuration to /etc/xinetd.d/vpa..." << std::endl;
-
-    // Create backup first
-    std::cout << "Creating backup of existing configuration..." << std::endl;
-    if (!config.createBackup())
-    {
-        std::cout << "WARNING: Could not create backup file." << std::endl;
-    }
-
-    // Save the configuration
-    if (config.saveConfig())
-    {
-        std::cout << "SUCCESS: Configuration saved to /etc/xinetd.d/vpa" <<
-            std::endl;
-
-        // Automatically reload xinetd
-        std::cout << "Reloading xinetd service..." << std::endl;
-        if (config.reloadXinetd())
-        {
-            std::cout << "SUCCESS: xinetd reloaded successfully." << std::endl;
-        }
-        else
-        {
-            std::cout <<
-                "ERROR: Failed to reload xinetd. You may need to restart it manually."
-                << std::endl;
-        }
-    }
-    else
-    {
-        std::cout << "ERROR: Failed to save configuration to /etc/xinetd.d/vpa"
-            << std::endl;
-        return 1;
-    }
-
-    return 0;
-}
 
 /**
  * @brief Performs logging diagnostic operations.
@@ -546,7 +458,8 @@ bool installer::is_devo_root()
  * @return true if user has default sudo privileges, false otherwise
  */
 bool installer::is_etc_installer()
-{
+{   bool bFinalRetcode;
+
     int iRetcode = system("sudo mkdir -p /etc/installer");
     char szTemp[128];
     sprintf(szTemp, "iRetcode is %d",iRetcode);
@@ -554,14 +467,169 @@ bool installer::is_etc_installer()
     if (256==iRetcode)
     {
         m_pWin->add_row("is_etc_installer() returning false");
-        return false;
+        bFinalRetcode = false;
     }
     if (0==iRetcode)
     {
         m_pWin -> add_row("is_etc_installer() returning true");
+        bFinalRetcode = true;
+    }
+
+    return bFinalRetcode;
+}
+
+/**
+ * @brief Checks if xinetd is installed and installs it if necessary.
+ *
+ * Verifies that the xinetd service is installed on the system by checking
+ * for the presence of the xinetd binary. If xinetd is not found, attempts
+ * to install it using the system package manager (apt-get for Debian-based
+ * systems). This is a prerequisite for the VPA xinetd configuration to work
+ * properly.
+ *
+ * @return true if xinetd is installed or successfully installed, false otherwise
+ */
+bool installer::is_xinetd_installed()
+{
+    // First check if xinetd is already installed
+    int iRetcode = system("which xinetd > /dev/null 2>&1");
+    if (0 == iRetcode)
+    {   m_pWin->add_row("is_xinetd_installed() returned true");
         return true;
     }
+
+    // xinetd is not installed, attempt to install it
+    m_pWin->add_row("xinetd not found, installing...");
+
+    // Update package lists first
+    m_pWin->add_row("Updating package lists...");
+    iRetcode = system("sudo apt-get update > /dev/null 2>&1");
+    if (0 != iRetcode)
+    {
+        m_pWin->add_row("WARNING: Failed to update package lists");
+        // Continue anyway as this might not be critical
+    }
+
+    // Install xinetd
+    m_pWin->add_row("Upgrading package lists...");
+    iRetcode = system("sudo apt-get install -y xinetd > /dev/null 2>&1");
+
+    if (0 == iRetcode)
+    {
+        // Verify installation was successful
+        iRetcode = system("which xinetd > /dev/null 2>&1");
+        if (0 == iRetcode)
+        {
+            m_pWin->add_row("xinetd successfully installed");
+
+            // Enable and start xinetd service
+            system("sudo systemctl enable xinetd > /dev/null 2>&1");
+            system("sudo systemctl start xinetd > /dev/null 2>&1");
+
+            return true;
+        }
+        else
+        {
+            m_pWin->add_row("ERROR: xinetd installation verification failed");
+            return false;
+        }
+    }
+    else
+    {
+        m_pWin->add_row("ERROR: Failed to install xinetd");
+        m_pWin->add_row("Please install xinetd manually: sudo apt-get install xinetd");
+        return false;
+    }
 }
+
+bool installer::is_xinet_configured()
+{
+    xinetcfg config;
+
+    // Test VPA configuration generation
+    // std::cout << "=== VPA Xinetd Configuration Test ===" << std::endl;
+    // std::cout << "Number of services configured: " << config.getServiceCount()
+    //           << std::endl;
+
+    char szTemp[128];
+    sprintf(szTemp, "  Number of services configured: %ld",config.getServiceCount());
+    m_pWin->add_row(szTemp);
+
+
+
+    // Display service status
+    //config.displayVpaServiceStatus();
+
+    // Generate and display configuration
+    //std::cout << "\n=== Generated VPA Configuration ===" << std::endl;
+
+    std::string vpaConfig = config.generateVpaXinetdConfig();
+    //std::cout << vpaConfig << std::endl;
+
+    // Check permissions before attempting to save
+    if (!config.canModifyXinetd())
+    {
+        std::cout << "\n=== PERMISSION NOTICE ===" << std::endl;
+        std::cout <<
+            "Cannot modify /etc/xinetd.d/vpa - insufficient privileges." <<
+            std::endl;
+        config.displaySudoInstructions();
+        std::cout << "\nConfiguration displayed above (dry-run mode)." <<
+            std::endl;
+        return 0;
+    }
+
+    // Automatically save the configuration without prompting
+    //std::cout << "\nSaving configuration to /etc/xinetd.d/vpa..." << std::endl;
+    m_pWin->add_row("  Saving configuration to /etc/xinetd.d/vpa...");
+
+    // Create backup first
+    //std::cout << "Creating backup of existing configuration..." << std::endl;
+    if (!config.createBackup())
+    {
+        m_pWin->add_row("  WARNING: Could not create backup file.");
+        //std::cout << "WARNING: Could not create backup file." << std::endl;
+    }
+
+    // Save the configuration
+    if (config.saveConfig())
+    {
+            // std::cout << "SUCCESS: Configuration saved to /etc/xinetd.d/vpa" <<
+            //     std::endl;
+        m_pWin->add_row("  Configuration saved to /etc/xinetd.d/vpa");
+
+        // Automatically reload xinetd
+        // std::cout << "Reloading xinetd service..." << std::endl;
+        m_pWin->add_row("  Reloading xinetd service...");
+
+        if (config.reloadXinetd())
+        {
+            //std::cout << "SUCCESS: xinetd reloaded successfully." << std::endl;
+            m_pWin->add_row("  xinetd reloaded successfully.");
+        }
+        else
+        {
+            // std::cout <<
+            //     "ERROR: Failed to reload xinetd. You may need to restart it manually."
+            //     << std::endl;
+            m_pWin->add_row("  ERROR: Failed to reload xinetd.");
+            m_pWin->add_row("  ERROR: You may need to restart it manually.");
+
+        }
+    }
+    else
+    {
+        // std::cout << "ERROR: Failed to save configuration to /etc/xinetd.d/vpa"
+        //     << std::endl;
+        m_pWin->add_row("  ERROR: Failed to save configuration to /etc/xinetd.d/vpa");
+        return 1;
+    }
+
+    return 0;
+}
+
+
+
 
 /**
  * @brief Constructor for the installer class.
@@ -631,6 +699,8 @@ int main()
     auto * pInst = new installer();
     pInst->is_devo_root();
     pInst->is_etc_installer();
+    pInst->is_xinetd_installed();
+    pInst->is_xinet_configured();
 
     // Diagnostic functions available for testing and validation
     // Uncomment as needed for specific installation tasks
