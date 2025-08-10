@@ -1,0 +1,85 @@
+Installer for Goodall Virtual Protocol Adapter & Multiware Framework
+
+The collection of materials that comprise the VPA and MWFW2 work in
+conjunction with a properly configured Debian-based Linux distribution.
+
+This document explains the relationship between the VPA/mwfw and the
+detailed configurations that constrain its operations.
+
+Premise one: The admin user
+
+    The user created during the linux install should be used as the
+    admin user for Multiware. There are a number of reasons this is
+    important, having to do with access control to application files.
+
+    Multiware components of various types must be able to access the
+    assets during operations. This includes:
+    1. Multiware utilities run from the command line while logged in
+    as the admin user.
+    2. Web pages and CGI scripts accessed and executed from a browser.
+    3. scripts and executables invoked by xinetd when requests arrive
+    at specific TCP port numbers.
+
+    Here is a snippet from my /etc/passwd file.
+    doug:x:1000:1000:Douglas Wade Goodall,,,:/home/doug:/bin/bash
+
+    And a snippet from the /etc/group file.
+    goodall:x:1000:
+
+Premise two: Sudo and the admin user
+
+    The Multiware software does need to access host operating system
+    features that may only be called by the root user or another
+    user using the sudo command.
+
+    Use of the sudo command is controlled using the /etc/sudoers file
+    which can only be edited initially by the root user. The most
+    direct method of granting global sudo access to the admin user is
+    run the visodu utility, either as root ur using sudo.
+
+    If you are logged in as root, then do the following on your terminal:
+    # visudo
+
+    If you are logged in as the admin user, do the following:
+    $ sudo visudo
+    You will be asked for the admin user password.
+
+    The GNU nano editor will come up displaying the current contents of
+    the /etc/sudoers file.
+    1. Scroll to the bottom and under the line:
+        @includedir /etc/sudoers.d
+    enter the following line, with the name of your admin user substituted
+    where I used doug below.
+
+    doug    ALL=(ALL:ALL) NOPASSWD: ALL
+
+    The enter control-O (^O) and control-x (^X) to write and exit.
+    once you have done this, Multiware components will be able to perform
+    required tasks without requiring any additional passwords.
+
+Premise three: The Apache2 web server
+
+    The Multiware system requires the proper installation and configuration
+    of the Apache2 web server software. This is normally installed with a
+    command such as "sudo apt install apache2", but this is done automatically
+    by the installer program if the Apache2 server is not already installed.
+
+    Once installed two additional command are required:
+        a2enmod cgi
+        a2enmod userdir
+    These are also done by the installer.
+
+    Also the modules-enabled/userdir.conf requires an ExecCGI added to its options.
+    This is done by the installer.
+
+    Also the modules-enabled/dir.conf requires "index.cgi" added to the list of
+    enabling filenames. This is also done by the installer.
+
+    Finally there needs to be two lines added to the /etc/apache2/apache2.conf
+    file:
+        ServerName <hostname>
+        AddType		application/x-httpd-cgi	.cgi .py .dwg .sh
+    These are also added by the installer.
+
+Premise four: Development components required to build
+
