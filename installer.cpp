@@ -807,6 +807,94 @@ bool installer::can_user_sudo()
     return bFinalRetcode;
 }
 
+bool installer::check_and_install_clang()
+{
+    bool bResult;
+
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
+
+    // First check if clang++ is already available
+    int result = system("which clang++ >/dev/null 2>&1");
+    if (result == 0) {
+        // clang++ is already installed
+        m_pWin->add_row("  clang++ already installed and available");
+        return true;
+    }
+
+    // clang++ not found, attempt to install clang
+    m_pWin->add_row("  clang++ not found. Attempting to install clang...");
+
+    // // Attempt to update package list and install clang
+    // m_pWin->add_row("Updating package list...");
+    // result = system("sudo apt update");
+    // if (result != 0) {
+    //     std::cerr << "Error: Failed to update package list" << std::endl;
+    //     return false;
+    // }
+
+    m_pWin->add_row("Installing clang...");
+    result = system("sudo apt install -y clang");
+    if (result != 0) {
+        m_pWin->add_row("Error: Failed to install clang package");
+        return false;
+    }
+
+    // Verify installation was successful
+    result = system("which clang++ >/dev/null 2>&1");
+    if (result == 0) {
+        m_pWin->add_row("  clang++ successfully installed and available");
+        return true;
+    }
+    return true;
+}
+
+bool installer::check_and_install_cmake()
+{
+    std::string ssTemp = __FUNCTION__;
+    ssTemp.append("()");
+    m_pWin->add_row(ssTemp);
+
+    // First check if cmake is already available
+    int result = system("which cmake >/dev/null 2>&1");
+    if (result == 0) {
+        // cmake is already installed, check version
+        m_pWin->add_row("  cmake already installed and available");
+        //system("cmake --version | head -1");
+        return true;
+    }
+
+    // cmake not found, attempt to install
+    m_pWin->add_row("cmake not found. Attempting to install cmake...");
+
+    // // Attempt to update package list and install cmake
+    // std::cout << "Updating package list..." << std::endl;
+    // result = system("sudo apt update");
+    // if (result != 0) {
+    //     std::cerr << "Error: Failed to update package list" << std::endl;
+    //     return false;
+    // }
+
+    std::cout << "Installing cmake..." << std::endl;
+    result = system("sudo apt install -y cmake");
+    if (result != 0) {
+        std::cerr << "Error: Failed to install cmake package" << std::endl;
+        return false;
+    }
+
+    // Verify installation was successful
+    result = system("which cmake >/dev/null 2>&1");
+    if (result == 0) {
+        m_pWin->add_row("  cmake successfully installed and available");
+        //system("cmake --version | head -1");
+        return true;
+    }
+    return true;
+}
+
+
 bool installer::check_apache2_addtype()
 {
     std::string ssTemp = __FUNCTION__;
@@ -1177,6 +1265,9 @@ int main()
     pInst->check_dir_index_cgi();
     pInst->check_apache2_servername();
     pInst->check_apache2_addtype();
+    pInst->check_and_install_clang();
+    pInst->check_and_install_cmake();
+
 
     // Diagnostic functions available for testing and validation
     // Uncomment as needed for specific installation tasks

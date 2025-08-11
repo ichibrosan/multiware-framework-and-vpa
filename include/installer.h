@@ -29,6 +29,8 @@ public:
         bool check_apache2_servername();
         bool check_apache2_addtype();
         bool add_apache2_addtype();
+        bool check_and_install_clang();
+        bool check_and_install_cmake();
         ~installer();
 };
 
