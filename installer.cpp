@@ -495,9 +495,7 @@ bool installer::check_apache2_servername()
     std::ifstream file(config_file);
 
     if (!file.is_open()) {
-        if (gpSysLog) {
-            gpSysLog->loginfo("check_apache2_servername: Cannot open /etc/apache2/apache2.conf");
-        }
+        m_pWin->add_row("  Cannot open /etc/apache2/apache2.conf");
         return false;
     }
 
@@ -517,9 +515,7 @@ bool installer::check_apache2_servername()
 
             if (directive == "servername") {
                 // Found ServerName directive
-                if (gpSysLog) {
-                    gpSysLog->loginfo("check_apache2_servername: ServerName directive found");
-                }
+                m_pWin->add_row("  ServerName directive found");
                 file.close();
                 return true;
             }
@@ -527,9 +523,8 @@ bool installer::check_apache2_servername()
     }
 
     file.close();
-    if (gpSysLog) {
-        gpSysLog->loginfo("check_apache2_servername: ServerName directive not found");
-    }
+    m_pWin->add_row("  ServerName directive not found");
+    // TODO: add ServerName directive here
     return false;
 }
 

@@ -83,3 +83,7 @@ Premise three: The Apache2 web server
 
 Premise four: Development components required to build
 
+    clang (clang++)
+    cmake
+    doxygen & doxygen-gui
+    libuuid-dev
