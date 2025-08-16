@@ -1,6 +1,6 @@
 # Virtual Protocol Adapter & Multiware Framework (mwfw2)
 
-[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](../LICENSE)
+[![License](https://img.shields.io/github/license/username/repository)](./LICENSE)
 [![Version](https://img.shields.io/badge/Version-5.5.10.2-blue.svg)](../CHANGELOG)
 [![C++](https://img.shields.io/badge/Language-C%2B%2B20-blue.svg)](https://isocpp.org/)
 
