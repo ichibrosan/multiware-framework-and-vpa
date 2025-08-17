@@ -734,6 +734,9 @@ void cgihtml::dump_shm_vars()
     gpShMemMgr->lockSharedMemory();
 
     emit_shm("iSignature",         gpSh->m_pShMemng->iSignature);
+
+    emit_shm("szDevoDir",gpSh->m_pShMemng->szDevoDir);
+
     emit_shm("szCgiRoot",gpSh->m_pShMemng->szCgiRoot);
     emit_shm("szConfigFQDS",gpSh->m_pShMemng->szConfigFQDS);
     emit_shm("szConfigFQFS",gpSh->m_pShMemng->szConfigFQFS);

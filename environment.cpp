@@ -49,13 +49,44 @@ std::string gssUser;
  */
 environment::environment()
 {
+	char szTemp[128];
+
 	/**
 	 * The first responsibility of the environment constructor is to
 	 * establish addressability to the shared region.
 	 */
 	gpSh = new shared();
 
-	char szTemp[128];
+	/**
+	 * Now that we have access to the shared memory structure, we can
+	 * begin collecting the project data. The location of the development
+	 * directory can be derived from the fully qualified filespec of this
+	 * source file, because the project's c++ source files exist at the
+	 * root level of the development tree.
+	 * __FILE __ could be /home/doug/public_html/fw/environment.cpp
+	 *	gpSh->m_pShMemng->szDevoDir = /home/doug/public_html/fw/
+	 */
+	std::string ssDevoDir = __FILE__;
+	ssDevoDir = std::filesystem::path(ssDevoDir).remove_filename();
+	strcpy(gpSh->m_pShMemng->szDevoDir, ssDevoDir.c_str());
+
+	std::string ssBuildFQDS = ssDevoDir.append("build/");
+	strcpy(gpSh->m_pShMemng->szBuildFQDS, ssBuildFQDS.c_str());
+
+	std::string ssCgiBinFQDS = ssDevoDir.append("cgi-bin/");
+	strcpy(gpSh->m_pShMemng->szCgiBinFQDS, ssCgiBinFQDS.c_str());
+
+	std::string ssLogFQDS = ssDevoDir.append("log/");
+	strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
+	std::string ssLogCmd = "mkdir -p ";
+	ssLogCmd.append(ssLogFQDS);
+	system(ssLogCmd.c_str());
+
+	std::string ssTempFQDS = ssDevoDir.append("tmp/");
+	strcpy(gpSh->m_pShMemng->szTempFQDS, ssTempFQDS.c_str());
+	std::string ssTempCmd = "mkdir -p ";
+	ssTempCmd.append(ssTempFQDS);
+	system(ssTempCmd.c_str());
 
 	/********************************************************************
 	 * Determine the username under which this application is running

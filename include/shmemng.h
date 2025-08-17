@@ -18,13 +18,28 @@
 struct MFW_SHMEMNG_T {
     int iSignature;
 
+    // Phase 0 - locate development directory path & derivatives
+    char szDevoDir[FILENAME_MAX];
+
+    // Fully Qualified Directory Specs for all Devo folders
+    char szBuildFQDS[FILENAME_MAX];
+    char szCgiBinFQDS[FILENAME_MAX];
+    char szDocFQDS[FILENAME_MAX];
+    char szImgFQDS[FILENAME_MAX];
+    char szIncludeFQDS[FILENAME_MAX];
+    char szLogFQDS[FILENAME_MAX];
+    char szSchemasFQDS[FILENAME_MAX];
+    char szScriptsFQDS[FILENAME_MAX];
+    char szStylesFQDS[FILENAME_MAX];
+    char szTempFQDS[FILENAME_MAX];
+
     char szUser[UT_NAMESIZE];
     char szHome[UT_NAMESIZE];
     char szUserFQDS[UT_NAMESIZE];
     char szSourceFQDS[FILENAME_MAX];
     char szConfigFQDS[FILENAME_MAX];
     char szConfigFQFS[FILENAME_MAX];
-    char szLogFQDS[INET_URL_SIZE_MAX];
+ //   char szLogFQDS[INET_URL_SIZE_MAX];
 
     char szStatus[128];
 

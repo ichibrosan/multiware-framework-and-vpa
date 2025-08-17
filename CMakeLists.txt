@@ -48,7 +48,6 @@ add_library(mwfw2 STATIC
         mutations.cpp include/mutations.h
         osIface.cpp include/osIface.h
         password.cpp include/password.h
-        password-hash.cpp
         readCsv.cpp include/readCsv.h
         semigraphics.cpp include/semigraphics.h
         shared.cpp include/shared.h
@@ -91,7 +90,6 @@ add_library(mwfw2inst STATIC
        mutations.cpp include/mutations.h
         osIface.cpp include/osIface.h
        password.cpp include/password.h
-       password-hash.cpp
         readCsv.cpp include/readCsv.h
         semigraphics.cpp include/semigraphics.h
         shared.cpp include/shared.h
