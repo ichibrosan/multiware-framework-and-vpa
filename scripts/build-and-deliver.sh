@@ -5,11 +5,6 @@
 #####################################################################
 clear
 
-# clear previoius targets
-rm -r -f ../cgi-bin/*
-rm -r -f ../bin/*
-rm -r -f ../lib/*
-
 rm -r -f                ~/public_html/fw/build
 mkdir                   ~/public_html/fw/build
 cd                      ~/public_html/fw/build

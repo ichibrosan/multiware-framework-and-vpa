@@ -8,11 +8,11 @@ clear
 ####################
 # Build everything #
 ####################
-#rm -r -f                ~/public_html/fw/build
-#mkdir -p                ~/public_html/fw/build
+rm -r -f                ~/public_html/fw/build
+mkdir -p                ~/public_html/fw/build
 cd                      ~/public_html/fw/build
-#cmake ..
-#make
+cmake ..
+make
 
 ########################################
 # Remove current shared memory segment #

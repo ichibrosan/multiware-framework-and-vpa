@@ -1,0 +1,52 @@
+Glossary
+
+Looking at your question about terms to describe functions that are
+self-contained versus dependent on external support, here are the key
+terminology pairs commonly used in software development:
+
+## Self-Contained Functions
+- **Pure functions** - Functions that always return the same output
+    for the same input and have no side effects
+- **Stateless functions** - Functions that don't rely on or modify
+    external state
+- **Independent functions** - Functions that can operate without
+    dependencies on external systems
+- **Isolated functions** - Functions that are separated from
+    external influences
+- **Autonomous functions** - Functions that are self-governing
+    and self-sufficient
+- **Self-sufficient functions** - Functions that contain everything
+    they need to operate
+
+## Dependent Functions
+- **Impure functions** - Functions that may have side effects or
+    depend on external state
+- **Stateful functions** - Functions that rely on or modify
+    external state
+- **Dependent functions** - Functions that require external
+    dependencies to operate
+- **Coupled functions** - Functions that are tightly connected
+    to other components
+- **Non-deterministic functions** - Functions whose output may
+    vary even with the same input due to external factors
+
+## Additional Related Terms
+**Function Characteristics:**
+- **Deterministic vs Non-deterministic** - Whether the function
+    always produces the same output for the same input
+- **Side-effect free vs Side-effectful** - Whether the function
+    modifies external state or has observable effects beyond
+        returning a value
+- **Referentially transparent** - Can be replaced with its return
+    value without changing program behavior
+
+**Architectural Terms:**
+- **Cohesive** - Function has a single, well-defined responsibility
+- **Loosely coupled vs Tightly coupled** - Degree of interdependence
+    with other components
+- **Modular** - Well-separated and interchangeable components
+
+The most precise and commonly used terms in functional programming
+    and software architecture would be **"pure"** vs **"impure"**
+    functions, as these capture the essence of self-containment
+    versus external dependency.
