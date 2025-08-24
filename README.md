@@ -21,3 +21,9 @@ browser-based interfaces.
 Note: This project is still under development. The in-line documentation is AI
 generated in many cases and still having some trouble with hallucination.
 Verification of the documentation is still underway.
+
+The installer is still incomplete but will be invaluable when finished.
+
+I am still working on this project and most importantly,
+I am looking for ways to make it easier to install.
+
