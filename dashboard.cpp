@@ -227,21 +227,28 @@ void dashboard::navbar(
     std::string ssCgiName,
     std::string ssUsername, std::string ssPassword)
 {
+    int icons = 0;
+
     process_toggles(ssCgiName, ssUsername, ssPassword, handle);
 
-    // if (buttons & JOURNAL) {
-    //     std::string ssCgiJournal = form_cgi("journal.cgi", handle);
-    //     gpHtml->ahref(ssCgiJournal.c_str(), "btn_journal.png", 150, 38);
-    // }
+    std::cout << "<table border=1>" << std::endl;
+    std::cout << "<tr>" << std::endl;
+
     if (buttons & LOGOUT)
     {
+        std::cout << "<td>" << std::endl;
         std::string ssCgiLogout = form_cgi("logout.cgi", handle);
         gpHtml->ahref(ssCgiLogout.c_str(), "btn_logout.png", 150, 38);
+        std::cout << "</td>" << std::endl;
+        icons++;
     }
     if (buttons & PREFS)
     {
+        std::cout << "<td>" << std::endl;
         std::string ssCgiPrefs = form_cgi("prefs.cgi", handle);
         gpHtml->ahref(ssCgiPrefs.c_str(), "btn_prefs.png", 150, 38);
+        std::cout << "</td>" << std::endl;
+        icons++;
     }
 
     std::string ssSelfCgi = ssCgiName;
@@ -251,23 +258,33 @@ void dashboard::navbar(
     if (0 == strcmp("admin", m_szAuthLevel) ||
         0 == strcmp("devo", m_szAuthLevel))
     {
-
         if (buttons & ADMIN)
         {
+            std::cout << "<td>" << std::endl;
             std::string ssCgiAdmin = form_cgi("admin.cgi", handle);
             gpHtml->ahref(ssCgiAdmin.c_str(), "btn_admin.png", 150, 38);
+            std::cout << "</td>" << std::endl;
+            icons++;
         }
 
         if (buttons & SHUTDOWN)
         {
+            std::cout << "<td>" << std::endl;
             std::string ssCgiShutdown = form_cgi("shutdown.cgi", handle);
             gpHtml->ahref(ssCgiShutdown.c_str(), "btn_shutdown.png", 150, 38);
+            std::cout << "</td>" << std::endl;
+            icons++;
         }
 
+        if (icons == 4)
+        {
+            std::cout << "</tr><tr>" << std::endl;
+        }
 
 #ifdef SHOW_SCHEMA_BUTTONS
         if (gpSh->m_pShMemng->bDisplaySchema)
         {
+            std::cout << "<td>" << std::endl;
             std::string ssCgiMenu =
                 form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplaySchema=false");
@@ -277,9 +294,12 @@ void dashboard::navbar(
             ssCgiMenu.append(ssPassword);
             gpHtml->ahref(ssCgiMenu.c_str(),
                           "btn_minus_schema.png", 150, 38);
+            std::cout << "</td>" << std::endl;
+            icons++;
         }
         else
         {
+            std::cout << "<td>" << std::endl;
             std::string ssCgiMenu =
                 form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplaySchema=true");
@@ -288,12 +308,22 @@ void dashboard::navbar(
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
             gpHtml->ahref(ssCgiMenu.c_str(), "btn_plus_schema.png", 150, 38);
+            std::cout << "</td>" << std::endl;
+            icons++;
+
         }
 #endif // SHOW_SCHEMA_BUTTONS
+
+        if (icons == 4)
+        {
+            std::cout << "</tr><tr>" << std::endl;
+        }
+
 
 #ifdef SHOW_SHMVAR_BUTTONS
         if (gpSh->m_pShMemng->bDisplayShmVars)
         {
+            std::cout << "<td>" << std::endl;
             std::string ssCgiMenu =
                 form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayShmVars=false");
@@ -303,9 +333,12 @@ void dashboard::navbar(
             ssCgiMenu.append(ssPassword);
             gpHtml->ahref(ssCgiMenu.c_str(),
                           "btn_minus_shmvars.png", 150, 38);
+            std::cout << "</td>" << std::endl;
+            icons++;
         }
         else
         {
+            std::cout << "<td>" << std::endl;
             std::string ssCgiMenu =
                 form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayShmVars=true");
@@ -315,12 +348,21 @@ void dashboard::navbar(
             ssCgiMenu.append(ssPassword);
             gpHtml->ahref(ssCgiMenu.c_str(),
                           "btn_plus_shmvars.png", 150, 38);
+            std::cout << "</td>" << std::endl;
+            icons++;
         }
 #endif // SHOW_SHMVAR_BUTTONS
+
+        if (icons == 4)
+        {
+            std::cout << "</tr><tr>" << std::endl;
+        }
+
 
 #ifdef SHOW_ENVVAR_BUTTONS
         if (gpSh->m_pShMemng->bDisplayEnvVars)
         {
+            std::cout << "<td>" << std::endl;
             std::string ssCgiMenu =
                 form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayEnvVars=false");
@@ -330,9 +372,12 @@ void dashboard::navbar(
             ssCgiMenu.append(ssPassword);
             gpHtml->ahref(ssCgiMenu.c_str(),
                           "btn_minus_envvars.png", 150, 38);
+            std::cout << "</td>" << std::endl;
+            icons++;
         }
         else
         {
+            std::cout << "<td>" << std::endl;
             std::string ssCgiMenu =
                 form_cgi(ssSelfCgi.c_str(), handle);
             ssCgiMenu.append("&bDisplayEnvVars=true");
@@ -341,28 +386,50 @@ void dashboard::navbar(
             ssCgiMenu.append("&pwname=");
             ssCgiMenu.append(ssPassword);
             gpHtml->ahref(ssCgiMenu.c_str(), "btn_plus_envvars.png", 150, 38);
+            std::cout << "</td>" << std::endl;
+            icons++;
         }
 #endif // SHOW_ENVVAR_BUTTONS
 
-        gpHtml->ahref("http://127.0.0.1/~doug/fw/html/project.html",
-                      "btn_doc.png", 150, 38);
+        std::cout << "</tr>" << std::endl;
+        // gpHtml->ahref("http://127.0.0.1/~doug/fw/html/project.html",
+        //               "btn_doc.png", 150, 38);
+        // icons++;
+        //
+        // std::cout << "</td></tr>" << std::endl;
     }
+
+    std::cout << "</table>" << std::endl;
 
     /*
      * Emit nav buttons for favorite browser destinations
      */
+    std::cout << "<table border=1>" << std::endl;
+    std::cout << "<tr><td>" << std::endl;
+    gpHtml->ahref("https://firefox.com/", "btn_firefox.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
     gpHtml->ahref("https://outlook.office.com/mail/", "btn_email.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
     gpHtml->ahref("https://github.com/", "btn_github.png", 50, 50);
-    gpHtml->ahref("https://www.icloud.com/", "btn_icloud.png", 50, 50);
-    gpHtml->ahref("https://www.linkedin.com/", "btn_linkedin.png", 50, 50);
-    gpHtml->ahref("https://www.amazon.com/gp/video/mystuff?ref=nav_em_ms_0_2_2_4", "btn_prime.png", 50, 50);
-    gpHtml->ahref("https://connect.raspberrypi.com", "btn_connectrpi.png", 50, 50);
-    gpHtml->ahref("https://raspberrypi.com", "btn_raspberrypi.png", 50, 50);
-    gpHtml->ahref("https://douglasgoodall.substack.com/publish/home", "btn_substack.png", 50, 50);
-    gpHtml->ahref("https://www.youtube.com/", "btn_youtube.png", 50, 50);
-    gpHtml->ahref("http://localhost/bd", "btn_blueray.png", 50, 50);
-    gpHtml->ahref("http://localhost/dvd", "btn_dvd.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
 
+    gpHtml->ahref("https://www.icloud.com/", "btn_icloud.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.linkedin.com/", "btn_linkedin.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.amazon.com/gp/video/mystuff?ref=nav_em_ms_0_2_2_4", "btn_prime.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://connect.raspberrypi.com", "btn_connectrpi.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://raspberrypi.com", "btn_raspberrypi.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://douglasgoodall.substack.com/publish/home", "btn_substack.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.youtube.com/", "btn_youtube.png", 50, 50);
+    std::cout << "</td><td>" << std::endl;
+    //gpHtml->ahref("http://localhost/bd", "btn_blueray.png", 50, 50);
+    gpHtml->ahref("http://localhost/dvd", "btn_dvd.png", 50, 50);
+    std::cout << "</td></tr></table>" << std::endl;
 }
 
 
