@@ -353,6 +353,12 @@ void dashboard::navbar(
      */
     gpHtml->ahref("https://outlook.office.com/mail/", "btn_email.png", 50, 50);
     gpHtml->ahref("https://github.com/", "btn_github.png", 50, 50);
+    gpHtml->ahref("https://www.icloud.com/", "btn_icloud.png", 50, 50);
+    gpHtml->ahref("https://www.linkedin.com/", "btn_linkedin.png", 50, 50);
+    gpHtml->ahref("https://www.amazon.com/gp/video/mystuff?ref=nav_em_ms_0_2_2_4", "btn_prime.png", 50, 50);
+    gpHtml->ahref("https://connect.raspberrypi.com", "btn_connectrpi.png", 50, 50);
+    gpHtml->ahref("https://raspberrypi.com", "btn_raspberrypi.png", 50, 50);
+    gpHtml->ahref("https://douglasgoodall.substack.com/publish/home", "btn_substack.png", 50, 50);
     gpHtml->ahref("https://www.youtube.com/", "btn_youtube.png", 50, 50);
 }
 
