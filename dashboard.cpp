@@ -360,6 +360,9 @@ void dashboard::navbar(
     gpHtml->ahref("https://raspberrypi.com", "btn_raspberrypi.png", 50, 50);
     gpHtml->ahref("https://douglasgoodall.substack.com/publish/home", "btn_substack.png", 50, 50);
     gpHtml->ahref("https://www.youtube.com/", "btn_youtube.png", 50, 50);
+    gpHtml->ahref("http://localhost/bd", "btn_blueray.png", 50, 50);
+    gpHtml->ahref("http://localhost/dvd", "btn_dvd.png", 50, 50);
+
 }
 
 

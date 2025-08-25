@@ -110,6 +110,10 @@ add_executable(admin.cgi admin.cpp
         include/installer.h)
 target_link_libraries(admin.cgi PRIVATE mwfw2 cgicc uuid)
 
+add_executable(bluerays bluerays.cpp)
+target_link_libraries(bluerays PRIVATE mwfw2)
+
+
 add_executable(example-cfgini example-cfgini.cpp)
 target_link_libraries(example-cfgini PRIVATE mwfw2 cgicc pthread uuid)
 
