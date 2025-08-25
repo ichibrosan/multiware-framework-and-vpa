@@ -347,6 +347,13 @@ void dashboard::navbar(
         gpHtml->ahref("http://127.0.0.1/~doug/fw/html/project.html",
                       "btn_doc.png", 150, 38);
     }
+
+    /*
+     * Emit nav buttons for favorite browser destinations
+     */
+    gpHtml->ahref("https://outlook.office.com/mail/", "btn_email.png", 50, 50);
+    gpHtml->ahref("https://github.com/", "btn_github.png", 50, 50);
+    gpHtml->ahref("https://www.youtube.com/", "btn_youtube.png", 50, 50);
 }
 
 
