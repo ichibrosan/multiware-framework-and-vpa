@@ -404,31 +404,33 @@ void dashboard::navbar(
     /*
      * Emit nav buttons for favorite browser destinations
      */
+#define xy 60
+
     std::cout << "<table border=1>" << std::endl;
     std::cout << "<tr><td>" << std::endl;
-    gpHtml->ahref("https://firefox.com/", "btn_firefox.png", 50, 50);
+    gpHtml->ahref("https://firefox.com/", "btn_firefox.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://outlook.office.com/mail/", "btn_email.png", 50, 50);
+    gpHtml->ahref("https://outlook.office.com/mail/", "btn_email.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://github.com/", "btn_github.png", 50, 50);
+    gpHtml->ahref("https://github.com/", "btn_github.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
 
-    gpHtml->ahref("https://www.icloud.com/", "btn_icloud.png", 50, 50);
+    gpHtml->ahref("https://www.icloud.com/", "btn_icloud.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.linkedin.com/", "btn_linkedin.png", 50, 50);
+    gpHtml->ahref("https://www.linkedin.com/", "btn_linkedin.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.amazon.com/gp/video/mystuff?ref=nav_em_ms_0_2_2_4", "btn_prime.png", 50, 50);
+    gpHtml->ahref("https://www.amazon.com/gp/video/mystuff?ref=nav_em_ms_0_2_2_4", "btn_prime.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://connect.raspberrypi.com", "btn_connectrpi.png", 50, 50);
+    gpHtml->ahref("https://connect.raspberrypi.com", "btn_connectrpi.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://raspberrypi.com", "btn_raspberrypi.png", 50, 50);
+    gpHtml->ahref("https://raspberrypi.com", "btn_raspberrypi.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://douglasgoodall.substack.com/publish/home", "btn_substack.png", 50, 50);
+    gpHtml->ahref("https://douglasgoodall.substack.com/publish/home", "btn_substack.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.youtube.com/", "btn_youtube.png", 50, 50);
+    gpHtml->ahref("https://www.youtube.com/", "btn_youtube.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
-    //gpHtml->ahref("http://localhost/bd", "btn_blueray.png", 50, 50);
-    gpHtml->ahref("http://localhost/dvd", "btn_dvd.png", 50, 50);
+    //gpHtml->ahref("http://localhost/bd", "btn_blueray.png", xy,xy);
+    gpHtml->ahref("http://localhost/dvd", "btn_dvd.png", xy,xy);
     std::cout << "</td></tr></table>" << std::endl;
 }
 
