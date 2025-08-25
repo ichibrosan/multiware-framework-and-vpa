@@ -404,6 +404,8 @@ void dashboard::navbar(
     /*
      * Emit nav buttons for favorite browser destinations
      */
+
+// This is the perfect size for the bottom row of icons (browser icons)
 #define xy 60
 
     std::cout << "<table border=1>" << std::endl;
