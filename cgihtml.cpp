@@ -1132,39 +1132,39 @@ void cgihtml::form_select_array(
 }
 
 
-/**
- * Generates and populates a dropdown (select) input element with file
- * options.
- *
- * This method retrieves a list of files from the specified directory path
- * or from the default journal directory if "default" is specified, and
- * populates a dropdown menu with these files.
- *
- * @param pszSelectName The name attribute for the select element.
- * @param pszSelectPath The path from which to load the list of files. If
- * "default" is provided, files from the default journal directory will
- * be used.
- * @param pszSelectClass The class attribute for the select element,
- * defining its styling.
- */
-void cgihtml::form_select_files(
-    const char* pszSelectName,
-    const char* pszSelectPath,
-    const char* pszSelectClass)
-{
-    std::vector<std::string> selectValues;
-    if (0 == strcmp("default", pszSelectPath))
-    {
-        selectValues =
-            gpOS->allfilesindir(gpEnv->get_journal_root(false));
-    }
-    else
-    {
-        selectValues =
-            gpOS->allfilesindir(pszSelectPath);
-    }
-    form_select_array(pszSelectName, selectValues, pszSelectClass);
-}
+// /**
+//  * Generates and populates a dropdown (select) input element with file
+//  * options.
+//  *
+//  * This method retrieves a list of files from the specified directory path
+//  * or from the default journal directory if "default" is specified, and
+//  * populates a dropdown menu with these files.
+//  *
+//  * @param pszSelectName The name attribute for the select element.
+//  * @param pszSelectPath The path from which to load the list of files. If
+//  * "default" is provided, files from the default journal directory will
+//  * be used.
+//  * @param pszSelectClass The class attribute for the select element,
+//  * defining its styling.
+//  */
+// void cgihtml::form_select_files(
+//     const char* pszSelectName,
+//     const char* pszSelectPath,
+//     const char* pszSelectClass)
+// {
+//     std::vector<std::string> selectValues;
+//     if (0 == strcmp("default", pszSelectPath))
+//     {
+//         selectValues =
+//             gpOS->allfilesindir(gpEnv->get_journal_root(false));
+//     }
+//     else
+//     {
+//         selectValues =
+//             gpOS->allfilesindir(pszSelectPath);
+//     }
+//     form_select_array(pszSelectName, selectValues, pszSelectClass);
+// }
 
 
 /**

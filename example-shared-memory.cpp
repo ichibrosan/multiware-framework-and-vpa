@@ -42,6 +42,8 @@
 
 #include "mwfw2.h"
 
+// #define DISPLAY_LEDS
+
 /**
  * @brief Main application entry point demonstrating shared memory functionality
  * 
@@ -126,6 +128,9 @@ int main(int argc, char** argv)
     // __FILE__ and __FUNCTION__ provide debugging context for the framework
     auto* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
 
+    gpCrt->crtclr();
+    gpCrt->crtlc(1,1);
+
     // Create the main application window object
     // This window will serve as the container for all displayed information
     auto* pWin = new window();
@@ -162,16 +167,177 @@ int main(int argc, char** argv)
     // Provides credit and contact context for the software author
     pWin->add_row("Written by Douglas Wade Goodall, Multiware Engineer");
 
-    // Retrieve and display the shared memory signature value
-    // This is the core demonstration of shared memory functionality:
-    // - gpSh: Global pointer to the shared memory subsystem
-    // - m_pShMemng: Pointer to the shared memory structure
-    // - iSignature: Integer signature used to identify/validate shared memory segments
-    // This signature is typically used internally by the framework to ensure
-    // shared memory segments are properly initialized and accessible
+    // Add a separator for better visual organization
+    pWin->add_row("");
+    pWin->add_row("=== SHARED MEMORY CONTENTS ===");
+
+    // Display basic shared memory information
     char szShmSig[64];
-    sprintf(szShmSig, "Shared Memory Signature: %d", gpSh->m_pShMemng->iSignature);
+    sprintf(szShmSig, "Signature: %d", gpSh->m_pShMemng->iSignature);
     pWin->add_row(szShmSig);
+    
+    char szShmSize[64];
+    sprintf(szShmSize, "Shared Memory Size: %zu bytes", gpSh->m_pShMemng->stShMemSize);
+    pWin->add_row(szShmSize);
+
+    // Phase 0 - Development directory information
+    pWin->add_row("");
+    pWin->add_row("=== DEVELOPMENT DIRECTORIES ===");
+    pWin->add_row(std::string("Devo Directory: ") + gpSh->m_pShMemng->szDevoDir);
+    pWin->add_row(std::string("Build FQDS: ") + gpSh->m_pShMemng->szBuildFQDS);
+    pWin->add_row(std::string("CGI-Bin FQDS: ") + gpSh->m_pShMemng->szCgiBinFQDS);
+    pWin->add_row(std::string("Doc FQDS: ") + gpSh->m_pShMemng->szDocFQDS);
+    pWin->add_row(std::string("Image FQDS: ") + gpSh->m_pShMemng->szImgFQDS);
+    pWin->add_row(std::string("Include FQDS: ") + gpSh->m_pShMemng->szIncludeFQDS);
+    pWin->add_row(std::string("Log FQDS: ") + gpSh->m_pShMemng->szLogFQDS);
+    pWin->add_row(std::string("Schemas FQDS: ") + gpSh->m_pShMemng->szSchemasFQDS);
+    pWin->add_row(std::string("Scripts FQDS: ") + gpSh->m_pShMemng->szScriptsFQDS);
+    pWin->add_row(std::string("Styles FQDS: ") + gpSh->m_pShMemng->szStylesFQDS);
+    pWin->add_row(std::string("Temp FQDS: ") + gpSh->m_pShMemng->szTempFQDS);
+
+    // User information
+    pWin->add_row("");
+    pWin->add_row("=== USER INFORMATION ===");
+    pWin->add_row(std::string("User: ") + gpSh->m_pShMemng->szUser);
+    pWin->add_row(std::string("Home: ") + gpSh->m_pShMemng->szHome);
+    pWin->add_row(std::string("User FQDS: ") + gpSh->m_pShMemng->szUserFQDS);
+    pWin->add_row(std::string("Source FQDS: ") + gpSh->m_pShMemng->szSourceFQDS);
+    pWin->add_row(std::string("Config FQDS: ") + gpSh->m_pShMemng->szConfigFQDS);
+    pWin->add_row(std::string("Config FQFS: ") + gpSh->m_pShMemng->szConfigFQFS);
+    pWin->add_row(std::string("Status: ") + gpSh->m_pShMemng->szStatus);
+
+    // Network information
+    pWin->add_row("");
+    pWin->add_row("=== NETWORK INFORMATION ===");
+    pWin->add_row(std::string("Hostname: ") + gpSh->m_pShMemng->szHostname);
+    pWin->add_row(std::string("IP: ") + gpSh->m_pShMemng->szIP);
+    pWin->add_row(std::string("Public IP: ") + gpSh->m_pShMemng->szPublicIP);
+    pWin->add_row(std::string("Interface: ") + gpSh->m_pShMemng->szIface);
+    pWin->add_row(std::string("Protocol: ") + gpSh->m_pShMemng->szProtocol);
+
+    // Web server roots
+    pWin->add_row("");
+    pWin->add_row("=== WEB SERVER ROOTS ===");
+    pWin->add_row(std::string("CGI Root: ") + gpSh->m_pShMemng->szCgiRoot);
+    pWin->add_row(std::string("Image Root: ") + gpSh->m_pShMemng->szImgRoot);
+//    pWin->add_row(std::string("Journal Root: ") + gpSh->m_pShMemng->szJournalRoot);
+    pWin->add_row(std::string("Styles Root: ") + gpSh->m_pShMemng->szStylesRoot);
+    pWin->add_row(std::string("Styles File Root: ") + gpSh->m_pShMemng->szStylesFileRoot);
+    pWin->add_row(std::string("Temp Root: ") + gpSh->m_pShMemng->szTmpRoot);
+
+    // RPC and Remote information
+    pWin->add_row("");
+    pWin->add_row("=== RPC & REMOTE INFORMATION ===");
+    pWin->add_row(std::string("RPC UUID: ") + gpSh->m_pShMemng->szRpcUuid);
+    pWin->add_row(std::string("Remote Host: ") + gpSh->m_pShMemng->szRemoteHost);
+    pWin->add_row(std::string("Remote Address: ") + gpSh->m_pShMemng->szRemoteAddr);
+    pWin->add_row(std::string("Remote Auth: ") + gpSh->m_pShMemng->szRemoteAuth);
+    pWin->add_row(std::string("Remote Version: ") + gpSh->m_pShMemng->szRemoteVer);
+
+#ifdef DISPLAY_LEDS
+    // LED Control status
+    pWin->add_row("");
+    pWin->add_row("=== LED CONTROL STATUS ===");
+    for (int i = 0; i < 17; i++) {
+        char szLed[32];
+        sprintf(szLed, "LED %d: %s", i, gpSh->m_pShMemng->bLedCntl[i] ? "ON" : "OFF");
+        pWin->add_row(szLed);
+    }
+#endif
+
+    // Test status information
+    pWin->add_row("");
+    pWin->add_row("=== TEST STATUS ===");
+    pWin->add_row(std::string("Tests Started: ") + (gpSh->m_pShMemng->tests_started ? "Yes" : "No"));
+    if (gpSh->m_pShMemng->tests_started) {
+        pWin->add_row(std::string("Start Time: ") + gpSh->m_pShMemng->szTimeStarted);
+        
+        char szTestStats[128];
+        sprintf(szTestStats, "Tests Processed: %d, Passed: %d, Failed: %d, Skipped: %d", 
+                gpSh->m_pShMemng->num_tests_processed,
+                gpSh->m_pShMemng->num_tests_passed,
+                gpSh->m_pShMemng->num_tests_failed,
+                gpSh->m_pShMemng->num_tests_skipped);
+        pWin->add_row(szTestStats);
+        
+        sprintf(szTestStats, "Processed Bits: 0x%X, Passed Bits: 0x%X", 
+                gpSh->m_pShMemng->tests_processed_bits,
+                gpSh->m_pShMemng->tests_passed_bits);
+        pWin->add_row(szTestStats);
+        
+        sprintf(szTestStats, "Failed Bits: 0x%X, Skipped Bits: 0x%X", 
+                gpSh->m_pShMemng->tests_failed_bits,
+                gpSh->m_pShMemng->tests_skipped_bits);
+        pWin->add_row(szTestStats);
+        
+        pWin->add_row(std::string("Tests Completed: ") + (gpSh->m_pShMemng->tests_completed ? "Yes" : "No"));
+        if (gpSh->m_pShMemng->tests_completed) {
+            pWin->add_row(std::string("Completion Time: ") + gpSh->m_pShMemng->szTimeCompleted);
+            pWin->add_row(std::string("Overall Results: ") + (gpSh->m_pShMemng->overall_test_results ? "PASS" : "FAIL"));
+        }
+    }
+
+    // Display flags
+    pWin->add_row("");
+    pWin->add_row("=== DISPLAY FLAGS ===");
+    pWin->add_row(std::string("Display Shared Memory Variables: ") + (gpSh->m_pShMemng->bDisplayShmVars ? "Yes" : "No"));
+    pWin->add_row(std::string("Display Environment Variables: ") + (gpSh->m_pShMemng->bDisplayEnvVars ? "Yes" : "No"));
+    pWin->add_row(std::string("Display Schema: ") + (gpSh->m_pShMemng->bDisplaySchema ? "Yes" : "No"));
+
+    // Credentials information (show first few non-empty entries)
+    pWin->add_row("");
+    pWin->add_row("=== AUTHENTICATION CREDENTIALS ===");
+    bool foundCreds = false;
+    for (int i = 0; i < ROW_DATA+CFG_MAX_USERS && i < 10; i++) { // Limit to first 10 for display
+        if (gpSh->m_pShMemng->creds[i].iAuthHandle > 0) {
+            char szCredInfo[256];
+            sprintf(szCredInfo, "Handle %d: %s (%s %s) - Level: %s", 
+                    gpSh->m_pShMemng->creds[i].iAuthHandle,
+                    gpSh->m_pShMemng->creds[i].szAuthUserName,
+                    gpSh->m_pShMemng->creds[i].szAuthFirstName,
+                    gpSh->m_pShMemng->creds[i].szAuthLastName,
+                    gpSh->m_pShMemng->creds[i].szAuthLevel);
+            pWin->add_row(szCredInfo);
+            
+            if (strlen(gpSh->m_pShMemng->creds[i].szRemoteHost) > 0) {
+                sprintf(szCredInfo, "  Remote: %s (%s)", 
+                        gpSh->m_pShMemng->creds[i].szRemoteHost,
+                        gpSh->m_pShMemng->creds[i].szRemoteAddr);
+                pWin->add_row(szCredInfo);
+            }
+            
+            if (strlen(gpSh->m_pShMemng->creds[i].szHttpUserAgent) > 0) {
+                std::string userAgent = gpSh->m_pShMemng->creds[i].szHttpUserAgent;
+                if (userAgent.length() > 60) userAgent = userAgent.substr(0, 57) + "...";
+                pWin->add_row(std::string("  User Agent: ") + userAgent);
+            }
+            foundCreds = true;
+        }
+    }
+    if (!foundCreds) {
+        pWin->add_row("No active authentication credentials found");
+    }
+
+    // User preferences (show first few non-empty entries)
+    pWin->add_row("");
+    pWin->add_row("=== USER PREFERENCES ===");
+    bool foundPrefs = false;
+    for (int i = 0; i < ROW_DATA+CFG_MAX_USERS && i < 5; i++) { // Limit to first 5 for display
+        if (strlen(gpSh->m_pShMemng->prefs[i].szBodyFGcolor) > 0 || 
+            strlen(gpSh->m_pShMemng->prefs[i].szBodyBGcolor) > 0) {
+            char szPrefInfo[128];
+            sprintf(szPrefInfo, "User %d Colors - Body: %s/%s, Table: %s/%s", i,
+                    gpSh->m_pShMemng->prefs[i].szBodyFGcolor,
+                    gpSh->m_pShMemng->prefs[i].szBodyBGcolor,
+                    gpSh->m_pShMemng->prefs[i].szTableFGcolor,
+                    gpSh->m_pShMemng->prefs[i].szTableBGcolor);
+            pWin->add_row(szPrefInfo);
+            foundPrefs = true;
+        }
+    }
+    if (!foundPrefs) {
+        pWin->add_row("No user color preferences configured");
+    }
     
     // Render the complete window with all added content
     // This causes the window to be drawn to the display with:

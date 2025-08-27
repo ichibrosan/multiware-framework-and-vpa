@@ -261,17 +261,17 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
                 bSubmitRequired = true;
             }
 
-            // if type is select_files
-            if (0 == strcmp("select_files",
-                            gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
-            {
-                here;
-                gpHtml->form_select_files(
-                    gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_NAME].c_str(),
-                    gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_PATH].c_str(),
-                    gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_CLASS].c_str()
-                );
-            }
+            // // if type is select_files
+            // if (0 == strcmp("select_files",
+            //                 gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
+            // {
+            //     here;
+            //     gpHtml->form_select_files(
+            //         gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_NAME].c_str(),
+            //         gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_PATH].c_str(),
+            //         gpCsv->m_parsed_data[iRow][COL_FILES_SELECT_CLASS].c_str()
+            //     );
+            // }
 
             // if type is date
             // 2025/01/29 18:13 dwg - implemented & tested

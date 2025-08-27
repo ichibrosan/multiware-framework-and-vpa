@@ -269,15 +269,15 @@ environment::environment()
 		set_styles_file_root(false);
 	}
 
-	/********************************************************************
-	 * Create the base path for accessing Journal files
-	 * for instance: "/home/devo/Documents/Fw_Notes/"
-     ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szJournalRoot))
-	{
-		//m_pSysLog->loginfo("environment::environment: Extracting szJournalRoot");
-		set_journal_root(false);
-	}
+	// /********************************************************************
+	//  * Create the base path for accessing Journal files
+	//  * for instance: "/home/devo/Documents/Fw_Notes/"
+ //     ***********************************************************************/
+	// if (0 == strlen(gpSh->m_pShMemng->szJournalRoot))
+	// {
+	// 	//m_pSysLog->loginfo("environment::environment: Extracting szJournalRoot");
+	// 	set_journal_root(false);
+	// }
 
 	/********************************************************************
 	 * Create the base path for temp files
@@ -718,42 +718,42 @@ void environment::set_styles_file_root(bool bDebug)
 }
 
 
-/**
- * @brief Retrieves the root directory of the journal.
- *
- * This function returns the root directory path of the journal file system.
- * It is typically used to determine the base directory where journal data
- * is stored.
- *
- * @return std::string The path to the journal's root directory.
- */
-std::string environment::get_journal_root(bool bDebug)
-{
-	std::string ssJournalRoot = gpSh->m_pShMemng->szJournalRoot;
-	return ssJournalRoot;
-}
+// /**
+//  * @brief Retrieves the root directory of the journal.
+//  *
+//  * This function returns the root directory path of the journal file system.
+//  * It is typically used to determine the base directory where journal data
+//  * is stored.
+//  *
+//  * @return std::string The path to the journal's root directory.
+//  */
+// std::string environment::get_journal_root(bool bDebug)
+// {
+// 	std::string ssJournalRoot = gpSh->m_pShMemng->szJournalRoot;
+// 	return ssJournalRoot;
+// }
 
-/**
- * @brief Sets the root directory or path for the journal storage.
- *
- * This function accepts a path string as input and assigns it as the root
- * directory where journal files or related data will be stored. It ensures
- * that the system knows the base directory for managing journal-related
- * operations.
- *
- * @param path A string representing the root directory for the journal.
- *
- * @note Ensure that the specified path is accessible and valid for the
- * application to avoid errors during journal operations.
- */
-void environment::set_journal_root(bool bDebug)
-{
-	std::string ssJournalRoot = "/home/";
-	ssJournalRoot.append(gpSh->m_pShMemng->szUser);
-	ssJournalRoot.append("/Documents/Fw_Notes/");
-	strcpy(gpSh->m_pShMemng->szJournalRoot, ssJournalRoot.c_str());
-} /* TODO: access into system call to check whether this dir exists, and to make
-	 it if not */
+// /**
+//  * @brief Sets the root directory or path for the journal storage.
+//  *
+//  * This function accepts a path string as input and assigns it as the root
+//  * directory where journal files or related data will be stored. It ensures
+//  * that the system knows the base directory for managing journal-related
+//  * operations.
+//  *
+//  * @param path A string representing the root directory for the journal.
+//  *
+//  * @note Ensure that the specified path is accessible and valid for the
+//  * application to avoid errors during journal operations.
+//  */
+// void environment::set_journal_root(bool bDebug)
+// {
+// 	std::string ssJournalRoot = "/home/";
+// 	ssJournalRoot.append(gpSh->m_pShMemng->szUser);
+// 	ssJournalRoot.append("/Documents/Fw_Notes/");
+// 	strcpy(gpSh->m_pShMemng->szJournalRoot, ssJournalRoot.c_str());
+// } /* TODO: access into system call to check whether this dir exists, and to make
+// 	 it if not */
 
 
 /**
