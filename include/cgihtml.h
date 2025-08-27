@@ -492,25 +492,6 @@ public:
 	                       std::vector<std::string> selectValues,
 	                       const char *pszSelectClass);
 
-	// /**
-	//  * Allows the user to select specific files from a form submission for processing.
-	//  *
-	//  * This method is typically used to filter through the files submitted via a form
-	//  * and return only the ones needed for further operations or tasks.
-	//  *
-	//  * @param fileList A reference to the list of files submitted through the form.
-	//  *                 This represents the collection of all uploaded files.
-	//  * @param criteria A function or lambda expression used to filter the files.
-	//  *                 It should return a boolean indicating whether a file meets
-	//  *                 the required conditions.
-	//  * @param selectedFiles A reference to a container where the selected files will
-	//  *                      be stored after processing. This container is modified
-	//  *                      in place by the method.
-	//  */
-	// void form_select_files(const char *pszSelectName,
-	//                        const char *pszSelectPath,
-	//                        const char *pszSelectClass);
-
 	/**
 	 * Processes the input text to perform certain transformations or operations.
 	 *

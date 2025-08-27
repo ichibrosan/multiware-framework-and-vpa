@@ -70,19 +70,23 @@ environment::environment()
 	ssDevoDir = std::filesystem::path(ssDevoDir).remove_filename();
 	strcpy(gpSh->m_pShMemng->szDevoDir, ssDevoDir.c_str());
 
-	std::string ssBuildFQDS = ssDevoDir.append("build/");
+	std::string ssBuildFQDS = ssDevoDir;
+	ssBuildFQDS.append("build/");
 	strcpy(gpSh->m_pShMemng->szBuildFQDS, ssBuildFQDS.c_str());
 
-	std::string ssCgiBinFQDS = ssDevoDir.append("cgi-bin/");
+	std::string ssCgiBinFQDS = ssDevoDir;
+	ssCgiBinFQDS.append("cgi-bin/");
 	strcpy(gpSh->m_pShMemng->szCgiBinFQDS, ssCgiBinFQDS.c_str());
 
-	std::string ssLogFQDS = ssDevoDir.append("log/");
+	std::string ssLogFQDS = ssDevoDir;
+	ssLogFQDS.append("log/");
 	strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
 	std::string ssLogCmd = "mkdir -p ";
 	ssLogCmd.append(ssLogFQDS);
 	system(ssLogCmd.c_str());
 
-	std::string ssTempFQDS = ssDevoDir.append("tmp/");
+	std::string ssTempFQDS = ssDevoDir;
+	ssTempFQDS.append("tmp/");
 	strcpy(gpSh->m_pShMemng->szTempFQDS, ssTempFQDS.c_str());
 	std::string ssTempCmd = "mkdir -p ";
 	ssTempCmd.append(ssTempFQDS);
@@ -717,21 +721,6 @@ void environment::set_styles_file_root(bool bDebug)
 	strcpy(gpSh->m_pShMemng->szStylesFileRoot, ssStylesFileRoot.c_str());
 }
 
-
-// /**
-//  * @brief Retrieves the root directory of the journal.
-//  *
-//  * This function returns the root directory path of the journal file system.
-//  * It is typically used to determine the base directory where journal data
-//  * is stored.
-//  *
-//  * @return std::string The path to the journal's root directory.
-//  */
-// std::string environment::get_journal_root(bool bDebug)
-// {
-// 	std::string ssJournalRoot = gpSh->m_pShMemng->szJournalRoot;
-// 	return ssJournalRoot;
-// }
 
 // /**
 //  * @brief Sets the root directory or path for the journal storage.

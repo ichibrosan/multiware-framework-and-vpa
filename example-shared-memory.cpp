@@ -194,6 +194,7 @@ int main(int argc, char** argv)
     pWin->add_row(std::string("Scripts FQDS: ") + gpSh->m_pShMemng->szScriptsFQDS);
     pWin->add_row(std::string("Styles FQDS: ") + gpSh->m_pShMemng->szStylesFQDS);
     pWin->add_row(std::string("Temp FQDS: ") + gpSh->m_pShMemng->szTempFQDS);
+    pWin->add_row(std::string("Temp Root: ") + gpSh->m_pShMemng->szTmpRoot);
 
     // User information
     pWin->add_row("");
@@ -220,10 +221,8 @@ int main(int argc, char** argv)
     pWin->add_row("=== WEB SERVER ROOTS ===");
     pWin->add_row(std::string("CGI Root: ") + gpSh->m_pShMemng->szCgiRoot);
     pWin->add_row(std::string("Image Root: ") + gpSh->m_pShMemng->szImgRoot);
-//    pWin->add_row(std::string("Journal Root: ") + gpSh->m_pShMemng->szJournalRoot);
     pWin->add_row(std::string("Styles Root: ") + gpSh->m_pShMemng->szStylesRoot);
     pWin->add_row(std::string("Styles File Root: ") + gpSh->m_pShMemng->szStylesFileRoot);
-    pWin->add_row(std::string("Temp Root: ") + gpSh->m_pShMemng->szTmpRoot);
 
     // RPC and Remote information
     pWin->add_row("");
