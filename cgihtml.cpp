@@ -757,9 +757,9 @@ void cgihtml::dump_shm_vars()
     emit_shm("szSourceFQDS",gpSh->m_pShMemng->szSourceFQDS);
     emit_shm("szStatus",gpSh->m_pShMemng->szStatus);
     emit_shm("szStylesRoot",gpSh->m_pShMemng->szStylesRoot);
-    emit_shm("szTmpRoot",gpSh->m_pShMemng->szTmpRoot);
+    emit_shm("szTempFQDS",gpSh->m_pShMemng->szTempFQDS);
     emit_shm("szUser",gpSh->m_pShMemng->szUser);
-    emit_shm("szUserdirFQDS",gpSh->m_pShMemng->szUserFQDS);
+    emit_shm("szUserdirFQDS",gpSh->m_pShMemng->szUserdirFQDS);
     for (int iRow = ROW_DATA; iRow < ROW_DATA + CFG_MAX_USERS; iRow++) {
         if (gpSh->m_pShMemng->creds[iRow].iAuthHandle > 2)
         {

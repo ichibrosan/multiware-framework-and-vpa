@@ -230,7 +230,7 @@ public:
 	void construct_szConfigFQFS();
 
 
-	void set_tmp_root(bool bDebug);
+	//void set_tmp_root(bool bDebug);
 
 	void set_vpad_startup_script();
 

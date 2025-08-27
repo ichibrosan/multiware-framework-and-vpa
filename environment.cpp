@@ -66,57 +66,83 @@ environment::environment()
 	 * __FILE __ could be /home/doug/public_html/fw/environment.cpp
 	 *	gpSh->m_pShMemng->szDevoDir = /home/doug/public_html/fw/
 	 */
-	std::string ssDevoDir = __FILE__;
-	ssDevoDir = std::filesystem::path(ssDevoDir).remove_filename();
-	strcpy(gpSh->m_pShMemng->szDevoDir, ssDevoDir.c_str());
 
-	std::string ssBuildFQDS = ssDevoDir;
-	ssBuildFQDS.append("build/");
-	strcpy(gpSh->m_pShMemng->szBuildFQDS, ssBuildFQDS.c_str());
-
-	std::string ssCgiBinFQDS = ssDevoDir;
-	ssCgiBinFQDS.append("cgi-bin/");
-	strcpy(gpSh->m_pShMemng->szCgiBinFQDS, ssCgiBinFQDS.c_str());
-
-	std::string ssLogFQDS = ssDevoDir;
-	ssLogFQDS.append("log/");
-	strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
-	std::string ssLogCmd = "mkdir -p ";
-	ssLogCmd.append(ssLogFQDS);
-	system(ssLogCmd.c_str());
-
-	std::string ssTempFQDS = ssDevoDir;
-	ssTempFQDS.append("tmp/");
-	strcpy(gpSh->m_pShMemng->szTempFQDS, ssTempFQDS.c_str());
-	std::string ssTempCmd = "mkdir -p ";
-	ssTempCmd.append(ssTempFQDS);
-	system(ssTempCmd.c_str());
-
-	/********************************************************************
-	 * Determine the username under which this application is running
-	 * and save the result in the shared segment.
-	 ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szUser))
+	/**
+	 * This is a critical piece of logic. This code assumes that the c++
+	 * source files are at the root of the project file structure. It
+	 * just happens this is true. Although I have considered moving the
+	 * source files to a src folder, I haven't done it yet because it is
+	 * a lot of work for undefined benefit.
+	 */
+	std::string ssDevoDir;
+	if (strlen(gpSh->m_pShMemng->szDevoDir) == 0)
 	{
-		extract_username();
+		ssDevoDir = __FILE__;
+		ssDevoDir = std::filesystem::path(ssDevoDir).remove_filename();
+		strcpy(gpSh->m_pShMemng->szDevoDir, ssDevoDir.c_str());
 	}
 
-	/********************************************************************
-	 * Determine the home directory of the user under which this application
-	 * is running and save the result in the shared segment.
-	 ***********************************************************************/
+	if (strlen(gpSh->m_pShMemng->szBuildFQDS) == 0)
+	{
+		std::string ssBuildFQDS = ssDevoDir;
+		ssBuildFQDS.append("build/");
+		strcpy(gpSh->m_pShMemng->szBuildFQDS, ssBuildFQDS.c_str());
+	}
+
+	if (strlen(gpSh->m_pShMemng->szSourceFQDS) == 0)
+	{
+		std::string ssCgiBinFQDS = ssDevoDir;
+		ssCgiBinFQDS.append("cgi-bin/");
+		strcpy(gpSh->m_pShMemng->szCgiBinFQDS, ssCgiBinFQDS.c_str());
+	}
+
+	if (strlen(gpSh->m_pShMemng->szLogFQDS) == 0)
+	{
+		std::string ssLogFQDS = ssDevoDir;
+		ssLogFQDS.append("log/");
+		strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
+		// std::string ssLogCmd = "mkdir -p ";
+		// ssLogCmd.append(ssLogFQDS);
+		// system(ssLogCmd.c_str());
+	}
+
+	if (strlen(gpSh->m_pShMemng->szTempFQDS)== 0)
+	{
+		std::string ssTempFQDS = ssDevoDir;
+		ssTempFQDS.append("tmp/");
+		strcpy(gpSh->m_pShMemng->szTempFQDS, ssTempFQDS.c_str());
+		// std::string ssTempCmd = "mkdir -p ";
+		// ssTempCmd.append(ssTempFQDS);
+		// system(ssTempCmd.c_str());
+	}
+
+	if (0 == strlen(gpSh->m_pShMemng->szUser))
+	{
+		std::string ssTemp = __FILE__;
+		ssTemp = ssTemp.substr(6, ssTemp.length());
+		int offset = ssTemp.find('/');
+		ssTemp = ssTemp.substr(0, offset);
+		strcpy(gpSh->m_pShMemng->szUser, ssTemp.c_str());
+	}
+
 	if (0 == strlen(gpSh->m_pShMemng->szHome))
 	{
-		construct_szHome();
+		std::string ssTemp = "/home/";
+		ssTemp.append(gpSh->m_pShMemng->szUser);
+		ssTemp.append("/");
+		strcpy(gpSh->m_pShMemng->szHome, ssTemp.c_str());
 	}
 
 	/********************************************************************
 	 * Determine the Userdir of the user under which this application
 	 * is running and save the result in the shared segment.
 	 ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szUserFQDS))
+	if (0 == strlen(gpSh->m_pShMemng->szUserdirFQDS))
 	{
-		construct_szUserFQDS();
+		char szUserdir[FILENAME_MAX];
+		strcpy(szUserdir, ssDevoDir.c_str());
+		szUserdir[strlen(szUserdir) - 3] = '\0';
+		strcpy(gpSh->m_pShMemng->szUserdirFQDS, szUserdir);
 	}
 
 	/********************************************************************
@@ -125,7 +151,8 @@ environment::environment()
 	 ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szSourceFQDS))
 	{
-		construct_szSourceFQDS();
+		std::string ssSourceFQDS = ssDevoDir;
+		strcpy(gpSh->m_pShMemng->szSourceFQDS, ssSourceFQDS.c_str());
 	}
 
 	/********************************************************************
@@ -283,72 +310,73 @@ environment::environment()
 	// 	set_journal_root(false);
 	// }
 
-	/********************************************************************
-	 * Create the base path for temp files
-	 ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szTmpRoot))
-	{
-		//m_pSysLog->loginfo("environment::environment: Extracting szTmpRoot");
-		set_tmp_root(false);
-	}
+	// /********************************************************************
+	//  * Create the base path for temp files
+	//  ***********************************************************************/
+	// if (0 == strlen(gpSh->m_pShMemng->szTmpRoot))
+	// {
+	// 	//m_pSysLog->loginfo("environment::environment: Extracting szTmpRoot");
+	// 	set_tmp_root(false);
+	// }
+
 }
 
 
-/*****************************************************************************
- * @brief Extracts the username from the current file path.
- *
- * This method retrieves the username by parsing the file path stored in the
- * macro `__FILE__`. It trims the first 6 characters from the file path,
- * extracts the substring up to the first '/' character, and updates the shared
- * memory `szUser` with the result. The extracted username is then returned
- * as a string.
- *
- * @return The extracted username as a std::string.
- ****************************************************************************/
-std::string environment::extract_username()
-{
-	std::string ssTemp = __FILE__;
-	ssTemp = ssTemp.substr(6, ssTemp.length());
-	int offset = ssTemp.find('/');
-	ssTemp = ssTemp.substr(0, offset);
-	strcpy(gpSh->m_pShMemng->szUser, ssTemp.c_str());
-	return ssTemp;
-}
+// /*****************************************************************************
+//  * @brief Extracts the username from the current file path.
+//  *
+//  * This method retrieves the username by parsing the file path stored in the
+//  * macro `__FILE__`. It trims the first 6 characters from the file path,
+//  * extracts the substring up to the first '/' character, and updates the shared
+//  * memory `szUser` with the result. The extracted username is then returned
+//  * as a string.
+//  *
+//  * @return The extracted username as a std::string.
+//  ****************************************************************************/
+// std::string environment::extract_username()
+// {
+// 	std::string ssTemp = __FILE__;
+// 	ssTemp = ssTemp.substr(6, ssTemp.length());
+// 	int offset = ssTemp.find('/');
+// 	ssTemp = ssTemp.substr(0, offset);
+// 	strcpy(gpSh->m_pShMemng->szUser, ssTemp.c_str());
+// 	return ssTemp;
+// }
 
 
-/**
- * @brief Constructs the home directory path for the current user.
- *
- * This function creates a home directory path string by appending the user's name,
- * held in shared memory, to a predefined base directory path. The constructed path
- * is stored in shared memory and also returned as a `std::string`.
- *
- * @return A `std::string` containing the constructed home directory path.
- */
-std::string environment::construct_szHome()
-{
-	std::string ssTemp = "/home/";
-	ssTemp.append(gpSh->m_pShMemng->szUser);
-	ssTemp.append("/");
-	strcpy(gpSh->m_pShMemng->szHome, ssTemp.c_str());
-	return ssTemp;
-}
+// /**
+//  * @brief Constructs the home directory path for the current user.
+//  *
+//  * This function creates a home directory path string by appending the user's name,
+//  * held in shared memory, to a predefined base directory path. The constructed path
+//  * is stored in shared memory and also returned as a `std::string`.
+//  *
+//  * @return A `std::string` containing the constructed home directory path.
+//  */
+// std::string environment::construct_szHome()
+// {
+// 	std::string ssTemp = "/home/";
+// 	ssTemp.append(gpSh->m_pShMemng->szUser);
+// 	ssTemp.append("/");
+// 	strcpy(gpSh->m_pShMemng->szHome, ssTemp.c_str());
+// 	return ssTemp;
+// }
 
-std::string environment::construct_szUserFQDS()
-{
-	std::string ssUserFQDS = gpSh->m_pShMemng->szHome;
-	ssUserFQDS.append("public_html/");
-	strcpy(gpSh->m_pShMemng->szUserFQDS, ssUserFQDS.c_str());
-	return ssUserFQDS;
-}
+// std::string environment::construct_szUserFQDS()
+// {
+// 	std::string ssUserFQDS = gpSh->m_pShMemng->szHome;
+// 	ssUserFQDS.append("public_html/");
+// 	strcpy(gpSh->m_pShMemng->szUserFQDS, ssUserFQDS.c_str());
+// 	return ssUserFQDS;
+// }
 
-std::string environment::construct_szSourceFQDS()
-{
-	std::string ssSourceFQDS = gpSh->m_pShMemng->szUserFQDS;
-	ssSourceFQDS.append("fw/");
-	strcpy(gpSh->m_pShMemng->szSourceFQDS, ssSourceFQDS.c_str());
-	return ssSourceFQDS;
-}
+// std::string environment::construct_szSourceFQDS()
+// {
+// 	std::string ssSourceFQDS = gpSh->m_pShMemng->szUserFQDS;
+// 	ssSourceFQDS.append("fw/");
+// 	strcpy(gpSh->m_pShMemng->szSourceFQDS, ssSourceFQDS.c_str());
+// 	return ssSourceFQDS;
+// }
 
 std::string environment::construct_szLogFQDS()
 {
@@ -745,25 +773,25 @@ void environment::set_styles_file_root(bool bDebug)
 // 	 it if not */
 
 
-/**
- * @brief Sets the temporary root directory path.
- *
- * This function initializes or updates the path used as the temporary
- * root directory for file operations. It ensures that all temporary
- * files or subdirectories are managed under the specified root directory.
- *
- * @param path A string containing the file path to set as the temporary root directory.
- * @throws std::invalid_argument If the provided path is empty or invalid.
- * @throws std::runtime_error If the operation fails due to insufficient permissions
- *         or inability to set the path correctly.
- */
-void environment::set_tmp_root(bool bDebug)
-{
-	std::string ssTmpRoot = "/home/";
-	ssTmpRoot.append(gpSh->m_pShMemng->szUser);
-	ssTmpRoot.append("/public_html/fw/tmp/");
-	strcpy(gpSh->m_pShMemng->szTmpRoot, ssTmpRoot.c_str());
-}
+// /**
+//  * @brief Sets the temporary root directory path.
+//  *
+//  * This function initializes or updates the path used as the temporary
+//  * root directory for file operations. It ensures that all temporary
+//  * files or subdirectories are managed under the specified root directory.
+//  *
+//  * @param path A string containing the file path to set as the temporary root directory.
+//  * @throws std::invalid_argument If the provided path is empty or invalid.
+//  * @throws std::runtime_error If the operation fails due to insufficient permissions
+//  *         or inability to set the path correctly.
+//  */
+// void environment::set_tmp_root(bool bDebug)
+// {
+// 	std::string ssTmpRoot = "/home/";
+// 	ssTmpRoot.append(gpSh->m_pShMemng->szUser);
+// 	ssTmpRoot.append("/public_html/fw/tmp/");
+// 	strcpy(gpSh->m_pShMemng->szTmpRoot, ssTmpRoot.c_str());
+// }
 
 /**
  * Retrieves the interface for the given input.

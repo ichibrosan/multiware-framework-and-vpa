@@ -173,65 +173,64 @@ int main(int argc, char** argv)
 
     // Display basic shared memory information
     char szShmSig[64];
-    sprintf(szShmSig, "Signature: %d", gpSh->m_pShMemng->iSignature);
+    sprintf(szShmSig, "iSignature:       %d", gpSh->m_pShMemng->iSignature);
     pWin->add_row(szShmSig);
     
     char szShmSize[64];
-    sprintf(szShmSize, "Shared Memory Size: %zu bytes", gpSh->m_pShMemng->stShMemSize);
+    sprintf(szShmSize, "stShMemSize:      %zu bytes", gpSh->m_pShMemng->stShMemSize);
     pWin->add_row(szShmSize);
 
     // Phase 0 - Development directory information
     pWin->add_row("");
     pWin->add_row("=== DEVELOPMENT DIRECTORIES ===");
-    pWin->add_row(std::string("Devo Directory: ") + gpSh->m_pShMemng->szDevoDir);
-    pWin->add_row(std::string("Build FQDS: ") + gpSh->m_pShMemng->szBuildFQDS);
-    pWin->add_row(std::string("CGI-Bin FQDS: ") + gpSh->m_pShMemng->szCgiBinFQDS);
-    pWin->add_row(std::string("Doc FQDS: ") + gpSh->m_pShMemng->szDocFQDS);
-    pWin->add_row(std::string("Image FQDS: ") + gpSh->m_pShMemng->szImgFQDS);
-    pWin->add_row(std::string("Include FQDS: ") + gpSh->m_pShMemng->szIncludeFQDS);
-    pWin->add_row(std::string("Log FQDS: ") + gpSh->m_pShMemng->szLogFQDS);
-    pWin->add_row(std::string("Schemas FQDS: ") + gpSh->m_pShMemng->szSchemasFQDS);
-    pWin->add_row(std::string("Scripts FQDS: ") + gpSh->m_pShMemng->szScriptsFQDS);
-    pWin->add_row(std::string("Styles FQDS: ") + gpSh->m_pShMemng->szStylesFQDS);
-    pWin->add_row(std::string("Temp FQDS: ") + gpSh->m_pShMemng->szTempFQDS);
-    pWin->add_row(std::string("Temp Root: ") + gpSh->m_pShMemng->szTmpRoot);
+    pWin->add_row(std::string("szDevoDir:        ") + gpSh->m_pShMemng->szDevoDir);
+    pWin->add_row(std::string("szBuildFQDS:      ") + gpSh->m_pShMemng->szBuildFQDS);
+    pWin->add_row(std::string("szCgiBinFQDS:     ") + gpSh->m_pShMemng->szCgiBinFQDS);
+    pWin->add_row(std::string("szDocFQDS:        ") + gpSh->m_pShMemng->szDocFQDS);
+    pWin->add_row(std::string("szImgFQDS:        ") + gpSh->m_pShMemng->szImgFQDS);
+    pWin->add_row(std::string("szIncludeFQDS:    ") + gpSh->m_pShMemng->szIncludeFQDS);
+    pWin->add_row(std::string("szLogFQDSS:       ") + gpSh->m_pShMemng->szLogFQDS);
+    pWin->add_row(std::string("szSchemasFQDS:    ") + gpSh->m_pShMemng->szSchemasFQDS);
+    pWin->add_row(std::string("szScriptsFQDS:    ") + gpSh->m_pShMemng->szScriptsFQDS);
+    pWin->add_row(std::string("szStylesFQDS:     ") + gpSh->m_pShMemng->szStylesFQDS);
+    pWin->add_row(std::string("szTempFQDS:       ") + gpSh->m_pShMemng->szTempFQDS);
 
     // User information
     pWin->add_row("");
     pWin->add_row("=== USER INFORMATION ===");
-    pWin->add_row(std::string("User: ") + gpSh->m_pShMemng->szUser);
-    pWin->add_row(std::string("Home: ") + gpSh->m_pShMemng->szHome);
-    pWin->add_row(std::string("User FQDS: ") + gpSh->m_pShMemng->szUserFQDS);
-    pWin->add_row(std::string("Source FQDS: ") + gpSh->m_pShMemng->szSourceFQDS);
-    pWin->add_row(std::string("Config FQDS: ") + gpSh->m_pShMemng->szConfigFQDS);
-    pWin->add_row(std::string("Config FQFS: ") + gpSh->m_pShMemng->szConfigFQFS);
-    pWin->add_row(std::string("Status: ") + gpSh->m_pShMemng->szStatus);
+    pWin->add_row(std::string("szUser:           ") + gpSh->m_pShMemng->szUser);
+    pWin->add_row(std::string("szHome:           ") + gpSh->m_pShMemng->szHome);
+    pWin->add_row(std::string("szUserdirFQDS:    ") + gpSh->m_pShMemng->szUserdirFQDS);
+    pWin->add_row(std::string("szSourceFQDS:     ") + gpSh->m_pShMemng->szSourceFQDS);
+    pWin->add_row(std::string("szConfigFQDS:     ") + gpSh->m_pShMemng->szConfigFQDS);
+    pWin->add_row(std::string("szConfigFQFS:     ") + gpSh->m_pShMemng->szConfigFQFS);
+    pWin->add_row(std::string("szStatus:         ") + gpSh->m_pShMemng->szStatus);
 
     // Network information
     pWin->add_row("");
     pWin->add_row("=== NETWORK INFORMATION ===");
-    pWin->add_row(std::string("Hostname: ") + gpSh->m_pShMemng->szHostname);
-    pWin->add_row(std::string("IP: ") + gpSh->m_pShMemng->szIP);
-    pWin->add_row(std::string("Public IP: ") + gpSh->m_pShMemng->szPublicIP);
-    pWin->add_row(std::string("Interface: ") + gpSh->m_pShMemng->szIface);
-    pWin->add_row(std::string("Protocol: ") + gpSh->m_pShMemng->szProtocol);
+    pWin->add_row(std::string("szHostname:       ") + gpSh->m_pShMemng->szHostname);
+    pWin->add_row(std::string("szIP:             ") + gpSh->m_pShMemng->szIP);
+    pWin->add_row(std::string("szPublicIP:       ") + gpSh->m_pShMemng->szPublicIP);
+    pWin->add_row(std::string("szIface:          ") + gpSh->m_pShMemng->szIface);
+    pWin->add_row(std::string("szProtocol:       ") + gpSh->m_pShMemng->szProtocol);
 
     // Web server roots
     pWin->add_row("");
     pWin->add_row("=== WEB SERVER ROOTS ===");
-    pWin->add_row(std::string("CGI Root: ") + gpSh->m_pShMemng->szCgiRoot);
-    pWin->add_row(std::string("Image Root: ") + gpSh->m_pShMemng->szImgRoot);
-    pWin->add_row(std::string("Styles Root: ") + gpSh->m_pShMemng->szStylesRoot);
-    pWin->add_row(std::string("Styles File Root: ") + gpSh->m_pShMemng->szStylesFileRoot);
+    pWin->add_row(std::string("szCgiRoot:        ") + gpSh->m_pShMemng->szCgiRoot);
+    pWin->add_row(std::string("szImgRoott:       ") + gpSh->m_pShMemng->szImgRoot);
+    pWin->add_row(std::string("szStylesRoot:     ") + gpSh->m_pShMemng->szStylesRoot);
+    pWin->add_row(std::string("szStylesFileRoot: ") + gpSh->m_pShMemng->szStylesFileRoot);
 
     // RPC and Remote information
     pWin->add_row("");
     pWin->add_row("=== RPC & REMOTE INFORMATION ===");
-    pWin->add_row(std::string("RPC UUID: ") + gpSh->m_pShMemng->szRpcUuid);
-    pWin->add_row(std::string("Remote Host: ") + gpSh->m_pShMemng->szRemoteHost);
-    pWin->add_row(std::string("Remote Address: ") + gpSh->m_pShMemng->szRemoteAddr);
-    pWin->add_row(std::string("Remote Auth: ") + gpSh->m_pShMemng->szRemoteAuth);
-    pWin->add_row(std::string("Remote Version: ") + gpSh->m_pShMemng->szRemoteVer);
+    pWin->add_row(std::string("szRpcUuid:        ") + gpSh->m_pShMemng->szRpcUuid);
+    pWin->add_row(std::string("szRemoteHost:     ") + gpSh->m_pShMemng->szRemoteHost);
+    pWin->add_row(std::string("szRemoteAddr:     ") + gpSh->m_pShMemng->szRemoteAddr);
+    pWin->add_row(std::string("szRemoteAuth:     ") + gpSh->m_pShMemng->szRemoteAuth);
+    pWin->add_row(std::string("szRemoteVer:      ") + gpSh->m_pShMemng->szRemoteVer);
 
 #ifdef DISPLAY_LEDS
     // LED Control status

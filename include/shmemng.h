@@ -35,7 +35,7 @@ struct MFW_SHMEMNG_T {
 
     char szUser[UT_NAMESIZE];
     char szHome[UT_NAMESIZE];
-    char szUserFQDS[UT_NAMESIZE];
+    char szUserdirFQDS[UT_NAMESIZE];
     char szSourceFQDS[FILENAME_MAX];
     char szConfigFQDS[FILENAME_MAX];
     char szConfigFQFS[FILENAME_MAX];
@@ -57,7 +57,7 @@ struct MFW_SHMEMNG_T {
 
     char szStylesRoot[INET_URL_SIZE_MAX];
     char szStylesFileRoot[INET_URL_SIZE_MAX];
-    char szTmpRoot[FILENAME_MAX];
+ //   char szTmpRoot[FILENAME_MAX];
 
     char szRpcUuid[UUID_SIZE];             // 37
 
