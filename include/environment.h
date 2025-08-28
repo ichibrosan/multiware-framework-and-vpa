@@ -224,7 +224,7 @@ public:
 	std::string construct_szUserFQDS();
 
 	std::string construct_szSourceFQDS();
-	std::string construct_szLogFQDS();
+
 
 	void construct_szConfigFQDS();
 	void construct_szConfigFQFS();

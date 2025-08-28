@@ -106,7 +106,7 @@ environment::environment()
 		// system(ssLogCmd.c_str());
 	}
 
-	if (strlen(gpSh->m_pShMemng->szTempFQDS)== 0)
+	if (strlen(gpSh->m_pShMemng->szTempFQDS) == 0)
 	{
 		std::string ssTempFQDS = ssDevoDir;
 		ssTempFQDS.append("tmp/");
@@ -161,7 +161,9 @@ environment::environment()
 	 ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szLogFQDS))
 	{
-		construct_szLogFQDS();
+		std::string ssLogFQDS = ssDevoDir;
+		ssLogFQDS.append("log/");
+		strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
 	}
 
 
@@ -171,7 +173,10 @@ environment::environment()
 	 ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szConfigFQDS))
 	{
-		construct_szConfigFQDS();
+		// construct_szConfigFQDS();
+		std::string ssConfigFQDS = gpSh->m_pShMemng->szHome;
+		ssConfigFQDS.append(".config/multiware/");
+		strcpy(gpSh->m_pShMemng->szConfigFQDS, ssConfigFQDS.c_str());
 	}
 
 	/********************************************************************
@@ -180,18 +185,10 @@ environment::environment()
 	 ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szConfigFQFS))
 	{
-		construct_szConfigFQFS();
+		std::string ssConfigFQFS = gpSh->m_pShMemng->szConfigFQDS;
+		ssConfigFQFS.append("config.ini");
+		strcpy(gpSh->m_pShMemng->szConfigFQFS, ssConfigFQFS.c_str());
 	}
-
-	/********************************************************************
-	 * Determine the log root of the user under which this application
-	 * is running and save the result in the shared segment.
-	 ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szLogFQDS))
-	{
-		construct_szLogFQDS();
-	}
-
 
 	/********************************************************************
 	 * Determine whether the curl utility is installed on the system
@@ -205,8 +202,44 @@ environment::environment()
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szIface))
 	{
-		//m_pSysLog->loginfo("environment::environment: Extracting szIface");
-		get_interface(false);
+		std::string ssUser = gpSh->m_pShMemng->szUser;
+		gpXinetd->trigger(VPA_NETSTAT_PORT);
+
+		char szNetstatStdoutFQFS[128];
+		strcpy(szNetstatStdoutFQFS,
+		       ("/home/"
+			       + ssUser
+			       + "/public_html/fw/tmp/netstat.stdout").c_str());
+
+		gpSysLog->loginfo(szNetstatStdoutFQFS);
+		sleep(2);
+		gpSysLog->loginfo(szNetstatStdoutFQFS);
+
+		char szBuffer[BUFSIZ];
+		std::ifstream ifs(szNetstatStdoutFQFS);
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+		ifs >> szBuffer;
+
+		strncpy(m_szIface, szBuffer, IFNAMSIZ);
+		strncpy(gpSh->m_pShMemng->szIface, m_szIface, IFNAMSIZ);
 	}
 
 	/********************************************************************
@@ -246,8 +279,93 @@ environment::environment()
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szIP))
 	{
-		//m_pSysLog->loginfo("environment::environment: Extracting szIP");
-		get_ip(false);
+		// define a buffer for reading lines from the
+		// /tmp/ip.out file.
+		char szBuffer[BUFSIZ];
+		std::string ssUser = gpSh->m_pShMemng->szUser;
+		gpSysLog->loginfo(ssUser.c_str());
+
+		std::ofstream ofs("/home/"
+		                  + ssUser
+		                  + "/public_html/fw/scripts/inetd-ip-redirect.sh",
+		                  std::ios::out);
+
+		ofs << "#!/bin/bash" << std::endl;
+		ofs << "###############################################################"
+			"##############################" << std::endl;
+		ofs << "# daphne.goodall.com:/home/devo/public_html/fw/scripts/inetd-ip"
+			"-redirect.sh 2025-02-17      #" << std::endl;
+		ofs << "# ";
+		ofs << RCOPR;
+		ofs << "                                  #" << std::endl;
+		ofs << "###############################################################"
+			"##############################" << std::endl;
+		ofs << "ip addr show "
+			<< m_szIface
+			<< " > /home/devo/public_html/fw/tmp/ip.stdout" << std::endl;
+
+		ofs.close();
+		system(("chmod +x /home/"
+			+ ssUser
+			+ "/public_html/fw/scripts/inetd-ip-redirect.sh").c_str());
+		gpXinetd->trigger(VPA_IP_PORT);
+		sleep(1);
+		// Open the read for input
+		FILE* ipfd = fopen(("/home/"
+			                   + ssUser
+			                   + "/public_html/fw/tmp/ip.stdout").c_str(),
+		                   "r");
+		// define a buffer to hold our interface
+		// name with a postpended colon.
+		char szIfaceColon[BUFSIZ];
+
+		// copy in the interfdace name  found previously
+		strncpy(szIfaceColon, m_szIface, BUFSIZ);
+
+		// append the colon
+		strcat(szIfaceColon, ":");
+
+		// convert the interface name with colon to a standard string
+		std::string ssIfaceColon = szIfaceColon;
+
+		// read a line from the file into a zero terminated string
+		fgets(szBuffer, sizeof(szBuffer), ipfd);
+		gpSysLog->loginfo(szBuffer);
+		// convcert the zero terminated string to a standard string
+		std::string ssBuffer = szBuffer;
+
+		// while waiting to see the string with our interface in it...
+		while (std::string::npos == ssBuffer.find(ssIfaceColon))
+		{
+			// get another line
+			fgets(szBuffer, sizeof(szBuffer), ipfd);
+			gpSysLog->loginfo(szBuffer);
+
+			// convert to a std::string
+			ssBuffer = szBuffer;
+		} // rinse and repeat...
+
+		// scan for the line with the inet address in it
+		fgets(szBuffer, sizeof(szBuffer), ipfd);
+		while (0 != strncmp("inet", &szBuffer[4], 4))
+		{
+			fgets(szBuffer, sizeof(szBuffer), ipfd);
+		}
+
+		// clear the result string to all zeroes
+		memset(m_szIP, 0, sizeof(m_szIP));
+
+		int index = 9; // offset of IP address in line (fixed)
+		int destindex = 0; // starting offset in the destn string
+
+		// copy until we find a slash
+		while (szBuffer[index] != '/')
+		{
+			m_szIP[destindex++] = szBuffer[index++];
+		}
+
+		strncpy(gpSh->m_pShMemng->szIP, m_szIP, DNS_FQDN_SIZE_MAX);
+
 	}
 
 	/********************************************************************
@@ -266,8 +384,12 @@ environment::environment()
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szCgiRoot))
 	{
-		//m_pSysLog->loginfo("environment::environment: Extracting szCgiRoot");
-		set_cgi_root(false);
+		std::string ssCgiRoot = gpSh->m_pShMemng->szProtocol;
+		ssCgiRoot.append(gpSh->m_pShMemng->szIP);
+		ssCgiRoot.append("/~");
+		ssCgiRoot.append(gpSh->m_pShMemng->szUser);
+		ssCgiRoot.append("/fw/cgi-bin/");
+		strcpy(gpSh->m_pShMemng->szCgiRoot, ssCgiRoot.c_str());
 	}
 
 	/********************************************************************
@@ -378,37 +500,37 @@ environment::environment()
 // 	return ssSourceFQDS;
 // }
 
-std::string environment::construct_szLogFQDS()
-{
-	std::string ssLogFQDS = gpSh->m_pShMemng->szSourceFQDS;
-	ssLogFQDS.append("log/");
-	strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
-	return ssLogFQDS;
-}
+// std::string environment::construct_szLogFQDS()
+// {
+// 	std::string ssLogFQDS = gpSh->m_pShMemng->szSourceFQDS;
+// 	ssLogFQDS.append("log/");
+// 	strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
+// 	return ssLogFQDS;
+// }
 
-/***************************************************************************
- * @brief Configures and sets the root directory for user-specific settings.
- * This function constructs the configuration root path for a user by
- * appending the username and predefined directory structure to the base
- * path "/home/". The resulting path is stored in a shared memory structure
- * to be utilized by other components of the system for user-specific
- * configurations.
- * @note The function relies on shared memory to fetch user information
- *       and to store the constructed configuration path.
- ***************************************************************************/
-void environment::construct_szConfigFQDS()
-{
-	std::string ssConfigFQDS = gpSh->m_pShMemng->szHome;
-	ssConfigFQDS.append(".config/multiware/");
-	strcpy(gpSh->m_pShMemng->szConfigFQDS, ssConfigFQDS.c_str());
-}
+// /***************************************************************************
+//  * @brief Configures and sets the root directory for user-specific settings.
+//  * This function constructs the configuration root path for a user by
+//  * appending the username and predefined directory structure to the base
+//  * path "/home/". The resulting path is stored in a shared memory structure
+//  * to be utilized by other components of the system for user-specific
+//  * configurations.
+//  * @note The function relies on shared memory to fetch user information
+//  *       and to store the constructed configuration path.
+//  ***************************************************************************/
+// void environment::construct_szConfigFQDS()
+// {
+// 	std::string ssConfigFQDS = gpSh->m_pShMemng->szHome;
+// 	ssConfigFQDS.append(".config/multiware/");
+// 	strcpy(gpSh->m_pShMemng->szConfigFQDS, ssConfigFQDS.c_str());
+// }
 
-void environment::construct_szConfigFQFS()
-{
-	std::string ssConfigFQFS = gpSh->m_pShMemng->szConfigFQDS;
-	ssConfigFQFS.append("config.ini");
-	strcpy(gpSh->m_pShMemng->szConfigFQFS, ssConfigFQFS.c_str());
-}
+// void environment::construct_szConfigFQFS()
+// {
+// 	std::string ssConfigFQFS = gpSh->m_pShMemng->szConfigFQDS;
+// 	ssConfigFQFS.append("config.ini");
+// 	strcpy(gpSh->m_pShMemng->szConfigFQFS, ssConfigFQFS.c_str());
+// }
 
 
 /**
@@ -569,26 +691,26 @@ char* environment::get_cgi_root_as_sz(bool bDebug)
 	return gpSh->m_pShMemng->szCgiRoot;
 }
 
-/**
- * @brief Sets the directory path for the CGI (Common Gateway Interface) root.
- *
- * This function allows configuring the base directory used for executing CGI scripts.
- * It is typically used in web server setups where dynamic content is provided
- * through CGI programs. The path provided will be used to locate the CGI binaries
- * or scripts relative to the server's working directory.
- *
- * @param path A string specifying the path to the CGI root directory.
- *             It should be a valid directory path accessible to the server.
- */
-void environment::set_cgi_root(bool bDebug)
-{
-	std::string ssCgiRoot = gpSh->m_pShMemng->szProtocol;
-	ssCgiRoot.append(gpSh->m_pShMemng->szIP);
-	ssCgiRoot.append("/~");
-	ssCgiRoot.append(gpSh->m_pShMemng->szUser);
-	ssCgiRoot.append("/fw/cgi-bin/");
-	strcpy(gpSh->m_pShMemng->szCgiRoot, ssCgiRoot.c_str());
-}
+// /**
+//  * @brief Sets the directory path for the CGI (Common Gateway Interface) root.
+//  *
+//  * This function allows configuring the base directory used for executing CGI scripts.
+//  * It is typically used in web server setups where dynamic content is provided
+//  * through CGI programs. The path provided will be used to locate the CGI binaries
+//  * or scripts relative to the server's working directory.
+//  *
+//  * @param path A string specifying the path to the CGI root directory.
+//  *             It should be a valid directory path accessible to the server.
+//  */
+// void environment::set_cgi_root(bool bDebug)
+// {
+// 	std::string ssCgiRoot = gpSh->m_pShMemng->szProtocol;
+// 	ssCgiRoot.append(gpSh->m_pShMemng->szIP);
+// 	ssCgiRoot.append("/~");
+// 	ssCgiRoot.append(gpSh->m_pShMemng->szUser);
+// 	ssCgiRoot.append("/fw/cgi-bin/");
+// 	strcpy(gpSh->m_pShMemng->szCgiRoot, ssCgiRoot.c_str());
+// }
 
 /**
  * @brief Retrieves the version information for the installed cURL library.
@@ -793,66 +915,66 @@ void environment::set_styles_file_root(bool bDebug)
 // 	strcpy(gpSh->m_pShMemng->szTmpRoot, ssTmpRoot.c_str());
 // }
 
-/**
- * Retrieves the interface for the given input.
- *
- * This method is commonly used to extract or return a specific interface
- * based on the provided input. The input could be of various types, and
- * the method should determine and return the relevant interface accordingly.
- *
- * @param input An object or parameter from which the interface is to be retrieved.
- * @return The interface associated with the provided input, or null if no interface is found.
- * @throws NullPointerException if the input is null and the method does not handle that case.
- * @throws IllegalArgumentException if the input type is invalid or unsupported.
- */
-std::string environment::get_interface(bool bDebug)
-{
-	std::string ssUser = gpSh->m_pShMemng->szUser;
-	gpXinetd->trigger(VPA_NETSTAT_PORT);
-
-	char szNetstatStdoutFQFS[128];
-	strcpy(szNetstatStdoutFQFS,
-	       ("/home/"
-		       + ssUser
-		       + "/public_html/fw/tmp/netstat.stdout").c_str());
-
-	gpSysLog->loginfo(szNetstatStdoutFQFS);
-	sleep(2);
-	gpSysLog->loginfo(szNetstatStdoutFQFS);
-
-	char szBuffer[BUFSIZ];
-	std::ifstream ifs(szNetstatStdoutFQFS);
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-	ifs >> szBuffer;
-
-	strncpy(m_szIface, szBuffer, IFNAMSIZ);
-	strncpy(gpSh->m_pShMemng->szIface, m_szIface, IFNAMSIZ);
-	std::string ssRetVal = m_szIface;
-
-	sprintf(szBuffer, "%s::%s#%d: szIface is %s",
-	        __FILE__, __FUNCTION__,__LINE__, gpSh->m_pShMemng->szIface);
-
-
-	return ssRetVal;
-}
+// /**
+//  * Retrieves the interface for the given input.
+//  *
+//  * This method is commonly used to extract or return a specific interface
+//  * based on the provided input. The input could be of various types, and
+//  * the method should determine and return the relevant interface accordingly.
+//  *
+//  * @param input An object or parameter from which the interface is to be retrieved.
+//  * @return The interface associated with the provided input, or null if no interface is found.
+//  * @throws NullPointerException if the input is null and the method does not handle that case.
+//  * @throws IllegalArgumentException if the input type is invalid or unsupported.
+//  */
+// std::string environment::get_interface(bool bDebug)
+// {
+// 	std::string ssUser = gpSh->m_pShMemng->szUser;
+// 	gpXinetd->trigger(VPA_NETSTAT_PORT);
+//
+// 	char szNetstatStdoutFQFS[128];
+// 	strcpy(szNetstatStdoutFQFS,
+// 	       ("/home/"
+// 		       + ssUser
+// 		       + "/public_html/fw/tmp/netstat.stdout").c_str());
+//
+// 	gpSysLog->loginfo(szNetstatStdoutFQFS);
+// 	sleep(2);
+// 	gpSysLog->loginfo(szNetstatStdoutFQFS);
+//
+// 	char szBuffer[BUFSIZ];
+// 	std::ifstream ifs(szNetstatStdoutFQFS);
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+// 	ifs >> szBuffer;
+//
+// 	strncpy(m_szIface, szBuffer, IFNAMSIZ);
+// 	strncpy(gpSh->m_pShMemng->szIface, m_szIface, IFNAMSIZ);
+// 	std::string ssRetVal = m_szIface;
+//
+// 	sprintf(szBuffer, "%s::%s#%d: szIface is %s",
+// 	        __FILE__, __FUNCTION__,__LINE__, gpSh->m_pShMemng->szIface);
+//
+//
+// 	return ssRetVal;
+// }
 
 
 /**
