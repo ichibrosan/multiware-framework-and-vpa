@@ -210,9 +210,9 @@ int main(int argc, char** argv)
     pWin->add_row("");
     pWin->add_row("=== NETWORK INFORMATION ===");
     pWin->add_row(std::string("szHostname:       ") + gpSh->m_pShMemng->szHostname);
+    pWin->add_row(std::string("szIface:          ") + gpSh->m_pShMemng->szIface);
     pWin->add_row(std::string("szIP:             ") + gpSh->m_pShMemng->szIP);
     pWin->add_row(std::string("szPublicIP:       ") + gpSh->m_pShMemng->szPublicIP);
-    pWin->add_row(std::string("szIface:          ") + gpSh->m_pShMemng->szIface);
     pWin->add_row(std::string("szProtocol:       ") + gpSh->m_pShMemng->szProtocol);
 
     // Web server roots

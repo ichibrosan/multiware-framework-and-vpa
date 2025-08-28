@@ -84,6 +84,10 @@ environment::environment()
 
 	std::string ssDevoDir;
 
+	/////////////////////////////
+	// Development Directories //
+	/////////////////////////////
+
 	if (strlen(gpSh->m_pShMemng->szDevoDir) == 0)
 	{
 		ssDevoDir = __FILE__;
@@ -98,21 +102,61 @@ environment::environment()
 		strcpy(gpSh->m_pShMemng->szBuildFQDS, ssBuildFQDS.c_str());
 	}
 
-	if (strlen(gpSh->m_pShMemng->szSourceFQDS) == 0)
+	if (strlen(gpSh->m_pShMemng->szCgiBinFQDS) == 0)
 	{
 		std::string ssCgiBinFQDS = ssDevoDir;
 		ssCgiBinFQDS.append("cgi-bin/");
 		strcpy(gpSh->m_pShMemng->szCgiBinFQDS, ssCgiBinFQDS.c_str());
 	}
 
+	if (strlen(gpSh->m_pShMemng->szDocFQDS) == 0)
+	{
+		std::string ssDocFQDS = ssDevoDir;
+		ssDocFQDS.append("doc/");
+		strcpy(gpSh->m_pShMemng->szDocFQDS, ssDocFQDS.c_str());
+	}
+
+	if (strlen(gpSh->m_pShMemng->szImgFQDS) == 0)
+	{
+		std::string ssImgFQDS = ssDevoDir;
+		ssImgFQDS.append("images/");
+		strcpy(gpSh->m_pShMemng->szImgFQDS, ssImgFQDS.c_str());
+	}
+
+	if (strlen(gpSh->m_pShMemng->szIncludeFQDS) == 0)
+	{
+		std::string ssIncludeFQDS = ssDevoDir;
+		ssIncludeFQDS.append("include/");
+		strcpy(gpSh->m_pShMemng->szIncludeFQDS, ssIncludeFQDS.c_str());
+	}
+
+
 	if (strlen(gpSh->m_pShMemng->szLogFQDS) == 0)
 	{
 		std::string ssLogFQDS = ssDevoDir;
 		ssLogFQDS.append("log/");
 		strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
-		// std::string ssLogCmd = "mkdir -p ";
-		// ssLogCmd.append(ssLogFQDS);
-		// system(ssLogCmd.c_str());
+	}
+
+	if (strlen(gpSh->m_pShMemng->szSchemasFQDS) == 0)
+	{
+		std::string ssSchemasFQDS = ssDevoDir;
+		ssSchemasFQDS.append("schemas/");
+		strcpy(gpSh->m_pShMemng->szSchemasFQDS, ssSchemasFQDS.c_str());
+	}
+
+	if (strlen(gpSh->m_pShMemng->szScriptsFQDS) == 0)
+	{
+		std::string ssScriptsFQDS = ssDevoDir;
+		ssScriptsFQDS.append("scripts/");
+		strcpy(gpSh->m_pShMemng->szScriptsFQDS, ssScriptsFQDS.c_str());
+	}
+
+	if (strlen(gpSh->m_pShMemng->szStylesFQDS) == 0)
+	{
+		std::string ssStylesFQDS = ssDevoDir;
+		ssStylesFQDS.append("styles/");
+		strcpy(gpSh->m_pShMemng->szStylesFQDS, ssStylesFQDS.c_str());
 	}
 
 	if (strlen(gpSh->m_pShMemng->szTempFQDS) == 0)
@@ -120,10 +164,11 @@ environment::environment()
 		std::string ssTempFQDS = ssDevoDir;
 		ssTempFQDS.append("tmp/");
 		strcpy(gpSh->m_pShMemng->szTempFQDS, ssTempFQDS.c_str());
-		// std::string ssTempCmd = "mkdir -p ";
-		// ssTempCmd.append(ssTempFQDS);
-		// system(ssTempCmd.c_str());
 	}
+
+	//////////////////////
+	// User Information //
+	//////////////////////
 
 	if (0 == strlen(gpSh->m_pShMemng->szUser))
 	{
@@ -164,16 +209,16 @@ environment::environment()
 		strcpy(gpSh->m_pShMemng->szSourceFQDS, ssSourceFQDS.c_str());
 	}
 
-	/********************************************************************
-	 * Determine the LogFQDS of the user under which this application
-	 * is running and save the result in the shared segment.
-	 ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szLogFQDS))
-	{
-		std::string ssLogFQDS = ssDevoDir;
-		ssLogFQDS.append("log/");
-		strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
-	}
+	// /********************************************************************
+	//  * Determine the LogFQDS of the user under which this application
+	//  * is running and save the result in the shared segment.
+	//  ***********************************************************************/
+	// if (0 == strlen(gpSh->m_pShMemng->szLogFQDS))
+	// {
+	// 	std::string ssLogFQDS = ssDevoDir;
+	// 	ssLogFQDS.append("log/");
+	// 	strcpy(gpSh->m_pShMemng->szLogFQDS, ssLogFQDS.c_str());
+	// }
 
 
 	/********************************************************************
@@ -199,16 +244,30 @@ environment::environment()
 		strcpy(gpSh->m_pShMemng->szConfigFQFS, ssConfigFQFS.c_str());
 	}
 
-	/********************************************************************
-	 * Determine whether the curl utility is installed on the system
-	 * and set a local boolean reflecting that question.
-     ***********************************************************************/
-	//    m_bCurlPresent = check_curl_installed();
+	if (strlen(gpSh->m_pShMemng->szStatus) == 0)
+	{
+		std::string ssStatus = ssDevoDir;
+		ssStatus.append("status/");
+		strcpy(gpSh->m_pShMemng->szStatus, ssStatus.c_str());
+	}
+
+	/////////////////////////
+	// Network Information //
+	/////////////////////////
+
+	if (0 == strlen(gpSh->m_pShMemng->szHostname))
+	{
+		std::string ssEtcHostnameFQFS = "/etc/hostname";
+		std::ifstream ifs(ssEtcHostnameFQFS);
+		std::string ssInbuf;
+		ifs >> ssInbuf;
+		strcpy(gpSh->m_pShMemng->szHostname, ssInbuf.c_str());
+	}
 
 	/********************************************************************
 	 * Determine the name of the primary network interface in use and
 	 * save it in the shared segment.
-     ***********************************************************************/
+	 ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szIface))
 	{
 		std::string ssUser = gpSh->m_pShMemng->szUser;
@@ -216,9 +275,9 @@ environment::environment()
 
 		char szNetstatStdoutFQFS[128];
 		strcpy(szNetstatStdoutFQFS,
-		       ("/home/"
-			       + ssUser
-			       + "/public_html/fw/tmp/netstat.stdout").c_str());
+			   ("/home/"
+				   + ssUser
+				   + "/public_html/fw/tmp/netstat.stdout").c_str());
 
 		gpSysLog->loginfo(szNetstatStdoutFQFS);
 		sleep(2);
@@ -234,106 +293,6 @@ environment::environment()
 
 		strncpy(m_szIface, szBuffer, IFNAMSIZ);
 		strncpy(gpSh->m_pShMemng->szIface, m_szIface, IFNAMSIZ);
-	}
-
-	/********************************************************************
-	 * Determine the hostname of the system on which this software is running.
-     ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szHostname))
-	{
-		std::string ssEtcHostnameFQFS = "/etc/hostname";
-		std::ifstream ifs(ssEtcHostnameFQFS);
-		std::string ssInbuf;
-		ifs >> ssInbuf;
-		strcpy(gpSh->m_pShMemng->szHostname, ssInbuf.c_str());
-	}
-
-	/********************************************************************
-	 * Determine the protocol supported by Apache2 on the current system and
-	 * save to the shared system. It would be https:// or http://
-     ***********************************************************************/
-	if (0 == strcmp("http://", gpSh->m_pShMemng->szProtocol) ||
-		0 == strcmp("https://", gpSh->m_pShMemng->szProtocol))
-	{
-		//m_pSysLog->loginfo("environment::environment: valid szProtocol already set");
-	}
-	else
-	{
-		gpXinetd->trigger(VPA_HTTPS_PORT);
-		sleep(1);
-
-		std::string ssHttpsFQFS = gpOS->genTempFQFS("https.stdout", false);
-		FILE* fpHttps = fopen(ssHttpsFQFS.c_str(), "r");
-		if (nullptr == fpHttps)
-		{
-			local_process_error("fopen failed",__LINE__);
-			exit(EXIT_FAILURE);
-		}
-
-		int iFseekRetcode = fseek(fpHttps, 0,SEEK_END);
-		if (-1 == iFseekRetcode)
-		{
-			char szFseek[80];
-			sprintf(szFseek, "fseek failed (errno=%d)",errno);
-			local_process_error(szFseek,__LINE__ - 5);
-			exit(EXIT_FAILURE);
-		}
-
-		long l_fSize = ftell(fpHttps);
-		if (-1 == l_fSize)
-		{
-			char szFtell[80];
-			sprintf(szFtell, "ftell failed (errno=%d)",errno);
-			local_process_error(szFtell,__LINE__ - 3);
-			exit(EXIT_FAILURE);
-		}
-
-		if (0l != l_fSize)
-		{
-			strcpy(gpSh->m_pShMemng->szProtocol, "https://");
-		}
-		else
-		{
-			gpXinetd->trigger(VPA_HTTP_PORT);
-			sleep(1);
-
-			std::string ssHttpsFQFS = gpOS->genTempFQFS("http.stdout", false);
-			FILE* fpHttp = fopen(ssHttpsFQFS.c_str(), "r");
-			if (nullptr == fpHttp)
-			{
-				local_process_error("fopen failed",__LINE__);
-				exit(EXIT_FAILURE);
-			}
-
-			int iFseekRetcode = fseek(fpHttp, 0,SEEK_END);
-			if (-1 == iFseekRetcode)
-			{
-				char szFseek[80];
-				sprintf(szFseek, "fseek failed (errno=%d)",errno);
-				local_process_error(szFseek,__LINE__ - 5);
-				exit(EXIT_FAILURE);
-			}
-
-			long l_fSize = ftell(fpHttp);
-			if (-1 == l_fSize)
-			{
-				char szFtell[80];
-				sprintf(szFtell, "ftell failed (errno=%d)",errno);
-				local_process_error(szFtell,__LINE__ - 3);
-				exit(EXIT_FAILURE);
-			}
-
-			if (0l != l_fSize)
-			{
-				strcpy(gpSh->m_pShMemng->szProtocol, "http://");
-			}
-			else
-			{
-				local_process_error("Unable to determine protocol",__LINE__);
-				exit(EXIT_FAILURE);
-			}
-		}
-
 	}
 
 
@@ -432,6 +391,99 @@ environment::environment()
 		strncpy(gpSh->m_pShMemng->szIP, m_szIP, DNS_FQDN_SIZE_MAX);
 
 	}
+
+
+
+
+	/********************************************************************
+	 * Determine the protocol supported by Apache2 on the current system and
+	 * save to the shared system. It would be https:// or http://
+     ***********************************************************************/
+	if (0 == strcmp("http://", gpSh->m_pShMemng->szProtocol) ||
+		0 == strcmp("https://", gpSh->m_pShMemng->szProtocol))
+	{
+		//m_pSysLog->loginfo("environment::environment: valid szProtocol already set");
+	}
+	else
+	{
+		gpXinetd->trigger(VPA_HTTPS_PORT);
+		sleep(1);
+
+		std::string ssHttpsFQFS = gpOS->genTempFQFS("https.stdout", false);
+		FILE* fpHttps = fopen(ssHttpsFQFS.c_str(), "r");
+		if (nullptr == fpHttps)
+		{
+			local_process_error("fopen failed",__LINE__);
+			exit(EXIT_FAILURE);
+		}
+
+		int iFseekRetcode = fseek(fpHttps, 0,SEEK_END);
+		if (-1 == iFseekRetcode)
+		{
+			char szFseek[80];
+			sprintf(szFseek, "fseek failed (errno=%d)",errno);
+			local_process_error(szFseek,__LINE__ - 5);
+			exit(EXIT_FAILURE);
+		}
+
+		long l_fSize = ftell(fpHttps);
+		if (-1 == l_fSize)
+		{
+			char szFtell[80];
+			sprintf(szFtell, "ftell failed (errno=%d)",errno);
+			local_process_error(szFtell,__LINE__ - 3);
+			exit(EXIT_FAILURE);
+		}
+
+		if (0l != l_fSize)
+		{
+			strcpy(gpSh->m_pShMemng->szProtocol, "https://");
+		}
+		else
+		{
+			gpXinetd->trigger(VPA_HTTP_PORT);
+			sleep(1);
+
+			std::string ssHttpsFQFS = gpOS->genTempFQFS("http.stdout", false);
+			FILE* fpHttp = fopen(ssHttpsFQFS.c_str(), "r");
+			if (nullptr == fpHttp)
+			{
+				local_process_error("fopen failed",__LINE__);
+				exit(EXIT_FAILURE);
+			}
+
+			int iFseekRetcode = fseek(fpHttp, 0,SEEK_END);
+			if (-1 == iFseekRetcode)
+			{
+				char szFseek[80];
+				sprintf(szFseek, "fseek failed (errno=%d)",errno);
+				local_process_error(szFseek,__LINE__ - 5);
+				exit(EXIT_FAILURE);
+			}
+
+			long l_fSize = ftell(fpHttp);
+			if (-1 == l_fSize)
+			{
+				char szFtell[80];
+				sprintf(szFtell, "ftell failed (errno=%d)",errno);
+				local_process_error(szFtell,__LINE__ - 3);
+				exit(EXIT_FAILURE);
+			}
+
+			if (0l != l_fSize)
+			{
+				strcpy(gpSh->m_pShMemng->szProtocol, "http://");
+			}
+			else
+			{
+				local_process_error("Unable to determine protocol",__LINE__);
+				exit(EXIT_FAILURE);
+			}
+		}
+
+	}
+
+
 
 	/********************************************************************
 	 * Determine the publically visible IPv4 number of the host system
