@@ -433,6 +433,10 @@ void dashboard::navbar(
     std::cout << "</td><td>" << std::endl;
     //gpHtml->ahref("http://localhost/bd", "btn_blueray.png", xy,xy);
     gpHtml->ahref("http://localhost/dvd", "btn_dvd.png", xy,xy);
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://santamaria.craigslist.org/", "btn_craigslist.png", xy,xy);
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://mail.google.com/mail/u/1/#inbox", "btn_gmail.png", xy,xy);
     std::cout << "</td></tr></table>" << std::endl;
 }
 

@@ -300,6 +300,8 @@ environment::environment()
 	 * Determine the local IPv4 number of the host system and save in the
 	 * shared memory segment. The parameter is a boolean indicating whether
 	 * debug information should be generated.
+	 * Note: The szIface must be value before this function runs or you
+	 * get the localhost IP of 127.0.0.1 instead of the actual IP.
      ***********************************************************************/
 	if (0 == strlen(gpSh->m_pShMemng->szIP))
 	{
