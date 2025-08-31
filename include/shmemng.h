@@ -53,9 +53,10 @@ struct MFW_SHMEMNG_T {
     char szIface[IFNAMSIZ];
     char szProtocol[INET_PROT_NAME_MAX];
     char szCgiRoot[INET_URL_SIZE_MAX];
+    char szHtmlRoot[INET_URL_SIZE_MAX];
     char szImgRoot[INET_URL_SIZE_MAX];
 
-    char szStylesRoot[INET_URL_SIZE_MAX];
+//    char szStylesRoot[INET_URL_SIZE_MAX];
     char szStylesFileRoot[INET_URL_SIZE_MAX];
  //   char szTmpRoot[FILENAME_MAX];
 

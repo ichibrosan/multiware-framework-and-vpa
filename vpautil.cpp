@@ -42,7 +42,7 @@ int main(int argc, char** argv)
     log.write(__PRETTY_FUNCTION__);
 
     sine();
-    cliLogin::checkPreviousLogin(gpOS->genIniFQFS());
+    cliLogin::checkPreviousLogin();
 
     if (argc > 1)
     {

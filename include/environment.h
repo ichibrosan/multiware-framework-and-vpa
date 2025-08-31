@@ -406,25 +406,7 @@ public:
 	 *************************************************************************/
 	void set_img_root(bool bDebug);
 
-	/************************************************************************
-	 * Retrieves the root directory path where style files are stored.
-	 *
-	 * This method is typically used to obtain the base path for styles that
-	 * can be used in various components of an application.
-	 *
-	 * @return A string representing the root directory path for styles.
-	 *************************************************************************/
-	std::string get_styles_root(bool bDebug);
 
-	/************************************************************************
-	 * Sets the root directory for fetching style files.
-	 *
-	 * This method defines the base directory path from where style-related
-	 * resources can be accessed.
-	 *
-	 * @param stylesRoot A string representing the root directory of styles.
-	 *************************************************************************/
-	void set_styles_root(bool bDebug);
 
 	/***************************************************************************
 	 * Retrieves the root file path for styles.

@@ -756,7 +756,7 @@ void cgihtml::dump_shm_vars()
     emit_shm("szRpcUuid",gpSh->m_pShMemng->szRpcUuid);
     emit_shm("szSourceFQDS",gpSh->m_pShMemng->szSourceFQDS);
     emit_shm("szStatus",gpSh->m_pShMemng->szStatus);
-    emit_shm("szStylesRoot",gpSh->m_pShMemng->szStylesRoot);
+    emit_shm("szStylesRoot",gpSh->m_pShMemng->szStylesFQDS);
     emit_shm("szTempFQDS",gpSh->m_pShMemng->szTempFQDS);
     emit_shm("szUser",gpSh->m_pShMemng->szUser);
     emit_shm("szUserdirFQDS",gpSh->m_pShMemng->szUserdirFQDS);
@@ -1755,7 +1755,7 @@ void cgihtml::set_style(const char* pszStylesheet)
 {
     gpLog->writev("%s: %s() started",__FILE__, __FUNCTION__);
     printf("<link rel=\"stylesheet\" href=\"%s%s.css\"/>",
-           gpEnv->get_styles_root(false).c_str(),
+           gpSh->m_pShMemng->szStylesFQDS,
            pszStylesheet);
 }
 

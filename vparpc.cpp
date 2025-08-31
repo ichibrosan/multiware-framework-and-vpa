@@ -126,9 +126,6 @@ void vparpc::process(char* pszBuffer)
         handle_creds_request(pszBuffer, pWin);
         break;
 
-    case VPARPC_FUNC_URLS:
-        handle_urls_request(pszBuffer, pWin);
-        break;
 
     default:
         gpSysLog->loginfo("server at default, ignoring request");
@@ -396,41 +393,41 @@ void vparpc::handle_creds_request(char* buffer, window* pWin)
     }
 }
 
-
-void vparpc::handle_urls_request(char* buffer, window* pWin)
-{
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
-    gpSysLog->loginfo(__PRETTY_FUNCTION__);
-
-#ifdef DISPLAY_PROCESS_DETAILS
-    pWin->add_row("  Processing URLS request");
-#endif // DISPLAY_PROCESS_DETAILS
-
-    vparpc_request_urls_t* pReq = (vparpc_request_urls_t*)buffer;
-
-    if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid, (const char*)pReq->szAuth))
-    {
-        strcpy(pReq->szIP, gpSh->m_pShMemng->szIP);
-        strcpy(pReq->szCgiRoot, gpSh->m_pShMemng->szCgiRoot);
-        strcpy(pReq->szStylesRoot, gpSh->m_pShMemng->szStylesRoot);
-        pReq->eStatus = VPARPC_STATUS_OK;
-
-#ifdef DISPLAY_PROCESS_DETAILS
-        pWin->add_row("  Auth match, authentication successful");
-#endif // DISPLAY_PROCESS_DETAILS
-    }
-    else
-    {
-#ifdef DISPLAY_PROCESS_DETAILS
-        pWin->add_row("  Auth mismatch, authentication failed");
-#endif // DISPLAY_PROCESS_DETAILS
-
-        pReq->eStatus = VPARPC_STATUS_AUTH_FAILED;
-    }
-}
-
+//
+// void vparpc::handle_urls_request(char* buffer, window* pWin)
+// {
+//     CLog log(__FILE__, __FUNCTION__);
+//     log.write(__PRETTY_FUNCTION__);
+//
+//     gpSysLog->loginfo(__PRETTY_FUNCTION__);
+//
+// #ifdef DISPLAY_PROCESS_DETAILS
+//     pWin->add_row("  Processing URLS request");
+// #endif // DISPLAY_PROCESS_DETAILS
+//
+//     vparpc_request_urls_t* pReq = (vparpc_request_urls_t*)buffer;
+//
+//     if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid, (const char*)pReq->szAuth))
+//     {
+//         strcpy(pReq->szIP, gpSh->m_pShMemng->szIP);
+//         strcpy(pReq->szCgiRoot, gpSh->m_pShMemng->szCgiRoot);
+//         strcpy(pReq->szStylesRoot, gpSh->m_pShMemng->szStylesRoot);
+//         pReq->eStatus = VPARPC_STATUS_OK;
+//
+// #ifdef DISPLAY_PROCESS_DETAILS
+//         pWin->add_row("  Auth match, authentication successful");
+// #endif // DISPLAY_PROCESS_DETAILS
+//     }
+//     else
+//     {
+// #ifdef DISPLAY_PROCESS_DETAILS
+//         pWin->add_row("  Auth mismatch, authentication failed");
+// #endif // DISPLAY_PROCESS_DETAILS
+//
+//         pReq->eStatus = VPARPC_STATUS_AUTH_FAILED;
+//     }
+// }
+//
 
 /**
  * @brief Starts a TCP server that listens for incoming connections on a

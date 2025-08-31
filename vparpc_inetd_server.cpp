@@ -362,63 +362,6 @@ void handle_creds_request(char* buffer, window* pWin)
 }
 
 
-/**
- * Handles the processing of a URL request by validating authentication details
- * and populating the request structure with required system values.
- *
- * @param buffer A pointer to a buffer containing the incoming URL request data.
- *               Expected to be formatted as a vparpc_request_urls_t structure.
- * @param pWin A pointer to a window object used for displaying log information
- *             (if DISPLAY_PROCESS_DETAILS is enabled).
- */
-void handle_urls_request(char* buffer, window* pWin)
-{
-    CLog log(__FILE__, __FUNCTION__);
-    log.write(__PRETTY_FUNCTION__);
-
-    gpSysLog->loginfo(__PRETTY_FUNCTION__);
-
-#ifdef DISPLAY_PROCESS_DETAILS
-    pWin->add_row("  Processing URLS request");
-#endif // DISPLAY_PROCESS_DETAILS
-
-    vparpc_request_urls_t* pReq = (vparpc_request_urls_t*)buffer;
-
-    if (0 == strcmp(gpSh->m_pShMemng->szRpcUuid, (const char*)pReq->szAuth))
-    {
-#ifdef DISPLAY_PROCESS_DETAILS
-        pWin->add_row("  Auth match, authentication successful");
-#endif // DISPLAY_PROCESS_DETAILS
-
-        strcpy(pReq->szIP,
-               gpSh->m_pShMemng->szIP);
-#ifdef DISPLAY_PROCESS_DETAILS
-        pWin->add_row("  szIP: " + std::string(pReq->szIP
-#endif // DISPLAY_PROCESS_DETAILS
-
-        strcpy(pReq->szCgiRoot,
-               gpSh->m_pShMemng->szCgiRoot);
-#ifdef DISPLAY_PROCESS_DETAILS
-        pWin->add_row("  szCgiRoot: " + std::string(pReq->szCgiRoot));
-#endif // DISPLAY_PROCESS_DETAILS
-
-        strcpy(pReq->szStylesRoot,
-               gpSh->m_pShMemng->szStylesRoot);
-#ifdef DISPLAY_PROCESS_DETAILS
-        pWin->add_row("  szStylesRoot: " + std::string(pReq->szStylesRoot));
-#endif // DISPLAY_PROCESS_DETAILS
-
-        pReq->eStatus = VPARPC_STATUS_OK;
-    }
-    else
-    {
-#ifdef DISPLAY_PROCESS_DETAILS
-        pWin->add_row("  Auth mismatch, authentication failed");
-#endif // DISPLAY_PROCESS_DETAILS
-
-        pReq->eStatus = VPARPC_STATUS_AUTH_FAILED;
-    }
-}
 
 
 /**
@@ -473,10 +416,6 @@ void process(char* pszBuffer)
         handle_creds_request(pszBuffer, pWin);
         break;
 
-    case VPARPC_FUNC_URLS:
-        gpSysLog->loginfo("VPA RPC: URLS");
-        handle_urls_request(pszBuffer, pWin);
-        break;
 
     default:
         break;

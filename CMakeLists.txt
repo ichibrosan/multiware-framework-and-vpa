@@ -69,40 +69,40 @@ add_library(mwfw2 STATIC
 # whistles and doesn't need to instantiate the kitchen sink as does the mwfw2 #
 # library.                                                                    #
 ###############################################################################
-add_library(mwfw2inst STATIC
-        mwfw2.cpp include/mwfw2.h
-       include/cgicc.h include/version.h
-        cfgini.cpp include/cfgini.h
-       cgibind.cpp include/cgibind.h
-       cgihtml.cpp include/cgihtml.h
-       checkAuth.cpp include/checkAuth.h
-       cliLogin.cpp include/cliLogin.h
-       CLog.cpp include/CLog.h
-        config.cpp include/config.h
-        crtbind.cpp include/crtbind.h
-        CSysLog.cpp include/CSysLog.h
-       dashboard.cpp include/dashboard.h
-        dotconfig.cpp include/dotconfig.h
-        environment.cpp include/environment.h
-        ichibrosan.cpp include/ichibrosan.h
-       iHex.cpp include/iHex.h
-        installer.cpp include/installer.h
-       mutations.cpp include/mutations.h
-        osIface.cpp include/osIface.h
-       password.cpp include/password.h
-        readCsv.cpp include/readCsv.h
-        semigraphics.cpp include/semigraphics.h
-        shared.cpp include/shared.h
-       shMemMutex.cpp include/shMemMutex.h
-       shMemMgr.cpp include/shMemMgr.h
-       schema.cpp include/schema.h
-       schemaCompiler.cpp include/schemaCompiler.h
-       stylist.cpp include/stylist.h
-       vparpc.cpp include/vparpc.h
-        window.cpp include/window.h
-        xinetdctl.cpp include/xinetdctl.h
-       cliLogin.cpp include/cliLogin.h
-)
+#add_library(mwfw2inst STATIC
+#        mwfw2.cpp include/mwfw2.h
+#       include/cgicc.h include/version.h
+#        cfgini.cpp include/cfgini.h
+#       cgibind.cpp include/cgibind.h
+#       cgihtml.cpp include/cgihtml.h
+#       checkAuth.cpp include/checkAuth.h
+#       cliLogin.cpp include/cliLogin.h
+#       CLog.cpp include/CLog.h
+#        config.cpp include/config.h
+#        crtbind.cpp include/crtbind.h
+#        CSysLog.cpp include/CSysLog.h
+#       dashboard.cpp include/dashboard.h
+#        dotconfig.cpp include/dotconfig.h
+#        environment.cpp include/environment.h
+#        ichibrosan.cpp include/ichibrosan.h
+#       iHex.cpp include/iHex.h
+#        installer.cpp include/installer.h
+#       mutations.cpp include/mutations.h
+#        osIface.cpp include/osIface.h
+#       password.cpp include/password.h
+#        readCsv.cpp include/readCsv.h
+#        semigraphics.cpp include/semigraphics.h
+#        shared.cpp include/shared.h
+#       shMemMutex.cpp include/shMemMutex.h
+#       shMemMgr.cpp include/shMemMgr.h
+#       schema.cpp include/schema.h
+#       schemaCompiler.cpp include/schemaCompiler.h
+#       stylist.cpp include/stylist.h
+#       vparpc.cpp include/vparpc.h
+#        window.cpp include/window.h
+#        xinetdctl.cpp include/xinetdctl.h
+#       cliLogin.cpp include/cliLogin.h
+#)
 
 add_executable(admin.cgi admin.cpp
         ichibrosan.cpp
@@ -141,14 +141,14 @@ add_executable(init_xinetd_vpa init_xinetd_vpa.cpp
 )
 target_link_libraries(init_xinetd_vpa PRIVATE mwfw2 cgicc pthread uuid)
 
-add_executable(installer installer.cpp
-        CServices.cpp include/CServices.h
-        include/xinetdcfg.h
-        xinetdcfg.cpp
-        cliLogin.cpp include/cliLogin.h
-        include/installer.h
-)
-target_link_libraries(installer PRIVATE mwfw2inst cgicc pthread uuid)
+#add_executable(installer installer.cpp
+#        CServices.cpp include/CServices.h
+#        include/xinetdcfg.h
+#        xinetdcfg.cpp
+#        cliLogin.cpp include/cliLogin.h
+#        include/installer.h
+#)
+#target_link_libraries(installer PRIVATE mwfw2inst cgicc pthread uuid)
 
 
 add_executable(iphone.cgi iPhone.cpp)
@@ -207,6 +207,7 @@ add_executable(vpautil vpautil.cpp
 )
 target_link_libraries(vpautil PRIVATE mwfw2 cgicc pthread uuid)
 
+#add_subdirectory(Google_tests)
 
 ###############
 # end-of-file #

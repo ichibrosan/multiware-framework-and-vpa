@@ -32,7 +32,7 @@ public:
     static bool isLoginExpired(const std::string& lastLoginStr);
     static std::string getPassword();
     static void queryUserForLogin(cfgini& config);
-    static void checkPreviousLogin(const std::string& configPath);
+    static void checkPreviousLogin();
 };
 
 #endif // cliLogin_H

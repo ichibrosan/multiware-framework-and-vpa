@@ -511,6 +511,21 @@ environment::environment()
 		strcpy(gpSh->m_pShMemng->szCgiRoot, ssCgiRoot.c_str());
 	}
 
+
+	if (0 == strlen(gpSh->m_pShMemng->szHtmlRoot))
+	{
+		std::string ssHtmlRoot = gpSh->m_pShMemng->szProtocol;
+		ssHtmlRoot.append(gpSh->m_pShMemng->szIP);
+		ssHtmlRoot.append("/~");
+		ssHtmlRoot.append(gpSh->m_pShMemng->szUser);
+		ssHtmlRoot.append("/fw/html/");
+		strcpy(gpSh->m_pShMemng->szHtmlRoot, ssHtmlRoot.c_str());
+	}
+
+
+
+
+
 	/********************************************************************
 	 * Create the base URL for accessing images
 	 * for instance: "http://172.20.10.4/~doug/fw/images/"
@@ -519,16 +534,6 @@ environment::environment()
 	{
 		//m_pSysLog->loginfo("environment::environment: Extracting szImgRoot");
 		set_img_root(false);
-	}
-
-	/********************************************************************
-	 * Create the base URL for accessing styles
-	 * for instance: "http://172.20.10.4/~doug/fw/styles/"
-     ***********************************************************************/
-	if (0 == strlen(gpSh->m_pShMemng->szStylesRoot))
-	{
-		//m_pSysLog->loginfo("environment::environment: Extracting szStylesRoot");
-		set_styles_root(false);
 	}
 
 	/********************************************************************
@@ -779,43 +784,8 @@ void environment::set_img_root(bool bDebug)
 	strcpy(gpSh->m_pShMemng->szImgRoot, ssImgRoot.c_str());
 }
 
-/**
- * @brief Retrieves the root directory path for styles.
- *
- * This function is used to fetch the base directory where style-related files
- * are stored. This is commonly used to resolve paths for styles and themes in
- * an application.
- *
- * @return A string representing the root directory path for styles.
- */
-std::string environment::get_styles_root(bool bDebug)
-{
-	std::string ssStylesRoot = gpSh->m_pShMemng->szStylesRoot;
-	return ssStylesRoot;
-}
 
-/**
- * Sets the root path for style files used within the application.
- *
- * This function updates the root directory where the application's style files
- * are located. The specified path is used as a base for resolving style-related
- * resources. It is the caller's responsibility to ensure that the path is valid
- * and accessible.
- *
- * @param path A string representing the root path for style files.
- *
- * @note Ensure that the provided path is properly formatted and accessible
- *       to prevent any resource loading issues in the application.
- */
-void environment::set_styles_root(bool bDebug)
-{
-	std::string ssStylesRoot = gpSh->m_pShMemng->szProtocol;
-	ssStylesRoot.append(gpSh->m_pShMemng->szIP);
-	ssStylesRoot.append("/~");
-	ssStylesRoot.append(gpSh->m_pShMemng->szUser);
-	ssStylesRoot.append("/fw/styles/");
-	strcpy(gpSh->m_pShMemng->szStylesRoot, ssStylesRoot.c_str());
-}
+
 
 /**
  * Retrieves the root directory for the styles file.

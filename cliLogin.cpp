@@ -141,9 +141,9 @@ void cliLogin::queryUserForLogin(cfgini& config)
     // }
 }
 
-void cliLogin::checkPreviousLogin(const std::string& configPath)
+void cliLogin::checkPreviousLogin()
 {
-    cfgini config(configPath);
+    cfgini config(gpSh->m_pShMemng->szConfigFQFS);
 
     // Try to load existing config
     if (!config.load())

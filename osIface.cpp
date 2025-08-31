@@ -12,16 +12,6 @@
 
 //"/home/doug/.config/multiware/config.ini");
 
-std::string osIface::genIniFQFS()
-{
-    std::string ssFQFS = "/home/";
-    ssFQFS.append(getenv("LOGNAME"));
-    ssFQFS.append("/.config/multiware/config.ini");
-    return ssFQFS;
-}
-
-
-
 /************************************************************************
  * Function: osIface::printBinary
  *
@@ -92,7 +82,6 @@ char gszUrl[FILENAME_MAX];
  ************************************************************************/
 osIface::osIface()
 {
-    gpLog->write("osIface instantiated");
 }
 
 
@@ -199,12 +188,12 @@ std::string osIface::file2filenamesansext(const char* pszFile)
  * @param bDebug A boolean flag that can be used for debug-specific
  *                   functionality.
  * @return The generated file path as a string.
- */
+ * Note: 2025-08-30 rewritten to use szImgFQDS
+*/
 std::string osIface::genImgPath(const char* pszImgName, bool bDebug)
 {
     std::string ssPath = __FILE__;
-    ssPath = std::filesystem::path(ssPath).remove_filename();
-    ssPath.append("/images/");
+    ssPath = gpSh->m_pShMemng->szImgFQDS;
     ssPath.append(pszImgName);
     return ssPath;
 }
@@ -271,16 +260,8 @@ std::string osIface::genImgUrl(const char* pszImgName)
  ************************************************************************/
 const char* osIface::genScriptFQFS(const char* pszFile, bool bDebug)
 {
-    CLog log(__FILE__, __FUNCTION__);
-    log.truncate();
     std::string ssFile = pszFile;
-    if (bDebug) { std::cerr << "ssFile      is " << ssFile << std::endl; }
-    std::string ssPath = "/home/";
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append(gpSh->m_pShMemng->szUser);
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
-    ssPath.append("/public_html/fw/scripts/");
-    if (bDebug) { std::cerr << "ssPath      is " << ssPath << std::endl; }
+    std::string ssPath = gpSh->m_pShMemng->szScriptsFQDS;
     ssPath.append(pszFile);
     strcpy(gszPath, ssPath.c_str());
     return gszPath;
@@ -307,98 +288,22 @@ const char* osIface::genScriptFQFS(const char* pszFile, bool bDebug)
 std::string osIface::genCurlCgiBinUrl(const char* pszCgiName,
                                       bool bDebug)
 {
-    if (bDebug)
-    {
-        std::cout << __FUNCTION__ << " called" << std::endl;
-    }
-
     // system("curl http://daphne.goodall.com/~doug/fw/cgi-bin/fw-test3.py"
     //        "> /tmp/fw-test3.stdout 2> /tmp/fw-test3.stderr");
 
     std::string ssCommand;
 
     ssCommand.append("curl "); // curl
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
-    // fetch the appropriate protocol based on host (kludge)
-    ssCommand.append(gpSh->m_pShMemng->szProtocol); // http://
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
-    ssCommand.append(gpSh->m_pShMemng->szIP); // daphne.goodall.com
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
-    ssCommand.append("/~"); // /~
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
-    //ssCommand.append(getenv("LOGNAME"));           // doug
-    ssCommand.append(gpSh->m_pShMemng->szUser);
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
-    ssCommand.append("/fw/cgi-bin/"); // /fw/cgi-bin/
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
+    ssCommand.append(gpSh->m_pShMemng->szCgiRoot);
     ssCommand.append(pszCgiName); // fw-test3.py
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
     ssCommand.append(" > /tmp/"); // > /tmp/
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
     ssCommand.append(pszCgiName); // fw-test3.py
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
     ssCommand = std::filesystem::path(ssCommand)
         .replace_extension(".stdout"); // fw-test3.stdout
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
     ssCommand.append(" 2> /tmp/"); // 2> /tmp/
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
     ssCommand.append(pszCgiName); // fw-test3.py
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
     ssCommand = std::filesystem::path(ssCommand)
         .replace_extension(".stderr"); // fw-test3.stderr
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
-
     return ssCommand;
 }
 
@@ -423,53 +328,14 @@ std::string osIface::genCurlCgiBinUrl(const char* pszCgiName,
 std::string osIface::genCgiBinUrl(const char* pszCgiName,
                                   bool bDebug)
 {
-    if (bDebug)
-    {
-        std::cout << __FUNCTION__ << " called" << std::endl;
-    }
-
     // system("curl http://daphne.goodall.com/~doug/fw/cgi-bin/fw-test3.py"
     //        "> /tmp/fw-test3.stdout 2> /tmp/fw-test3.stderr");
 
     std::string ssURL;
 
     // fetch the appropriate protocol based on host (kludge)
-    ssURL.append(gpSh->m_pShMemng->szProtocol); // http://
-    if (bDebug)
-    {
-        std::cout << ssURL << std::endl;
-    }
-
-    ssURL.append(gpSh->m_pShMemng->szIP); // daphne.goodall.com
-    if (bDebug)
-    {
-        std::cout << ssURL << std::endl;
-    }
-
-    ssURL.append("/~"); // /~
-    if (bDebug)
-    {
-        std::cout << ssURL << std::endl;
-    }
-
-    //ssCommand.append(getenv("LOGNAME"));           // doug
-    ssURL.append(gpSh->m_pShMemng->szUser);
-    if (bDebug)
-    {
-        std::cout << ssURL << std::endl;
-    }
-
-    ssURL.append("/fw/cgi-bin/"); // /fw/cgi-bin/
-    if (bDebug)
-    {
-        std::cout << ssURL << std::endl;
-    }
-
+    ssURL.append(gpSh->m_pShMemng->szCgiRoot);
     ssURL.append(pszCgiName); // fw-test3.py
-    if (bDebug)
-    {
-        std::cout << ssURL << std::endl;
-    }
 
     return ssURL;
 }
@@ -495,10 +361,6 @@ std::string osIface::genCgiBinUrl(const char* pszCgiName,
 std::string osIface::genHtmlUrl(const char* pszPageName,
                                 bool bDebug)
 {
-    if (bDebug)
-    {
-        std::cout << __FUNCTION__ << " called" << std::endl;
-    }
 
     //system("curl http://daphne.goodall.com/~doug/fw/html/fw-test1.html "
     //"> /tmp/fw-test1.stdout 2> /tmp/fw-test1.stderr");
@@ -507,10 +369,6 @@ std::string osIface::genHtmlUrl(const char* pszPageName,
     std::string ssCommand;
 
     ssCommand.append("curl "); // curl
-    if (bDebug)
-    {
-        std::cout << ssCommand << std::endl;
-    }
 
     // fetch the appropriate protocol based on host (kludge)
     ssCommand.append(gpSh->m_pShMemng->szProtocol); // http://

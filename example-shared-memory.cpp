@@ -219,9 +219,8 @@ int main(int argc, char** argv)
     pWin->add_row("");
     pWin->add_row("=== WEB SERVER ROOTS ===");
     pWin->add_row(std::string("szCgiRoot:        ") + gpSh->m_pShMemng->szCgiRoot);
-    pWin->add_row(std::string("szImgRoott:       ") + gpSh->m_pShMemng->szImgRoot);
-    pWin->add_row(std::string("szStylesRoot:     ") + gpSh->m_pShMemng->szStylesRoot);
-    pWin->add_row(std::string("szStylesFileRoot: ") + gpSh->m_pShMemng->szStylesFileRoot);
+    pWin->add_row(std::string("szHtmlRoot:       ") + gpSh->m_pShMemng->szImgRoot);
+    pWin->add_row(std::string("szImgRoot:        ") + gpSh->m_pShMemng->szImgRoot);
 
     // RPC and Remote information
     pWin->add_row("");
