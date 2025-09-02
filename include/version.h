@@ -10,14 +10,14 @@
 #define RCOPR     "Creative Commons CC0 1.0 Universal Public Domain License"
 #define RCOMPANY            "MultiWare Engineering"
 #define RPRODUCT            "VPA"
-#define RIDEVER             "CLion 2025.2"
-#define RIDE                "CLion 2025.2"
+#define RIDEVER             "CLion 2025.2.1"
+#define RIDE                "CLion 2025.2.1"
 #define RMAJ                5
 #define RMIN                8
-#define RREV                25
-#define RBLD                19
-#define RSTRING             "5.8.25.19"
-#define RSHORT              "5.8.25"
+#define RREV                30
+#define RBLD                0
+#define RSTRING             "5.8.31.0"
+#define RSHORT              "5.8.31"
 #define RLONG               RSTRING
 #define RDATE               __DATE__
 #define RTIME               __TIME__

@@ -36,6 +36,20 @@ void xinetcfg::initializeDefaultServices()
     vpaService.server = "/home/devo/public_html/fw/bin/vparpc_inetd_server";
     vpaServices.push_back(vpaService);
 
+    // VPA Discovery Daemon Start Service
+    XinetdServiceConfig vpaDiscovery;
+    vpaDiscovery.serviceName = "vpa-disc";
+    vpaDiscovery.port = "5164";
+    vpaDiscovery.disable = "no";
+    vpaDiscovery.id = "vpa-disc";
+    vpaDiscovery.socketType = "dgram";
+    vpaDiscovery.protocol = "udp";
+    vpaDiscovery.user = "1000";
+    vpaDiscovery.wait = "no";
+    vpaDiscovery.server = "/home/devo/public_html/fw/bin/discovery_inetd_server";
+    vpaServices.push_back(vpaDiscovery);
+
+
     // VPA Daemon Start Service
     XinetdServiceConfig vpadStartService;
     vpadStartService.serviceName = "vpad-start";
