@@ -61,7 +61,7 @@ main(int argc, char** argv)
     std::string ssPassword = gpCgiBind->get_form_variable("pwname");
     gpSchema = new schema("prefs.csv");
     gpSchema->gen_from_schema(handle,
-                              JOURNAL | LOGOUT,__FILE__, ssUsername,
+                              ABOUT | LOGOUT,__FILE__, ssUsername,
                               ssPassword);
 
     if (pMwfw->isCGI())

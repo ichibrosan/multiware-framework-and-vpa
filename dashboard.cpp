@@ -391,14 +391,25 @@ void dashboard::navbar(
         }
 #endif // SHOW_ENVVAR_BUTTONS
 
-        std::cout << "</tr>" << std::endl;
+        // std::cout << "</tr>" << std::endl;
+
         // gpHtml->ahref("http://127.0.0.1/~doug/fw/html/project.html",
         //               "btn_doc.png", 150, 38);
         // icons++;
         //
         // std::cout << "</td></tr>" << std::endl;
+     }
+
+    if (buttons & ABOUT)
+    {
+        std::cout << "<td>" << std::endl;
+        std::string ssCgiAbout = form_cgi("about.cgi", handle);
+        gpHtml->ahref(ssCgiAbout.c_str(), "btn_about.png", 150, 38);
+        std::cout << "</td>" << std::endl;
+        icons++;
     }
 
+    std::cout << "</tr>" << std::endl;
     std::cout << "</table>" << std::endl;
 
     /*

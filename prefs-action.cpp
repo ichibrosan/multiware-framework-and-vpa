@@ -59,7 +59,7 @@ int main()
 
     stylist* pStylist = new stylist(h);
 
-    gpDash = new dashboard(h, JOURNAL | LOGOUT,__FILE__,
+    gpDash = new dashboard(h, ABOUT | LOGOUT,__FILE__,
                            ssUsername, ssPassword);
     gpSchema->gen_from_schema(CFG_HANDLE_NA);
     // if(pMwFw->isCGI()) {

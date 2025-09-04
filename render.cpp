@@ -49,7 +49,7 @@ int main()
     else
     {
         gpSchema->gen_from_schema(handle,
-                                  JOURNAL | LOGOUT,
+                                  ABOUT | LOGOUT,
                                   __FILE__,
                                   ssUsername,
                                   ssPassword,

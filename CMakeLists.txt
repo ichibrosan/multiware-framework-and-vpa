@@ -186,6 +186,8 @@ add_executable(structures structures.cpp
 )
 target_link_libraries(structures PRIVATE mwfw2 cgicc pthread uuid)
 
+add_executable(view_shared view_shared.cpp)
+target_link_libraries(view_shared PRIVATE mwfw2 pthread uuid cgicc)
 
 add_executable(vparpc_client
         vparpc_client.cpp include/vparpc_client.h

@@ -289,7 +289,7 @@ int main()
      * @param ssUsername Username for session context
      * @param ssPassword Password for session context
      */
-    gpSchema->gen_from_schema(handle, ADMIN | SHUTDOWN | PREFS | JOURNAL | LOGOUT,
+    gpSchema->gen_from_schema(handle, ABOUT | ADMIN | SHUTDOWN | PREFS | LOGOUT,
                               __FILE__, ssUsername, ssPassword);
 
     /**

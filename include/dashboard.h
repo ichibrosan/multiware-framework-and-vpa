@@ -9,7 +9,7 @@
 #pragma once
 
 enum {
-    JOURNAL = 1<<0,
+    ABOUT   = 1<<0,
     LOGOUT  = 1<<1,
     MENU    = 1<<2,
 	PREFS   = 1<<3,
