@@ -104,6 +104,9 @@ add_library(mwfw2inst STATIC
        cliLogin.cpp include/cliLogin.h
 )
 
+add_executable(about.cgi about.cpp)
+target_link_libraries(about.cgi PRIVATE mwfw2 cgicc uuid)
+
 add_executable(admin.cgi admin.cpp
         ichibrosan.cpp
         include/ichibrosan.h

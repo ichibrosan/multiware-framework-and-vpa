@@ -281,7 +281,6 @@ void dashboard::navbar(
             std::cout << "</tr><tr>" << std::endl;
         }
 
-#ifdef SHOW_SCHEMA_BUTTONS
         if (gpSh->m_pShMemng->bDisplaySchema)
         {
             std::cout << "<td>" << std::endl;
@@ -312,7 +311,6 @@ void dashboard::navbar(
             icons++;
 
         }
-#endif // SHOW_SCHEMA_BUTTONS
 
         if (icons == 4)
         {
@@ -320,7 +318,6 @@ void dashboard::navbar(
         }
 
 
-#ifdef SHOW_SHMVAR_BUTTONS
         if (gpSh->m_pShMemng->bDisplayShmVars)
         {
             std::cout << "<td>" << std::endl;
@@ -351,7 +348,6 @@ void dashboard::navbar(
             std::cout << "</td>" << std::endl;
             icons++;
         }
-#endif // SHOW_SHMVAR_BUTTONS
 
         if (icons == 4)
         {
@@ -359,7 +355,6 @@ void dashboard::navbar(
         }
 
 
-#ifdef SHOW_ENVVAR_BUTTONS
         if (gpSh->m_pShMemng->bDisplayEnvVars)
         {
             std::cout << "<td>" << std::endl;
@@ -389,15 +384,7 @@ void dashboard::navbar(
             std::cout << "</td>" << std::endl;
             icons++;
         }
-#endif // SHOW_ENVVAR_BUTTONS
 
-        // std::cout << "</tr>" << std::endl;
-
-        // gpHtml->ahref("http://127.0.0.1/~doug/fw/html/project.html",
-        //               "btn_doc.png", 150, 38);
-        // icons++;
-        //
-        // std::cout << "</td></tr>" << std::endl;
      }
 
     if (buttons & ABOUT)
