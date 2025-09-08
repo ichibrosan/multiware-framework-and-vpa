@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////
-// ~/public_html/fw/dashboard.cpp 2025-07-15 18:16 dwg -          //
+// ~/public_html/fw/dashboard.cpp 2025-09-08 11:22 dwg -          //
 // This file is part of MultiWare Engineering's VPA and FrameWork //
 ////////////////////////////////////////////////////////////////////
 // This file is made available under the                          //
@@ -126,7 +126,6 @@ dashboard::dashboard(
 
     std::cout << "<table border=1>" << std::endl;
 
-#ifdef SHOW_AUTHENTICATED_USERNAME
     if (bAuthenticated)
     {
         std::cout << "<tr>"
@@ -141,9 +140,7 @@ dashboard::dashboard(
             << "</tr>"
             << std::endl;
     }
-#endif // SHOW_AUTHENTICATED_USERNAME
 
-#ifdef SHOW_AUTHENTICATED_REAL_NAMES
     if (bAuthenticated)
     {
         std::cout << "<tr>"
@@ -159,9 +156,7 @@ dashboard::dashboard(
             << "</tr>"
             << std::endl;
     }
-#endif // SHOW_AUTHENTICATED_REAL_NAMES
 
-#ifdef SHOW_PRIVILEGE_LEVEL
     if (bAuthenticated)
     {
         std::cout << "<tr>"
@@ -171,9 +166,7 @@ dashboard::dashboard(
             << "</tr>"
             << std::endl;
     }
-#endif // SHOW_PRIVILEGE_LEVEL
 
-#ifdef SHOW_AUTHENTICATION_HANDLE
     if (bAuthenticated) {
         std::cout << "<tr>"
                   << "<th>Authentication Handle</th>"
@@ -181,7 +174,6 @@ dashboard::dashboard(
                   << "</tr>"
                   << std::endl;
     }
-#endif // SHOW_AUTHENTICATION_HANDLE
 
     std::cout << "</table>" << std::endl;
 
@@ -202,6 +194,118 @@ dashboard::dashboard(
 }
 
 
+/***************************************************************************
+ * @brief Establishes a connection to a server and sends a wake-up message.
+ *
+ * This method connects to a local server on a designated port, sends a
+ * predefined message ("Hello World!!"), and then closes the connection.
+ *
+ * The server host is identified by resolving "localhost". The connection
+ * is established using a TCP socket, and the port number is defined
+ * by the macro `VPA_PORT`. If any step of the execution fails (e.g.,
+ * socket creation, connection, or message sending), the method will print
+ * an error message and terminate the process with a specific exit code.
+ *
+ * Function process:
+ * 1. Resolves the "localhost" hostname to an IP address.
+ * 2. Initializes a `sockaddr_in` structure with server details,
+ *    including the port number and IP address in network byte order.
+ * 3. Creates a TCP socket.
+ * 4. Connects to the server using the initialized `sockaddr_in` structure.
+ * 5. Sends a predefined "Hello World!!" message to the server.
+ * 6. Closes the socket and terminates the session.
+ *
+ * @note This function directly exits the program on errors, making it
+ * unsuitable for exception-safe environments or usage in libraries.
+ ***************************************************************************/
+void dashboard::start_vpad()
+{
+#define USE_STREAM_SOCKET
+    //#define USE_DGRAM_SOCKET
+
+    // The attempt to use the DGRAM  to start the vpad didn't work
+
+    struct hostent* hostnm; /* server host name information        */
+    struct sockaddr_in server; /* server address                      */
+    int s; /* client socket                       */
+    hostnm = gethostbyname("localhost");
+
+    /*
+     * Put the server information into the server structure.
+     * The port must be put into network byte order.
+     */
+    server.sin_family = AF_INET; /* Address Family: Internet           */
+
+    /*
+     * Convert the port number from host to network byte order
+     */
+    server.sin_port = htons(VPAD_START_PORT);
+
+    /*
+     * Set the IP address of the target
+     */
+    server.sin_addr.s_addr = *((unsigned long*)hostnm->h_addr);
+
+    /*
+     * Get a socket.
+     */
+    if ((s = socket(AF_INET,
+#ifdef USE_STREAM_SOCKET
+                    SOCK_STREAM
+#endif
+#ifdef USE_DGRAM_SOCKET
+                            SOCK_DGRAM
+#endif
+                    , 0)) < 0)
+    {
+        printf("%s", "socket error");
+        exit(3);
+    }
+
+#ifdef USE_STREAM_SOCKET
+    /*
+     * Connect to the server.
+     */
+    if (connect(s, (struct sockaddr*)&server, sizeof(server)) < 0)
+    {
+        printf("%s", "connect error");
+        exit(4);
+    }
+#endif
+
+    /*
+     * Send a message to the destination to wake up xinetd
+     */
+    char szBuffer[] = {"Hello World!!"};
+#ifdef USE_STREAM_SOCKET
+    if (send(s, // socket descriptor
+             szBuffer, // output buffer
+             sizeof(szBuffer), // size of output buffer
+             0) < 0) // flags (none required)
+    {
+        printf("%s", "Send error");
+        exit(5);
+    }
+#endif
+#ifdef USE_DGRAM_SOCKET
+    sendto(s,                                   // socket descriptor
+           szBuffer,                            // output buffer
+           sizeof(szBuffer),                    // size of output buffer
+           0,                                   // flags (none required)
+           (const struct sockaddr *)&server,    // server structure of dest'n
+           server_address_length);              // size of server structure
+#endif
+
+    /*
+     * Close the session and socket
+     */
+    close(s);
+}
+
+// eof - dashboard.cpp //
+
+/////////////////////////
+/////////////////////////
 /***************************************************************************
  * Generates and displays navigation buttons for a web-based dashboard.
  * Based on the specified parameters, the function determines which buttons
@@ -385,7 +489,7 @@ void dashboard::navbar(
             icons++;
         }
 
-     }
+    }
 
     if (buttons & ABOUT)
     {
@@ -403,7 +507,7 @@ void dashboard::navbar(
      * Emit nav buttons for favorite browser destinations
      */
 
-// This is the perfect size for the bottom row of icons (browser icons)
+    // This is the perfect size for the bottom row of icons (browser icons)
 #define xy 83
 
     std::cout << "<table border=1>" << std::endl;
@@ -536,116 +640,3 @@ void dashboard::process_toggles(
         }
     }
 }
-
-
-/***************************************************************************
- * @brief Establishes a connection to a server and sends a wake-up message.
- *
- * This method connects to a local server on a designated port, sends a
- * predefined message ("Hello World!!"), and then closes the connection.
- *
- * The server host is identified by resolving "localhost". The connection
- * is established using a TCP socket, and the port number is defined
- * by the macro `VPA_PORT`. If any step of the execution fails (e.g.,
- * socket creation, connection, or message sending), the method will print
- * an error message and terminate the process with a specific exit code.
- *
- * Function process:
- * 1. Resolves the "localhost" hostname to an IP address.
- * 2. Initializes a `sockaddr_in` structure with server details,
- *    including the port number and IP address in network byte order.
- * 3. Creates a TCP socket.
- * 4. Connects to the server using the initialized `sockaddr_in` structure.
- * 5. Sends a predefined "Hello World!!" message to the server.
- * 6. Closes the socket and terminates the session.
- *
- * @note This function directly exits the program on errors, making it
- * unsuitable for exception-safe environments or usage in libraries.
- ***************************************************************************/
-void dashboard::start_vpad()
-{
-#define USE_STREAM_SOCKET
-    //#define USE_DGRAM_SOCKET
-
-    // The attempt to use the DGRAM  to start the vpad didn't work
-
-    struct hostent* hostnm; /* server host name information        */
-    struct sockaddr_in server; /* server address                      */
-    int s; /* client socket                       */
-    hostnm = gethostbyname("localhost");
-
-    /*
-     * Put the server information into the server structure.
-     * The port must be put into network byte order.
-     */
-    server.sin_family = AF_INET; /* Address Family: Internet           */
-
-    /*
-     * Convert the port number from host to network byte order
-     */
-    server.sin_port = htons(VPAD_START_PORT);
-
-    /*
-     * Set the IP address of the target
-     */
-    server.sin_addr.s_addr = *((unsigned long*)hostnm->h_addr);
-
-    /*
-     * Get a socket.
-     */
-    if ((s = socket(AF_INET,
-#ifdef USE_STREAM_SOCKET
-                    SOCK_STREAM
-#endif
-#ifdef USE_DGRAM_SOCKET
-                            SOCK_DGRAM
-#endif
-                    , 0)) < 0)
-    {
-        printf("%s", "socket error");
-        exit(3);
-    }
-
-#ifdef USE_STREAM_SOCKET
-    /*
-     * Connect to the server.
-     */
-    if (connect(s, (struct sockaddr*)&server, sizeof(server)) < 0)
-    {
-        printf("%s", "connect error");
-        exit(4);
-    }
-#endif
-
-    /*
-     * Send a message to the destination to wake up xinetd
-     */
-    char szBuffer[] = {"Hello World!!"};
-#ifdef USE_STREAM_SOCKET
-    if (send(s, // socket descriptor
-             szBuffer, // output buffer
-             sizeof(szBuffer), // size of output buffer
-             0) < 0) // flags (none required)
-    {
-        printf("%s", "Send error");
-        exit(5);
-    }
-#endif
-#ifdef USE_DGRAM_SOCKET
-    sendto(s,                                   // socket descriptor
-           szBuffer,                            // output buffer
-           sizeof(szBuffer),                    // size of output buffer
-           0,                                   // flags (none required)
-           (const struct sockaddr *)&server,    // server structure of dest'n
-           server_address_length);              // size of server structure
-#endif
-
-    /*
-     * Close the session and socket
-     */
-    close(s);
-}
-
-/////////////////////////
-// eof - dashboard.cpp //
-/////////////////////////
