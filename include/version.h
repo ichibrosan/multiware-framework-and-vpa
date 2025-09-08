@@ -13,11 +13,11 @@
 #define RIDEVER             "CLion 2025.2.1"
 #define RIDE                "CLion 2025.2.1"
 #define RMAJ                5
-#define RMIN                8
-#define RREV                30
+#define RMIN                9
+#define RREV                8
 #define RBLD                0
-#define RSTRING             "5.8.31.0"
-#define RSHORT              "5.8.31"
+#define RSTRING             "5.9.8.0"
+#define RSHORT              "5.9.8"
 #define RLONG               RSTRING
 #define RDATE               __DATE__
 #define RTIME               __TIME__
