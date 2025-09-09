@@ -27,4 +27,4 @@ The installer is still incomplete but will be invaluable when finished.
 I am still working on this project and most importantly,
 I am looking for ways to make it easier to install.
 
-<img height="564" src="/home/doug/public_html/fw/images/vpa-login.png" width="1066" height="564"/>
+<img height="564" src="images/vpa-login.png" width="1066" height="564"/>
