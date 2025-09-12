@@ -5,4 +5,4 @@ false,comment,This next line places our logo on the screen
 true,no,yes,image,our-office.png,400,150,my silver logo
 true,false,false,text,username,userid,doug,32,Username:,This is a text element
 true,yes,no,checkbox,isRegister,isRegister,false,I need to create an account
-true,yes,yes,ahref,http://www.cityofsantamariapayment.org/about-us/online-payments,http://192.168.4.17/~doug/fw/images/cosmp.png,72,72,,
+false,yes,yes,ahref,http://www.cityofsantamariapayment.org/about-us/online-payments,http://192.168.4.17/~doug/fw/images/cosmp.png,72,72,,
