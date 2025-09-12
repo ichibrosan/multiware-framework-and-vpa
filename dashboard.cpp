@@ -503,7 +503,7 @@ void dashboard::navbar(
      */
 
     // This is the perfect size for the bottom row of icons (browser icons)
-#define xy 83
+#define xy 72
 
     std::cout << "<table border=1>" << std::endl;
     std::cout << "<tr>" << std::endl;
@@ -523,8 +523,10 @@ void dashboard::navbar(
     gpHtml->ahref("https://www.amazon.com/gp/video/mystuff?ref=nav_em_ms_0_2_2_4", "btn_prime.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
     gpHtml->ahref("https://connect.raspberrypi.com", "btn_connectrpi.png", xy,xy);
-    std::cout << "</td>" << std::endl;
-    std::cout << "</tr>" << std::endl;
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.cityofsantamaria.org/about-us/online-payments", "btn_cosmp.png", xy,xy);
+
+    std::cout << "</td></tr>" << std::endl;
 
     std::cout << "<tr>" << std::endl;
     std::cout << "<td>" << std::endl;
