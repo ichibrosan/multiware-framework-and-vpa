@@ -7,3 +7,4 @@ false,false,false,text,username,userid,doug,32,Username:,enter username here
 false,no,yes,postcheckbox,isActive,isActive,checked,Active Duty
 false,yes,yes,label,This is a textarea element (below)
 false,no,yes,textarea,areaName,4,25
+true,yes,yes,ahref,http://www.cityofsantamaria.org/about-us/online-payments,btn_cosmp.png,72,72,,

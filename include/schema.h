@@ -132,6 +132,7 @@ enum SCHEMA_XAHREF_T
     COL_XAHREF_DISPLAY
 };
 
+
 /**
  * @enum SCHEMA_FORM_BUTTON_T
  * @brief Represents the column definitions for form button properties within the schema.

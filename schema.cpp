@@ -159,6 +159,18 @@ void schema::process_schema_data(std::vector<std::vector<std::string>>
                 gpHtml->para();
             }
 
+            // if type is ahref
+            if (0 == strcmp("ahref",
+                            gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
+            {
+                gpHtml->ahref(
+                    gpCsv->m_parsed_data[iRow][COL_AHREF_CGINAME].c_str(),
+                    gpCsv->m_parsed_data[iRow][COL_AHREF_IMGNAME].c_str(),
+                    atoi(gpCsv->m_parsed_data[iRow][COL_AHREF_WIDTH].c_str()),
+                    atoi(gpCsv->m_parsed_data[iRow][COL_AHREF_HEIGHT].c_str())
+                );
+            }
+
             // if type is xahref
             if (0 == strcmp("xahref",
                             gpCsv->m_parsed_data[iRow][COL_TYPE].c_str()))
