@@ -38,6 +38,11 @@ public:
     config();
 };
 
+//#define TREMORS_URL "https://www.amazon.com/gp/video/detail/0P52WOTX2RLYQ0VW1ROZY03U7V/ref=atv_dp_atf_est_hd_mv_resume_t1ACAAAAAA0wr0?autoplay=1&t=1"
+#define TREMORS_URL "https://www.amazon.com/gp/video/detail/0P52WOTX2RLYQ0VW1ROZY03U7V/ref=atv_plr_detail_play"
+
+
+
 ////////////////////
 // eof - config.h //
 ////////////////////

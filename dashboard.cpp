@@ -526,7 +526,9 @@ void dashboard::navbar(
     std::cout << "</td><td>" << std::endl;
     gpHtml->ahref("https://www.cityofsantamaria.org/about-us/online-payments", "btn_cosmp.png", xy,xy);
 
-    std::cout << "</td></tr>" << std::endl;
+    std::cout << "</td>" << std::endl;
+    std::cout << "</tr>" << std::endl;
+
 
     std::cout << "<tr>" << std::endl;
     std::cout << "<td>" << std::endl;
@@ -544,7 +546,34 @@ void dashboard::navbar(
     gpHtml->ahref("https://santamaria.craigslist.org/", "btn_craigslist.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
     gpHtml->ahref("https://mail.google.com/mail/u/1/#inbox", "btn_gmail.png", xy,xy);
-    std::cout << "</td></tr></table>" << std::endl;
+    std::cout << "</td></tr>" << std::endl;
+    std::cout << "<tr>" << std::endl;
+    std::cout << "<td>" << std::endl;
+
+#define TREMORS1 "https://www.amazon.com/gp/video/detail/0P52WOTX2RLYQ0VW1ROZY03U7V/ref=atv_dp_atf_est_hd_mv_wfb_t1ACAAAAAA0wr0?autoplay=1&t=0"
+    gpHtml->ahref(TREMORS1, "btn_tremors.png", xy,xy);
+
+#define TREMORS2 "https://www.amazon.com/gp/video/detail/0RMLEVZDB7NF3ZBP1FK2TVB7FA/ref=atv_dp_atf_est_hd_mv_wfb_t1ACAAAAAA0wr0?autoplay=1&t=0"
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref(TREMORS2, "btn_tremors2.png", xy,xy);
+
+#define TREMORS3 "https://www.amazon.com/gp/video/detail/0ST7XUZLKSMQCUWL610KBUYNAS/ref=atv_dp_atf_est_hd_mv_wfb_t1ACAAAAAA0wr0?autoplay=1&t=0"
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref(TREMORS3, "btn_tremors3.png", xy,xy);
+
+#define BEEKEEPER "https://www.amazon.com/gp/video/detail/0S9UDYC2L654QOFYVZYOK71AZ5/ref=atv_dp_atf_est_uhd_mv_wfb_t1BCAAAAAA0wr0?autoplay=1&t=0"
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref(BEEKEEPER, "btn_beekeeper.png", xy,xy);
+
+#define REDONE "https://www.amazon.com/gp/video/detail/0RNA7FGRLKHSV1BNM01TY8Q33T/ref=atv_dp_atf_prime_uhd_mv_wfb_t1AKAAAAAA0wr0?autoplay=1&t=0"
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref(REDONE, "btn_redone.png", xy,xy);
+
+
+
+    std::cout << "</td>" << std::endl;
+    std::cout << "</tr>" << std::endl;
+    std::cout << "</table>" << std::endl;
 }
 
 
