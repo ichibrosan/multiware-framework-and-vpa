@@ -565,6 +565,10 @@ void dashboard::navbar(
     std::cout << "</td><td>" << std::endl;
     gpHtml->ahref(BEEKEEPER, "btn_beekeeper.png", xy,xy);
 
+#define IRONMONKEY "https://www.amazon.com/gp/video/detail/0U8DDEVF0KYV0DMRLL32SY74A5/ref=atv_dp_atf_est_hd_mv_wfb_t1ACAAAAAA0wr0?autoplay=1&t=0"
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref(IRONMONKEY, "btn_ironmonkey.png", xy,xy);
+
 #define REDONE "https://www.amazon.com/gp/video/detail/0RNA7FGRLKHSV1BNM01TY8Q33T/ref=atv_dp_atf_prime_uhd_mv_wfb_t1AKAAAAAA0wr0?autoplay=1&t=0"
     std::cout << "</td><td>" << std::endl;
     gpHtml->ahref(REDONE, "btn_redone.png", xy,xy);
