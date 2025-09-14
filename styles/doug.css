@@ -106,37 +106,37 @@
 
    table
    {
-       color: #FFEFD5;
-       background: #6A5ACD;
+       color: #1F446710;
+       background: #1F446710;
    }
 
     body
     {
-        color: #FF00FF;
-        background: #90EE90;
+        color: #1F4466E0;
+        background: #1F4466F8;
     }
 
     tr
     {
-        color: #FFA500;
-        background: #EE82EE;
+        color: #1F446740;
+        background: #1F446758;
     }
 
     th
     {
-        color: #FFA500;
-        background: #FAF0E6;
+        color: #1F446770;
+        background: #1F446788;
     }
 
    .dashboard
     {
-        color: #00008B;
-        background: #ADD8E6;
+        color: #1F4467D0;
+        background: #1F4467E8;
     }
 
    td
     {
-        color: #000000;
-        background: #FAF0E6;
+        color: #1F4467A0;
+        background: #1F4467B8;
     }
 
