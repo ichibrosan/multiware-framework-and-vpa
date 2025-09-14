@@ -546,6 +546,10 @@ void dashboard::navbar(
     gpHtml->ahref("https://santamaria.craigslist.org/", "btn_craigslist.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
     gpHtml->ahref("https://mail.google.com/mail/u/1/#inbox", "btn_gmail.png", xy,xy);
+
+    // std::cout << "</td><td>" << std::endl;
+    // gpHtml->ahref("http://localhost/~doug/fw/scripts/spawn_clion.sh", "btn_clion.png", xy,xy);
+
     std::cout << "</td></tr>" << std::endl;
     std::cout << "</table>" << std::endl;
 }
