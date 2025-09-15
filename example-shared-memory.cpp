@@ -199,7 +199,7 @@ int main(int argc, char** argv)
     pWin->add_row("");
     pWin->add_row("=== USER INFORMATION ===");
     pWin->add_row(std::string("szUser:           ") + gpSh->m_pShMemng->szUser);
-    pWin->add_row(std::string("szHome:           ") + gpSh->m_pShMemng->szHome);
+    pWin->add_row(std::string("szHomeFQDS:           ") + gpSh->m_pShMemng->szHomeFQDS);
     pWin->add_row(std::string("szUserdirFQDS:    ") + gpSh->m_pShMemng->szUserdirFQDS);
     pWin->add_row(std::string("szSourceFQDS:     ") + gpSh->m_pShMemng->szSourceFQDS);
     pWin->add_row(std::string("szConfigFQDS:     ") + gpSh->m_pShMemng->szConfigFQDS);

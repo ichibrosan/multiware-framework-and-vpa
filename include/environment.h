@@ -218,7 +218,7 @@ public:
 	 *
 	 * @return The constructed home directory path for the current user.
 	 ****************************************************************************/
-	std::string construct_szHome();
+	std::string construct_szHomeFQDS();
 
 
 	std::string construct_szUserFQDS();

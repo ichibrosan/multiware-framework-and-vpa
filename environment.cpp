@@ -179,12 +179,12 @@ environment::environment()
 		strcpy(gpSh->m_pShMemng->szUser, ssTemp.c_str());
 	}
 
-	if (0 == strlen(gpSh->m_pShMemng->szHome))
+	if (0 == strlen(gpSh->m_pShMemng->szHomeFQDS))
 	{
 		std::string ssTemp = "/home/";
 		ssTemp.append(gpSh->m_pShMemng->szUser);
 		ssTemp.append("/");
-		strcpy(gpSh->m_pShMemng->szHome, ssTemp.c_str());
+		strcpy(gpSh->m_pShMemng->szHomeFQDS, ssTemp.c_str());
 	}
 
 	/********************************************************************
@@ -228,7 +228,7 @@ environment::environment()
 	if (0 == strlen(gpSh->m_pShMemng->szConfigFQDS))
 	{
 		// construct_szConfigFQDS();
-		std::string ssConfigFQDS = gpSh->m_pShMemng->szHome;
+		std::string ssConfigFQDS = gpSh->m_pShMemng->szHomeFQDS;
 		ssConfigFQDS.append(".config/multiware/");
 		strcpy(gpSh->m_pShMemng->szConfigFQDS, ssConfigFQDS.c_str());
 	}

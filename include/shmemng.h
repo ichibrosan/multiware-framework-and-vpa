@@ -22,32 +22,43 @@ struct MFW_SHMEMNG_T {
     char szDevoDir[FILENAME_MAX];
 
     // Fully Qualified Directory Specs for all Devo folders
+    //    A fully qualified directory spec is a path to a directory
+    //    that is relative to the root of the file system.
+    //    It includes a trailing forward slash so that a  filename
+    //    can be appended to it.
     char szBuildFQDS[FILENAME_MAX];
     char szCgiBinFQDS[FILENAME_MAX];
+    char szConfigFQDS[FILENAME_MAX];
     char szDocFQDS[FILENAME_MAX];
+    char szHomeFQDS[UT_NAMESIZE];
     char szImgFQDS[FILENAME_MAX];
     char szIncludeFQDS[FILENAME_MAX];
     char szLogFQDS[FILENAME_MAX];
     char szSchemasFQDS[FILENAME_MAX];
     char szScriptsFQDS[FILENAME_MAX];
+    char szSourceFQDS[FILENAME_MAX];
     char szStylesFQDS[FILENAME_MAX];
     char szTempFQDS[FILENAME_MAX];
-
-    char szUser[UT_NAMESIZE];
-    char szHome[UT_NAMESIZE];
     char szUserdirFQDS[UT_NAMESIZE];
-    char szSourceFQDS[FILENAME_MAX];
-    char szConfigFQDS[FILENAME_MAX];
-    char szConfigFQFS[FILENAME_MAX];
- //   char szLogFQDS[INET_URL_SIZE_MAX];
 
-    char szStatus[128];
+    // Fully Qualified File Specs for all Devo files
+    //    A fully qualified file spec is a path to a file
+    //    that is relative to the root of the file system.
+    //    It is ready as-is to be used in a file open call.
+    char szCgiBinFQFS[FILENAME_MAX];
+    char szConfigFQFS[FILENAME_MAX];
+
+    // Development Strings
+    char szHostname[DNS_FQDN_SIZE_MAX];
+    char szUser[UT_NAMESIZE];
+
+
+      char szStatus[128];
 
      // Items indexed by led_ofs_t (RTkGPIO.h)
     bool bLedCntl[17];          // for html generation and real I/O
 
      size_t stShMemSize;
-    char szHostname[DNS_FQDN_SIZE_MAX];
     char szIP[DNS_FQDN_SIZE_MAX];
     char szPublicIP[DNS_FQDN_SIZE_MAX];
     char szIface[IFNAMSIZ];

@@ -123,7 +123,7 @@ int main(int argc, char** argv)
     // User information section  
     pWin->add_row("=== USER & CONFIGURATION ===");
     pWin->add_row(std::string("User:             ") + gpSh->m_pShMemng->szUser);
-    pWin->add_row(std::string("Home:             ") + gpSh->m_pShMemng->szHome);
+    pWin->add_row(std::string("Home:             ") + gpSh->m_pShMemng->szHomeFQDS);
     pWin->add_row(std::string("User Directory:   ") + gpSh->m_pShMemng->szUserdirFQDS);
     pWin->add_row(std::string("Source:           ") + gpSh->m_pShMemng->szSourceFQDS);
     pWin->add_row(std::string("Config Dir:       ") + gpSh->m_pShMemng->szConfigFQDS);

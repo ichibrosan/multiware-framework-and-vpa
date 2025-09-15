@@ -737,10 +737,12 @@ void cgihtml::dump_shm_vars()
 
     emit_shm("szDevoDir",gpSh->m_pShMemng->szDevoDir);
 
+    emit_shm("szBuildFQDS",gpSh->m_pShMemng->szBuildFQDS);
+
     emit_shm("szCgiRoot",gpSh->m_pShMemng->szCgiRoot);
     emit_shm("szConfigFQDS",gpSh->m_pShMemng->szConfigFQDS);
     emit_shm("szConfigFQFS",gpSh->m_pShMemng->szConfigFQFS);
-    emit_shm("szHome",gpSh->m_pShMemng->szHome);
+    emit_shm("szHomeFQDS",gpSh->m_pShMemng->szHomeFQDS);
     emit_shm("szHostName",gpSh->m_pShMemng->szHostname);
     emit_shm("szIface",gpSh->m_pShMemng->szIface);
     emit_shm(">szImgRoot",gpSh->m_pShMemng->szImgRoot);
