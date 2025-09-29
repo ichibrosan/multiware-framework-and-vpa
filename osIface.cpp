@@ -230,6 +230,12 @@ std::string osIface::genImgUrl(const char* pszImgName)
     return ssUrl;
 }
 
+// std::string genIniFQFS()
+// {
+//     std::string ssIniFQFS = gpSh->m_pShMemng->szIniRoot;
+//     ssIniFQFS.append("config.ini");
+//     return ssIniFQFS;
+// }
 
 /************************************************************************
  * Function: osIface::genScriptFQFS

@@ -119,6 +119,9 @@ target_link_libraries(bluerays PRIVATE mwfw2)
 add_executable(discovery_inetd_server discovery_inetd_server.cpp)
 target_link_libraries(discovery_inetd_server PRIVATE mwfw2 cgicc pthread uuid)
 
+add_executable(example-cfgini example-cfgini.cpp)
+target_link_libraries(example-cfgini PRIVATE mwfw2 cgicc uuid)
+
 add_executable(       example-discovery-client example-discovery-client.cpp)
 target_link_libraries(example-discovery-client PRIVATE mwfw2)
 
