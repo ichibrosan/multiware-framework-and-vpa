@@ -27,4 +27,7 @@ The installer is still incomplete but will be invaluable when finished.
 I am still working on this project and most importantly,
 I am looking for ways to make it easier to install.
 
+The most recent addition to the software is a set of program icons in the
+dashboard for most of my favorite software applications.
+
 <img height="564" src="images/vpa-login.png" width="1066" height="564"/>
