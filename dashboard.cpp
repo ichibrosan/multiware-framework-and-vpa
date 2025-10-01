@@ -551,6 +551,18 @@ void dashboard::navbar(
     gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0D812623B/ref=atv_hm_hom_c_CRuW36_2_2?jic=8%7CEgNhbGw%3D",
                   "btn_gokusen.png", xy,xy);
 
+    std::cout << "</td></tr><tr><td>" << std::endl;
+    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0B8TMQ3H4/ref=atv_sr_fle_c_sr6eee57_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B0B8TPQ56X&qid=1759280953109",
+                  "btn_majorcrimes.png", xy,xy);
+
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0CH7L989X/ref=atv_sr_fle_c_Tn74RA_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B0CH7M3CT9&qid=1759282287468",
+                  "btn_undeadyokai.png", xy,xy);
+
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.amazon.com/Tokyo-Vampire-Hotel/dp/B086VY1QRQ/ref=sr_1_11?dib=eyJ2IjoiMSJ9.utXEXLwrw_JC8rJqiKM5r2MUW9ULx-zKIyYU4AJk_9IX43ZfCku8M8D40tIWr89feAZjDPUn2r8ejxX0dLTlDQKIby9U98Zv9j6UY6ETQytXBHdgM2UCehyYxHsUDznVv9IlAOT04Ble3ZI3bfZJgjE3a16XXeqGXw4WYrghon1J5ugT1N6gBRAx45mGeUeffYEiBukGbc-ZgVJxY2NTr_D9iZbdaDwk5W1Iha9-Lpc.M8Rq26zH_4O2VXX8jA0-qAzIfDm6dleKnrBVYRtIUmc&dib_tag=se&keywords=vampire+hotel&mfadid=adm&qid=1759283034&sr=8-11",
+                  "btn_vampirehotel.png", xy,xy);
+
     std::cout << "</td></tr>" << std::endl;
     std::cout << "</table>" << std::endl;
 }
