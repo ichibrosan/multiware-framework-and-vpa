@@ -547,8 +547,9 @@ void dashboard::navbar(
     std::cout << "</td><td>" << std::endl;
     gpHtml->ahref("https://mail.google.com/mail/u/1/#inbox", "btn_gmail.png", xy,xy);
 
-    // std::cout << "</td><td>" << std::endl;
-    // gpHtml->ahref("http://localhost/~doug/fw/scripts/spawn_clion.sh", "btn_clion.png", xy,xy);
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0D812623B/ref=atv_hm_hom_c_CRuW36_2_2?jic=8%7CEgNhbGw%3D",
+                  "btn_gokusen.png", xy,xy);
 
     std::cout << "</td></tr>" << std::endl;
     std::cout << "</table>" << std::endl;
