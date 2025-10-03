@@ -149,6 +149,7 @@ bool cfgini::createNew()
  */
 bool cfgini::load(const std::string& filename)
 {
+    //std::cout << "Loading configuration file: " << filename << std::endl;
     std::string fileToLoad = filename.empty() ? m_filename : filename;
 
     if (fileToLoad.empty())

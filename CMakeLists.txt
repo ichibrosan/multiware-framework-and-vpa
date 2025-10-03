@@ -128,6 +128,9 @@ target_link_libraries(example-discovery-client PRIVATE mwfw2)
 add_executable(       example-discovery-server example-discovery-server.cpp)
 target_link_libraries(example-discovery-server PRIVATE mwfw2 cgicc uuid)
 
+add_executable(       example-osrelease example-osrelease.cpp)
+target_link_libraries(example-osrelease PRIVATE mwfw2 cgicc uuid)
+
 add_executable(       example-semigraphics example-semigraphics.cpp)
 target_link_libraries(example-semigraphics PRIVATE mwfw2 cgicc pthread uuid)
 
