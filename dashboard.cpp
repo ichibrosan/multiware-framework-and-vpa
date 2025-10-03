@@ -565,7 +565,9 @@ void dashboard::navbar(
     //
 
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0BX267PPD/ref=atv_hm_hom_c_BWRWHq_brws_1_23?jic=8%7CEgRzdm9k",
+    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0BX267PPD/"
+        "ref=atv_hm_hom_c_BWRWHq_brws_1_23?"
+        "jic=8%7CEgRzdm9k",
                   "btn_takeshiscastle.png", xy,xy);
 
 

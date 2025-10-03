@@ -8,32 +8,34 @@
 
 #include "mwfw2.h"
 
-/**
- * The main function serves as the entry point of the program. It initializes
- * various components including logging, CGI processing, environment variables,
- * schema handling, and dashboard setup. It handles CGI detection and outputs
- * HTML headers accordingly. Schema generation and debugging outputs are provided
- * when in CGI mode.
- *
- * @return Returns 0 to indicate successful program execution.
- */
 int main() {
   mwfw2 * pMwFw = new mwfw2(__FILE__,__FUNCTION__);
 
   gpSchema = new schema("user-menu.csv");
+
   int handle = atoi(gpCgiBind->get_form_variable("handle").c_str());
   std::string ssUsername = gpCgiBind->get_form_variable("username");
   std::string ssPassword = gpCgiBind->get_form_variable("pwname");
-  gpDash      = new dashboard(handle,ABOUT | LOGOUT,__FILE__,
-                              ssUsername,ssPassword);
-  gpSchema->gen_from_schema(CFG_HANDLE_NA);
-  if(pMwFw->isCGI()) {
-    gpHtml->dump_schema();
-    gpHtml->dump_shm_vars();
-    gpHtml->dump_env_vars();
+
+  gpSchema->gen_from_schema(handle,
+                           ABOUT | ADMIN | SHUTDOWN | PREFS | LOGOUT,
+                           __FILE__, ssUsername, ssPassword);
+
+  if (pMwFw->isCGI())
+  { if (gpSh->m_pShMemng->bDisplaySchema)
+    { gpHtml->dump_schema();
+    }
+    if (gpSh->m_pShMemng->bDisplayEnvVars)
+    { gpHtml->dump_env_vars();
+    }
+    if (gpSh->m_pShMemng->bDisplayShmVars)
+    { gpHtml->dump_shm_vars();
+    }
   }
+
   return 0;
 }
+
 ////////////////////
 // eof - menu.cpp //
 ////////////////////
