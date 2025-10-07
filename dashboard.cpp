@@ -565,13 +565,21 @@ void dashboard::navbar(
     //
 
     std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0BX267PPD/"
-        "ref=atv_hm_hom_c_BWRWHq_brws_1_23?"
-        "jic=8%7CEgRzdm9k",
-                  "btn_takeshiscastle.png", xy,xy);
+    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00C2XOGOE/ref=atv_dp_amz_c_MG0029hs_brws_1_4?jic=8%7CEgNhbGw%3D",
+                  "btn_blade1.png", xy,xy);
+
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00D8B2JZC/ref=atv_sr_fle_c_sr4e8ffb_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B002WSAST6&qid=1759794057947",
+                  "btn_blade2.png", xy,xy);
+
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00C2XMJCK/ref=atv_sr_fle_c_Tn74RA_2_4_1?sr=1-5&pageTypeIdSource=ASIN&pageTypeId=B003UOUVW0&qid=1759794042460",
+                  "btn_blade3.png", xy,xy);
 
 
-    std::cout << "</td></tr>" << std::endl;
+
+
+     std::cout << "</td></tr>" << std::endl;
     std::cout << "</table>" << std::endl;
 }
 
