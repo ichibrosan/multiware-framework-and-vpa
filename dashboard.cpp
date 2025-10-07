@@ -559,10 +559,10 @@ void dashboard::navbar(
     gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0CH7L989X/ref=atv_sr_fle_c_Tn74RA_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B0CH7M3CT9&qid=1759282287468",
                   "btn_undeadyokai.png", xy,xy);
 
-    // std::cout << "</td><td>" << std::endl;
-    // gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0BX267PPD/ref=atv_hm_hom_c_BWRWHq_brws_1_23?jic=8%7CEgRzdm9k",
-    //               "btn_vampirehotel.png", xy,xy);
-    //
+
+    std::cout << "</td><td>" << std::endl;
+    gpHtml->ahref("https://www.amazon.com/gp/video/detail/0S9UDYC2L654QOFYVZYOK71AZ5/ref=atv_plr_yourvideolibrary_play",
+                  "btn_beekeeper.png", xy,xy);
 
     std::cout << "</td><td>" << std::endl;
     gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00C2XOGOE/ref=atv_dp_amz_c_MG0029hs_brws_1_4?jic=8%7CEgNhbGw%3D",
