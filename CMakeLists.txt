@@ -107,6 +107,10 @@ add_library(mwfw2inst STATIC
 add_executable(about.cgi about.cpp)
 target_link_libraries(about.cgi PRIVATE mwfw2 cgicc uuid)
 
+add_executable(       epstein epstein.cpp)
+target_link_libraries(epstein PRIVATE mwfw2 cgicc pthread uuid)
+
+
 add_executable(admin.cgi admin.cpp
         ichibrosan.cpp
         include/ichibrosan.h
@@ -116,8 +120,11 @@ target_link_libraries(admin.cgi PRIVATE mwfw2 cgicc uuid)
 add_executable(bluerays bluerays.cpp)
 target_link_libraries(bluerays PRIVATE mwfw2)
 
+
 add_executable(discovery_inetd_server discovery_inetd_server.cpp)
 target_link_libraries(discovery_inetd_server PRIVATE mwfw2 cgicc pthread uuid)
+
+
 
 add_executable(example-cfgini example-cfgini.cpp)
 target_link_libraries(example-cfgini PRIVATE mwfw2 cgicc uuid)

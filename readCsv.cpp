@@ -8,6 +8,12 @@
 
 #include "mwfw2.h"
 
+
+
+
+
+
+
 /**
  * Reads a CSV file and parses its content into a 2D vector of strings.
  *
@@ -18,6 +24,8 @@
  */
 readCsv::readCsv(std::string filename)
 {
+    std::cout << "readCsv::readCsv(" << filename << ")" << std::endl;
+
     gpSysLog->loginfo(__FUNCTION__);
     gpSysLog->loginfo(filename.c_str());
 

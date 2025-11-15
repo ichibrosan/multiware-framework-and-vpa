@@ -1,0 +1,97 @@
+//////////////////////////////////////////////////////////////////////
+// ~/public_html/fw/epstein.cpp 2025-11-15 01:53 dwg -              //
+// This file is part of MultiWare Engineering's VPA and FrameWork   //
+//////////////////////////////////////////////////////////////////////
+// This file is made available under the                          //
+// Creative Commons CC0 1.0 Universal Public Domain Dedication.   //
+////////////////////////////////////////////////////////////////////
+
+
+#include "mwfw2.h"
+
+std::string getSectionFQFS(std::string ssFileNum)
+{
+    return("baddata");
+
+}
+
+int main(int argc, char** argv)
+{
+    auto* pMwFw = new mwfw2(__FILE__, __FUNCTION__);
+
+    auto* pWin = new window();
+    
+    gpSemiGr->cosmetics(
+        SRUL, SRUR, SRLL,
+        // Corner characters: ┌ ┐ └ ┘
+        SRLR, SVSR, SVSL,
+        // Right corner and separators
+        SH, SV);
+        // Horizontal ─ and vertical │ lines
+    
+    char szVersion[64];
+    sprintf(szVersion, "Epstein Utility "
+            "Ver %d.%d.%d.%d", RMAJ, RMIN, RREV, RBLD);
+    pWin->set_title(szVersion);
+    
+    std::string ssCopr =
+        "Creative Commons CC0 1.0 Universal Public Domain Dedication";
+    pWin->add_row(ssCopr);
+    pWin->add_row("Written by Douglas Wade Goodall, Multiware Engineer");
+
+    std::string ssCfgFQFS = gpSh->m_pShMemng->szConfigFQDS;
+    ssCfgFQFS.append(gpOS->file2filenamesansext(__FILE__));
+    ssCfgFQFS.append(".ini");
+
+    cfgini config(ssCfgFQFS.c_str());
+    
+    std::string ssCM = "ConfigurationMetadata";    // metadata
+    std::string ssID = "IdentificationDivision";   // Program identity
+    std::string ssED = "EnvironmentDivision";      // Runtime environment
+    std::string ssDD = "DataDivision";             // Data-related config
+    std::string ssPD = "ProcedureDivision";        // Procedural config
+    
+    if (!config.load())
+    {   
+        // Create new configuration file with structured sections
+        config.createNew();
+        config.addSection(ssID);    // Program identification
+        config.addSection(ssED);    // Environment information  
+        config.addSection(ssDD);    // Data configuration (reserved)
+        config.addSection(ssPD);    // Procedural configuration
+    }
+    
+    config.setVariable(ssCM, "ConfigFileName", ssCfgFQFS);
+    
+    config.setVariable(ssID, "ProgramName", argv[0]);
+    config.setVariable(ssID, "License", RCOPR);
+
+    config.setVariable(ssPD, "FileName", __FILE__);
+
+    config.setVariable(ssED, "SemanticVersion", RSTRING);
+    config.setVariable(ssED, "Architecture", RARCH);
+    config.setVariable(ssED, "OperatingSystem", ROS);
+    config.setVariable(ssED, "DevoIDE", RIDE);
+    config.setVariable(ssED, "DevoCompiler", "clang++");
+
+    config.save();
+
+    char szTemp[128];
+    sprintf(szTemp, "Config file: %s", ssCfgFQFS.c_str());
+    pWin->add_row(szTemp);
+
+    std::string ssCSV = "20250822-opt.csv";
+    sprintf(szTemp, "CSV file: %s", ssCSV.c_str());
+    pWin->add_row(szTemp);
+
+    // int files = 33300;
+    // std::string ssFilePath = getSectionFQFS("DOJ-OGR-00000001");
+
+    std::cout << "instantiating readCsv " << ssCSV << std::endl;
+    readCsv * pCsv = new readCsv(ssCSV);
+    pCsv->parseData();
+
+    pWin->render();
+
+    return EXIT_SUCCESS;
+}

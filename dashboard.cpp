@@ -535,51 +535,54 @@ void dashboard::navbar(
 
     gpHtml->ahref("https://raspberrypi.com", "btn_raspberrypi.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
+
     gpHtml->ahref("https://douglasgoodall.substack.com/publish/home", "btn_substack.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
+
     gpHtml->ahref("https://www.youtube.com/", "btn_youtube.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
+
     gpHtml->ahref("http://localhost/bd", "btn_blueray.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
+
     gpHtml->ahref("http://localhost/dvd", "btn_dvd.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
+
     gpHtml->ahref("https://santamaria.craigslist.org/", "btn_craigslist.png", xy,xy);
     std::cout << "</td><td>" << std::endl;
+
     gpHtml->ahref("https://mail.google.com/mail/u/1/#inbox", "btn_gmail.png", xy,xy);
 
-    std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0D812623B/ref=atv_hm_hom_c_CRuW36_2_2?jic=8%7CEgNhbGw%3D",
-                  "btn_gokusen.png", xy,xy);
+    // std::cout << "</td><td>" << std::endl;
+    // gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0D812623B/ref=atv_hm_hom_c_CRuW36_2_2?jic=8%7CEgNhbGw%3D",
+    //               "btn_gokusen.png", xy,xy);
 
-    std::cout << "</td></tr><tr><td>" << std::endl;
-    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0B8TMQ3H4/ref=atv_sr_fle_c_sr6eee57_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B0B8TPQ56X&qid=1759280953109",
-                  "btn_majorcrimes.png", xy,xy);
+    // std::cout << "</td></tr><tr><td>" << std::endl;
+    // gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0B8TMQ3H4/ref=atv_sr_fle_c_sr6eee57_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B0B8TPQ56X&qid=1759280953109",
+    //               "btn_majorcrimes.png", xy,xy);
 
-    std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0CH7L989X/ref=atv_sr_fle_c_Tn74RA_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B0CH7M3CT9&qid=1759282287468",
-                  "btn_undeadyokai.png", xy,xy);
+    // std::cout << "</td><td>" << std::endl;
+    // gpHtml->ahref("https://www.amazon.com/gp/video/detail/B0CH7L989X/ref=atv_sr_fle_c_Tn74RA_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B0CH7M3CT9&qid=1759282287468",
+    //               "btn_undeadyokai.png", xy,xy);
 
 
     std::cout << "</td><td>" << std::endl;
     gpHtml->ahref("https://www.amazon.com/gp/video/detail/0S9UDYC2L654QOFYVZYOK71AZ5/ref=atv_plr_yourvideolibrary_play",
                   "btn_beekeeper.png", xy,xy);
 
-    std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00C2XOGOE/ref=atv_dp_amz_c_MG0029hs_brws_1_4?jic=8%7CEgNhbGw%3D",
-                  "btn_blade1.png", xy,xy);
+    // std::cout << "</td><td>" << std::endl;
+    // gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00C2XOGOE/ref=atv_dp_amz_c_MG0029hs_brws_1_4?jic=8%7CEgNhbGw%3D",
+    //               "btn_blade1.png", xy,xy);
 
-    std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00D8B2JZC/ref=atv_sr_fle_c_sr4e8ffb_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B002WSAST6&qid=1759794057947",
-                  "btn_blade2.png", xy,xy);
+    // std::cout << "</td><td>" << std::endl;
+    // gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00D8B2JZC/ref=atv_sr_fle_c_sr4e8ffb_1_1_1?sr=1-1&pageTypeIdSource=ASIN&pageTypeId=B002WSAST6&qid=1759794057947",
+    //               "btn_blade2.png", xy,xy);
 
-    std::cout << "</td><td>" << std::endl;
-    gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00C2XMJCK/ref=atv_sr_fle_c_Tn74RA_2_4_1?sr=1-5&pageTypeIdSource=ASIN&pageTypeId=B003UOUVW0&qid=1759794042460",
-                  "btn_blade3.png", xy,xy);
+    // std::cout << "</td><td>" << std::endl;
+    // gpHtml->ahref("https://www.amazon.com/gp/video/detail/B00C2XMJCK/ref=atv_sr_fle_c_Tn74RA_2_4_1?sr=1-5&pageTypeIdSource=ASIN&pageTypeId=B003UOUVW0&qid=1759794042460",
+    //               "btn_blade3.png", xy,xy);
 
-
-
-
-     std::cout << "</td></tr>" << std::endl;
+    std::cout << "</td></tr>" << std::endl;
     std::cout << "</table>" << std::endl;
 }
 

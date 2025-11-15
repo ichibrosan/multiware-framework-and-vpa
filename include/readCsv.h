@@ -10,7 +10,7 @@
 
 #include "mwfw2.h"
 
-#define MAX_ROWS 500
+#define MAX_ROWS 33300
 #define MAX_COLS 20
 
 /**
@@ -60,6 +60,7 @@ class readCsv
 	 */
 public:
 	std::string m_parsed_data[MAX_ROWS][MAX_COLS];
+
 
 	readCsv(std::string); /**
      * @brief Parses the CSV data and populates the internal structure with the parsed data.
