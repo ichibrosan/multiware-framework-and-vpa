@@ -84,14 +84,45 @@ int main(int argc, char** argv)
     sprintf(szTemp, "CSV file: %s", ssCSV.c_str());
     pWin->add_row(szTemp);
 
-    // int files = 33300;
-    // std::string ssFilePath = getSectionFQFS("DOJ-OGR-00000001");
-
-    std::cout << "instantiating readCsv " << ssCSV << std::endl;
     readCsv * pCsv = new readCsv(ssCSV);
     pCsv->parseData();
 
+    int iLines = pCsv->getLines();
+    sprintf(szTemp, "CSV file has %d lines", iLines);
+    pWin->add_row(szTemp);
+
+    int index = 0;
+    int field = 0;
+    sprintf(szTemp,"field %d: %s",field,pCsv->getData(index,field).c_str());
+    pWin->add_row(szTemp);
+
+    field++;
+    sprintf(szTemp,"field %d: %s",field,pCsv->getData(index,field).c_str());
+    pWin->add_row(szTemp);
+
+    field++;
+    sprintf(szTemp,"field %d: %s",field,pCsv->getData(index,field).c_str());
+    pWin->add_row(szTemp);
+
+
+    std::string ssImgFQFS = "/opt/DOJ_Epstein_Files_First_Production/Prod_01_20250822/";
+    std::string ssField2  = pCsv->getData(index,2);
+
+    std::string ssImgFrag = ssField2.substr(2,ssField2.length());
+    sprintf(szTemp,"frag: %s",ssImgFrag.c_str());
+    pWin->add_row(szTemp);
+
+    ssImgFQFS.append(ssImgFrag);
+    sprintf(szTemp,"ssImgFQFS: %s",ssImgFQFS.c_str());
+    pWin->add_row(szTemp);
+
+    char szCommand[FILENAME_MAX];
+    sprintf(szCommand,"firefox %s",ssImgFQFS.c_str());
+    pWin->add_row(szCommand);
+
     pWin->render();
+
+    system(szCommand);
 
     return EXIT_SUCCESS;
 }

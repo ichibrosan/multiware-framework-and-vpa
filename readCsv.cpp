@@ -24,7 +24,7 @@
  */
 readCsv::readCsv(std::string filename)
 {
-    std::cout << "readCsv::readCsv(" << filename << ")" << std::endl;
+    //std::cout << "readCsv::readCsv(" << filename << ")" << std::endl;
 
     gpSysLog->loginfo(__FUNCTION__);
     gpSysLog->loginfo(filename.c_str());
