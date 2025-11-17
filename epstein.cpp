@@ -91,38 +91,46 @@ int main(int argc, char** argv)
     sprintf(szTemp, "CSV file has %d lines", iLines);
     pWin->add_row(szTemp);
 
-    int index = 0;
-    int field = 0;
-    sprintf(szTemp,"field %d: %s",field,pCsv->getData(index,field).c_str());
-    pWin->add_row(szTemp);
+    FILE * fd = fopen("/home/doug/Documents/datafile.txt","w");
 
-    field++;
-    sprintf(szTemp,"field %d: %s",field,pCsv->getData(index,field).c_str());
-    pWin->add_row(szTemp);
+    for (int index=0; index<iLines; index++)
+    {
+        //int field = 0;
 
-    field++;
-    sprintf(szTemp,"field %d: %s",field,pCsv->getData(index,field).c_str());
-    pWin->add_row(szTemp);
+        //sprintf(szTemp,"field %d: %s",field,pCsv->getData(index,field).c_str());
+        //pWin->add_row(szTemp);
+
+        //field++;
+        //sprintf(szTemp,"field %d: %s",field,pCsv->getData(index,field).c_str());
+        //pWin->add_row(szTemp);
+
+        //field++;
+        //sprintf(szTemp,"field %d: %s",field,pCsv->getData(index,field).c_str());
+        //pWin->add_row(szTemp);
 
 
-    std::string ssImgFQFS = "/opt/DOJ_Epstein_Files_First_Production/Prod_01_20250822/";
-    std::string ssField2  = pCsv->getData(index,2);
+        std::string ssImgFQFS = "/opt/DOJ_Epstein_Files_First_Production/Prod_01_20250822/";
+        std::string ssField2  = pCsv->getData(index,2);
 
-    std::string ssImgFrag = ssField2.substr(2,ssField2.length());
-    sprintf(szTemp,"frag: %s",ssImgFrag.c_str());
-    pWin->add_row(szTemp);
+        std::string ssImgFrag = ssField2.substr(2,ssField2.length());
+        //sprintf(szTemp,"frag: %s",ssImgFrag.c_str());
+        //pWin->add_row(szTemp);
 
-    ssImgFQFS.append(ssImgFrag);
-    sprintf(szTemp,"ssImgFQFS: %s",ssImgFQFS.c_str());
-    pWin->add_row(szTemp);
+        ssImgFQFS.append(ssImgFrag);
+        sprintf(szTemp,"ssImgFQFS: %s",ssImgFQFS.c_str());
+        //pWin->add_row(szTemp);
 
-    char szCommand[FILENAME_MAX];
-    sprintf(szCommand,"firefox %s",ssImgFQFS.c_str());
-    pWin->add_row(szCommand);
+        fprintf(fd,"%d: %s\n",index,ssImgFQFS.c_str());
 
+        // char szCommand[FILENAME_MAX];
+        // sprintf(szCommand,"firefox %s",ssImgFQFS.c_str());
+        // pWin->add_row(szCommand);
+
+
+        //system(szCommand);
+    }
     pWin->render();
 
-    system(szCommand);
-
+    fclose(fd);
     return EXIT_SUCCESS;
 }
