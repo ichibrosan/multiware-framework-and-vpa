@@ -91,8 +91,16 @@ int main(int argc, char** argv)
     sprintf(szTemp, "CSV file has %d lines", iLines);
     pWin->add_row(szTemp);
 
-    FILE * fd = fopen("/home/doug/Documents/datafile.txt","w");
+    FILE * fd = fopen("/home/doug/public_html/fw/html/datafile.html","w");
+    fprintf(fd,"<!DOCTYPE html>\n");
+    fprintf(fd,"<html lang=\"en\">\n");
+    fprintf(fd,"<head>\n");
+    fprintf(fd,"    <meta charset=\"UTF-8\">\n");
+    fprintf(fd,"    <title>Title</title>\n");
+    fprintf(fd,"</head>\n");
+    fprintf(fd,"<body>\n");
 
+    iLines = 10;
     for (int index=0; index<iLines; index++)
     {
         //int field = 0;
@@ -109,7 +117,7 @@ int main(int argc, char** argv)
         //pWin->add_row(szTemp);
 
 
-        std::string ssImgFQFS = "/opt/DOJ_Epstein_Files_First_Production/Prod_01_20250822/";
+        std::string ssImgFQFS = "http://localhost/~doug/epstein/DOJ_Epstein_Files_First_Production/";
         std::string ssField2  = pCsv->getData(index,2);
 
         std::string ssImgFrag = ssField2.substr(2,ssField2.length());
@@ -118,19 +126,25 @@ int main(int argc, char** argv)
 
         ssImgFQFS.append(ssImgFrag);
         sprintf(szTemp,"ssImgFQFS: %s",ssImgFQFS.c_str());
-        //pWin->add_row(szTemp);
+        pWin->add_row(szTemp);
 
-        fprintf(fd,"%d: %s\n",index,ssImgFQFS.c_str());
+        //fprintf(fd,"%d: %s\n",index,ssImgFQFS.c_str());
+
+        //fprintf(fd,"<p><img src=\"%s\" width=\"100\" height=\"100\">\n",ssImgFQFS.c_str());
+        fprintf(fd,"<p><img src=\"%s\" width=\"1024\" height=\"768\">\n",ssImgFQFS.c_str());
+
 
         // char szCommand[FILENAME_MAX];
-        // sprintf(szCommand,"firefox %s",ssImgFQFS.c_str());
+        // sprintf(szCommand,"firefox http://localhost/~doug/epstein/DOJ_Epstein_First_Production/"
+        // "%s",ssImgFQFS.c_str());
         // pWin->add_row(szCommand);
 
 
         //system(szCommand);
     }
     pWin->render();
-
+    fprintf(fd,"</body>\n");
+    fprintf(fd,"</html>\n");
     fclose(fd);
     return EXIT_SUCCESS;
 }
