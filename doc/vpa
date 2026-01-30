@@ -1,7 +1,7 @@
-///////////////////////////////////////////////////
-// /etc/xinetd.d/vpa 2025/03/10 10:13 dwg -      //
-// Copyright (c) 2021-2025 Douglas Wade Goodall. //
-///////////////////////////////////////////////////
+# ///////////////////////////////////////////////////
+# // /etc/xinetd.d/vpa 2025/03/10 10:13 dwg -      //
+# // Copyright (c) 2021-2025 Douglas Wade Goodall. //
+# ///////////////////////////////////////////////////
 
 ####################################################################
 # This service activates an xmlrpc responder to handle an incoming #
@@ -64,7 +64,7 @@ service vpa-ip
 	protocol = tcp
 	user = 1000
 	wait = no
-	server = /home/devo/public_html/fw/scripts/inetd-ip-redirect.sh
+	server = /home/doug/public_html/fw/scripts/inetd-ip-redirect.sh
 }
 
 ##################################################################
